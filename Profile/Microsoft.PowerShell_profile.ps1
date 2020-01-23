@@ -165,21 +165,9 @@
 
 		function Setup-GitPush
 		{
-			try
-			{
-				GO-TO SC -p;
-					Set-Location Profile;
-					Append-Date; #appending today's date 
-					Archive;
-					Copy-Item $Profile .;
-				Pop-Location;
-			}
-			catch 
-			{
-				Pop-Location;
-			}
-
+			B:\SCRIPTS\function_SETUPGIT.ps1;
 		}
+		Set-Alias SG 'Setup-GitPush'
 		
 
 	<### OBJECTS ###>
@@ -219,15 +207,15 @@
 			@{
 				URL 		= 'https://www.hostinger.com/cpanel-login';
 				Database	= 'https://auth-db221.hostinger.com/';
-				SSH_UserName= '05318085-dcfe-485b-9505-b9b1d662bbb9';
+				SSH_UserName = '05318085-dcfe-485b-9505-b9b1d662bbb9';
 				Password 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
 			Chase =
 			@{
-				Username = 'd391a359-7973-4592-a6b2-21f568fe966c';
-				URL = 'https://www.chase.com/';
-				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Username 	= 'd391a359-7973-4592-a6b2-21f568fe966c';
+				URL 		= 'https://www.chase.com/';
+				Password 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
 			Passwords 	=

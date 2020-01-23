@@ -1,4 +1,4 @@
-
+# All my passwords and important information is replaced with guids.  This script queries my local database and returns a value that matches the guid
 	Param
 	(
 		[Alias('V')][String]$Value

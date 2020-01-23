@@ -1,3 +1,5 @@
+# Used to clear the directory and stores all files in an archive folder
+
 
 Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles)
 
@@ -46,11 +48,13 @@ else
         Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
                 ForEach-Object{Move-Item $_ .\archive\;}
 
+        exit;
     }
     else 
     {
         Get-ChildItem |
         Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
                 ForEach-Object{Move-Item $_ .\archive\;}
+        exit;
     }
 }

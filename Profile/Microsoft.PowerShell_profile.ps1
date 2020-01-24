@@ -73,6 +73,12 @@
 				$YT_Search = "youtube.com/results?search_query= $Value";
 				Chrome $YT_Search;
 			}
+
+			Dictionary([string]$Value)
+			{
+				$Search = "https://www.dictionary.com/browse/" + $Value;
+				Chrome $Search;
+			}
 	
 		}
 		
@@ -380,29 +386,8 @@
 		$Decode = [Decode]::new();
 
 	<### START ###>
-		Write-Host ("")
-		Write-Host ("Hello Dawg")
-		Write-Host ("")
-		date
 		
-		#Prompting
-		Write-Host ("")
-		Write-Host ("")
-		Write-Host ("Start where?")
-		Write-Host ("1. COLLEGE")
-		Write-Host ("2. CompE 361")
-		Write-Host ("3. CompE 475")
-		Write-Host ("4. CompE 496A")
-		Write-Host ("5. EE 420")
-		Write-Host ("6. EE 450")
-		Write-Host ("")
-		$i = Read-Host("Enter Number")
-		if($i -eq "1"){goto Col }
-		if($i -eq "2"){goto CompE361 }
-		if($i -eq "3"){goto CompE475 }
-		if($i -eq "4"){goto CompE496A }
-		if($i -eq "5"){goto EE420 }
-		if($i -eq "6"){goto EE450 }
+		Write-Host("`n")
 
 	<# END START #>
 	

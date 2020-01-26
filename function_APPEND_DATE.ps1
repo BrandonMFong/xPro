@@ -15,7 +15,7 @@ else
 { 
     $date = Get-Date;
 
-    $append_string = $date.month.ToString() + $date.day.ToString() + $date.year.ToString()  
+    $append_string = $date.month.ToString() + $date.day.ToString() + $date.year.ToString() + $date.Hour.ToString() + $date.Minute.ToString() + $date.Second.ToString();
 
     Get-ChildItem | 
         Where-Object {$_.Attributes -eq "Archive";} |

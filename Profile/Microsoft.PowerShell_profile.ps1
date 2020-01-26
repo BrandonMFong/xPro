@@ -1,3 +1,19 @@
+# Engineer: Brandon Fong
+# TODO
+# - Learn how to import modules
+# - Make SQL class
+
+	<### CLASSES ###>
+		using module B:\SCRIPTS\class_CALENDAR.psm1;
+		using module B:\SCRIPTS\class_CONVERT.psm1;
+		using module B:\SCRIPTS\class_DECODE.psm1;
+		using module B:\SCRIPTS\class_SQL.psm1;
+		using module B:\SCRIPTS\class_WEB.psm1;
+		
+	<### FUNCTIONS ###>
+		using module B:\SCRIPTS\function_JUMP.psm1;
+		using module B:\SCRIPTS\function_GOTO.ps1
+		
 	<### ALIAS ###> 
 		# Program calls
 		try
@@ -36,81 +52,7 @@
 			throw "Cannot create the alias";
 		}
 
-
-	<### CLASSES ###>
-		class Convert
-		{
-			[double]KgToPounds($x) #0.453592kg per 1 lb
-			{
-				return ($x / 0.453592)
-			}
-			[double]PoundsToKg($x) #0.453592kg per 1 lb
-			{
-				return (0.453592 * $x)
-			}
-			
-			[double]CtoF($x)
-			{
-				return 0;
-			}
-			
-			[double]FtoC($x)
-			{
-				return 0;
-			}
-		}
-
-		class Web
-		{
-			Search([string]$Value)
-			{
-				$Search = "google.com/search?q= $Value";
-				Chrome $Search;
-			}
-			
-			Youtube([string]$Value)
-			{
-				$YT_Search = "youtube.com/results?search_query= $Value";
-				Chrome $YT_Search;
-			}
-
-			Dictionary([string]$Value)
-			{
-				$Search = "https://www.dictionary.com/browse/" + $Value;
-				Chrome $Search;
-			}
-	
-		}
-		
-		class Decode
-		{
-			Input([string]$Value) 
-			{
-				B:\SCRIPTS\function_DECODE.ps1 -Value $Value
-			}
-		}
-		
-	<### FUNCTIONS ###>
-		function jump #jumps back directories
-		{
-			Param($j)
-		
-			for($i = 0; $i -lt $j; $i++)
-			{
-				cd ..
-			}
-		}
-
-		function hop
-		{
-			Param($j)
-			if ($j -gt 0)
-			{
-				$j = $j - 1;
-				cd ..;
-				hop $j;
-			}
-		}
+	<### FUNCTIONS ###> # TODO Put all functions in module files
 	
 		function Archive #archive old unused files that you may refer to later
 		{
@@ -130,17 +72,7 @@
 			Param($item)
 			B:\SCRIPTS\function_RECYCLE.ps1 -item $item;
 		}
-		Set-Alias rec 'Recycle' 
-	
-		function GO-TO
-		{
-			Param([String[]] $dir, [Alias('p')][Switch] $push )
-		
-			if ($push){B:\SCRIPTS\function_GOTO.ps1 -dir $dir -push $push;}
-			else {B:\SCRIPTS\function_GOTO.ps1 -dir $dir}
-		
-		}
-		Set-Alias goto 'GO-TO'    
+		Set-Alias rec 'Recycle'  
 		
 		function Is-Prime
 		{
@@ -192,6 +124,7 @@
 			Slack		= "https://dualpowergeneration.slack.com";
 			YES			= "https://dualpowergeneration.sdsu.edu";
 			iCloud		= "https://www.icloud.com/";
+			GoogleCloud	= "https://console.google.com";
 
 			Email =
 			@{
@@ -199,6 +132,11 @@
 				Professional = '94edc712-0435-4574-80ad-fbb1aab3dc20';
 				Music = '2508beb5-3958-48d5-931b-c7b55efa7c92';
 				Work = '340861de-d4f9-43a3-badd-d0945e3e392a';
+				Old = '21a540d4-4818-404a-8db5-c78443fa1ad1';
+				Password = 
+				@{
+					Professional = '266d3c1e-de41-475b-b169-bdd5d2518440';
+				}
 			}
 			
 			## Some Credentials ##
@@ -224,6 +162,22 @@
 				Password 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
+			LocalDB = 
+			@{
+				serverinstance = 'BRANDONMFONG\SQLEXPRESS';
+				database = 
+				@{
+					BrandonMFong =
+					@{
+						Name = 'BrandonMFong';
+						Tables =
+						@{
+							PersonalInfo = 'PersonalInfo';
+						}
+					}
+				}
+			}
+
 			Passwords 	=
 			@{
 				Default			= '266d3c1e-de41-475b-b169-bdd5d2518440';
@@ -247,6 +201,9 @@
 				iCloud 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				SBMI 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				sunrun 			= '6b9d4ccb-c510-4ca7-939f-1ff069ffe90d';
+				UCSD_Health	 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				ubuntu		 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				ProfEmail		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
 			# Drives
@@ -384,6 +341,7 @@
 		$Web = [Web]::new();
 		$Convert = [Convert]::new();
 		$Decode = [Decode]::new();
+		$DB_BF = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
 
 	<### START ###>
 		

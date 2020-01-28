@@ -55,7 +55,7 @@
 			Param([String[]] $dir, [Alias('p')][Switch] $push)
 		
 			if ($push){B:\SCRIPTS\function_GOTO.ps1 -dir $dir -push $push;}
-			else {B:\SCRIPTS\function_GOTO.ps1 -dir $dir}
+			else {B:\SCRIPTS\function_GOTO.ps1 -dir $dir;}
 		}
 		Set-Alias goto 'GO-TO'   
 
@@ -100,8 +100,9 @@
 
 		function Append-Date
 		{
-			Param([Alias('F')][Switch]$FileDate)
+			Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass")
 			if ($FileDate){B:\SCRIPTS\function_APPEND_DATE.ps1 -FileDate $FileDate;}
+			elseif ($FileName -ne "Pass"){B:\SCRIPTS\function_APPEND_DATE.ps1 -FileName $FileName;}
 			else {B:\SCRIPTS\function_APPEND_DATE.ps1;}
 		}
 		Set-Alias AD 'Append-Date'

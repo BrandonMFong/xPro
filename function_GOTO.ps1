@@ -116,4 +116,14 @@ elseif($dir -eq "pers")
 	if($push){pushd $User.PERSONAL.this}
 	else{cd $User.PERSONAL.this}
 }
+elseif($dir -eq "BFM")
+{
+	if($push){pushd $User.SITES.BrandonFongMusic.this}
+	else{cd $User.SITES.BrandonFongMusic.this}
+}
+elseif($dir -eq "Yes")
+{
+	if($push){pushd $User.SOURCES.Repo.YES}
+	else{cd $User.SOURCES.Repo.YES}
+}
 else{ throw "Didn't 'goto' anywhere.  Reenter function with correct parameters." }

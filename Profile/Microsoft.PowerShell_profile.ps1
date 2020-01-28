@@ -1,7 +1,6 @@
 # Engineer: Brandon Fong
 # TODO
-# - Learn how to import modules
-# - Make SQL class
+# ...
 
 	<### CLASSES ###>
 		using module B:\SCRIPTS\class_CALENDAR.psm1;
@@ -12,7 +11,6 @@
 		
 	<### FUNCTIONS ###>
 		using module B:\SCRIPTS\function_JUMP.psm1;
-		using module B:\SCRIPTS\function_GOTO.ps1
 		
 	<### ALIAS ###> 
 		# Program calls
@@ -28,8 +26,7 @@
 			set-alias Npad 'C:\Program Files (x86)\Notepad++\notepad++.exe' 
 			set-alias QtSpim 'C:\Program Files (x86)\QtSpim\QtSpim.exe' 
 			Set-Alias GitHub 'C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe'                                                                    
-			Set-Alias Wmplayer 'C:\Program Files (x86)\Windows Media Player\wmplayer.exe'                                                                    
-			#Set-Alias Vivado 'C:\Xilinx.1\Vivado\2018.3\bin\unwrapped\win64.o\vvgl.exe'                                                                    
+			Set-Alias Wmplayer 'C:\Program Files (x86)\Windows Media Player\wmplayer.exe'                                                                  
 			Set-Alias SDK 'C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat'    
 			Set-Alias Putty 'C:\Program Files\PuTTY\putty.exe' 
 			Set-Alias Atmel 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk' 
@@ -52,8 +49,16 @@
 			throw "Cannot create the alias";
 		}
 
-	<### FUNCTIONS ###> # TODO Put all functions in module files
-	
+	<### FUNCTIONS ###> # TODO Put all functions in module files, only the ones that you don't change often
+		function GO-TO
+		{
+			Param([String[]] $dir, [Alias('p')][Switch] $push)
+		
+			if ($push){B:\SCRIPTS\function_GOTO.ps1 -dir $dir -push $push;}
+			else {B:\SCRIPTS\function_GOTO.ps1 -dir $dir}
+		}
+		Set-Alias goto 'GO-TO'   
+
 		function Archive #archive old unused files that you may refer to later
 		{
 			Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles)

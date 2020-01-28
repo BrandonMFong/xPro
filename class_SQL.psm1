@@ -58,4 +58,11 @@ class SQL
 
         return $this.results;
     }
+
+    Input([string]$value)
+    {
+        $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
+        $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        Set-Clipboard $result.Item("Value");
+    }
 }

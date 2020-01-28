@@ -5,7 +5,7 @@
 	<### CLASSES ###>
 		using module B:\SCRIPTS\class_CALENDAR.psm1;
 		using module B:\SCRIPTS\class_CONVERT.psm1;
-		using module B:\SCRIPTS\class_DECODE.psm1;
+		#using module B:\SCRIPTS\class_DECODE.psm1;
 		using module B:\SCRIPTS\class_SQL.psm1;
 		using module B:\SCRIPTS\class_WEB.psm1;
 		
@@ -40,13 +40,17 @@
 			Set-Alias PIP 'C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Scripts\pip3.7.exe' 
 			Set-Alias Subl 'C:\Program Files\Sublime Text 3\subl.exe' 
 			Set-Alias sql 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe' 
+			Set-Alias VC-Powershell 'B:\SCRIPTS\VCODE_Powershell.code-workspace';
+			Set-Alias VC-DualPowerGeneration 'B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace';
+			Set-Alias VC-BrandonFongMusic 'B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace';
 			 
 			#Single cmdlet
 			Set-Alias SO 'Sort-Object' 
 		}
-		catch [SessionStateUnauthorizedAccessException]
+		catch
 		{
-			throw "Cannot create the alias";
+			Write-Error($error);$error.clear();
+			#throw "`nCannot create the alias";
 		}
 
 	<### FUNCTIONS ###> # TODO Put all functions in module files, only the ones that you don't change often
@@ -61,8 +65,9 @@
 
 		function Archive #archive old unused files that you may refer to later
 		{
-			Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles)
+			Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [string]$FileName="Pass")
 			if($Zip){B:\SCRIPTS\function_ARCHIVE.ps1 -Zip $Zip;}
+			elseif($FileName -ne "Pass"){B:\SCRIPTS\function_ARCHIVE.ps1 -FileName $FileName;}
 			else
 			{
 				if($IncludeZipFiles){B:\SCRIPTS\function_ARCHIVE.ps1 -IncludeZipFiles $IncludeZipFiles;}
@@ -112,7 +117,6 @@
 			B:\SCRIPTS\function_SETUPGIT.ps1;
 		}
 		Set-Alias SG 'Setup-GitPush'
-		
 
 	<### OBJECTS ###>
 		$User = 
@@ -210,6 +214,7 @@
 				UCSD_Health	 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				ubuntu		 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				ProfEmail		= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Verint			= 'ca16b2ba-f675-4257-a84f-2107311b43a9';
 			}
 
 			# Drives
@@ -333,6 +338,7 @@
 				Repo =
 				@{
 					this = "B:\SOURCES\Repos";
+					YES = "B:\SOURCES\Repos\DualPowerGeneration";
 				}
 			}
 			DOWNLOADS = 
@@ -346,7 +352,7 @@
 		}
 		$Web = [Web]::new();
 		$Convert = [Convert]::new();
-		$Decode = [Decode]::new();
+		$Decode = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
 		$DB_BF = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
 
 	<### START ###>

@@ -1,14 +1,14 @@
 # Used to clear the directory and stores all files in an archive folder
 
 
-Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles)
+Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [string]$FileName="Pass")
 
 if($Zip)
 {
     if(!(Test-Path .\archive\))
     {
-        throw "Directory .\archive\ does not exist.";
-        exit;
+        throw "Directory .\archive\ does not exist."; 
+        exit; # Exists because if archive doesn't exist then why zip
     }
 
     if((Get-ChildItem .\archive\).count -gt 10)
@@ -17,11 +17,11 @@ if($Zip)
         Set-Location .\archive\;
         mkdir $filename;
         Get-ChildItem | 
-            Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
+            Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive') -and ($_.Name -ne $filename)} | 
                 ForEach-Object{Move-Item $_ $filename;}
         $ZipName = $filename + '.zip';
         Compress-Archive $filename $ZipName;
-        Remove-Item $filename;
+        Remove-Item $filename   ;
         exit;
     }
     else
@@ -30,11 +30,20 @@ if($Zip)
         exit;
     }
 }
-
+elseif($FileName -ne "Pass") # could've simply just used mv but eh
+{
+    if(!(Test-Path .\archive\))
+    {
+        Write-Warning "Directory .\archive\ does not exist.  Creating the directory";
+        mkdir archive;
+    }
+    Move-Item $FileName .\archive\;
+}
 else
 {
     if(!(Test-Path .\archive\))
     {
+        Write-Warning "Directory .\archive\ does not exist.  Creating the directory";
         mkdir archive;
     }
     if($IncludeZipFiles)

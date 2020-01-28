@@ -3,8 +3,13 @@ try
 {
     GO-TO SC -p;
         Set-Location Profile;
-        Append-Date; #appending today's date 
-        Archive;
+        $FileName="Pass"; # Check function appendate file
+        Get-ChildItem | 
+            Where-Object{$_.Name -eq "Microsoft.PowerShell_profile.ps1"} | 
+                ForEach-Object{$FileName = $_};
+        Append-Date -FileName $FileName; #appending today's date 
+        if((Test-Path .\archive\) -AND ((Get-ChildItem .\archive\).count -gt 10)){Archive -Zip;}# TODO this puts the appended profile outside
+        else{Archive;}
         Copy-Item $Profile .;
     Pop-Location;
 }

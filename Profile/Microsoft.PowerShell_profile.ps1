@@ -5,7 +5,6 @@
 	<### CLASSES ###>
 		using module B:\SCRIPTS\class_CALENDAR.psm1;
 		using module B:\SCRIPTS\class_CONVERT.psm1;
-		#using module B:\SCRIPTS\class_DECODE.psm1;
 		using module B:\SCRIPTS\class_SQL.psm1;
 		using module B:\SCRIPTS\class_WEB.psm1;
 		
@@ -43,6 +42,8 @@
 			Set-Alias VC-Powershell 'B:\SCRIPTS\VCODE_Powershell.code-workspace';
 			Set-Alias VC-DualPowerGeneration 'B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace';
 			Set-Alias VC-BrandonFongMusic 'B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace';
+			Set-Alias X-Win 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk';
+			Set-Alias Xming 'C:\Program Files (x86)\Xming\Xming.exe';
 			 
 			#Single cmdlet
 			Set-Alias SO 'Sort-Object' 
@@ -136,6 +137,7 @@
 			iCloud		= "https://www.icloud.com/";
 			GoogleCloud	= "https://console.google.com";
 
+			## Accounts ##
 			Email =
 			@{
 				Personal = 'c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8';
@@ -145,7 +147,7 @@
 				Old = '21a540d4-4818-404a-8db5-c78443fa1ad1';
 				Password = 
 				@{
-					Professional = '266d3c1e-de41-475b-b169-bdd5d2518440';
+					Professional = '9fd118e5-c785-4b9b-a687-b06c65285e67';
 				}
 			}
 			
@@ -155,6 +157,7 @@
 				URL 		= 'https://rohancp.sdsu.edu:2083/cpanel';
 				Username 	= 'dualpower';
 				Password 	= '960f933f-937f-409e-a9fa-f00d97586fcd';
+				SSH_PW 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 			
 			Hostinger =
@@ -169,9 +172,24 @@
 			@{
 				Username 	= 'd391a359-7973-4592-a6b2-21f568fe966c';
 				URL 		= 'https://www.chase.com/';
-				Password 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Password 	= '9fd118e5-c785-4b9b-a687-b06c65285e67';
 			}
 
+			Jason =
+			@{
+				Username = 'cde45e8a-0092-42b7-8ba9-1c5bee095b76';
+				URL = '';
+				Password = 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
+			}
+
+			CalApply = 
+			@{
+				Username = '1853a79c-4a36-437e-a36c-6ec69789d926';
+				URL = 'https://www2.calstate.edu/apply';
+				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
+			}
+
+			## Local DBs ##
 			LocalDB = 
 			@{
 				serverinstance = 'BRANDONMFONG\SQLEXPRESS';
@@ -195,7 +213,7 @@
 				Facebook 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				Youtube 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				GitHub  		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Chase			= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Chase			= '9fd118e5-c785-4b9b-a687-b06c65285e67';
 				Netflix 		= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
 				Hulu 	 		= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
 				Disney_Plus 	= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
@@ -215,6 +233,8 @@
 				ubuntu		 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				ProfEmail		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				Verint			= 'ca16b2ba-f675-4257-a84f-2107311b43a9';
+				Jason			= 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
+				CalApply		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
 			# Drives

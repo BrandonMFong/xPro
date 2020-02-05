@@ -7,6 +7,7 @@
 		using module B:\SCRIPTS\class_CONVERT.psm1;
 		using module B:\SCRIPTS\class_SQL.psm1;
 		using module B:\SCRIPTS\class_WEB.psm1;
+		using module B:\SCRIPTS\class_Windows.psm1;
 		
 	<### FUNCTIONS ###>
 		using module B:\SCRIPTS\function_JUMP.psm1;
@@ -32,7 +33,7 @@
 			Set-Alias Gitbash 'C:\Program Files\Git\git-bash.exe' 
 			Set-Alias 7z 'C:\Program Files\7-Zip\7z.exe' 
 			Set-Alias Xampp 'C:\xampp\xampp-control.exe' 
-			Set-Alias Global 'C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk' 
+			#Set-Alias Global 'C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk' 
 			Set-Alias WinSCP 'C:\Program Files (x86)\WinSCP\winscp.exe' 
 			Set-Alias Python 'C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe' 
 			Set-Alias VC 'C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe' 
@@ -80,10 +81,7 @@
 		Set-Alias Arc 'Archive' 
 	
 		function Recycle #alternative to rm but puts the files in user created recycling bin 
-		{
-			Param($item)
-			B:\SCRIPTS\function_RECYCLE.ps1 -item $item;
-		}
+		{Param($item);B:\SCRIPTS\function_RECYCLE.ps1 -item $item;}
 		Set-Alias rec 'Recycle'  
 		
 		function Is-Prime
@@ -99,10 +97,7 @@
 			else {Write-Host "$i is prime"}
 		}
 		
-		function Clear-and-List
-		{
-			Clear-Host;Get-ChildItem;
-		}
+		function Clear-and-List{Clear-Host;Get-ChildItem;}
 		Set-Alias cl 'Clear-and-List' 
 
 		function Append-Date
@@ -114,11 +109,10 @@
 		}
 		Set-Alias AD 'Append-Date'
 
-		function Setup-GitPush
-		{
-			B:\SCRIPTS\function_SETUPGIT.ps1;
-		}
+		function Setup-GitPush{B:\SCRIPTS\function_SETUPGIT.ps1;}
 		Set-Alias SG 'Setup-GitPush'
+
+		function Modify-Modules{B:\SCRIPTS\function_MODIFYMODULE.PS1;}
 
 	<### OBJECTS ###>
 		$User = 
@@ -391,7 +385,7 @@
 		$Web = [Web]::new();
 		$Convert = [Convert]::new();
 		$Decode = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
-		$DB_BF = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
+		$Windows = [Windows]::new();
 
 	<### START ###>
 		

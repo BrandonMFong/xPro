@@ -126,4 +126,9 @@ elseif($dir -eq "Yes")
 	if($push){pushd $User.SOURCES.Repo.YES}
 	else{cd $User.SOURCES.Repo.YES}
 }
+elseif($dir -eq "CMain")
+{
+	if($push){pushd $User.CMAIN}
+	else{cd $User.CMAIN}
+}
 else{ throw "Didn't 'goto' anywhere.  Reenter function with correct parameters." }

@@ -44,6 +44,7 @@
 			Set-Alias VC-BrandonFongMusic 'B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace';
 			Set-Alias X-Win 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk';
 			Set-Alias Xming 'C:\Program Files (x86)\Xming\Xming.exe';
+			Set-Alias Modeler 'C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe';
 			 
 			#Single cmdlet
 			Set-Alias SO 'Sort-Object' 
@@ -175,17 +176,31 @@
 				Password 	= '9fd118e5-c785-4b9b-a687-b06c65285e67';
 			}
 
-			Jason =
+			Jason = # volta
 			@{
 				Username = 'cde45e8a-0092-42b7-8ba9-1c5bee095b76';
 				URL = '';
 				Password = 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
 			}
 
+			Riverbed = 
+			@{
+				Username = 'f139b118-40c4-4293-9a60-498fea8ae1b7';
+				URL = 'http://cms-api.riverbed.com/portal/community_home?';
+				Password = '578c1dfa-fc81-4ad4-8a90-7c1820f358d4';
+			}
+
 			CalApply = 
 			@{
 				Username = '1853a79c-4a36-437e-a36c-6ec69789d926';
 				URL = 'https://www2.calstate.edu/apply';
+				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
+			}
+
+			SSU = 
+			@{
+				Username = '07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec';
+				URL = 'http://www.sonoma.edu/';
 				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 
@@ -235,6 +250,8 @@
 				Verint			= 'ca16b2ba-f675-4257-a84f-2107311b43a9';
 				Jason			= 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
 				CalApply		= '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Taxact			= '53a9cf28-d09b-48f4-9bd5-ddc04e496039';
+				ADP 			= '53a9cf28-d09b-48f4-9bd5-ddc04e496039';
 			}
 
 			# Drives
@@ -243,6 +260,7 @@
 			# Directories
 			this 	= 'B:\';
 			ONE = '~\OneDrive'
+			CMAIN = 'C:\Users\bfwan\Brandon.Fong\';
 			CODE =
 			@{
 				this = 'B:\CODE';

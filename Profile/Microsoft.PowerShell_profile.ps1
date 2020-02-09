@@ -130,7 +130,7 @@
 			Slack		= "https://dualpowergeneration.slack.com";
 			YES			= "https://dualpowergeneration.sdsu.edu";
 			iCloud		= "https://www.icloud.com/";
-			GoogleCloud	= "https://console.google.com";
+			GoogleCloud	= "https://cloud.google.com";
 
 			## Accounts ##
 			Email =
@@ -140,6 +140,7 @@
 				Music = '2508beb5-3958-48d5-931b-c7b55efa7c92';
 				Work = '340861de-d4f9-43a3-badd-d0945e3e392a';
 				Old = '21a540d4-4818-404a-8db5-c78443fa1ad1';
+				SDSU = 'd5e56cab-19a1-4d1f-aabc-eec6793cf439';
 				Password = 
 				@{
 					Professional = '9fd118e5-c785-4b9b-a687-b06c65285e67';
@@ -195,6 +196,12 @@
 			@{
 				Username = '07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec';
 				URL = 'http://www.sonoma.edu/';
+				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
+			}
+
+			SJSU = 
+			@{
+				SJSUID = '2cc6c5ea-1803-43cb-a5ec-710a97d97871';
 				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
 			}
 

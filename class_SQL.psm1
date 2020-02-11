@@ -36,8 +36,22 @@ class SQL
         [string]$NewValue = Read-Host -Prompt 'Provide new value that ties to the guid';
         [string]$NewSubject = Read-Host -Prompt 'Provide Subject'
 
+        # TODO insert type content id
+        [System.Object[]]$TypeContentIDs = $this.Query('select * from TypeContent');
+        
+        foreach ($row in $TypeContentIDs)
+        {
+            Write-Host $row.ItemArray;
+        }
+
+        [System.String]$NewTypeContentIDString = Read-Host -Prompt "Choose ID";
+        [int]$NewTypeContentIDInt = ($this.Query('select ID from ' + $this.tables.TypeContent + ' where ID = ' + $NewTypeContentIDString)).ItemArray;
         [int]$NewID = ($this.Query('select max(id)+1 from ' + $this.tables.PersonalInfo)).ItemArray;
-        [string]$querystring = "insert into $($this.tables.personalinfo.ToString()) values ( $($NewID.ToString()), '$($NewGuid)', '$($NewValue)', '$($NewSubject)')";
+
+        # https://stackoverflow.com/questions/27095829/powershell-convert-value-to-type-system32-error build strings
+        [string]$querystring = "insert into $($this.tables.personalinfo.ToString()) values ( $($NewID.ToString()), "
+            + "'$($NewGuid)', '$($NewValue)', '$($NewSubject)', $($NewTypeContentIDInt.ToString())";
+       
         try 
         {
             Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
@@ -59,7 +73,7 @@ class SQL
         return $this.results;
     }
 
-    Input([string]$value)
+    Input([string]$value) # Decodes guid 
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;

@@ -180,7 +180,7 @@
 
 			Riverbed = 
 			@{
-				Username = 'f139b118-40c4-4293-9a60-498fea8ae1b7';
+				Username = '1853A79C-4A36-437E-A36C-6EC69789D926';
 				URL = 'http://cms-api.riverbed.com/portal/community_home?';
 				Password = '578c1dfa-fc81-4ad4-8a90-7c1820f358d4';
 			}
@@ -202,7 +202,13 @@
 			SJSU = 
 			@{
 				SJSUID = '2cc6c5ea-1803-43cb-a5ec-710a97d97871';
-				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
+				Password = '9fd118e5-c785-4b9b-a687-b06c65285e67';
+			}
+
+			FAFSA = 
+			@{
+				Email = '94edc712-0435-4574-80ad-fbb1aab3dc20';
+				Password = '578c1dfa-fc81-4ad4-8a90-7c1820f358d4';
 			}
 
 			## Local DBs ##
@@ -217,6 +223,7 @@
 						Tables =
 						@{
 							PersonalInfo = 'PersonalInfo';
+							TypeContent = 'TypeContent';
 						}
 					}
 				}
@@ -234,7 +241,7 @@
 				Hulu 	 		= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
 				Disney_Plus 	= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
 				Amazon_shop		= '0ce5d07c-ecfb-4fea-ab4c-544d4c97225d';
-				Blackboard		= '9517939f-b925-4a5d-8a95-8f101b6d63af';
+				Blackboard		= '9517939f-b925-4a5d-8a95-8f101b6d63af';	
 				LinkedIn		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				Alliant			= '4f1c0b1f-53d4-40f4-972e-6202accecd43';
 				Indeed  		= '266d3c1e-de41-475b-b169-bdd5d2518440';
@@ -244,15 +251,15 @@
 				Microsoft 		= '9517939f-b925-4a5d-8a95-8f101b6d63af';
 				iCloud 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				SBMI 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				sunrun 			= '6b9d4ccb-c510-4ca7-939f-1ff069ffe90d';
+				sunrun 			= '9517939F-B925-4A5D-8A95-8F101B6D63AF';
 				UCSD_Health	 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				ubuntu		 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				ProfEmail		= '266d3c1e-de41-475b-b169-bdd5d2518440';
 				Verint			= 'ca16b2ba-f675-4257-a84f-2107311b43a9';
 				Jason			= 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
 				CalApply		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Taxact			= '53a9cf28-d09b-48f4-9bd5-ddc04e496039';
-				ADP 			= '53a9cf28-d09b-48f4-9bd5-ddc04e496039';
+				Taxact			= '53A9CF28-D09B-48F4-9BD5-DDC04E496039';
+				ADP 			= '53A9CF28-D09B-48F4-9BD5-DDC04E496039';
 			}
 
 			# Drives

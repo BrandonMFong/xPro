@@ -2,3 +2,8 @@ archive/*
 .vs/*
 Profile/archive/*
 VCODE_Powershell.code-workspace
+VC-Powershell.code-workspace
+
+# Work
+Config/US-802262/*
+Work/function_BANKURL.ps1

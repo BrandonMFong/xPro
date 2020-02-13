@@ -1,134 +1,135 @@
 	
-
 Param([String[]] $dir, [Alias('p')][Switch] $push )
-if($dir -eq "dl")
-{
-	if($push){pushd $User.DOWNLOADS.this}
-	else{cd $User.DOWNLOADS.this}
-}
-elseif($dir -eq "Col")
-{
-	if($push){pushd $User.COLLEGE.this}
-	else{cd $User.COLLEGE.this}
-}
-elseif($dir -eq "Rec")
-{
-	if($push){pushd $User.RECYCLE.this}
-	else{cd $User.RECYCLE.this}
-}
-elseif($dir -eq "CompE361")
-{
-	if($push){pushd $User.COLLEGE._19_20.Fall_19.CompE_361.this}
-	else {cd $User.COLLEGE._19_20.Fall_19.CompE_361.this}
-}
-elseif($dir -eq "CompE475")
-{
-	if($push){pushd $User.COLLEGE._19_20.Fall_19.CompE_475.this}
-	else{cd $User.COLLEGE._19_20.Fall_19.CompE_475.this}
-}
-elseif($dir -eq "CompE496A")
-{
-	if($push){pushd $User.COLLEGE._19_20.Fall_19.CompE_496A.this}
-	else{cd $User.COLLEGE._19_20.Fall_19.CompE_496A.this}
-}
-elseif($dir -eq "EE420")
-{
-	if($push){pushd $User.COLLEGE._19_20.Fall_19.EE_420.this}
-	else{cd $User.COLLEGE._19_20.Fall_19.EE_420.this}
-}
-elseif($dir -eq "EE450")
-{
-	if($push){pushd $User.COLLEGE._19_20.Fall_19.EE_450.this}
-	else{cd $User.COLLEGE._19_20.Fall_19.EE_450.this}
-}
-elseif($dir -eq "CompE565")
-{
-	if($push){pushd $User.COLLEGE._19_20.Spring_20.CompE_565.this}
-	else{cd $User.COLLEGE._19_20.Spring_20.CompE_565.this}
-}
-elseif($dir -eq "CompE560")
-{
-	if($push){pushd $User.COLLEGE._19_20.Spring_20.CompE_560.this}
-	else{cd $User.COLLEGE._19_20.Spring_20.CompE_560.this}
-}
-elseif($dir -eq "CompE496B")
-{
-	if($push){pushd $User.COLLEGE._19_20.Spring_20.CompE_496B.this}
-	else{cd $User.COLLEGE._19_20.Spring_20.CompE_496B.this}
-}
-elseif($dir -eq "EE600")
-{
-	if($push){pushd $User.COLLEGE._19_20.Spring_20.EE_600.this}
-	else{cd $User.COLLEGE._19_20.Spring_20.EE_600.this}
-}
-elseif($dir -eq "Main")
-{
-	if($push){pushd $User.this}
-	else{cd $User.this}
-}
-elseif($dir -eq "Sc")
-{
-	if($push){pushd $User.SCRIPTS.this}
-	else{cd $User.SCRIPTS.this}
-}
-elseif($dir -eq "Job")
-{
-	if($push){pushd $User.JOB.this}
-	else{cd $User.JOB.this}
-}
-elseif($dir -eq "One")
-{
-	if($push){pushd $User.ONE}
-	else{cd $User.ONE}
-}
-elseif($dir -eq "Pic")
-{
-	if($push){pushd $User.PICTURES.this}
-	else{cd $User.PICTURES.this}
-}
-elseif($dir -eq "SI")
-{
-	if($push){pushd $User.SITES.this}
-	else{cd $User.SITES.this}
-}
-elseif($dir -eq "code")
-{
-	if($push){pushd $User.CODE.this}
-	else{cd $User.CODE.this}
-}
-elseif($dir -eq "mus")
-{
-	if($push){pushd $User.MUSIC.this}
-	else{cd $User.MUSIC.this}
-}
-elseif($dir -eq "sr")
-{
-	if($push){pushd $User.SOURCES.this}
-	else{cd $User.SOURCES.this}
-}
-elseif($dir -eq "repo")
-{
-	if($push){pushd $User.SOURCES.Repo.this}
-	else{cd $User.SOURCES.Repo.this}
-}
-elseif($dir -eq "pers")
-{
-	if($push){pushd $User.PERSONAL.this}
-	else{cd $User.PERSONAL.this}
-}
-elseif($dir -eq "BFM")
-{
-	if($push){pushd $User.SITES.BrandonFongMusic.this}
-	else{cd $User.SITES.BrandonFongMusic.this}
-}
-elseif($dir -eq "Yes")
-{
-	if($push){pushd $User.SOURCES.Repo.YES}
-	else{cd $User.SOURCES.Repo.YES}
-}
-elseif($dir -eq "CMain")
-{
-	if($push){pushd $User.CMAIN}
-	else{cd $User.CMAIN}
-}
-else{ throw "Didn't 'goto' anywhere.  Reenter function with correct parameters." }
+[xml]$x = Get-Content 'B:\SCRIPTS\Config\Directories.xml';
+	
+	if($dir -eq $x.Windows.DriveB.Home.DOWNLOADS.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.DOWNLOADS.this}
+		else{cd $x.Windows.DriveB.Home.DOWNLOADS.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.RECYCLE.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.RECYCLE.this}
+		else{cd $x.Windows.DriveB.Home.RECYCLE.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE361.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE361.this}
+		else {cd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE361.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE475.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE475.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE475.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE496A.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE496A.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.CompE496A.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE420.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE420.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE420.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE450.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE450.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Fall19.EE450.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE565.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE565.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE565.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE560.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE560.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE560.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE496B.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE496B.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.CompE496B.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.EE600.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.EE600.this}
+		else{cd $x.Windows.DriveB.Home.COLLEGE._19_20.Spring20.EE600.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.this}
+		else{cd $x.Windows.DriveB.Home.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SCRIPTS.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SCRIPTS.this}
+		else{cd $x.Windows.DriveB.Home.SCRIPTS.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.JOB.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.JOB.this}
+		else{cd $x.Windows.DriveB.Home.JOB.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.ONE.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.ONE}
+		else{cd $x.Windows.DriveB.Home.ONE}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.PICTURES.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.PICTURES.this}
+		else{cd $x.Windows.DriveB.Home.PICTURES.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SITES.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SITES.this}
+		else{cd $x.Windows.DriveB.Home.SITES.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.CODE.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.CODE.this}
+		else{cd $x.Windows.DriveB.Home.CODE.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.MUSIC.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.MUSIC.this}
+		else{cd $x.Windows.DriveB.Home.MUSIC.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SOURCES.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SOURCES.this}
+		else{cd $x.Windows.DriveB.Home.SOURCES.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SOURCES.Repo.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SOURCES.Repo.this}
+		else{cd $x.Windows.DriveB.Home.SOURCES.Repo.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.PERSONAL.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.PERSONAL.this}
+		else{cd $x.Windows.DriveB.Home.PERSONAL.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SITES.BrandonFongMusic.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SITES.BrandonFongMusic.this}
+		else{cd $x.Windows.DriveB.Home.SITES.BrandonFongMusic.this}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.SOURCES.Repo.YES.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.SOURCES.Repo.YES}
+		else{cd $x.Windows.DriveB.Home.SOURCES.Repo.YES}
+	}
+	elseif($dir -eq $x.Windows.DriveB.Home.CMAIN.alias)
+	{
+		if($push){pushd $x.Windows.DriveB.Home.CMAIN}
+		else{cd $x.Windows.DriveB.Home.CMAIN}
+	}
+	else{ throw "Didn't 'goto' anywhere.  Reenter function with correct parameters." }

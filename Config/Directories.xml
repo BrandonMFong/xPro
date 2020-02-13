@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Windows>
+    <DriveB>
+        <Home alias='main'>
+            <this>B:\</this>
+            <CODE alias='code'>
+                <this>B:\CODE</this>
+            </CODE>
+            <COLLEGE alias='col'>
+                <this>B:\COLLEGE</this>
+                <_19_20>
+                    <this>B:\COLLEGE\19_20</this>
+                    <Fall19 alias='f19'>
+                        <this>B:\COLLEGE\19_20\Fall_19</this>
+                        <CompE361 alias='compe361'>
+                            <this>B:\COLLEGE\19_20\Fall_19\CompE_361</this>
+                        </CompE361>
+                        <CompE475 alias='compe475'>
+                            <this>B:\COLLEGE\19_20\Fall_19\Compe_475</this>
+                        </CompE475>
+                        <CompE496A alias='compe496a'>
+                            <this>B:\COLLEGE\19_20\Fall_19\CompE_496A</this>
+                        </CompE496A>
+                        <EE450 alias='ee450'>
+                            <this>B:\COLLEGE\19_20\Fall_19\EE_450</this>
+                        </EE450>
+                        <EE420 alias='ee420'>
+                            <this>B:\COLLEGE\19_20\Fall_19\EE_420</this>
+                        </EE420>
+                    </Fall19>
+                    <Spring20 alias='s20'>
+                        <this>B:\COLLEGE\19_20\Spring_20</this>
+                        <CompE565 alias='compe565'>
+                            <this>B:\COLLEGE\19_20\Spring_20\CompE_565</this>
+                        </CompE565>
+                        <EE600 alias='ee600'>
+                            <this>B:\COLLEGE\19_20\Spring_20\EE_600</this>
+                        </EE600>
+                        <CompE560 alias='compe560'>
+                            <this>B:\COLLEGE\19_20\Spring_20\CompE_560</this>
+                        </CompE560>
+                        <CompE496B alias='compe496b'>
+                            <this>B:\COLLEGE\19_20\Spring_20\CompE_496B</this>
+                        </CompE496B>
+                    </Spring20>
+                </_19_20>
+            </COLLEGE>
+            <JOB alias='job'>
+                <this>B:\JOB</this>
+            </JOB>
+            <LIFE alias='li'>
+                <this>B:\LIFE</this>
+            </LIFE>
+            <MUSIC alias='mus'>
+                <this></this>
+            </MUSIC>
+            <PERSONAL alias='pers'>
+                <this>B:\PERSONAL</this>
+            </PERSONAL>
+            <PICTURES alias='pic'>
+                <this>B:\PICTURES</this>
+            </PICTURES>
+            <RECYCLE alias='rec'>
+                <this>B:\RECYCLE</this>
+            </RECYCLE>
+            <SCRIPTS alias='sc'>
+                <this>B:\SCRIPTS</this>
+            </SCRIPTS>
+            <SITES alias='si'>
+                <this>B:\SITES</this>
+                <BrandonFongMusic alias='bf'>
+                    <this>B:\SITES\BrandonFongMusic</this>
+                </BrandonFongMusic>
+            </SITES>
+            <SOURCES alias='source'>
+                <this>B:\SOURCES</this>
+                <Repo alias='repo'>
+                    <this>B:\SOURCES\Repos</this>
+                    <DualPowerRepo alias='yes'>
+                        <this>B:\SOURCES\Repos\DualPowerGeneration</this>
+                    </DualPowerRepo>
+                </Repo>
+            </SOURCES>
+            <DOWNLOADS alias='dl'>
+                <this>B:\DOWNLOADS</this>
+            </DOWNLOADS>
+            <DOCUMENTS alias='docs'>
+                <this>B:\DOCUMENTS</this>
+            </DOCUMENTS>
+        </Home>
+    </DriveB>
+    <Misc>
+        <ONE alias='one'>~\OneDrive</ONE>
+        <DriveC alias='c'>C:\</DriveC>
+        <CMAIN alias='cmain'>C:\Users\bfwan\Brandon.Fong\</CMAIN>
+    </Misc>
+</Windows>

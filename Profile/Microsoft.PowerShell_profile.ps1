@@ -3,14 +3,14 @@
 # ...
 
 	<### CLASSES ###>
-		using module B:\SCRIPTS\class_CALENDAR.psm1;
-		using module B:\SCRIPTS\class_CONVERT.psm1;
-		using module B:\SCRIPTS\class_SQL.psm1;
-		using module B:\SCRIPTS\class_WEB.psm1;
-		using module B:\SCRIPTS\class_Windows.psm1;
+		Import-Module B:\SCRIPTS\class_CALENDAR.psm1 -Force;
+		Import-Module B:\SCRIPTS\class_MATH.psm1 -Force;
+		Import-Module B:\SCRIPTS\class_SQL.psm1 -Force;
+		Import-Module B:\SCRIPTS\class_WEB.psm1 -Force;
+		Import-Module B:\SCRIPTS\class_Windows.psm1 -Force;
 		
 	<### FUNCTIONS ###>
-		using module B:\SCRIPTS\function_JUMP.psm1;
+		Import-Module B:\SCRIPTS\function_JUMP.psm1 -Force;
 		
 	<### ALIAS ###> 
 		# Program calls
@@ -131,6 +131,9 @@
 			YES			= "https://dualpowergeneration.sdsu.edu";
 			iCloud		= "https://www.icloud.com/";
 			GoogleCloud	= "https://cloud.google.com";
+			Taxact 		= 'https://www.taxact.com/';
+
+			StandardUsername = 'F139B118-40C4-4293-9A60-498FEA8AE1B7';
 
 			## Accounts ##
 			Email =
@@ -208,7 +211,9 @@
 			FAFSA = 
 			@{
 				Email = '94edc712-0435-4574-80ad-fbb1aab3dc20';
-				Password = '578c1dfa-fc81-4ad4-8a90-7c1820f358d4';
+				Password = 'B5210A49-A02E-46F4-B7A8-56F6CF6ABC2D';
+				URL = 'fafsa.gov';
+				SaveKey = 'A0C0B4CB-DE84-4009-B116-EBFCFC06577E';
 			}
 
 			## Local DBs ##
@@ -397,7 +402,7 @@
 			}
 		}
 		$Web = [Web]::new();
-		$Convert = [Convert]::new();
+		$Math = [Calculations]::new();
 		$Decode = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
 		$Windows = [Windows]::new();
 

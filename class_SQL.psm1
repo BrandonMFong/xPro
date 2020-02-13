@@ -50,7 +50,7 @@ class SQL
 
         # https://stackoverflow.com/questions/27095829/powershell-convert-value-to-type-system32-error build strings
         [string]$querystring = "insert into $($this.tables.personalinfo.ToString()) values ( $($NewID.ToString()), "
-            + "'$($NewGuid)', '$($NewValue)', '$($NewSubject)', $($NewTypeContentIDInt.ToString())";
+            + "'$($NewGuid)', '$($NewValue)', '$($NewSubject)', $($NewTypeContentIDInt.ToString()))"; # this has invalid cast from string to int
        
         try 
         {

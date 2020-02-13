@@ -19,7 +19,15 @@ class ArithmeticCoder
             $val2 = Read-Host -Prompt "Its entropy";
             $this.Symbols.Add($val1, $val2);
             $prompt = Read-Host -Prompt "Continue defining symbols? (Y/N)";
-            if($prompt -eq "N"){return;}
+            if($prompt -eq "N")
+            {
+                Write-Host "There are $($this.Symbols.count) symbols: $($this.Symbols)";
+                return;
+            }
+            else
+            {
+                $this.Symbols.Add([Symbol]::new($val1, $val2));
+            }
         }
     }
 
@@ -31,7 +39,7 @@ class ArithmeticCoder
             $this.DefineSymbols();
         }
 
-        # for loops to do method
+        # TODO for loops to do method
     }
     
 }

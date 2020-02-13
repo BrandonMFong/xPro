@@ -1,7 +1,7 @@
 #Since my Microsoft Powershell profile is originally in this directory, I call this script to copy the script so I can push to the git repo
 try
 {
-    GO-TO SC -p;
+    GO-TO PowershellRepoPath -p;
         Set-Location Profile;
         $FileName="Pass"; # Check function appendate file
         Get-ChildItem | 

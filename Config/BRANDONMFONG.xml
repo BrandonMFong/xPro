@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<BrandonMFong>
+    <Directories>
+        <!-- Manadatory Directory Aliases for functions/Classes -->
+        <Directory alias='PowershellRepoPath'>B:\Powershell</Directory>
+
+        <!-- User Defined -->
+        <Directory alias='main'>B:\</Directory>
+        <Directory alias='code'>B:\CODE</Directory>
+        <Directory alias='col'>B:\COLLEGE</Directory>
+        <Directory alias='sc1920'>B:\COLLEGE\19_20</Directory>
+        <Directory alias='f19'>B:\COLLEGE\19_20\Fall_19</Directory>
+        <Directory alias='compe361'>B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
+        <Directory alias='compe475'>B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
+        <Directory alias='compe496a'>B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
+        <Directory alias='ee450'>B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
+        <Directory alias='ee420'>B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
+        <Directory alias='s20'>B:\COLLEGE\19_20\Spring_20</Directory>
+        <Directory alias='compe565'>B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
+        <Directory alias='ee600'>B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
+        <Directory alias='compe560'>B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
+        <Directory alias='compe496b'>B:\COLLEGE\19_20\Spring_20\CompE_496B</Directory>
+        <Directory alias='job'>B:\JOB</Directory>
+        <Directory alias='li'>B:\LIFE</Directory>
+        <Directory alias='mus'>B:\MUSIC</Directory>
+        <Directory alias='pers'>B:\PERSONAL</Directory>
+        <Directory alias='pic'>B:\PICTURES</Directory>
+        <Directory alias='rec'>B:\RECYCLE</Directory>
+        <Directory alias='Pow'>B:\Powershell</Directory>
+        <Directory alias='si'>B:\SITES</Directory>
+        <Directory alias='bf'>B:\SITES\BrandonFongMusic</Directory>
+        <Directory alias='source'>B:\SOURCES</Directory>
+        <Directory alias='repo'>B:\SOURCES\Repos</Directory>
+        <Directory alias='yes'>B:\SOURCES\Repos\DualPowerGeneration</Directory>
+        <Directory alias='dl'>B:\DOWNLOADS</Directory>
+        <Directory alias='docs'>B:\DOCUMENTS</Directory>
+        <Directory alias='one'>~\OneDrive</Directory>
+        <Directory alias='c'>C:\</Directory>
+        <Directory alias='cmain'>C:\Users\bfwan\Brandon.Fong\</Directory>
+    </Directories>
+
+    <!--[System.Xml.XmlElement]$d = (Select-Xml -path .\SCRIPTS\Config\User.xml -XPath "//Websites").Node -->
+    <Objects>
+        <!-- Links & Credentials -->
+        <Object VarName="User">
+            <!-- Frequently Used Links -->
+            <Gmail>https://mail.google.com/mail</Gmail>
+            <Netflix>https://Netflix.com</Netflix>
+            <Youtube>https://Youtube.com</Youtube>
+            <Facebook>https://facebook.com</Facebook>
+            <LinkedIn>
+                <URL>https://www.linkedin.com/nhome/</URL>
+                <Profile>https://www.linkedin.com/in/brandonmfong/</Profile>
+            </LinkedIn>
+            <GitHub>
+                <URL>https://github.com/BrandonMFong</URL>
+                <Profile>https://github.com/BrandonMFong</Profile>
+            </GitHub>
+            <GoogleDrive>https://drive.google.com/drive/u/0/my-drive</GoogleDrive>
+            <DisneyPlus>https://www.disneyplus.com</DisneyPlus>
+            <Hulu>https://www.hulu.com</Hulu>
+            <Slack>https://dualpowergeneration.slack.com</Slack>
+            <YES>https://dualpowergeneration.sdsu.edu</YES>
+            <iCloud>https://www.icloud.com/</iCloud>
+            <GoogleCloud>https://cloud.google.com</GoogleCloud>
+            <Taxact>https://www.taxact.com/</Taxact>
+            <StandardUserName>F139B118-40C4-4293-9A60-498FEA8AE1B7</StandardUserName>
+            
+            <!-- Emails -->
+            <Emails>
+                <Personal>c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Personal>
+                <Professional>94edc712-0435-4574-80ad-fbb1aab3dc20</Professional>
+                <Music>2508beb5-3958-48d5-931b-c7b55efa7c92</Music>
+                <Work>340861de-d4f9-43a3-badd-d0945e3e392a</Work>
+                <Old>21a540d4-4818-404a-8db5-c78443fa1ad1</Old>
+                <SDSU>d5e56cab-19a1-4d1f-aabc-eec6793cf439</SDSU>
+                <Passwords>
+                    <Professional>9fd118e5-c785-4b9b-a687-b06c65285e67</Professional>
+                    <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
+                </Passwords>
+            </Emails>
+            
+            <!-- Categorized Links -->
+            <COLLEGE>
+                <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
+            </COLLEGE>
+            <LIFE>
+                <HousePortal>http://www.sbmigroup.com</HousePortal>
+                <WaterBill>https://customerportal.sandiego.gov/portal/</WaterBill>
+                <UCSDHealth>https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login</UCSDHealth>
+            </LIFE>
+            <SITES>
+                <BrandonFongMusic>https://github.com/BrandonMFong/BrandonFongMusic</BrandonFongMusic>
+            </SITES>
+            <cPanel>
+                <URL>https://rohancp.sdsu.edu:2083/cpanel</URL>
+                <Username>dualpower</Username>
+                <Password>960f933f-937f-409e-a9fa-f00d97586fcd</Password>
+                <SSH_PW>266d3c1e-de41-475b-b169-bdd5d2518440</SSH_PW>
+            </cPanel>
+            <Hostinger>
+                <URL>https://www.hostinger.com/cpanel-login</URL>
+                <DatabaseURL>https://auth-db221.hostinger.com/</DatabaseURL>
+                <SSHUsername>05318085-dcfe-485b-9505-b9b1d662bbb9</SSHUsername>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </Hostinger>
+            <Chase>
+                <Username>d391a359-7973-4592-a6b2-21f568fe966c</Username>
+                <URL>https://www.chase.com/</URL>
+                <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
+            </Chase>
+            <Jason>
+                <Username>cde45e8a-0092-42b7-8ba9-1c5bee095b76</Username>
+                <URL></URL>
+                <Password>d0a14271-0d83-42f9-98f1-5a90f4c3816a</Password>
+            </Jason>
+            <Riverbed>
+                <Username>1853A79C-4A36-437E-A36C-6EC69789D926</Username>
+                <URL>http://cms-api.riverbed.com/portal/community_home?</URL>
+                <Password>578c1dfa-fc81-4ad4-8a90-7c1820f358d4</Password>
+            </Riverbed>
+            <CalApply>
+                <Username>1853a79c-4a36-437e-a36c-6ec69789d926</Username>
+                <URL>https://www2.calstate.edu/apply</URL>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </CalApply>
+            <SSU>
+                <Username>07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec</Username>
+                <URL>http://www.sonoma.edu/</URL>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </SSU>
+            <SJSU>
+                <SJSUID>2cc6c5ea-1803-43cb-a5ec-710a97d97871</SJSUID>
+                <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
+            </SJSU>
+            <FAFSA>
+                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
+                <Password>B5210A49-A02E-46F4-B7A8-56F6CF6ABC2D</Password>
+                <URL>fafsa.gov</URL>
+                <SaveKey>A0C0B4CB-DE84-4009-B116-EBFCFC06577E</SaveKey>
+            </FAFSA>
+        </Object>
+
+        <!-- Database -->
+        <Object VarName="Database">
+            <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+            <Database DatabaseName="BrandonMFong">
+                <Tables>
+                    <PersonalInfo>PersonalInfo</PersonalInfo>
+                    <TypeContent>TypeContent</TypeContent>
+                </Tables>
+            </Database>
+        </Object>
+        
+        <!-- Passwords -->
+        <Object VarName="Passwords">
+            <Default>266d3c1e-de41-475b-b169-bdd5d2518440</Default>
+            <cPanel>960f933f-937f-409e-a9fa-f00d97586fcd</cPanel>
+            <Facebook>266d3c1e-de41-475b-b169-bdd5d2518440</Facebook>
+            <Youtube>266d3c1e-de41-475b-b169-bdd5d2518440</Youtube>
+            <GitHub>266d3c1e-de41-475b-b169-bdd5d2518440</GitHub>
+            <Chase>9fd118e5-c785-4b9b-a687-b06c65285e67</Chase>
+            <Netflix>c8fc577a-d54b-490b-8e0c-3b59cd056f9b</Netflix>
+            <Hulu>c8fc577a-d54b-490b-8e0c-3b59cd056f9b</Hulu>
+            <DisneyPlus>c8fc577a-d54b-490b-8e0c-3b59cd056f9b</DisneyPlus>
+            <AmazonShop>0ce5d07c-ecfb-4fea-ab4c-544d4c97225d</AmazonShop>
+            <Blackboard>9517939f-b925-4a5d-8a95-8f101b6d63af</Blackboard>
+            <LinkedIn>266d3c1e-de41-475b-b169-bdd5d2518440</LinkedIn>
+            <Alliant>4f1c0b1f-53d4-40f4-972e-6202accecd43</Alliant>
+            <Indeed>266d3c1e-de41-475b-b169-bdd5d2518440</Indeed>
+            <AmazonJobs>266d3c1e-de41-475b-b169-bdd5d2518440</AmazonJobs>
+            <GlobalProtect>9517939f-b925-4a5d-8a95-8f101b6d63af</GlobalProtect>
+            <WebPortal>9517939f-b925-4a5d-8a95-8f101b6d63af</WebPortal>
+            <Microsoft>9517939f-b925-4a5d-8a95-8f101b6d63af</Microsoft>
+            <iCloud>266d3c1e-de41-475b-b169-bdd5d2518440</iCloud>
+            <SBMI>266d3c1e-de41-475b-b169-bdd5d2518440</SBMI>
+            <SunRun>9517939f-b925-4a5d-8a95-8f101b6d63af</SunRun>
+            <UCSDHealth>266d3c1e-de41-475b-b169-bdd5d2518440</UCSDHealth>
+            <Ubuntu>266d3c1e-de41-475b-b169-bdd5d2518440</Ubuntu>
+            <ProfessionEmail>266d3c1e-de41-475b-b169-bdd5d2518440</ProfessionEmail>
+            <Verint>ca16b2ba-f675-4257-a84f-2107311b43a9</Verint>
+            <Jason>d0a14271-0d83-42f9-98f1-5a90f4c3816a</Jason>
+            <CalApply>266d3c1e-de41-475b-b169-bdd5d2518440</CalApply>
+            <Taxact>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Taxact>
+            <ADP>53A9CF28-D09B-48F4-9BD5-DDC04E496039</ADP>
+        </Object>
+    </Objects>
+
+    <Aliases>
+        <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>
+    </Aliases>
+</BrandonMFong>

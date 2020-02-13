@@ -2,17 +2,24 @@
 # TODO
 # ...
 
-	<### CLASSES ###>
-		Import-Module B:\SCRIPTS\class_CALENDAR.psm1 -Force;
-		Import-Module B:\SCRIPTS\class_MATH.psm1 -Force;
-		Import-Module B:\SCRIPTS\class_SQL.psm1 -Force;
-		Import-Module B:\SCRIPTS\class_WEB.psm1 -Force;
-		Import-Module B:\SCRIPTS\class_Windows.psm1 -Force;
+	<### MODULES ###>
+		using module B:\Powershell\class_CALENDAR.psm1;
+		using module B:\Powershell\class_MATH.psm1;
+		using module B:\Powershell\class_SQL.psm1;
+		using module B:\Powershell\class_WEB.psm1;
+		using module B:\Powershell\class_Windows.psm1;
+		using module B:\Powershell\function_JUMP.psm1;
+
+	<### START ###>
 		
-	<### FUNCTIONS ###>
-		Import-Module B:\SCRIPTS\function_JUMP.psm1 -Force;
+	Write-Host("`n")
+	# TODO How to dynamically connect your powershell repo to this ps1 script
+
+	<# END START #>
+	$ConfigPath = 'B:\Powershell\Config\BRANDONMFONG.xml'
+	[XML]$XMLReader = Get-Content $ConfigPath
 		
-	<### ALIAS ###> 
+	<### ALIASES ###> 
 		# Program calls
 		try
 		{
@@ -37,10 +44,10 @@
 			Set-Alias WinSCP 'C:\Program Files (x86)\WinSCP\winscp.exe' 
 			Set-Alias Python 'C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe' 
 			Set-Alias VC 'C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe' 
-			Set-Alias PIP 'C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Scripts\pip3.7.exe' 
+			Set-Alias PIP 'C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe' 
 			Set-Alias Subl 'C:\Program Files\Sublime Text 3\subl.exe' 
 			Set-Alias sql 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe' 
-			Set-Alias VC-Powershell 'B:\SCRIPTS\VCODE_Powershell.code-workspace';
+			Set-Alias VC-Powershell 'B:\Powershell\VCODE_Powershell.code-workspace';
 			Set-Alias VC-DualPowerGeneration 'B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace';
 			Set-Alias VC-BrandonFongMusic 'B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace';
 			Set-Alias X-Win 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk';
@@ -56,32 +63,32 @@
 			#throw "`nCannot create the alias";
 		}
 
-	<### FUNCTIONS ###> # TODO Put all functions in module files, only the ones that you don't change often
+	<### FUNCTIONS ###>
 		function GO-TO
 		{
 			Param([String[]] $dir, [Alias('p')][Switch] $push)
 		
-			if ($push){B:\SCRIPTS\function_GOTO.ps1 -dir $dir -push $push;}
-			else {B:\SCRIPTS\function_GOTO.ps1 -dir $dir;}
+			if ($push){B:\Powershell\function_GOTO.ps1 -dir $dir -push $push;}
+			else {B:\Powershell\function_GOTO.ps1 -dir $dir;}
 		}
 		Set-Alias goto 'GO-TO'   
 
 		function Archive #archive old unused files that you may refer to later
 		{
 			Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [string]$FileName="Pass")
-			if($Zip){B:\SCRIPTS\function_ARCHIVE.ps1 -Zip $Zip;}
-			elseif($FileName -ne "Pass"){B:\SCRIPTS\function_ARCHIVE.ps1 -FileName $FileName;}
+			if($Zip){B:\Powershell\function_ARCHIVE.ps1 -Zip $Zip;}
+			elseif($FileName -ne "Pass"){B:\Powershell\function_ARCHIVE.ps1 -FileName $FileName;}
 			else
 			{
-				if($IncludeZipFiles){B:\SCRIPTS\function_ARCHIVE.ps1 -IncludeZipFiles $IncludeZipFiles;}
-				elseif($OnlyZipFiles){B:\SCRIPTS\function_ARCHIVE.ps1 -OnlyZipFiles $OnlyZipFiles;}
-				else {B:\SCRIPTS\function_ARCHIVE.ps1;}
+				if($IncludeZipFiles){B:\Powershell\function_ARCHIVE.ps1 -IncludeZipFiles $IncludeZipFiles;}
+				elseif($OnlyZipFiles){B:\Powershell\function_ARCHIVE.ps1 -OnlyZipFiles $OnlyZipFiles;}
+				else {B:\Powershell\function_ARCHIVE.ps1;}
 			}
 		}
 		Set-Alias Arc 'Archive' 
 	
 		function Recycle #alternative to rm but puts the files in user created recycling bin 
-		{Param($item);B:\SCRIPTS\function_RECYCLE.ps1 -item $item;}
+		{Param($item);B:\Powershell\function_RECYCLE.ps1 -item $item;}
 		Set-Alias rec 'Recycle'  
 		
 		function Is-Prime
@@ -103,313 +110,32 @@
 		function Append-Date
 		{
 			Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass")
-			if ($FileDate){B:\SCRIPTS\function_APPEND_DATE.ps1 -FileDate $FileDate;}
-			elseif ($FileName -ne "Pass"){B:\SCRIPTS\function_APPEND_DATE.ps1 -FileName $FileName;}
-			else {B:\SCRIPTS\function_APPEND_DATE.ps1;}
+			if ($FileDate){B:\Powershell\function_APPEND_DATE.ps1 -FileDate $FileDate;}
+			elseif ($FileName -ne "Pass"){B:\Powershell\function_APPEND_DATE.ps1 -FileName $FileName;}
+			else {B:\Powershell\function_APPEND_DATE.ps1;}
 		}
 		Set-Alias AD 'Append-Date'
 
-		function Setup-GitPush{B:\SCRIPTS\function_SETUPGIT.ps1;}
+		function Setup-GitPush{B:\Powershell\function_SETUPGIT.ps1;}
 		Set-Alias SG 'Setup-GitPush'
 
-		function Modify-Modules{B:\SCRIPTS\function_MODIFYMODULE.PS1;}
+		function Modify-Modules{B:\Powershell\function_MODIFYMODULE.PS1;}
 
 	<### OBJECTS ###>
-		$User = 
-		@{
-			## Links ##
-			Gmail 		= "https://mail.google.com/mail";
-			Netflix		= "https://Netflix.com";
-			Youtube 	= 'https://Youtube.com';
-			Facebook	= "https://facebook.com";	
-			LinkedIn 	= "https://www.linkedin.com/nhome/";
-			Git			= "https://github.com/BrandonMFong";
-			GoogleDrive	= "https://drive.google.com/drive/u/0/my-drive";
-			Disney_Plus	= "https://www.disneyplus.com";
-			Hulu		= "https://www.hulu.com";
-			Slack		= "https://dualpowergeneration.slack.com";
-			YES			= "https://dualpowergeneration.sdsu.edu";
-			iCloud		= "https://www.icloud.com/";
-			GoogleCloud	= "https://cloud.google.com";
-			Taxact 		= 'https://www.taxact.com/';
-
-			StandardUsername = 'F139B118-40C4-4293-9A60-498FEA8AE1B7';
-
-			## Accounts ##
-			Email =
-			@{
-				Personal = 'c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8';
-				Professional = '94edc712-0435-4574-80ad-fbb1aab3dc20';
-				Music = '2508beb5-3958-48d5-931b-c7b55efa7c92';
-				Work = '340861de-d4f9-43a3-badd-d0945e3e392a';
-				Old = '21a540d4-4818-404a-8db5-c78443fa1ad1';
-				SDSU = 'd5e56cab-19a1-4d1f-aabc-eec6793cf439';
-				Password = 
-				@{
-					Professional = '9fd118e5-c785-4b9b-a687-b06c65285e67';
-				}
-			}
-			
-			## Some Credentials ##
-			cPanel =
-			@{
-				URL 		= 'https://rohancp.sdsu.edu:2083/cpanel';
-				Username 	= 'dualpower';
-				Password 	= '960f933f-937f-409e-a9fa-f00d97586fcd';
-				SSH_PW 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-			}
-			
-			Hostinger =
-			@{
-				URL 		= 'https://www.hostinger.com/cpanel-login';
-				Database	= 'https://auth-db221.hostinger.com/';
-				SSH_UserName = '05318085-dcfe-485b-9505-b9b1d662bbb9';
-				Password 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
-			}
-
-			Chase =
-			@{
-				Username 	= 'd391a359-7973-4592-a6b2-21f568fe966c';
-				URL 		= 'https://www.chase.com/';
-				Password 	= '9fd118e5-c785-4b9b-a687-b06c65285e67';
-			}
-
-			Jason = # volta
-			@{
-				Username = 'cde45e8a-0092-42b7-8ba9-1c5bee095b76';
-				URL = '';
-				Password = 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
-			}
-
-			Riverbed = 
-			@{
-				Username = '1853A79C-4A36-437E-A36C-6EC69789D926';
-				URL = 'http://cms-api.riverbed.com/portal/community_home?';
-				Password = '578c1dfa-fc81-4ad4-8a90-7c1820f358d4';
-			}
-
-			CalApply = 
-			@{
-				Username = '1853a79c-4a36-437e-a36c-6ec69789d926';
-				URL = 'https://www2.calstate.edu/apply';
-				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
-			}
-
-			SSU = 
-			@{
-				Username = '07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec';
-				URL = 'http://www.sonoma.edu/';
-				Password = '266d3c1e-de41-475b-b169-bdd5d2518440';
-			}
-
-			SJSU = 
-			@{
-				SJSUID = '2cc6c5ea-1803-43cb-a5ec-710a97d97871';
-				Password = '9fd118e5-c785-4b9b-a687-b06c65285e67';
-			}
-
-			FAFSA = 
-			@{
-				Email = '94edc712-0435-4574-80ad-fbb1aab3dc20';
-				Password = 'B5210A49-A02E-46F4-B7A8-56F6CF6ABC2D';
-				URL = 'fafsa.gov';
-				SaveKey = 'A0C0B4CB-DE84-4009-B116-EBFCFC06577E';
-			}
-
-			## Local DBs ##
-			LocalDB = 
-			@{
-				serverinstance = 'BRANDONMFONG\SQLEXPRESS';
-				database = 
-				@{
-					BrandonMFong =
-					@{
-						Name = 'BrandonMFong';
-						Tables =
-						@{
-							PersonalInfo = 'PersonalInfo';
-							TypeContent = 'TypeContent';
-						}
-					}
-				}
-			}
-
-			Passwords 	=
-			@{
-				Default			= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				cPanel 			= '960f933f-937f-409e-a9fa-f00d97586fcd';
-				Facebook 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Youtube 		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				GitHub  		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Chase			= '9fd118e5-c785-4b9b-a687-b06c65285e67';
-				Netflix 		= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
-				Hulu 	 		= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
-				Disney_Plus 	= 'c8fc577a-d54b-490b-8e0c-3b59cd056f9b';
-				Amazon_shop		= '0ce5d07c-ecfb-4fea-ab4c-544d4c97225d';
-				Blackboard		= '9517939f-b925-4a5d-8a95-8f101b6d63af';	
-				LinkedIn		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Alliant			= '4f1c0b1f-53d4-40f4-972e-6202accecd43';
-				Indeed  		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Amazon_jobs		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Global_protect	= '9517939f-b925-4a5d-8a95-8f101b6d63af';
-				WebPortal 		= '9517939f-b925-4a5d-8a95-8f101b6d63af';
-				Microsoft 		= '9517939f-b925-4a5d-8a95-8f101b6d63af';
-				iCloud 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				SBMI 			= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				sunrun 			= '9517939F-B925-4A5D-8A95-8F101B6D63AF';
-				UCSD_Health	 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				ubuntu		 	= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				ProfEmail		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Verint			= 'ca16b2ba-f675-4257-a84f-2107311b43a9';
-				Jason			= 'd0a14271-0d83-42f9-98f1-5a90f4c3816a';
-				CalApply		= '266d3c1e-de41-475b-b169-bdd5d2518440';
-				Taxact			= '53A9CF28-D09B-48F4-9BD5-DDC04E496039';
-				ADP 			= '53A9CF28-D09B-48F4-9BD5-DDC04E496039';
-			}
-
-			# Drives
-			SDSU_Drive 	= "a2d8af69-54d0-4e33-9a22-bda55c2bf9ca";
-			
-			# Directories
-			this 	= 'B:\';
-			ONE = '~\OneDrive'
-			CMAIN = 'C:\Users\bfwan\Brandon.Fong\';
-			CODE =
-			@{
-				this = 'B:\CODE';
-			}
-			COLLEGE = 
-			@{
-				this		= 'B:\COLLEGE';
-				Blackboard	= "https://Blackboard.sdsu.edu";
-				WebPortal 	= 'https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal';
-				
-				_19_20 =
-				@{
-					this = 'B:\COLLEGE\19_20';
-					Fall_19 = 
-					@{
-						this = 'B:\COLLEGE\19_20\Fall_19';
-						CompE_361 =
-						@{
-							this = 'B:\COLLEGE\19_20\Fall_19\CompE_361';
-						}
-						Compe_475 = 
-						@{
-							this = 'B:\COLLEGE\19_20\Fall_19\Compe_475';
-						}
-						CompE_496A = 
-						@{
-							this = 'B:\COLLEGE\19_20\Fall_19\CompE_496A';
-							Git		= 'https://github.com/BrandonMFong/DualPowerGeneration';
-						}
-						EE_420 =
-						@{
-							this = 'B:\COLLEGE\19_20\Fall_19\EE_420';
-						}
-						EE_450 =
-						@{
-							this = 'B:\COLLEGE\19_20\Fall_19\EE_450';
-						}
-						
-					}
-					Spring_20 = 
-					@{
-						# TODO figure out new class
-						this = 'B:\COLLEGE\19_20\Spring_20';
-						CompE_565 =
-						@{
-							this = 'B:\COLLEGE\19_20\Spring_20\CompE_565';
-						}
-						EE_600 =
-						@{
-							this = 'B:\COLLEGE\19_20\Spring_20\EE_600';
-						}
-						CompE_560 =
-						@{
-							this = 'B:\COLLEGE\19_20\Spring_20\CompE_560';
-						}
-						CompE_496B =
-						@{
-							this = 'B:\COLLEGE\19_20\Spring_20\CompE_496B';
-						}
-						Class =
-						@{
-							this = 'B:\COLLEGE\19_20\Spring_20\New_Dir';
-						}
-					}
-				}
-			}
-			JOB = 
-			@{
-				LinkedIn_Profile = 'https://www.linkedin.com/in/brandonmfong/';
-				GitHub_Profile = 'https://github.com/BrandonMFong';
-				this = 'B:\JOB';
-			}
-			LIFE =
-			@{
-				House_Portal	= 'http://www.sbmigroup.com';
-				Water_Bill		= 'https://customerportal.sandiego.gov/portal/';
-				UCSD_Health		= 'https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login';
-				this = 'B:\LIFE';
-			}
-			MUSIC = 
-			@{
-				this = 'B:\MUSIC';
-			}
-			PERSONAL =
-			@{
-				this = 'B:\PERSONAL';
-			}
-			PICTURES =
-			@{
-				this = 'B:\PICTURES';
-			}
-			RECYCLE = 
-			@{
-				this = 'B:\RECYCLE';
-			}
-			SCRIPTS =
-			@{
-				this = 'B:\SCRIPTS';
-			}
-			SITES =
-			@{
-				this = 'B:\SITES';
-				BrandonFongMusic = 
-				@{
-					Git = "https://github.com/BrandonMFong/BrandonFongMusic";
-					URL = 'https://BrandonFongMusic.com/';
-					this = 'B:\SITES\BrandonFongMusic';
-				}
-			}
-			SOURCES = 
-			@{
-				this = 'B:\SOURCES';
-				Repo =
-				@{
-					this = "B:\SOURCES\Repos";
-					YES = "B:\SOURCES\Repos\DualPowerGeneration";
-				}
-			}
-			DOWNLOADS = 
-			@{
-				this = 'B:\DOWNLOADS';
-			}
-			DOCUMENTS = 
-			@{
-				this = 'B:\DOCUMENTS';
-			}
+		$i=0;
+		foreach($val in $XMLReader.BrandonMFong.Objects.Object)
+		{
+			New-Variable -Name "$($val.VarName)" -Value $val -Force;
+			$i++;
 		}
+	
+		
+		
 		$Web = [Web]::new();
 		$Math = [Calculations]::new();
-		$Decode = [SQL]::new($user.LocalDB.database.BrandonMFong.Name, $user.LocalDB.serverinstance, $user.LocalDB.database.BrandonMFong.Tables);
+		$Decode = [SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance  , $Database.Database.Tables);
 		$Windows = [Windows]::new();
 
-	<### START ###>
-		
-		Write-Host("`n")
-
-	<# END START #>
+	
 	
 	

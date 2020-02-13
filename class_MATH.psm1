@@ -41,4 +41,9 @@ class Calculations
         $stack.Push($x);$stack.Push($y);
         $x = $stack.Pop();$y = $stack.Pop();
     }
+
+    [double]LogBaseTwo($x)
+    {
+        [Math]::Log($x)/[Math]::Log(2);
+    }
 }

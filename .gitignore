@@ -5,5 +5,5 @@ VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace
 
 # Work
-Config/US-802262/*
+Config/US-802262.xml
 Work/function_BANKURL.ps1

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine>
+    <!-- Directory paths for Function: GoTo -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
         <Directory alias='PowershellRepoPath'>B:\Powershell</Directory>
@@ -227,7 +228,7 @@
         <Function Name="goto">B:\Powershell\Functions\GOTO.ps1</Function>
         <Function Name="Archive">B:\Powershell\Functions\ARCHIVE.ps1;</Function>
         <Function Name="Recycle">B:\Powershell\Functions\RECYCLE.ps1</Function>
-        <Function Name="ad">B:\Powershell\Functions\AppendDate.ps1</Function>
+        <Function Name="Append">B:\Powershell\Functions\AppendDate.ps1</Function>
         <Function Name="Setup-GitPush">B:\Powershell\Functions\SETUPGIT.ps1</Function>
         <Function Name="Modify-Modules">B:\Powershell\Functions\MODIFYMODULE.PS1</Function>
         <Function Name="IsPrime">B:\Powershell\Functions\ISPRIME.PS1</Function>

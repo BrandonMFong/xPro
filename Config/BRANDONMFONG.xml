@@ -142,7 +142,7 @@
             </FAFSA>
         </Object>
 
-        <!-- Database -->
+        <!-- Databases -->
         <Object VarName="Database">
             <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
             <Database DatabaseName="BrandonMFong">
@@ -187,9 +187,8 @@
         </Object>
     </Objects>
 
-    <!-- Aliases to call exectuables, scripts, etc -->
+    <!-- Aliases to call Third Party exectuables, scripts, etc -->
     <Aliases>
-        <!-- Third Party Programs -->
         <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>
         <Alias Name="VS">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Alias>
         <Alias Name="Chrome">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Alias>
@@ -222,6 +221,7 @@
         <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
     </Aliases>
 
+    <!-- User Define Functions --> 
     <Functions>
         <Function Name="jump">B:\Powershell\Functions\JUMP.ps1</Function>
         <Function Name="hop">B:\Powershell\Functions\HOP.psm1</Function>

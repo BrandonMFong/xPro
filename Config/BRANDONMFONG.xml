@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<BrandonMFong>
+<Machine>
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
         <Directory alias='PowershellRepoPath'>B:\Powershell</Directory>
@@ -39,7 +39,7 @@
         <Directory alias='cmain'>C:\Users\bfwan\Brandon.Fong\</Directory>
     </Directories>
 
-    <!--[System.Xml.XmlElement]$d = (Select-Xml -path .\SCRIPTS\Config\User.xml -XPath "//Websites").Node -->
+    <!-- Objects User uses while on the command line -->
     <Objects>
         <!-- Links & Credentials -->
         <Object VarName="User">
@@ -109,11 +109,11 @@
                 <URL>https://www.chase.com/</URL>
                 <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
             </Chase>
-            <Jason>
+            <Volta><!-- Also Jason for CompE 560 -->
                 <Username>cde45e8a-0092-42b7-8ba9-1c5bee095b76</Username>
                 <URL></URL>
                 <Password>d0a14271-0d83-42f9-98f1-5a90f4c3816a</Password>
-            </Jason>
+            </Volta>
             <Riverbed>
                 <Username>1853A79C-4A36-437E-A36C-6EC69789D926</Username>
                 <URL>http://cms-api.riverbed.com/portal/community_home?</URL>
@@ -186,7 +186,51 @@
         </Object>
     </Objects>
 
+    <!-- Aliases to call exectuables, scripts, etc -->
     <Aliases>
+        <!-- Third Party Programs -->
         <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>
+        <Alias Name="VS">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Alias>
+        <Alias Name="Chrome">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Alias>
+        <Alias Name="Matlab">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Alias>
+        <Alias Name="Word">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Alias>
+        <Alias Name="Outlook">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Alias>
+        <Alias Name="Spotify">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Alias>
+        <Alias Name="Npad">C:\Program Files (x86)\Notepad++\notepad++.exe</Alias>
+        <Alias Name="QtSpim">C:\Program Files (x86)\QtSpim\QtSpim.exe</Alias>
+        <Alias Name="GitHub">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Alias>
+        <Alias Name="Wmplayer">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Alias>
+        <Alias Name="SDK">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Alias>
+        <Alias Name="Putty">C:\Program Files\PuTTY\putty.exe</Alias>
+        <Alias Name="Atmel">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Alias>
+        <Alias Name="Gitbash">C:\Program Files\Git\git-bash.exe</Alias>
+        <Alias Name="7z">C:\Program Files\7-Zip\7z.exe</Alias>
+        <Alias Name="Xampp">C:\xampp\xampp-control.exe</Alias>
+        <Alias Name="Global">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Alias>
+        <Alias Name="WinSCP">C:\Program Files (x86)\WinSCP\winscp.exe</Alias>
+        <Alias Name="Python">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Alias>
+        <Alias Name="VC">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Alias>
+        <Alias Name="PIP">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Alias>
+        <Alias Name="Subl">C:\Program Files\Sublime Text 3\subl.exe</Alias>
+        <Alias Name="sql">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Alias>
+        <Alias Name="VC-Powershell">B:\Powershell\VCODE_Powershell.code-workspace</Alias>
+        <Alias Name="VC-DualPowerGeneration">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Alias>
+        <Alias Name="VC-BrandonFongMusic">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Alias>
+        <Alias Name="X-Win">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Alias>
+        <Alias Name="Xming">C:\Program Files (x86)\Xming\Xming.exe</Alias>
+        <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
     </Aliases>
-</BrandonMFong>
+
+    <Functions>
+        <Function Name="jump">B:\Powershell\Functions\JUMP.ps1</Function>
+        <Function Name="hop">B:\Powershell\Functions\HOP.psm1</Function>
+        <Function Name="goto">B:\Powershell\Functions\GOTO.ps1</Function>
+        <Function Name="Archive">B:\Powershell\Functions\ARCHIVE.ps1;</Function>
+        <Function Name="Recycle">B:\Powershell\Functions\RECYCLE.ps1</Function>
+        <Function Name="ad">B:\Powershell\Functions\AppendDate.ps1</Function>
+        <Function Name="Setup-GitPush">B:\Powershell\Functions\SETUPGIT.ps1</Function>
+        <Function Name="Modify-Modules">B:\Powershell\Functions\MODIFYMODULE.PS1</Function>
+        <Function Name="IsPrime">B:\Powershell\Functions\ISPRIME.PS1</Function>
+        <Function Name="cl">B:\Powershell\Functions\ClearAndList.PS1</Function>
+    </Functions>
+</Machine>

@@ -44,6 +44,6 @@ class Calculations
 
     [double]LogBaseTwo($x)
     {
-        [Math]::Log($x)/[Math]::Log(2);
+        return [Math]::Log($x)/[Math]::Log(2);
     }
 }

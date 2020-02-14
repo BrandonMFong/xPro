@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine>
-    <!-- Directory paths for Function: GoTo -->
+<Machine MachineName="BRANDONMFONG">
+    <!-- Directory paths -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
         <Directory alias='PowershellRepoPath'>B:\Powershell</Directory>

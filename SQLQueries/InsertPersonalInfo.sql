@@ -7,13 +7,11 @@ declare @PIID int =
 (
 	select max(id)+1 from PersonalInfo
 )
-declare @Guid varchar(100) = upper('eed5a3cb-fb2b-4e81-8b99-a0ea10fde10d')
-declare @Val varchar(100) = 'Brandon.Fong'
-declare @sub varchar(100) = 'Cloudcords & Kiran username'
-update pi
-set pi.TypeContentID = @TCID, pi.ID = @PIID, pi.GUID = @Guid, pi.Value = @Val, pi.Subject = @sub
-	from PersonalInfo pi
-	where
-		pi.id in (13)
+declare @Guid varchar(100) = upper('853d8fe4-664f-4993-8407-a8da4cce8999')
+declare @Val varchar(100) = '4246'
+declare @sub varchar(100) = 'Default Passcode'
+
+insert into PersonalInfo values
+(@PIID, @Guid, @Val, @sub, @TCID)
 
 select * from PersonalInfo 

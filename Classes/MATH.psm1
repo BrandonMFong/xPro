@@ -42,8 +42,19 @@ class Calculations
         $x = $stack.Pop();$y = $stack.Pop();
     }
 
-    [double]LogBaseTwo($x)
+    [double]Log2($x)
     {
         return [Math]::Log($x)/[Math]::Log(2);
+    }
+
+    [void]WaterBillSplit([Double]$TotalPayment)
+    {
+        [int]$TotalHousemates = 10;
+        [Double]$EveryonePays = $TotalPayment/$TotalHousemates;
+        [Double]$TotalPaymentExcludingUser = $TotalPayment - $EveryonePays;
+
+        Write-Host "Total Payment for WaterBill: $($TotalPayment)";
+        Write-Host "Everyone pays: $($EveryonePays)";
+        Write-Host "Your venmo total charge (excluding you) will look like: $($TotalPaymentExcludingUser)";
     }
 }

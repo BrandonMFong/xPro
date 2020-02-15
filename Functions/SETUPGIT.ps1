@@ -6,7 +6,7 @@ try
         $FileName="Pass"; # Check function appendate file
         Get-ChildItem | 
             Where-Object{$_.Name -eq "Microsoft.PowerShell_profile.ps1"} | 
-                ForEach-Object{$FileName = $_};
+                ForEach-Object{$FileName = $_.Name};
         Append -FileName $FileName; #appending today's date 
         if((Test-Path .\archive\) -AND ((Get-ChildItem .\archive\).count -gt 10)){Archive -Zip;}# TODO this puts the appended profile outside
         else{Archive;}
@@ -15,5 +15,8 @@ try
 }
 catch 
 {
+    Write-Warning "Something bad happen. Below is the error";
+    Write-Warning "$($error)"
+    $error.Clear();
     Pop-Location;
 }

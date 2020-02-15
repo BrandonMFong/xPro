@@ -132,6 +132,7 @@
             </SSU>
             <SJSU>
                 <SJSUID>2cc6c5ea-1803-43cb-a5ec-710a97d97871</SJSUID>
+                <URL>https://one.sjsu.edu/</URL>
                 <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
             </SJSU>
             <FAFSA>
@@ -226,7 +227,7 @@
         <Function Name="jump">B:\Powershell\Functions\JUMP.ps1</Function>
         <Function Name="hop">B:\Powershell\Functions\HOP.psm1</Function>
         <Function Name="goto">B:\Powershell\Functions\GOTO.ps1</Function>
-        <Function Name="Archive">B:\Powershell\Functions\ARCHIVE.ps1;</Function>
+        <Function Name="Archive">B:\Powershell\Functions\ARCHIVE.ps1</Function>
         <Function Name="Recycle">B:\Powershell\Functions\RECYCLE.ps1</Function>
         <Function Name="Append">B:\Powershell\Functions\AppendDate.ps1</Function>
         <Function Name="Setup-GitPush">B:\Powershell\Functions\SETUPGIT.ps1</Function>

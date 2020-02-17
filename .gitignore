@@ -6,4 +6,5 @@ VC-Powershell.code-workspace
 
 # Work
 Config/US-802262.xml
-Work/function_BANKURL.ps1
+Functions/KiranTickets.ps1
+Functions/BANKURL.ps1

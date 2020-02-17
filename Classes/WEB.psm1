@@ -20,4 +20,16 @@ class Web
         Chrome $Search;
     }
 
+    Sharepoint([string]$x)
+    {
+        [string]$string = "https://verint.sharepoint.com/_layouts/15/sharepoint.aspx?q="+ $x + "&v=search";
+        chrome $string;
+    }
+
+    Jira([string]$x)
+    {
+        [string]$string = "https://cloudcords.atlassian.net/secure/QuickSearch.jspa?searchString=" + $x;
+        chrome $string;
+    }
+
 }

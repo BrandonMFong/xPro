@@ -241,15 +241,24 @@
 
     <!-- User Define Functions --> 
     <Functions>
-        <Function Name="jump">B:\Powershell\Functions\JUMP.ps1</Function>
-        <Function Name="hop">B:\Powershell\Functions\HOP.psm1</Function>
-        <Function Name="goto">B:\Powershell\Functions\GOTO.ps1</Function>
-        <Function Name="Archive">B:\Powershell\Functions\ARCHIVE.ps1</Function>
-        <Function Name="Recycle">B:\Powershell\Functions\RECYCLE.ps1</Function>
-        <Function Name="Append">B:\Powershell\Functions\AppendDate.ps1</Function>
-        <Function Name="Setup-GitPush">B:\Powershell\Functions\SETUPGIT.ps1</Function>
-        <Function Name="Modify-Modules">B:\Powershell\Functions\MODIFYMODULE.PS1</Function>
-        <Function Name="IsPrime">B:\Powershell\Functions\ISPRIME.PS1</Function>
-        <Function Name="cl">B:\Powershell\Functions\ClearAndList.PS1</Function>
+        <Function Name="jump">\Functions\JUMP.ps1</Function>
+        <Function Name="hop">\Functions\HOP.psm1</Function>
+        <Function Name="goto">\Functions\GOTO.ps1</Function>
+        <Function Name="Archive">\Functions\ARCHIVE.ps1</Function>
+        <Function Name="Recycle">\Functions\RECYCLE.ps1</Function>
+        <Function Name="Append">\Functions\AppendDate.ps1</Function>
+        <Function Name="Setup-GitPush">\Functions\SETUPGIT.ps1</Function>
+        <Function Name="Modify-Modules">\Functions\MODIFYMODULE.PS1</Function>
+        <Function Name="IsPrime">\Functions\ISPRIME.PS1</Function>
+        <Function Name="cl">\Functions\ClearAndList.PS1</Function>
     </Functions>
+
+    <!-- TODO dynamically create classes -->
+    <Classes>
+        <Class>\Classes\CALENDAR.psm1</Class>
+        <Class>\Classes\MATH.psm1</Class>
+        <Class>\Classes\SQL.psm1</Class>
+        <Class>\Classes\WEB.psm1</Class>
+        <Class>\Classes\Windows.psm1</Class>
+    </Classes>
 </Machine>

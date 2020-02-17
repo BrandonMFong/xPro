@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG">
+    <!-- <StartScript></StartScript> -->
     <!-- Directory paths -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
@@ -43,7 +44,7 @@
     <!-- Objects User uses while on the command line -->
     <Objects>
         <!-- Links & Credentials -->
-        <Object VarName="User" HasAClass="False">
+        <Object HasClass="false" VarName="User">
             <!-- Frequently Used Links -->
             <Gmail>https://mail.google.com/mail</Gmail>
             <Netflix>https://Netflix.com</Netflix>
@@ -144,7 +145,7 @@
         </Object>
 
         <!-- Databases -->
-        <Object VarName="Database">
+        <Object HasClass="false" VarName="Database">
             <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
             <Database DatabaseName="BrandonMFong">
                 <Tables>
@@ -155,7 +156,7 @@
         </Object>
         
         <!-- Passwords -->
-        <Object VarName="Passwords" HasAClass="False">
+        <Object HasClass="false" VarName="Passwords">
             <Default>266d3c1e-de41-475b-b169-bdd5d2518440</Default>
             <cPanel>960f933f-937f-409e-a9fa-f00d97586fcd</cPanel>
             <Facebook>266d3c1e-de41-475b-b169-bdd5d2518440</Facebook>
@@ -187,22 +188,22 @@
             <ADP>53A9CF28-D09B-48F4-9BD5-DDC04E496039</ADP>
         </Object>
 
-        <!-- Dynamically declare a class type -->
-        <!-- <Object VarName="Web" HasAClass="True">
-            <Class>Web</Class>
+        <!-- Objects that inherit classes -->
+        <!-- How do I pass the parameters? -->
+        <Object HasClass="true" VarName="Web">
+            <Class HasParameters="false" ClassName="Web"/>
         </Object>
-        
-        <Object VarName="Math" HasAClass="True">
-            <Class>Calculations</Class>
+        <Object HasClass="true" VarName="Math">
+            <Class HasParameters="false" ClassName="Calculations"/>
         </Object>
-        
-        <Object VarName="Decode" HasAClass="True">
-            <Class>SQL</Class>
+        <Object HasClass="true" VarName="Decode">
+            <Class HasParameters="true" ClassName="SQL">
+                <Parameter>test</Parameter>
+            </Class>
         </Object>
-
-        <Object VarName="Decode" HasAClass="True">
-            <Class>Windows</Class>
-        </Object> -->
+        <Object HasClass="true" VarName="Windows">
+            <Class HasParameters="false" ClassName="Windows"/>
+        </Object>
     </Objects>
 
     <!-- Aliases to call Third Party exectuables, scripts, etc -->
@@ -252,13 +253,4 @@
         <Function Name="IsPrime">\Functions\ISPRIME.PS1</Function>
         <Function Name="cl">\Functions\ClearAndList.PS1</Function>
     </Functions>
-
-    <!-- TODO dynamically create classes -->
-    <Classes>
-        <Class>\Classes\CALENDAR.psm1</Class>
-        <Class>\Classes\MATH.psm1</Class>
-        <Class>\Classes\SQL.psm1</Class>
-        <Class>\Classes\WEB.psm1</Class>
-        <Class>\Classes\Windows.psm1</Class>
-    </Classes>
 </Machine>

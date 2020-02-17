@@ -5,10 +5,10 @@
 	<### CONFIG ###>
 	Push-Location $($PROFILE |Split-Path -Parent);
 		[XML]$x = Get-Content Profile.xml;
-	Pop-Location
+	Pop-Location;
 	$ConfigFile = $x.Machine.GitRepoDir + "\Config\" + $x.Machine.ConfigFile;
-	[XML]$XMLReader = Get-Content $ConfigFile
-	
+	[XML]$XMLReader = Get-Content $ConfigFile;
+
 	<### MODULES ###>
 		# using module B:\Powershell\Classes\CALENDAR.psm1;
 		# using module B:\Powershell\Classes\MATH.psm1;
@@ -19,6 +19,7 @@
 	foreach($val in $XMLReader.Machine.Classes.Class)
 	{
 		$ClassPath = $x.Machine.GitRepoDir + $val;
+		$ClassPath
 		Import-Module $ClassPath; # this does not load the classes
 	}
 
@@ -39,8 +40,8 @@
 	<### FUNCTIONS ###> 
 		foreach($val in $XMLReader.Machine.Functions.Function)
 		{
-			$ClassPath = $x.Machine.GitRepoDir + "\Functions\" + $val;
-			Set-Alias $val.Name "$($val.InnerXML)";
+			$FunctionPath = $x.Machine.GitRepoDir + "\Functions\" + $val.InnerXML;
+			Set-Alias $val.Name "$($FunctionPath)";
 		}
 	<### OBJECTS ###>
 		$i=0;

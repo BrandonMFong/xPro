@@ -1,8 +1,8 @@
 
 Param([String[]] $dir, [Alias('p')][Switch] $push )
-[xml]$x = Get-Content $ConfigPath;
+#[xml]$x = Get-Content $ConfigFile;
 	
-foreach ($Directory in $x.Machine.Directories.Directory)
+foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 {
 	if($Directory.alias -eq $dir)
 	{

@@ -9,4 +9,8 @@ foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 		if($push){Push-Location $Directory.InnerXml;}
 		else{Set-Location $Directory.InnerXml;}
 	}
+	# else # why does this happen when there is an alias?
+	# {
+	# 	throw "Parameter '$($dir)' does match any aliases in the configuration.  Please check spelling.";
+	# }
 }

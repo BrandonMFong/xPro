@@ -1,4 +1,4 @@
-# This should be the file to write into an xml on the dir where the profile is
+# Sets up config and profile 
 Param
 (
     [string]$ConfigName=$env:COMPUTERNAME, 
@@ -21,12 +21,16 @@ function Make-Config
 
 function Make-Profile
 {
+    if (!(Test-Path $($PROFILE | Split-Path -Parent)))
+    {
+        mkdir $($PROFILE | Split-Path -Parent) -Force -Verbose;
+    }
     Copy-Item $ProfPath . -Verbose;
     Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
 }
 
 Push-Location $PSScriptRoot
-    Write-Host "Setting GitRepoDir Node to " (Get-Location).Path;
+    Write-Host "Setting GitRepoDir Node to $((Get-Location).Path)`n";
     $GitRepoDir = (Get-Location).Path;
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
     Push-Location $($PROFILE |Split-Path -Parent);

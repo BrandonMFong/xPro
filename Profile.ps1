@@ -57,14 +57,16 @@
 <### OBJECTS ###>
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
+        if($val.HasClass)
+        {
+            New-Variable -Name "$($val.VarName)" -Value $val.Class -Force -Verbose;
+        }
+        else 
+        {
+            New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
+        }
+        
     }
-
-    $Web = [Web]::new();
-    $Math = [Calculations]::new();
-    $Decode = [SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance  , $Database.Database.Tables);
-    $Windows = [Windows]::new();
-
 
 <### START ###>
     Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)

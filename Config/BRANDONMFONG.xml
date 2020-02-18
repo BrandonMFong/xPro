@@ -188,21 +188,18 @@
             <ADP>53A9CF28-D09B-48F4-9BD5-DDC04E496039</ADP>
         </Object>
 
-        <!-- Objects that inherit classes -->
-        <!-- How do I pass the parameters? -->
+        <!-- Classes from modules -->
         <Object HasClass="true" VarName="Web">
-            <Class HasParameters="false" ClassName="Web"/>
+            <Class>[Web]::new();</Class>
         </Object>
         <Object HasClass="true" VarName="Math">
-            <Class HasParameters="false" ClassName="Calculations"/>
+            <Class>[Calculations]::new();</Class>
         </Object>
         <Object HasClass="true" VarName="Decode">
-            <Class HasParameters="true" ClassName="SQL">
-                <Parameter>test</Parameter>
-            </Class>
+            <Class>[SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance, $Database.Database.Tables);</Class>
         </Object>
         <Object HasClass="true" VarName="Windows">
-            <Class HasParameters="false" ClassName="Windows"/>
+            <Class>[Windows]::new();</Class>
         </Object>
     </Objects>
 

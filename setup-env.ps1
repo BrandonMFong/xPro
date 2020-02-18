@@ -22,13 +22,13 @@ function Make-Config
 function Make-Profile
 {
     Copy-Item $ProfPath . -Verbose;
-    Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose
+    Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
 }
 
 Push-Location $PSScriptRoot
     Write-Host "Setting GitRepoDir Node to " (Get-Location).Path;
     $GitRepoDir = (Get-Location).Path;
-    Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName}
+    Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
     Push-Location $($PROFILE |Split-Path -Parent);
 
         # Config

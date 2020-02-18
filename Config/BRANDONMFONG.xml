@@ -189,7 +189,7 @@
         </Object>
 
         <!-- Classes from modules -->
-        <!-- <Object HasClass="true" VarName="Web">
+        <Object HasClass="true" VarName="Web">
             <Class>[Web]::new();</Class>
         </Object>
         <Object HasClass="true" VarName="Math">
@@ -200,7 +200,7 @@
         </Object>
         <Object HasClass="true" VarName="Windows">
             <Class>[Windows]::new();</Class>
-        </Object> -->
+        </Object>
     </Objects>
 
     <!-- Aliases to call Third Party exectuables, scripts, etc -->

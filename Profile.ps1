@@ -54,26 +54,24 @@
         $FunctionPath = $x.Machine.GitRepoDir + $val.InnerXML;
         Set-Alias $val.Name "$($FunctionPath)" -Verbose;
     }
+    
 <### OBJECTS ###>
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        # this doesn't load the data for the class objects
-        # if($val.HasClass -eq "true")
-        # {
-        #     New-Variable -Name "$($val.VarName)" -Value $val.Class -Force -Verbose;
-        # }
-        # else 
-        # {
+        if($val.HasClass -eq "true")
+        {
+            New-Variable -Name "$($val.VarName)" -Value $val.Class -Force -Verbose;
+        }
+        elseif ($val.HasClass -eq "false")
+        {
             New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
-        # }
+        }
+        else
+        {
+            Write-Warning "Variable $($val.VarName) was not created.  Please check config."
+        }
         
     }
-
-<### CLASSES ###>
-    $Web = [Web]::new();
-    $Math = [Calculations]::new();
-    $Decode = [SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance  , $Database.Database.Tables);
-    $Windows = [Windows]::new();
 
 <### START ###>
     Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)

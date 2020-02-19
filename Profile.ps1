@@ -3,11 +3,11 @@
 # ...
 
 <### MODULES ###>
-    using module C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\CALENDAR.psm1;
-    using module C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\MATH.psm1;
-    using module C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\SQL.psm1;
-    using module C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\WEB.psm1;
-    using module C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\Windows.psm1;
+    using module .\.\Classes\Calendar.psm1;
+    using module .\.\Classes\Math.psm1;
+    using module .\.\Classes\SQL.psm1;
+    using module .\.\Classes\Web.psm1;
+    using module .\.\Classes\Windows.psm1;
 
 <### CONFIG ###>
     Push-Location $($PROFILE |Split-Path -Parent);
@@ -41,7 +41,7 @@
     {
         Write-Host "`nNo updates to profile`n";
     }
-
+    
 <### ALIASES ###> 
     foreach($val in $XMLReader.Machine.Aliases.Alias)
     {
@@ -58,20 +58,25 @@
 <### OBJECTS ###>
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        if($val.HasClass -eq "true")
-        {
+        # if($val.HasClass -eq "true")
+        # {
             New-Variable -Name "$($val.VarName)" -Value $val.Class -Force -Verbose;
-        }
-        elseif ($val.HasClass -eq "false")
-        {
-            New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
-        }
-        else
-        {
-            Write-Warning "Variable $($val.VarName) was not created.  Please check config."
-        }
+        # }
+        # elseif ($val.HasClass -eq "false")
+        # {
+        #     New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
+        # }
+        # else
+        # {
+        #     Write-Warning "Variable $($val.VarName) was not created.  Please check config."
+        # }
         
     }
+<### CLASSES ###>
+    $Web = [Web]::new();
+    $Math = [Calculations]::new();
+    $Decode = [SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance  , $Database.Database.Tables);
+    $Windows = [Windows]::new();
 
 <### START ###>
     Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)

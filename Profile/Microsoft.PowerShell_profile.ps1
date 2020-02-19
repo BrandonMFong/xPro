@@ -2,26 +2,12 @@
 # TODO
 # ...
 
-	<### CONFIG ###>
-	Push-Location $($PROFILE |Split-Path -Parent);
-		[XML]$x = Get-Content Profile.xml;
-	Pop-Location;
-	$ConfigFile = $x.Machine.GitRepoDir + "\Config\" + $x.Machine.ConfigFile;
-	[XML]$XMLReader = Get-Content $ConfigFile;
-
 	<### MODULES ###>
-		# using module B:\Powershell\Classes\CALENDAR.psm1;
-		# using module B:\Powershell\Classes\MATH.psm1;
-		# using module B:\Powershell\Classes\SQL.psm1;
-		# using module B:\Powershell\Classes\WEB.psm1;
-		# using module B:\Powershell\Classes\Windows.psm1;
-	<### Classes ###>
-	foreach($val in $XMLReader.Machine.Classes.Class)
-	{
-		$ClassPath = $x.Machine.GitRepoDir + $val;
-		$ClassPath
-		Import-Module $ClassPath; # this does not load the classes
-	}
+		using module B:\Powershell\Classes\CALENDAR.psm1;
+		using module B:\Powershell\Classes\MATH.psm1;
+		using module B:\Powershell\Classes\SQL.psm1;
+		using module B:\Powershell\Classes\WEB.psm1;
+		using module B:\Powershell\Classes\Windows.psm1;
 
 	<### START ###>
 		
@@ -30,6 +16,9 @@
 
 	<# END START #>
 
+	<### CONFIG ###>
+		$ConfigPath = 'B:\Powershell\Config\BRANDONMFONG.xml'
+		[XML]$XMLReader = Get-Content $ConfigPath
 		
 	<### ALIASES ###> 
 		foreach($val in $XMLReader.Machine.Aliases.Alias)
@@ -40,8 +29,7 @@
 	<### FUNCTIONS ###> 
 		foreach($val in $XMLReader.Machine.Functions.Function)
 		{
-			$FunctionPath = $x.Machine.GitRepoDir + "\Functions\" + $val.InnerXML;
-			Set-Alias $val.Name "$($FunctionPath)";
+			Set-Alias $val.Name "$($val.InnerXML)";
 		}
 	<### OBJECTS ###>
 		$i=0;

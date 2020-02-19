@@ -61,6 +61,7 @@
     {
         New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose; 
     }
+    
 <### CLASSES ###>
     $Web = [Web]::new();
     $Math = [Calculations]::new();

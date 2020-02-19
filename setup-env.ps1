@@ -30,7 +30,6 @@ function Make-Profile
 }
 
 Push-Location $PSScriptRoot
-    Write-Host "Setting GitRepoDir Node to $((Get-Location).Path)`n";
     $GitRepoDir = (Get-Location).Path;
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
     Push-Location $($PROFILE |Split-Path -Parent);
@@ -43,10 +42,13 @@ Push-Location $PSScriptRoot
         }    
         elseif((Test-Path .\Profile.xml) -and !($Override))
         {
-            Write-Host "This is what is currently in the .\Profile.xml"
-            Get-Content .\Profile.xml;
-            $prompt = Read-Host -Prompt ".\Profile.xml already exists.  Do you want to remove? (y/n)";
-            if($prompt -eq "y"){Remove-Item .\Profile.xml -Verbose; Make-Config;}
+            [xml]$xml = Get-Content .\Profile.xml;
+            write-host "GitRepoDir: $($xml.Machine.GitRepoDir)";
+            write-host "ConfigFile: $($xml.Machine.ConfigFile)";
+            $prompt = Read-Host -Prompt ".\Profile.xml already exists.  Do you want to remove[r] or change config[c]?";
+            if($prompt -eq "r"){Remove-Item .\Profile.xml -Verbose; Make-Config;}
+            elseif($prompt -eq "c"){Invoke-Expression $($x.Machine.GitRepoDir + "\change-config.ps1");}
+            else{Write-Warning "`nDoing nothing`n";}
         }
         else{Make-Config;}
 
@@ -60,6 +62,7 @@ Push-Location $PSScriptRoot
         {
             $prompt = Read-Host -Prompt ".\Microsoft.PowerShell_profile.ps1 already exists.  Do you want to remove? (y/n)";
             if($prompt -eq "y"){Remove-Item .\Microsoft.PowerShell_profile.ps1 -Verbose; Make-Profile;} 
+            else{Write-Warning "`nDoing nothing`n";}
         }
         else{Make-Profile;}
     Pop-Location

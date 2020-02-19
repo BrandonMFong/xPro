@@ -41,6 +41,7 @@
     {
         Write-Host "`nNo updates to profile`n";
     }
+# TODO check for updates on the classes
     
 <### ALIASES ###> 
     foreach($val in $XMLReader.Machine.Aliases.Alias)
@@ -58,19 +59,7 @@
 <### OBJECTS ###>
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        # if($val.HasClass -eq "true")
-        # {
-            New-Variable -Name "$($val.VarName)" -Value $val.Class -Force -Verbose;
-        # }
-        # elseif ($val.HasClass -eq "false")
-        # {
-        #     New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;
-        # }
-        # else
-        # {
-        #     Write-Warning "Variable $($val.VarName) was not created.  Please check config."
-        # }
-        
+        New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose; 
     }
 <### CLASSES ###>
     $Web = [Web]::new();

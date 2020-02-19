@@ -78,13 +78,13 @@
                 <SDSU>d5e56cab-19a1-4d1f-aabc-eec6793cf439</SDSU>
                 <Passwords>
                     <Professional>9fd118e5-c785-4b9b-a687-b06c65285e67</Professional>
-                    <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
-                </Passwords>
+                    </Passwords>
             </Emails>
             
             <!-- Categorized Links -->
             <COLLEGE>
                 <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
+                <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
             </COLLEGE>
             <LIFE>
                 <HousePortal>http://www.sbmigroup.com</HousePortal>

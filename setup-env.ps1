@@ -45,9 +45,10 @@ Push-Location $PSScriptRoot
             [xml]$xml = Get-Content .\Profile.xml;
             write-host "GitRepoDir: $($xml.Machine.GitRepoDir)";
             write-host "ConfigFile: $($xml.Machine.ConfigFile)";
-            $prompt = Read-Host -Prompt ".\Profile.xml already exists.  Do you want to remove[r] or change config[c]?";
+            $prompt = Read-Host -Prompt ".\Profile.xml already exists.  Do you want to remove[r], change config[c], or nothing[n]?";
             if($prompt -eq "r"){Remove-Item .\Profile.xml -Verbose; Make-Config;}
             elseif($prompt -eq "c"){Invoke-Expression $($x.Machine.GitRepoDir + "\change-config.ps1");}
+            elseif($prompt -eq "n"){Write-Warning "`nDoing nothing`n";}
             else{Write-Warning "`nDoing nothing`n";}
         }
         else{Make-Config;}

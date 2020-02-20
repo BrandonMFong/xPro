@@ -47,9 +47,9 @@ class Calculations
         return [Math]::Log($x)/[Math]::Log(2);
     }
 
-    [void]WaterBillSplit([Double]$TotalPayment)
+    [void]WaterBillSplit([Double]$TotalPayment, [int]$TotalHousemates=10)
     {
-        [int]$TotalHousemates = 10;
+        #[int]$TotalHousemates = 10;
         [Double]$EveryonePays = $TotalPayment/$TotalHousemates;
         [Double]$TotalPaymentExcludingUser = $TotalPayment - $EveryonePays;
 

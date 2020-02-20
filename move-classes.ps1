@@ -41,11 +41,6 @@ Push-Location $PSScriptRoot;
 
     if(!(Test-Path $destination_parent_dir))
     {
-        Write-Warning "Xampp is not downloaded on this machine or it is located somewhere different.";
-        Write-Host "Making directory but need the program to run local website.";
-        Write-Host "Download link: https://www.apachefriends.org/download.html";
-        try{write-host "Opening download link..."; chrome "https://www.apachefriends.org/download.html";}
-        catch{Write-Host "Could not open link."; Write-Host $_;}
         mkdir $destination_parent_dir;
         mkdir $destination_dir;
         Write-Host "Successfully made " $destination_dir " & " $destination_parent_dir;

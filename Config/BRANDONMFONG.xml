@@ -87,7 +87,7 @@
                 <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
             </COLLEGE>
             <LIFE>
-                <HousePortal>http://www.sbmigroup.com</HousePortal>
+                <HousePortal>https://sdsu4rent.com/tenants</HousePortal>
                 <WaterBill>https://customerportal.sandiego.gov/portal/</WaterBill>
                 <UCSDHealth>https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login</UCSDHealth>
             </LIFE>
@@ -186,6 +186,7 @@
             <CalApply>266d3c1e-de41-475b-b169-bdd5d2518440</CalApply>
             <Taxact>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Taxact>
             <ADP>53A9CF28-D09B-48F4-9BD5-DDC04E496039</ADP>
+            <HousePortal>266d3c1e-de41-475b-b169-bdd5d2518440</HousePortal>
         </Object>
 
         <!-- Classes from modules -->

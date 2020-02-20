@@ -1,4 +1,5 @@
 # A way for me to query my local db through powershell
+# TODO Maybe find a way to this for all tables in database
 class SQL 
 {
     # Object fields
@@ -29,7 +30,7 @@ class SQL
     }
 
     # Insert Data into BrandonMFong.PersonalInfo table
-    [System.Object[]]Insert_Into_PersonalInfo()
+    [System.Object[]]InsertInto_PersonalInfo()
     {
         $error.Clear();
         [string]$NewGuid = Read-Host -Prompt 'Provide new guid';
@@ -73,10 +74,24 @@ class SQL
         return $this.results;
     }
 
-    Input([string]$value) # Decodes guid 
+    [System.Object[]]InsertInto_TypeContent()
+    {
+        $error.Clear();
+        # make method to insert into type content
+        return $this.results;
+    }
+
+    InputCopy([string]$value) # Decodes guid 
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         Set-Clipboard $result.Item("Value");
+    }
+
+    [string]InputReturn([string]$value) # Decodes guid and returns the value
+    {
+        $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
+        $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        return $result.Item("Value");
     }
 }

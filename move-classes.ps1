@@ -28,14 +28,9 @@ try
 catch
 {
     Write-Warning $_;
-    Write-Warning "Variables in setup-env.ps1";
-    Write-Host "`n Exiting program...";
     exit;
 }
 ############################## I M P O R T A N T ############################################
-
-Write-Warning "It's going to ask if you want to overwrite the current: "; $site_in_destination_folder;
-Write-Warning "Just say yes to all of if you are okay with it.";
 
 Push-Location $PSScriptRoot; 
 
@@ -67,8 +62,6 @@ Push-Location $PSScriptRoot;
 
     # Copies files
     Push-Location $base_dir;
-        # This command showed me that I needed this script
-        #Copy-Item .\BrandonFongMusic\* $dir; 
 
         # Gets all the directory names in the repo
         $directory = [System.Collections.ArrayList]::new(); 

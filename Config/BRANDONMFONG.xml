@@ -65,7 +65,11 @@
             <YES>https://dualpowergeneration.sdsu.edu</YES>
             <iCloud>https://www.icloud.com/</iCloud>
             <GoogleCloud>https://cloud.google.com</GoogleCloud>
-            <Taxact>https://www.taxact.com/</Taxact>
+            <Taxact>
+                <URL>https://www.taxact.com/</URL>
+                <Username>F139B118-40C4-4293-9A60-498FEA8AE1B7</Username>
+                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
+            </Taxact>
             <StandardUserName>F139B118-40C4-4293-9A60-498FEA8AE1B7</StandardUserName>
             
             <!-- Emails -->
@@ -140,7 +144,7 @@
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>B5210A49-A02E-46F4-B7A8-56F6CF6ABC2D</Password>
                 <URL>fafsa.gov</URL>
-                <SaveKey>A0C0B4CB-DE84-4009-B116-EBFCFC06577E</SaveKey>
+                <SaveKey>447EE987-D08E-4B16-91D1-024A4C7ABBF5</SaveKey>
             </FAFSA>
         </Object>
 

@@ -12,7 +12,7 @@ foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 	}
 	
 }
-if(!($ProcessExecuted)) # why does this happen when there is an alias?
+if(!($ProcessExecuted))
 {
 	throw "Parameter '$($dir)' does match any aliases in the configuration.  Please check spelling.";
 }

@@ -12,9 +12,8 @@
 		if(((Get-Date).Day -eq 1)) {Time -Archive; Time -Login;}
 		Outlook;
 		Tix; # The ticket app 
-		# Chrome TODO figure this out
-			# if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
-			# else {BankUrl;}
+		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
+		else {BankUrl;}
 		Spotify;
 		goto main;
 	}

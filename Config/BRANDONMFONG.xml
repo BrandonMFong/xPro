@@ -217,7 +217,7 @@
     <Aliases>
         <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>
         <Alias Name="VS">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Alias>
-        <Alias Name="Chrome">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Alias>
+        <!-- <Alias Name="Chrome">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Alias> -->
         <Alias Name="Matlab">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Alias>
         <Alias Name="Word">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Alias>
         <Alias Name="Outlook">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Alias>
@@ -260,6 +260,7 @@
         <Function Name="Modify-Modules">\Functions\MODIFYMODULE.PS1</Function>
         <Function Name="IsPrime">\Functions\ISPRIME.PS1</Function>
         <Function Name="cl">\Functions\ClearAndList.PS1</Function>
+        <Function Name="Chrome">\Functions\Chrome.ps1</Function>
     </Functions>
 
 </Machine>

@@ -1,3 +1,20 @@
-# Goal is to make a function that can call the chrome.exe
-# I want to pass guids while accessing my local database to decode the guid to a url link
-# Purpose: I do not want to expose links used at work
+
+    Param([string]$URL,[string]$DecodeUrl=' ', [switch]$NewWindow)
+    Set-Alias c 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe';
+    try
+    {
+        if($DecodeUrl -ne ' ')
+        {
+            if($NewWindow){c $Decode.InputReturn($DecodeUrl) --new-window}
+            else{c $Decode.InputReturn($DecodeUrl)};
+        }
+        else
+        {
+            if($NewWindow){c $URL --new-window}
+            else{c $URL};
+        }
+    }
+    catch 
+    {
+        Write-Warning $_;
+    }

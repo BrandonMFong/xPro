@@ -3,6 +3,7 @@ archive/*
 Profile/archive/*
 VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace
+FTPFromVolta.ps1
 
 # Work
 Config/US-802262.xml

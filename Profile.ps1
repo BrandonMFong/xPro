@@ -17,30 +17,11 @@
     [XML]$XMLReader = Get-Content $ConfigFile
 
 <### CHECK UPDATES ###>
-    Write-Host "Checking updates...`n";
-    Push-Location $($PROFILE |Split-Path -Parent);
-        Get-ChildItem .\Microsoft.PowerShell_profile.ps1|
-            ForEach-Object {[datetime]$PSProfile = $_.LastWriteTime}   
+    Push-Location $x.Machine.GitRepoDir; 
+        .\update-profile.ps1;
+        .\update-classes.ps1;
     Pop-Location;
-    Push-Location $x.Machine.GitRepoDir;
-        Get-ChildItem .\Profile.ps1|
-            foreach-Object {[datetime]$GitProfile = $_.LastWriteTime}   
-    Pop-Location;
-    if($GitProfile -gt $PSProfile)
-    {
-        Write-Warning "There is an update to Powershell profile."
-        $update = Read-Host -Prompt "Want to update? (y/n)";
-        if($update -eq "y")
-        {
-            Push-Location $x.Machine.GitRepoDir; 
-                .\update-profile.ps1;
-            Pop-Location;
-        }
-    }
-    else
-    {
-        Write-Host "`nNo updates to profile`n";
-    }
+
 # TODO check for updates on the classes
     
 <### ALIASES ###> 

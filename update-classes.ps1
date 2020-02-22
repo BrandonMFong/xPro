@@ -1,6 +1,39 @@
 # update classes
 
-Push-Location $PSScriptRoot
-    # get last write time info from classes and compare it with the classes folder at the dir of profile
+$ModuleDirName = 'Classes';
+$Destination = $($PROFILE | Split-Path -Parent) + '\' + $ModuleDirName;
 
-Pop-Location
+Push-Location $PSScriptRoot;
+
+    # Gets dates from each directory 
+    Get-ChildItem *$ModuleDirName* |
+        Where-Object{$_.Mode -eq 'd-----'}|
+            ForEach-Object{$ClassesAtRepo = $_.LastWriteTime;}   
+    Get-ChildItem $($PROFILE | Split-Path -Parent) |
+        Where-Object{($_.Name -eq 'Classes') -and ($_.Mode -eq 'd-----')} |
+            ForEach-Object{$ClassesAtProfDir = $_.LastWriteTime}
+    
+    Write-Host "`nChecking for updates to classes...`n"
+    if ($ClassesAtProfDir.CompareTo($ClassesAtRepo) -lt 0)
+    {
+        Write-Warning "There is an update to classes`n";
+        $prompt = Read-Host -Prompt "Want to update? (y/n)"
+        if($prompt -eq 'y')
+        {   
+            # Archives all modules and removes when it overflows
+            Push-Location $($($PROFILE | Split-Path -Parent) + '\' + $ModuleDirName)
+                if($(Get-ChildItem .\archive).count -gt 0) {Remove-Item .\archive\*.*;}
+                Archive; # Must have Archive configured
+            Pop-Location
+
+            # Copies updated modules to destination
+            Push-Location $ModuleDirName;
+                Get-ChildItem |
+                    ForEach-Object{Copy-Item $_ $Destination;}
+            Pop-Location
+        }
+        else{Write-Host "`nNot updating.`n";}
+    }
+    else{Write-Host "`nNo updates.`n";}
+    Start-Sleep 1;
+Pop-Location;

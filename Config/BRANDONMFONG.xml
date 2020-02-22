@@ -245,6 +245,7 @@
         <Alias Name="X-Win">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Alias>
         <Alias Name="Xming">C:\Program Files (x86)\Xming\Xming.exe</Alias>
         <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
+        <Alias Name="SDFormatter">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Alias>
     </Aliases>
 
     <!-- User Define Functions --> 

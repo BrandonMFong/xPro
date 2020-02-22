@@ -3,7 +3,8 @@ Param
 (
     [string]$ConfigName=$env:COMPUTERNAME, 
     [bool]$XmlOverride=$false, 
-    [bool]$ProfileOverride=$false
+    [bool]$ProfileOverride=$false,
+    [bool]$ClassOverride=$false
 )
 
 function Make-Config
@@ -66,5 +67,7 @@ Push-Location $PSScriptRoot
             else{Write-Warning "`nDoing nothing`n";}
         }
         else{Make-Profile;}
+
+        # Classes
     Pop-Location
 Pop-Location

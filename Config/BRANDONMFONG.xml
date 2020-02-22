@@ -45,19 +45,14 @@
     <Objects>
         <!-- Links & Credentials -->
         <Object HasClass="false" VarName="User">
+
+            <StandardUserName>F139B118-40C4-4293-9A60-498FEA8AE1B7</StandardUserName>
+
             <!-- Frequently Used Links -->
             <Gmail>https://mail.google.com/mail</Gmail>
             <Netflix>https://Netflix.com</Netflix>
             <Youtube>https://Youtube.com</Youtube>
             <Facebook>https://facebook.com</Facebook>
-            <LinkedIn>
-                <URL>https://www.linkedin.com/nhome/</URL>
-                <Profile>https://www.linkedin.com/in/brandonmfong/</Profile>
-            </LinkedIn>
-            <GitHub>
-                <URL>https://github.com/BrandonMFong</URL>
-                <Profile>https://github.com/BrandonMFong</Profile>
-            </GitHub>
             <GoogleDrive>https://drive.google.com/drive/u/0/my-drive</GoogleDrive>
             <DisneyPlus>https://www.disneyplus.com</DisneyPlus>
             <Hulu>https://www.hulu.com</Hulu>
@@ -65,12 +60,7 @@
             <YES>https://dualpowergeneration.sdsu.edu</YES>
             <iCloud>https://www.icloud.com/</iCloud>
             <GoogleCloud>https://cloud.google.com</GoogleCloud>
-            <Taxact>
-                <URL>https://www.taxact.com/</URL>
-                <Username>F139B118-40C4-4293-9A60-498FEA8AE1B7</Username>
-                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
-            </Taxact>
-            <StandardUserName>F139B118-40C4-4293-9A60-498FEA8AE1B7</StandardUserName>
+            <VNC>https://www.realvnc.com/en/</VNC>
             
             <!-- Emails -->
             <Emails>
@@ -82,7 +72,7 @@
                 <SDSU>d5e56cab-19a1-4d1f-aabc-eec6793cf439</SDSU>
                 <Passwords>
                     <Professional>9fd118e5-c785-4b9b-a687-b06c65285e67</Professional>
-                    </Passwords>
+                </Passwords>
             </Emails>
             
             <!-- Categorized Links -->
@@ -146,6 +136,19 @@
                 <URL>fafsa.gov</URL>
                 <SaveKey>447EE987-D08E-4B16-91D1-024A4C7ABBF5</SaveKey>
             </FAFSA>
+            <Taxact>
+                <URL>https://www.taxact.com/</URL>
+                <Username>F139B118-40C4-4293-9A60-498FEA8AE1B7</Username>
+                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
+            </Taxact>
+            <LinkedIn>
+                <URL>https://www.linkedin.com/nhome/</URL>
+                <Profile>https://www.linkedin.com/in/brandonmfong/</Profile>
+            </LinkedIn>
+            <GitHub>
+                <URL>https://github.com/BrandonMFong</URL>
+                <Profile>https://github.com/BrandonMFong</Profile>
+            </GitHub>
         </Object>
 
         <!-- Databases -->
@@ -191,6 +194,7 @@
             <Taxact>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Taxact>
             <ADP>53A9CF28-D09B-48F4-9BD5-DDC04E496039</ADP>
             <HousePortal>266d3c1e-de41-475b-b169-bdd5d2518440</HousePortal>
+            <VNC>266D3C1E-DE41-475B-B169-BDD5D2518440</VNC>
         </Object>
 
         <!-- Classes from modules -->

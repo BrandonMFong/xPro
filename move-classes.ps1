@@ -17,13 +17,7 @@ try
     $PSScriptRoot| Split-Path -Parent | Split-Path -Parent | ForEach-Object{ $base_dir = $_ + '\'}; # file path before the public_html directory
     $replace = $base_dir -replace '\\', '\\'; # file path before the public_html directory
     $PSScriptRoot| Split-Path -Parent | ForEach-Object{ $git_repo_dir = $_ + '\'}; # entire path to public_html
-    $site_in_destination_folder = $destination_dir + $repo_name; # This is where the current public_html is at in the htdocs
-    $log = $git_repo_dir + "logs\"; # making log dir
-    $logfile = $log + "debug.log"; # debug log, TODO add some content
-    $local_flag = $log + ".is_local"; # flag to tell site that we are doing some things locally
-    if (!(Test-Path $log)){mkdir $log;}
-    if (!(Test-Path $logfile)){New-Item $logfile;} # Creates a log file, might not use
-    if (!(Test-Path $local_flag)){New-Item $local_flag;} # Creates a local flag to tell php we are running locally.  IE never run this on the server. This script is only for local testing
+    $site_in_destination_folder = $destination_dir + $repo_name; 
 }
 catch
 {
@@ -112,7 +106,7 @@ Push-Location $PSScriptRoot;
                 Write-Error $_;
                 Write-Host "Exiting program...";
                 exit;
-            }
+            } 
         }
         Write-Host "Appending and making directory successful";
 
@@ -135,8 +129,6 @@ Push-Location $PSScriptRoot;
         {
             for($d = 0; $d -lt $directory.Count; $d++)
             {
-                # if the folder in your current directory matches the folder for xampp/htdocs
-                # copy all the files in the that directory to the directory iin xampp/htdocs
                 if($files_base_dir[$k] -eq $base_directory[$d]) 
                 {
                     Copy-Item $files[$k] $destination[$d];
@@ -144,28 +136,6 @@ Push-Location $PSScriptRoot;
                 }
                 Write-Progress -Activity 'Copying Files' -Status 'Progress:' -PercentComplete $d; 
             }
-        }
-
-        Write-Progress -Activity 'Success.  Finishing final steps.';
-        Write-Host "`nSuccessfully copied files`n";
-        
-        Write-Host "Copied Items from " $repo_name " to " $destination_dir;
-        Write-Host "`nOpening browser @ localhost in 3 seconds...";
-        Start-Sleep -s 3;
-
-        # Start Site
-        try 
-        {
-            #xampp; # Openning xampp to start the localhost server
-            chrome "localhost"; # Opening chrome to see the site
-        }
-        catch
-        {
-            Write-Host "Something went wrong.";
-            Write-Host "Alias probably doesn't exist";
-            Write-Error $_;
-            Write-Host "Exiting program.";
-            exit;
         }
     Pop-Location;
 Pop-Location;

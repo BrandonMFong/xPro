@@ -13,10 +13,15 @@ Push-Location $PSScriptRoot;
         Where-Object{($_.Name -eq 'Classes') -and ($_.Mode -eq 'd-----')} |
             ForEach-Object{$ClassesAtProfDir = $_.LastWriteTime}
     
-    Write-Host "`nChecking for updates to classes...`n"
+    while($j -lt 3)
+    {
+        Write-Host -NoNewline "`nChecking for updates to classes" -ForegroundColor Red;
+        for($i=0;$i -lt 3;$i++){Write-Host -NoNewline ".";}
+    }
+    
     if ($ClassesAtProfDir.CompareTo($ClassesAtRepo) -lt 0)
     {
-        Write-Warning "There is an update to classes`n";
+        Write-Host "There is an update to classes`n" -ForegroundColor Red;
         $prompt = Read-Host -Prompt "Want to update? (y/n)"
         if($prompt -eq 'y')
         {   
@@ -32,8 +37,8 @@ Push-Location $PSScriptRoot;
                     ForEach-Object{Copy-Item $_ $Destination;}
             Pop-Location
         }
-        else{Write-Host "`nNot updating.`n";}
+        else{Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow;}
     }
-    else{Write-Host "`nNo updates.`n";}
+    else{Write-Host "`nNo updates.`n" -ForegroundColor Green;}
     Start-Sleep 1;
 Pop-Location;

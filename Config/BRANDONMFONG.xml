@@ -159,7 +159,10 @@
             <RaspberryPi>
                 <Username>DBC145DB-759B-4B55-A669-1D60B9FA3E0B</Username>
                 <Password>266D3C1E-DE41-475B-B169-BDD5D2518440</Password>
-                <IPAddress>148498AB-B315-4379-BE92-A20CC4FCC29D</IPAddress>
+                <IPAddress>
+                    <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
+                    <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
+                </IPAddress>
             </RaspberryPi>
         </Object>
 

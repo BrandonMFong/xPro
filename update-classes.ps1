@@ -13,11 +13,7 @@ Push-Location $PSScriptRoot;
         Where-Object{($_.Name -eq 'Classes') -and ($_.Mode -eq 'd-----')} |
             ForEach-Object{$ClassesAtProfDir = $_.LastWriteTime}
     
-    while($j -lt 3)
-    {
-        Write-Host -NoNewline "`nChecking for updates to classes" -ForegroundColor Red;
-        for($i=0;$i -lt 3;$i++){Write-Host -NoNewline ".";}
-    }
+    Write-Host -NoNewline "`nChecking for updates to classes" -ForegroundColor Red;
     
     if ($ClassesAtProfDir.CompareTo($ClassesAtRepo) -lt 0)
     {

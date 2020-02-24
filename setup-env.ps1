@@ -2,12 +2,13 @@
 Param
 (
     [string]$ConfigName=$env:COMPUTERNAME, 
-    [bool]$XmlOverride=$false, 
+    [bool]$ProfConfigOverride=$false, 
+    [bool]$GitConfigOverride=$false, 
     [bool]$ProfileOverride=$false,
     [bool]$ClassOverride=$false
 )
 
-function Make-Config
+function Make-Config-At-Profile-Dir
 {
     $XmlContent = 
         "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n"+
@@ -20,6 +21,11 @@ function Make-Config
         # TODO figure out how to add content view xml methods
 }
 
+function Make-Config-At-Git-Dir
+{
+    
+}
+
 function Make-Profile
 {
     if (!(Test-Path $($PROFILE | Split-Path -Parent)))
@@ -30,16 +36,22 @@ function Make-Profile
     Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
 }
 
+function Make-Classes
+{
+
+}
+
 Push-Location $PSScriptRoot
     $GitRepoDir = (Get-Location).Path;
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
     Push-Location $($PROFILE |Split-Path -Parent);
 
-        # Config
-        if($XmlOverride)
+        # Config at Profile Dir
+        if($ProfConfigOverride)
         {
             Remove-Item .\Profile.xml -Verbose;
-            Make-Config;
+            Make-Config-At-Profile-Dir;
+            exit;
         }    
         elseif((Test-Path .\Profile.xml) -and !($Override))
         {
@@ -54,11 +66,19 @@ Push-Location $PSScriptRoot
         }
         else{Make-Config;}
 
+        # Config at Git Dir
+        if($GitConfigOverride)
+        {
+            # Should be passed from script
+            exit;
+        }
+
         # Profile
         if($ProfileOverride)
         {
             Remove-Item .\Microsoft.PowerShell_profile.ps1 -Verbose;
             Make-Profile;
+            exit;
         }
         elseif(Test-Path .\Microsoft.PowerShell_profile.ps1)
         {
@@ -69,5 +89,10 @@ Push-Location $PSScriptRoot
         else{Make-Profile;}
 
         # Classes
+        if($ClassOverride)
+        {
+            # Should be passed from script
+            exit;
+        }
     Pop-Location
 Pop-Location

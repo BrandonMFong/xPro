@@ -51,3 +51,4 @@
 
 <### START ###>
     Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)
+    # Invoke-Expression $($x.Machine.GitRepoDir + "\StartScripts\$($env:COMPUTERNAME).ps1"); # Is this a good idea to have?

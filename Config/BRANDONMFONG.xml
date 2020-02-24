@@ -98,6 +98,9 @@
                 <Password>960f933f-937f-409e-a9fa-f00d97586fcd</Password>
                 <SSH_PW>266d3c1e-de41-475b-b169-bdd5d2518440</SSH_PW>
             </cPanel>
+            <cPanelForEarthWindFire>
+                <KeyPW>67CBF9DB-072A-4730-9681-3F5758213C1D</KeyPW>
+            </cPanelForEarthWindFire>
             <Hostinger>
                 <URL>https://www.hostinger.com/cpanel-login</URL>
                 <DatabaseURL>https://auth-db221.hostinger.com/</DatabaseURL>

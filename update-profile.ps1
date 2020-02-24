@@ -1,6 +1,6 @@
 Param([bool]$ProfileOverride=$true)
 
-    Write-Warning "`nChecking updates...`n";
+
     Push-Location $($PROFILE |Split-Path -Parent);
         Get-ChildItem .\Microsoft.PowerShell_profile.ps1|
             ForEach-Object {[datetime]$PSProfile = $_.LastWriteTime}   
@@ -10,6 +10,8 @@ Param([bool]$ProfileOverride=$true)
         Get-ChildItem .\Profile.ps1|
             foreach-Object {[datetime]$GitProfile = $_.LastWriteTime}   
     Pop-Location;
+
+    Write-Host -NoNewline "`nChecking for updates to profile`n" -ForegroundColor Red;
     if($GitProfile -gt $PSProfile)
     {
         Write-Host  "There is an update to Powershell profile." -ForegroundColor Red

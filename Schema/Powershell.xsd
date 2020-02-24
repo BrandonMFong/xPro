@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+    <xs:element name="StartScript" minOccurs="1"/>
+    
     <xs:element name="Directories" maxOccurs="1">
         <xs:documentation>
             Parameters that are used in Goto.ps1 function

@@ -27,6 +27,10 @@
 <### ALIASES ###> 
     foreach($val in $XMLReader.Machine.Aliases.Alias)
     {
+        if(!(test-path $val.InnerXML))
+        {
+            Write-Error "$($val.InnerXML) does not exist.  Check config";
+        }
         Set-Alias $val.Name "$($val.InnerXML)" -Verbose;
     }
 
@@ -34,6 +38,10 @@
     foreach($val in $XMLReader.Machine.Functions.Function)
     {
         $FunctionPath = $x.Machine.GitRepoDir + $val.InnerXML;
+        if(!(test-path $val.InnerXML))
+        {
+            Write-Error "$($FunctionPath) does not exist.  Check config";
+        }
         Set-Alias $val.Name "$($FunctionPath)" -Verbose;
     }
     

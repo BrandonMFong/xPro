@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 <xs:element name="Machine">
-    <xs:attribute name="MachineName" minOccurs="1"/>
+    <xs:attribute name="MachineName"/>
     <xs:element name="StartScript" minOccurs="1"/>
     
     <xs:element name="Directories" maxOccurs="1">
@@ -19,13 +19,13 @@
 
     <xs:element name="Objects" maxOccurs="1">
         <xs:documentation>
-            Objects that you use on command line.
+            Objects that you use on command line
         </xs:documentation>
         <xs:element name="Object" type="xs:string" minOccurs="1">
             <xs:attribute name="HasClass" type="xs:boolean"/>
             <xs:attribute name="VarName" type="xs:string"/>
             <xs:documentation>
-                Everything below will be referenced on the command line with the dot product.
+                Everything below will be referenced on the command line with the dot product
             </xs:documentation>
         </xs:element>
     </xs:element>

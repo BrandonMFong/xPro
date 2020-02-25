@@ -112,9 +112,9 @@
                 <URL>https://www.chase.com/</URL>
                 <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
             </Chase>
-            <Volta><!-- Also Jason for CompE 560 -->
+            <Volta><!-- Also Jason for CompE 560 and EE600 -->
                 <Username>cde45e8a-0092-42b7-8ba9-1c5bee095b76</Username>
-                <URL></URL>
+                <Hostname>5455A66C-D261-4C06-80D9-0A257B8C4863</Hostname>
                 <Password>d0a14271-0d83-42f9-98f1-5a90f4c3816a</Password>
             </Volta>
             <Riverbed>

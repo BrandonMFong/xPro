@@ -18,7 +18,7 @@
 
 <### CHECK UPDATES ###>
     Push-Location $x.Machine.GitRepoDir; 
-        .\update-profile.ps1;
+        if(.\update-profile.ps1){.$PROFILE;exit;}
         .\update-classes.ps1;
     Pop-Location;
 
@@ -27,23 +27,12 @@
 <### ALIASES ###> 
     foreach($val in $XMLReader.Machine.Aliases.Alias)
     {
-        if(!(test-path $val.InnerXML))
-        {
-            Write-Error "$($val.InnerXML) does not exist.  Check config";
-        }
         Set-Alias $val.Name "$($val.InnerXML)" -Verbose;
     }
 
 <### FUNCTIONS ###> 
     foreach($val in $XMLReader.Machine.Functions.Function)
-    {
-        $FunctionPath = $x.Machine.GitRepoDir + $val.InnerXML;
-        if(!(test-path $val.InnerXML))
-        {
-            Write-Error "$($FunctionPath) does not exist.  Check config";
-        }
-        Set-Alias $val.Name "$($FunctionPath)" -Verbose;
-    }
+    {Set-Alias $val.Name "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
     
 <### OBJECTS ###>
     foreach($val in $XMLReader.Machine.Objects.Object)

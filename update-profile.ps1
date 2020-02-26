@@ -15,7 +15,7 @@ Push-Location $PSScriptRoot
     Pop-Location;
 
     Write-Host -NoNewline "`nChecking for updates to profile`n" -ForegroundColor Red;
-    
+
     if($GitProfile -gt $PSProfile)
     {
         Write-Host  "There is an update to Powershell profile." -ForegroundColor Red
@@ -27,12 +27,15 @@ Push-Location $PSScriptRoot
                 Copy-Item $ProfPath . -Verbose;
                 Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
             Pop-Location;
+            
+            return 1;
         }
-        else{Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow;}
+        else{Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow; }
     }
     else
     {
-        Write-Host "`nNo updates to profile`n" -ForegroundColor Green;
+        Write-Host "`nNo updates to profile`n" -ForegroundColor Green; 
     }
     Start-Sleep 1;
 Pop-Location
+return 0;

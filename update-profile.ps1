@@ -1,6 +1,9 @@
 Param([bool]$ProfileOverride=$true)
 
 
+Push-Location $PSScriptRoot
+    Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
+
     Push-Location $($PROFILE |Split-Path -Parent);
         Get-ChildItem .\Microsoft.PowerShell_profile.ps1|
             ForEach-Object {[datetime]$PSProfile = $_.LastWriteTime}   
@@ -12,17 +15,18 @@ Param([bool]$ProfileOverride=$true)
     Pop-Location;
 
     Write-Host -NoNewline "`nChecking for updates to profile`n" -ForegroundColor Red;
+    
     if($GitProfile -gt $PSProfile)
     {
         Write-Host  "There is an update to Powershell profile." -ForegroundColor Red
         $update = Read-Host -Prompt "Want to update? (y/n)";
         if($update -eq "y")
         {
-            Write-Warning "Running setup-env.ps1 in 3 seconds..."; # gives me a chance to stop
-            Start-Sleep(3);
-            Push-Location $PSScriptRoot
-                .\setup-env.ps1 -ProfileOverride $ProfileOverride 
-            Pop-Location
+            Push-Location $($PROFILE |Split-Path -Parent);
+                Remove-Item .\Microsoft.PowerShell_profile.ps1 -Verbose; 
+                Copy-Item $ProfPath . -Verbose;
+                Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
+            Pop-Location;
         }
         else{Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow;}
     }
@@ -30,4 +34,5 @@ Param([bool]$ProfileOverride=$true)
     {
         Write-Host "`nNo updates to profile`n" -ForegroundColor Green;
     }
-Start-Sleep 1;
+    Start-Sleep 1;
+Pop-Location

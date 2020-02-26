@@ -43,6 +43,7 @@
         <Directory alias='one'>~\OneDrive</Directory>
         <Directory alias='c'>C:\</Directory>
         <Directory alias='cmain'>C:\Users\bfwan\Brandon.Fong\</Directory>
+        <Directory alias='pf'>B:\PROGRAMFILES</Directory>
     </Directories>
 
     <!-- Objects User uses while on the command line -->
@@ -262,6 +263,7 @@
         <Alias Name="Xming">C:\Program Files (x86)\Xming\Xming.exe</Alias>
         <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
         <Alias Name="SDFormatter">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Alias>
+        <Alias Name="GuiFormat">B:\PROGRAMFILES\guiformat-x64.Exe</Alias>
     </Aliases>
 
     <!-- User Define Functions --> 

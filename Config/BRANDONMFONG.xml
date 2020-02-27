@@ -178,6 +178,13 @@
             </Database>
         </Object>
         
+        <!-- Senior design links -->
+        <Object HasClass="false" VarName="SeniorDesignYes">
+            <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/ref=sr_1_4?keywords=infrared+tracking+sensor&qid=1582687341&sr=8-4'</InfraredTracker>
+            <RpiGPIO>https://www.raspberrypi.org/documentation/usage/gpio/</RpiGPIO>
+            <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+        </Object>
+
         <!-- Passwords -->
         <Object HasClass="false" VarName="Passwords">
             <Default>266d3c1e-de41-475b-b169-bdd5d2518440</Default>

@@ -12,6 +12,16 @@ Push-Location $PSScriptRoot
     $ConfigIndex = Read-Host -Prompt "Number";
     $ForConfig[$ConfigIndex-1];
 
-    .\setup-env.ps1 -ConfigName $ForConfig[$ConfigIndex-1] -XmlOverride $true;
+    # .\setup-env.ps1 -ConfigName $ForConfig[$ConfigIndex-1] -XmlOverride $true;
+    Push-Location $($PROFILE |Split-Path -Parent);
+        Remove-Item .\Profile.xml -Verbose;
+        $XmlContent = 
+            "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n"+
+            "   <Machine MachineName=`"$($env:COMPUTERNAME)`">`n"+
+            "       <GitRepoDir>$($GitRepoDir)</GitRepoDir>`n"+
+            "       <ConfigFile>$($ForConfig[$ConfigIndex-1]).xml</ConfigFile>`n"+
+            "   </Machine>";
+        New-Item Profile.xml -Value $XmlContent -Verbose;
+    Pop-Location
 
 Pop-Location

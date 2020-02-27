@@ -1,6 +1,2 @@
 Param([int]$j)
-    while($j -gt 0)
-    {
-        cd ..
-        $j = $j - 1
-    }
+while($j -gt 0){Set-Locatioin ..;$j = $j - 1}

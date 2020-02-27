@@ -57,4 +57,16 @@ class Calculations
         Write-Host "Everyone pays: $($EveryonePays)";
         Write-Host "Your venmo total charge (excluding you) will look like: $($TotalPaymentExcludingUser)";
     }
+
+    [void]IsPrime([int]$num)
+    {
+        $composite_flag = $False;
+        for($i = 2; $i -lt $num; $i++)
+        {
+            if(($num % $i) -eq 0){$composite_flag = $True}
+        }
+
+        if($composite_flag){Write-Host "$i is composite"}
+        else {Write-Host "$i is prime"}
+    }
 }

@@ -10,17 +10,17 @@
 		if(!(Test-Path .\TimeStamp.csv)){ni TimeStamp.csv}
 		if($Login)
 			{
-				$i = date 
+				$i = Get-Date 
 				Add-Content C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User\TimeStamp.csv "Login, $i"
 			}
 		if($Logout)
 			{
-				$i = date 
+				$i = Get-Date 
 				Add-Content C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User\TimeStamp.csv "LogOut, $i"
 			}
 		if($View)
 			{
-				cat C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User\TimeStamp.csv
+				Get-Content C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User\TimeStamp.csv
 			}
 		if($Clear) # Only call this from within the script
 			{

@@ -10,6 +10,7 @@
 	if($start -eq "1")
 	{
 		if(((Get-Date).Day -eq 1)) {Time -Archive; Time -Login;}
+		Time -Login;
 		Outlook;
 		Tix; # The ticket app 
 		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}

@@ -3,14 +3,16 @@
 $ModuleDirName = 'Classes';
 $Destination = $($PROFILE | Split-Path -Parent) + '\' + $ModuleDirName;
 
+$ArchiveScriptPath = $PSScriptRoot + '\Functions\ARCHIVE.ps1'
+Set-Alias 'Archive-Files' $ArchiveScriptPath;
+
 Push-Location $PSScriptRoot;
-    $ArchiveScriptPath = $PSScriptRoot + '\Functions\ARCHIVE.ps1'
-    Set-Alias 'Archive-Files' $ArchiveScriptPath;
 
     # Gets dates from each directory 
     Get-ChildItem *$ModuleDirName* |
         Where-Object{$_.Mode -eq 'd-----'}|
-            ForEach-Object{$ClassesAtRepo = $_.LastWriteTime;}   
+            ForEach-Object{$ClassesAtRepo = $_.LastWriteTime;} 
+              
     Get-ChildItem $($PROFILE | Split-Path -Parent) |
         Where-Object{($_.Name -eq 'Classes') -and ($_.Mode -eq 'd-----')} |
             ForEach-Object{$ClassesAtProfDir = $_.LastWriteTime}

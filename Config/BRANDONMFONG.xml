@@ -167,6 +167,25 @@
             </RaspberryPi>
         </Object>
 
+        <!-- Raspberry Pi info -->
+        <Object HasClass="false" VarName="RPi">
+            <Kojami>
+                <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
+                <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
+                <IPAddress>
+                    <Mesita>0C4ABD60-0A93-496C-B23B-895061980580</Mesita>
+                </IPAddress>
+            </Kojami>
+                <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
+                <IPAddress>
+                    <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
+                    <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
+                </IPAddress>
+            <Nokita>
+            
+            </Nokita>
+        </Object>
+
         <!-- Databases -->
         <Object HasClass="false" VarName="Database">
             <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
@@ -219,7 +238,6 @@
             <HousePortal>266d3c1e-de41-475b-b169-bdd5d2518440</HousePortal>
             <VNC>266D3C1E-DE41-475B-B169-BDD5D2518440</VNC>
             <WinIOTCore>266D3C1E-DE41-475B-B169-BDD5D2518440</WinIOTCore>
-            <RaspberryPi>266D3C1E-DE41-475B-B169-BDD5D2518440</RaspberryPi>
         </Object>
 
         <!-- Classes from modules -->

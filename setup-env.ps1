@@ -4,8 +4,7 @@ Param
     [string]$ConfigName=$env:COMPUTERNAME, 
     [bool]$ProfConfigOverride=$false, 
     [bool]$GitConfigOverride=$false, 
-    [bool]$ProfileOverride=$false,
-    [bool]$ClassOverride=$false
+    [bool]$ProfileOverride=$false
 )
 
 function Make-Config-At-Profile-Dir
@@ -36,10 +35,6 @@ function Make-Profile
     Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
 }
 
-function Make-Classes
-{
-
-}
 
 Push-Location $PSScriptRoot
     $GitRepoDir = (Get-Location).Path;
@@ -87,12 +82,6 @@ Push-Location $PSScriptRoot
             else{Write-Warning "`nDoing nothing`n";}
         }
         else{Make-Profile;}
-
-        # Classes
-        if($ClassOverride)
-        {
-            # Should be passed from script
-            exit;
-        }
+        
     Pop-Location
 Pop-Location

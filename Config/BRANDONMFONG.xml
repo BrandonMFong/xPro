@@ -5,6 +5,7 @@
     xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
 
     <StartScript>\StartScripts\BRANDONMFONG.ps1</StartScript>
+    <GitRepo>B:\Powershell</GitRepo>
     <!-- Directory paths -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
@@ -241,19 +242,27 @@
             <WinIOTCore>266D3C1E-DE41-475B-B169-BDD5D2518440</WinIOTCore>
         </Object>
 
-        <!-- Classes from modules -->
-        <!-- <Object HasClass="true" VarName="Web">
-            <Class>[Web]::new();</Class>
+        <!-- Classes-->
+        <Object HasClass="true" VarName="Web">
+            <Class ClassName="Web" HasParams="false"/>
         </Object>
         <Object HasClass="true" VarName="Math">
-            <Class>[Calculations]::new();</Class>
+            <Class ClassName="Calculations" HasParams="false"/>
         </Object>
+        <!-- $Database.Database.DatabaseName, $Database.ServerInstance, $Database.Database.Tables -->
         <Object HasClass="true" VarName="Decode">
-            <Class>[SQL]::new($Database.Database.DatabaseName, $Database.ServerInstance, $Database.Database.Tables);</Class>
+            <Class Classname="SQL" HasParams="true">
+                <Database>BrandonMFong</Database>
+                <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+                <Tables>
+                    <PersonalInfo>PersonalInfo</PersonalInfo>
+                    <TypeContent>TypeContent</TypeContent>
+                </Tables>
+            </Class>
         </Object>
         <Object HasClass="true" VarName="Windows">
-            <Class>[Windows]::new();</Class>
-        </Object> -->
+            <Class ClassName="Windows" HasParams="false"/>
+        </Object>
     </Objects>
 
     <!-- Aliases to call Third Party exectuables, scripts, etc -->

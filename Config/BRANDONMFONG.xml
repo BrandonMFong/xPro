@@ -157,14 +157,11 @@
                 <URL>https://github.com/BrandonMFong</URL>
                 <Profile>https://github.com/BrandonMFong</Profile>
             </GitHub>
-            <RaspberryPi>
-                <Username>DBC145DB-759B-4B55-A669-1D60B9FA3E0B</Username>
-                <Password>266D3C1E-DE41-475B-B169-BDD5D2518440</Password>
-                <IPAddress Name="Nokita">
-                    <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
-                    <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
-                </IPAddress>
-            </RaspberryPi>
+            <NoIP>
+                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </NoIP>
+
         </Object>
 
         <!-- Raspberry Pi info -->
@@ -175,6 +172,7 @@
                 <IPAddress>
                     <Mesita>0C4ABD60-0A93-496C-B23B-895061980580</Mesita>
                 </IPAddress>
+                <superuserpassword>D70988C1-759B-40BB-B9E1-A851295FEEE7</superuserpassword>
             </Kojami>
                 <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
                 <IPAddress>
@@ -202,6 +200,9 @@
             <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
             <RpiGPIO>https://www.raspberrypi.org/documentation/usage/gpio/</RpiGPIO>
             <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+            <!-- This is the link for the steps to create a django site -->
+            <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
+            <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
         </Object>
 
         <!-- Passwords -->

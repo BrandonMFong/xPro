@@ -1,5 +1,5 @@
 # A way for me to query my local db through powershell
-# TODO Maybe find a way to this for all tables in database
+
 class SQL 
 {
     # Object fields
@@ -7,10 +7,6 @@ class SQL
     [string]$database;
     [System.Object[]]$results;
     [System.Object[]]$tables;
-    hidden [System.Object[]] $ErrorMessage =
-    @{
-        InvokeSqlcmd = "Something went wrong with Invoke-Sqlcmd";
-    }
 
     # Constructor
     SQL([string]$database, [string]$serverinstance, [System.Object[]] $tables)
@@ -20,8 +16,6 @@ class SQL
         $this.tables = $tables
     }
 
-    # Object method
-
     # Standard queries
     [System.Object[]]Query([string]$querystring)
     {
@@ -29,123 +23,53 @@ class SQL
         return $this.results; # display
     }
 
-    # Insert Data into BrandonMFong.PersonalInfo table
-    [System.Object[]]InsertIntoPersonalInfo()
-    {
-        $error.Clear();
-        [string]$NewGuid = Read-Host -Prompt 'Provide new guid';
-        [string]$NewValue = Read-Host -Prompt 'Provide new value that ties to the guid';
-        [string]$NewSubject = Read-Host -Prompt 'Provide Subject'
-
-        # TODO insert type content id
-        [System.Object[]]$TypeContentIDs = $this.Query('select * from TypeContent');
-        
-        foreach ($row in $TypeContentIDs)
-        {
-            Write-Host $row.ItemArray;
-        }
-
-        [System.String]$NewTypeContentIDString = Read-Host -Prompt "Choose ID";
-        [int]$NewTypeContentIDInt = ($this.Query('select ID from ' + $this.tables.TypeContent + ' where ID = ' + $NewTypeContentIDString)).ItemArray;
-        [int]$NewID = ($this.Query('select max(id)+1 from ' + $this.tables.PersonalInfo)).ItemArray;
-
-        # https://stackoverflow.com/questions/27095829/powershell-convert-value-to-type-system32-error build strings
-        [string]$querystring = "insert into $($this.tables.personalinfo.ToString()) values ( $($NewID.ToString()), "
-            + "'$($NewGuid)', '$($NewValue)', '$($NewSubject)', $($NewTypeContentIDInt.ToString()))"; # this has invalid cast from string to int
-       
-        try 
-        {
-            Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        } 
-        catch 
-        {
-            Write-Host $this.ErrorMessage.InvokeSqlcmd +"`n";
-            throw($error);
-        }
-        Finally 
-        {
-            $error.clear();
-        }
-
-        $this.results = $this.Query('select * from ' + $this.tables.PersonalInfo + ' where id = ' + $NewID);
-        
-        Write-Host "`n New data successfully inserted";
-
-        return $this.results;
-    }
-
-    [System.Object[]]InsertIntoTypeContent()
-    {
-        $error.Clear();
-        # make method to insert into type content
-        return $this.results;
-    }
-
-    InsertInto(<#[string]$table="null"#>)
+    # This function can insert into all different tables in a database
+    [System.Object[]]InsertInto()
     {
         $querystring = $null;
-        $rep = "|||";
-        # if($table -eq "null")
-        # {
-            [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
-    
-            Write-Host "Which Table are you inserting into?" -ForegroundColor Green;
-            $i = 1;
-            foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
-            $index = Read-Host -Prompt "So?";
 
-            $table = $tablestochoosefrom[$index - 1].ItemArray;
-        # }
+        [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
+
+        Write-Host "`nWhich Table are you inserting into?" -ForegroundColor Read -BackgroundColor Yellow;
+        $i = 1;
+        foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
+        $index = Read-Host -Prompt "So?";
+
+        $table = $tablestochoosefrom[$index - 1].ItemArray;
         $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
 
-        Write-Warning "`nThe new id should be: $($NewIDShouldBe.ItemArray)`n";
+        Write-Warning "The new id should be: $($NewIDShouldBe.ItemArray)`n`n";
 
 
         $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
 
+        # Prompt user what values they want to insert per column
         foreach($val in $values)
         {
             Write-Warning "For $($val.COLUMN_NAME)";
             $val.Value = Read-Host -Prompt "Value?";
         }
 
-        #Make query string
-        $querystring = "insert into $($table) values ($($rep)";
+        $this.QueryConstructor("Insert", [ref]$querystring, $table, $values);
 
-        # add to query string
-        foreach($val in $values)
-        {
-            $querystring = $querystring.Replace("$($rep)", ", ");
-            $querystring += $this.SQLConvert($val) + "$($rep)";
-        }
+        Write-Host "Query: $($querystring)"
 
-        $querystring = $querystring.Replace("$($rep)", ")");
-        $querystring = $querystring.Replace("(,", "(");
-        Write-Host "$($querystring)"
-        try
-        {
-            # Invoke-Sqlcmd : Conversion failed when converting from a character string to uniqueidentifier.
-            # At B:\Powershell\Classes\SQL.psm1:128 char:13
-            # +             Invoke-Sqlcmd -Query $querystring -ServerInstance $this.s ...
-            # +             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            # + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExecutionException
-            # + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScriptCommand
-            Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        }
+        try{Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;}
         catch
         {
             Write-Warning "$($_)";
-            return;
+            break;
         }
 
-        Write-Host "New Data" -ForegroundColor Green;
+        Write-Host "`nNew Data inserted successfully" -ForegroundColor Green;
         $ColumnName = $values[0].COLUMN_NAME;
         $NewValueForID = $values[0].Value;
         $this.Query("select * from $($table) where $($ColumnName) = $($NewValueForID)");
+        return $this.results; # display
     }
 
-    [string]SQLConvert($val)
+    hidden [string]SQLConvert($val)
     {
         [string]$string = $null;
         switch($val.DATA_TYPE)
@@ -157,14 +81,44 @@ class SQL
         return $string;
     }
 
-    InputCopy([string]$value) # Decodes guid 
+    # Creates query string dynamically
+    hidden QueryConstructor($TypeQuery, [ref]$querystring, $table, $values)
+    {
+
+        switch($TypeQuery)
+        {
+            "Insert"
+            {
+                $rep = "|||";
+
+                # Start query string
+                $querystring.Value = "insert into $($table) values ($($rep)";
+
+                # add to query string
+                foreach($val in $values)
+                {
+                    $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+                    $querystring.Value += $this.SQLConvert($val) + "$($rep)";
+                }
+
+                $querystring.Value = $querystring.Value.Replace("$($rep)", ")");
+                $querystring.Value = $querystring.Value.Replace("(,", "(");
+                break;
+            }
+            default {throw "Not a valid query type."}
+        }
+    }
+
+    ## These are static methods ## 
+
+    InputCopy([string]$value) # Decodes guid in personalinfo table
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         Set-Clipboard $result.Item("Value");
     }
 
-    [string]InputReturn([string]$value) # Decodes guid and returns the value
+    [string]InputReturn([string]$value) # Decodes guid and returns the value from personalinfo table
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;

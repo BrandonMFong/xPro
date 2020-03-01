@@ -1,13 +1,12 @@
 Param([string]$ConfigName=$null)
 Push-Location $PSScriptRoot
     
-    $GitRepoDir = (Get-Location).Path;
     $ForPrompt = [System.Collections.ArrayList]::new(); 
     $ForConfig = [System.Collections.ArrayList]::new(); 
     $i = 1;
     Write-Host "Loading present config files on machine"
     Get-ChildItem .\Config\ |
-        Foreach-Object{$ForPrompt.Add([string]$("$i - $($_.BaseName)"));$ForConfig.Add($_.BaseName);$i++}     
+        Foreach-Object{$ForPrompt.Add([string]$("$i - $($_.BaseName)"));$ForConfig.Add($_.Name);$i++}     
     
     Write-Host "Config files to choose from:"
     $ForPrompt;
@@ -16,14 +15,11 @@ Push-Location $PSScriptRoot
 
     # .\setup-env.ps1 -ConfigName $ForConfig[$ConfigIndex-1] -XmlOverride $true;
     Push-Location $($PROFILE |Split-Path -Parent);
-        Remove-Item .\Profile.xml -Verbose;
-        $XmlContent = 
-            "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n"+
-            "   <Machine MachineName=`"$($env:COMPUTERNAME)`">`n"+
-            "       <GitRepoDir>$($GitRepoDir)</GitRepoDir>`n"+
-            "       <ConfigFile>$($ForConfig[$ConfigIndex-1]).xml</ConfigFile>`n"+
-            "   </Machine>";
-        New-Item Profile.xml -Value $XmlContent -Verbose;
+        [XML]$XmlEditor = Get-Content .\Profile.xml;
+        $Path = $null;
+        Get-ChildItem .\Profile.xml |ForEach-Object {$Path = $_.FullName;}
+        $XmlEditor.Machine.ConfigFile = $ForConfig[$ConfigIndex-1];
+        $XmlEditor.Save($Path);
     Pop-Location
 
 Pop-Location

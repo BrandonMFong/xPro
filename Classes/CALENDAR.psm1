@@ -3,12 +3,18 @@ class Calendar
 {
     # Undefined Variables
     [DateTime]$Today;
+    [DateTime]$Day;
+    [datetime]$Month;
+    [datetime]$Year;
+    [datetime]$Hour;
+    [datetime]$Minute;
+    [datetime]$Seconds;
 
-    # Constructor
-    Calendar([DateTime]$Today)
-    {
-        $this.Today = $Today;
-    }    
+    [string]$TodayString;
+    [string]$ParseExactDateStringFormat = "MMddyyyy";
+
+    [Week[]]$Weeks;
+    
 
     # Defined Variables
     $Months = 
@@ -67,46 +73,48 @@ class Calendar
         }
     }
 
+    hidden GetNow()
+    {
+        $this.Today = Get-Date;
+        $this.Day = (Get-Date).Day;
+        $this.Month = (Get-Date).Month;
+        $this.Year = (Get-Date).Year;
+        $this.Hour = (Get-Date).Hour;
+        $this.Minute = (Get-Date).Minute;
+        $this.Seconds = (Get-Date).Second;
+
+        $this.TodayString = $this.Month.ToString() + $this.Day.ToString() + $this.Year.ToString();
+    }
+
+    
+
     # Method
     [void] GetCalendarMonth() # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/format-table?view=powershell-7
     {
-        $DayValue = $this.Today.day;
-        while($DayValue -gt 1){$DayValue--;} # getting first day of month
-        $DateString = $this.Today.Month.ToString() + "/" # Getting the whole date string
-            + $DayValue + "/"
-            + $this.Today.Year.ToString();
-        $DateString = Get-Date $DateString;
-        $DayOfWeek = $DayValue.DayOfWeek;
-        switch($DayOfWeek.ToString)
-        {
-            "Monday"
-            {
-                # fill out the first week with 0's until this day specified, then increment until you hit total days of month
-            }
-            "Tuesday"
-            {
-            
-            }
-            "Wednesday"
-            {
-
-            }
-            "Thursday"
-            {   
-
-            }
-            "Friday"
-            {
-
-            }
-            "Saturday"
-            {
-
-            }
-            "Sunday"
-            {
-
-            }
-        }
+        $this.GetNow();              
     }
+
+    
+}
+class Week
+{
+    [int]$su;
+    [int]$mo;
+    [int]$tu;
+    [int]$we;
+    [int]$th;
+    [int]$fr;
+    [int]$sa;
+
+    Week($su, $mo, $tu, $we, $th, $fr, $sa)
+    {
+        $this.su = $su;
+        $this.mo = $mo;
+        $this.tu = $tu;
+        $this.we = $we;
+        $this.th = $th;
+        $this.fr = $fr;
+        $this.sa = $sa;
+    }
+
 }

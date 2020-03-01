@@ -22,11 +22,17 @@
             Objects that you use on command line
         </xs:documentation>
         <xs:element name="Object" type="xs:string" minOccurs="1">
-            <xs:attribute name="HasClass" type="xs:boolean"/>
-            <xs:attribute name="VarName" type="xs:string"/>
+            <xs:attribute name="HasClass" type="xs:boolean" minOccurs="1"/>
+                <xs:documentation>
+                    If true, it will look through the \Classes folder for classes that match
+                </xs:documentation>
+            <xs:attribute name="VarName" type="xs:string" minOccurs="1"/>
             <xs:documentation>
                 Everything below will be referenced on the command line with the dot product
             </xs:documentation>
+            <xs:element name="Class">
+                <xs:attribute name="ClassName" minOccurs="1"/>
+            </xs:element>
         </xs:element>
     </xs:element>
 

@@ -162,9 +162,15 @@
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
             </NoIP>
-
+            <CiscoPacketTracer>
+                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
+                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
+            </CiscoPacketTracer>
         </Object>
 
+        <Object HassClass="false" VarName="College">
+        
+        </Object>
         <!-- Raspberry Pi info -->
         <Object HasClass="false" VarName="RPi">
             <Kojami>
@@ -175,25 +181,13 @@
                 </IPAddress>
                 <superuserpassword>D70988C1-759B-40BB-B9E1-A851295FEEE7</superuserpassword>
             </Kojami>
+            <Nokita>
                 <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
                 <IPAddress>
                     <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
                     <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
                 </IPAddress>
-            <Nokita>
-            
             </Nokita>
-        </Object>
-
-        <!-- Databases -->
-        <Object HasClass="false" VarName="Database">
-            <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
-            <Database DatabaseName="BrandonMFong">
-                <Tables>
-                    <PersonalInfo>PersonalInfo</PersonalInfo>
-                    <TypeContent>TypeContent</TypeContent>
-                </Tables>
-            </Database>
         </Object>
         
         <!-- Senior design links -->
@@ -242,7 +236,7 @@
             <WinIOTCore>266D3C1E-DE41-475B-B169-BDD5D2518440</WinIOTCore>
         </Object>
 
-        <!-- Classes-->
+        <!-- Classes -->
         <Object HasClass="true" VarName="Web">
             <Class ClassName="Web" HasParams="false"/>
         </Object>
@@ -263,6 +257,7 @@
         <Object HasClass="true" VarName="Windows">
             <Class ClassName="Windows" HasParams="false"/>
         </Object>
+
     </Objects>
 
     <!-- Aliases to call Third Party exectuables, scripts, etc -->
@@ -299,6 +294,7 @@
         <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
         <Alias Name="SDFormatter">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Alias>
         <Alias Name="GuiFormat">B:\PROGRAMFILES\guiformat-x64.Exe</Alias>
+        <Alias Name="VNCViewer">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Alias>
     </Aliases>
 
     <!-- User Define Functions --> 

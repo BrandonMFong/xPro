@@ -30,7 +30,7 @@ class SQL
     }
 
     # Insert Data into BrandonMFong.PersonalInfo table
-    [System.Object[]]InsertInto_PersonalInfo()
+    [System.Object[]]InsertIntoPersonalInfo()
     {
         $error.Clear();
         [string]$NewGuid = Read-Host -Prompt 'Provide new guid';
@@ -74,11 +74,87 @@ class SQL
         return $this.results;
     }
 
-    [System.Object[]]InsertInto_TypeContent()
+    [System.Object[]]InsertIntoTypeContent()
     {
         $error.Clear();
         # make method to insert into type content
         return $this.results;
+    }
+
+    InsertInto(<#[string]$table="null"#>)
+    {
+        $querystring = $null;
+        $rep = "|||";
+        # if($table -eq "null")
+        # {
+            [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
+    
+            Write-Host "Which Table are you inserting into?" -ForegroundColor Green;
+            $i = 1;
+            foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
+            $index = Read-Host -Prompt "So?";
+
+            $table = $tablestochoosefrom[$index - 1].ItemArray;
+        # }
+        $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
+
+        Write-Warning "`nThe new id should be: $($NewIDShouldBe.ItemArray)`n";
+
+
+        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
+        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+
+        foreach($val in $values)
+        {
+            Write-Warning "For $($val.COLUMN_NAME)";
+            $val.Value = Read-Host -Prompt "Value?";
+        }
+
+        #Make query string
+        $querystring = "insert into $($table) values ($($rep)";
+
+        # add to query string
+        foreach($val in $values)
+        {
+            $querystring = $querystring.Replace("$($rep)", ", ");
+            $querystring += $this.SQLConvert($val) + "$($rep)";
+        }
+
+        $querystring = $querystring.Replace("$($rep)", ")");
+        $querystring = $querystring.Replace("(,", "(");
+        Write-Host "$($querystring)"
+        try
+        {
+            # Invoke-Sqlcmd : Conversion failed when converting from a character string to uniqueidentifier.
+            # At B:\Powershell\Classes\SQL.psm1:128 char:13
+            # +             Invoke-Sqlcmd -Query $querystring -ServerInstance $this.s ...
+            # +             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            # + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExecutionException
+            # + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScriptCommand
+            Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        }
+        catch
+        {
+            Write-Warning "$($_)";
+            return;
+        }
+
+        Write-Host "New Data" -ForegroundColor Green;
+        $ColumnName = $values[0].COLUMN_NAME;
+        $NewValueForID = $values[0].Value;
+        $this.Query("select * from $($table) where $($ColumnName) = $($NewValueForID)");
+    }
+
+    [string]SQLConvert($val)
+    {
+        [string]$string = $null;
+        switch($val.DATA_TYPE)
+        {
+            "int"{$string = "$($val.Value)";break;}
+            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$($val.Value)'))"}
+            default{$string = "'$($val.Value)'";break;}
+        }
+        return $string;
     }
 
     InputCopy([string]$value) # Decodes guid 

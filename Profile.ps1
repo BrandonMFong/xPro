@@ -13,7 +13,6 @@ Push-Location $x.Machine.GitRepoDir;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){.$PROFILE;exit;};
-        # .\update-classes.ps1;
 
     # TODO check for updates on the classes
         

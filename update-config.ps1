@@ -1,5 +1,7 @@
 Param([string]$ConfigName=$null)
 Push-Location $PSScriptRoot
+    
+    $GitRepoDir = (Get-Location).Path;
     $ForPrompt = [System.Collections.ArrayList]::new(); 
     $ForConfig = [System.Collections.ArrayList]::new(); 
     $i = 1;

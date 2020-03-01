@@ -13,8 +13,6 @@ Push-Location $x.Machine.GitRepoDir;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){.$PROFILE;exit;};
-
-    # TODO check for updates on the classes
         
     <### ALIASES ###> 
         foreach($val in $XMLReader.Machine.Aliases.Alias)
@@ -37,6 +35,5 @@ Push-Location $x.Machine.GitRepoDir;
 
     <### START ###>
         Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)
-        # Invoke-Expression $($x.Machine.GitRepoDir + "\StartScripts\$($env:COMPUTERNAME).ps1"); # Is this a good idea to have?
 
 Pop-Location;

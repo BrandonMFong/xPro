@@ -22,7 +22,7 @@ class Calculations
 
     [void]SwapTwoVariables($x, $y)
     {
-        $temp = $x;$x = $y;$y = $x;
+        $temp = $x;$x = $y;$y = $temp;
     }
 
     [void]SwapTwoVariablesWithoutTempVarAS($x, $y)

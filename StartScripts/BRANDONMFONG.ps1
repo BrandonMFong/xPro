@@ -8,3 +8,4 @@ Else {"Good Afternoon Brandon"}
 Write-Host ("`n$Date`n")
 $Calendar.GetCalendarMonth();
 Write-Host "`n";
+goto main;

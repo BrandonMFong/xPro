@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
 
-    <StartScript ClearHost="true">\StartScripts\BRANDONMFONG.ps1</StartScript>
+    <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
     <GitRepo>B:\Powershell</GitRepo>
 
     <!-- Directory paths -->
@@ -291,107 +291,11 @@
             <Class ClassName="Calendar" HasParams="false"/>
         </Object>
 
-        <Object HasClass="false" VarName="ToDo">
-            <Monday done="false">
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-                <CompE565 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE565>
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <CompE496B done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE496B>
-            </Monday>
-            <Tuesday done="false">
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-            </Tuesday>
-            <Wednesday done="false">
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-                <CompE565 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE565>
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <CompE496B done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE496B>
-            </Wednesday>
-            <Thursday done="false">
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-            </Thursday>
-            <Friday done="false">
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-            </Friday>
-            <Saturday done="false">
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-                <CompE565 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE565>
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <CompE496B done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE496B>
-            </Saturday>
-            <Sunday done="false">
-                <EE600 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </EE600>
-                <CompE565 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE565>
-                <CompE560 done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE560>
-                <CompE496B done="false">
-                    <Study done="false"/>
-                    <Study done="false"/>
-                </CompE496B>
-            </Sunday>
+        <!-- $Todo -->
+        <Object HasClass="true" VarName="Todo">
+            <Class ClassName="ToDoList" HasParams="true">
+                <filename>Todo.xml</filename>
+            </Class>
         </Object>
 
     </Objects>

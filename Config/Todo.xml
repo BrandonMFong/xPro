@@ -1,0 +1,106 @@
+<Todo
+    MachineName="BRANDONMFONG" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+
+    <DayOfWeek day="Monday" done="false">
+        <Item name="EE600" done="false">
+            <Item name="Study" done="true"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE565" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE496B" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Tuesday" done="false">
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Wednesday" done="false">
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE565" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE496B" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Thursday" done="false">
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Friday" done="false">
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Saturday" done="false">
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE565" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE496B" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+    <DayOfWeek day="Sunday" done="false">
+        <Item name="EE600" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE565" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE560" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+        <Item name="CompE496B" done="false">
+            <Item name="Study" done="false"/>
+            <Item name="Study" done="false"/>
+        </Item>
+    </DayOfWeek>
+</Todo>

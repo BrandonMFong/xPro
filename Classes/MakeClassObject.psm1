@@ -3,6 +3,7 @@ using module .\Math.psm1;
 using module .\SQL.psm1;
 using module .\Web.psm1;
 using module .\Windows.psm1;
+using module .\ToDoList.psm1;
 
 function MakeClass
 {
@@ -15,6 +16,7 @@ function MakeClass
         "Calculations" {$x = [Calculations]::new();return $x;}
         "SQL" {$x = [SQL]::new($val.Class.Database, $val.Class.ServerInstance, $val.Class.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
+        "ToDoList"{$x = [ToDoList]::new($val.Class.filename);return $x;}
         default
         {
             Write-Error "Class $($val.Class.ClassName) was not made."

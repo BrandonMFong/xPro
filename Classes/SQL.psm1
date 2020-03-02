@@ -69,14 +69,53 @@ class SQL
         return $this.results; # display
     }
 
-    hidden [string]SQLConvert($val)
+    [System.Object[]]Select()
+    {
+        $querystring = $null;
+
+        [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
+
+        Write-Host "`nWhich Table are you selecting from?" -ForegroundColor Red -BackgroundColor Yellow;
+        $i = 1;
+        foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
+        $index = Read-Host -Prompt "So?";
+
+        $table = $tablestochoosefrom[$index - 1].ItemArray;
+
+        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
+        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value, WantToSee); # add another column
+
+        # Prompt user what values they want to insert per column
+        foreach($val in $values)
+        {
+            Write-Warning "Do you want to see $($val.COLUMN_NAME)";
+            $val.WantToSee = Read-Host -Prompt "(y/n)?";
+            $val.Value = $val.COLUMN_NAME;
+        }
+
+        $this.QueryConstructor("Select", [ref]$querystring, $table, $values);
+
+        Write-Host "Query: $($querystring)"
+
+        try{$this.Query($querystring);}
+        catch
+        {
+            Write-Warning "$($_)";
+            break;
+        }
+
+        return $this.results; # display
+    }
+
+    hidden [string]SQLConvert([string]$type, $val)
     {
         [string]$string = $null;
         switch($val.DATA_TYPE)
         {
             "int"{$string = "$($val.Value)";break;}
-            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$($val.Value)'))"}
-            default{$string = "'$($val.Value)'";break;}
+            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$($val.Value)'))";break;}
+            "varchar"{$string = "'$($val.Value)'";break;}
+            default{$string = "$($val.Value)";break;}
         }
         return $string;
     }
@@ -103,6 +142,28 @@ class SQL
 
                 $querystring.Value = $querystring.Value.Replace("$($rep)", ")");
                 $querystring.Value = $querystring.Value.Replace("(,", "(");
+                break;
+            }
+            "Select" # TODO finish
+            {
+                $rep = "|||";
+
+                # Start query string
+                $querystring.Value = "select ";
+
+                # add to query string
+                foreach($val in $values)
+                {
+                    if($val.WantToSee -eq "y")
+                    {
+                        $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+                        $querystring.Value += $val.COLUMN_NAME + "$($rep)";
+                    }
+                }
+
+                $querystring.Value = $querystring.Value.Replace("$($rep)", "  ");
+                $querystring.Value = $querystring.Value.Replace("select ,", "select ");
+                $querystring.Value += " from $($table)";
                 break;
             }
             default {throw "Not a valid query type."}

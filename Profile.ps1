@@ -34,6 +34,6 @@ Push-Location $x.Machine.GitRepoDir;
         }
 
     <### START ###>
-        Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript)
+        Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
 
 Pop-Location;

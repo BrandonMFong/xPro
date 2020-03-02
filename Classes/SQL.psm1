@@ -30,7 +30,7 @@ class SQL
 
         [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
 
-        Write-Host "`nWhich Table are you inserting into?" -ForegroundColor Read -BackgroundColor Yellow;
+        Write-Host "`nWhich Table are you inserting into?" -ForegroundColor Red -BackgroundColor Yellow;
         $i = 1;
         foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
         $index = Read-Host -Prompt "So?";

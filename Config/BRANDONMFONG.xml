@@ -4,8 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
 
-    <StartScript>\StartScripts\BRANDONMFONG.ps1</StartScript>
+    <StartScript ClearHost="true">\StartScripts\BRANDONMFONG.ps1</StartScript>
     <GitRepo>B:\Powershell</GitRepo>
+
     <!-- Directory paths -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->
@@ -49,10 +50,12 @@
 
     <!-- Objects User uses while on the command line -->
     <Objects>
-        <!-- Links & Credentials -->
+
+        <!-- $User -->
         <Object HasClass="false" VarName="User">
 
             <StandardUserName>F139B118-40C4-4293-9A60-498FEA8AE1B7</StandardUserName>
+            <LoweredStandardUserName>7e15fcbb-2f72-4737-aa51-ee3e3d118e0f</LoweredStandardUserName>
 
             <!-- Frequently Used Links -->
             <Gmail>https://mail.google.com/mail</Gmail>
@@ -67,6 +70,7 @@
             <iCloud>https://www.icloud.com/</iCloud>
             <GoogleCloud>https://cloud.google.com</GoogleCloud>
             <VNC>https://www.realvnc.com/en/</VNC>
+            <IPChicken>https://ipchicken.com/</IPChicken>
             
             <!-- Emails -->
             <Emails>
@@ -82,10 +86,6 @@
             </Emails>
             
             <!-- Categorized Links -->
-            <COLLEGE>
-                <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
-                <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
-            </COLLEGE>
             <LIFE>
                 <HousePortal>https://sdsu4rent.com/tenants</HousePortal>
                 <WaterBill>https://customerportal.sandiego.gov/portal/</WaterBill>
@@ -94,15 +94,7 @@
             <SITES>
                 <BrandonFongMusic>https://github.com/BrandonMFong/BrandonFongMusic</BrandonFongMusic>
             </SITES>
-            <cPanel>
-                <URL>https://rohancp.sdsu.edu:2083/cpanel</URL>
-                <Username>dualpower</Username>
-                <Password>960f933f-937f-409e-a9fa-f00d97586fcd</Password>
-                <SSH_PW>266d3c1e-de41-475b-b169-bdd5d2518440</SSH_PW>
-            </cPanel>
-            <cPanelForEarthWindFire>
-                <KeyPW>67CBF9DB-072A-4730-9681-3F5758213C1D</KeyPW>
-            </cPanelForEarthWindFire>
+            
             <Hostinger>
                 <URL>https://www.hostinger.com/cpanel-login</URL>
                 <DatabaseURL>https://auth-db221.hostinger.com/</DatabaseURL>
@@ -114,6 +106,43 @@
                 <URL>https://www.chase.com/</URL>
                 <Password>9fd118e5-c785-4b9b-a687-b06c65285e67</Password>
             </Chase>
+            <Taxact>
+                <URL>https://www.taxact.com/</URL>
+                <Username>F139B118-40C4-4293-9A60-498FEA8AE1B7</Username>
+                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
+            </Taxact>
+            <LinkedIn>
+                <URL>https://www.linkedin.com/nhome/</URL>
+                <Profile>https://www.linkedin.com/in/brandonmfong/</Profile>
+            </LinkedIn>
+            <GitHub>
+                <URL>https://github.com/BrandonMFong</URL>
+                <Profile>https://github.com/BrandonMFong</Profile>
+            </GitHub>
+            <NoIP>
+                <URL>https://www.noip.com/</URL>
+                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </NoIP>
+            <WeCollect>
+                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </WeCollect>
+        </Object>
+
+        <!-- $College -->
+        <Object HassClass="false" VarName="College">
+            <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
+            <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
+            <cPanel>
+                <URL>https://rohancp.sdsu.edu:2083/cpanel</URL>
+                <Username>dualpower</Username>
+                <Password>960f933f-937f-409e-a9fa-f00d97586fcd</Password>
+                <SSH_PW>266d3c1e-de41-475b-b169-bdd5d2518440</SSH_PW>
+            </cPanel>
+            <cPanelForEarthWindFire>
+                <KeyPW>67CBF9DB-072A-4730-9681-3F5758213C1D</KeyPW>
+            </cPanelForEarthWindFire>
             <Volta><!-- Also Jason for CompE 560 and EE600 -->
                 <Username>cde45e8a-0092-42b7-8ba9-1c5bee095b76</Username>
                 <Hostname>5455A66C-D261-4C06-80D9-0A257B8C4863</Hostname>
@@ -145,52 +174,38 @@
                 <URL>fafsa.gov</URL>
                 <SaveKey>447EE987-D08E-4B16-91D1-024A4C7ABBF5</SaveKey>
             </FAFSA>
-            <Taxact>
-                <URL>https://www.taxact.com/</URL>
-                <Username>F139B118-40C4-4293-9A60-498FEA8AE1B7</Username>
-                <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
-            </Taxact>
-            <LinkedIn>
-                <URL>https://www.linkedin.com/nhome/</URL>
-                <Profile>https://www.linkedin.com/in/brandonmfong/</Profile>
-            </LinkedIn>
-            <GitHub>
-                <URL>https://github.com/BrandonMFong</URL>
-                <Profile>https://github.com/BrandonMFong</Profile>
-            </GitHub>
-            <NoIP>
-                <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
-                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
-            </NoIP>
             <CiscoPacketTracer>
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
             </CiscoPacketTracer>
         </Object>
 
-        <Object HassClass="false" VarName="College">
-        
-        </Object>
-        <!-- Raspberry Pi info -->
+        <!-- $RPi -->
         <Object HasClass="false" VarName="RPi">
+
+            <!-- KOJAMI -->
             <Kojami>
                 <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
                 <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
+                <User Username="pi" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
                 <IPAddress>
                     <Mesita>0C4ABD60-0A93-496C-B23B-895061980580</Mesita>
                 </IPAddress>
                 <superuserpassword>D70988C1-759B-40BB-B9E1-A851295FEEE7</superuserpassword>
             </Kojami>
+
+            <!-- NOKITA -->
             <Nokita>
                 <User Username="brandonmfong" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
+                <User Username="pi" Password="266d3c1e-de41-475b-b169-bdd5d2518440" isRoot="true"/>
                 <IPAddress>
                     <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
                     <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
                 </IPAddress>
             </Nokita>
         </Object>
-        
-        <!-- Senior design links -->
+
+        <!-- $SeniorDesignYes -->
         <Object HasClass="false" VarName="SeniorDesignYes">
             <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
             <RpiGPIO>https://www.raspberrypi.org/documentation/usage/gpio/</RpiGPIO>
@@ -200,7 +215,7 @@
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
         </Object>
 
-        <!-- Passwords -->
+        <!-- $Passwords -->
         <Object HasClass="false" VarName="Passwords">
             <Default>266d3c1e-de41-475b-b169-bdd5d2518440</Default>
             <cPanel>960f933f-937f-409e-a9fa-f00d97586fcd</cPanel>
@@ -234,16 +249,20 @@
             <HousePortal>266d3c1e-de41-475b-b169-bdd5d2518440</HousePortal>
             <VNC>266D3C1E-DE41-475B-B169-BDD5D2518440</VNC>
             <WinIOTCore>266D3C1E-DE41-475B-B169-BDD5D2518440</WinIOTCore>
+            <WifiMesita>cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</WifiMesita>
         </Object>
 
-        <!-- Classes -->
+        <!-- $Web -->
         <Object HasClass="true" VarName="Web">
             <Class ClassName="Web" HasParams="false"/>
         </Object>
+
+        <!-- $Math -->
         <Object HasClass="true" VarName="Math">
             <Class ClassName="Calculations" HasParams="false"/>
         </Object>
-        <!-- $Database.Database.DatabaseName, $Database.ServerInstance, $Database.Database.Tables -->
+
+        <!-- $Decode -->
         <Object HasClass="true" VarName="Decode">
             <Class Classname="SQL" HasParams="true">
                 <Database>BrandonMFong</Database>
@@ -254,8 +273,15 @@
                 </Tables>
             </Class>
         </Object>
+
+        <!-- $Windows -->
         <Object HasClass="true" VarName="Windows">
             <Class ClassName="Windows" HasParams="false"/>
+        </Object>
+
+        <!-- $Calendar -->
+        <Object HasClass="true" VarName="Calendar">
+            <Class ClassName="Calendar" HasParams="false"/>
         </Object>
 
     </Objects>

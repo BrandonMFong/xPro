@@ -1,4 +1,4 @@
-if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
+
 Write-Host "`n";
 $Hour = (Get-Date).Hour;
 $Date = Get-Date;

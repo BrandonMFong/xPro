@@ -132,6 +132,7 @@
                 <UserID>7caa5f82-b906-4467-b4e5-69e908abab3e</UserID>
                 <PIN>b3c5908c-dd09-4987-9f57-cc5e55dd1c24</PIN>
                 <Password>aef1c23e-408f-4eda-a51c-8867240ccb6f</Password>
+                <URL>https://wifi.cox.com</URL>
             </COX>
         </Object>
 
@@ -197,6 +198,7 @@
                     <Mesita>0C4ABD60-0A93-496C-B23B-895061980580</Mesita>
                 </IPAddress>
                 <superuserpassword>D70988C1-759B-40BB-B9E1-A851295FEEE7</superuserpassword>
+                <Domain>dualpower.hopto.org</Domain>
             </Kojami>
 
             <!-- NOKITA -->

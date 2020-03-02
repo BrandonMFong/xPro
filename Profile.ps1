@@ -32,8 +32,9 @@ Push-Location $x.Machine.GitRepoDir;
             if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
             else {New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;}
         }
-
+    
     <### START ###>
+        if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
         Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
 
 Pop-Location;

@@ -77,7 +77,6 @@ class Calendar
         $MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         $IsFirstWeek = $true;
 
-        # for($day.Day = 1; $day.Day -le $MaxDays; $day.Day++)
         while($true)
         {
             switch ($day.DayOfWeek)

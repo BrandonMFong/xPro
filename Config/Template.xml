@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd"> <!--$env:COMPUTERNAME for MachineName-->
 
-    <StartScript></StartScript>
+    <StartScript ClearHost="true"></StartScript>
     <!-- Directory paths -->
     <Directories>
         <!-- Manadatory Directory Aliases for functions/Classes -->

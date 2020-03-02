@@ -1,14 +1,10 @@
 # Make a calendar function
 class Calendar
 {
-    # Undefined Variables
     [DateTime]$Today;
-
     [string]$TodayString;
     [string]$ParseExactDateStringFormat = "MMddyyyy";
-
     [Week[]]$Weeks;
-
 
     [void] GetCalendarMonth() 
     {
@@ -73,7 +69,8 @@ class Calendar
     {
         $su=$null;$mo=$null;$tu=$null;$we=$null;$th=$null;$fr=$null;$sa=$null;
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
-        $day = $this.Today;
+        # $day = $this.Today;
+        $day = $this.GetFirstDayOfMonth($this.Today);
         $MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         $IsFirstWeek = $true;
 
@@ -120,6 +117,16 @@ class Calendar
             $day = $day.AddDays(1);
         }
         return $tempweeks;
+    }
+
+    hidden [DateTime]GetFirstDayOfMonth([DateTime]$Date)
+    {
+        while($true)
+        {
+            if($Date.Day -eq 1){break;}
+            $Date.AddDays(-1);
+        }
+        return $Date;
     }
 
     

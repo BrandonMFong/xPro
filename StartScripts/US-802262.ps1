@@ -4,13 +4,14 @@
 	If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
 	ElseIf ($Hour -gt 17) {"Good Eventing Brandon"}
 	Else {"Good Afternoon Brandon"}
-	Write-Host ("`n$Date`n")
+	Write-Host ("`n$Date`n");
+	$Calendar.GetCalendarMonth();
 	Write-Host ("1. Start`n")
 	$start = Read-Host 
 	if($start -eq "1")
 	{
 		if(((Get-Date).Day -eq 1)) {Time -Archive; Time -Login;}
-		Time -Login;
+		else{Time -Login};
 		Outlook;
 		Tix; # The ticket app 
 		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}

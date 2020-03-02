@@ -124,7 +124,7 @@ class Calendar
         while($true)
         {
             if($Date.Day -eq 1){break;}
-            $Date.AddDays(-1);
+            $Date = $Date.AddDays(-1);
         }
         return $Date;
     }

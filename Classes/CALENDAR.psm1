@@ -67,7 +67,14 @@ class Calendar
 
     hidden [Week[]]WriteWeeks()
     {
-        $su=$null;$mo=$null;$tu=$null;$we=$null;$th=$null;$fr=$null;$sa=$null;
+        [DateTime]$su=$null;
+        [DateTime]$mo=$null;
+        [DateTime]$tu=$null;
+        [DateTime]$we=$null;
+        [DateTime]$th=$null;
+        [DateTime]$fr=$null;
+        [DateTime]$sa=$null;
+
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
         # $day = $this.Today;
         $day = $this.GetFirstDayOfMonth($this.Today);
@@ -78,13 +85,13 @@ class Calendar
         {
             switch ($day.DayOfWeek)
             {
-                "Sunday"{$su = $day.Day;}
-                "Monday"{$mo = $day.Day;}
-                "Tuesday"{$tu = $day.Day;}
-                "Wednesday"{$we = $day.Day;}
-                "Thursday"{$th = $day.Day;}
-                "Friday"{$fr = $day.Day;}
-                "Saturday"{$sa = $day.Day;}
+                "Sunday"{$su.Day = $day.Day;}
+                "Monday"{$mo.Day = $day.Day;}
+                "Tuesday"{$tu.Day = $day.Day;}
+                "Wednesday"{$we.Day = $day.Day;}
+                "Thursday"{$th.Day = $day.Day;}
+                "Friday"{$fr.Day = $day.Day;}
+                "Saturday"{$sa.Day = $day.Day;}
                 default{Write-Error "something bad happened";}
             }
             if($day.DayOfWeek -eq "Saturday")
@@ -100,13 +107,13 @@ class Calendar
                     $day = $day.AddDays(1);
                     switch ($day.DayOfWeek)
                     {
-                        "Sunday"{$su = $day.Day;}
-                        "Monday"{$mo = $day.Day;}
-                        "Tuesday"{$tu = $day.Day;}
-                        "Wednesday"{$we = $day.Day;}
-                        "Thursday"{$th = $day.Day;}
-                        "Friday"{$fr = $day.Day;}
-                        "Saturday"{$sa = $day.Day;}
+                        "Sunday"{$su.Day = $day.Day;}
+                        "Monday"{$mo.Day = $day.Day;}
+                        "Tuesday"{$tu.Day = $day.Day;}
+                        "Wednesday"{$we.Day = $day.Day;}
+                        "Thursday"{$th.Day = $day.Day;}
+                        "Friday"{$fr.Day = $day.Day;}
+                        "Saturday"{$sa.Day = $day.Day;}
                         default{Write-Error "something bad happened";}
                     }
                     if($day.DayOfWeek -eq "Saturday"){break;}
@@ -133,15 +140,16 @@ class Calendar
 }
 class Week
 {
-    [int]$su;
-    [int]$mo;
-    [int]$tu;
-    [int]$we;
-    [int]$th;
-    [int]$fr;
-    [int]$sa;
+    #Probably have to make these datetime data type
+    [DateTime]$su;
+    [DateTime]$mo;
+    [DateTime]$tu;
+    [DateTime]$we;
+    [DateTime]$th;
+    [DateTime]$fr;
+    [DateTime]$sa;
 
-    Week($su, $mo, $tu, $we, $th, $fr, $sa)
+    Week([DateTime]$su, [DateTime]$mo, [DateTime]$tu, [DateTime]$we, [DateTime]$th, [DateTime]$fr, [DateTime]$sa)
     {
         $this.su = $su;
         $this.mo = $mo;
@@ -156,40 +164,40 @@ class Week
     {
         [string]$week = "";
 
-        if(($this.su -ge 10) -and ($this.su -eq (Get-Date).Day)){$week += "$($this.su)* ";}
-        elseif(($this.su -lt 10) -and ($this.su -eq (Get-Date).Day)){$week += "$($this.su)*  ";}
-        elseif(($this.su -ge 10) -and ($this.su -ne (Get-Date).Day)){$week += "$($this.su)  ";}
+        if(($this.su.Day -ge 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)* ";}
+        elseif(($this.su.Day -lt 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)*  ";}
+        elseif(($this.su.Day -ge 10) -and ($this.su.Day -ne (Get-Date).Day)){$week += "$($this.su.Day)  ";}
         else{$week += "$($this.su)   ";}
 
-        if(($this.mo -ge 10) -and ($this.mo -eq (Get-Date).Day)){$week += "$($this.mo)* ";}
-        elseif(($this.mo -lt 10) -and ($this.mo -eq (Get-Date).Day)){$week += "$($this.mo)*  ";}
-        elseif(($this.mo -ge 10) -and ($this.mo -ne (Get-Date).Day)){$week += "$($this.mo)  ";}
+        if(($this.mo.Day -ge 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)* ";}
+        elseif(($this.mo.Day -lt 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)*  ";}
+        elseif(($this.mo.Day -ge 10) -and ($this.mo.Day -ne (Get-Date).Day)){$week += "$($this.mo.Day)  ";}
         else{$week += "$($this.mo)   ";}
 
-        if(($this.tu -ge 10) -and ($this.tu -eq (Get-Date).Day)){$week += "$($this.tu)* ";}
-        elseif(($this.tu -lt 10) -and ($this.tu -eq (Get-Date).Day)){$week += "$($this.tu)*  ";}
-        elseif(($this.tu -ge 10) -and ($this.tu -ne (Get-Date).Day)){$week += "$($this.tu)  ";}
+        if(($this.tu.Day -ge 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)* ";}
+        elseif(($this.tu.Day -lt 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)*  ";}
+        elseif(($this.tu.Day -ge 10) -and ($this.tu.Day -ne (Get-Date).Day)){$week += "$($this.tu.Day)  ";}
         else{$week += "$($this.tu)   ";}
 
-        if(($this.we -ge 10) -and ($this.we -eq (Get-Date).Day)){$week += "$($this.we)* ";}
-        elseif(($this.we -lt 10) -and ($this.we -eq (Get-Date).Day)){$week += "$($this.we)*  ";}
-        elseif(($this.we -ge 10) -and ($this.we -ne (Get-Date).Day)){$week += "$($this.we)  ";}
-        else{$week += "$($this.we)   ";}
+        if(($this.we.Day -ge 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)* ";}
+        elseif(($this.we.Day -lt 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)*  ";}
+        elseif(($this.we.Day -ge 10) -and ($this.we.Day -ne (Get-Date).Day)){$week += "$($this.we.Day)  ";}
+        else{$week += "$($this.we.Day)   ";}
 
-        if(($this.th -ge 10) -and ($this.th -eq (Get-Date).Day)){$week += "$($this.th)* ";}
-        elseif(($this.th -lt 10) -and ($this.th -eq (Get-Date).Day)){$week += "$($this.th)*  ";}
-        elseif(($this.th -ge 10) -and ($this.th -ne (Get-Date).Day)){$week += "$($this.th)  ";}
-        else{$week += "$($this.th)   ";}
+        if(($this.th.Day -ge 10) -and ($this.th.Day -eq (Get-Date).Day)){$week += "$($this.th.Day)* ";}
+        elseif(($this.th.Day -lt 10) -and ($this.th.Day -eq (Get-Date).Day)){$week += "$($this.th.Day)*  ";}
+        elseif(($this.th.Day -ge 10) -and ($this.th.Day -ne (Get-Date).Day)){$week += "$($this.th.Day)  ";}
+        else{$week += "$($this.th.Day)   ";}
 
-        if(($this.fr -ge 10) -and ($this.fr -eq (Get-Date).Day)){$week += "$($this.fr)* ";}
-        elseif(($this.fr -lt 10) -and ($this.fr -eq (Get-Date).Day)){$week += "$($this.fr)*  ";}
-        elseif(($this.fr -ge 10) -and ($this.fr -ne (Get-Date).Day)){$week += "$($this.fr)  ";}
-        else{$week += "$($this.fr)   ";}
+        if(($this.fr.Day -ge 10) -and ($this.fr.Day -eq (Get-Date).Day)){$week += "$($this.fr.Day)* ";}
+        elseif(($this.fr.Day -lt 10) -and ($this.fr.Day -eq (Get-Date).Day)){$week += "$($this.fr.Day)*  ";}
+        elseif(($this.fr.Day -ge 10) -and ($this.fr.Day -ne (Get-Date).Day)){$week += "$($this.fr.Day)  ";}
+        else{$week += "$($this.fr.Day)   ";}
 
-        if(($this.sa -ge 10) -and ($this.sa -eq (Get-Date).Day)){$week += "$($this.sa)* ";}
-        elseif(($this.sa -lt 10) -and ($this.sa -eq (Get-Date).Day)){$week += "$($this.sa)*  ";}
-        elseif(($this.sa -ge 10) -and ($this.sa -ne (Get-Date).Day)){$week += "$($this.sa)  ";}
-        else{$week += "$($this.sa)   ";}
+        if(($this.sa.Day -ge 10) -and ($this.sa.Day -eq (Get-Date).Day)){$week += "$($this.sa.Day)* ";}
+        elseif(($this.sa.Day -lt 10) -and ($this.sa.Day -eq (Get-Date).Day)){$week += "$($this.sa.Day)*  ";}
+        elseif(($this.sa.Day -ge 10) -and ($this.sa.Day -ne (Get-Date).Day)){$week += "$($this.sa.Day)  ";}
+        else{$week += "$($this.sa.Day)   ";}
 
         Write-Host "$($week)"
     }

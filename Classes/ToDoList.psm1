@@ -5,11 +5,16 @@ class ToDoList
     [string]$FileName;
     [int]$Completed;
     [int]$Uncompleted;
+    [Hierarchy]$Level;
+    [string]$XMLFilePath;
 
     ToDoList($filename)
     {
         $this.FileName = $filename;
         $this.LoadList($this.FileName);
+        $this.Level = [Hierarchy]::new($this.xml.Todo.HierarchyLevels.DayOfWeek, 
+            $this.xml.Todo.HierarchyLevels.Item, 
+            $this.xml.Todo.HierarchyLevels.SubItem);
     }
 
     ListWeek()
@@ -28,12 +33,77 @@ class ToDoList
     ListFriday(){$this.LoadList($this.FileName);$this.GetDayList("Friday");}
     ListSaturday(){$this.LoadList($this.FileName);$this.GetDayList("Saturday");}
     ListSunday(){$this.LoadList($this.FileName);$this.GetDayList("Sunday");}
+
+    Mark() # TODO finish logic to mark done
+    {
+        $index = 0;
+        $currentlevel = $this.xml.Todo.DayOfWeek;
+        $this.LoadList($this.FileName);
+        Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
+        while($true)
+        {
+            $this.ListLevel($currentlevel)
+            $index = Read-Host -Prompt "Which item"
+            if($index -eq 'q'){break;}
+            elseif($index -ne $null){$currentlevel = $currentlevel[$index].Item;break;}
+            else
+            {
+                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
+            }
+        }
+        while($true)
+        {
+            $this.ListLevel($currentlevel)
+            $index = Read-Host -Prompt "Which item"
+            if($index -eq 'q'){break;}
+            elseif($index -ne $null){$currentlevel = $currentlevel[$index].SubItem;break;}
+            else
+            {
+                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
+            }
+        }
+        while($true)
+        {
+            $this.ListLevel($currentlevel)
+            $index = Read-Host -Prompt "Which item"
+            if($index -eq 'q'){break;}
+            elseif($index -ne $null){$this.ToggleDone($currentlevel[$index])}
+            else
+            {
+                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
+            }
+        }
+        $this.Save();
+    }
+
+    Save(){$this.xml.Save($this.XMLFilePath);}
+
     
     hidden LoadList($file)
     {
         Push-Location $PSScriptRoot;
-            $this.xml = Get-Content $('..\Data\' + $file);
+            Set-Location ..\Data\;
+            $this.xml = Get-Content $file;
+            Get-ChildItem $file |
+                ForEach-Object{$this.XMLFilePath = $_.FullName;}
         Pop-Location;
+    }
+
+    hidden ListLevel($elements)
+    {
+        foreach($element in $elements)
+        {
+            $this.WriteElementNameAndID_NoWhitespace($element)
+        }
+        $index = Read-Host -Prompt "Which item"
+    }
+
+    hidden ToggleDone($element)
+    {
+        [string]$booleanliteral = $element.done;
+        if($booleanliteral.Length -eq 4){$element.done = 'false';break;}
+        else{$element.done = 'true';break;}
+        Write-Host "didn't break";
     }
 
     hidden GetDayList([string]$Day)
@@ -41,26 +111,90 @@ class ToDoList
         $this.LoadList($this.FileName);
         foreach($Days in $this.xml.Todo.DayOfWeek)
         {
-            if($Day -eq $Days.day)
+            if($Day -eq $Days.name)
             {
                 $this.ListItems($Days);
             }
         }
     }
 
+    # this can be dynamic
     hidden ListItems($Days)
     {
-        if($Days.done -eq "true"){Write-Host "$($Days.day)" -ForegroundColor Green}
-        else{Write-Host "$($Days.day)" -ForegroundColor Red}
+        $this.WriteElementNameAndID($Days)
         foreach($Item in $Days.Item)
         {
-            if($Item.done -eq "true"){Write-Host "  -   $($Item.name)" -ForegroundColor Green}
-            else{Write-Host "  -   $($Item.name)" -ForegroundColor Red}
-            foreach($Item in $Item.Item)
+            $this.WriteElementNameAndID($Item)
+            foreach($SubItem in $Item.SubItem)
             {
-                if($Item.done -eq "true"){Write-Host "     -   $($Item.name)" -ForegroundColor Green}
-                else{Write-Host "     -   $($Item.name)" -ForegroundColor Red}
+                $this.WriteElementNameAndID($SubItem);
             }
         }
+    }
+
+    hidden WriteElementNameAndID($element)
+    {
+        
+        switch($element.hierarchy)
+        {
+            $this.Level.DayOfWeek 
+            {
+                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            $this.Level.Item 
+            {
+                if($element.done -eq "true"){Write-Host "  $($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "  $($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            $this.Level.SubItem 
+            {
+                if($element.done -eq "true"){Write-Host "     $($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "     $($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            default {throw "something bad happened";break;}
+        }
+    }
+    
+    hidden WriteElementNameAndID_NoWhitespace($element)
+    {
+        
+        switch($element.hierarchy)
+        {
+            $this.Level.DayOfWeek 
+            {
+                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            $this.Level.Item 
+            {
+                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            $this.Level.SubItem 
+            {
+                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
+                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                break;
+            }
+            default {throw "something bad happened";break;}
+        }
+    }
+}
+class Hierarchy 
+{
+    [int]$DayOfWeek;
+    [int]$Item;
+    [int]$SubItem;
+    Hierarchy($dayofweek, $item, $subitem)
+    {
+        $this.DayOfWeek = $dayofweek;
+        $this.Item = $item;
+        $this.SubItem = $subitem;
     }
 }

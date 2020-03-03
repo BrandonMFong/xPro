@@ -1,5 +1,6 @@
 # Script after profile loads
-    $Hour = (Get-Date).Hour;
+ 	Write-Host "`n";
+	$Hour = (Get-Date).Hour;
 	$Date = Get-Date;
 	If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
 	ElseIf ($Hour -gt 17) {"Good Eventing Brandon"}

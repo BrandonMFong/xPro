@@ -1,106 +1,115 @@
-<Todo
-    MachineName="BRANDONMFONG" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-
-    <DayOfWeek day="Monday" done="false">
-        <Item name="EE600" done="false">
-            <Item name="Study" done="true"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE565" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE496B" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Tuesday" done="false">
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Wednesday" done="false">
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE565" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE496B" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Thursday" done="false">
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Friday" done="false">
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Saturday" done="false">
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE565" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE496B" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
-    <DayOfWeek day="Sunday" done="false">
-        <Item name="EE600" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE565" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE560" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-        <Item name="CompE496B" done="false">
-            <Item name="Study" done="false"/>
-            <Item name="Study" done="false"/>
-        </Item>
-    </DayOfWeek>
+<Todo MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+  <HierarchyLevels>
+    <DayOfWeek>1</DayOfWeek>
+    <Item>2</Item>
+    <SubItem>3</SubItem>
+  </HierarchyLevels>
+  <!-- done = true || false-->
+  <!--Monday-->
+  <DayOfWeek id="1" name="Monday" done="true" hierarchy="1">
+    <Item id="1" name="EE600" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    </Item>
+    <Item id="2" name="CompE565" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    </Item>
+    <Item id="3" name="CompE560" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    </Item>
+    <Item id="4" name="CompE496B" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Tuesday-->
+  <DayOfWeek id="2" name="Tuesday" done="false" hierarchy="1">
+    <Item id="1" name="CompE560" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="2" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Wednesday-->
+  <DayOfWeek id="3" name="Wednesday" done="false" hierarchy="1">
+    <Item id="1" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="2" name="CompE565" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="3" name="CompE560" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="4" name="CompE496B" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Thursday-->
+  <DayOfWeek id="4" name="Thursday" done="false" hierarchy="1">
+    <Item id="1" name="CompE560" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="2" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Friday-->
+  <DayOfWeek id="5" name="Friday" done="false" hierarchy="1">
+    <Item id="" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+      <SubItem id="3" name="Study" done="false" hierarchy="3" />
+      <SubItem id="4" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Saturday-->
+  <DayOfWeek id="6" name="Saturday" done="false" hierarchy="1">
+    <Item id="1" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="2" name="CompE565" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="3" name="CompE560" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="4" name="CompE496B" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
+  <!--Sunday-->
+  <DayOfWeek id="7" name="Sunday" done="false" hierarchy="1">
+    <Item id="1" name="EE600" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="2" name="CompE565" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="3" name="CompE560" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+    <Item id="4" name="CompE496B" done="false" hierarchy="2">
+      <SubItem id="1" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    </Item>
+  </DayOfWeek>
 </Todo>

@@ -188,7 +188,7 @@
 
         <!-- $RPi -->
         <Object HasClass="false" VarName="RPi">
-
+            <FirewallInfo>https://www.raspberrypi.org/documentation/configuration/security.md</FirewallInfo>
             <!-- KOJAMI -->
             <Kojami>
                 <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
@@ -198,7 +198,7 @@
                     <Mesita>0C4ABD60-0A93-496C-B23B-895061980580</Mesita>
                 </IPAddress>
                 <superuserpassword>D70988C1-759B-40BB-B9E1-A851295FEEE7</superuserpassword>
-                <Domain>dualpower.hopto.org</Domain>
+                <Hostname>3f90f445-a955-4cf4-84bf-f9c403c47441</Hostname>
             </Kojami>
 
             <!-- NOKITA -->
@@ -349,6 +349,7 @@
         <Function Name="cl">\Functions\ClearAndList.PS1</Function>
         <Function Name="Chrome">\Functions\Chrome.ps1</Function>
         <Function Name="Put">\Functions\Put.ps1</Function>
+        <Function Name="Todo">\Functions\Todo.ps1</Function>
     </Functions>
 
 </Machine>

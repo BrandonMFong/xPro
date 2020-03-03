@@ -155,20 +155,42 @@ class Week
     ToString()
     {
         [string]$week = "";
-        if($this.su -ge 10){$week += "$($this.su)  ";}
+
+        if(($this.su -ge 10) -and ($this.su -eq (Get-Date).Day)){$week += "$($this.su)* ";}
+        elseif(($this.su -lt 10) -and ($this.su -eq (Get-Date).Day)){$week += "$($this.su)*  ";}
+        elseif(($this.su -ge 10) -and ($this.su -ne (Get-Date).Day)){$week += "$($this.su)  ";}
         else{$week += "$($this.su)   ";}
-        if($this.mo -ge 10){$week += "$($this.mo)  ";}
+
+        if(($this.mo -ge 10) -and ($this.mo -eq (Get-Date).Day)){$week += "$($this.mo)* ";}
+        elseif(($this.mo -lt 10) -and ($this.mo -eq (Get-Date).Day)){$week += "$($this.mo)*  ";}
+        elseif(($this.mo -ge 10) -and ($this.mo -ne (Get-Date).Day)){$week += "$($this.mo)  ";}
         else{$week += "$($this.mo)   ";}
-        if($this.tu -ge 10){$week += "$($this.tu)  ";}
+
+        if(($this.tu -ge 10) -and ($this.tu -eq (Get-Date).Day)){$week += "$($this.tu)* ";}
+        elseif(($this.tu -lt 10) -and ($this.tu -eq (Get-Date).Day)){$week += "$($this.tu)*  ";}
+        elseif(($this.tu -ge 10) -and ($this.tu -ne (Get-Date).Day)){$week += "$($this.tu)  ";}
         else{$week += "$($this.tu)   ";}
-        if($this.we -ge 10){$week += "$($this.we)  ";}
+
+        if(($this.we -ge 10) -and ($this.we -eq (Get-Date).Day)){$week += "$($this.we)* ";}
+        elseif(($this.we -lt 10) -and ($this.we -eq (Get-Date).Day)){$week += "$($this.we)*  ";}
+        elseif(($this.we -ge 10) -and ($this.we -ne (Get-Date).Day)){$week += "$($this.we)  ";}
         else{$week += "$($this.we)   ";}
-        if($this.th -ge 10){$week += "$($this.th)  ";}
+
+        if(($this.th -ge 10) -and ($this.th -eq (Get-Date).Day)){$week += "$($this.th)* ";}
+        elseif(($this.th -lt 10) -and ($this.th -eq (Get-Date).Day)){$week += "$($this.th)*  ";}
+        elseif(($this.th -ge 10) -and ($this.th -ne (Get-Date).Day)){$week += "$($this.th)  ";}
         else{$week += "$($this.th)   ";}
-        if($this.fr -ge 10){$week += "$($this.fr)  ";}
+
+        if(($this.fr -ge 10) -and ($this.fr -eq (Get-Date).Day)){$week += "$($this.fr)* ";}
+        elseif(($this.fr -lt 10) -and ($this.fr -eq (Get-Date).Day)){$week += "$($this.fr)*  ";}
+        elseif(($this.fr -ge 10) -and ($this.fr -ne (Get-Date).Day)){$week += "$($this.fr)  ";}
         else{$week += "$($this.fr)   ";}
-        if($this.sa -ge 10){$week += "$($this.sa)  ";}
+
+        if(($this.sa -ge 10) -and ($this.sa -eq (Get-Date).Day)){$week += "$($this.sa)* ";}
+        elseif(($this.sa -lt 10) -and ($this.sa -eq (Get-Date).Day)){$week += "$($this.sa)*  ";}
+        elseif(($this.sa -ge 10) -and ($this.sa -ne (Get-Date).Day)){$week += "$($this.sa)  ";}
         else{$week += "$($this.sa)   ";}
+
         Write-Host "$($week)"
     }
 

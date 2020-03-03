@@ -31,9 +31,10 @@ class SQL
         [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
 
         Write-Host "`nWhich Table are you inserting into?" -ForegroundColor Red -BackgroundColor Yellow;
-        $i = 1;
-        foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
+        $i = 0;
+        foreach ($t in $tablestochoosefrom){$i++;Write-host "$($i) - $($t.ItemArray)";} 
         $index = Read-Host -Prompt "So?";
+        if($index -gt $i){throw "Index out of range";break;}
 
         $table = $tablestochoosefrom[$index - 1].ItemArray;
         $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
@@ -107,7 +108,7 @@ class SQL
         return $this.results; # display
     }
 
-    hidden [string]SQLConvert([string]$type, $val)
+    hidden [string]SQLConvert($val)
     {
         [string]$string = $null;
         switch($val.DATA_TYPE)

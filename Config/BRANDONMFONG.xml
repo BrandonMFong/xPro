@@ -128,12 +128,15 @@
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
             </WeCollect>
-            <COX>
+            <WifiCOX>
                 <UserID>7caa5f82-b906-4467-b4e5-69e908abab3e</UserID>
                 <PIN>b3c5908c-dd09-4987-9f57-cc5e55dd1c24</PIN>
                 <Password>aef1c23e-408f-4eda-a51c-8867240ccb6f</Password>
                 <URL>https://wifi.cox.com</URL>
-            </COX>
+            </WifiCOX>
+            <Router>
+                <Password>c555faf3-4dac-468c-817e-c12ff84a1217</Password>
+            </Router>
         </Object>
 
         <!-- $College -->
@@ -219,6 +222,7 @@
             <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
             <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
             <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
+            <ADCGit>https://github.com/adafruit/Adafruit_Python_ADS1x15</ADCGit>
             <!-- This is the link for the steps to create a django site -->
             <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>

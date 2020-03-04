@@ -204,8 +204,22 @@ class Week
         elseif(($this.sa.Day -lt 10) -and ($this.sa.Day -eq (Get-Date).Day)){$week += "$($this.sa.Day)*  ";}
         elseif(($this.sa.Day -ge 10) -and ($this.sa.Day -ne (Get-Date).Day)){$week += "$($this.sa.Day)  ";}
         else{$week += "$($this.sa.Day)   ";}
-
+        # $this.Evaluate_Days($this.su,[ref]$week);
+        # $this.Evaluate_Days($this.mo,[ref]$week);
+        # $this.Evaluate_Days($this.tu,[ref]$week);
+        # $this.Evaluate_Days($this.we,[ref]$week);
+        # $this.Evaluate_Days($this.th,[ref]$week);
+        # $this.Evaluate_Days($this.fr,[ref]$week);
+        # $this.Evaluate_Days($this.su,[ref]$week);
         Write-Host "$($week)"
+    }
+
+    hidden Evaluate_Days([DateTime]$day,[ref]$week)
+    {
+        if(($day.Day -ge 10) -and ($day.Day -eq (Get-Date).Day)){$week.Value += "$($day.Day)* ";}
+        elseif(($day.Day -lt 10) -and ($day.Day -eq (Get-Date).Day)){$week.Value += "$($day.Day)*  ";}
+        elseif(($day.Day -ge 10) -and ($day.Day -ne (Get-Date).Day)){$week.Value += "$($day.Day)  ";}
+        else{$week.Value += "$($day.Day)   ";}
     }
 
 }

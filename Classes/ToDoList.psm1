@@ -89,11 +89,12 @@ class ToDoList
         Pop-Location;
     }
 
+    # Listing the items in the hierarchy
     hidden ListLevel($elements)
     {
         foreach($element in $elements)
         {
-            $this.WriteElementNameAndID_NoWhitespace($element)
+            $this.Evaluate_WriteElementNameAndID($element,$null)
         }
         $index = Read-Host -Prompt "Which item"
     }
@@ -139,47 +140,50 @@ class ToDoList
         {
             $this.Level.DayOfWeek 
             {
-                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                [string]$tab = "";
+                $this.Evaluate_WriteElementNameAndID($element,$tab);
                 break;
             }
             $this.Level.Item 
             {
-                if($element.done -eq "true"){Write-Host "  $($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "  $($element.id) - $($element.name)" -ForegroundColor Red}
+                [string]$tab = "    ";
+                $this.Evaluate_WriteElementNameAndID($element,$tab);
                 break;
             }
             $this.Level.SubItem 
             {
-                if($element.done -eq "true"){Write-Host "     $($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "     $($element.id) - $($element.name)" -ForegroundColor Red}
+                [string]$tab = "        ";
+                $this.Evaluate_WriteElementNameAndID($element,$tab);
                 break;
             }
             default {throw "something bad happened";break;}
         }
     }
+
+    hidden Evaluate_WriteElementNameAndID($element, [string]$tab)
+    {
+        if($element.done -eq "true"){Write-Host "$($tab)$($element.id) - $($element.name)" -ForegroundColor Green;}
+        else{Write-Host "$($tab)$($element.id) - $($element.name)" -ForegroundColor Red;}
+    }
     
     hidden WriteElementNameAndID_NoWhitespace($element)
     {
-        
+        [string]$NoWhitspace="";
         switch($element.hierarchy)
         {
             $this.Level.DayOfWeek 
             {
-                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
                 break;
             }
             $this.Level.Item 
             {
-                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
                 break;
             }
             $this.Level.SubItem 
             {
-                if($element.done -eq "true"){Write-Host "$($element.id) - $($element.name)" -ForegroundColor Green}
-                else{Write-Host "$($element.id) - $($element.name)" -ForegroundColor Red}
+                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
                 break;
             }
             default {throw "something bad happened";break;}

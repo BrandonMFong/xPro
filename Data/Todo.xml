@@ -25,14 +25,14 @@
     </Item>
   </DayOfWeek>
   <!--Tuesday-->
-  <DayOfWeek id="2" name="Tuesday" done="false" hierarchy="1">
+  <DayOfWeek id="2" name="Tuesday" done="true" hierarchy="1">
     <Item id="1" name="CompE560" done="true" hierarchy="2">
       <SubItem id="1" name="Study" done="true" hierarchy="3" />
       <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
-    <Item id="2" name="EE600" done="false" hierarchy="2">
+    <Item id="2" name="EE600" done="true" hierarchy="2">
       <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
   </DayOfWeek>
   <!--Wednesday-->

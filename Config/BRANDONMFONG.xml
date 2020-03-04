@@ -189,6 +189,7 @@
         <!-- $RPi -->
         <Object HasClass="false" VarName="RPi">
             <FirewallInfo>https://www.raspberrypi.org/documentation/configuration/security.md</FirewallInfo>
+            <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
             <!-- KOJAMI -->
             <Kojami>
                 <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
@@ -215,8 +216,9 @@
         <!-- $SeniorDesignYes -->
         <Object HasClass="false" VarName="SeniorDesignYes">
             <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
-            <RpiGPIO>https://www.raspberrypi.org/documentation/usage/gpio/</RpiGPIO>
+            <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
             <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+            <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
             <!-- This is the link for the steps to create a django site -->
             <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>

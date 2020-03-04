@@ -108,6 +108,11 @@ class SQL
         return $this.results; # display
     }
 
+    StartServer()# Run as Admin
+    {
+        net start "SQL Server Agent( BRANDONMFONG )" -Verb RunAs;
+    }
+
     hidden [string]SQLConvert($val)
     {
         [string]$string = $null;

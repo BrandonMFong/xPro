@@ -2,9 +2,9 @@
 class Calendar
 {
     [DateTime]$Today;
-    [string]$TodayString;
-    [string]$ParseExactDateStringFormat = "MMddyyyy";
-    [Week[]]$Weeks;
+    hidden [string]$TodayString;
+    hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
+    hidden [Week[]]$Weeks;
 
     [void] GetCalendarMonth() 
     {
@@ -67,13 +67,13 @@ class Calendar
 
     hidden [Week[]]WriteWeeks()
     {
-        [DateTime]$su=$null;
-        [DateTime]$mo=$null;
-        [DateTime]$tu=$null;
-        [DateTime]$we=$null;
-        [DateTime]$th=$null;
-        [DateTime]$fr=$null;
-        [DateTime]$sa=$null;
+        [DateTime]$su=0;
+        [DateTime]$mo=0;
+        [DateTime]$tu=0;
+        [DateTime]$we=0;
+        [DateTime]$th=0;
+        [DateTime]$fr=0;
+        [DateTime]$sa=0;
 
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
         # $day = $this.Today;
@@ -85,13 +85,13 @@ class Calendar
         {
             switch ($day.DayOfWeek)
             {
-                "Sunday"{$su.Day = $day.Day;}
-                "Monday"{$mo.Day = $day.Day;}
-                "Tuesday"{$tu.Day = $day.Day;}
-                "Wednesday"{$we.Day = $day.Day;}
-                "Thursday"{$th.Day = $day.Day;}
-                "Friday"{$fr.Day = $day.Day;}
-                "Saturday"{$sa.Day = $day.Day;}
+                "Sunday"{$su = $day;}
+                "Monday"{$mo = $day;}
+                "Tuesday"{$tu = $day;}
+                "Wednesday"{$we = $day;}
+                "Thursday"{$th = $day;}
+                "Friday"{$fr = $day;}
+                "Saturday"{$sa = $day;}
                 default{Write-Error "something bad happened";}
             }
             if($day.DayOfWeek -eq "Saturday")
@@ -107,13 +107,13 @@ class Calendar
                     $day = $day.AddDays(1);
                     switch ($day.DayOfWeek)
                     {
-                        "Sunday"{$su.Day = $day.Day;}
-                        "Monday"{$mo.Day = $day.Day;}
-                        "Tuesday"{$tu.Day = $day.Day;}
-                        "Wednesday"{$we.Day = $day.Day;}
-                        "Thursday"{$th.Day = $day.Day;}
-                        "Friday"{$fr.Day = $day.Day;}
-                        "Saturday"{$sa.Day = $day.Day;}
+                        "Sunday"{$su = $day;}
+                        "Monday"{$mo = $day;}
+                        "Tuesday"{$tu = $day;}
+                        "Wednesday"{$we = $day;}
+                        "Thursday"{$th = $day;}
+                        "Friday"{$fr = $day;}
+                        "Saturday"{$sa = $day;}
                         default{Write-Error "something bad happened";}
                     }
                     if($day.DayOfWeek -eq "Saturday"){break;}
@@ -149,7 +149,13 @@ class Week
     [DateTime]$fr;
     [DateTime]$sa;
 
-    Week([DateTime]$su, [DateTime]$mo, [DateTime]$tu, [DateTime]$we, [DateTime]$th, [DateTime]$fr, [DateTime]$sa)
+    Week([DateTime]$su, 
+        [DateTime]$mo, 
+        [DateTime]$tu, 
+        [DateTime]$we, 
+        [DateTime]$th, 
+        [DateTime]$fr, 
+        [DateTime]$sa)
     {
         $this.su = $su;
         $this.mo = $mo;
@@ -167,17 +173,17 @@ class Week
         if(($this.su.Day -ge 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)* ";}
         elseif(($this.su.Day -lt 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)*  ";}
         elseif(($this.su.Day -ge 10) -and ($this.su.Day -ne (Get-Date).Day)){$week += "$($this.su.Day)  ";}
-        else{$week += "$($this.su)   ";}
+        else{$week += "$($this.su.Day)   ";}
 
         if(($this.mo.Day -ge 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)* ";}
         elseif(($this.mo.Day -lt 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)*  ";}
         elseif(($this.mo.Day -ge 10) -and ($this.mo.Day -ne (Get-Date).Day)){$week += "$($this.mo.Day)  ";}
-        else{$week += "$($this.mo)   ";}
+        else{$week += "$($this.mo.Day)   ";}
 
         if(($this.tu.Day -ge 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)* ";}
         elseif(($this.tu.Day -lt 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)*  ";}
         elseif(($this.tu.Day -ge 10) -and ($this.tu.Day -ne (Get-Date).Day)){$week += "$($this.tu.Day)  ";}
-        else{$week += "$($this.tu)   ";}
+        else{$week += "$($this.tu.Day)   ";}
 
         if(($this.we.Day -ge 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)* ";}
         elseif(($this.we.Day -lt 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)*  ";}
@@ -202,4 +208,18 @@ class Week
         Write-Host "$($week)"
     }
 
+}
+
+# https://stackoverflow.com/questions/50203695/powershell-icomparable-with-subclasses
+class Day
+{ # TODO make day object
+    [int]$Day;
+    [string]$DayOfWeek
+    hidden [datetime]$val;
+
+    Day([DateTime]$Date)
+    {
+        $this.Day = $Date.Day;
+        $this.DayOfWeek = $Date.DayOfWeek.ToString();
+    }
 }

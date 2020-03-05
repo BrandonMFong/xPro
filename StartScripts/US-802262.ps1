@@ -17,6 +17,5 @@
 		Tix; # The ticket app 
 		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
 		else {BankUrl;}
-		Spotify;
 		goto main;
 	}

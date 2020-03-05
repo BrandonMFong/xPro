@@ -10,13 +10,14 @@ Set-Location $PSScriptRoot;
 
     switch($Day)
     {
-        "Monday" {$var.ListMonday();return;}
-        "Tuesday" {$var.ListTuesday();return;}
-        "Wednesday" {$var.ListWednesday();return;}
-        "Thursday" {$var.ListThursday();return;}
-        "Friday" {$var.ListFriday();return;}
-        "Saturday" {$var.ListSaturday();return;}
-        "Sunday" {$var.ListSunday();return;}
+        ("Monday") {$var.Monday();return;}
+        ("Tuesday") {$var.Tuesday();return;}
+        ("Wednesday") {$var.Wednesday();return;}
+        ("Thursday") {$var.Thursday();return;}
+        ("Friday") {$var.Friday();return;}
+        ("Saturday") {$var.Saturday();return;}
+        ("Sunday"){$var.Sunday();return;}
+        ("Today") {$var.Today();return;}
         default {break;}
     }
 Pop-Location;

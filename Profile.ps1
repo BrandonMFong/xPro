@@ -28,7 +28,6 @@ Push-Location $x.Machine.GitRepoDir;
         Import-Module $($x.Machine.GitRepoDir + '\Modules\MakeClassObject.psm1');
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            # New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose; 
             if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
             else {New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;}
         }

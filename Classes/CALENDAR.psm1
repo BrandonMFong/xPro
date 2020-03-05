@@ -77,7 +77,7 @@ class Calendar
 
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
         # $day = $this.Today;
-        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today));
+        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today)); # this is returning a null value
         $MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         $IsFirstWeek = $true;
 
@@ -121,7 +121,7 @@ class Calendar
                 $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
                 break;
             }
-            $day = $day.AddDays(1);
+            $day.AddDays(1);
         }
         return $tempweeks;
     }
@@ -209,6 +209,7 @@ class Day
         return $d -eq $this.Day;
     }
 
+    # This is not the same as the [Datetime] AddDays() method because the fields I defined are not static.  Should I make it static?
     AddDays([int]$x)
     {
         $this.Date = $this.Date.AddDays($x);

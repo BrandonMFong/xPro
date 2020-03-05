@@ -36,22 +36,22 @@
     </Item>
   </DayOfWeek>
   <!--Wednesday-->
-  <DayOfWeek id="3" name="Wednesday" done="false" hierarchy="1">
-    <Item id="1" name="EE600" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+  <DayOfWeek id="3" name="Wednesday" done="true" hierarchy="1">
+    <Item id="1" name="EE600" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
-    <Item id="2" name="CompE565" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item id="2" name="CompE565" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
-    <Item id="3" name="CompE560" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item id="3" name="CompE560" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
-    <Item id="4" name="CompE496B" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item id="4" name="CompE496B" done="true" hierarchy="2">
+      <SubItem id="1" name="Study" done="true" hierarchy="3" />
+      <SubItem id="2" name="Study" done="true" hierarchy="3" />
     </Item>
   </DayOfWeek>
   <!--Thursday-->

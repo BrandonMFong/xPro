@@ -17,7 +17,7 @@ class ToDoList
             $this.xml.Todo.HierarchyLevels.SubItem);
     }
 
-    ListWeek()
+    Week()
     {
         $this.LoadList($this.FileName);
         foreach($Days in $this.xml.Todo.DayOfWeek)
@@ -26,13 +26,14 @@ class ToDoList
         }
     }
 
-    ListMonday(){$this.LoadList($this.FileName);$this.GetDayList("Monday");}
-    ListTuesday(){$this.LoadList($this.FileName);$this.GetDayList("Tuesday");}
-    ListWednesday(){$this.LoadList($this.FileName);$this.GetDayList("Wednesday");}
-    ListThursday(){$this.LoadList($this.FileName);$this.GetDayList("Thursday");}
-    ListFriday(){$this.LoadList($this.FileName);$this.GetDayList("Friday");}
-    ListSaturday(){$this.LoadList($this.FileName);$this.GetDayList("Saturday");}
-    ListSunday(){$this.LoadList($this.FileName);$this.GetDayList("Sunday");}
+    Today(){$this.LoadList($this.FileName);$this.GetDayList((Get-Date).DayOfWeek.ToString());}
+    Monday(){$this.LoadList($this.FileName);$this.GetDayList("Monday");}
+    Tuesday(){$this.LoadList($this.FileName);$this.GetDayList("Tuesday");}
+    Wednesday(){$this.LoadList($this.FileName);$this.GetDayList("Wednesday");}
+    Thursday(){$this.LoadList($this.FileName);$this.GetDayList("Thursday");}
+    Friday(){$this.LoadList($this.FileName);$this.GetDayList("Friday");}
+    Saturday(){$this.LoadList($this.FileName);$this.GetDayList("Saturday");}
+    Sunday(){$this.LoadList($this.FileName);$this.GetDayList("Sunday");}
 
     Mark() # TODO finish logic to mark done
     {

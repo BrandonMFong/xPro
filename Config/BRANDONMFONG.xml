@@ -306,6 +306,7 @@
 
     </Objects>
 
+    <!-- TODO make into programs -->
     <!-- Aliases to call Third Party exectuables, scripts, etc -->
     <Aliases>
         <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>

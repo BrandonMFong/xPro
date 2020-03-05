@@ -67,17 +67,17 @@ class Calendar
 
     hidden [Week[]]WriteWeeks()
     {
-        [DateTime]$su=0;
-        [DateTime]$mo=0;
-        [DateTime]$tu=0;
-        [DateTime]$we=0;
-        [DateTime]$th=0;
-        [DateTime]$fr=0;
-        [DateTime]$sa=0;
+        [Day]$su=[Day]::new(0);
+        [Day]$mo=[Day]::new(0);
+        [Day]$tu=[Day]::new(0);
+        [Day]$we=[Day]::new(0);
+        [Day]$th=[Day]::new(0);
+        [Day]$fr=[Day]::new(0);
+        [Day]$sa=[Day]::new(0);
 
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
         # $day = $this.Today;
-        $day = $this.GetFirstDayOfMonth($this.Today);
+        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today));
         $MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         $IsFirstWeek = $true;
 
@@ -141,21 +141,21 @@ class Calendar
 class Week
 {
     #Probably have to make these datetime data type
-    [DateTime]$su;
-    [DateTime]$mo;
-    [DateTime]$tu;
-    [DateTime]$we;
-    [DateTime]$th;
-    [DateTime]$fr;
-    [DateTime]$sa;
+    [Day]$su;
+    [Day]$mo;
+    [Day]$tu;
+    [Day]$we;
+    [Day]$th;
+    [Day]$fr;
+    [Day]$sa;
 
-    Week([DateTime]$su, 
-        [DateTime]$mo, 
-        [DateTime]$tu, 
-        [DateTime]$we, 
-        [DateTime]$th, 
-        [DateTime]$fr, 
-        [DateTime]$sa)
+    Week([Day]$su, 
+        [Day]$mo, 
+        [Day]$tu, 
+        [Day]$we, 
+        [Day]$th, 
+        [Day]$fr, 
+        [Day]$sa)
     {
         $this.su = $su;
         $this.mo = $mo;
@@ -169,57 +169,23 @@ class Week
     ToString()
     {
         [string]$week = "";
-
-        if(($this.su.Day -ge 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)* ";}
-        elseif(($this.su.Day -lt 10) -and ($this.su.Day -eq (Get-Date).Day)){$week += "$($this.su.Day)*  ";}
-        elseif(($this.su.Day -ge 10) -and ($this.su.Day -ne (Get-Date).Day)){$week += "$($this.su.Day)  ";}
-        else{$week += "$($this.su.Day)   ";}
-
-        if(($this.mo.Day -ge 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)* ";}
-        elseif(($this.mo.Day -lt 10) -and ($this.mo.Day -eq (Get-Date).Day)){$week += "$($this.mo.Day)*  ";}
-        elseif(($this.mo.Day -ge 10) -and ($this.mo.Day -ne (Get-Date).Day)){$week += "$($this.mo.Day)  ";}
-        else{$week += "$($this.mo.Day)   ";}
-
-        if(($this.tu.Day -ge 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)* ";}
-        elseif(($this.tu.Day -lt 10) -and ($this.tu.Day -eq (Get-Date).Day)){$week += "$($this.tu.Day)*  ";}
-        elseif(($this.tu.Day -ge 10) -and ($this.tu.Day -ne (Get-Date).Day)){$week += "$($this.tu.Day)  ";}
-        else{$week += "$($this.tu.Day)   ";}
-
-        if(($this.we.Day -ge 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)* ";}
-        elseif(($this.we.Day -lt 10) -and ($this.we.Day -eq (Get-Date).Day)){$week += "$($this.we.Day)*  ";}
-        elseif(($this.we.Day -ge 10) -and ($this.we.Day -ne (Get-Date).Day)){$week += "$($this.we.Day)  ";}
-        else{$week += "$($this.we.Day)   ";}
-
-        if(($this.th.Day -ge 10) -and ($this.th.Day -eq (Get-Date).Day)){$week += "$($this.th.Day)* ";}
-        elseif(($this.th.Day -lt 10) -and ($this.th.Day -eq (Get-Date).Day)){$week += "$($this.th.Day)*  ";}
-        elseif(($this.th.Day -ge 10) -and ($this.th.Day -ne (Get-Date).Day)){$week += "$($this.th.Day)  ";}
-        else{$week += "$($this.th.Day)   ";}
-
-        if(($this.fr.Day -ge 10) -and ($this.fr.Day -eq (Get-Date).Day)){$week += "$($this.fr.Day)* ";}
-        elseif(($this.fr.Day -lt 10) -and ($this.fr.Day -eq (Get-Date).Day)){$week += "$($this.fr.Day)*  ";}
-        elseif(($this.fr.Day -ge 10) -and ($this.fr.Day -ne (Get-Date).Day)){$week += "$($this.fr.Day)  ";}
-        else{$week += "$($this.fr.Day)   ";}
-
-        if(($this.sa.Day -ge 10) -and ($this.sa.Day -eq (Get-Date).Day)){$week += "$($this.sa.Day)* ";}
-        elseif(($this.sa.Day -lt 10) -and ($this.sa.Day -eq (Get-Date).Day)){$week += "$($this.sa.Day)*  ";}
-        elseif(($this.sa.Day -ge 10) -and ($this.sa.Day -ne (Get-Date).Day)){$week += "$($this.sa.Day)  ";}
-        else{$week += "$($this.sa.Day)   ";}
-        # $this.Evaluate_Days($this.su,[ref]$week);
-        # $this.Evaluate_Days($this.mo,[ref]$week);
-        # $this.Evaluate_Days($this.tu,[ref]$week);
-        # $this.Evaluate_Days($this.we,[ref]$week);
-        # $this.Evaluate_Days($this.th,[ref]$week);
-        # $this.Evaluate_Days($this.fr,[ref]$week);
-        # $this.Evaluate_Days($this.su,[ref]$week);
+        $this.Evaluate_Days($this.su,[ref]$week);
+        $this.Evaluate_Days($this.mo,[ref]$week);
+        $this.Evaluate_Days($this.tu,[ref]$week);
+        $this.Evaluate_Days($this.we,[ref]$week);
+        $this.Evaluate_Days($this.th,[ref]$week);
+        $this.Evaluate_Days($this.fr,[ref]$week);
+        $this.Evaluate_Days($this.su,[ref]$week);
         Write-Host "$($week)"
     }
 
-    hidden Evaluate_Days([DateTime]$day,[ref]$week)
-    {
-        if(($day.Day -ge 10) -and ($day.Day -eq (Get-Date).Day)){$week.Value += "$($day.Day)* ";}
-        elseif(($day.Day -lt 10) -and ($day.Day -eq (Get-Date).Day)){$week.Value += "$($day.Day)*  ";}
-        elseif(($day.Day -ge 10) -and ($day.Day -ne (Get-Date).Day)){$week.Value += "$($day.Day)  ";}
-        else{$week.Value += "$($day.Day)   ";}
+    hidden Evaluate_Days([Day]$day,[ref]$week)
+    {   
+        [Day]$today = [Day]::new($(Get-Date));
+        if(($day.Day -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.DayNum)* ";}
+        elseif(($day.Day -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.DayNum)*  ";}
+        elseif(($day.Day -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.DayNum)  ";}
+        else{$week.Value += "$($day.DayNum)   ";}
     }
 
 }
@@ -227,13 +193,26 @@ class Week
 # https://stackoverflow.com/questions/50203695/powershell-icomparable-with-subclasses
 class Day
 { # TODO make day object
-    [int]$Day;
+    hidden [datetime]$Date;
+    [int]$DayNum;
     [string]$DayOfWeek
-    hidden [datetime]$val;
 
     Day([DateTime]$Date)
     {
-        $this.Day = $Date.Day;
+        $this.Date = $Date;
+        $this.DayNum = $Date.Day;
         $this.DayOfWeek = $Date.DayOfWeek.ToString();
+    }
+
+    [boolean]IsEqual([Day]$d)
+    {
+        return $d -eq $this.Day;
+    }
+
+    AddDays([int]$x)
+    {
+        $this.Date = $this.Date.AddDays($x);
+        $this.DayNum = $this.Date.Day;
+        $this.DayOfWeek = $this.Date.DayOfWeek.ToString();
     }
 }

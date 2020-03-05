@@ -25,7 +25,7 @@ Push-Location $x.Machine.GitRepoDir;
         {Set-Alias $val.Name "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
         
     <### OBJECTS ###>
-        Import-Module $($x.Machine.GitRepoDir + '\Classes\MakeClassObject.psm1');
+        Import-Module $($x.Machine.GitRepoDir + '\Modules\MakeClassObject.psm1');
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
             # New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose; 

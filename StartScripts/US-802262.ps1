@@ -7,7 +7,7 @@
 	Else {"Good Afternoon Brandon"}
 	Write-Host ("`n$Date`n");
 	$Calendar.GetCalendarMonth();
-	Write-Host ("1. Start`n")
+	Write-Host ("`n1. Start`n")
 	$start = Read-Host 
 	if($start -eq "1")
 	{

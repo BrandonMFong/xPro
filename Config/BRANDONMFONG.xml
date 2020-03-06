@@ -46,6 +46,7 @@
         <Directory alias='c'>C:\</Directory>
         <Directory alias='cmain'>C:\Users\bfwan\Brandon.Fong\</Directory>
         <Directory alias='pf'>B:\PROGRAMFILES</Directory>
+        <Directory alias='remote'>B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
     </Directories>
 
     <!-- Objects User uses while on the command line -->
@@ -226,6 +227,7 @@
             <!-- This is the link for the steps to create a django site -->
             <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+            <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
         </Object>
 
         <!-- $Passwords -->

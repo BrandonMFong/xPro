@@ -17,7 +17,7 @@ class Calendar
         }
     }
 
-    [int]GetMaxDayOfMonth($Month) #Of the current year
+    [int]GetMaxDayOfMonth([string]$Month) #Of the current year
     {
         #Total days
         $Jan=31;$Feb=28;$FebLeapYear=29;$Mar=31;
@@ -78,20 +78,20 @@ class Calendar
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
         # $day = $this.Today;
         [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today)); # this is returning a null value
-        $MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
-        $IsFirstWeek = $true;
+        [int]$MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
+        [bool]$IsFirstWeek = $true;
 
         while($true)
         {
             switch ($day.DayOfWeek)
             {
-                "Sunday"{$su = $day;}
-                "Monday"{$mo = $day;}
-                "Tuesday"{$tu = $day;}
-                "Wednesday"{$we = $day;}
-                "Thursday"{$th = $day;}
-                "Friday"{$fr = $day;}
-                "Saturday"{$sa = $day;}
+                "Sunday"{$su = $day;break;}
+                "Monday"{$mo = $day;break;}
+                "Tuesday"{$tu = $day;break;}
+                "Wednesday"{$we = $day;break;}
+                "Thursday"{$th = $day;break;}
+                "Friday"{$fr = $day;break;}
+                "Saturday"{$sa = $day;break;}
                 default{Write-Error "something bad happened";}
             }
             if($day.DayOfWeek -eq "Saturday")
@@ -100,7 +100,7 @@ class Calendar
                 else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa)}
             }
 
-            if($day.Day -eq $MaxDays)
+            if($day.Number -eq $MaxDays)
             {
                 while($true)
                 {
@@ -121,7 +121,7 @@ class Calendar
                 $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
                 break;
             }
-            $day.AddDays(1);
+            $day = $day.AddDays(1);
         }
         return $tempweeks;
     }
@@ -140,7 +140,6 @@ class Calendar
 }
 class Week
 {
-    #Probably have to make these datetime data type
     [Day]$su;
     [Day]$mo;
     [Day]$tu;
@@ -175,17 +174,17 @@ class Week
         $this.Evaluate_Days($this.we,[ref]$week);
         $this.Evaluate_Days($this.th,[ref]$week);
         $this.Evaluate_Days($this.fr,[ref]$week);
-        $this.Evaluate_Days($this.su,[ref]$week);
+        $this.Evaluate_Days($this.sa,[ref]$week);
         Write-Host "$($week)"
     }
 
     hidden Evaluate_Days([Day]$day,[ref]$week)
     {   
-        [Day]$today = [Day]::new($(Get-Date));
-        if(($day.Day -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.DayNum)* ";}
-        elseif(($day.Day -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.DayNum)*  ";}
-        elseif(($day.Day -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.DayNum)  ";}
-        else{$week.Value += "$($day.DayNum)   ";}
+        [Day]$today = [Day]::new($(Get-Date));# debug here
+        if(($day.Number -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)* ";}
+        elseif(($day.Number -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)*  ";}
+        elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";}
+        else{$week.Value += "$($day.Number)   ";}
     }
 
 }
@@ -194,26 +193,27 @@ class Week
 class Day
 { # TODO make day object
     hidden [datetime]$Date;
-    [int]$DayNum;
+    [int]$Number;
+    [int]$Month;
+    [int]$Year;
     [string]$DayOfWeek
 
     Day([DateTime]$Date)
     {
         $this.Date = $Date;
-        $this.DayNum = $Date.Day;
+        $this.Number = $Date.Day;
+        $this.Month = $Date.Month;
+        $this.Year = $Date.Year;
         $this.DayOfWeek = $Date.DayOfWeek.ToString();
     }
 
-    [boolean]IsEqual([Day]$d)
+    [boolean]IsEqual([Day]$d) # Not comparing time
     {
-        return $d -eq $this.Day;
+        return ($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year);
     }
 
-    # This is not the same as the [Datetime] AddDays() method because the fields I defined are not static.  Should I make it static?
-    AddDays([int]$x)
+    [Day]AddDays([int]$x)
     {
-        $this.Date = $this.Date.AddDays($x);
-        $this.DayNum = $this.Date.Day;
-        $this.DayOfWeek = $this.Date.DayOfWeek.ToString();
+        return [Day]::new($this.Date.AddDays($x))
     }
 }

@@ -1,5 +1,6 @@
 archive/*
 .vs/*
+.vscode/*
 Profile/archive/*
 VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace

@@ -1,9 +1,9 @@
-using module .\Calendar.psm1;
-using module .\Math.psm1;
-using module .\SQL.psm1;
-using module .\Web.psm1;
-using module .\Windows.psm1;
-using module .\ToDoList.psm1;
+using module .\..\Classes\Calendar.psm1;
+using module .\..\Classes\Math.psm1;
+using module .\..\Classes\SQL.psm1;
+using module .\..\Classes\Web.psm1;
+using module .\..\Classes\Windows.psm1;
+using module .\..\Classes\ToDoList.psm1;
 
 function MakeClass
 {

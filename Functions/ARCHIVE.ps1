@@ -48,7 +48,9 @@ else
     }
     if($IncludeZipFiles)
     {
-        Get-ChildItem | ForEach-Object{Move-Item $_ .\archive\;}
+        Get-ChildItem | 
+            Where-Object{$_.Name -ne 'archive'} |
+                ForEach-Object{Move-Item $_ .\archive\;}
         exit;
     }
     elseif($OnlyZipFiles)

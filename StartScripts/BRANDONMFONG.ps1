@@ -1,11 +1,8 @@
 
 Write-Host "`n";
 $Hour = (Get-Date).Hour;
-$Date = Get-Date;
-If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
-ElseIf ($Hour -gt 17) {"Good Eventing Brandon"}
-Else {"Good Afternoon Brandon"}
-Write-Host ("`n$Date`n")
+If ($Hour -lt 12) {"`n`nGood Morning Brandon`n"}
+ElseIf ($Hour -gt 17) {"Good Eventing Brandon`n"}
+Else {"Good Afternoon Brandon`n"}
 $Calendar.GetCalendarMonth();
 Write-Host "`n";
-goto main;

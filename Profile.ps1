@@ -14,15 +14,16 @@ Push-Location $x.Machine.GitRepoDir;
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){.$PROFILE;exit;};
         
-    <### ALIASES ###> 
-        foreach($val in $XMLReader.Machine.Aliases.Alias)
+    <### PROGRAMS ###> 
+        foreach($val in $XMLReader.Machine.Programs.Program)
         {
-            Set-Alias $val.Name "$($val.InnerXML)" -Verbose;
+            switch($val.Type)
+            {
+                "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose;}
+                "Internal"{Set-Alias $val.Alias "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
+                default {Write-Warning "$($val.Alias) : $($val.InnerXML)`n Not set!"}
+            }
         }
-
-    <### FUNCTIONS ###> 
-        foreach($val in $XMLReader.Machine.Functions.Function)
-        {Set-Alias $val.Name "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
         
     <### OBJECTS ###>
         Import-Module $($x.Machine.GitRepoDir + '\Modules\MakeClassObject.psm1');

@@ -223,11 +223,14 @@
             <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
             <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
             <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
-            <ADCGit>https://github.com/adafruit/Adafruit_Python_ADS1x15</ADCGit>
+            <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit><!-- This repo is still maintained so look at this one -->
             <!-- This is the link for the steps to create a django site -->
             <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
             <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+            
+            <!-- I need to download this in order -->
+            <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
         </Object>
 
         <!-- $Passwords -->

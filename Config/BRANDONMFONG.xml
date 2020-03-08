@@ -188,12 +188,19 @@
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
             </CiscoPacketTracer>
+            <CSUEB>
+                <URL>csueastbay.edu/mycsueb/</URL>
+                <NetID>57601071-5d97-4863-acdc-b098e4e9d140</NetID>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </CSUEB>
         </Object>
 
         <!-- $RPi -->
         <Object HasClass="false" VarName="RPi">
             <FirewallInfo>https://www.raspberrypi.org/documentation/configuration/security.md</FirewallInfo>
             <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+            <Fileserver>https://raspberrytips.com/raspberry-pi-file-server/</Fileserver>
+
             <!-- KOJAMI -->
             <Kojami>
                 <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
@@ -311,7 +318,6 @@
 
     </Objects>
 
-    <!-- TODO make into Functions -->
     <!-- Aliases to call Third Party exectuables, scripts, etc -->
     <Programs>
         <!-- Third party Functions -->
@@ -349,15 +355,14 @@
         <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
         <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
         <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
+        <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
 
         <!-- User Defined Functions/scripts --> 
         <Program Alias="jump" Type="Internal">\Functions\JUMP.ps1</Program>
         <Program Alias="hop" Type="Internal">\Functions\HOP.ps1</Program>
         <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
         <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
-        <Program Alias="Recycle" Type="Internal">\Functions\RECYCLE.ps1</Program>
         <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-        <Program Alias="Modify-Modules" Type="Internal">\Functions\MODIFYMODULE.PS1</Program>
         <Program Alias="cl" Type="Internal">\Functions\ClearAndList.PS1</Program>
         <Program Alias="Chrome" Type="Internal">\Functions\Chrome.ps1</Program>
         <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>

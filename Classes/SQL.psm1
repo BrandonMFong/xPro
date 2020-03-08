@@ -110,7 +110,7 @@ class SQL
 
     StartServer()# Run as Admin
     {
-        net start "SQL Server Agent( BRANDONMFONG )" -Verb RunAs;
+        net start "SQL Server Agent(SQLEXPRESS)";
     }
 
     hidden [string]SQLConvert($val)

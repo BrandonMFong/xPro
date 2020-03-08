@@ -5,112 +5,112 @@
     <SubItem>3</SubItem>
   </HierarchyLevels> -->
 
-  <!-- done = true || false-->
+  <!-- Completed = true || false-->
   <!--Monday-->
-  <Item name="Monday" done="true" >
-    <Item name="EE600" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+  <Item name="Monday" Completed="true" >
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE565" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE565" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE560" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE496B" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE496B" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
   </Item>
   <!--Tuesday-->
-  <Item name="Tuesday" done="true" >
-    <Item name="CompE560" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+  <Item name="Tuesday" Completed="true" >
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="EE600" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
   </Item>
   <!--Wednesday-->
-  <Item name="Wednesday" done="true" >
-    <Item name="EE600" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+  <Item name="Wednesday" Completed="true" >
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE565" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE565" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE560" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item name="CompE496B" done="true" >
-      <Item name="Study" done="true"/>
-      <Item name="Study" done="true"/>
+    <Item name="CompE496B" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
   </Item>
   <!--Thursday-->
-  <Item name="Thursday" done="false" >
-    <Item name="CompE560" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+  <Item name="Thursday" Completed="false" >
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="EE600" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
   </Item>
   <!--Friday-->
-  <Item name="Friday" done="false" >
-    <Item id="" name="EE600" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+  <Item name="Friday" Completed="false" >
+    <Item id="" name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
   </Item>
   <!--Saturday-->
-  <Item name="Saturday" done="false" >
-    <Item name="EE600" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+  <Item name="Saturday" Completed="false" >
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE565" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE565" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE560" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE496B" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE496B" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
   </Item>
   <!--Sunday-->
-  <Item name="Sunday" done="false" >
-    <Item name="EE600" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+  <Item name="Sunday" Completed="false" >
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE565" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE565" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE560" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item name="CompE496B" done="false" >
-      <Item name="Study" done="false"/>
-      <Item name="Study" done="false"/>
+    <Item name="CompE496B" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
   </Item>
 </Todo>

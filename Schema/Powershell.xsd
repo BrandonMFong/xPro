@@ -52,6 +52,14 @@
             </xs:attribute>
         </xs:element>
     </xs:element>
+
+    <xs:element name="Modules" maxOccurs="1">
+        <xs:element name="Module" type="xs:string" minOccurs="1">
+            <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
+                Path for modules starting at powershell repo
+            </xs:documentation>
+        </xs:element>
+    </xs:element>
     
 </xs:element>
 </xs:schema>

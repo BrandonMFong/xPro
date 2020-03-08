@@ -12,7 +12,7 @@ $ConfigFile = $x.Machine.GitRepoDir + "\Config\" + $x.Machine.ConfigFile;
 Push-Location $x.Machine.GitRepoDir; 
 
     <### CHECK UPDATES ###>
-        if(.\update-profile.ps1){.$PROFILE;exit;};
+        if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
         
     <### PROGRAMS ###> 
         foreach($val in $XMLReader.Machine.Programs.Program)
@@ -23,6 +23,12 @@ Push-Location $x.Machine.GitRepoDir;
                 "Internal"{Set-Alias $val.Alias "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
                 default {Write-Warning "$($val.Alias) : $($val.InnerXML)`n Not set!"}
             }
+        }
+    
+    <### MODULES ###>
+        foreach($val in $XMLReader.Machine.Modules.Module)
+        {
+            Import-Module $($x.Machine.GitRepoDir + $val);
         }
         
     <### OBJECTS ###>

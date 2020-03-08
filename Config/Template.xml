@@ -16,18 +16,26 @@
 
     <!-- Objects User uses while on the command line -->
     <Objects>
-        <Object HasClass="false" VarName="null">  
+        <Object HasClass="false" VarName="">  
+        </Object>
+
+        <Object HasClass="true" VarName="">
+            <Class ClassName="" HasParams="true">
+                <filename></filename>
+            </Class>
         </Object>
     </Objects>
 
-    <!-- Aliases to call Third Party exectuables, scripts, etc -->
-    <Aliases>
-        <Alias Name="null">null</Alias>
-    </Aliases>
+    <Programs>
+        <!-- Third party Functions -->
+        <Program Alias="" Type="External"></Program>
 
-    <!-- User Define Functions --> 
-    <Functions>
-        <Function Name="null">null</Function>
-    </Functions>
+        <!-- User Defined Functions/scripts --> 
+        <Program Alias="" Type="Internal"></Program>
+    </Programs>
+
+    <Modules>
+        <Module>\Modules\Miscellaneous.psm1</Module>
+    </Modules>
 
 </Machine>

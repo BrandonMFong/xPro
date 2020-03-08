@@ -318,7 +318,7 @@
 
     </Objects>
 
-    <!-- Aliases to call Third Party exectuables, scripts, etc -->
+    <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
     <Programs>
         <!-- Third party Functions -->
         <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
@@ -358,15 +358,16 @@
         <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
 
         <!-- User Defined Functions/scripts --> 
-        <Program Alias="jump" Type="Internal">\Functions\JUMP.ps1</Program>
-        <Program Alias="hop" Type="Internal">\Functions\HOP.ps1</Program>
         <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
         <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
         <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-        <Program Alias="cl" Type="Internal">\Functions\ClearAndList.PS1</Program>
         <Program Alias="Chrome" Type="Internal">\Functions\Chrome.ps1</Program>
         <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
         <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
     </Programs>
+
+    <Modules>
+        <Module>\Modules\Miscellaneous.psm1</Module>
+    </Modules>
 
 </Machine>

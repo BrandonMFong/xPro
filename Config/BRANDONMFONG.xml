@@ -220,6 +220,7 @@
                 <IPAddress>
                     <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
                     <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
+                    <Ethernet>b38dddbc-a983-4aa1-b0ed-e201172a1e03</Ethernet><!--To personal computer-->
                 </IPAddress>
             </Nokita>
         </Object>
@@ -287,8 +288,8 @@
             <Class ClassName="Calculations" HasParams="false"/>
         </Object>
 
-        <!-- $Decode -->
-        <Object HasClass="true" VarName="Decode">
+        <!-- $Query -->
+        <Object HasClass="true" VarName="Query">
             <Class Classname="SQL" HasParams="true">
                 <Database>BrandonMFong</Database>
                 <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
@@ -364,6 +365,9 @@
         <Program Alias="Chrome" Type="Internal">\Functions\Chrome.ps1</Program>
         <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
         <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
+        <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
+        <Program Alias="upconfig" Type="Internal">update-config.ps1</Program>
+        <Program Alias="upprofile" Type="Internal">update-profile.ps1</Program>
     </Programs>
 
     <Modules>

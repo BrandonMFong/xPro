@@ -19,8 +19,10 @@ class SQL
     # Standard queries
     [System.Object[]]Query([string]$querystring)
     {
+        $this.results = $null # reset
         $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        return $this.results; # display
+        if($null -eq $this.results){throw "Nothing returned from query string"}
+        else {return $this.results;} # display
     }
 
     # This function can insert into all different tables in a database
@@ -180,6 +182,7 @@ class SQL
 
     InputCopy([string]$value) # Decodes guid in personalinfo table
     {
+        # $this.results = $null # reset
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         Set-Clipboard $result.Item("Value");

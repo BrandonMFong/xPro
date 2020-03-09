@@ -1,5 +1,6 @@
 Param([bool]$ProfileOverride=$true)
 
+[boolean]$Updated = $false;
 
 Push-Location $PSScriptRoot
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
@@ -28,7 +29,7 @@ Push-Location $PSScriptRoot
                 Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
             Pop-Location;
             
-            return 1;
+            $Updated = $true;
         }
         else{Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow; }
     }
@@ -38,4 +39,6 @@ Push-Location $PSScriptRoot
     }
     Start-Sleep 1;
 Pop-Location
-return 0;
+
+if($Updated){return 1;}
+else{return 0;}

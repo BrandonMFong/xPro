@@ -46,6 +46,7 @@
         <Directory alias='c'>C:\</Directory>
         <Directory alias='cmain'>C:\Users\bfwan\Brandon.Fong\</Directory>
         <Directory alias='pf'>B:\PROGRAMFILES</Directory>
+        <Directory alias='remote'>B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
     </Directories>
 
     <!-- Objects User uses while on the command line -->
@@ -187,12 +188,19 @@
                 <Email>94edc712-0435-4574-80ad-fbb1aab3dc20</Email>
                 <Password>53A9CF28-D09B-48F4-9BD5-DDC04E496039</Password>
             </CiscoPacketTracer>
+            <CSUEB>
+                <URL>csueastbay.edu/mycsueb/</URL>
+                <NetID>57601071-5d97-4863-acdc-b098e4e9d140</NetID>
+                <Password>266d3c1e-de41-475b-b169-bdd5d2518440</Password>
+            </CSUEB>
         </Object>
 
         <!-- $RPi -->
         <Object HasClass="false" VarName="RPi">
             <FirewallInfo>https://www.raspberrypi.org/documentation/configuration/security.md</FirewallInfo>
             <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+            <Fileserver>https://raspberrytips.com/raspberry-pi-file-server/</Fileserver>
+
             <!-- KOJAMI -->
             <Kojami>
                 <User Username="dual" Password="83395175-2A13-404B-9831-8B59C1A2016E" isRoot="true"/>
@@ -212,6 +220,7 @@
                 <IPAddress>
                     <SDSU>148498AB-B315-4379-BE92-A20CC4FCC29D</SDSU>
                     <Mesita>C39FA47C-E194-469F-BF32-0B8ADB7B75B7</Mesita>
+                    <Ethernet>b38dddbc-a983-4aa1-b0ed-e201172a1e03</Ethernet><!--To personal computer-->
                 </IPAddress>
             </Nokita>
         </Object>
@@ -222,10 +231,14 @@
             <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
             <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
             <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
-            <ADCGit>https://github.com/adafruit/Adafruit_Python_ADS1x15</ADCGit>
+            <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit><!-- This repo is still maintained so look at this one -->
             <!-- This is the link for the steps to create a django site -->
             <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
             <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+            <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+            
+            <!-- I need to download this in order -->
+            <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
         </Object>
 
         <!-- $Passwords -->
@@ -275,8 +288,8 @@
             <Class ClassName="Calculations" HasParams="false"/>
         </Object>
 
-        <!-- $Decode -->
-        <Object HasClass="true" VarName="Decode">
+        <!-- $Query -->
+        <Object HasClass="true" VarName="Query">
             <Class Classname="SQL" HasParams="true">
                 <Database>BrandonMFong</Database>
                 <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
@@ -306,57 +319,59 @@
 
     </Objects>
 
-    <!-- TODO make into programs -->
-    <!-- Aliases to call Third Party exectuables, scripts, etc -->
-    <Aliases>
-        <Alias Name="Vim">C:\Program Files (x86)\vim\vim80\vim.exe</Alias>
-        <Alias Name="VS">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Alias>
-        <!-- <Alias Name="Chrome">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Alias> -->
-        <Alias Name="Matlab">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Alias>
-        <Alias Name="Word">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Alias>
-        <Alias Name="Outlook">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Alias>
-        <Alias Name="Spotify">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Alias>
-        <Alias Name="Npad">C:\Program Files (x86)\Notepad++\notepad++.exe</Alias>
-        <Alias Name="QtSpim">C:\Program Files (x86)\QtSpim\QtSpim.exe</Alias>
-        <Alias Name="GitHub">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Alias>
-        <Alias Name="Wmplayer">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Alias>
-        <Alias Name="SDK">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Alias>
-        <Alias Name="Putty">C:\Program Files\PuTTY\putty.exe</Alias>
-        <Alias Name="Atmel">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Alias>
-        <Alias Name="Gitbash">C:\Program Files\Git\git-bash.exe</Alias>
-        <Alias Name="7z">C:\Program Files\7-Zip\7z.exe</Alias>
-        <Alias Name="Xampp">C:\xampp\xampp-control.exe</Alias>
-        <Alias Name="Global">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Alias>
-        <Alias Name="WinSCP">C:\Program Files (x86)\WinSCP\winscp.exe</Alias>
-        <Alias Name="Python">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Alias>
-        <Alias Name="VC">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Alias>
-        <Alias Name="PIP">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Alias>
-        <Alias Name="Subl">C:\Program Files\Sublime Text 3\subl.exe</Alias>
-        <Alias Name="sql">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Alias>
-        <Alias Name="VC-Powershell">B:\Powershell\VCODE_Powershell.code-workspace</Alias>
-        <Alias Name="VC-DualPowerGeneration">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Alias>
-        <Alias Name="VC-BrandonFongMusic">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Alias>
-        <Alias Name="X-Win">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Alias>
-        <Alias Name="Xming">C:\Program Files (x86)\Xming\Xming.exe</Alias>
-        <Alias Name="Modeler">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Alias>
-        <Alias Name="SDFormatter">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Alias>
-        <Alias Name="GuiFormat">B:\PROGRAMFILES\guiformat-x64.Exe</Alias>
-        <Alias Name="VNCViewer">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Alias>
-    </Aliases>
+    <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
+    <Programs>
+        <!-- Third party Functions -->
+        <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
+        <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+        <!-- <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program> -->
+        <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
+        <Program Alias="Word" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Program>
+        <Program Alias="Outlook" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Program>
+        <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
+        <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+        <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
+        <Program Alias="GitHub" Type="External">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
+        <Program Alias="Wmplayer" Type="External">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
+        <Program Alias="SDK" Type="External">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
+        <Program Alias="Putty" Type="External">C:\Program Files\PuTTY\putty.exe</Program>
+        <Program Alias="Atmel" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
+        <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
+        <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
+        <Program Alias="Xampp" Type="External">C:\xampp\xampp-control.exe</Program>
+        <Program Alias="Global" Type="External">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
+        <Program Alias="WinSCP" Type="External">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
+        <Program Alias="Python" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
+        <Program Alias="VC" Type="External">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+        <Program Alias="PIP" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
+        <Program Alias="Subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
+        <Program Alias="sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
+        <Program Alias="VC-Powershell" Type="External">B:\Powershell\VCODE_Powershell.code-workspace</Program>
+        <Program Alias="VC-DualPowerGeneration" Type="External">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
+        <Program Alias="VC-BrandonFongMusic" Type="External">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
+        <Program Alias="X-Win" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
+        <Program Alias="Xming" Type="External">C:\Program Files (x86)\Xming\Xming.exe</Program>
+        <Program Alias="Modeler" Type="External">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
+        <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
+        <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
+        <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
+        <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
+        <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
 
-    <!-- User Define Functions --> 
-    <Functions>
-        <Function Name="jump">\Functions\JUMP.ps1</Function>
-        <Function Name="hop">\Functions\HOP.ps1</Function>
-        <Function Name="goto">\Functions\GOTO.ps1</Function>
-        <Function Name="Archive">\Functions\ARCHIVE.ps1</Function>
-        <Function Name="Recycle">\Functions\RECYCLE.ps1</Function>
-        <Function Name="Append">\Functions\AppendDate.ps1</Function>
-        <Function Name="Modify-Modules">\Functions\MODIFYMODULE.PS1</Function>
-        <Function Name="cl">\Functions\ClearAndList.PS1</Function>
-        <Function Name="Chrome">\Functions\Chrome.ps1</Function>
-        <Function Name="Put">\Functions\Put.ps1</Function>
-        <Function Name="Todo">\Functions\Todo.ps1</Function>
-    </Functions>
+        <!-- User Defined Functions/scripts --> 
+        <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
+        <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
+        <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
+        <Program Alias="Chrome" Type="Internal">\Functions\Chrome.ps1</Program>
+        <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
+        <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
+        <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
+        <Program Alias="upconfig" Type="Internal">update-config.ps1</Program>
+        <Program Alias="upprofile" Type="Internal">update-profile.ps1</Program>
+    </Programs>
+
+    <Modules>
+        <Module>\Modules\Miscellaneous.psm1</Module>
+    </Modules>
 
 </Machine>

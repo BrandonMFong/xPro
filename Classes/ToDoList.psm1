@@ -1,205 +1,54 @@
 
 class ToDoList
 {
-    [XML]$xml;
-    [string]$FileName;
-    [int]$Completed;
-    [int]$Uncompleted;
-    [Hierarchy]$Level;
-    [string]$XMLFilePath;
+    [XML]$xml; # Will contain xml elements
+    [string]$FileName; # The data file that will contain todo list
+    [string]$XMLFilePath; # Full file path
+    [int]$Completed = 0; # Completed="true"
+    [int]$Uncompleted = 0; # Completed="false"
 
     ToDoList($filename)
     {
         $this.FileName = $filename;
-        $this.LoadList($this.FileName);
-        $this.Level = [Hierarchy]::new($this.xml.Todo.HierarchyLevels.DayOfWeek, 
-            $this.xml.Todo.HierarchyLevels.Item, 
-            $this.xml.Todo.HierarchyLevels.SubItem);
-    }
-
-    Week()
-    {
-        $this.LoadList($this.FileName);
-        foreach($Days in $this.xml.Todo.DayOfWeek)
-        {
-            $this.ListItems($Days);
-        }
-    }
-
-    Today(){$this.LoadList($this.FileName);$this.GetDayList((Get-Date).DayOfWeek.ToString());}
-    Monday(){$this.LoadList($this.FileName);$this.GetDayList("Monday");}
-    Tuesday(){$this.LoadList($this.FileName);$this.GetDayList("Tuesday");}
-    Wednesday(){$this.LoadList($this.FileName);$this.GetDayList("Wednesday");}
-    Thursday(){$this.LoadList($this.FileName);$this.GetDayList("Thursday");}
-    Friday(){$this.LoadList($this.FileName);$this.GetDayList("Friday");}
-    Saturday(){$this.LoadList($this.FileName);$this.GetDayList("Saturday");}
-    Sunday(){$this.LoadList($this.FileName);$this.GetDayList("Sunday");}
-
-    Mark() # TODO finish logic to mark done
-    {
-        $index = 0;
-        $currentlevel = $this.xml.Todo.DayOfWeek;
-        $this.LoadList($this.FileName);
-        Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
-        while($true)
-        {
-            $this.ListLevel($currentlevel)
-            $index = Read-Host -Prompt "Which item"
-            if($index -eq 'q'){break;}
-            elseif($index -ne $null){$currentlevel = $currentlevel[$index].Item;break;}
-            else
-            {
-                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
-            }
-        }
-        while($true)
-        {
-            $this.ListLevel($currentlevel)
-            $index = Read-Host -Prompt "Which item"
-            if($index -eq 'q'){break;}
-            elseif($index -ne $null){$currentlevel = $currentlevel[$index].SubItem;break;}
-            else
-            {
-                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
-            }
-        }
-        while($true)
-        {
-            $this.ListLevel($currentlevel)
-            $index = Read-Host -Prompt "Which item"
-            if($index -eq 'q'){break;}
-            elseif($index -ne $null){$this.ToggleDone($currentlevel[$index])}
-            else
-            {
-                Write-Host "`n# for item, press enter to go to subitems, or q to quit`n" -ForegroundColor Green;
-            }
-        }
-        $this.Save();
+        $this.ScanCompleted();
     }
 
     Save(){$this.xml.Save($this.XMLFilePath);}
 
-    
-    hidden LoadList($file)
+    hidden LoadList() # Will always run, just in case the xml file is editted
     {
         Push-Location $PSScriptRoot;
-            Set-Location ..\Data\;
-            $this.xml = Get-Content $file;
-            Get-ChildItem $file |
-                ForEach-Object{$this.XMLFilePath = $_.FullName;}
+            $this.xml = Get-Content $('..\Data\' + $this.FileName); 
+            Get-ChildItem $('..\Data\' + $this.FileName) |
+                ForEach-Object{$this.XMLFilePath = $_.FullName;} # For full file path
         Pop-Location;
     }
 
-    # Listing the items in the hierarchy
-    hidden ListLevel($elements)
+    hidden ScanCompleted()
     {
-        foreach($element in $elements)
-        {
-            $this.Evaluate_WriteElementNameAndID($element,$null)
-        }
-        $index = Read-Host -Prompt "Which item"
+        $this.LoadList();
+        $this.CountCompletedAttribute($this.xml.Todo.Item);
     }
 
-    hidden ToggleDone($element)
+    hidden CountCompletedAttribute([System.object[]]$Item) # converting system.object to xml    
     {
-        [string]$booleanliteral = $element.done;
-        if($booleanliteral.Length -eq 4){$element.done = 'false';break;}
-        else{$element.done = 'true';break;}
-        Write-Host "didn't break";
-    }
-
-    hidden GetDayList([string]$Day)
-    {
-        $this.LoadList($this.FileName);
-        foreach($Days in $this.xml.Todo.DayOfWeek)
+        foreach ($val in $Item)
         {
-            if($Day -eq $Days.name)
+            if($val.HasChildNodes)
             {
-                $this.ListItems($Days);
+                $this.CheckIfCompleted($val);
+                $this.CountCompletedAttribute($val.Item)
+            }
+            else
+            {
+                $this.CheckIfCompleted($val);
             }
         }
     }
 
-    # this can be dynamic
-    hidden ListItems($Days)
+    hidden CheckIfCompleted([System.Object[]]$val)
     {
-        $this.WriteElementNameAndID($Days)
-        foreach($Item in $Days.Item)
-        {
-            $this.WriteElementNameAndID($Item)
-            foreach($SubItem in $Item.SubItem)
-            {
-                $this.WriteElementNameAndID($SubItem);
-            }
-        }
-    }
-
-    hidden WriteElementNameAndID($element)
-    {
-        
-        switch($element.hierarchy)
-        {
-            $this.Level.DayOfWeek 
-            {
-                [string]$tab = "";
-                $this.Evaluate_WriteElementNameAndID($element,$tab);
-                break;
-            }
-            $this.Level.Item 
-            {
-                [string]$tab = "    ";
-                $this.Evaluate_WriteElementNameAndID($element,$tab);
-                break;
-            }
-            $this.Level.SubItem 
-            {
-                [string]$tab = "        ";
-                $this.Evaluate_WriteElementNameAndID($element,$tab);
-                break;
-            }
-            default {throw "something bad happened";break;}
-        }
-    }
-
-    hidden Evaluate_WriteElementNameAndID($element, [string]$tab)
-    {
-        if($element.done -eq "true"){Write-Host "$($tab)$($element.id) - $($element.name)" -ForegroundColor Green;}
-        else{Write-Host "$($tab)$($element.id) - $($element.name)" -ForegroundColor Red;}
-    }
-    
-    hidden WriteElementNameAndID_NoWhitespace($element)
-    {
-        [string]$NoWhitspace="";
-        switch($element.hierarchy)
-        {
-            $this.Level.DayOfWeek 
-            {
-                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
-                break;
-            }
-            $this.Level.Item 
-            {
-                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
-                break;
-            }
-            $this.Level.SubItem 
-            {
-                $this.Evaluate_WriteElementNameAndID($element,$NoWhitspace);
-                break;
-            }
-            default {throw "something bad happened";break;}
-        }
-    }
-}
-class Hierarchy 
-{
-    [int]$DayOfWeek;
-    [int]$Item;
-    [int]$SubItem;
-    Hierarchy($dayofweek, $item, $subitem)
-    {
-        $this.DayOfWeek = $dayofweek;
-        $this.Item = $item;
-        $this.SubItem = $subitem;
+        if($val.Completed -eq "true"){$this.Completed++;}
+        else {$this.Uncompleted++;}
     }
 }

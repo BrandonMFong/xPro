@@ -1,115 +1,116 @@
 <Todo MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <HierarchyLevels>
+  <!-- <HierarchyLevels>
     <DayOfWeek>1</DayOfWeek>
     <Item>2</Item>
     <SubItem>3</SubItem>
-  </HierarchyLevels>
-  <!-- done = true || false-->
+  </HierarchyLevels> -->
+
+  <!-- Completed = true || false-->
   <!--Monday-->
-  <DayOfWeek id="1" name="Monday" done="true" hierarchy="1">
-    <Item id="1" name="EE600" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+  <Item name="Monday" Completed="true" >
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="2" name="CompE565" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE565" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="3" name="CompE560" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="4" name="CompE496B" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE496B" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Tuesday-->
-  <DayOfWeek id="2" name="Tuesday" done="true" hierarchy="1">
-    <Item id="1" name="CompE560" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+  <Item name="Tuesday" Completed="true" >
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="2" name="EE600" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Wednesday-->
-  <DayOfWeek id="3" name="Wednesday" done="true" hierarchy="1">
-    <Item id="1" name="EE600" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+  <Item name="Wednesday" Completed="true" >
+    <Item name="EE600" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="2" name="CompE565" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE565" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="3" name="CompE560" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE560" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-    <Item id="4" name="CompE496B" done="true" hierarchy="2">
-      <SubItem id="1" name="Study" done="true" hierarchy="3" />
-      <SubItem id="2" name="Study" done="true" hierarchy="3" />
+    <Item name="CompE496B" Completed="true" >
+      <Item name="Study" Completed="true"/>
+      <Item name="Study" Completed="true"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Thursday-->
-  <DayOfWeek id="4" name="Thursday" done="false" hierarchy="1">
-    <Item id="1" name="CompE560" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+  <Item name="Thursday" Completed="false" >
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="2" name="EE600" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Friday-->
-  <DayOfWeek id="5" name="Friday" done="false" hierarchy="1">
-    <Item id="" name="EE600" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
-      <SubItem id="3" name="Study" done="false" hierarchy="3" />
-      <SubItem id="4" name="Study" done="false" hierarchy="3" />
+  <Item name="Friday" Completed="false" >
+    <Item id="" name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Saturday-->
-  <DayOfWeek id="6" name="Saturday" done="false" hierarchy="1">
-    <Item id="1" name="EE600" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+  <Item name="Saturday" Completed="false" >
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="2" name="CompE565" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE565" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="3" name="CompE560" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="4" name="CompE496B" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE496B" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-  </DayOfWeek>
+  </Item>
   <!--Sunday-->
-  <DayOfWeek id="7" name="Sunday" done="false" hierarchy="1">
-    <Item id="1" name="EE600" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+  <Item name="Sunday" Completed="false" >
+    <Item name="EE600" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="2" name="CompE565" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE565" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="3" name="CompE560" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE560" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-    <Item id="4" name="CompE496B" done="false" hierarchy="2">
-      <SubItem id="1" name="Study" done="false" hierarchy="3" />
-      <SubItem id="2" name="Study" done="false" hierarchy="3" />
+    <Item name="CompE496B" Completed="false" >
+      <Item name="Study" Completed="false"/>
+      <Item name="Study" Completed="false"/>
     </Item>
-  </DayOfWeek>
+  </Item>
 </Todo>

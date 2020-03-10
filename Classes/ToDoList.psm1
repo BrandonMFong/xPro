@@ -13,7 +13,38 @@ class ToDoList
         $this.ScanCompleted();
     }
 
+    # Public
     Save(){$this.xml.Save($this.XMLFilePath);}
+
+    GetAllItems() # Todo this enters an infinite loop
+    {
+        $this.LoadList();
+
+        $this.NodeSweep($this.xml.Todo);
+    }
+
+    # Private
+    hidden NodeSweep([System.Object[]]$val)
+    {
+        foreach($val in $val.Item)
+        {
+            if($val.HasChildNodes)
+            {
+                $this.ItemToString($val);
+                $this.NodeSweep($val.Item)
+            }
+            else{$this.NodeSweep($val);}
+        }
+    }
+    
+    hidden ItemToString([System.Object[]]$val)
+    {
+        [string]$tab = "";
+        $i = 0;
+        while($i -lt $val.Rank){$tab = $tab + "    ";$i++;}
+        if($val.Complete -eq "true"){Write-Host "$($tab)$($val.Rank) - ($val.Name)" -ForegroundColor Green}
+        else{Write-Host "$($tab)$($val.Rank) - ($val.Name)" -ForegroundColor Red}
+    }
 
     hidden LoadList() # Will always run, just in case the xml file is editted
     {

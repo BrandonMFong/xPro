@@ -1,12 +1,16 @@
 
-    Param([string]$URL,[string]$DecodeUrl=' ', [switch]$NewWindow)
-    Set-Alias c 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe';
+Param([string]$URL,[string]$Decode=' ', [switch]$NewWindow)
+Set-Alias c 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe';
+
+Push-Location $PSScriptRoot;
+    Import-Module ..\Modules\FunctionModules.psm1;
+    $var = $(GetObjectByClass('SQL'));
     try
     {
-        if($DecodeUrl -ne ' ')
+        if(IsNotSpace($Decode))
         {
-            if($NewWindow){c $Decode.InputReturn($DecodeUrl) --new-window}
-            else{c $Decode.InputReturn($DecodeUrl)};
+            if($NewWindow){c $var.InputReturn($Decode) --new-window}
+            else{c $var.InputReturn($Decode)};
         }
         else
         {
@@ -18,3 +22,4 @@
     {
         Write-Warning $_;
     }
+Pop-location

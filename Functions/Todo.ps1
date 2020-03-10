@@ -4,7 +4,7 @@ Param
 (
     [Alias('D')][string]$Day=$null
 )
-Set-Location $PSScriptRoot;
+Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;
     $var = $(GetObjectByClass('ToDoList'));
 

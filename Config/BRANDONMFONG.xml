@@ -5,7 +5,6 @@
     xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
 
     <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
-    <GitRepo>B:\Powershell</GitRepo>
 
     <!-- Directory paths -->
     <Directories>
@@ -366,8 +365,8 @@
         <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
         <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
         <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
-        <Program Alias="upconfig" Type="Internal">update-config.ps1</Program>
-        <Program Alias="upprofile" Type="Internal">update-profile.ps1</Program>
+        <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
+        <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
     </Programs>
 
     <Modules>

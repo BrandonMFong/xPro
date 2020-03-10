@@ -1,7 +1,7 @@
 # Used to clear the directory and stores all files in an archive folder
 
 
-Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [string]$FileName="Pass")
+Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
 
 if($Zip)
 {
@@ -57,6 +57,14 @@ else
     {
         Get-ChildItem |
         Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
+                ForEach-Object{Move-Item $_ .\archive\;}
+
+        exit;
+    }
+    elseif($OnlyFiles)
+    {
+        Get-ChildItem *.*|
+        Where-Object{$_.Name -ne 'archive'} | 
                 ForEach-Object{Move-Item $_ .\archive\;}
 
         exit;

@@ -19,4 +19,5 @@ function GetObjectByClass([string]$Class)
     Write-Warning "Class type might not be configured.";
 }
 
-function IsPass($x){return ($x -ne "pass");}
+function IsNotPass($x){return ($x -ne "pass");}
+function IsNotSpace($x){return ($x -ne " ");}

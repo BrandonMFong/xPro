@@ -9,5 +9,5 @@ Push-Location $PSScriptRoot;
         $x = Read-Host -Prompt "Query";
         $var.query($x);
     }
-    else{Write-Host "Nothing passed" -foregroundcolor green};
+    else{Write-Host "Nothing passed" -foregroundcolor Red};
 Pop-Location;

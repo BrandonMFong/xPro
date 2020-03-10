@@ -4,6 +4,7 @@ using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
 using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\ToDoList.psm1;
+# using module .\..\Classes\PrivateObject.psm1;
 
 function MakeClass
 {
@@ -19,8 +20,7 @@ function MakeClass
         "ToDoList"{$x = [ToDoList]::new($val.Class.filename);return $x;}
         default
         {
-            Write-Error "Class $($val.Class.ClassName) was not made."
-            return "Class-Not-Made";
+            throw "Class $($val.Class.ClassName) was not made.";
         }
     }
 }

@@ -25,21 +25,21 @@ class Calculations
         $temp = $x;$x = $y;$y = $temp;
     }
 
-    [void]SwapTwoVariablesWithoutTempVarAS($x, $y)
+    [void]SwapTwoVariablesWithoutTempVarAS([ref]$x, [ref]$y)
     {
-        $x = $x + $y; $y = $x - $y; $x = $x - $y;
+        $x.value = $x.value + $y.value; $y.value = $x.value - $y.value; $x.value = $x.value - $y.value;
     }
 
-    [void]SwapTwoVariablesWithoutTempVarMD($x, $y)
+    [void]SwapTwoVariablesWithoutTempVarMD([ref]$x, [ref]$y)
     {
-        $x = $x * $y; $y = $x / $y; $x = $x / $y;
+        $x.value = $x.value * $y.value; $y.value = $x.value / $y.value; $x.value = $x.value / $y.value;
     }
 
-    [void]SwapTwoVariablesUsingStack($x, $y)
+    [void]SwapTwoVariablesUsingStack([ref]$x, [ref]$y)
     {
         $stack = [System.Collections.Stack]::new();
-        $stack.Push($x);$stack.Push($y);
-        $x = $stack.Pop();$y = $stack.Pop();
+        $stack.Push($x.value);$stack.Push($y.value);
+        $x.value = $stack.Pop();$y.value = $stack.Pop();
     }
 
     [double]Log2($x)

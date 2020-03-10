@@ -6,17 +6,23 @@ function GetXMLContent
     Pop-Location;
 }
 
+# If an object is found that has methods we want to use, return that object
+# Object must be configured
 function GetObjectByClass([string]$Class)
 {
     [xml]$xml = GetXMLContent;
+    [bool]$foundobject = $false;
+    $obj;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.HasClass -eq 'true') -and ($Object.Class.Classname -eq $Class))
         {
-            return $(Get-Variable $Object.VarName).Value;
+            $foundobject = $true;
+            $obj = $(Get-Variable $Object.VarName).Value;
         }
     }
-    Write-Warning "Class type might not be configured.";
+    if($foundobject){return $obj;}
+    else{throw "Object not found!";}
 }
 
 function IsNotPass($x){return ($x -ne "pass");}

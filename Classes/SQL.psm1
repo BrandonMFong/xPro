@@ -1,5 +1,5 @@
 # A way for me to query my local db through powershell
-
+# Object for each database
 class SQL 
 {
     # Object fields

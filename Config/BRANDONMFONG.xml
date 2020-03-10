@@ -140,7 +140,7 @@
         </Object>
 
         <!-- $College -->
-        <Object HassClass="false" VarName="College">
+        <Object HasClass="false" VarName="College">
             <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
             <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
             <cPanel>
@@ -316,6 +316,13 @@
             </Class>
         </Object>
 
+        <!-- How to make an object that gets its data from local database -->
+        <!-- <Object HasClass="true" VarName="<GUID>">
+            <Class ClassName="PrivateObject" HasParams="true">--><!-- I don't think I would need to give parameters if guid can locate all necessary data -->
+                <!--<filename>Todo.xml</filename>
+            </Class>
+        </Object> -->
+
     </Objects>
 
     <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
@@ -367,6 +374,7 @@
         <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
         <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
         <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
+        <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
     </Programs>
 
     <Modules>

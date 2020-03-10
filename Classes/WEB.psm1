@@ -2,7 +2,7 @@
 class Web
 {
     # Object method
-    Search([string]$Value)
+    Google([string]$Value)
     {
         $Search = "google.com/search?q= $Value";
         Chrome $Search;

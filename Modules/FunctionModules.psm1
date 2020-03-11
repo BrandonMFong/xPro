@@ -11,18 +11,14 @@ function GetXMLContent
 function GetObjectByClass([string]$Class)
 {
     [xml]$xml = GetXMLContent;
-    [bool]$foundobject = $false;
-    $obj;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.HasClass -eq 'true') -and ($Object.Class.Classname -eq $Class))
         {
-            $foundobject = $true;
-            $obj = $(Get-Variable $Object.VarName).Value;
+            return $(Get-Variable $Object.VarName).Value;
         }
     }
-    if($foundobject){return $obj;}
-    else{throw "Object not found!";}
+    throw "Object not found!";
 }
 
 function IsNotPass($x){return ($x -ne "pass");}

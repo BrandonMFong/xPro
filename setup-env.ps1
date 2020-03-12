@@ -1,13 +1,6 @@
 # Sets up config and profile 
-Param
-(
-    [string]$ConfigName=$env:COMPUTERNAME, 
-    [bool]$ProfConfigOverride=$false, 
-    [bool]$GitConfigOverride=$false, 
-    [bool]$ProfileOverride=$false
-)
 
-function Make-Config-At-Profile-Dir
+function Make-Config-At-Profile-Dir([String]$GitRepoDir,[String]$ConfigName)
 {
     Push-Location $($PROFILE |Split-Path -Parent);
         $XmlContent = 
@@ -20,9 +13,11 @@ function Make-Config-At-Profile-Dir
     Pop-Location
 }
 
-function Make-Config-At-Git-Dir
+function Make-Config-At-Git-Dir([String]$GitRepoDir,[String]$ConfigName)
 {
-    Copy-Item .\Config\Template.xml .\Config\$(env:COMPUTERNAME).xml;
+    Push-Location $GitRepoDir
+        Copy-Item .\Config\Template.xml .\Config\$($ConfigName).xml -Verbos;
+    Pop-Location
 }
 
 function Make-Profile
@@ -37,11 +32,12 @@ function Make-Profile
 
 
 Push-Location $PSScriptRoot
-    $GitRepoDir = (Get-Location).Path;
+    [String]$GitRepoDir = (Get-Location).Path;
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
+    [String]$ConfigName = $env:COMPUTERNAME;
 
         # Config at Profile Dir
-        Make-Config-At-Profile-Dir;
+        Make-Config-At-Profile-Dir($GitRepoDir,$ConfigName);
 
         # Config at Git Dir
         Make-Config-At-Git-Dir

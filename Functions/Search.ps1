@@ -1,15 +1,18 @@
-param([string]$x)
+param([switch]$Google,[switch]$Sharepoint)
 Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;
     $var = $(GetObjectByClass('Web'));
 
-    switch($x)
+    if($Google)
     {
-        "Google"
-        {
-            $v = read-host -prompt "Google"
-            $var.Google($v);break;
-        }
-        default{throw "Nothing searched";break;}
+        $v = read-host -prompt "Google"
+        $var.Google($v);break;
     }
+    elseif($Sharepoint)
+    {
+        $v = read-host -prompt "Sharepoint"
+        $var.Sharepoint($v);break;
+    }
+    else{throw "Nothing searched";break;}
+
 Pop-Location

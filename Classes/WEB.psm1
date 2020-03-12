@@ -31,5 +31,4 @@ class Web
         [string]$string = "https://cloudcords.atlassian.net/secure/QuickSearch.jspa?searchString=" + $x;
         chrome $string;
     }
-
 }

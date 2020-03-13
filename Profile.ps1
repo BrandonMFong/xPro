@@ -10,6 +10,7 @@ $ConfigFile = $x.Machine.GitRepoDir + "\Config\" + $x.Machine.ConfigFile;
 [XML]$XMLReader = Get-Content $ConfigFile
 
 Push-Location $x.Machine.GitRepoDir; 
+    Import-Module .\Modules\FunctionModules.psm1;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
@@ -32,12 +33,11 @@ Push-Location $x.Machine.GitRepoDir;
         }
         
     <### OBJECTS ###>
-        Import-Module $($x.Machine.GitRepoDir + '\Modules\MakeClassObject.psm1');
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
-            else {New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;}
-        }
+            if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass($val)) -Force -Verbose;}
+            else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val)) -Force -Verbose}
+        } 
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}

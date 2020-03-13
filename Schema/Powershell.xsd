@@ -1,40 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
 
 <xs:element name="Machine">
     <xs:attribute name="MachineName"/>
-    <xs:element name="StartScript" minOccurs="1"/>
+    <xs:element name="StartScript"/>
     
     <xs:element name="Directories" maxOccurs="1">
         <xs:documentation>
             Parameters that are used in Goto.ps1 function
         </xs:documentation>
         <xs:element name="Directory" type="xs:string" minOccurs="1">
-            <xs:attribute name="alias" type="xs:string"/>
+            <xs:attribute name="alias" type="xs:string" use="mandatory"/>
             <xs:documentation>
                 Path for alias
             </xs:documentation>
         </xs:element>
     </xs:element>
 
-    <xs:element name="Objects" maxOccurs="1">
-        <xs:documentation>
-            Objects that you use on command line
-        </xs:documentation>
-        <xs:element name="Object" type="xs:string" minOccurs="1">
-            <xs:attribute name="HasClass" type="xs:boolean" minOccurs="1"/>
+    <!-- Objects -->
+    <xs:attributeGroup name="MandatoryObjectAttributes">
+        <xs:attribute name="SecurityType" use="mandatory">
+            <xs:annotation>
                 <xs:documentation>
-                    If true, it will look through the \Classes folder for classes that match
+                    public or private
+                    if you are pointing to a level, use public
                 </xs:documentation>
-            <xs:attribute name="VarName" type="xs:string" minOccurs="1"/>
-            <xs:documentation>
-                Everything below will be referenced on the command line with the dot product
-            </xs:documentation>
-            <xs:element name="Class">
-                <xs:attribute name="ClassName" minOccurs="1"/>
-            </xs:element>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Lvl" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Level of the node or hash table (still determining the name)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:group name="Object_ElementGroup">
+        <xs:element name="VarName" minOccurs="1" maxOccurs="1">
+            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
+            <xs:annotation>
+                <xs:documentation>
+                    Defines the object to call on the command line.
+                    Example: $VarName 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element name="Key" minOccurs="1">
+            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
+            <xs:attribute name="Node" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Unique id for the node pointer to point to
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:element>
+        <xs:element name="Value" minOccurs="1">
+            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
+            <xs:attribute name="Node" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Unique id for the node pointer to point to
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="NodePointer" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Provide a unique id to point to the next node value
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:element>
+    </xs:group>
+
+    <xs:element name="Objects">
+        <xs:element name="Object">
+            <xs:annotation>
+                <xs:documentation>
+                    Must have one Object element for every object you want to refer to on the cmd line.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="HasClass" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="Object_ElementGroup"/>
         </xs:element>
     </xs:element>
+    
 
     <xs:element name="Programs" maxOccurs="1">
         <xs:documentation>

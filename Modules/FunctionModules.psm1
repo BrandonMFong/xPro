@@ -1,3 +1,27 @@
+using module .\..\Classes\Calendar.psm1;
+using module .\..\Classes\Math.psm1;
+using module .\..\Classes\SQL.psm1;
+using module .\..\Classes\Web.psm1;
+using module .\..\Classes\Windows.psm1;
+using module .\..\Classes\ToDoList.psm1;
+# using module .\..\Classes\PrivateObject.psm1;
+
+function MakeClass($XmlElement)
+{
+    switch($val.Class.ClassName)
+    {
+        "Calendar" {$x = [Calendar]::new();return $x;}
+        "Web" {$x = [Web]::new();return $x;}
+        "Calculations" {$x = [Calculations]::new();return $x;}
+        "SQL" {$x = [SQL]::new($val.Class.Database, $val.Class.ServerInstance, $val.Class.Tables);return $x;}
+        "Windows" {$x = [Windows]::new();return $x;}
+        "ToDoList"{$x = [ToDoList]::new($val.Class.filename);return $x;}
+        default
+        {
+            throw "Class $($val.Class.ClassName) was not made.";
+        }
+    }
+}
 
 function GetXMLContent
 {
@@ -23,3 +47,36 @@ function GetObjectByClass([string]$Class)
 
 function IsNotPass($x){return ($x -ne "pass");}
 function IsNotSpace($x){return ($x -ne " ");}
+
+function MakeHash($val)
+{
+    $t = @{}; # Init hash object 
+    $lvl = 0;
+    
+    if($val.Key.Count -ne $val.Value.Count)
+    {throw "Objects must have equal key and values in config."}
+    else 
+    {
+        for($i=0;$i -lt $val.Key.Count;$i++)
+        {
+            if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key.Lvl -eq $lvl))
+            {throw "Levels are not the same!"}
+            else 
+            {
+                $t.Add($val.Key[$i].InnerText, $val.Value[$i].InnerText);
+            }
+        }
+    }
+
+    return $t;
+}
+function MakeObject([xml]$x)
+{
+    #success now just decode 
+    foreach($val in $x.Machine.Objects.Object)
+    {
+        if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass($val)) -Force -Verbose;}
+        else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val)) -Force -Verbose}
+    }     
+}
+

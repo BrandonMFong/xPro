@@ -7,7 +7,7 @@ Push-Location $PSScriptRoot
     Write-Host "Loading present config files on machine"
     Get-ChildItem .\Config\ |
         Foreach-Object{$ForPrompt.Add([string]$("$i - $($_.BaseName)"));$ForConfig.Add($_.Name);$i++}     
-    
+    clear-host;
     Write-Host "Config files to choose from:"
     $ForPrompt;
     $ConfigIndex = Read-Host -Prompt "Number";

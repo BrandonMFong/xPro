@@ -375,6 +375,7 @@
         <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
         <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
         <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
+        <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     </Programs>
 
     <Modules>

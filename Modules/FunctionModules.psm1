@@ -7,19 +7,20 @@ using module .\..\Classes\ToDoList.psm1;
 # using module .\..\Classes\PrivateObject.psm1;
 
 $Sql = [SQL]::new('BrandonMFong','BRANDONMFONG\SQLEXPRESS', $null);
+
 function MakeClass($XmlElement)
 {
-    switch($val.Class.ClassName)
+    switch($value.Class.ClassName)
     {
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
-        "SQL" {$x = [SQL]::new($val.Class.Database, $val.Class.ServerInstance, $val.Class.Tables);return $x;}
+        "SQL" {$x = [SQL]::new($value.Class.Database, $value.Class.ServerInstance, $value.Class.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
-        "ToDoList"{$x = [ToDoList]::new($val.Class.filename);return $x;}
+        "ToDoList"{$x = [ToDoList]::new($value.Class.filename);return $x;}
         default
         {
-            throw "Class $($val.Class.ClassName) was not made.";
+            throw "Class $($value.Class.ClassName) was not made.";
         }
     }
 }
@@ -49,81 +50,82 @@ function GetObjectByClass([string]$Class)
 function IsNotPass($x){return ($x -ne "pass");}
 function IsNotSpace($x){return ($x -ne " ");}
 
-function FindNodeCount($val,[string]$Node)
+function FindNodeCount($value,[string]$Node)
 {
     $n = 0;
-    foreach($v in $val.Key)
+    foreach($v in $value.Key)
     {
         if($v.Node -eq $Node){$n++;}
     }
     return $n;
 }
-function Evaluate($val)
+function Evaluate($value)
 {
-    if($val.SecurityType -eq "private")
+    if($value.SecurityType -eq "private")
     {
-        return $Sql.InputReturn($val.InnerText);
+        return $Sql.InputReturn($value.InnerText);
     }
     else 
     {
-        if($null -ne $val.NodePointer)
+        if($null -ne $value.NodePointer)
         {
-            return MakeHash($val.ParentNode,$val.Lvl+1,$val.NodePointer);
+            return MakeHash(($value.ParentNode),($value.Lvl+1),($value.NodePointer.ToString()));# The attributes lvl and nodepointer are not passing
         }
-        return $val.InnerText;
+        return $value.InnerText;
     }
 }
 
-function MakeHash($val,[int]$lvl,[string]$Node)
+function MakeHash($value,[int]$lvl,[string]$Node)
 {
     $t = @{}; # Init hash object 
     # $lvl = 0;
     
-    if($val.Key.Count -ne $val.Value.Count)
+    if($value.Key.Count -ne $value.Value.Count)
     {throw "Objects must have equal key and values in config."}
 
     # TODO figure this out
-    elseif(!$Node.Equals($null))
+    elseif(!$Node.Equals(""))
     {
         # $n = 0;
-        # foreach ($y in $val)
-        for($i=FindNodeCount($val,$Node);$i -lt $val.Key.Count;$i++)
+        # foreach ($y in $value)
+        for($i=FindNodeCount($value,$Node);$i -lt $value.Key.Count;$i++)
         {
             # Found the count but how do you know when to start/stop indexing?
-            if($node -eq $val.Key[$i].Node)
+            if($node -eq $value.Key[$i].Node)
             {
-                if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key[$i].Lvl -eq $lvl))
+                if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ($value.Key[$i].Lvl -eq $lvl))
                 {throw "Levels are not the same!"}
                 else 
                 {
-                    $t.Add($(Evaluate($val.Key[$i])),$(Evaluate($val.Value[$i])));
+                    $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
                 }
             }
         }
     }
     else 
     {
-        for($i=0;$i -lt $val.Key.Count;$i++)
-        # foreach($val in $val)
+        for($i=0;$i -lt $value.Key.Count;$i++)
+        # foreach($value in $value)
         {
-            if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key[$i].Lvl -eq $lvl))
+            if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ($value.Key[$i].Lvl -eq $lvl))
             {throw "Levels are not the same!"}
             else 
             {
-                $t.Add($(Evaluate($val.Key[$i])),$(Evaluate($val.Value[$i])));
+                $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
             }
         }
     }
 
     return $t;
 }
-function MakeObject([xml]$x)
-{
-    #success now just decode 
-    foreach($val in $x.Machine.Objects.Object)
-    {
-        if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass($val)) -Force -Verbose;}
-        else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val,0,"null")) -Force -Verbose}
-    }     
-}
+
+# function MakeObject([xml]$x)
+# {
+#     #success now just decode 
+#     foreach($value in $x.Machine.Objects.Object)
+#     {
+#         if($value.HasClass -eq "true"){New-Variable -Name "$($value.VarName)" -Value $(MakeClass($value)) -Force -Verbose;}
+#         else{New-Variable -Name "$($value.VarName.InnerText)" -Value $(MakeHash($value,0,"null")) -Force -Verbose}
+#     }     
+# }
 

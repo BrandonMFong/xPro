@@ -36,7 +36,7 @@ Push-Location $x.Machine.GitRepoDir;
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
             if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass($val)) -Force -Verbose;}
-            else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val,0,$null)) -Force -Verbose}
+            else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val,0,"")) -Force -Verbose}
         } 
     
     <### START ###>

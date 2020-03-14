@@ -11,7 +11,7 @@ Push-Location $PSScriptRoot
     Write-Host "Config files to choose from:"
     $ForPrompt;
     $ConfigIndex = Read-Host -Prompt "Number";
-    $ForConfig[$ConfigIndex-1];
+    write-host  "Current Config => $($ForConfig[$ConfigIndex-1])";
 
     # .\setup-env.ps1 -ConfigName $ForConfig[$ConfigIndex-1] -XmlOverride $true;
     Push-Location $($PROFILE |Split-Path -Parent);

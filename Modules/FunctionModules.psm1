@@ -89,6 +89,7 @@ function MakeHash($val,[int]$lvl,[string]$Node)
         # foreach ($y in $val)
         for($i=FindNodeCount($val,$Node);$i -lt $val.Key.Count;$i++)
         {
+            # Found the count but how do you know when to start/stop indexing?
             if($node -eq $val.Key[$i].Node)
             {
                 if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key[$i].Lvl -eq $lvl))

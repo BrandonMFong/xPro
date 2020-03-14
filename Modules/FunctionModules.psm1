@@ -49,6 +49,15 @@ function GetObjectByClass([string]$Class)
 function IsNotPass($x){return ($x -ne "pass");}
 function IsNotSpace($x){return ($x -ne " ");}
 
+function FindNodeCount($val,[string]$Node)
+{
+    $n = 0;
+    foreach($v in $val.Key)
+    {
+        if($v.Node -eq $Node){$n++;}
+    }
+    return $n;
+}
 function Evaluate($val)
 {
     if($val.SecurityType -eq "private")
@@ -59,7 +68,7 @@ function Evaluate($val)
     {
         if($null -ne $val.NodePointer)
         {
-            return MakeHash($val.ParentNode);
+            return MakeHash($val.ParentNode,$val.Lvl+1,$val.NodePointer);
         }
         return $val.InnerText;
     }
@@ -72,32 +81,35 @@ function MakeHash($val,[int]$lvl,[string]$Node)
     
     if($val.Key.Count -ne $val.Value.Count)
     {throw "Objects must have equal key and values in config."}
-    elseif($null -ne $Node)
+
+    # TODO figure this out
+    elseif(!$Node.Equals($null))
     {
-        $n = 0;
-        foreach ($y in $val)
+        # $n = 0;
+        # foreach ($y in $val)
+        for($i=FindNodeCount($val,$Node);$i -lt $val.Key.Count;$i++)
         {
-            if($node -eq $y.Key.Node)
+            if($node -eq $val.Key[$i].Node)
             {
-                if(($y.Key.Lvl -ne $y.Value.Lvl) -and ($y.Key.Lvl -eq $lvl))
+                if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key[$i].Lvl -eq $lvl))
                 {throw "Levels are not the same!"}
                 else 
                 {
-                    $t.Add($(Evaluate($y.Key)),$(Evaluate($y.Value)));
+                    $t.Add($(Evaluate($val.Key[$i])),$(Evaluate($val.Value[$i])));
                 }
             }
         }
     }
     else 
     {
-        # for($i=0;$i -lt $val.Key.Count;$i++)
-        foreach($y in $val)
+        for($i=0;$i -lt $val.Key.Count;$i++)
+        # foreach($val in $val)
         {
-            if(($y.Key.Lvl -ne $y.Value.Lvl) -and ($y.Key.Lvl -eq $lvl))
+            if(($val.Key[$i].Lvl -ne $val.Value[$i].Lvl) -and ($val.Key[$i].Lvl -eq $lvl))
             {throw "Levels are not the same!"}
             else 
             {
-                $t.Add($(Evaluate($y.Key)),$(Evaluate($y.Value)));
+                $t.Add($(Evaluate($val.Key[$i])),$(Evaluate($val.Value[$i])));
             }
         }
     }
@@ -110,7 +122,7 @@ function MakeObject([xml]$x)
     foreach($val in $x.Machine.Objects.Object)
     {
         if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass($val)) -Force -Verbose;}
-        else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val,0,$null)) -Force -Verbose}
+        else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash($val,0,"null")) -Force -Verbose}
     }     
 }
 

@@ -34,3 +34,7 @@ function CL
     Clear-Host;Get-ChildItem;
 }
 
+function Restart-Session
+{
+    Start-Process powershell;exit;
+}

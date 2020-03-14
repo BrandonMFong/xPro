@@ -143,6 +143,9 @@
         <Object HasClass="false" VarName="College">
             <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
             <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
+            <Classes>
+                <CompE560>https://SDSU.zoom.us/j/467549168</CompE560>
+            </Classes>
             <cPanel>
                 <URL>https://rohancp.sdsu.edu:2083/cpanel</URL>
                 <Username>dualpower</Username>

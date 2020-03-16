@@ -50,14 +50,17 @@ function GetObjectByClass([string]$Class)
 function IsNotPass($x){return ($x -ne "pass");}
 function IsNotSpace($x){return ($x -ne " ");}
 
-function FindNodeCount($value,[string]$Node)
+function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 {
-    $n = 0;
+    $n = 1; $u = 0;
+    $foundbeginning = $false;
     foreach($v in $value.Key)
     {
-        if($v.Node -eq $Node){$n++;}
+        if(($v.Node -eq $Node) -and !$foundbeginning){$start.Value = $n;$u = 1;$foundbeginning = $true;}
+        elseif($v.Node -eq $Node){$u++;}
+        else{$n++;}
     }
-    return $n;
+    $end.Value = $u;
 }
 function Evaluate($value)
 {
@@ -86,9 +89,9 @@ function MakeHash($value,[int]$lvl,$Node)
     # TODO figure this out
     elseif($null -ne $Node)
     {
-        # $n = 0;
-        # foreach ($y in $value)
-        for($i=FindNodeCount($value,$Node);$i -lt $value.Key.Count;$i++)
+        $start = 0;$end = 0;
+        FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
+        for($i=$start;$i -lt $end;$i++)
         {
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)

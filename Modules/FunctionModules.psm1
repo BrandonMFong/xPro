@@ -91,7 +91,7 @@ function MakeHash($value,[int]$lvl,$Node)
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
-        for($i=$start;$i -lt $end;$i++)
+        for($i=$start;$i -lt $($start + $end);$i++)
         {
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)

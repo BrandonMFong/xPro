@@ -56,7 +56,7 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
     $foundbeginning = $false;
     foreach($v in $value.Key)
     {
-        if(($v.Node -eq $Node) -and !$foundbeginning){$start.Value = $n;$u = 1;$foundbeginning = $true;}
+        if(($v.Node -eq $Node) -and !$foundbeginning){$start.Value = $n-1;$u = 1;$foundbeginning = $true;}
         elseif($v.Node -eq $Node){$u++;}
         else{$n++;}
     }
@@ -72,7 +72,7 @@ function Evaluate($value)
     {
         if($null -ne $value.NodePointer)
         {
-            return $( MakeHash -value $value.ParentNode -lvl $($value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
+            return $( MakeHash -value $value.ParentNode -lvl $([int]$value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
         }
         return $value.InnerText;
     }
@@ -81,7 +81,6 @@ function Evaluate($value)
 function MakeHash($value,[int]$lvl,$Node)
 {
     $t = @{}; # Init hash object 
-    # $lvl = 0;
     
     if($value.Key.Count -ne $value.Value.Count)
     {throw "Objects must have equal key and values in config."}
@@ -96,7 +95,7 @@ function MakeHash($value,[int]$lvl,$Node)
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)
             {
-                if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ($value.Key[$i].Lvl -eq $lvl))
+                if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
                 {throw "Levels are not the same!"}
                 else 
                 {
@@ -110,7 +109,7 @@ function MakeHash($value,[int]$lvl,$Node)
         for($i=0;$i -lt $value.Key.Count;$i++)
         # foreach($value in $value)
         {
-            if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ($value.Key[$i].Lvl -eq $lvl))
+            if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
             {throw "Levels are not the same!"}
             else 
             {

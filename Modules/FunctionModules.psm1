@@ -69,13 +69,13 @@ function Evaluate($value)
     {
         if($null -ne $value.NodePointer)
         {
-            return MakeHash(($value.ParentNode),($value.Lvl+1),($value.NodePointer.ToString()));# The attributes lvl and nodepointer are not passing
+            return $( MakeHash -value $value.ParentNode -lvl $($value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
         }
         return $value.InnerText;
     }
 }
 
-function MakeHash($value,[int]$lvl,[string]$Node)
+function MakeHash($value,[int]$lvl,$Node)
 {
     $t = @{}; # Init hash object 
     # $lvl = 0;
@@ -84,7 +84,7 @@ function MakeHash($value,[int]$lvl,[string]$Node)
     {throw "Objects must have equal key and values in config."}
 
     # TODO figure this out
-    elseif(!$Node.Equals(""))
+    elseif($null -ne $Node)
     {
         # $n = 0;
         # foreach ($y in $value)

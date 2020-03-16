@@ -109,6 +109,7 @@ function MakeHash($value,[int]$lvl,$Node)
         for($i=0;$i -lt $value.Key.Count;$i++)
         # foreach($value in $value)
         {
+            # TODO How to tell yourself to get out of the loop when you already calculated the other nodes
             if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
             {throw "Levels are not the same!"}
             else 

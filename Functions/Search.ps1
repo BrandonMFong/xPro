@@ -6,23 +6,23 @@ Push-Location $PSScriptRoot;
     if($Google)
     {
         $v = read-host -prompt "Google"
-        $var.Google($v);break;
+        $var.Google($v);
     }
     elseif($Sharepoint)
     {
         $v = read-host -prompt "Sharepoint"
-        $var.Sharepoint($v);break;
+        $var.Sharepoint($v);
     }
     elseif($Dictionary)
     {
         $v = read-host -prompt "Dictionary"
-        $var.Dictionary($v);break;
+        $var.Dictionary($v);
     }
     elseif($Youtube)
     {
         $v = read-host -prompt "Youtube"
-        $var.Youtube($v);break;
+        $var.Youtube($v);
     }
-    else{throw "Nothing searched";break;}
+    else{throw "Nothing searched";}
 
 Pop-Location

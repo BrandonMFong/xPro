@@ -143,8 +143,14 @@
         <Object HasClass="false" VarName="College">
             <Blackboard>https://Blackboard.sdsu.edu</Blackboard>
             <WebPortal>https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</WebPortal>
-            <Classes>
-                <CompE560>https://SDSU.zoom.us/j/467549168</CompE560>
+            <Classes><!-- For Zoom -->
+                <CompE560>
+                    <URL>https://SDSU.zoom.us/j/467549168</URL>
+                </CompE560>
+                <EE600>
+                    <URL>https://SDSU.zoom.us/j/771398931?pwd=R2lESFNRdGNWcXhJNFV5WTBWVkRVdz09</URL>
+                    <Password>ea837888-b3a6-4e14-8c1f-6f157f5ad512</Password>
+                </EE600>
             </Classes>
             <cPanel>
                 <URL>https://rohancp.sdsu.edu:2083/cpanel</URL>
@@ -384,5 +390,9 @@
     <Modules>
         <Module>\Modules\Miscellaneous.psm1</Module>
     </Modules>
+
+    <SpecialDays>
+        <SpecialDay Subject="Brandon's Birthday">8/2/1997</SpecialDay>
+    </SpecialDays>
 
 </Machine>

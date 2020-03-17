@@ -183,6 +183,8 @@ class Week
         [Day]$today = [Day]::new($(Get-Date));# debug here
         if(($day.Number -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)* ";}
         elseif(($day.Number -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)*  ";}
+        elseif(($day.Number -ge 10) -and $day.IsSpecialDay($today)){$week.Value += "$($day.Number)*  ";}
+        elseif(($day.Number -lt 10) -and $day.IsSpecialDay($today)){$week.Value += "$($day.Number)*  ";}
         elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";}
         else{$week.Value += "$($day.Number)   ";}
     }
@@ -215,5 +217,20 @@ class Day
     [Day]AddDays([int]$x)
     {
         return [Day]::new($this.Date.AddDays($x))
+    }
+
+    [boolean]IsSpecialDay([Day]$d)
+    {
+        [boolean]$IsSpecialDay = $false;
+        foreach($x in $XMLReader.SpecialDays.SpecialDay)
+        {
+            [Day]$d = [Day]::new($(Get-Date $x));
+            if(($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year))
+            {
+                $IsSpecialDay = $true;
+                break;
+            }
+        }
+        return $IsSpecialDay;
     }
 }

@@ -15,12 +15,12 @@ function MakeClass($XmlElement)
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
-        "SQL" {$x = [SQL]::new($value.Class.Database, $value.Class.ServerInstance, $value.Class.Tables);return $x;}
+        "SQL" {$x = [SQL]::new($XmlElement.Class.Database, $XmlElement.Class.ServerInstance, $XmlElement.Class.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
-        "ToDoList"{$x = [ToDoList]::new($value.Class.filename);return $x;}
+        "ToDoList"{$x = [ToDoList]::new($XmlElement.Class.filename);return $x;}
         default
         {
-            throw "Class $($value.Class.ClassName) was not made.";
+            throw "Class $($XmlElement.Class.ClassName) was not made.";
         }
     }
 }

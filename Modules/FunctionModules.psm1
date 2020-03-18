@@ -110,6 +110,7 @@ function MakeHash($value,[int]$lvl,$Node)
         # foreach($value in $value)
         {
             # TODO How to tell yourself to get out of the loop when you already calculated the other nodes
+            # Does this need to be an OR op?
             if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
             {throw "Levels are not the same!"}
             else 

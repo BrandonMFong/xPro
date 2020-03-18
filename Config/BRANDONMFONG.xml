@@ -313,11 +313,11 @@
         </Object>
 
         <!-- $Todo -->
-        <Object HasClass="true" VarName="Todo">
+        <!-- <Object HasClass="true" VarName="Todo">
             <Class ClassName="ToDoList" HasParams="true">
                 <filename>BRANDONMFONG.xml</filename>
             </Class>
-        </Object>
+        </Object> -->
 
         <!-- How to make an object that gets its data from local database -->
         <!-- <Object HasClass="true" VarName="<GUID>">

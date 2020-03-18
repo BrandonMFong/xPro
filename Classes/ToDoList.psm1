@@ -49,7 +49,7 @@ class ToDoList
     hidden LoadList() # Will always run, just in case the xml file is editted
     {
         Push-Location $PSScriptRoot;
-            $this.xml = Get-Content $($this.Folder + $this.FileName); 
+            $this.xml = Get-Content $('..' + $this.Folder + $this.FileName); 
             Get-ChildItem $('..' + $this.Folder + $this.FileName) |
                 ForEach-Object{$this.XMLFilePath = $_.FullName;} # For full file path
         Pop-Location;

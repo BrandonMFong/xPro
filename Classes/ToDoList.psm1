@@ -6,6 +6,7 @@ class ToDoList
     [string]$XMLFilePath; # Full file path
     [int]$Completed = 0; # Completed="true"
     [int]$Uncompleted = 0; # Completed="false"
+    hidden [string]$Folder = '\Config\';
 
     ToDoList($filename)
     {
@@ -19,7 +20,6 @@ class ToDoList
     GetAllItems() # Todo this enters an infinite loop
     {
         $this.LoadList();
-
         $this.NodeSweep($this.xml.Todo);
     }
 
@@ -49,8 +49,8 @@ class ToDoList
     hidden LoadList() # Will always run, just in case the xml file is editted
     {
         Push-Location $PSScriptRoot;
-            $this.xml = Get-Content $('..\Data\' + $this.FileName); 
-            Get-ChildItem $('..\Data\' + $this.FileName) |
+            $this.xml = Get-Content $($this.Folder + $this.FileName); 
+            Get-ChildItem $('..' + $this.Folder + $this.FileName) |
                 ForEach-Object{$this.XMLFilePath = $_.FullName;} # For full file path
         Pop-Location;
     }

@@ -39,7 +39,7 @@ function GetObjectByClass([string]$Class)
     [xml]$xml = GetXMLContent;
     foreach($Object in $xml.Machine.Objects.Object)
     {
-        if(($Object.HasClass -eq 'true') -and ($Object.Class.Classname -eq $Class))
+        if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
         {
             return $(Get-Variable $Object.VarName).Value;
         }

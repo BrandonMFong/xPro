@@ -83,7 +83,23 @@
                     Must have one Object element for every object you want to refer to on the cmd line.
                 </xs:documentation>
             </xs:annotation>
-            <xs:attribute name="HasClass" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:attribute name="Type" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
+                        XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
+                        HashTable (if the object will be using key and value to populate). 
+                        Default is XmlElement.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="VarName" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Use only for type XmlElement and PowerShellClass
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:group ref="Object_ElementGroup"/>
         </xs:element>
     </xs:element>

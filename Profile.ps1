@@ -35,8 +35,15 @@ Push-Location $x.Machine.GitRepoDir;
     <### OBJECTS ###>
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
-            else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose}
+            # if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
+            # else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose}
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;break;}
+                "HashTable"{New-Variable -Name "$($val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose; break;}
+                default {New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;break;}
+            }
         } 
     
     <### START ###>

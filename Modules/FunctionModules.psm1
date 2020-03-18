@@ -10,7 +10,7 @@ $Sql = [SQL]::new('BrandonMFong','BRANDONMFONG\SQLEXPRESS', $null);
 
 function MakeClass($XmlElement)
 {
-    switch($value.Class.ClassName)
+    switch($XmlElement.Class.ClassName)
     {
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
@@ -95,9 +95,7 @@ function MakeHash($value,[int]$lvl,$Node)
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)
             {
-                if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
-                {throw "Levels are not the same!"}
-                else 
+                if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
                 {
                     $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
                 }
@@ -107,13 +105,10 @@ function MakeHash($value,[int]$lvl,$Node)
     else 
     {
         for($i=0;$i -lt $value.Key.Count;$i++)
-        # foreach($value in $value)
         {
             # TODO How to tell yourself to get out of the loop when you already calculated the other nodes
             # Does this need to be an OR op?
-            if(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -and ([int]$value.Key[$i].Lvl -eq $lvl))
-            {throw "Levels are not the same!"}
-            else 
+            if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
             {
                 $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
             }

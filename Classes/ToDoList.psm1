@@ -20,7 +20,7 @@ class ToDoList
     GetAllItems() # Todo this enters an infinite loop
     {
         $this.LoadList();
-        $this.NodeSweep($this.xml.Todo);
+        $this.NodeSweep($this.xml.Machine.Todo);
     }
 
     # Private

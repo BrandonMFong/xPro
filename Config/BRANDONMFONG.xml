@@ -309,11 +309,7 @@
         </Object>
 
         <!-- $Todo -->
-<<<<<<< HEAD
-        <!-- <Object HasClass="true" VarName="Todo">
-=======
-        <Object Type="PowerShellClass" VarName="Todo">
->>>>>>> update-config-layout-for-privacy
+        <!--<Object Type="PowerShellClass" VarName="Todo">
             <Class ClassName="ToDoList" HasParams="true">
                 <filename>BRANDONMFONG.xml</filename>
             </Class>

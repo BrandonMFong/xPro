@@ -329,7 +329,7 @@
         <!-- Third party Functions -->
         <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
         <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-        <!-- <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program> -->
+        <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
         <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
         <Program Alias="Word" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Program>
         <Program Alias="Outlook" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Program>
@@ -367,7 +367,6 @@
         <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
         <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
         <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-        <Program Alias="Chrome" Type="Internal">\Functions\Chrome.ps1</Program>
         <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
         <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
         <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>

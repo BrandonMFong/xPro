@@ -13,3 +13,6 @@ Functions/BANKURL.ps1
 
 # Test files
 test*.*
+
+# Misc Code
+Playground/*

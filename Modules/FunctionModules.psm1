@@ -118,13 +118,14 @@ function MakeHash($value,[int]$lvl,$Node)
     return $t;
 }
 
-# function MakeObject([xml]$x)
-# {
-#     #success now just decode 
-#     foreach($value in $x.Machine.Objects.Object)
-#     {
-#         if($value.HasClass -eq "true"){New-Variable -Name "$($value.VarName)" -Value $(MakeClass($value)) -Force -Verbose;}
-#         else{New-Variable -Name "$($value.VarName.InnerText)" -Value $(MakeHash($value,0,"null")) -Force -Verbose}
-#     }     
-# }
-
+function GetVarName($value)
+{
+    switch ($value.SecurityType)
+    {
+        "private"
+        {
+            return $Sql.InputReturn($value.InnerXML);
+        }
+        default{return $value.InnerXML}
+    }
+}

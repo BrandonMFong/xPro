@@ -45,9 +45,8 @@
   <Objects>
     <!-- $User -->
     <Object Type="HashTable">
-      <VarName>User</VarName>
-      <!-- Probably don't need lvl attribute - nvm I do, I need to scan through the 
-            lvl zeroes then from the level zereos I see if they have a node pointer-->
+      <VarName SecurityType="public">User</VarName>
+      <!--Key and Value-->
       <Key Lvl="0" SecurityType="public">StandardUserName</Key>
       <Value Lvl="0" SecurityType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
       <Key Lvl="0" SecurityType="public">LoweredStandardUserName</Key>
@@ -183,7 +182,8 @@
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
-      <VarName>College</VarName>
+      <VarName SecurityType="public">College</VarName>
+      <!--Key and Value-->
       <Key Lvl="0" SecurityType="public">Blackboard</Key>
       <Value Lvl="0" SecurityType="public">https://Blackboard.sdsu.edu</Value>
       <Key Lvl="0" SecurityType="public">WebPortal</Key>
@@ -199,6 +199,7 @@
       <Value Lvl="1" Node="937f" SecurityType="private">960f933f-937f-409e-a9fa-f00d97586fcd</Value>
       <Key Lvl="1" Node="937f" SecurityType="public">SSH_PW</Key>
       <Value Lvl="1" Node="937f" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--cPanelForEarthWindFire-->
       <Key Lvl="0" SecurityType="public">cPanelForEarthWindFire</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="de41" />
       <Key Lvl="1" Node="de41" SecurityType="public">KeyPW</Key>
@@ -232,13 +233,13 @@
       <Value Lvl="1" Node="fc81" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <!--SSU-->
       <Key Lvl="0" SecurityType="public">SSU</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="de41" />
-      <Key Lvl="1" Node="de41" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="de41" SecurityType="private">07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec</Value>
-      <Key Lvl="1" Node="de41" SecurityType="public">URL</Key>
-      <Value Lvl="1" Node="de41" SecurityType="public">http://www.sonoma.edu/</Value>
-      <Key Lvl="1" Node="de41" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="de41" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Value Lvl="0" SecurityType="public" NodePointer="475b" />
+      <Key Lvl="1" Node="475b" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="475b" SecurityType="private">07fd67db-aa3b-4ea4-9df0-d4e8ed1449ec</Value>
+      <Key Lvl="1" Node="475b" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="475b" SecurityType="public">http://www.sonoma.edu/</Value>
+      <Key Lvl="1" Node="475b" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="475b" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <!--SJSU-->
       <Key Lvl="0" SecurityType="public">SJSU</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="aa3b" />
@@ -278,7 +279,8 @@
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">
-      <VarName>RPi</VarName>
+      <VarName SecurityType="public">RPi</VarName>
+      <!--Key and Value-->
       <Key Lvl="0" SecurityType="public">FirewallInfo</Key>
       <Value Lvl="0" SecurityType="public">https://www.raspberrypi.org/documentation/configuration/security.md</Value>
       <Key Lvl="0" SecurityType="public">GPIO</Key>
@@ -324,7 +326,7 @@
     </Object>
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
-      <VarName>SeniorDesignYes</VarName>
+      <VarName SecurityType="public">SeniorDesignYes</VarName>
       <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
       <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
       <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
@@ -340,7 +342,8 @@
     </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
-      <VarName>Passwords</VarName>
+      <VarName SecurityType="public">Passwords</VarName>
+      <!--Key and Value-->
       <Key Lvl="0" SecurityType="public">Default</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">cPanel</Key>

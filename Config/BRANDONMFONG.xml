@@ -527,4 +527,7 @@
       </Item>
     </Item>
   </Todo>
+  <SpecialDays>
+    <SpecialDay name="test test">3/20/2020</SpecialDay>
+  </SpecialDays>
 </Machine>

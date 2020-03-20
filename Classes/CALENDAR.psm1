@@ -183,8 +183,8 @@ class Week
         [Day]$today = [Day]::new($(Get-Date));
         if(($day.Number -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)* ";} # For Current Day
         elseif(($day.Number -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)*  ";} # For Current Day
-        elseif(($day.Number -ge 10) -and $day.IsSpecialDay($today)){$week.Value += "$($day.Number)*  ";} # For Special Day
-        elseif(($day.Number -lt 10) -and $day.IsSpecialDay($today)){$week.Value += "$($day.Number)*  ";} # For Special Day
+        elseif(($day.Number -ge 10) -and $day.IsSpecialDay()){$week.Value += "$($day.Number)^ ";} # For Special Day
+        elseif(($day.Number -lt 10) -and $day.IsSpecialDay()){$week.Value += "$($day.Number)^  ";} # For Special Day
         elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";} # For Normal Day
         else{$week.Value += "$($day.Number)   ";} # For Normal Day
     }
@@ -218,15 +218,15 @@ class Day
         return [Day]::new($this.Date.AddDays($x))
     }
 
-    [boolean]IsSpecialDay([Day]$d)
+    [boolean]IsSpecialDay()
     {
         [boolean]$IsSpecialDay = $false;
         Push-Location $PSScriptRoot;
             [xml]$xml = Get-Content $("..\Config\" + $env:COMPUTERNAME.ToString() + ".xml");
         Pop-Location;
-        foreach($x in $xml.SpecialDays.SpecialDay)
+        foreach($x in $xml.Machine.SpecialDays.SpecialDay)
         {
-            [Day]$d = [Day]::new($(Get-Date $x));
+            [Day]$d = [Day]::new($(Get-Date $x.InnerXML));
             if(($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year))
             {
                 $IsSpecialDay = $true;

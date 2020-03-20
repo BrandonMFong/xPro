@@ -17,6 +17,17 @@ class Calendar
         }
     }
 
+    [void] GetCalendarMonth([string]$MonthString) 
+    {
+        $this.GetNow($this.GetMonthNum($MonthString));
+        $this.Weeks = $this.WriteWeeks();
+        $this.GetHeaderString();         
+        foreach($w in $this.Weeks)
+        {
+            $w.ToString();
+        }
+    }
+
     [int]GetMaxDayOfMonth([string]$Month) #Of the current year
     {
         #Total days
@@ -47,13 +58,42 @@ class Calendar
         return $MaxDays;
     }
 
+    [byte]GetMonthNum([string]$x)
+    {
+        [byte]$i = 0x00;
+        switch ($x)
+        {
+            "January"{$i = 0x01;break;}
+            "February"{$i = 0x02;break;}
+            "March"{$i = 0x03;break;}
+            "April"{$i = 0x04;break;}
+            "May"{$i = 0x05;break;}
+            "June"{$i = 0x06;break;}
+            "July"{$i = 0x07;break;}
+            "August"{$i = 0x08;break;}
+            "September"{$i = 0x09;break;}
+            "October"{$i = 0x0a;break;}
+            "November"{$i = 0x0b;break;}
+            "December"{$i = 0x0c;break;}
+            default {$i = 0xff;break;}
+        }
+        return $i;
+    }
+
     hidden [string]MonthToString($MonthNum)
     {
         return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);
     }
+
     hidden GetNow()
     {
         $this.Today = Get-Date;
+        $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
+    }
+
+    hidden GetNow([byte]$m)
+    {
+        $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
         $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
 

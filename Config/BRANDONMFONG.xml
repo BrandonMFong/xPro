@@ -451,6 +451,7 @@
     <!--<filename>Todo.xml</filename>
             </Class>
         </Object> -->
+
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -526,4 +527,7 @@
       </Item>
     </Item>
   </Todo>
+  <SpecialDays>
+    <SpecialDay name="test test">3/20/2020</SpecialDay>
+  </SpecialDays>
 </Machine>

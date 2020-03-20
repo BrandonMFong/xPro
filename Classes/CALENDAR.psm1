@@ -180,18 +180,19 @@ class Week
 
     hidden Evaluate_Days([Day]$day,[ref]$week)
     {   
-        [Day]$today = [Day]::new($(Get-Date));# debug here
-        if(($day.Number -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)* ";}
-        elseif(($day.Number -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)*  ";}
-        elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";}
-        else{$week.Value += "$($day.Number)   ";}
+        [Day]$today = [Day]::new($(Get-Date));
+        if(($day.Number -ge 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)* ";} # For Current Day
+        elseif(($day.Number -lt 10) -and $day.IsEqual($today)){$week.Value += "$($day.Number)*  ";} # For Current Day
+        elseif(($day.Number -ge 10) -and $day.IsSpecialDay()){$week.Value += "$($day.Number)^ ";} # For Special Day
+        elseif(($day.Number -lt 10) -and $day.IsSpecialDay()){$week.Value += "$($day.Number)^  ";} # For Special Day
+        elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";} # For Normal Day
+        else{$week.Value += "$($day.Number)   ";} # For Normal Day
     }
 
 }
 
-# https://stackoverflow.com/questions/50203695/powershell-icomparable-with-subclasses
 class Day
-{ # TODO make day object
+{ 
     hidden [datetime]$Date;
     [int]$Number;
     [int]$Month;
@@ -215,5 +216,23 @@ class Day
     [Day]AddDays([int]$x)
     {
         return [Day]::new($this.Date.AddDays($x))
+    }
+
+    [boolean]IsSpecialDay()
+    {
+        [boolean]$IsSpecialDay = $false;
+        Push-Location $PSScriptRoot;
+            [xml]$xml = Get-Content $("..\Config\" + $env:COMPUTERNAME.ToString() + ".xml");
+        Pop-Location;
+        foreach($x in $xml.Machine.SpecialDays.SpecialDay)
+        {
+            [Day]$d = [Day]::new($(Get-Date $x.InnerXML));
+            if(($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year))
+            {
+                $IsSpecialDay = $true;
+                break;
+            }
+        }
+        return $IsSpecialDay;
     }
 }

@@ -116,7 +116,6 @@ class Calendar
         [Day]$sa=[Day]::new(0);
 
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
-        # $day = $this.Today;
         [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today)); # this is returning a null value
         [int]$MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         [bool]$IsFirstWeek = $true;
@@ -136,10 +135,15 @@ class Calendar
             }
             if($day.DayOfWeek -eq "Saturday")
             {
-                if($IsFirstWeek){$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);$IsFirstWeek=$false;}
+                if($IsFirstWeek)
+                {
+                    $tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);$IsFirstWeek=$false;
+                    $tempweeks.FillWeek();
+                }
                 else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa)}
             }
 
+            #Fills up the rest of the month
             if($day.Number -eq $MaxDays)
             {
                 while($true)
@@ -216,6 +220,49 @@ class Week
         $this.Evaluate_Days($this.fr,[ref]$week);
         $this.Evaluate_Days($this.sa,[ref]$week);
         Write-Host "$($week)"
+    }
+
+    FillWeek()
+    {
+        if($this.sa.Number -eq 1)
+        {
+            $this.fr = $this.sa.AddDays(-1);
+            $this.th = $this.sa.AddDays(-2);
+            $this.we = $this.sa.AddDays(-3);
+            $this.tu = $this.sa.AddDays(-4);
+            $this.mo = $this.sa.AddDays(-5);
+            $this.su = $this.sa.AddDays(-6);
+        }
+        elseif($this.fr.Number -eq 1)
+        {
+            $this.th = $this.fr.AddDays(-1);
+            $this.we = $this.fr.AddDays(-2);
+            $this.tu = $this.fr.AddDays(-3);
+            $this.mo = $this.fr.AddDays(-4);
+            $this.su = $this.fr.AddDays(-5);
+        }
+        elseif($this.th.Number -eq 1)
+        {
+            $this.we = $this.th.AddDays(-1);
+            $this.tu = $this.th.AddDays(-2);
+            $this.mo = $this.th.AddDays(-3);
+            $this.su = $this.th.AddDays(-4);
+        }
+        elseif($this.we.Number -eq 1)
+        {
+            $this.tu = $this.we.AddDays(-1);
+            $this.mo = $this.we.AddDays(-2);
+            $this.su = $this.we.AddDays(-3);
+        }
+        elseif($this.tu.Number -eq 1)
+        {
+            $this.mo = $this.tu.AddDays(-1);
+            $this.su = $this.tu.AddDays(-2);
+        }
+        else
+        {
+            $this.su = $this.mo.AddDays(-1);
+        }
     }
 
     hidden Evaluate_Days([Day]$day,[ref]$week)

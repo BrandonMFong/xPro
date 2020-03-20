@@ -264,7 +264,7 @@ class Day
         Push-Location $PSScriptRoot;
             [xml]$xml = Get-Content $("..\Config\" + $env:COMPUTERNAME.ToString() + ".xml");
         Pop-Location;
-        foreach($x in $xml.Machine.SpecialDays.SpecialDay)
+        foreach($x in $xml.Machine.Calendar.SpecialDays.SpecialDay)
         {
             [Day]$d = [Day]::new($(Get-Date $x.InnerXML));
             if(($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year))

@@ -327,19 +327,21 @@
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
       <VarName SecurityType="public">SeniorDesignYes</VarName>
-      <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
-      <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
-      <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
-      <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
-      <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
-      <!-- This repo is still maintained so look at this one -->
-      <!-- This is the link for the steps to create a django site -->
-      <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
-      <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
-      <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
-      <!-- I need to download this in order -->
-      <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
-    </Object>
+        <Values>
+          <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
+          <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+          <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+          <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
+          <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
+          <!-- This repo is still maintained so look at this one -->
+          <!-- This is the link for the steps to create a django site -->
+          <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
+          <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+          <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+          <!-- I need to download this in order -->
+          <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+        </Values>
+      </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
       <VarName SecurityType="public">Passwords</VarName>
@@ -421,7 +423,7 @@
     </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass" VarName="Query">
-      <Class Classname="SQL" HasParams="true">
+      <Class ClassName="SQL" HasParams="true">
         <Database>BrandonMFong</Database>
         <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
         <Tables>
@@ -527,7 +529,9 @@
       </Item>
     </Item>
   </Todo>
-  <SpecialDays>
-    <SpecialDay name="test test">3/20/2020</SpecialDay>
-  </SpecialDays>
+  <Calendar>
+    <SpecialDays>
+      <SpecialDay name="test test"></SpecialDay>
+    </SpecialDays>
+  </Calendar>
 </Machine>

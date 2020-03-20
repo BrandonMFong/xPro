@@ -1,3 +1,15 @@
+<#
+.Synopsis
+`
+.Description
+
+.Parameter <Name>
+
+.Example
+
+.Notes
+
+#>
 param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
 Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;

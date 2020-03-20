@@ -1,4 +1,15 @@
+<#
+.Synopsis
+`
+.Description
 
+.Parameter <Name>
+
+.Example
+
+.Notes
+
+#>
 Param([String[]] $dir, [Alias('p')][Switch] $push, [switch]$AddDirectory)
 [bool]$ProcessExecuted = $false;
 

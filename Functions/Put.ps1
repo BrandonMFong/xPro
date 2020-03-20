@@ -1,4 +1,15 @@
+<#
+.Synopsis
+`
+.Description
 
+.Parameter <Name>
+
+.Example
+
+.Notes
+
+#>
 Param([String[]]$File, [Alias ('Dest')][String[]] $Destination)
 #[xml]$x = Get-Content $ConfigFile;
 [bool]$ProcessExecuted = $false;

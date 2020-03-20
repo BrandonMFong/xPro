@@ -1,3 +1,15 @@
+<#
+.Synopsis
+`
+.Description
+
+.Parameter <Name>
+
+.Example
+
+.Notes
+
+#>
 param([switch]$Current)
 
 Push-Location $PSScriptRoot;

@@ -1,4 +1,15 @@
+<#
+.Synopsis
+`
+.Description
 
+.Parameter <Name>
+
+.Example
+
+.Notes
+
+#>
 param([alias('is')][switch]$inputstring,[string]$Decode="pass")
 Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;

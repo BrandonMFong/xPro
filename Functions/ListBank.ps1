@@ -1,6 +1,6 @@
 <#
 .Synopsis
-`
+`   List aliases
 .Description
 
 .Parameter <Name>

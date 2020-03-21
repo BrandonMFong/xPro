@@ -1,12 +1,15 @@
 <#
 .Synopsis
-`
+	This relates an alias to a directory and sets the directory location to alias/dir relationship
 .Description
+	Useful to easily jump to a directory without writing out the whole path
+.Parameter push
+	Push-Location instead of set-location
 
-.Parameter <Name>
-
+.Parameter AddDirectory
+	Use this switch on a directory to add to your list to jump to
 .Example
-
+	Goto CDrive -p 
 .Notes
 
 #>
@@ -28,6 +31,7 @@ if($AddDirectory)
 		$x.Machine.Directories.AppendChild($add);
 		$x.Save($PathToXMLFile);
 	Pop-Location;
+	break;
 }
 	
 foreach ($Directory in $XMLReader.Machine.Directories.Directory)

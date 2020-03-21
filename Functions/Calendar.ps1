@@ -1,14 +1,14 @@
 <#
 .Synopsis
-`
+    Utilizes the Calendar class to display months
 .Description
-
+    
 .Parameter <Name>
 
 .Example
 
 .Notes
-
+    TODO finish calendar class with displaying special days
 #>
 param([switch]$Current)
 

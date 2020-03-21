@@ -98,7 +98,21 @@
                     Nodes below here can be reference when creating a class. 
                 </xs:documentation>
             </xs:annotation>
-            <xs:any/>
+            <!--For SQL Class-->
+            <xs:element name="SQL" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Parameters for SQL class include Database name, Server Instance, and a list of tables.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="Database" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="ServerInstance" minOccurs="1" maxOccurs="1"/>
+                <xs:complexType name="Tables" minOccurs="1" maxOccurs="1">
+                    <xs:sequence>
+                        <xs:any maxOccurs="unbounded" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:element>
     </xs:group>
 
@@ -135,7 +149,7 @@
             </xs:element>
             <xs:group ref="HashTableObjectElement"/>
             <xs:group ref="XMLElement"/>
-            <xs:group reg="ClassElement"/>
+            <xs:group ref="ClassElement"/>
         </xs:element>
     </xs:element>
     
@@ -159,11 +173,49 @@
 
     <xs:element name="Modules" maxOccurs="1">
         <xs:element name="Module" type="xs:string" minOccurs="1">
-            <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
-                Path for modules starting at powershell repo
-            </xs:documentation>
+            <xs:annotation>
+                <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
+                    Path for modules starting at powershell repo
+                </xs:documentation>
+            </xs:annotation>
         </xs:element>
     </xs:element>
     
+    <xs:group name="TodoList">
+        <xs:element name="Item">
+            <xs:annotation>
+                <xs:documentation>
+                    You can include as many 'Item' tags, so long as you specify the rank of the item.  
+                    The last one should not have any text within the node.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="rank" type="xs:int" use="mandatory"/>
+            <xs:attribute name="name" type="xs:string" use="mandatory"/>
+            <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
+            <xs:group ref="TodoList"/>
+        </xs:element>
+    </xs:group>
+    <xs:element name="Todo" maxOccurs="1">
+        <xs:group ref="TodoList"/>
+    </xs:element>
+
+    <xs:element name="Calendar" maxOccurs="1">
+        <xs:element name="SpecialDays" maxOccurs="1">
+            <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Must be in datetime format: MM/dd/yyyy 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="name" type="xs:datetime" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Name of the day
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+        </xs:element>
+    </xs:element>
 </xs:element>
 </xs:schema>

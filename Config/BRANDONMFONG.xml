@@ -414,46 +414,39 @@
       <Value Lvl="0" SecurityType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
     </Object>
     <!-- $Web -->
-    <Object Type="PowerShellClass" VarName="Web">
+    <Object Type="PowerShellClass">
+      <VarName>Web</VarName>
       <Class ClassName="Web" HasParams="false" />
     </Object>
     <!-- $Math -->
-    <Object Type="PowerShellClass" VarName="Math">
+    <Object Type="PowerShellClass">
+      <VarName>Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Query -->
-    <Object Type="PowerShellClass" VarName="Query">
+    <Object Type="PowerShellClass">
+      <VarName>Query</VarName>
       <Class ClassName="SQL" HasParams="true">
-        <Database>BrandonMFong</Database>
-        <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
-        <Tables>
-          <PersonalInfo>PersonalInfo</PersonalInfo>
-          <TypeContent>TypeContent</TypeContent>
-        </Tables>
+        <SQL>
+          <Database>BrandonMFong</Database>
+          <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+          <Tables>
+            <PersonalInfo>PersonalInfo</PersonalInfo>
+            <TypeContent>TypeContent</TypeContent>
+          </Tables>
+        </SQL>
       </Class>
     </Object>
     <!-- $Windows -->
-    <Object Type="PowerShellClass" VarName="Windows">
+    <Object Type="PowerShellClass">
+      <VarName>Windows</VarName>
       <Class ClassName="Windows" HasParams="false" />
     </Object>
     <!-- $Calendar -->
-    <Object Type="PowerShellClass" VarName="Calendar">
+    <Object Type="PowerShellClass">
+      <VarName>Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
-    <!-- $Todo -->
-    <!--<Object Type="PowerShellClass" VarName="Todo">
-            <Class ClassName="ToDoList" HasParams="true">
-                <filename>BRANDONMFONG.xml</filename>
-            </Class>
-        </Object> -->
-    <!-- How to make an object that gets its data from local database -->
-    <!-- <Object HasClass="true" VarName="<GUID>">
-            <Class ClassName="PrivateObject" HasParams="true">-->
-    <!-- I don't think I would need to give parameters if guid can locate all necessary data -->
-    <!--<filename>Todo.xml</filename>
-            </Class>
-        </Object> -->
-
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -531,7 +524,8 @@
   </Todo>
   <Calendar>
     <SpecialDays>
-      <SpecialDay name="test test"></SpecialDay>
+      <SpecialDay name="New Years">1/1/2020</SpecialDay>
+      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

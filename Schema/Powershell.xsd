@@ -4,27 +4,38 @@
 
 <xs:element name="Machine">
     <xs:attribute name="MachineName"/>
-    <xs:element name="StartScript"/>
+    <xs:element name="StartScript">
+        <xs:attribute name="ClearHost" type="boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    Default is false.  Suggest to keep it false for debug.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:element>
     
     <xs:element name="Directories" maxOccurs="1">
-        <xs:documentation>
-            Parameters that are used in Goto.ps1 function
-        </xs:documentation>
+        <xs:annotation>
+            <xs:documentation>
+                Parameters that are used in Goto.ps1 nad put.ps1 function
+            </xs:documentation>
+        </xs:annotation>
         <xs:element name="Directory" type="xs:string" minOccurs="1">
             <xs:attribute name="alias" type="xs:string" use="mandatory"/>
-            <xs:documentation>
-                Path for alias
-            </xs:documentation>
+            <xs:annotation>
+                <xs:documentation>
+                    File path for alias
+                </xs:documentation>
+            </xs:annotation>
         </xs:element>
     </xs:element>
 
     <!-- Objects -->
-    <xs:attributeGroup name="MandatoryObjectAttributes">
+    <xs:attributeGroup name="HashTableObjectAttributes">
         <xs:attribute name="SecurityType" use="mandatory">
             <xs:annotation>
                 <xs:documentation>
-                    public or private
-                    if you are pointing to a level, use public
+                    public or private. If you are pointing to a level, use public
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -37,18 +48,9 @@
         </xs:attribute>
     </xs:attributeGroup>
 
-    <xs:group name="Object_ElementGroup">
-        <xs:element name="VarName" minOccurs="1" maxOccurs="1">
-            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
-            <xs:annotation>
-                <xs:documentation>
-                    Defines the object to call on the command line.
-                    Example: $VarName 
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
+    <xs:group name="HashTableObjectElement">
         <xs:element name="Key" minOccurs="1">
-            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
+            <xs:attributeGroup ref="HashTableObjectAttributes"/>
             <xs:attribute name="Node" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
@@ -58,7 +60,7 @@
             </xs:attribute>
         </xs:element>
         <xs:element name="Value" minOccurs="1">
-            <xs:attributeGroup ref="MandatoryObjectAttributes"/>
+            <xs:attributeGroup ref="HashTableObjectAttributes"/>
             <xs:attribute name="Node" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
@@ -76,6 +78,44 @@
         </xs:element>
     </xs:group>
 
+    <xs:group name="XMLElement">
+        <xs:element name="Values">
+            <xs:any/>
+            <xs:annotation>
+                <xs:documentation>
+                    Any node here can be referenced on the command line by the element name.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+    </xs:group>
+
+    <xs:group name="ClassElement">
+        <xs:element name="Class" maxOccurs="1">
+            <xs:attribute name="ClassName" use="mandatory"/>
+            <xs:attribute name="HasParams" use="mandatory" type="boolean"/>
+            <xs:annotation>
+                <xs:documentation>
+                    Nodes below here can be reference when creating a class. 
+                </xs:documentation>
+            </xs:annotation>
+            <!--For SQL Class-->
+            <xs:element name="SQL" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Parameters for SQL class include Database name, Server Instance, and a list of tables.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="Database" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="ServerInstance" minOccurs="1" maxOccurs="1"/>
+                <xs:complexType name="Tables" minOccurs="1" maxOccurs="1">
+                    <xs:sequence>
+                        <xs:any maxOccurs="unbounded" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:element>
+    </xs:group>
+
     <xs:element name="Objects">
         <xs:element name="Object">
             <xs:annotation>
@@ -83,7 +123,7 @@
                     Must have one Object element for every object you want to refer to on the cmd line.
                 </xs:documentation>
             </xs:annotation>
-            <xs:attribute name="Type" type="xs:boolean" minOccurs="1" maxOccurs="1">
+            <xs:attribute name="Type" type="xs:boolean" use="mandatory">
                 <xs:annotation>
                     <xs:documentation>
                         Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
@@ -93,14 +133,23 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="VarName" use="optional">
+            <xs:element name="VarName" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        Use only for type XmlElement and PowerShellClass
+                        To define the object name
                     </xs:documentation>
                 </xs:annotation>
-            </xs:attribute>
-            <xs:group ref="Object_ElementGroup"/>
+                <xs:attribute name="SecurityType" type="xs:string" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            public or private, if private must include the name in the database
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+            <xs:group ref="HashTableObjectElement"/>
+            <xs:group ref="XMLElement"/>
+            <xs:group ref="ClassElement"/>
         </xs:element>
     </xs:element>
     
@@ -124,11 +173,49 @@
 
     <xs:element name="Modules" maxOccurs="1">
         <xs:element name="Module" type="xs:string" minOccurs="1">
-            <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
-                Path for modules starting at powershell repo
-            </xs:documentation>
+            <xs:annotation>
+                <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
+                    Path for modules starting at powershell repo
+                </xs:documentation>
+            </xs:annotation>
         </xs:element>
     </xs:element>
     
+    <xs:group name="TodoList">
+        <xs:element name="Item">
+            <xs:annotation>
+                <xs:documentation>
+                    You can include as many 'Item' tags, so long as you specify the rank of the item.  
+                    The last one should not have any text within the node.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="rank" type="xs:int" use="mandatory"/>
+            <xs:attribute name="name" type="xs:string" use="mandatory"/>
+            <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
+            <xs:group ref="TodoList"/>
+        </xs:element>
+    </xs:group>
+    <xs:element name="Todo" maxOccurs="1">
+        <xs:group ref="TodoList"/>
+    </xs:element>
+
+    <xs:element name="Calendar" maxOccurs="1">
+        <xs:element name="SpecialDays" maxOccurs="1">
+            <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Must be in datetime format: MM/dd/yyyy 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="name" type="xs:datetime" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Name of the day
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+        </xs:element>
+    </xs:element>
 </xs:element>
 </xs:schema>

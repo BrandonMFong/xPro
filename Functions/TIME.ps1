@@ -1,14 +1,18 @@
 <#
 .Synopsis
-`
+	Keeps time stamps in a .csv file
 .Description
-
-.Parameter <Name>
-
+	
+.Parameter Login
+	Creates a row with login timestamp
+.Parameter Logout
+	Creates a row with logout timestamp
+.Parameter View
+	Get-Content on timestamp.csv
 .Example
 
 .Notes
-
+	The location of User directory is hard coded
 #>
 Param
 (
@@ -19,7 +23,7 @@ Param
 	[Alias('A')][Switch]$Archive
 )
 Push-Location C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User;
-	if(!(Test-Path .\TimeStamp.csv)){ni TimeStamp.csv}
+	if(!(Test-Path .\TimeStamp.csv)){New-Item TimeStamp.csv}
 	if($Login)
 		{
 			$i = Get-Date 

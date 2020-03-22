@@ -8,9 +8,9 @@
 .Parameter Destination
 	The directory you are putting it in
 .Example
-
+	Puty -File sample.txt -Destination ~\Downloads
 .Notes
-
+	This reads the items under <Directories> in your xml file
 #>
 Param([String[]]$File, [Alias ('Dest')][String[]] $Destination)
 #[xml]$x = Get-Content $ConfigFile;

@@ -40,6 +40,7 @@
     <Directory alias="cmain">C:\Users\bfwan\Brandon.Fong\</Directory>
     <Directory alias="pf">B:\PROGRAMFILES</Directory>
     <Directory alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
+    <Directory alias="565hw2">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects>
@@ -486,6 +487,7 @@
     <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
+    <Program Alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

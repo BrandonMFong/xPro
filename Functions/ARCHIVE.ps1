@@ -1,6 +1,16 @@
-# Used to clear the directory and stores all files in an archive folder
-
-
+<#
+.Synopsis
+   Puts specified directory objects into an 'archive' folder
+.Description
+   Given two integers, adds them together using the
+   '+' operator and returns an integer result
+.Parameter Zip
+    Zips all files in an archive folder in the current directory
+.Example
+   Archive -Zip
+.Notes
+    This function is useful when you have have a lot in your directory and you want to get a clean start
+#>
 Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
 
 if($Zip)

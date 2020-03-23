@@ -14,5 +14,8 @@ Functions/BANKURL.ps1
 # Test files
 test*.*
 
+# Update Files
+update*.*
+
 # Misc Code
 Playground/*

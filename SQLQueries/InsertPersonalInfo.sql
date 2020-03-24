@@ -7,11 +7,14 @@ declare @PIID int =
 (
 	select max(id)+1 from PersonalInfo
 )
-declare @Guid varchar(100) = Newid()
+begin transaction 
+declare @Guid varchar(100) = upper(Newid())
 declare @Val varchar(100) = ''
 declare @sub varchar(100) = ''
 
 insert into PersonalInfo values
 (@PIID, @Guid, @Val, @sub, @TCID)
 
-select * from PersonalInfo 
+select * from PersonalInfo order by ID desc
+rollback transaction 
+--commit transaction 

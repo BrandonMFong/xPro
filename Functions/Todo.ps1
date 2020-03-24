@@ -1,5 +1,15 @@
-# Must have Todolist configured
+<#
+.Synopsis
 
+.Description
+
+.Parameter <Name>
+
+.Example
+
+.Notes
+    TODO finish Todo class
+#>
 Param
 (
     [Alias('D')][string]$Day=$null

@@ -1,6 +1,19 @@
-# Lists out all the files in the directory and appends date to each 
-
-Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass", [Switch]$Help)
+<#
+.Synopsis
+   Appends a date string to specified files
+.Description
+   Can either either specify one file to append or apply to all files in the directory
+.Parameter FileDate
+    TODO needs work
+.Parameter FileName
+    Pass file through this parameter to appy this function on
+.Example
+   Append -FileName Name.txt
+   Result: Name_MMddyyyHHmmss.txt
+.Notes
+    Useful for when you have multiple files with the same name in the same directory
+#>
+Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass")
 
 if($FileDate) # this needs work
 {
@@ -26,16 +39,6 @@ elseif($FileName -ne "Pass")
     
     Write-Host "Appended today's date to $($FileName)";
     break;
-}
-
-elseif($Help)
-{
-    Write-Host "`$FileDate [Switch]: " -ForegroundColor Green -NoNewline
-    Write-Host "Takes every file in current directory (where Attributes=Archive) and appends their CreationTime to their basename.";
-    Write-Host "`$FileName [String]: " -ForegroundColor Green -NoNewline
-    Write-Host "Appends today's date to selected file's basename.";
-    Write-Host "If no parameters are passed: " -ForegroundColor Green -NoNewline
-    Write-Host "Appends today's date to all files in current directory (where Attributes=Archive).";
 }
 else
 { 

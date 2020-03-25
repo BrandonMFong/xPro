@@ -69,4 +69,8 @@ class Calculations
         if($composite_flag){Write-Host "$i is composite"}
         else {Write-Host "$i is prime"}
     }
+    [double]I([double]$x)
+    {
+        return -$this.Log2($x);
+    }
 }

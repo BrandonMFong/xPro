@@ -80,6 +80,17 @@ class Calendar
         return $i;
     }
 
+    [void]SpecialDays()
+    {
+        Push-Location $PSScriptRoot;
+            [xml]$x = Get-Content $('..\Config\' + $(Get-Variable -Name 'AppPointer').ConfigFile);#AppPointer Defined in Profile.xml
+        Pop-Location;
+        foreach($Event in $x.Machine.SpecialDays.SpecialDay)
+        {
+            Write-Host "$($Event.Name) - $($Event.InnerXML)";
+        }
+    }
+
     hidden [string]MonthToString($MonthNum)
     {
         return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);

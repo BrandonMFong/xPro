@@ -4,12 +4,12 @@
 
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
-    [XML]$x = Get-Content Profile.xml;
+    [XML]$AppPointer = Get-Content Profile.xml;
 Pop-Location
-$ConfigFile = $x.Machine.GitRepoDir + "\Config\" + $x.Machine.ConfigFile;
+$ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile;
 [XML]$XMLReader = Get-Content $ConfigFile
 
-Push-Location $x.Machine.GitRepoDir; 
+Push-Location $AppPointer.Machine.GitRepoDir; 
     Import-Module .\Modules\FunctionModules.psm1;
 
     <### CHECK UPDATES ###>
@@ -21,7 +21,7 @@ Push-Location $x.Machine.GitRepoDir;
             switch($val.Type)
             {
                 "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose;}
-                "Internal"{Set-Alias $val.Alias "$($x.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
+                "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
                 default {Write-Warning "$($val.Alias) : $($val.InnerXML)`n Not set!"}
             }
         }
@@ -29,14 +29,12 @@ Push-Location $x.Machine.GitRepoDir;
     <### MODULES ###>
         foreach($val in $XMLReader.Machine.Modules.Module)
         {
-            Import-Module $($x.Machine.GitRepoDir + $val);
+            Import-Module $($AppPointer.Machine.GitRepoDir + $val);
         }
         
     <### OBJECTS ###>
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            # if($val.HasClass -eq "true"){New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;}
-            # else{New-Variable -Name "$($val.VarName.InnerText)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose}
             switch ($val.Type)
             {
                 "PowerShellClass"{New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;break;}

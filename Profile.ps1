@@ -46,6 +46,6 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        Invoke-Expression $($x.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
+        Invoke-Expression $($AppPointer.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
 
 Pop-Location;

@@ -40,7 +40,7 @@ Push-Location $x.Machine.GitRepoDir;
             switch ($val.Type)
             {
                 "PowerShellClass"{New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName)" -Value $val.Values -Force -Verbose;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;break;}
                 "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose; break;}
                 default {New-Variable -Name "$($val.VarName)" -Value $val.Values -Force -Verbose;break;}
             }

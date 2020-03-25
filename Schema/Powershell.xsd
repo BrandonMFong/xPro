@@ -117,6 +117,20 @@
     </xs:group>
 
     <xs:element name="Objects">
+        <xs:attribute name="Database" type="xs:boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    For the HashTable decoding to work, you need to define this attribute
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ServerInstance" type="xs:boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    For the HashTable decoding to work, you need to define this attribute
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:element name="Object">
             <xs:annotation>
                 <xs:documentation>

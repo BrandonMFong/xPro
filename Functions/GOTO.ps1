@@ -21,23 +21,18 @@ if($AddDirectory)
 {
 	$PathToAdd = (Get-Location).path; # Get the directory you are adding
 	Push-Location $PSScriptRoot;
-		$add = $x.CreateElement("Directory"); 
+		$add = $(Get-Variable 'XMLReader').Value.CreateElement("Directory"); 
 		$Alias = Read-Host -Prompt "Set Alias";
 		$add.SetAttribute("alias", $Alias);
 		$add.InnerXml = $PathToAdd;
+		$x = $(Get-Variable 'XMLReader').Value
 		$x.Machine.Directories.AppendChild($add);
-		$x.Save($PathToXMLFile);
+		$x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
 	Pop-Location;
 	break;
 }
-
-Push-Location $PSScriptRoot;
-	$XMLFile = $env:COMPUTERNAME.ToString() + ".xml"; 
-	Get-ChildItem $('..\Config\' + $XMLFile) |
-		ForEach-Object {$PathToXMLFile = $_.FullName;} # Get path to xml file
-	[xml]$x = Get-Content $PathToXMLFile;
 	
-	foreach ($Directory in $x.Machine.Directories.Directory)
+	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
 	{
 		if($Directory.alias -eq $dir)
 		{
@@ -48,5 +43,5 @@ Push-Location $PSScriptRoot;
 	}
 	if(!($ProcessExecuted))
 	{
-		throw "Parameter '$($dir)' does match any aliases in the configuration.  Please check spelling.";
+		throw "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
 	}

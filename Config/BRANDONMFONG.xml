@@ -41,6 +41,7 @@
     <Directory alias="pf">B:\PROGRAMFILES</Directory>
     <Directory alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
     <Directory alias="565hw2">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
+    <Directory alias="vc-ext">C:\Users\bfwan\.vscode\extensions</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -81,6 +82,8 @@
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecurityType="public">GoogleCalendars</Key>
       <Value Lvl="0" SecurityType="public">https://calendar.google.com/calendar</Value>
+      <Key Lvl="0" SecurityType="public">GoogleHangout</Key>
+      <Value Lvl="0" SecurityType="public">https://hangouts.google.com/</Value>
       <!--Emails-->
       <Key Lvl="0" SecurityType="public">Emails</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="e2fb" />
@@ -180,6 +183,13 @@
       <Value Lvl="0" SecurityType="public" NodePointer="408f" />
       <Key Lvl="1" Node="408f" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="408f" SecurityType="public">c555faf3-4dac-468c-817e-c12ff84a1217</Value>
+      <!--Microsoft-->
+      <Key Lvl="0" SecurityType="public">Microsoft</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="4dac" />
+      <Key Lvl="1" Node="4dac" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
+      <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -328,20 +338,20 @@
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
       <VarName SecurityType="public">SeniorDesignYes</VarName>
-        <Values>
-          <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
-          <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
-          <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
-          <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
-          <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
-          <!-- This is the link for the steps to create a django site -->
-          <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
-          <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
-          <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
-          <!-- I need to download this in order -->
-          <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
-        </Values>
-      </Object>
+      <Values>
+        <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
+        <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+        <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+        <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
+        <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
+        <!-- This is the link for the steps to create a django site -->
+        <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
+        <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+        <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+        <!-- I need to download this in order -->
+        <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+      </Values>
+    </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
       <VarName SecurityType="public">Passwords</VarName>
@@ -379,8 +389,6 @@
       <Key Lvl="0" SecurityType="public">GlobalProtect</Key>
       <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
       <Key Lvl="0" SecurityType="public">WebPortal</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
-      <Key Lvl="0" SecurityType="public">Microsoft</Key>
       <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
       <Key Lvl="0" SecurityType="public">iCloud</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
@@ -527,6 +535,7 @@
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
+      <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

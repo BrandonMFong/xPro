@@ -4,7 +4,6 @@ using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
 using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\ToDoList.psm1;
-# using module .\..\Classes\PrivateObject.psm1;
 
 $Sql = [SQL]::new('BrandonMFong','BRANDONMFONG\SQLEXPRESS', $null);
 

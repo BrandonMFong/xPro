@@ -180,6 +180,13 @@
       <Value Lvl="0" SecurityType="public" NodePointer="408f" />
       <Key Lvl="1" Node="408f" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="408f" SecurityType="public">c555faf3-4dac-468c-817e-c12ff84a1217</Value>
+      <!--Microsoft-->
+      <Key Lvl="0" SecurityType="public">Microsoft</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="4dac"/>
+      <Key Lvl="1" Node="4dac" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
+      <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -380,8 +387,6 @@
       <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
       <Key Lvl="0" SecurityType="public">WebPortal</Key>
       <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
-      <Key Lvl="0" SecurityType="public">Microsoft</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
       <Key Lvl="0" SecurityType="public">iCloud</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">SBMI</Key>
@@ -527,6 +532,7 @@
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
+      <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

@@ -10,6 +10,6 @@ insert into TypeContent
 values (@ID, @Desc, @ExtID)
 
 select * from TypeContent
-select * from PersonalInfo
-rollback transaction
---commit transaction 
+rollback transaction 
+--commit transaction
+

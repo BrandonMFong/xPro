@@ -4,47 +4,47 @@
   <!-- Directory paths -->
   <Directories>
     <!-- Manadatory Directory Aliases for functions/Classes -->
-    <Directory alias="PowershellRepoPath">B:\Powershell</Directory>
+    <Directory alias="PowershellRepoPath" SecurityType="public">B:\Powershell</Directory>
     <!-- User Defined -->
-    <Directory alias="main">B:\</Directory>
-    <Directory alias="code">B:\CODE</Directory>
-    <Directory alias="col">B:\COLLEGE</Directory>
-    <Directory alias="sc1920">B:\COLLEGE\19_20</Directory>
-    <Directory alias="f19">B:\COLLEGE\19_20\Fall_19</Directory>
-    <Directory alias="compe361">B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
-    <Directory alias="compe475">B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
-    <Directory alias="compe496a">B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
-    <Directory alias="ee450">B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
-    <Directory alias="ee420">B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
-    <Directory alias="s20">B:\COLLEGE\19_20\Spring_20</Directory>
-    <Directory alias="compe565">B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
-    <Directory alias="ee600">B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
-    <Directory alias="compe560">B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
-    <Directory alias="compe496b">B:\COLLEGE\19_20\Spring_20\CompE_496B</Directory>
-    <Directory alias="job">B:\JOB</Directory>
-    <Directory alias="li">B:\LIFE</Directory>
-    <Directory alias="mus">B:\MUSIC</Directory>
-    <Directory alias="pers">B:\PERSONAL</Directory>
-    <Directory alias="pics">B:\PICTURES</Directory>
-    <Directory alias="rec">B:\RECYCLE</Directory>
-    <Directory alias="Pow">B:\Powershell</Directory>
-    <Directory alias="si">B:\SITES</Directory>
-    <Directory alias="bf">B:\SITES\BrandonFongMusic</Directory>
-    <Directory alias="source">B:\SOURCES</Directory>
-    <Directory alias="repo">B:\SOURCES\Repos</Directory>
-    <Directory alias="yes">B:\SOURCES\Repos\DualPowerGeneration</Directory>
-    <Directory alias="dl">B:\DOWNLOADS</Directory>
-    <Directory alias="docs">B:\DOCUMENTS</Directory>
-    <Directory alias="one">~\OneDrive</Directory>
-    <Directory alias="c">C:\</Directory>
-    <Directory alias="cmain">C:\Users\bfwan\Brandon.Fong\</Directory>
-    <Directory alias="pf">B:\PROGRAMFILES</Directory>
-    <Directory alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
-    <Directory alias="565hw2">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
-    <Directory alias="vc-ext">C:\Users\bfwan\.vscode\extensions</Directory>
+    <Directory alias="main" SecurityType="public">B:\</Directory>
+    <Directory alias="code" SecurityType="public">B:\CODE</Directory>
+    <Directory alias="col" SecurityType="public">B:\COLLEGE</Directory>
+    <Directory alias="sc1920" SecurityType="public">B:\COLLEGE\19_20</Directory>
+    <Directory alias="f19" SecurityType="public">B:\COLLEGE\19_20\Fall_19</Directory>
+    <Directory alias="compe361" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
+    <Directory alias="compe475" SecurityType="public">B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
+    <Directory alias="compe496a" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
+    <Directory alias="ee450" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
+    <Directory alias="ee420" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
+    <Directory alias="s20" SecurityType="public">B:\COLLEGE\19_20\Spring_20</Directory>
+    <Directory alias="compe565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
+    <Directory alias="ee600" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
+    <Directory alias="compe560" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
+    <Directory alias="compe496b" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_496B</Directory>
+    <Directory alias="job" SecurityType="public">B:\JOB</Directory>
+    <Directory alias="li" SecurityType="public">B:\LIFE</Directory>
+    <Directory alias="mus" SecurityType="public">B:\MUSIC</Directory>
+    <Directory alias="pers" SecurityType="public">B:\PERSONAL</Directory>
+    <Directory alias="pics" SecurityType="public">B:\PICTURES</Directory>
+    <Directory alias="rec" SecurityType="public">B:\RECYCLE</Directory>
+    <Directory alias="Pow" SecurityType="public">B:\Powershell</Directory>
+    <Directory alias="si" SecurityType="public">B:\SITES</Directory>
+    <Directory alias="bf" SecurityType="public">B:\SITES\BrandonFongMusic</Directory>
+    <Directory alias="source" SecurityType="public">B:\SOURCES</Directory>
+    <Directory alias="repo" SecurityType="public">B:\SOURCES\Repos</Directory>
+    <Directory alias="yes" SecurityType="public">B:\SOURCES\Repos\DualPowerGeneration</Directory>
+    <Directory alias="dl" SecurityType="public">B:\DOWNLOADS</Directory>
+    <Directory alias="docs" SecurityType="public">B:\DOCUMENTS</Directory>
+    <Directory alias="one" SecurityType="public">~\OneDrive</Directory>
+    <Directory alias="c" SecurityType="public">C:\</Directory>
+    <Directory alias="cmain" SecurityType="public">C:\Users\bfwan\Brandon.Fong\</Directory>
+    <Directory alias="pf" SecurityType="public">B:\PROGRAMFILES</Directory>
+    <Directory alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
+    <Directory alias="565hw2" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
+    <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
-  <Objects>
+  <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecurityType="public">User</VarName>
@@ -287,6 +287,19 @@
       <Value Lvl="1" Node="0435" SecurityType="private">57601071-5d97-4863-acdc-b098e4e9d140</Value>
       <Key Lvl="1" Node="0435" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="0435" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--Classes-->
+      <Key Lvl="0" SecurityType="public">Classes</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="acdc" />
+      <Key Lvl="1" Node="acdc" SecurityType="public">CompE560</Key>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="ab42"/>
+      <Key Lvl="2" Node="ab42" SecurityType="public">MeetingID</Key>
+      <Value Lvl="2" Node="ab42" SecurityType="private">2c4055f7-54ac-40d6-91f7-8ae6f6301cf6</Value>
+      <Key Lvl="1" Node="acdc" SecurityType="public">EE600</Key>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="40d6"/>
+      <Key Lvl="2" Node="40d6" SecurityType="public">MeetingID</Key>
+      <Value Lvl="2" Node="40d6" SecurityType="private">bac2e7d1-474d-40a5-ab42-a0e391bcb2da</Value>
+      <Key Lvl="2" Node="40d6" SecurityType="public">Password</Key>
+      <Value Lvl="2" Node="40d6" SecurityType="private">825bd3d9-3fa3-4e08-bcb3-d3bad13f5922</Value>
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">

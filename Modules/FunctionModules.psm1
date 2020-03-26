@@ -5,7 +5,7 @@ using module .\..\Classes\Web.psm1;
 using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\ToDoList.psm1;
 
-$Sql = [SQL]::new('BrandonMFong','BRANDONMFONG\SQLEXPRESS', $null);
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
@@ -14,7 +14,7 @@ function MakeClass($XmlElement)
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
-        "SQL" {$x = [SQL]::new($XmlElement.Class.Database, $XmlElement.Class.ServerInstance, $XmlElement.Class.Tables);return $x;}
+        "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
         "ToDoList"{$x = [ToDoList]::new($XmlElement.Class.filename);return $x;}
         default
@@ -127,4 +127,13 @@ function GetVarName($value)
         }
         default{return $value.InnerXML}
     }
+}
+
+function EvaluateDir($value)
+{
+    if($value.SecurityType -eq "private")
+    {
+        return $Sql.InputReturn($value.InnerText);
+    }
+    else {return $value.InnerText;}
 }

@@ -42,7 +42,7 @@ function InitPointer
     {
         [Xml]$NewXml = MakeXMLFile;
         $NewXml.Save($($PRFOILE | Split-Path -Parent).ToString() + "\Profile.xml");
-        .\update-config.ps1;
+        .\.\update-config.ps1;
     }
 }
 
@@ -54,3 +54,23 @@ function InitProfile
     }
 }
 
+function InitConfig
+{
+    [XML]$File = [XML]::new();
+
+    # <Machine>
+    $Node_Machine = $File.CreateElement("Machine");
+    $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
+    $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
+    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
+    $File.AppendChild($Node_Machine);
+
+    # <StartScript>
+    $Node_StartScript = $File.CreateElement("StartScript");
+    $Node_StartScript.SetAttribute("ClearHost","false");
+    New-Item $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1") -Value "Echo Hello World";
+    $File.Machine.AppendChild($Node_StartScript);
+    $File.Machine.StartScript = $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1");
+
+    
+}

@@ -287,6 +287,19 @@
       <Value Lvl="1" Node="0435" SecurityType="private">57601071-5d97-4863-acdc-b098e4e9d140</Value>
       <Key Lvl="1" Node="0435" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="0435" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--Classes-->
+      <Key Lvl="0" SecurityType="public">Classes</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="acdc" />
+      <Key Lvl="1" Node="acdc" SecurityType="public">CompE560</Key>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="ab42"/>
+      <Key Lvl="2" Node="ab42" SecurityType="public">MeetingID</Key>
+      <Value Lvl="2" Node="ab42" SecurityType="private">2c4055f7-54ac-40d6-91f7-8ae6f6301cf6</Value>
+      <Key Lvl="1" Node="acdc" SecurityType="public">EE600</Key>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="40d6"/>
+      <Key Lvl="2" Node="40d6" SecurityType="public">MeetingID</Key>
+      <Value Lvl="2" Node="40d6" SecurityType="private">bac2e7d1-474d-40a5-ab42-a0e391bcb2da</Value>
+      <Key Lvl="2" Node="40d6" SecurityType="public">Password</Key>
+      <Value Lvl="2" Node="40d6" SecurityType="private">825bd3d9-3fa3-4e08-bcb3-d3bad13f5922</Value>
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">

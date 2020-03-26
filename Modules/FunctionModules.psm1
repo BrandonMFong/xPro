@@ -15,7 +15,7 @@ function MakeClass($XmlElement)
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
-        "SQL" {$x = [SQL]::new($XmlElement.Class.Database, $XmlElement.Class.ServerInstance, $XmlElement.Class.Tables);return $x;}
+        "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
         "ToDoList"{$x = [ToDoList]::new($XmlElement.Class.filename);return $x;}
         default

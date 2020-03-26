@@ -31,8 +31,6 @@ if($AddDirectory)
 	Pop-Location;
 	break;
 }
-
-Push-Location $PSScriptRoot;
 	
 	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
 	{
@@ -45,5 +43,5 @@ Push-Location $PSScriptRoot;
 	}
 	if(!($ProcessExecuted))
 	{
-		throw "Parameter '$($dir)' does match any aliases in the configuration.  Please check spelling.";
+		throw "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
 	}

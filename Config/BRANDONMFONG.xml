@@ -82,6 +82,8 @@
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecurityType="public">GoogleCalendars</Key>
       <Value Lvl="0" SecurityType="public">https://calendar.google.com/calendar</Value>
+      <Key Lvl="0" SecurityType="public">GoogleHangout</Key>
+      <Value Lvl="0" SecurityType="public">https://hangouts.google.com/</Value>
       <!--Emails-->
       <Key Lvl="0" SecurityType="public">Emails</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="e2fb" />

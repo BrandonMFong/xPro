@@ -129,3 +129,12 @@ function GetVarName($value)
         default{return $value.InnerXML}
     }
 }
+
+function EvaluateDir($value)
+{
+    if($value.SecurityType -eq "private")
+    {
+        return $Sql.InputReturn($value.InnerText);
+    }
+    else {return $value.InnerText;}
+}

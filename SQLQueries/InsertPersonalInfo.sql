@@ -1,7 +1,7 @@
 
 declare @TCID int = 
 (
-	select id from typecontent where description = ''
+	select id from typecontent where ExternalID = ''
 )
 declare @PIID int = 
 (
@@ -15,6 +15,9 @@ declare @sub varchar(100) = ''
 insert into PersonalInfo values
 (@PIID, @Guid, @Val, @sub, @TCID)
 
-select * from PersonalInfo order by ID desc
+select pi.*, tc.Description 'Type' 
+from PersonalInfo pi 
+join TypeContent tc on pi.TypeContentID = tc.ID 
+order by pi.ID desc
 rollback transaction 
 --commit transaction 

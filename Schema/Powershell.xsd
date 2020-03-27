@@ -22,6 +22,13 @@
         </xs:annotation>
         <xs:element name="Directory" type="xs:string" minOccurs="1">
             <xs:attribute name="alias" type="xs:string" use="mandatory"/>
+            <xs:attribute name="SecurityType" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default 'public'.  Options: 'public' or 'private'
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:annotation>
                 <xs:documentation>
                     File path for alias
@@ -117,6 +124,20 @@
     </xs:group>
 
     <xs:element name="Objects">
+        <xs:attribute name="Database" type="xs:boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    For the HashTable decoding to work, you need to define this attribute
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ServerInstance" type="xs:boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    For the HashTable decoding to work, you need to define this attribute
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:element name="Object">
             <xs:annotation>
                 <xs:documentation>
@@ -130,6 +151,13 @@
                         XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
                         HashTable (if the object will be using key and value to populate). 
                         Default is XmlElement.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ID" type="xs:int" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional for HashTable type, use to match the primary key in DB
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>

@@ -14,6 +14,7 @@
 
 #>
 Param([String[]] $dir, [Alias('p')][Switch] $push, [switch]$AddDirectory)
+Import-Module $($PSScriptRoot.tostring() + '\..\Modules\FunctionModules.psm1');
 [bool]$ProcessExecuted = $false;
 
 
@@ -24,6 +25,7 @@ if($AddDirectory)
 		$add = $(Get-Variable 'XMLReader').Value.CreateElement("Directory"); 
 		$Alias = Read-Host -Prompt "Set Alias";
 		$add.SetAttribute("alias", $Alias);
+		$add.SetAttribute("SecurityType", "public"); # TODO prompt user on the type
 		$add.InnerXml = $PathToAdd;
 		$x = $(Get-Variable 'XMLReader').Value
 		$x.Machine.Directories.AppendChild($add);
@@ -36,8 +38,8 @@ if($AddDirectory)
 	{
 		if($Directory.alias -eq $dir)
 		{
-			if($push){Push-Location $Directory.InnerXml; $ProcessExecuted = $true;}
-			else{Set-Location $Directory.InnerXml; $ProcessExecuted = $true;}
+			if($push){Push-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
+			else{Set-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
 		}
 		
 	}

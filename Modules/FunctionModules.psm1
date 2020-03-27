@@ -6,7 +6,7 @@ using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\ToDoList.psm1;
 # using module .\..\Classes\PrivateObject.psm1;
 
-$Sql = [SQL]::new('BrandonMFong','BRANDONMFONG\SQLEXPRESS', $null);
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
@@ -128,4 +128,13 @@ function GetVarName($value)
         }
         default{return $value.InnerXML}
     }
+}
+
+function EvaluateDir($value)
+{
+    if($value.SecurityType -eq "private")
+    {
+        return $Sql.InputReturn($value.InnerText);
+    }
+    else {return $value.InnerText;}
 }

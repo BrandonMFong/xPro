@@ -154,6 +154,13 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="ID" type="xs:int" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional for HashTable type, use to match the primary key in DB
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:element name="VarName" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>

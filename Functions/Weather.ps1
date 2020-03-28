@@ -1,14 +1,15 @@
 <#
 .Synopsis
-	
+	Get's weather data from http://wttr.in/
 .Description
-	
-.Parameter 
-
+    Credits to https://github.com/chubin/wttr.in & 
+    https://gist.github.com/PrateekKumarSingh/cf641670f89be6c8e0c3c4af73caf914#file-get-weather-ps1
+.Parameter Area
+    A city, default the city is determined 
 .Example
-	
+    Weather.ps1 -Area "San Diego" -Today
 .Notes
-
+    This takes a while, this may start the idea of threading
 #>
 
 param

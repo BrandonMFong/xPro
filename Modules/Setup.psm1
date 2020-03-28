@@ -63,14 +63,39 @@ function InitConfig
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
     $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
     $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
-    $File.AppendChild($Node_Machine);
+    $File.AppendChild($Node_Machine); # Append
 
     # <StartScript>
     $Node_StartScript = $File.CreateElement("StartScript");
-    $Node_StartScript.SetAttribute("ClearHost","false");
+    $Node_StartScript.SeStringtAttribute("ClearHost","false");
     New-Item $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1") -Value "Echo Hello World";
-    $File.Machine.AppendChild($Node_StartScript);
+    $File.Machine.AppendChild($Node_StartScript); # Append
     $File.Machine.StartScript = $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1");
-
     
+    # <Prompt>
+    $Node_Prompt = $File.CreateElement("Prompt");
+    $File.AppendChild($Node_Prompt);
+    
+    # <DateFormat>
+    $Node_DateFormat = $File.CreateElement("DateFormat");
+    $File.AppendChild($Node_DateFormat);    
+
+    # String
+    $Node_String = $File.CreateElement("String");
+    $Node_String.SetAttribute("Color", "White");
+    $File.String.InnerXml = "Default";
+    $File.AppendChild($Node_String);
+
+    # Directories
+    $Node_Directories = $File.CreateElement("Directories");
+    $File.AppendChild($Node_Directories);
+
+    # Directory
+    $Node_Directory = $File.CreateElement("Directory");
+    $Node_Directory.SetAttribute("alias", "GitRepo");
+    $Node_Directories.InnerXml = $PSScriptRoot;
+    $file.AppendChild(
+
+
+
 }

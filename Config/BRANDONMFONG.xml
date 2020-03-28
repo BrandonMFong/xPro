@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
+  <Prompt>
+    <DateFormat>MM/dd/yyyy</DateFormat>
+    <String Color="Cyan">[@date - @user] @fulldir></String>
+  </Prompt>
   <!-- Directory paths -->
   <Directories>
     <!-- Manadatory Directory Aliases for functions/Classes -->

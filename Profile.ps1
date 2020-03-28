@@ -11,6 +11,7 @@ $ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
     Import-Module .\Modules\FunctionModules.psm1;
+    Import-Module .\Modules\Prompt.psm1;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}

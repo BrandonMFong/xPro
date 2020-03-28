@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
+  <Prompt>
+    <DateFormat></DateFormat>
+    <String Color=""></String>
+  </Prompt>
   <!-- Directory paths -->
   <Directories>
     <!-- Manadatory Directory Aliases for functions/Classes -->
@@ -64,7 +68,97 @@
       <Value Lvl="1" Node="e2fb" SecurityType="public" NodePointer="48d5" />
       <Key Lvl="2" Node="48d5" SecurityType="public">Professional</Key>
       <Value Lvl="2" Node="48d5" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <!--LIFE-->
+      <Key Lvl="0" SecurityType="public">LIFE</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="1376" />
+      <Key Lvl="1" Node="1376" SecurityType="public">HousePortal</Key>
+      <Value Lvl="1" Node="1376" SecurityType="public">https://sdsu4rent.com/tenants</Value>
+      <Key Lvl="1" Node="1376" SecurityType="public">UCSDHealth</Key>
+      <Value Lvl="1" Node="1376" SecurityType="public">https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login</Value>
+      <!--Hostinger-->
+      <Key Lvl="0" SecurityType="public">Hostinger</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="d4f9" />
+      <Key Lvl="1" Node="d4f9" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="d4f9" SecurityType="public">https://www.hostinger.com/cpanel-login</Value>
+      <Key Lvl="1" Node="d4f9" SecurityType="public">DatabaseURL</Key>
+      <Value Lvl="1" Node="d4f9" SecurityType="public">https://auth-db221.hostinger.com/</Value>
+      <Key Lvl="1" Node="d4f9" SecurityType="public">SSHUsername</Key>
+      <Value Lvl="1" Node="d4f9" SecurityType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
+      <Key Lvl="1" Node="d4f9" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="d4f9" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--Chase-->
+      <Key Lvl="0" SecurityType="public">Chase</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="de41" />
+      <Key Lvl="1" Node="de41" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="de41" SecurityType="private">d391a359-7973-4592-a6b2-21f568fe966c</Value>
+      <Key Lvl="1" Node="de41" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="de41" SecurityType="public">https://www.chase.com/</Value>
+      <Key Lvl="1" Node="de41" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="de41" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <!--Taxact-->
+      <Key Lvl="0" SecurityType="public">Taxact</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="7973" />
+      <Key Lvl="1" Node="7973" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="7973" SecurityType="public">https://www.taxact.com/</Value>
+      <Key Lvl="1" Node="7973" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="7973" SecurityType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
+      <Key Lvl="1" Node="7973" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="7973" SecurityType="private">53A9CF28-D09B-48F4-9BD5-DDC04E496039</Value>
+      <!--LinkedIn-->
+      <Key Lvl="0" SecurityType="public">LinkedIn</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="D09B" />
+      <Key Lvl="1" Node="D09B" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="D09B" SecurityType="public">https://www.linkedin.com/nhome/</Value>
+      <Key Lvl="1" Node="D09B" SecurityType="public">Profile</Key>
+      <Value Lvl="1" Node="D09B" SecurityType="public">https://www.linkedin.com/in/brandonmfong/</Value>
+      <!--GitHub-->
+      <Key Lvl="0" SecurityType="public">GitHub</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="40C4" />
+      <Key Lvl="1" Node="40C4" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="40C4" SecurityType="public">https://github.com/</Value>
+      <Key Lvl="1" Node="40C4" SecurityType="public">Profile</Key>
+      <Value Lvl="1" Node="40C4" SecurityType="public">https://github.com/BrandonMFong</Value>
+      <!--NoIP-->
+      <Key Lvl="0" SecurityType="public">NoIP</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="4293" />
+      <Key Lvl="1" Node="4293" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="4293" SecurityType="public">https://www.noip.com/</Value>
+      <Key Lvl="1" Node="4293" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="4293" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
+      <Key Lvl="1" Node="4293" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="4293" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--WeCollect-->
+      <Key Lvl="0" SecurityType="public">WeCollect</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="0435" />
+      <Key Lvl="1" Node="0435" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="0435" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
+      <Key Lvl="1" Node="0435" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="0435" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!--WifiCOX-->
+      <Key Lvl="0" SecurityType="public">WifiCOX</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="de41" />
+      <Key Lvl="1" Node="de41" SecurityType="public">UserID</Key>
+      <Value Lvl="1" Node="de41" SecurityType="private">7caa5f82-b906-4467-b4e5-69e908abab3e</Value>
+      <Key Lvl="1" Node="de41" SecurityType="public">PIN</Key>
+      <Value Lvl="1" Node="de41" SecurityType="private">b3c5908c-dd09-4987-9f57-cc5e55dd1c24</Value>
+      <Key Lvl="1" Node="de41" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="de41" SecurityType="private">aef1c23e-408f-4eda-a51c-8867240ccb6f</Value>
+      <Key Lvl="1" Node="de41" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="de41" SecurityType="public">https://wifi.cox.com</Value>
+      <!--Router-->
+      <Key Lvl="0" SecurityType="public">Router</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="408f" />
+      <Key Lvl="1" Node="408f" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="408f" SecurityType="public">c555faf3-4dac-468c-817e-c12ff84a1217</Value>
+      <!--Microsoft-->
+      <Key Lvl="0" SecurityType="public">Microsoft</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="4dac" />
+      <Key Lvl="1" Node="4dac" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
+      <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
     </Object>
+    
     <!-- $Web -->
     <Object Type="PowerShellClass">
       <VarName>Web</VarName>
@@ -99,87 +193,40 @@
       <VarName>Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
+    <!-- $GithubRoadMap -->
+    <Object Type="PowerShellClass">
+      <VarName>GithubRoadMap</VarName>
+      <Class ClassName="List" HasParams="true">
+        <Title>Git Hub Roadmap - GlobalScripts</Title>
+      </Class>
+    </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <!-- Third party Functions -->
     <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
-    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
-    <Program Alias="Word" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Program>
-    <Program Alias="Outlook" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Program>
-    <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
-    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
-    <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
-    <Program Alias="GitHub" Type="External">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
-    <Program Alias="Wmplayer" Type="External">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
-    <Program Alias="SDK" Type="External">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
-    <Program Alias="Putty" Type="External">C:\Program Files\PuTTY\putty.exe</Program>
-    <Program Alias="Atmel" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
-    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
-    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
-    <Program Alias="Xampp" Type="External">C:\xampp\xampp-control.exe</Program>
-    <Program Alias="Global" Type="External">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
-    <Program Alias="WinSCP" Type="External">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
-    <Program Alias="Python" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
-    <Program Alias="VC" Type="External">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="PIP" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
-    <Program Alias="Subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
-    <Program Alias="sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
-    <Program Alias="VC-Powershell" Type="External">B:\Powershell\VCODE_Powershell.code-workspace</Program>
-    <Program Alias="VC-DualPowerGeneration" Type="External">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
-    <Program Alias="VC-BrandonFongMusic" Type="External">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
-    <Program Alias="X-Win" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
-    <Program Alias="Xming" Type="External">C:\Program Files (x86)\Xming\Xming.exe</Program>
-    <Program Alias="Modeler" Type="External">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
-    <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
-    <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
-    <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
-    <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
-    <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
-    <!-- User Defined Functions/scripts -->
-    <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
-    <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
-    <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-    <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
-    <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
-    <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
-    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
-    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
-    <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
-    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
   </Programs>
   <!--Modules to include, mainly just for small functions-->
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
   </Modules>
-  <Todo>
-    <Item rank="1" name="Monday" Completed="true">
-      <Item rank="2" name="EE600" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
+  <Lists>
+    <!-- Git Hub Roadmap - GlobalScripts -->
+    <List Title="Git Hub Roadmap - GlobalScripts">
+      <Item rank="1" name="Version 2" Completed="false">
+        <Item rank="2" name="Weather" Completed="false"/>
+        <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false"/>
+        <Item rank="2" name="Make readme" Completed="false"/>
       </Item>
-      <Item rank="2" name="CompE565" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
+      <Item rank="1" name="Version 1" Completed="true">
+        <Item rank="2" name="Publish other config" Completed="true"/>
+        <Item rank="2" name="List class" Completed="true"/>
+        <Item rank="2" name="Make readme" Completed="true"/>
       </Item>
-      <Item rank="2" name="CompE560" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
-      </Item>
-      <Item rank="2" name="CompE496B" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
-      </Item>
-    </Item>
-  </Todo>
+    </List>
+  </Lists>
   <Calendar>
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
-      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
-      <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

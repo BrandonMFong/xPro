@@ -468,6 +468,12 @@
       <VarName>Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
+    <Object Type="PowerShellClass">
+      <VarName>List</VarName>
+      <Class ClassName="List" HasParams="true">
+        <Title>To Do List</Title>
+      </Class>
+    </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -524,26 +530,30 @@
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
   </Modules>
-  <Todo>
-    <Item rank="1" name="Monday" Completed="true">
-      <Item rank="2" name="EE600" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
+  <Lists>
+    <List Title="To Do List">
+      <Item rank="1" name="Monday" Completed="true">
+        <Item rank="2" name="EE600" Completed="true">
+          <Item rank="3" name="Study" Completed="true" />
+          <Item rank="3" name="Study" Completed="true" >
+            <Item rank="4" name="Go Home" Completed="false"/>
+          </Item>
+        </Item>
+        <Item rank="2" name="CompE565" Completed="true">
+          <Item rank="3" name="Study" Completed="true" />
+          <Item rank="3" name="Study" Completed="true" />
+        </Item>
+        <Item rank="2" name="CompE560" Completed="true">
+          <Item rank="3" name="Study" Completed="true" />
+          <Item rank="3" name="Study" Completed="true" />
+        </Item>
+        <Item rank="2" name="CompE496B" Completed="true">
+          <Item rank="3" name="Study" Completed="true" />
+          <Item rank="3" name="Study" Completed="true" />
+        </Item>
       </Item>
-      <Item rank="2" name="CompE565" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
-      </Item>
-      <Item rank="2" name="CompE560" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
-      </Item>
-      <Item rank="2" name="CompE496B" Completed="true">
-        <Item rank="3" name="Study" Completed="true" />
-        <Item rank="3" name="Study" Completed="true" />
-      </Item>
-    </Item>
-  </Todo>
+    </List>
+  </Lists>
   <Calendar>
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>

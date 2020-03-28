@@ -547,10 +547,11 @@
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
       <Item rank="1" name="Version 2" Completed="false">
-        <Item rank="2" name="Weather" Completed="false"/>
+        <Item rank="2" name="Weather" Completed="true"/>
         <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false"/>
         <Item rank="2" name="Prompting" Completed="true"/>
         <Item rank="2" name="Dynamically edit this list" Completed="false"/>
+        <Item rank="2" name="Change Setup script" Completed="false"/>
       </Item>
       <Item rank="1" name="Version 1" Completed="true">
         <Item rank="2" name="Publish other config" Completed="true"/>
@@ -571,6 +572,7 @@
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
       <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
+      <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

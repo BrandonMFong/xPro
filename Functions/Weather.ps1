@@ -28,5 +28,5 @@ if($RightNow){$weather[2..6];}
 elseif($Today){$weather[7..16];}
 elseif($Tomorrow){$weather[17..26];}
 elseif($DayAfterTomorrow){$weather[27..36];}
-else{$weather}
+else{$weather[2..36]}
 Write-Host `n;

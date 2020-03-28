@@ -541,15 +541,15 @@
   <Lists>
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
-      <Item rank="1" name="Version 1" Completed="false">
-        <Item rank="2" name="Publish other config" Completed="true"/>
-        <Item rank="2" name="List class" Completed="true"/>
-        <Item rank="2" name="Make readme" Completed="false"/>
-      </Item>
       <Item rank="1" name="Version 2" Completed="false">
         <Item rank="2" name="Weather" Completed="false"/>
         <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false"/>
         <Item rank="2" name="Make readme" Completed="false"/>
+      </Item>
+      <Item rank="1" name="Version 1" Completed="true">
+        <Item rank="2" name="Publish other config" Completed="true"/>
+        <Item rank="2" name="List class" Completed="true"/>
+        <Item rank="2" name="Make readme" Completed="true"/>
       </Item>
     </List>
     <!-- School -->

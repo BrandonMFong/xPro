@@ -21,6 +21,7 @@ Allows user's powershell scripts to adapt to any computer
     ```
     [@date - @user] @fulldir>
     ```
+* **Weather Report**
 * **Create multiple lists (i.e. To Do Lists)**
 * **Set multiple aliases at initial start of powershell**
 * **Quickly hop over to a directory using *goto* function**

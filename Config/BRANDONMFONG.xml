@@ -468,10 +468,18 @@
       <VarName>Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
+    <!-- $GithubRoadMap -->
     <Object Type="PowerShellClass">
       <VarName>GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>To Do List</Title>
+        <Title>Git Hub Roadmap - GlobalScripts</Title>
+      </Class>
+    </Object>
+    <!-- $SchoolList -->
+    <Object Type="PowerShellClass">
+      <VarName>SchoolList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <Title>School</Title>
       </Class>
     </Object>
   </Objects>
@@ -531,26 +539,19 @@
     <Module>\Modules\Miscellaneous.psm1</Module>
   </Modules>
   <Lists>
-    <List Title="To Do List">
-      <Item rank="1" name="Monday" Completed="true">
-        <Item rank="2" name="EE600" Completed="true">
-          <Item rank="3" name="Study" Completed="true" />
-          <Item rank="3" name="Study" Completed="true" >
-            <Item rank="4" name="Go Home" Completed="false"/>
-          </Item>
-        </Item>
-        <Item rank="2" name="CompE565" Completed="true">
-          <Item rank="3" name="Study" Completed="true" />
-          <Item rank="3" name="Study" Completed="true" />
-        </Item>
-        <Item rank="2" name="CompE560" Completed="true">
-          <Item rank="3" name="Study" Completed="true" />
-          <Item rank="3" name="Study" Completed="true" />
-        </Item>
-        <Item rank="2" name="CompE496B" Completed="true">
-          <Item rank="3" name="Study" Completed="true" />
-          <Item rank="3" name="Study" Completed="true" />
-        </Item>
+    <!-- Git Hub Roadmap - GlobalScripts -->
+    <List Title="Git Hub Roadmap - GlobalScripts">
+      <Item rank="1" name="Version 1" Completed="false">
+        <Item rank="2" name="Publish other config" Completed="true"/>
+        <Item rank="2" name="List class" Completed="true"/>
+        <Item rank="2" name="Make readme" Completed="false"/>
+      </Item>
+    </List>
+    <!-- School -->
+    <List Title="School">
+      <Item rank="1" name="Senior Design" Completed="false">
+        <Item rank="2" name="SFTP" Completed="false"/>
+        <Item rank="2" name="Website" Completed="false"/>
       </Item>
     </List>
   </Lists>

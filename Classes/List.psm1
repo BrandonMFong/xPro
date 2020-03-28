@@ -1,9 +1,9 @@
 
 class List
 {
-    [XML]$xml; # Will contain xml elements
+    hidden [XML]$xml; # Will contain xml elements
     [string]$Title; # Must match the title attribute for List tag
-    [string]$FilePath; # The data file that will contain todo list
+    hidden [string]$FilePath; # The data file that will contain todo list
 
     List($Title)
     {
@@ -18,6 +18,7 @@ class List
         $this.LoadList();
         Write-Host "`n$($this.Title)`n" -ForegroundColor Green;
         $this.GetList($this.xml.Machine.Lists);
+        Write-host `n;
     }
 
     hidden LoadList()

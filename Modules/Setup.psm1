@@ -67,7 +67,7 @@ function InitConfig
 
     # <StartScript>
     $Node_StartScript = $File.CreateElement("StartScript");
-    $Node_StartScript.SeStringtAttribute("ClearHost","false");
+    $Node_StartScript.SetAttribute("ClearHost","false");
     New-Item $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1") -Value "Echo Hello World";
     $File.Machine.AppendChild($Node_StartScript); # Append
     $File.Machine.StartScript = $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1");
@@ -85,6 +85,7 @@ function InitConfig
     $Node_String.SetAttribute("Color", "White");
     $File.String.InnerXml = "Default";
     $File.Machine.Prompt.AppendChild($Node_String);#Node
+
     # Directories
     $Node_Directories = $File.CreateElement("Directories");
     $File.Machine.AppendChild($Node_Directories);#Node
@@ -104,13 +105,66 @@ function InitConfig
 
     # Object 
     $Node_Object = $File.CreateElement("Object");
-    $Node_Object.SetAttribute("Type", "");
-    $File.Machine.Ojbects.AppendChild("Node_Object")
+    $Node_Object.SetAttribute("Type", "XmlElement");
+    $File.Machine.Ojbects.AppendChild($Node_Object)
 
     # VarName
-    $Node_VarName = $File.AppendChild(("VarName");
+    $Node_VarName = $File.AppendChild("VarName");
     $Node_VarName.SetAttribute("SecurityType","public");
+    $Node_VarName.InnerXml = "User";
+    $File.Machine.Objects.Object.AppendChild($Node_VarName);
 
+    # Values
+    $Node_Values = $File.CreateElement("Values");
+    $File.Machine.Objects.Object.AppendChild($Node_Values);
 
+    # Programs
+    $Node_Programs = $File.CreateElement("Programs");
+    $File.Machine.AppendChild($Node_Programs);
 
+    # Program
+    $Node_Program = $File.CreateElement("Program");
+    $Node_Program.SetAttribute("Alias", "");
+    $Node_Program.SetAttribute("Type", "");
+    $File.Machine.Programs.AppendChild($Node_Program);
+    
+    # Modules
+    $Node_Modules = $File.CreateElement("Modules");
+    $File.Machine.AppendChild($Node_Modules);
+
+    # Module
+    $Node_Module = $File.CreateElement("Module");
+    $File.Machine.Modules.AppendChild($Node_Module);
+
+    # Lists
+    $Node_Lists = $File.CreateElement("Lists");
+    $File.Machine.AppendChild($Node_Lists);
+
+    # List
+    $Node_List = $File.CreateElement("List");
+    $Node_List.SetAttribute("Title", "");
+    $File.Machine.Lists.AppendChild($Node_List);
+
+    # Item
+    $Node_Item = $File.CreateElement("Item");
+    $Node_Item.SetAttribute("rank","");
+    $Node_Item.SetAttribute("name","");
+    $Node_Item.SetAttribute("Completed","");
+    $File.Machine.Lists.List.AppendChild($Node_Item);
+
+    # Calendar
+    $Node_Calendar = $File.CreateElement("Calendar");
+    $File.Machine.AppendChild($Node_Calendar);
+
+    # SpecialDays
+    $Node_SpecialDays = $File.CreateElement("SpecialDays");
+    $File.Machine.Calendar.AppendChild($Node_SpecialDays);
+
+    # SpecialDay
+    $Node_SpecialDay = $File.CreateElement("SpecialDay");
+    $Node_Item.SetAttribute("name","New Years");
+    $Node_SpecialDay.InnerXml = "1/1/2021";
+    $File.Machine.Calendar.SpecialDays.AppendChild($Node_SpecialDays);
+
+    $File.Save("B:\Test.xml");
 }

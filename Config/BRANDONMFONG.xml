@@ -3,7 +3,7 @@
   <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
   <Prompt>
     <DateFormat>MM/dd/yyyy</DateFormat>
-    <String Color="Cyan">[@date - @user] @fulldir></String>
+    <String Color="Cyan">[@date - @user] @currdir></String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>

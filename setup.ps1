@@ -8,4 +8,6 @@ Push-Location $PSScriptRoot;
 
     InitPointer;
 
+    InitConfig;
+
 Pop-Location;

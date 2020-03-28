@@ -36,6 +36,8 @@ Allows user's powershell scripts to adapt to any computer
 
 MAJOR.MINOR.PATCH
 
+*Configuration changes are not tagged*
+
 ## Authors
 
 **Brandon Fong** - [Github](https://github.com/BrandonMFong)

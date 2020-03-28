@@ -4,4 +4,5 @@ class Tag
     [string]$date = "@date";
     [string]$currentdir = "@currdir";
     [string]$fulldir = "@fulldir";
+    [string]$time = "@time";
 }

@@ -63,7 +63,7 @@ function InitConfig
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
     $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
     $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
-    $File.AppendChild($Node_Machine); # Append
+    $File.AppendChild($Node_Machine);#Node
 
     # <StartScript>
     $Node_StartScript = $File.CreateElement("StartScript");
@@ -74,27 +74,42 @@ function InitConfig
     
     # <Prompt>
     $Node_Prompt = $File.CreateElement("Prompt");
-    $File.AppendChild($Node_Prompt);
+    $File.Machine.AppendChild($Node_Prompt);
     
     # <DateFormat>
     $Node_DateFormat = $File.CreateElement("DateFormat");
-    $File.AppendChild($Node_DateFormat);    
+    $File.Machine.Prompt.AppendChild($Node_DateFormat);#Node
 
     # String
     $Node_String = $File.CreateElement("String");
     $Node_String.SetAttribute("Color", "White");
     $File.String.InnerXml = "Default";
-    $File.AppendChild($Node_String);
-
+    $File.Machine.Prompt.AppendChild($Node_String);#Node
     # Directories
     $Node_Directories = $File.CreateElement("Directories");
-    $File.AppendChild($Node_Directories);
+    $File.Machine.AppendChild($Node_Directories);#Node
 
     # Directory
     $Node_Directory = $File.CreateElement("Directory");
     $Node_Directory.SetAttribute("alias", "GitRepo");
-    $Node_Directories.InnerXml = $PSScriptRoot;
-    $file.AppendChild(
+    $Node_Directory.SetAttribute("SecurityType", "public");
+    $Node_Directories.InnerXml = $PSScriptRoot; # putting this dir in the xml
+    $File.Machine.Directories.AppendChild($Node_Directories);#Node
+
+    # Objects
+    $Node_Objects =  $File.CreateElement("Objects");
+    $Node_Objects.SetAttribute("Database", "");
+    $Node_Objects.SetAttribute("ServerInstance", "");
+    $File.Machnie.AppendChild($Node_Objects);
+
+    # Object 
+    $Node_Object = $File.CreateElement("Object");
+    $Node_Object.SetAttribute("Type", "");
+    $File.Machine.Ojbects.AppendChild("Node_Object")
+
+    # VarName
+    $Node_VarName = $File.AppendChild(("VarName");
+    $Node_VarName.SetAttribute("SecurityType","public");
 
 
 

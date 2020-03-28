@@ -13,6 +13,32 @@
             </xs:annotation>
         </xs:attribute>
     </xs:element>
+
+    <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+            <xs:documentation>
+                Change the prompt function in the string tag.  
+                Any change here does not require a reload of powershell session
+            </xs:documentation>
+        </xs:annotation>
+        <xs:element name="DateFormat" maxOccurs="1"/>
+        <xs:element name="String" minOccurs="1" maxOccurs="1">
+            <xs:attribute name="Color" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        Choices are from powershell foregroundcolor color. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:annotation>
+                <xs:documentation>
+                    To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
+                    Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                    @fulldir {Full directory}
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+    </xs:element>
     
     <xs:element name="Directories" maxOccurs="1">
         <xs:annotation>
@@ -95,7 +121,27 @@
             </xs:annotation>
         </xs:element>
     </xs:group>
+    
+    <xs:group name="ListClass">
+        <xs:element name="Title" minOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    The Title of the list you defined in your config
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+    </xs:group>
 
+    <xs:group name="SQLClass">
+        <xs:element name="Database" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ServerInstance" minOccurs="1" maxOccurs="1"/>
+        <xs:complexType name="Tables">
+            <xs:sequence>
+                <xs:any maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:group>
+    
     <xs:group name="ClassElement">
         <xs:element name="Class" maxOccurs="1">
             <xs:attribute name="ClassName" use="mandatory"/>
@@ -105,21 +151,8 @@
                     Nodes below here can be reference when creating a class. 
                 </xs:documentation>
             </xs:annotation>
-            <!--For SQL Class-->
-            <xs:element name="SQL" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Parameters for SQL class include Database name, Server Instance, and a list of tables.
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:element name="Database" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="ServerInstance" minOccurs="1" maxOccurs="1"/>
-                <xs:complexType name="Tables" minOccurs="1" maxOccurs="1">
-                    <xs:sequence>
-                        <xs:any maxOccurs="unbounded" minOccurs="0"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:group ref="SQLClass"/>
+            <xs:group ref="ListClass"/>
         </xs:element>
     </xs:group>
 
@@ -151,6 +184,13 @@
                         XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
                         HashTable (if the object will be using key and value to populate). 
                         Default is XmlElement.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ID" type="xs:int" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional for HashTable type, use to match the primary key in DB
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -202,7 +242,7 @@
         </xs:element>
     </xs:element>
     
-    <xs:group name="TodoList">
+    <xs:group name="List">
         <xs:element name="Item">
             <xs:annotation>
                 <xs:documentation>
@@ -216,8 +256,11 @@
             <xs:group ref="TodoList"/>
         </xs:element>
     </xs:group>
-    <xs:element name="Todo" maxOccurs="1">
-        <xs:group ref="TodoList"/>
+    <xs:element name="Lists" minOccurs="0" maxOccurs="1">
+        <xs:element name="List">
+            <xs:attribute name="Title" use="mandatory"/>
+            <xs:group ref="List"/>
+        </xs:element>
     </xs:element>
 
     <xs:element name="Calendar" maxOccurs="1">

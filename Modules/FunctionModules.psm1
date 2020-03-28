@@ -3,7 +3,7 @@ using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
 using module .\..\Classes\Windows.psm1;
-using module .\..\Classes\ToDoList.psm1;
+using module .\..\Classes\List.psm1;
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
 
@@ -16,10 +16,10 @@ function MakeClass($XmlElement)
         "Calculations" {$x = [Calculations]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
         "Windows" {$x = [Windows]::new();return $x;}
-        "ToDoList"{$x = [ToDoList]::new($XmlElement.Class.filename);return $x;}
+        "List"{$x = [List]::new($XmlElement.Class.Title);return $x;}
         default
         {
-            throw "Class $($XmlElement.Class.ClassName) was not made.";
+            Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
         }
     }
 }
@@ -89,7 +89,7 @@ function MakeHash($value,[int]$lvl,$Node)
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
-        for($i=$start;$i -lt $($start + $end);$i++)
+        for($i=$start;$i -le $($start + $end);$i++)
         {
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)

@@ -14,7 +14,7 @@
 
 #>
 Param([String[]] $dir, [Alias('p')][Switch] $push, [switch]$AddDirectory)
-Import-Module .\..\Modules\FunctionModules.psm1;
+Import-Module $($PSScriptRoot.tostring() + '\..\Modules\FunctionModules.psm1');
 [bool]$ProcessExecuted = $false;
 
 

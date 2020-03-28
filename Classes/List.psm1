@@ -4,13 +4,11 @@ class List
     [XML]$xml; # Will contain xml elements
     [string]$Title; # Must match the title attribute for List tag
     [string]$FilePath; # The data file that will contain todo list
-    [int]$Completed = 0; # Completed="true"
-    [int]$Uncompleted = 0; # Completed="false"
 
     List($Title)
     {
         $this.Title = $Title;
-        $this.FilePath = $((Get-Location).Path + '\..\Config\BRANDONMFONG.xml');
+        $this.FilePath = $($PSScriptRoot.ToString() + '\..\Config\BRANDONMFONG.xml');
     }
 
     Save(){$this.xml.Save($this.FilePath);}
@@ -18,7 +16,7 @@ class List
     ListOut()
     {
         $this.LoadList();
-        Write-Host "$($this.Title)";
+        Write-Host "`n$($this.Title)`n" -ForegroundColor Green;
         $this.GetList($this.xml.Machine.Lists);
     }
 

@@ -2,9 +2,7 @@
 
 Allows user's powershell scripts to adapt to any computer
 
-## Features (Version 1)
-
-*Configurable*
+## Features 
 
 * **Calendar**
     * *Print Calendar month*
@@ -22,6 +20,17 @@ Allows user's powershell scripts to adapt to any computer
     [@date - @user] @fulldir>
     ```
 * **Weather Report**
+    ```
+    [03/28/2020 - BrandonMFong] Powershell> get-weather -RightNow  
+    Weather report: Spring Valley, United States
+
+     \   /     Sunny
+      .-.      44..46 °F
+   ― (   ) ―   ↖ 3 mph
+      `-’      9 mi
+     /   \     0.0 in
+
+    ```
 * **Create multiple lists (i.e. To Do Lists)**
 * **Set multiple aliases at initial start of powershell**
 * **Quickly hop over to a directory using *goto* function**
@@ -33,15 +42,13 @@ Allows user's powershell scripts to adapt to any computer
     * *Must have two tables defined (PersonalInfo & TypeContent)*
 * [Posh-Git](https://github.com/dahlbyk/posh-git) - Git for Powershell
 
-## Built With
+## Developed With
 
 * [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Versioning
 
 MAJOR.MINOR.PATCH
-
-*Configuration changes are not tagged*
 
 ## Authors
 

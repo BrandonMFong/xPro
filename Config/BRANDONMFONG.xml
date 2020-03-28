@@ -469,7 +469,7 @@
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <Object Type="PowerShellClass">
-      <VarName>List</VarName>
+      <VarName>GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
         <Title>To Do List</Title>
       </Class>

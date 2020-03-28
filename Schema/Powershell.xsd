@@ -232,6 +232,7 @@
     </xs:group>
     <xs:element name="Lists" minOccurs="0" maxOccurs="1">
         <xs:element name="List">
+            <xs:attribute name="Title" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="List"/>
         </xs:element>
     </xs:element>

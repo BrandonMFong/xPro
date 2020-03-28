@@ -8,6 +8,26 @@ Allows user's powershell scripts to adapt to any computer
     * *Print Calendar month*
         * *Marks current day*
         * *Marks special day defined by config*
+    ```
+    Sample Configuration
+    <Calendar>
+        <SpecialDays>
+            <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
+            <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
+        </SpecialDays>
+    </Calendar>
+
+    Sample Output
+    [03/28/2020 - BrandonMFong] Powershell> Get-Calendar
+    March 2020
+    su  mo  tu  we  th  fr  sa
+    --  --  --  --  --  --  --
+    1   2   3   4   5   6   7
+    8   9   10  11  12  13  14
+    15  16  17  18  19  20  21
+    22  23  24  25  26  27^ 28*
+    29  30  31^ 1   2   3   4
+    ```
 * **Query Local Database**
     * *Dynamically Insert into database for any table*
 * **Google Search from Powershell**

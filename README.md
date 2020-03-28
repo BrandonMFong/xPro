@@ -17,6 +17,10 @@ Allows user's powershell scripts to adapt to any computer
     Search -Google
     Google: How to cook an egg
     ```
+* **Edit Prompt**
+    ```
+    [@date - @user] @fulldir>
+    ```
 * **Create multiple lists (i.e. To Do Lists)**
 * **Set multiple aliases at initial start of powershell**
 * **Quickly hop over to a directory using *goto* function**

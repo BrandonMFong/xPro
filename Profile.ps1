@@ -11,6 +11,7 @@ $ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
     Import-Module .\Modules\FunctionModules.psm1;
+    Import-Module .\Modules\Prompt.psm1;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
@@ -38,7 +39,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             switch ($val.Type)
             {
                 "PowerShellClass"{New-Variable -Name "$($val.VarName)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName)" -Value $val.Values -Force -Verbose;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName)" -Value $val -Force -Verbose;break;}
                 "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose; break;}
                 default {New-Variable -Name "$($val.VarName)" -Value $val.Values -Force -Verbose;break;}
             }
@@ -47,5 +48,14 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
         Invoke-Expression $($AppPointer.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
+
+    try 
+    {
+        Write-Host "Version - $(git describe --tags) `n" -ForegroundColor Gray;
+    }
+    catch 
+    {
+        Write-Warning "You may not have posh-git installed in powershell"
+    }
 
 Pop-Location;

@@ -454,17 +454,17 @@
     </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
-      <VarName>Web</VarName>
+      <VarName SecurityType="public">Web</VarName>
       <Class ClassName="Web" HasParams="false" />
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
-      <VarName>Math</VarName>
+      <VarName SecurityType="public">Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
-      <VarName>Query</VarName>
+      <VarName SecurityType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
           <Database>BrandonMFong</Database>
@@ -478,24 +478,24 @@
     </Object>
     <!-- $Windows -->
     <Object Type="PowerShellClass">
-      <VarName>Windows</VarName>
+      <VarName SecurityType="public">Windows</VarName>
       <Class ClassName="Windows" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
-      <VarName>Calendar</VarName>
+      <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <!-- $GithubRoadMap -->
     <Object Type="PowerShellClass">
-      <VarName>GithubRoadMap</VarName>
+      <VarName SecurityType="public">GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
         <Title>Git Hub Roadmap - GlobalScripts</Title>
       </Class>
     </Object>
     <!-- $SchoolList -->
     <Object Type="PowerShellClass">
-      <VarName>SchoolList</VarName>
+      <VarName SecurityType="public">SchoolList</VarName>
       <Class ClassName="List" HasParams="true">
         <Title>School</Title>
       </Class>

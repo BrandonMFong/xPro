@@ -107,6 +107,8 @@
       <Value Lvl="1" Node="e2fb" SecurityType="public" NodePointer="48d5" />
       <Key Lvl="2" Node="48d5" SecurityType="public">Professional</Key>
       <Value Lvl="2" Node="48d5" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Key Lvl="2" Node="48d5" SecurityType="public">SDSU</Key>
+      <Value Lvl="2" Node="48d5" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <!--LIFE-->
       <Key Lvl="0" SecurityType="public">LIFE</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="1376" />
@@ -306,6 +308,14 @@
       <Value Lvl="2" Node="40d6" SecurityType="private">bac2e7d1-474d-40a5-ab42-a0e391bcb2da</Value>
       <Key Lvl="2" Node="40d6" SecurityType="public">Password</Key>
       <Value Lvl="2" Node="40d6" SecurityType="private">825bd3d9-3fa3-4e08-bcb3-d3bad13f5922</Value>
+      <!--Matlab-->
+      <Key Lvl="0" SecurityType="public">Matlab</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="c785" />
+      <Key Lvl="1" Node="c785" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="c785" SecurityType="private">d5e56cab-19a1-4d1f-aabc-eec6793cf439</Value>
+      <Key Lvl="1" Node="c785" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="c785" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">
@@ -396,7 +406,7 @@
       <Key Lvl="0" SecurityType="public">AmazonShop</Key>
       <Value Lvl="0" SecurityType="private">0ce5d07c-ecfb-4fea-ab4c-544d4c97225d</Value>
       <Key Lvl="0" SecurityType="public">Blackboard</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">LinkedIn</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">Alliant</Key>
@@ -406,9 +416,11 @@
       <Key Lvl="0" SecurityType="public">AmazonJobs</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">GlobalProtect</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">WebPortal</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Key Lvl="0" SecurityType="public">Mathworks</Key>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">iCloud</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">SBMI</Key>
@@ -527,7 +539,7 @@
     <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

@@ -38,3 +38,8 @@ function Restart-Session
 {
     Start-Process powershell;exit;
 }
+
+function List-Color
+{
+    [Enum]::GetValues([System.ConsoleColor])
+}

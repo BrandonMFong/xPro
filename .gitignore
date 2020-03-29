@@ -18,3 +18,6 @@ update*.*
 
 # Misc Code
 Playground/*
+
+# log files
+*.log

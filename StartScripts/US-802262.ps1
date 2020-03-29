@@ -5,7 +5,7 @@
 	If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
 	ElseIf ($Hour -gt 17) {"Good Eventing Brandon"}
 	Else {"Good Afternoon Brandon"}
-	Write-Host ("`n$Date`n");
+	Get-Weather -Today -Area "San Diego"
 	$Calendar.GetCalendarMonth();
 	Write-Host ("`n1. Start`n")
 	$start = Read-Host 

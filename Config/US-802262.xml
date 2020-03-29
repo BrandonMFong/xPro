@@ -2,8 +2,9 @@
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
   <Prompt>
-    <DateFormat>MM/dd/yyyy</DateFormat>
-    <String Color="Cyan">[@date - @user] @fulldir></String>
+    <DateFormat>Default</DateFormat>
+    <TimeFormat>Default</TimeFormat>
+    <String Color="Cyan">[@time, @date - @user] @currdir></String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -782,6 +783,7 @@
     <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
     <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
+    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
   </Programs>
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>

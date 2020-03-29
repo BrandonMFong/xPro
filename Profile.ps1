@@ -23,7 +23,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             {
                 "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose;}
                 "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
-                default {Write-Warning "$($val.Alias) : $($val.InnerXML)`n Not set!"}
+                default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
             }
         }
     

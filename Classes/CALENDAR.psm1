@@ -38,7 +38,7 @@ class Calendar
         switch ($Month)
         {
             "January"{$MaxDays =  $Jan;break;}
-            "Febuary"
+            "February"
             {
                 if (($this.Today.Year % 4 )){$MaxDays =  $FebLeapYear;break;}
                 else{$MaxDays =  $Feb;break;};

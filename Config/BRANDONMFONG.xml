@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Cyan">[@time, @date - @user] @currdir&gt;</String>
+    <String Color="Cyan">[@time, @date - @user] @currdir></String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>

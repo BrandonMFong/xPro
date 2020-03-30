@@ -2,9 +2,9 @@
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
   <Prompt>
-    <DateFormat>Default</DateFormat>
-    <TimeFormat>Default</TimeFormat>
-    <String Color="Cyan">[@time, @date - @user] @currdir></String>
+    <DateFormat>MM/dd/yyy</DateFormat>
+    <TimeFormat>hh:mm tt</TimeFormat>
+    <String Color="Green">[Kiran - @time, @date] @currdir></String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -735,9 +735,9 @@
       <Key Lvl="1" Node="9C46" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
       <Value Lvl="1" Node="9C46" SecurityType="private">B30A7F49-3E3D-4C6F-8E8A-DBDF81E44D08</Value>
       <Key Lvl="0" SecurityType="public">Passwords</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="9C46" />
-      <Key Lvl="1" Node="9C46" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
-      <Value Lvl="1" Node="9C46" SecurityType="private">1428b93d-6231-468c-922f-b794cbc046b7</Value>
+      <Value Lvl="0" SecurityType="public" NodePointer="8219" />
+      <Key Lvl="1" Node="8219" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
+      <Value Lvl="1" Node="8219" SecurityType="private">1428b93d-6231-468c-922f-b794cbc046b7</Value>
     </Object>
   </Objects>
   <!-- Programs to call exectuables, scripts, etc -->

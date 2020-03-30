@@ -40,7 +40,7 @@ function GetObjectByClass([string]$Class)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
         {
-            return $(Get-Variable $Object.VarName).Value;
+            return $(Get-Variable $Object.VarName.InnerXml).Value;
         }
     }
     throw "Object not found!";

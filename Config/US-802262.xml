@@ -167,17 +167,17 @@
     </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
-      <VarName>Web</VarName>
+      <VarName SecurityType="public">Web</VarName>
       <Class ClassName="Web" HasParams="false" />
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
-      <VarName>Math</VarName>
+      <VarName SecurityType="public">Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
-      <VarName>Query</VarName>
+      <VarName SecurityType="public">Query</VarName>
       <Class Classname="SQL" HasParams="true">
         <Database>Kiran</Database>
         <ServerInstance>US-802262</ServerInstance>
@@ -189,12 +189,12 @@
     </Object>
     <!-- $Windows -->
     <Object Type="PowerShellClass">
-      <VarName>Windows</VarName>
+      <VarName SecurityType="public">Windows</VarName>
       <Class ClassName="Windows" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
-      <VarName>Calendar</VarName>
+      <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->

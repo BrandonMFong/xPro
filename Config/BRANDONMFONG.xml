@@ -47,6 +47,7 @@
     <Directory alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
     <Directory alias="565hw2" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
     <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
+    <Directory alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -105,6 +106,8 @@
       <Key Lvl="1" Node="e2fb" SecurityType="public">Passwords</Key>
       <Value Lvl="1" Node="e2fb" SecurityType="public" NodePointer="48d5" />
       <Key Lvl="2" Node="48d5" SecurityType="public">Professional</Key>
+      <Value Lvl="2" Node="48d5" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Key Lvl="2" Node="48d5" SecurityType="public">SDSU</Key>
       <Value Lvl="2" Node="48d5" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <!--LIFE-->
       <Key Lvl="0" SecurityType="public">LIFE</Key>
@@ -296,15 +299,23 @@
       <Key Lvl="0" SecurityType="public">Classes</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="acdc" />
       <Key Lvl="1" Node="acdc" SecurityType="public">CompE560</Key>
-      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="ab42"/>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="ab42" />
       <Key Lvl="2" Node="ab42" SecurityType="public">MeetingID</Key>
       <Value Lvl="2" Node="ab42" SecurityType="private">2c4055f7-54ac-40d6-91f7-8ae6f6301cf6</Value>
       <Key Lvl="1" Node="acdc" SecurityType="public">EE600</Key>
-      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="40d6"/>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="40d6" />
       <Key Lvl="2" Node="40d6" SecurityType="public">MeetingID</Key>
       <Value Lvl="2" Node="40d6" SecurityType="private">bac2e7d1-474d-40a5-ab42-a0e391bcb2da</Value>
       <Key Lvl="2" Node="40d6" SecurityType="public">Password</Key>
       <Value Lvl="2" Node="40d6" SecurityType="private">825bd3d9-3fa3-4e08-bcb3-d3bad13f5922</Value>
+      <!--Matlab-->
+      <Key Lvl="0" SecurityType="public">Matlab</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="c785" />
+      <Key Lvl="1" Node="c785" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="c785" SecurityType="private">d5e56cab-19a1-4d1f-aabc-eec6793cf439</Value>
+      <Key Lvl="1" Node="c785" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="c785" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">
@@ -345,7 +356,7 @@
       <Key Lvl="2" Node="475b" SecurityType="public">pi</Key>
       <Value Lvl="2" Node="475b" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="1" Node="2A13" SecurityType="public">IPAddress</Key>
-      <Value Lvl="1" Node="0435" SecurityType="public" NodePointer="E194" />
+      <Value Lvl="1" Node="2A13" SecurityType="public" NodePointer="E194" />
       <Key Lvl="2" Node="E194" SecurityType="public">SDSU</Key>
       <Value Lvl="2" Node="E194" SecurityType="private">148498AB-B315-4379-BE92-A20CC4FCC29D</Value>
       <Key Lvl="2" Node="E194" SecurityType="public">Mesita</Key>
@@ -395,7 +406,7 @@
       <Key Lvl="0" SecurityType="public">AmazonShop</Key>
       <Value Lvl="0" SecurityType="private">0ce5d07c-ecfb-4fea-ab4c-544d4c97225d</Value>
       <Key Lvl="0" SecurityType="public">Blackboard</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">LinkedIn</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">Alliant</Key>
@@ -405,9 +416,11 @@
       <Key Lvl="0" SecurityType="public">AmazonJobs</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">GlobalProtect</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">WebPortal</Key>
-      <Value Lvl="0" SecurityType="private">9517939f-b925-4a5d-8a95-8f101b6d63af</Value>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Key Lvl="0" SecurityType="public">Mathworks</Key>
+      <Value Lvl="0" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <Key Lvl="0" SecurityType="public">iCloud</Key>
       <Value Lvl="0" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <Key Lvl="0" SecurityType="public">SBMI</Key>
@@ -441,17 +454,17 @@
     </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
-      <VarName>Web</VarName>
+      <VarName SecurityType="public">Web</VarName>
       <Class ClassName="Web" HasParams="false" />
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
-      <VarName>Math</VarName>
+      <VarName SecurityType="public">Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
-      <VarName>Query</VarName>
+      <VarName SecurityType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
           <Database>BrandonMFong</Database>
@@ -465,24 +478,24 @@
     </Object>
     <!-- $Windows -->
     <Object Type="PowerShellClass">
-      <VarName>Windows</VarName>
+      <VarName SecurityType="public">Windows</VarName>
       <Class ClassName="Windows" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
-      <VarName>Calendar</VarName>
+      <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <!-- $GithubRoadMap -->
     <Object Type="PowerShellClass">
-      <VarName>GithubRoadMap</VarName>
+      <VarName SecurityType="public">GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
         <Title>Git Hub Roadmap - GlobalScripts</Title>
       </Class>
     </Object>
     <!-- $SchoolList -->
     <Object Type="PowerShellClass">
-      <VarName>SchoolList</VarName>
+      <VarName SecurityType="public">SchoolList</VarName>
       <Class ClassName="List" HasParams="true">
         <Title>School</Title>
       </Class>
@@ -526,7 +539,7 @@
     <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="remote">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
@@ -548,26 +561,26 @@
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
       <Item rank="1" name="Version 2" Completed="false">
-        <Item rank="2" name="Weather" Completed="true"/>
-        <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false"/>
+        <Item rank="2" name="Weather" Completed="true" />
+        <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false" />
         <Item rank="2" name="Prompting" Completed="true">
-          <Item rank="3" name="Adding Date Format" Completed="true"/>
-          <Item rank="3" name="Adding Time Format" Completed="true"/>
+          <Item rank="3" name="Adding Date Format" Completed="true" />
+          <Item rank="3" name="Adding Time Format" Completed="true" />
         </Item>
-        <Item rank="2" name="Dynamically edit this list" Completed="false"/>
-        <Item rank="2" name="Change Setup script" Completed="false"/>
+        <Item rank="2" name="Dynamically edit this list" Completed="false" />
+        <Item rank="2" name="Change Setup script" Completed="false" />
       </Item>
       <Item rank="1" name="Version 1" Completed="true">
-        <Item rank="2" name="Publish other config" Completed="true"/>
-        <Item rank="2" name="List class" Completed="true"/>
-        <Item rank="2" name="Make readme" Completed="true"/>
+        <Item rank="2" name="Publish other config" Completed="true" />
+        <Item rank="2" name="List class" Completed="true" />
+        <Item rank="2" name="Make readme" Completed="true" />
       </Item>
     </List>
     <!-- School -->
     <List Title="School">
       <Item rank="1" name="Senior Design" Completed="false">
-        <Item rank="2" name="SFTP" Completed="false"/>
-        <Item rank="2" name="Website" Completed="false"/>
+        <Item rank="2" name="SFTP" Completed="false" />
+        <Item rank="2" name="Website" Completed="false" />
       </Item>
     </List>
   </Lists>
@@ -577,6 +590,7 @@
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
       <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
       <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
+      <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

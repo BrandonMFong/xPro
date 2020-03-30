@@ -178,13 +178,15 @@
     <!-- $Query -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Query</VarName>
-      <Class Classname="SQL" HasParams="true">
-        <Database>Kiran</Database>
-        <ServerInstance>US-802262</ServerInstance>
-        <Tables>
-          <PersonalInfo>PersonalInfo</PersonalInfo>
-          <TypeContent>TypeContent</TypeContent>
-        </Tables>
+      <Class ClassName="SQL" HasParams="true">
+        <SQL>
+          <Database>Kiran</Database>
+          <ServerInstance>US-802262</ServerInstance>
+          <Tables>
+            <PersonalInfo>PersonalInfo</PersonalInfo>
+            <TypeContent>TypeContent</TypeContent>
+          </Tables>
+        </SQL>
       </Class>
     </Object>
     <!-- $Windows -->

@@ -128,6 +128,15 @@
       <Value Lvl="1" Node="4066" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
       <Key Lvl="1" Node="4066" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="4066" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <!--1C00A17C-6A84-43DF-976D-DEED2254635C-->
+      <Key Lvl="0" SecurityType="private">1C00A17C-6A84-43DF-976D-DEED2254635C</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="3C9D" />
+      <Key Lvl="1" Node="3C9D" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">9fa6bb42-35de-442b-a6f4-45ddd38fdb52</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <!--8b74cd6b-def9-4413-ade9-fe9ffed4318f-->
       <Key Lvl="0" SecurityType="private">8b74cd6b-def9-4413-ade9-fe9ffed4318f</Key>
       <Value Lvl="0" SecurityType="private">f64b8a2c-9309-4cf0-bb79-e2a84db49298</Value>
@@ -709,6 +718,10 @@
       <Value Lvl="0" SecurityType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
       <Key Lvl="0" SecurityType="private">6D9EB41E-A44C-45B6-883E-86E8A446855D</Key>
       <Value Lvl="0" SecurityType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
+      <Key Lvl="0" SecurityType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
+      <Value Lvl="0" SecurityType="private">F5BCDEEA-EFF1-4E39-871D-1A48DE3D342B</Value>
+      <Key Lvl="0" SecurityType="private">DBD356EC-DC49-4E52-927F-C0992844D30D</Key>
+      <Value Lvl="0" SecurityType="private">D8C728A4-6B4C-4EC5-9117-0EAC34F5D42A</Value>
     </Object>
     <!-- 96DDE451-0612-4FCD-A47D-E5C8926F6214 -->
     <Object ID="110" Type="HashTable">

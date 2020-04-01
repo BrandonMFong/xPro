@@ -586,7 +586,7 @@
     <!-- School -->
     <List Title="School">
       <Item rank="1" name="Senior Design" Completed="false">
-        <Item rank="2" name="SFTP" Completed="false" />
+        <Item rank="2" name="SFTP to DPG" Completed="false" />
         <Item rank="2" name="Website" Completed="false" />
       </Item>
     </List>
@@ -595,7 +595,7 @@
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
-      <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
+      <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
       <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
       <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
     </SpecialDays>

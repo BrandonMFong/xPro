@@ -37,7 +37,11 @@ class SQL
         foreach ($t in $tablestochoosefrom){$i++;Write-host "$($i) - $($t.ItemArray)";} 
         $index = Read-Host -Prompt "So?";
         if($index -gt $i){throw "Index out of range";break;}
-
+        
+        $tablestochoosefrom.ItemArray[$index-1]
+        if($tablestochoosefrom.ItemArray[$index-1] -eq "personalinfo")
+        {$this.Query("select * from typecontent")}
+        
         $table = $tablestochoosefrom[$index - 1].ItemArray;
         $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
 
@@ -121,7 +125,7 @@ class SQL
         switch($val.DATA_TYPE)
         {
             "int"{$string = "$($val.Value)";break;}
-            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$($val.Value)'))";break;}
+            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$(New-Guid|Set-Clipboard)'))";break;}
             "varchar"{$string = "'$($val.Value)'";break;}
             default{$string = "$($val.Value)";break;}
         }

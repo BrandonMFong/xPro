@@ -569,6 +569,7 @@
         </Item>
         <Item rank="2" name="Dynamically edit this list" Completed="false" />
         <Item rank="2" name="Change Setup script" Completed="false" />
+        <Item rank="2" name="Goto adddir to private" Completed="false" />
       </Item>
       <Item rank="1" name="Version 1" Completed="true">
         <Item rank="2" name="Publish other config" Completed="true" />

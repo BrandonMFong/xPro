@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>MM/dd/yyy</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Green">[Kiran - @time, @date] @currdir></String>
+    <String Color="Green">[Kiran - @time, @date] @currdir&gt;</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -51,6 +51,7 @@
     <Directory alias="SQLBack" SecurityType="public">C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\Backup</Directory>
     <Directory alias="pow" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell</Directory>
     <Directory alias="user" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User</Directory>
+    <Directory alias="cc50" SecurityType="private">a67217f2-d4f7-4fbc-b52e-7a0ca90244d0</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

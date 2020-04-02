@@ -38,8 +38,8 @@ class SQL
         $index = Read-Host -Prompt "So?";
         if($index -gt $i){throw "Index out of range";break;}
         
-        $tablestochoosefrom.ItemArray[$index-1]
-        if($tablestochoosefrom.ItemArray[$index-1] -eq "personalinfo")
+        $tablestochoosefrom[$index-1].ItemArray;
+        if($tablestochoosefrom[$index-1].ItemArray -eq "personalinfo")
         {$this.Query("select * from typecontent")}
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;

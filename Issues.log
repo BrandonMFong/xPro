@@ -1,0 +1,4 @@
+Issue: Archive errors out when there is a an item with the same name
+    Fix Commit:
+    Notes:
+        Maybe write an exception error 

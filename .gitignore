@@ -1,7 +1,7 @@
 archive/*
 .vs/*
 .vscode/*
-Profile/archive/*
+Profile/*
 VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace
 FTPFromVolta.ps1
@@ -19,5 +19,4 @@ update*.*
 # Misc Code
 Playground/*
 
-# log files
-*.log
+# Log Files

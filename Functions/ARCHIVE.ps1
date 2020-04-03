@@ -20,9 +20,15 @@ function Test
         exit; # Exists because if archive doesn't exist then why zip
     }
 }
-function DoesFileExist([string]$file)
+function DoesFileExist($file)
 {
-    if(Test-Path $(.\archive\ + $file)){Throw "File Exists in Archive folder"}
+    If(Test-Path $('.\archive\' + $file.Name))
+    {
+        [string]$NewName = $file.BaseName + "_" + (Get-Date).Millisecond.ToString() + $file.Extension;
+        Rename-Item $file.Name $NewName;
+        Move-Item $NewName .\archive\;
+    }
+    else{Move-Item $file.Fullname .\archive\;}
 }
 if($Zip)
 {
@@ -51,7 +57,11 @@ elseif($IncludeZipFiles)
     Test;
     Get-ChildItem | 
         Where-Object{$_.Name -ne 'archive'} |
-            ForEach-Object{Move-Item $_.Fullname .\archive\;}
+            ForEach-Object
+            {
+                DoesFileExist($_.Fullname);
+                Move-Item $_.Fullname .\archive\;
+            }
     exit;
 }
 elseif($OnlyZipFiles)
@@ -77,11 +87,7 @@ else
     Test;
     Get-ChildItem |
     Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
-            ForEach-Object
-            {
-                DoesFileExist($_.Name);
-                Move-Item $_.Fullname .\archive\;
-            }
+            ForEach-Object{DoesFileExist($_);}
     exit;
 }
 

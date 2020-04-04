@@ -1,0 +1,10 @@
+Version 1.5.1 changes:
+    - Calendar.psm1
+        - Listing Special Days are now color coded
+        
+Version 1.5.0 changes:
+    - New functions: LoadObjects, LoadPrograms, LoadModules
+    
+Version 1.4.8 changes:
+    - Archive.ps1 
+        - appends version number to files that already exist in archive directory

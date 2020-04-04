@@ -21,7 +21,20 @@
                 Any change here does not require a reload of powershell session
             </xs:documentation>
         </xs:annotation>
-        <xs:element name="DateFormat" maxOccurs="1"/>
+        <xs:element name="DateFormat" minOccurs="1" maxOccurs="1" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Default is yyyy-dd-MM.  Uses powershell datetime formatting
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element name="TimeFormat" minOccurs="1" maxOccurs="1" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Default is hh:mm:ss.  Uses powershell datetime formatting
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
         <xs:element name="String" minOccurs="1" maxOccurs="1">
             <xs:attribute name="Color" use="mandatory">
                 <xs:annotation>
@@ -34,7 +47,7 @@
                 <xs:documentation>
                     To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
                     Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                    @fulldir {Full directory}
+                    @fulldir {Full directory}, @time {Current time, can be formatted}
                 </xs:documentation>
             </xs:annotation>
         </xs:element>

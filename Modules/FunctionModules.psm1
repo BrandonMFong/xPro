@@ -40,7 +40,7 @@ function GetObjectByClass([string]$Class)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
         {
-            return $(Get-Variable $Object.VarName).Value;
+            return $(Get-Variable $Object.VarName.InnerXml).Value;
         }
     }
     throw "Object not found!";
@@ -89,7 +89,7 @@ function MakeHash($value,[int]$lvl,$Node)
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
-        for($i=$start;$i -le $($start + $end);$i++)
+        for($i=$start;$i -le $($start + $end + 1);$i++)
         {
             # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)
@@ -136,4 +136,59 @@ function EvaluateDir($value)
         return $Sql.InputReturn($value.InnerText);
     }
     else {return $value.InnerText;}
+}
+function Test 
+{
+    if(!(Test-Path .\archive\))
+    {
+        throw "Directory .\archive\ does not exist."; 
+        exit; # Exists because if archive doesn't exist then why zip
+    }
+}
+function DoesFileExist($file)
+{
+    If(Test-Path $('.\archive\' + $file.Name))
+    {
+
+        [string]$NewName = $file.BaseName + " " + (Get-ChildItem $('.\archive\' + $file.Name)).Count.ToString() + $file.Extension;
+        Rename-Item $file.Name $NewName;
+        Move-Item $NewName .\archive\;
+    }
+    else{Move-Item $file.Fullname .\archive\;}
+}
+
+function LoadPrograms
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Programs.Program)
+    {
+        switch($val.Type)
+        {
+            "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose -Scope Global;}
+            "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose -Scope Global;}
+            default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
+        }
+    }
+}
+function LoadModules
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Modules.Module)
+    {
+        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global;
+    }
+}
+function LoadObjects
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Objects.Object)
+    {
+        switch ($val.Type)
+        {
+            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
+            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+            "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
+            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+        }
+    } 
 }

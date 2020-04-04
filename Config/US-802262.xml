@@ -2,8 +2,9 @@
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
   <Prompt>
-    <DateFormat>MM/dd/yyyy</DateFormat>
-    <String Color="Cyan">[@date - @user] @fulldir></String>
+    <DateFormat>MM/dd/yyy</DateFormat>
+    <TimeFormat>hh:mm tt</TimeFormat>
+    <String Color="Green">[Kiran - @time, @date] @currdir&gt;</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -50,6 +51,9 @@
     <Directory alias="SQLBack" SecurityType="public">C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\Backup</Directory>
     <Directory alias="pow" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell</Directory>
     <Directory alias="user" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\DOCUMENTS\User</Directory>
+    <Directory alias="cc50" SecurityType="private">a67217f2-d4f7-4fbc-b52e-7a0ca90244d0</Directory>
+    <Directory alias="queries" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SQL\Queryto</Directory>
+    <Directory alias="imp" SecurityType="private">b5139669-047d-492a-a58c-eea29788c4ba</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -127,6 +131,18 @@
       <Value Lvl="1" Node="4066" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
       <Key Lvl="1" Node="4066" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="4066" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <!--1C00A17C-6A84-43DF-976D-DEED2254635C-->
+      <Key Lvl="0" SecurityType="private">1C00A17C-6A84-43DF-976D-DEED2254635C</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="3C9D" />
+      <Key Lvl="1" Node="3C9D" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">9fa6bb42-35de-442b-a6f4-45ddd38fdb52</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <!--8b74cd6b-def9-4413-ade9-fe9ffed4318f-->
+      <Key Lvl="0" SecurityType="private">8b74cd6b-def9-4413-ade9-fe9ffed4318f</Key>
+      <Value Lvl="0" SecurityType="private">f64b8a2c-9309-4cf0-bb79-e2a84db49298</Value>
     </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
@@ -166,34 +182,36 @@
     </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
-      <VarName>Web</VarName>
+      <VarName SecurityType="public">Web</VarName>
       <Class ClassName="Web" HasParams="false" />
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
-      <VarName>Math</VarName>
+      <VarName SecurityType="public">Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
-      <VarName>Query</VarName>
-      <Class Classname="SQL" HasParams="true">
-        <Database>Kiran</Database>
-        <ServerInstance>US-802262</ServerInstance>
-        <Tables>
-          <PersonalInfo>PersonalInfo</PersonalInfo>
-          <TypeContent>TypeContent</TypeContent>
-        </Tables>
+      <VarName SecurityType="public">Query</VarName>
+      <Class ClassName="SQL" HasParams="true">
+        <SQL>
+          <Database>Kiran</Database>
+          <ServerInstance>US-802262</ServerInstance>
+          <Tables>
+            <PersonalInfo>PersonalInfo</PersonalInfo>
+            <TypeContent>TypeContent</TypeContent>
+          </Tables>
+        </SQL>
       </Class>
     </Object>
     <!-- $Windows -->
     <Object Type="PowerShellClass">
-      <VarName>Windows</VarName>
+      <VarName SecurityType="public">Windows</VarName>
       <Class ClassName="Windows" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
-      <VarName>Calendar</VarName>
+      <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
@@ -703,6 +721,10 @@
       <Value Lvl="0" SecurityType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
       <Key Lvl="0" SecurityType="private">6D9EB41E-A44C-45B6-883E-86E8A446855D</Key>
       <Value Lvl="0" SecurityType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
+      <Key Lvl="0" SecurityType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
+      <Value Lvl="0" SecurityType="private">F5BCDEEA-EFF1-4E39-871D-1A48DE3D342B</Value>
+      <Key Lvl="0" SecurityType="private">DBD356EC-DC49-4E52-927F-C0992844D30D</Key>
+      <Value Lvl="0" SecurityType="private">D8C728A4-6B4C-4EC5-9117-0EAC34F5D42A</Value>
     </Object>
     <!-- 96DDE451-0612-4FCD-A47D-E5C8926F6214 -->
     <Object ID="110" Type="HashTable">
@@ -734,9 +756,9 @@
       <Key Lvl="1" Node="9C46" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
       <Value Lvl="1" Node="9C46" SecurityType="private">B30A7F49-3E3D-4C6F-8E8A-DBDF81E44D08</Value>
       <Key Lvl="0" SecurityType="public">Passwords</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="9C46" />
-      <Key Lvl="1" Node="9C46" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
-      <Value Lvl="1" Node="9C46" SecurityType="private">1428b93d-6231-468c-922f-b794cbc046b7</Value>
+      <Value Lvl="0" SecurityType="public" NodePointer="8219" />
+      <Key Lvl="1" Node="8219" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
+      <Value Lvl="1" Node="8219" SecurityType="private">1428b93d-6231-468c-922f-b794cbc046b7</Value>
     </Object>
   </Objects>
   <!-- Programs to call exectuables, scripts, etc -->
@@ -750,7 +772,6 @@
     <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
     <Program Alias="Remote" Type="External">C:\Program Files\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="Vim" Type="External">C:\Program Files (x86)\Vim\vim81\vim.exe</Program>
-    <Program Alias="c">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="Adobe" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Acrobat Reader DC.lnk</Program>
     <Program Alias="Global" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
@@ -782,6 +803,7 @@
     <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
     <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
+    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
   </Programs>
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>

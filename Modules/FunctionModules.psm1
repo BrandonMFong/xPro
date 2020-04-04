@@ -156,3 +156,39 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
+
+function LoadPrograms
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Programs.Program)
+    {
+        switch($val.Type)
+        {
+            "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose -Scope Global;}
+            "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose -Scope Global;}
+            default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
+        }
+    }
+}
+function LoadModules
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Modules.Module)
+    {
+        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global;
+    }
+}
+function LoadObjects
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Objects.Object)
+    {
+        switch ($val.Type)
+        {
+            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
+            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+            "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
+            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+        }
+    } 
+}

@@ -149,7 +149,8 @@ function DoesFileExist($file)
 {
     If(Test-Path $('.\archive\' + $file.Name))
     {
-        [string]$NewName = $file.BaseName + "_" + (Get-Date).Millisecond.ToString() + $file.Extension;
+
+        [string]$NewName = $file.BaseName + " " + (Get-ChildItem $('.\archive\' + $file.Name)).Count.ToString() + $file.Extension;
         Rename-Item $file.Name $NewName;
         Move-Item $NewName .\archive\;
     }

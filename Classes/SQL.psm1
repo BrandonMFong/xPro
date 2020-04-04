@@ -9,7 +9,7 @@ class SQL
     [System.Object[]]$tables;
 
     # Constructor
-    SQL([string]$database, [string]$serverinstance, [System.Object[]] $tables)
+    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables)
     {
         $this.database = $database;
         $this.serverinstance = $serverinstance;
@@ -176,9 +176,7 @@ class SQL
             }
             default {throw "Not a valid query type."}
         }
-    }
-
-    ## These are static methods ## 
+    } 
 
     InputCopy([string]$value) # Decodes guid in personalinfo table
     {
@@ -193,5 +191,10 @@ class SQL
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         return $result.Item("Value");
+    }
+
+    SyncConfig()
+    {
+        # Read config and attributes
     }
 }

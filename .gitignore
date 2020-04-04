@@ -20,3 +20,4 @@ update*.*
 Playground/*
 
 # Log Files
+bin/debug.log

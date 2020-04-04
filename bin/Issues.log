@@ -1,0 +1,8 @@
+Issue: Archive errors out when there is a an item with the same name
+    Fix Commit: 9ae7db7 
+    Notes:
+        - Maybe write an exception error 
+    Post:
+        - Just made a function that appends the version of the files
+            - Example : File <Version Number>.txt
+        

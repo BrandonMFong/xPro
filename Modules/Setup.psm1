@@ -50,7 +50,7 @@ function InitProfile
 {
     if(Test-Path $Profile)
     {
-        New-Item –Path $Profile –Type File –Force
+        New-Item -Path $Profile -Type File -Force
     }
 }
 
@@ -68,7 +68,7 @@ function InitConfig
     # <StartScript>
     $Node_StartScript = $File.CreateElement("StartScript");
     $Node_StartScript.SetAttribute("ClearHost","false");
-    New-Item $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1") -Value "Echo Hello World";
+    New-Item $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + ".ps1") -Value "Echo Hello World";
     $File.Machine.AppendChild($Node_StartScript); # Append
     $File.Machine.StartScript = $($($PSScriptRoot|Split-Path -Parent) + "\StartScripts\" + $env:COMPUTERNAME + "ps1");
     

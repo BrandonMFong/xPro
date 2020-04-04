@@ -572,6 +572,7 @@
         </Item>
         <Item rank="2" name="Dynamically edit this list" Completed="false" />
         <Item rank="2" name="Change Setup script" Completed="false" />
+        <Item rank="2" name="Goto adddir to private" Completed="false" />
         <Item rank="2" name="Make copy folder script" Completed="false" />
         <Item rank="2" name="Issues text file" Completed="false" />
         <Item rank="2" name="Separate method to reload alias, functions, and objects" Completed="false" />

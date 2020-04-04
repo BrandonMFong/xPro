@@ -1,3 +1,10 @@
+Issue: Everytime we add a column to a table, we need to manual do that to all dbs
+    Fix Commit: 
+    Notes:
+        - Config should describe necessary tables for that class object
+            - Config should be define under the object
+    Post:
+
 Issue: Archive errors out when there is a an item with the same name
     Fix Commit: 9ae7db7 
     Notes:

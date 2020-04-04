@@ -472,8 +472,18 @@
           <Database>BrandonMFong</Database>
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
           <Tables>
-            <PersonalInfo>PersonalInfo</PersonalInfo>
-            <TypeContent>TypeContent</TypeContent>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false"/>
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true"/>
+              <Column Name="Value" Type="nvarchar(100)" IsPrimaryKey="false" IsNull="true"/>
+              <Column Name="Subject" Type="nvarchar(50)" IsPrimaryKey="false" IsNull="true"/>
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true"/>
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false"/>
+              <Column Name="Description" Type="nvarchar(50)" IsPrimaryKey="false" IsNull="true"/>
+              <Column Name="ExternalID" Type="nvarchar(50)" IsPrimaryKey="false" IsNull="true"/>
+            </Table>
           </Tables>
         </SQL>
       </Class>

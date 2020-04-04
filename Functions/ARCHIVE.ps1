@@ -11,16 +11,12 @@
 .Notes
     This function is useful when you have have a lot in your directory and you want to get a clean start
 #>
-Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
+Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1")
 
 if($Zip)
 {
-    if(!(Test-Path .\archive\))
-    {
-        throw "Directory .\archive\ does not exist."; 
-        exit; # Exists because if archive doesn't exist then why zip
-    }
-
+    Test;
     if((Get-ChildItem .\archive\).count -gt 10)
     {
         $filename = "Archive_" + (Get-Date).Month.ToString() + (Get-Date).Day.ToString() + (Get-Date).Year.ToString();
@@ -40,50 +36,25 @@ if($Zip)
         exit;
     }
 }
-elseif($FileName -ne "Pass") # could've simply just used mv but eh
+elseif($OnlyZipFiles)
 {
-    if(!(Test-Path .\archive\))
-    {
-        Write-Warning "Directory .\archive\ does not exist.  Creating the directory";
-        mkdir archive;
-    }
-    Move-Item $FileName .\archive\;
+    Test;
+    Get-ChildItem |
+    Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
+    ForEach-Object{DoesFileExist($_);}
 }
-else
+elseif($OnlyFiles)
 {
-    if(!(Test-Path .\archive\))
-    {
-        Write-Warning "Directory .\archive\ does not exist.  Creating the directory";
-        mkdir archive;
-    }
-    if($IncludeZipFiles)
-    {
-        Get-ChildItem | 
-            Where-Object{$_.Name -ne 'archive'} |
-                ForEach-Object{Move-Item $_ .\archive\;}
-        exit;
-    }
-    elseif($OnlyZipFiles)
-    {
-        Get-ChildItem |
-        Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
-                ForEach-Object{Move-Item $_ .\archive\;}
-
-        exit;
-    }
-    elseif($OnlyFiles)
-    {
-        Get-ChildItem *.*|
-        Where-Object{$_.Name -ne 'archive'} | 
-                ForEach-Object{Move-Item $_ .\archive\;}
-
-        exit;
-    }
-    else 
-    {
-        Get-ChildItem |
-        Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
-                ForEach-Object{Move-Item $_ .\archive\;}
-        exit;
-    }
+    Test;
+    Get-ChildItem *.*|
+    Where-Object{$_.Name -ne 'archive'} | 
+    ForEach-Object{DoesFileExist($_);}
 }
+else 
+{
+    Test;
+    Get-ChildItem |
+    Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
+    ForEach-Object{DoesFileExist($_);}
+}
+

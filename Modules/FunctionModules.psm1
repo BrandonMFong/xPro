@@ -137,3 +137,22 @@ function EvaluateDir($value)
     }
     else {return $value.InnerText;}
 }
+function Test 
+{
+    if(!(Test-Path .\archive\))
+    {
+        throw "Directory .\archive\ does not exist."; 
+        exit; # Exists because if archive doesn't exist then why zip
+    }
+}
+function DoesFileExist($file)
+{
+    If(Test-Path $('.\archive\' + $file.Name))
+    {
+
+        [string]$NewName = $file.BaseName + " " + (Get-ChildItem $('.\archive\' + $file.Name)).Count.ToString() + $file.Extension;
+        Rename-Item $file.Name $NewName;
+        Move-Item $NewName .\archive\;
+    }
+    else{Move-Item $file.Fullname .\archive\;}
+}

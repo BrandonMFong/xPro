@@ -194,6 +194,8 @@
       <!--Microsoft-->
       <Key Lvl="0" SecurityType="public">Microsoft</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="4dac" />
+      <Key Lvl="1" Node="4dac" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="4dac" SecurityType="public">https://www.microsoft.com/en-us/</Value>
       <Key Lvl="1" Node="4dac" SecurityType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Key>
       <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
       <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
@@ -560,6 +562,7 @@
   <Lists>
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
+      <!-- Version 2 -->
       <Item rank="1" name="Version 2" Completed="false">
         <Item rank="2" name="Weather" Completed="true" />
         <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false" />
@@ -570,7 +573,11 @@
         <Item rank="2" name="Dynamically edit this list" Completed="false" />
         <Item rank="2" name="Change Setup script" Completed="false" />
         <Item rank="2" name="Goto adddir to private" Completed="false" />
+        <Item rank="2" name="Make copy folder script" Completed="false" />
+        <Item rank="2" name="Issues text file" Completed="false" />
+        <Item rank="2" name="Separate method to reload alias, functions, and objects" Completed="false" />
       </Item>
+      <!-- Version 1 -->
       <Item rank="1" name="Version 1" Completed="true">
         <Item rank="2" name="Publish other config" Completed="true" />
         <Item rank="2" name="List class" Completed="true" />
@@ -580,7 +587,7 @@
     <!-- School -->
     <List Title="School">
       <Item rank="1" name="Senior Design" Completed="false">
-        <Item rank="2" name="SFTP" Completed="false" />
+        <Item rank="2" name="SFTP to DPG" Completed="false" />
         <Item rank="2" name="Website" Completed="false" />
       </Item>
     </List>
@@ -589,7 +596,7 @@
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
-      <SpecialDay name="EE Project Due">3/31/2020</SpecialDay>
+      <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
       <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
       <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
     </SpecialDays>

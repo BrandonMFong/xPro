@@ -24,9 +24,17 @@ param
 $weather = (Invoke-WebRequest "http://wttr.in/$Area").ParsedHtml.body.outerText -split "`n";
 Write-Host "`n$($weather[0])`n" -ForegroundColor Green;
 
-if($RightNow){$weather[2..6];}
-elseif($Today){$weather[7..16];}
-elseif($Tomorrow){$weather[17..26];}
-elseif($DayAfterTomorrow){$weather[27..36];}
-else{$weather[2..36]}
-Write-Host `n;
+try 
+{
+    if($RightNow){$weather[2..6];}
+    elseif($Today){$weather[7..16];}
+    elseif($Tomorrow){$weather[17..26];}
+    elseif($DayAfterTomorrow){$weather[27..36];}
+    else{$weather[2..36]}
+    Write-Host `n;
+}
+catch 
+{
+    Write-Warning "Error in Weather, following is the exception";
+    Write-Warning $_;
+}

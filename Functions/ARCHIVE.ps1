@@ -11,25 +11,9 @@
 .Notes
     This function is useful when you have have a lot in your directory and you want to get a clean start
 #>
-Param([Alias('Z')][Switch]$Zip, [Switch]$IncludeZipFiles, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
-function Test 
-{
-    if(!(Test-Path .\archive\))
-    {
-        throw "Directory .\archive\ does not exist."; 
-        exit; # Exists because if archive doesn't exist then why zip
-    }
-}
-function DoesFileExist($file)
-{
-    If(Test-Path $('.\archive\' + $file.Name))
-    {
-        [string]$NewName = $file.BaseName + "_" + (Get-Date).Millisecond.ToString() + $file.Extension;
-        Rename-Item $file.Name $NewName;
-        Move-Item $NewName .\archive\;
-    }
-    else{Move-Item $file.Fullname .\archive\;}
-}
+Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1")
+
 if($Zip)
 {
     Test;
@@ -52,42 +36,25 @@ if($Zip)
         exit;
     }
 }
-elseif($IncludeZipFiles)
-{
-    Test;
-    Get-ChildItem | 
-        Where-Object{$_.Name -ne 'archive'} |
-            ForEach-Object
-            {
-                DoesFileExist($_.Fullname);
-                Move-Item $_.Fullname .\archive\;
-            }
-    exit;
-}
 elseif($OnlyZipFiles)
 {
     Test;
     Get-ChildItem |
     Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
-            ForEach-Object{Move-Item $_.Fullname .\archive\;}
-
-    exit;
+    ForEach-Object{DoesFileExist($_);}
 }
 elseif($OnlyFiles)
 {
     Test;
     Get-ChildItem *.*|
     Where-Object{$_.Name -ne 'archive'} | 
-            ForEach-Object{Move-Item $_.Fullname .\archive\;}
-
-    exit;
+    ForEach-Object{DoesFileExist($_);}
 }
 else 
 {
     Test;
     Get-ChildItem |
     Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
-            ForEach-Object{DoesFileExist($_);}
-    exit;
+    ForEach-Object{DoesFileExist($_);}
 }
 

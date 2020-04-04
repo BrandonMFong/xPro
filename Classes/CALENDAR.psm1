@@ -87,7 +87,9 @@ class Calendar
         Pop-Location;
         foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
         {
-            Write-Host "$($Event.Name) - $($Event.InnerXML)";
+            Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
+            Write-Host " - " -NoNewline;
+            Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan;;
         }
     }
 

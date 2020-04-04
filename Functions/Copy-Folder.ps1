@@ -5,6 +5,7 @@
 
 .Notes
     I'm assuming the paths provided in the params do not start with \
+    How to make it stop at the base dir
 #>
 
 Param
@@ -41,16 +42,24 @@ class Folder
             else{break;}
         }
     }
-}
 
+    [void]CopyOver()
+    {
+
+    }
+}
+$f = $f.Replace('.','');
+$d = $d.Replace('.','');
 if (!(Test-Path $((Get-Location).Path + $f))){throw "$($f) does not exist."}
 if (!(Test-Path $((Get-Location).Path + $d))){throw "$($d) does not exist."}
 
 
 if(("null" -ne $f) -and ("null" -ne $d))
 {
-    $A_Folder = [Folder]::new((Get-ChildItem ((get-location).Path + "\" + $f).FullName)); 
-    $B_Folder = [Folder]::new((Get-ChildItem ((get-location).Path + "\" + $d).FullName)); 
+    $A_Folder = [Folder]::new((Get-ChildItem -Recurse ((get-location).Path + $f)).FullName); 
+    $B_Folder = (Get-ChildItem -Recurse ((Get-Location).Path + '\Donations\')).FullName|Split-Path -Parent;
+    $A_Folder.CommonPath;
+    $B_Folder;
 }
 else 
 {

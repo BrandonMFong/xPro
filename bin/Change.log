@@ -1,4 +1,8 @@
 
+Version 1.7.0 changes:
+    - SQL.psm1
+        - Automatically sets guid value for insertinto() method if there is a type uniqueidentifier column
+
 Version 1.6.0 changes:
     - Calendar.psm1
         - List config

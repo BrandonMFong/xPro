@@ -580,7 +580,7 @@
             <Item rank="4" name="Adding Date Format" Completed="true" />
             <Item rank="4" name="Adding Time Format" Completed="true" />
           </Item>
-          <Item rank="3" name="Simplify version for insertinto for sql" Completed="false" />
+          <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
         </Item>
         <Item rank="2" name="Bug/Patch" Completed="true">
           <Item rank="3" name="Color Code Special Days" Completed="true" /> 

@@ -193,6 +193,3 @@ function LoadObjects
     } 
 }
 
-function Open-Settings{start ms-settings:;}
-function Open-Bluetooth{start ms-settings:bluetooth;}
-function Open-Display{start ms-settings:display;}

@@ -1,3 +1,12 @@
+
+Version 1.5.3 changes:
+    - Calendar.psm1
+        - Put.ps1 evaluates private directoy
+
+Version 1.5.2 changes:
+    - Calendar.psm1
+        - Deleting Windows.psm1 and moving methods to Miscellaneous.psm1
+
 Version 1.5.1 changes:
     - Calendar.psm1
         - Listing Special Days are now color coded

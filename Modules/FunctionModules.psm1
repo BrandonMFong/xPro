@@ -2,7 +2,6 @@ using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
-using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\List.psm1;
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
@@ -15,7 +14,6 @@ function MakeClass($XmlElement)
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
-        "Windows" {$x = [Windows]::new();return $x;}
         "List"{$x = [List]::new($XmlElement.Class.Title);return $x;}
         default
         {
@@ -83,15 +81,12 @@ function MakeHash($value,[int]$lvl,$Node)
     
     if($value.Key.Count -ne $value.Value.Count)
     {throw "Objects must have equal key and values in config."}
-
-    # TODO figure this out
     elseif($null -ne $Node)
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
         for($i=$start;$i -le $($start + $end + 1);$i++)
         {
-            # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)
             {
                 if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
@@ -105,8 +100,6 @@ function MakeHash($value,[int]$lvl,$Node)
     {
         for($i=0;$i -lt $value.Key.Count;$i++)
         {
-            # TODO How to tell yourself to get out of the loop when you already calculated the other nodes
-            # Does this need to be an OR op?
             if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
             {
                 $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));

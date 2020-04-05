@@ -1,4 +1,4 @@
-# Contains any functions that are really short in chords
+# Contains any functions that are really short in code
 
 
 function Hop 

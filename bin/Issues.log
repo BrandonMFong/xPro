@@ -1,6 +1,6 @@
 
 Issue: HashTable Type Bug
-    Fix Commit:  
+    Fix Commit: ebfd70f 
     Notes:
         - I don't think the FindInterval function finds the correct interval
         - The $u variable was only incrementing when there was another node found

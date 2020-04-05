@@ -49,12 +49,22 @@ function IsNotSpace($x){return ($x -ne " ");}
 
 function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 {
-    $n = 1; $u = 0;
+    $n = 1; # This helps find the first index
+    $u = 0; # This holds the value to figure out how far to look in the interval for another node
     $foundbeginning = $false;
     foreach($v in $value.Key)
     {
-        if(($v.Node -eq $Node) -and !$foundbeginning){$start.Value = $n-1;$u = 1;$foundbeginning = $true;}
-        elseif($v.Node -eq $Node){$u++;}
+        if(($v.Node -eq $Node) -and !$foundbeginning)
+        {
+            $start.Value = $n-1;
+            $u = 1;
+            $foundbeginning = $true;
+        }
+        elseif($v.Node -eq $Node)
+        {
+            $n++; # Figure out what index this is and that it does not overlap
+            $u = $n - $start.Value ; # Expands the interval to look for
+        }
         else{$n++;}
     }
     $end.Value = $u;

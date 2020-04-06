@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Gray">[@time, @date - @user] @currdir></String>
+    <String Color="Cyan">[@time, @date - @user] @currdir></String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -410,6 +410,7 @@
         <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
         <!-- I need to download this in order -->
         <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+        <FTPServerWinSetp>https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
       </Values>
     </Object>
     <!-- $Passwords -->
@@ -598,6 +599,7 @@
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="false" />
           <Item rank="3" name="Change Setup script" Completed="false" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
+          <Item rank="3" name="Gmail accessibility" Completed="false" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />  

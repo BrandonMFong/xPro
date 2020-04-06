@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>MM/dd/yyy</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Green">[Kiran - @time, @date] @currdir&gt;</String>
+    <String Color="Cyan">[Kiran - @time, @date] @currdir&gt;</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -788,6 +788,7 @@
     <Program Alias="vc" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
     <Program Alias="WinSCP" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
     <Program Alias="IIS" Type="External">C:\Program Files\IIS Express\iisexpress.exe</Program>
+    <Program Alias="Cisco" Type="External">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
     <!-- User Defined -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

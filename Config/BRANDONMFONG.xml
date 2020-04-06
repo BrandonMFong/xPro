@@ -646,6 +646,7 @@
       <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
       <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
       <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
+      <SpecialDay name="Compe565 Midterm at 7pm">04/10/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

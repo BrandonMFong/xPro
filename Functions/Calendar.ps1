@@ -16,9 +16,9 @@ Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;
     $var = $(GetObjectByClass('Calendar'));
 
-    if($Current)
+    if($SpecialDays)
     {
-        $var.GetCalendarMonth();
+        $var.SpecialDays();
     }
     else 
     {

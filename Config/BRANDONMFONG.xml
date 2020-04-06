@@ -129,13 +129,13 @@
       <Value Lvl="1" Node="d4f9" SecurityType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <!--Chase-->
       <Key Lvl="0" SecurityType="public">Chase</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="de41" />
-      <Key Lvl="1" Node="de41" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="de41" SecurityType="private">d391a359-7973-4592-a6b2-21f568fe966c</Value>
-      <Key Lvl="1" Node="de41" SecurityType="public">URL</Key>
-      <Value Lvl="1" Node="de41" SecurityType="public">https://www.chase.com/</Value>
-      <Key Lvl="1" Node="de41" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="de41" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Value Lvl="0" SecurityType="public" NodePointer="4467" />
+      <Key Lvl="1" Node="4467" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="4467" SecurityType="private">d391a359-7973-4592-a6b2-21f568fe966c</Value>
+      <Key Lvl="1" Node="4467" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="4467" SecurityType="public">https://www.chase.com/</Value>
+      <Key Lvl="1" Node="4467" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="4467" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <!--Taxact-->
       <Key Lvl="0" SecurityType="public">Taxact</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="7973" />
@@ -200,6 +200,36 @@
       <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
       <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
       <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
+    </Object>
+    <!-- $Bank -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Bank</VarName>
+      <!--Key and Value-->
+      <!-- Chase -->
+      <Key Lvl="0" SecurityType="public">Chase</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="f675"/>
+      <!-- Freedom -->
+      <Key Lvl="1" Node="f675" SecurityType="public">Freedom</Key>
+      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="8A95"/>
+      <Key Lvl="2" Node="8A95" SecurityType="public">Number</Key>
+      <Value Lvl="2" Node="8A95" SecurityType="private">d9b37661-b609-49de-805b-99b0015b7abf</Value>
+      <Key Lvl="2" Node="8A95" SecurityType="public">Pin</Key>
+      <Value Lvl="2" Node="8A95" SecurityType="private">80b0f318-9d3d-4a31-be69-ad76cade626a</Value>
+      <Key Lvl="2" Node="8A95" SecurityType="public">Expiration</Key>
+      <Value Lvl="2" Node="8A95" SecurityType="private">593cc690-85b3-4b1b-84cc-192879244113</Value>
+      <Key Lvl="2" Node="8A95" SecurityType="public">CVC</Key>
+      <Value Lvl="2" Node="8A95" SecurityType="private">948d840d-0fcb-47ce-951a-7565f18dedd7</Value>
+      <!-- Disney -->
+      <Key Lvl="1" Node="f675" SecurityType="public">Disney</Key>
+      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="951a"/>
+      <Key Lvl="2" Node="951a" SecurityType="public">Number</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">4ac88623-a1af-465f-aff5-daac23cc732f</Value>
+      <Key Lvl="2" Node="951a" SecurityType="public">Pin</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">9cd0e80b-e049-420c-b938-91b949b8f549</Value>
+      <Key Lvl="2" Node="951a" SecurityType="public">Expiration</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">3529af62-e170-4ce8-ac10-5bb7c831f3c7</Value>
+      <Key Lvl="2" Node="951a" SecurityType="public">CVC</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -317,7 +347,6 @@
       <Value Lvl="1" Node="c785" SecurityType="private">d5e56cab-19a1-4d1f-aabc-eec6793cf439</Value>
       <Key Lvl="1" Node="c785" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="c785" SecurityType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
-      
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">
@@ -343,7 +372,7 @@
       <Key Lvl="1" Node="0435" SecurityType="public">IPAddress</Key>
       <Value Lvl="1" Node="0435" SecurityType="public" NodePointer="b169" />
       <Key Lvl="2" Node="b169" SecurityType="public">Mesita</Key>
-      <Value Lvl="2" Node="b169" SecurityType="private">83395175-2A13-404B-9831-8B59C1A2016E</Value>
+      <Value Lvl="2" Node="b169" SecurityType="private">0c4abd60-0a93-496c-b23b-895061980580</Value>
       <Key Lvl="1" Node="0435" SecurityType="public">superuserpassword</Key>
       <Value Lvl="1" Node="0435" SecurityType="private">D70988C1-759B-40BB-B9E1-A851295FEEE7</Value>
       <Key Lvl="1" Node="0435" SecurityType="public">Hostname</Key>
@@ -381,6 +410,7 @@
         <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
         <!-- I need to download this in order -->
         <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+        <FTPServerWinSetp>https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
       </Values>
     </Object>
     <!-- $Passwords -->
@@ -569,6 +599,7 @@
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="false" />
           <Item rank="3" name="Change Setup script" Completed="false" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
+          <Item rank="3" name="Gmail accessibility" Completed="false" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />  

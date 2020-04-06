@@ -1,0 +1,18 @@
+
+Issue: HashTable Type Bug
+    Fix Commit: ebfd70f 
+    Notes:
+        - I don't think the FindInterval function finds the correct interval
+        - The $u variable was only incrementing when there was another node found
+            - it does not consider that the node is indexes away
+    Post:
+        - This was a quick fix that needed a code change for the FindInterval method
+
+Issue: Archive errors out when there is a an item with the same name
+    Fix Commit: 9ae7db7 
+    Notes:
+        - Maybe write an exception error 
+    Post:
+        - Just made a function that appends the version of the files
+            - Example : File <Version Number>.txt
+        

@@ -1,4 +1,4 @@
-# Contains any functions that are really short in chords
+# Contains any functions that are really short in code
 
 
 function Hop 
@@ -42,4 +42,19 @@ function Restart-Session
 function List-Color
 {
     [Enum]::GetValues([System.ConsoleColor])
+}
+function Open-Settings{start ms-settings:;}
+function Open-Bluetooth{start ms-settings:bluetooth;}
+function Open-Display{start ms-settings:display;}
+
+function List-Directories
+{
+    Write-Host "`nDirectories and their aliases:" -ForegroundColor Cyan;
+    foreach($d in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
+    {
+        Write-Host "$($d.alias)" -ForegroundColor Green -NoNewline;
+        Write-Host " => " -NoNewline;
+        Write-Host "$($d.InnerXML)" -ForegroundColor Cyan;
+    }
+    Echo `n;
 }

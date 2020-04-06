@@ -17,33 +17,13 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
         
     <### PROGRAMS ###> 
-        foreach($val in $XMLReader.Machine.Programs.Program)
-        {
-            switch($val.Type)
-            {
-                "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose;}
-                "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose;}
-                default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
-            }
-        }
+        LoadPrograms -XMLReader $XMLReader -AppPointer $AppPointer
     
     <### MODULES ###>
-        foreach($val in $XMLReader.Machine.Modules.Module)
-        {
-            Import-Module $($AppPointer.Machine.GitRepoDir + $val);
-        }
+        LoadModules -XMLReader $XMLReader -AppPointer $AppPointer
         
     <### OBJECTS ###>
-        foreach($val in $XMLReader.Machine.Objects.Object)
-        {
-            switch ($val.Type)
-            {
-                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose;break;}
-                "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose; break;}
-                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose;break;}
-            }
-        } 
+        LoadObjects -XMLReader $XMLReader -AppPointer $AppPointer
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}

@@ -26,4 +26,6 @@
 			Foreach-Object {Set-Location $_.Fullname;write-warning (Get-Location).Path;git pull --rebase;Set-Location ..;}
 		}
 		goto main;
+		Write-Host "Inbox count: " -NoNewLine;
+		Write-Host "$(Get-Email -Count)" -ForegroundColor Cyan -NoNewLine;
 	}

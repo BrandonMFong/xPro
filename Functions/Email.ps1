@@ -14,5 +14,5 @@ $Outlook = New-Object -comobject Outlook.Application;
 $namespace = $Outlook.GetNameSpace("MAPI");
 $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
 
-if($ListInbox){return ($inbox.Items | Select-Object -Property To, Sendername, Subject)}
+if($ListInbox){return ($inbox.Items | Select-Object -Property To, Sendername, Subject, ReceivedTime)}
 if($Count){return ($inbox.Items|Measure-Object).Count;}

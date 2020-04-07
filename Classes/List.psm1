@@ -8,7 +8,8 @@ class List
     List($Title)
     {
         $this.Title = $Title;
-        $this.FilePath = $($PSScriptRoot.ToString() + '\..\Config\BRANDONMFONG.xml');
+		[string]$File = (Get-Variable 'AppPointer').Value.Machine.ConfigFile; 
+        $this.FilePath = ($PSScriptRoot + '\..\Config\' + $File);
     }
 
     Save(){$this.xml.Save($this.FilePath);}

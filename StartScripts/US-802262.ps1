@@ -17,5 +17,13 @@
 		Tix; # The ticket app 
 		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
 		else {BankUrl;}
+		$p = Read-Host -Prompt "Are you VPN'd in?";
+		global;
+		if($p -eq "yes")
+		{
+			goto repo;
+			Get-ChildItem |
+			Foreach-Object {Set-Location $_.Fullname;write-warning (Get-Location).Path;git pull --rebase;Set-Location ..;}
+		}
 		goto main;
 	}

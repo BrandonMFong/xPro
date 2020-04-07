@@ -1,4 +1,8 @@
 
+
+Version 1.10.0 changes:
+    - Init email methods
+
 Version 1.9.1 changes:
     - reference to AppPointer in List class
 

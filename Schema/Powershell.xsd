@@ -5,10 +5,22 @@
 <xs:element name="Machine">
     <xs:attribute name="MachineName"/>
     <xs:element name="StartScript">
+        <xs:annotation>
+            <xs:documentation>
+                Full path to the powershell script.  This will execute after profile is loaded
+            </xs:documentation>
+        </xs:annotation>
         <xs:attribute name="ClearHost" type="boolean" use="mandatory">
             <xs:annotation>
                 <xs:documentation>
                     Default is false.  Suggest to keep it false for debug.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Enable" type="boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    If user wants the profile.ps1 to execute a script after it's done.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

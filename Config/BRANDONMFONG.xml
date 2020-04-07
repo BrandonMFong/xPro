@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
+  <StartScript Enable="true" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Cyan">[@time, @date - @user] @currdir></String>
+    <String Color="Cyan">[@time, @date - @user] @currdir&gt;</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -48,6 +48,7 @@
     <Directory alias="565hw2" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
     <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
     <Directory alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
+    <Directory alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -207,10 +208,10 @@
       <!--Key and Value-->
       <!-- Chase -->
       <Key Lvl="0" SecurityType="public">Chase</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="f675"/>
+      <Value Lvl="0" SecurityType="public" NodePointer="f675" />
       <!-- Freedom -->
       <Key Lvl="1" Node="f675" SecurityType="public">Freedom</Key>
-      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="8A95"/>
+      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="8A95" />
       <Key Lvl="2" Node="8A95" SecurityType="public">Number</Key>
       <Value Lvl="2" Node="8A95" SecurityType="private">d9b37661-b609-49de-805b-99b0015b7abf</Value>
       <Key Lvl="2" Node="8A95" SecurityType="public">Pin</Key>
@@ -221,7 +222,7 @@
       <Value Lvl="2" Node="8A95" SecurityType="private">948d840d-0fcb-47ce-951a-7565f18dedd7</Value>
       <!-- Disney -->
       <Key Lvl="1" Node="f675" SecurityType="public">Disney</Key>
-      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="951a"/>
+      <Value Lvl="1" Node="f675" SecurityType="public" NodePointer="951a" />
       <Key Lvl="2" Node="951a" SecurityType="public">Number</Key>
       <Value Lvl="2" Node="951a" SecurityType="private">4ac88623-a1af-465f-aff5-daac23cc732f</Value>
       <Key Lvl="2" Node="951a" SecurityType="public">Pin</Key>
@@ -330,16 +331,23 @@
       <!--Classes-->
       <Key Lvl="0" SecurityType="public">Classes</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="acdc" />
+      <!-- CompE560 -->
       <Key Lvl="1" Node="acdc" SecurityType="public">CompE560</Key>
       <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="ab42" />
       <Key Lvl="2" Node="ab42" SecurityType="public">MeetingID</Key>
       <Value Lvl="2" Node="ab42" SecurityType="private">2c4055f7-54ac-40d6-91f7-8ae6f6301cf6</Value>
+      <!-- EE600 -->
       <Key Lvl="1" Node="acdc" SecurityType="public">EE600</Key>
       <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="40d6" />
       <Key Lvl="2" Node="40d6" SecurityType="public">MeetingID</Key>
       <Value Lvl="2" Node="40d6" SecurityType="private">bac2e7d1-474d-40a5-ab42-a0e391bcb2da</Value>
       <Key Lvl="2" Node="40d6" SecurityType="public">Password</Key>
       <Value Lvl="2" Node="40d6" SecurityType="private">825bd3d9-3fa3-4e08-bcb3-d3bad13f5922</Value>
+      <!-- CompE565 -->
+      <Key Lvl="1" Node="acdc" SecurityType="public">CompE565</Key>
+      <Value Lvl="1" Node="acdc" SecurityType="public" NodePointer="bcb3" />
+      <Key Lvl="2" Node="bcb3" SecurityType="public">MeetingID</Key>
+      <Value Lvl="2" Node="bcb3" SecurityType="private">bc51d7f9-128e-4c04-9d77-25d7d816b6d5</Value>
       <!--Matlab-->
       <Key Lvl="0" SecurityType="public">Matlab</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="c785" />
@@ -590,6 +598,7 @@
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
   </Modules>
+  <!-- Lists -->
   <Lists>
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
@@ -599,10 +608,10 @@
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="false" />
           <Item rank="3" name="Change Setup script" Completed="false" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
-          <Item rank="3" name="Gmail accessibility" Completed="false" />
+          <Item rank="3" name="Email accessibility" Completed="false" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
-          <Item rank="3" name="Issues text file" Completed="true" />  
+          <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
           <Item rank="3" name="Goto adddir to private" Completed="false" />
           <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
@@ -614,24 +623,126 @@
           <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
         </Item>
         <Item rank="2" name="Bug/Patch" Completed="true">
-          <Item rank="3" name="Color Code Special Days" Completed="true" /> 
+          <Item rank="3" name="Color Code Special Days" Completed="true" />
         </Item>
-      </Item>
-      <!-- Version 1 -->
-      <Item rank="1" name="Version 1" Completed="true">
-        <Item rank="2" name="Publish other config" Completed="true" />
-        <Item rank="2" name="List class" Completed="true" />
-        <Item rank="2" name="Make readme" Completed="true" />
       </Item>
     </List>
     <!-- School -->
+    <!-- true or false -->
     <List Title="School">
-      <Item rank="1" name="Senior Design" Completed="false">
-        <Item rank="2" name="SFTP to DPG" Completed="false" />
-        <Item rank="2" name="Website" Completed="false" />
+      <!-- Monday -->
+      <Item rank="1" name="Monday" Completed="true">
+        <Item rank="2" name="CompE 565" Completed="true">
+          <Item rank="3" name="Study" Completed="true"/>
+          <Item rank="3" name="Study" Completed="true"/>
+        </Item>
+        <Item rank="2" name="CompE 496B" Completed="true">
+          <Item rank="3" name="Study" Completed="true"/>
+          <Item rank="3" name="Study" Completed="true"/>
+        </Item>
+        <Item rank="2" name="CompE 560" Completed="true">
+          <Item rank="3" name="Study" Completed="true"/>
+          <Item rank="3" name="Study" Completed="true"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="true">
+          <Item rank="3" name="Study" Completed="true"/>
+          <Item rank="3" name="Study" Completed="true"/>
+        </Item>
+      </Item>
+      <!-- Tuesday -->
+      <Item rank="1" name="Tuesday" Completed="false">
+        <Item rank="2" name="CompE 560" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 565" Completed="false">
+          <Item rank="3" name="Review for Midterm" Completed="false"/>
+        </Item>
+      </Item>
+      <!-- Wednesday -->
+      <Item rank="1" name="Wednesday" Completed="false">
+        <Item rank="2" name="CompE 565" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 496B" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 560" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+      </Item>
+      <!-- Thursday -->
+      <Item rank="1" name="Thursday" Completed="false">
+        <Item rank="2" name="CompE 560" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+      </Item>
+      <!-- Friday -->
+      <Item rank="1" name="Friday" Completed="false">
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+      </Item>
+      <!-- Saturday -->
+      <Item rank="1" name="Saturday" Completed="false">
+        <Item rank="2" name="CompE 565" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 496B" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 560" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+      </Item>
+      <!-- Sunday -->
+      <Item rank="1" name="Sunday" Completed="false">
+        <Item rank="2" name="CompE 565" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 496B" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 560" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="EE 600" Completed="false">
+          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="false"/>
+        </Item>
       </Item>
     </List>
   </Lists>
+  <!-- Calendar -->
   <Calendar>
     <SpecialDays>
       <SpecialDay name="New Years">1/1/2020</SpecialDay>

@@ -1,4 +1,13 @@
 
+Version 1.9.1 changes:
+    - reference to AppPointer in List class
+
+Version 1.9.0 changes:
+    - Start Script config must have full path to powershell Script
+
+Version 1.8.0 changes:
+    - Special days added to Calendar.ps1
+
 Version 1.7.1 changes:
     - Error in loading objects when nodes are indexes away in config
 
@@ -28,3 +37,8 @@ Version 1.5.0 changes:
 Version 1.4.8 changes:
     - Archive.ps1 
         - appends version number to files that already exist in archive directory
+
+Version 1.0.0
+    - Enable Privacy in config
+        - Must have Sql Server
+    - List Class Finished

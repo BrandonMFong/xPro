@@ -631,22 +631,22 @@
     <!-- true or false -->
     <List Title="School">
       <!-- Monday -->
-      <Item rank="1" name="Monday" Completed="false">
+      <Item rank="1" name="Monday" Completed="true">
         <Item rank="2" name="CompE 565" Completed="true">
           <Item rank="3" name="Study" Completed="true"/>
           <Item rank="3" name="Study" Completed="true"/>
         </Item>
-        <Item rank="2" name="CompE 496B" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
+        <Item rank="2" name="CompE 496B" Completed="true">
+          <Item rank="3" name="Study" Completed="true"/>
+          <Item rank="3" name="Study" Completed="true"/>
         </Item>
         <Item rank="2" name="CompE 560" Completed="true">
           <Item rank="3" name="Study" Completed="true"/>
           <Item rank="3" name="Study" Completed="true"/>
         </Item>
-        <Item rank="2" name="EE 600" Completed="false">
+        <Item rank="2" name="EE 600" Completed="true">
           <Item rank="3" name="Study" Completed="true"/>
-          <Item rank="3" name="Study" Completed="false"/>
+          <Item rank="3" name="Study" Completed="true"/>
         </Item>
       </Item>
       <!-- Tuesday -->
@@ -658,6 +658,9 @@
         <Item rank="2" name="EE 600" Completed="false">
           <Item rank="3" name="Study" Completed="false"/>
           <Item rank="3" name="Study" Completed="false"/>
+        </Item>
+        <Item rank="2" name="CompE 565" Completed="false">
+          <Item rank="3" name="Review for Midterm" Completed="false"/>
         </Item>
       </Item>
       <!-- Wednesday -->

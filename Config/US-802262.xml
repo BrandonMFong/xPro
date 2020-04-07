@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
+  <StartScript Enable="true" ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
   <Prompt>
     <DateFormat>MM/dd/yyy</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>

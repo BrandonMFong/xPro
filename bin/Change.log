@@ -1,4 +1,7 @@
 
+Version 1.10.0 changes:
+    - Init email methods
+
 Version 1.7.1 changes:
     - Error in loading objects when nodes are indexes away in config
 

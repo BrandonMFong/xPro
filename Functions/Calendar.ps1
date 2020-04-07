@@ -8,7 +8,7 @@
 .Example
 
 .Notes
-    TODO finish calendar class with displaying special days
+    
 #>
 param([string]$month,[switch]$Current,[switch]$SpecialDays)
 

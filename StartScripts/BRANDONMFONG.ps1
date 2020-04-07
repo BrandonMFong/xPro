@@ -6,4 +6,4 @@ ElseIf ($Hour -gt 17) {"Good Eventing Brandon`n"}
 Else {"Good Afternoon Brandon`n"}
 Get-Weather -Today -Area "San Diego"
 $Calendar.GetCalendarMonth();
-$GithubRoadMap.ListOut();
+$SchoolList.ListOut();

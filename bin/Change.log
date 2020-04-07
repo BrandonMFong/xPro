@@ -1,4 +1,7 @@
 
+Version 1.9.1 changes:
+    - reference to AppPointer in List class
+
 Version 1.9.0 changes:
     - Start Script config must have full path to powershell Script
 

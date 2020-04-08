@@ -22,7 +22,7 @@ param
     [switch]$All
 )
 $weather = (Invoke-WebRequest "http://wttr.in/$Area").ParsedHtml.body.outerText -split "`n";
-Write-Host "`n$($weather[0])`n" -ForegroundColor Green;
+Write-Host "`n$($weather[0])" -ForegroundColor Green;
 
 try 
 {

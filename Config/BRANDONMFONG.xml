@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Cyan">[@time, @date - @user] @currdir&gt;</String>
+    <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>
@@ -49,6 +49,8 @@
     <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
     <Directory alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
     <Directory alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
+    <Directory alias="eelec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Lectures</Directory>
+    <Directory alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -516,11 +518,6 @@
         </SQL>
       </Class>
     </Object>
-    <!-- $Windows -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Windows</VarName>
-      <Class ClassName="Windows" HasParams="false" />
-    </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Calendar</VarName>
@@ -530,14 +527,80 @@
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Git Hub Roadmap - GlobalScripts</Title>
+        <List>
+          <Title>Git Hub Roadmap - GlobalScripts</Title>
+          <Redirect></Redirect>
+        </List>
       </Class>
     </Object>
-    <!-- $SchoolList -->
+    <!-- $MonList -->
     <Object Type="PowerShellClass">
-      <VarName SecurityType="public">SchoolList</VarName>
+      <VarName SecurityType="public">MonList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>School</Title>
+        <List>
+          <Title>Monday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $TueList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">TueList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Tuesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $WedList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">WedList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Wednesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $ThuList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">ThuList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Thursday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $FriList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">FriList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Friday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $SatList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">SatList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Saturday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $SunList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">SunList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Sunday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
   </Objects>
@@ -621,123 +684,10 @@
             <Item rank="4" name="Adding Time Format" Completed="true" />
           </Item>
           <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
+          <Item rank="3" name="Point to another xml file for list if true" Completed="true" />
         </Item>
         <Item rank="2" name="Bug/Patch" Completed="true">
           <Item rank="3" name="Color Code Special Days" Completed="true" />
-        </Item>
-      </Item>
-    </List>
-    <!-- School -->
-    <!-- true or false -->
-    <List Title="School">
-      <!-- Monday -->
-      <Item rank="1" name="Monday" Completed="true">
-        <Item rank="2" name="CompE 565" Completed="true">
-          <Item rank="3" name="Study" Completed="true"/>
-          <Item rank="3" name="Study" Completed="true"/>
-        </Item>
-        <Item rank="2" name="CompE 496B" Completed="true">
-          <Item rank="3" name="Study" Completed="true"/>
-          <Item rank="3" name="Study" Completed="true"/>
-        </Item>
-        <Item rank="2" name="CompE 560" Completed="true">
-          <Item rank="3" name="Study" Completed="true"/>
-          <Item rank="3" name="Study" Completed="true"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="true">
-          <Item rank="3" name="Study" Completed="true"/>
-          <Item rank="3" name="Study" Completed="true"/>
-        </Item>
-      </Item>
-      <!-- Tuesday -->
-      <Item rank="1" name="Tuesday" Completed="false">
-        <Item rank="2" name="CompE 560" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 565" Completed="false">
-          <Item rank="3" name="Review for Midterm" Completed="false"/>
-        </Item>
-      </Item>
-      <!-- Wednesday -->
-      <Item rank="1" name="Wednesday" Completed="false">
-        <Item rank="2" name="CompE 565" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 496B" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 560" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-      </Item>
-      <!-- Thursday -->
-      <Item rank="1" name="Thursday" Completed="false">
-        <Item rank="2" name="CompE 560" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-      </Item>
-      <!-- Friday -->
-      <Item rank="1" name="Friday" Completed="false">
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-      </Item>
-      <!-- Saturday -->
-      <Item rank="1" name="Saturday" Completed="false">
-        <Item rank="2" name="CompE 565" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 496B" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 560" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-      </Item>
-      <!-- Sunday -->
-      <Item rank="1" name="Sunday" Completed="false">
-        <Item rank="2" name="CompE 565" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 496B" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="CompE 560" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
-        </Item>
-        <Item rank="2" name="EE 600" Completed="false">
-          <Item rank="3" name="Study" Completed="false"/>
-          <Item rank="3" name="Study" Completed="false"/>
         </Item>
       </Item>
     </List>
@@ -745,11 +695,10 @@
   <!-- Calendar -->
   <Calendar>
     <SpecialDays>
-      <SpecialDay name="New Years">1/1/2020</SpecialDay>
-      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
       <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
-      <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
-      <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
+      <SpecialDay name="Compe565 HW 3 Due">4/12/2020</SpecialDay>
+      <SpecialDay name="Compe565 Midterm">4/10/2020</SpecialDay>
+      <SpecialDay name="Graduation">5/16/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

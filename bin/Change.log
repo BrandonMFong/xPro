@@ -1,5 +1,10 @@
 
 
+Version 1.11.0 changes:
+    - Adding an option for the list object to read another xml document
+        - New tag used: <Redirect>
+        - Must provide FULL file path
+
 Version 1.10.1 changes:
     - Adding math functions
         - Message Entropy for image compression

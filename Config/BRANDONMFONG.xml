@@ -684,7 +684,7 @@
             <Item rank="4" name="Adding Time Format" Completed="true" />
           </Item>
           <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
-          <Item rank="3" name="Point to another xml file for list if true" Completed="false" />
+          <Item rank="3" name="Point to another xml file for list if true" Completed="true" />
         </Item>
         <Item rank="2" name="Bug/Patch" Completed="true">
           <Item rank="3" name="Color Code Special Days" Completed="true" />
@@ -698,7 +698,7 @@
       <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
       <SpecialDay name="Compe565 HW 3 Due">4/12/2020</SpecialDay>
       <SpecialDay name="Compe565 Midterm">4/10/2020</SpecialDay>
-      <SpecialDay name="Graduation">5/1/2020</SpecialDay>
+      <SpecialDay name="Graduation">5/16/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

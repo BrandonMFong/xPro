@@ -49,6 +49,8 @@
     <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
     <Directory alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
     <Directory alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
+    <Directory alias="eelec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Lectures</Directory>
+    <Directory alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -667,122 +669,121 @@
     <!-- Monday -->
     <List Title="Monday To Do List">
       <Item rank="1" name="CompE 565" Completed="true">
-        <Item rank="2" name="Study" Completed="true"/>
-        <Item rank="2" name="Study" Completed="true"/>
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
       <Item rank="1" name="CompE 496B" Completed="true">
-        <Item rank="2" name="Study" Completed="true"/>
-        <Item rank="2" name="Study" Completed="true"/>
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
       <Item rank="1" name="CompE 560" Completed="true">
-        <Item rank="2" name="Study" Completed="true"/>
-        <Item rank="2" name="Study" Completed="true"/>
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
       <Item rank="1" name="EE 600" Completed="true">
-        <Item rank="2" name="Study" Completed="true"/>
-        <Item rank="2" name="Study" Completed="true"/>
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
     </List>
     <!-- Tuesday -->
     <List Title="Tuesday To Do List">
-      <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="true"/>
-        <Item rank="2" name="Study" Completed="false"/>
+      <Item rank="1" name="CompE 560" Completed="true">
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+      <Item rank="1" name="EE 600" Completed="true">
+        <Item rank="2" name="Study" Completed="true" />
+        <Item rank="2" name="Study" Completed="true" />
       </Item>
       <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Review for Midterm" Completed="false"/>
+        <Item rank="2" name="Review for Midterm" Completed="false" />
       </Item>
     </List>
     <!-- Wednesday -->
     <List Title="Wednesday To Do List">
       <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
     <!-- Thursday -->
     <List Title="Thursday To Do List">
       <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
     <!-- Friday -->
     <List Title="Friday To Do List">
       <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
     <!-- Saturday -->
     <List Title="Saturday To Do List">
       <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
     <!-- Sunday -->
     <List Title="Sunday To Do List">
       <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
       <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false"/>
-        <Item rank="2" name="Study" Completed="false"/>
+        <Item rank="2" name="Study" Completed="false" />
+        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
   </Lists>
   <!-- Calendar -->
   <Calendar>
     <SpecialDays>
-      <SpecialDay name="New Years">1/1/2020</SpecialDay>
-      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
       <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
-      <SpecialDay name="Tom's Bday">3/27/2020</SpecialDay>
-      <SpecialDay name="Compe565 HW 3 Due">04/12/2020</SpecialDay>
+      <SpecialDay name="Compe565 HW 3 Due">4/12/2020</SpecialDay>
+      <SpecialDay name="Compe565 Midterm">4/10/2020</SpecialDay>
+      <SpecialDay name="Graduation">5/1/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

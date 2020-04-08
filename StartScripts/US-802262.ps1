@@ -3,7 +3,7 @@
 	$Hour = (Get-Date).Hour;
 	$Date = Get-Date;
 	If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
-	ElseIf ($Hour -gt 17) {"Good Eventing Brandon"}
+	ElseIf ($Hour -gt 17) {"Good Evening Brandon"}
 	Else {"Good Afternoon Brandon"}
 	Get-Weather -Today -Area "San Diego"
 	$Calendar.GetCalendarMonth();

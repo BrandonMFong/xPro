@@ -1,5 +1,10 @@
 
 
+Version 1.10.1 changes:
+    - Adding math functions
+        - Message Entropy for image compression
+    - Removed new line from weather function 
+
 Version 1.10.0 changes:
     - Init email methods
 

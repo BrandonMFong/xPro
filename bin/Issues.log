@@ -1,7 +1,14 @@
 
-Issue: List edit config 
-    Status: Open
+Issue: Get-Weather takes a long time to execute 
+    Status: Open 
     Fix Commit:
+    Branch:
+    Notes:
+        - How do you time a function in powershell?
+
+Issue: List edit config 
+    Status: Closed 
+    Fix Commit: b3cb298
     Branch: feature-PointToOtherXMLOption
     Notes:
         - I have to push my config everytime I edit my list 

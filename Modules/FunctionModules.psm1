@@ -8,13 +8,13 @@ $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects
 
 function MakeClass($XmlElement)
 {
-    switch($XmlElement.Class.ClassName)
+    switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
-        "List"{$x = [List]::new($XmlElement.Class.Title);return $x;}
+        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect);return $x;}
         default
         {
             Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";

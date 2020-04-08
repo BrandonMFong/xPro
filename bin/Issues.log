@@ -2,13 +2,25 @@
 Issue: List edit config 
     Status: Open
     Fix Commit:
+    Branch: feature-PointToOtherXMLOption
     Notes:
         - I have to push my config everytime I edit my list 
         - Make a redirect capability to look at another xml file 
+        - Changing config
+            - Adding a new param in List object config 
+        - Test runs
+            - Trial 1
+                - Redirect worked for lists that are redirecting
+                - This affects the lists that are not redirecting
+                - Adding [string]::isnullorempty()
+            - Trial 2
+                - Success
+                - Properly compared null value
 
 Issue: HashTable Type Bug
     Status: Closed
     Fix Commit: ebfd70f 
+    Branch: bug-HashTable 
     Notes:
         - I don't think the FindInterval function finds the correct interval
         - The $u variable was only incrementing when there was another node found

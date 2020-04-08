@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>MM/dd/yyy</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Cyan">[Kiran - @time, @date] @currdir&gt;</String>
+    <String Color="Cyan">[Kiran - @time, @date] @currdir&gt;_</String>
   </Prompt>
   <!-- Directory paths -->
   <Directories>

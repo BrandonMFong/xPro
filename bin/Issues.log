@@ -1,5 +1,13 @@
 
+Issue: List edit config 
+    Status: Open
+    Fix Commit:
+    Notes:
+        - I have to push my config everytime I edit my list 
+        - Make a redirect capability to look at another xml file 
+
 Issue: HashTable Type Bug
+    Status: Closed
     Fix Commit: ebfd70f 
     Notes:
         - I don't think the FindInterval function finds the correct interval
@@ -9,6 +17,7 @@ Issue: HashTable Type Bug
         - This was a quick fix that needed a code change for the FindInterval method
 
 Issue: Archive errors out when there is a an item with the same name
+    Status: Closed
     Fix Commit: 9ae7db7 
     Notes:
         - Maybe write an exception error 

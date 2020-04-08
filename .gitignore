@@ -21,3 +21,6 @@ Playground/*
 
 # Log Files
 bin/debug.log
+
+# List 
+Config/List/*

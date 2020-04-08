@@ -527,56 +527,80 @@
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Git Hub Roadmap - GlobalScripts</Title>
+        <List>
+          <Title>Git Hub Roadmap - GlobalScripts</Title>
+          <Redirect></Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $MonList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">MonList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Monday To Do List</Title>
+        <List>
+          <Title>Monday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $TueList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">TueList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Tuesday To Do List</Title>
+        <List>
+          <Title>Tuesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $WedList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">WedList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Wednesday To Do List</Title>
+        <List>
+          <Title>Wednesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $ThuList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">ThuList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Thursday To Do List</Title>
+        <List>
+          <Title>Thursday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $FriList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">FriList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Friday To Do List</Title>
+        <List>
+          <Title>Friday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $SatList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">SatList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Saturday To Do List</Title>
+        <List>
+          <Title>Saturday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
     <!-- $SunList -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">SunList</VarName>
       <Class ClassName="List" HasParams="true">
-        <Title>Sunday To Do List</Title>
+        <List>
+          <Title>Sunday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
       </Class>
     </Object>
   </Objects>
@@ -665,116 +689,6 @@
         <Item rank="2" name="Bug/Patch" Completed="true">
           <Item rank="3" name="Color Code Special Days" Completed="true" />
         </Item>
-      </Item>
-    </List>
-    <!-- Monday -->
-    <List Title="Monday To Do List">
-      <Item rank="1" name="CompE 565" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-      <Item rank="1" name="CompE 496B" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-      <Item rank="1" name="CompE 560" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-    </List>
-    <!-- Tuesday -->
-    <List Title="Tuesday To Do List">
-      <Item rank="1" name="CompE 560" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="true">
-        <Item rank="2" name="Study" Completed="true" />
-        <Item rank="2" name="Study" Completed="true" />
-      </Item>
-      <Item rank="1" name="CompE 565" Completed="true">
-        <Item rank="2" name="Review for Midterm" Completed="true" />
-      </Item>
-    </List>
-    <!-- Wednesday -->
-    <List Title="Wednesday To Do List">
-      <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-    </List>
-    <!-- Thursday -->
-    <List Title="Thursday To Do List">
-      <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-    </List>
-    <!-- Friday -->
-    <List Title="Friday To Do List">
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-    </List>
-    <!-- Saturday -->
-    <List Title="Saturday To Do List">
-      <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-    </List>
-    <!-- Sunday -->
-    <List Title="Sunday To Do List">
-      <Item rank="1" name="CompE 565" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 496B" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="CompE 560" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
-      </Item>
-      <Item rank="1" name="EE 600" Completed="false">
-        <Item rank="2" name="Study" Completed="false" />
-        <Item rank="2" name="Study" Completed="false" />
       </Item>
     </List>
   </Lists>

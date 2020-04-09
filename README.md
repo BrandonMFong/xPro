@@ -62,6 +62,21 @@ Allows user's powershell scripts to adapt to any computer
     * *Must have two tables defined (PersonalInfo & TypeContent)*
 * [Posh-Git](https://github.com/dahlbyk/posh-git) - Git for Powershell
 
+## Structure
+
+*Following is a discription of the repository's folder's purposes*
+
+* bin: Contains log files and other misc files
+* Classes: Repository's Core Functions
+* Config: Contains User configuration 
+    * Config files describes the environement the user is on.  Essentially should have one config for every computer 
+* Functions: Repository's Core Functions
+* Modules: Contains essential functions for core scripts 
+* Schema: Schema for xml files
+* SQLQueries: Example queries for required database tables
+* StartScripts: User scripts at profile load
+    * Also can contain modules for personal functions
+
 ## Developed With
 
 * [Visual Studio Code](https://code.visualstudio.com/)

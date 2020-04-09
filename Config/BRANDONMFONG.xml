@@ -62,9 +62,6 @@
       <Value Lvl="0" SecurityType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
       <Key Lvl="0" SecurityType="public">LoweredStandardUserName</Key>
       <Value Lvl="0" SecurityType="private">7e15fcbb-2f72-4737-aa51-ee3e3d118e0f</Value>
-      <!-- Files -->
-      <Key Lvl="0" SecurityType="public">WeekList</Key>
-      <Value Lvl="0" SecurityType="public">B:\Powershell\Config\List\List.xml</Value>
       <!-- Frequently Used Links -->
       <Key Lvl="0" SecurityType="public">Gmail</Key>
       <Value Lvl="0" SecurityType="public">https://mail.google.com/mail</Value>
@@ -647,6 +644,7 @@
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
+    <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

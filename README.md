@@ -1,6 +1,6 @@
 # GlobalScripts
 
-Allows user's powershell scripts to adapt to any computer
+Have everything on the command line
 
 ## Features 
 

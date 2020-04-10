@@ -643,6 +643,8 @@
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
+    <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
@@ -688,6 +690,7 @@
         </Item>
         <Item rank="2" name="Bug/Patch" Completed="true">
           <Item rank="3" name="Color Code Special Days" Completed="true" />
+          <Item rank="3" name="Don't hide filepath for list objects" Completed="true" />
         </Item>
       </Item>
     </List>

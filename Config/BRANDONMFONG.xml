@@ -504,7 +504,7 @@
       <VarName SecurityType="public">Math</VarName>
       <Class ClassName="Calculations" HasParams="false" />
     </Object>
-    <!-- $Query -->
+    <!-- $Query
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
@@ -527,7 +527,7 @@
           </Tables>
         </SQL>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $Test -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Test</VarName>

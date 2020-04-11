@@ -14,6 +14,7 @@ class SQL
         $this.database = $database;
         $this.serverinstance = $serverinstance;
         $this.tables = $tables
+        $this.SyncConfig();
     }
 
     # Standard queries
@@ -218,6 +219,31 @@ class SQL
 
     SyncConfig()
     {
-        # Read config and attributes
+        foreach($table in $this.tables)
+        {
+            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table.Name);$this.CreateColumns($table);}
+            else{$this.CreateColumns($table);}
+        }
     }
+
+    hidden [boolean] DoesTableExist([string]$t)
+    {
+        $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
+        $this.results = $null # reset
+        $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        if($null -eq $this.results){return $false;}
+        else {return $true;} 
+    }
+
+    hidden CreateColumns([system.Object[]]$table)
+    {
+        $querystring = "ALTER TABLE $($table.Name) ADD ";
+        $rep = "|||";
+        foreach($column in $table.Column)
+        {   
+            #column_b VARCHAR(20) NULL, column_c INT NULL ;";
+            $querystring = $querystring + "$($column.Name) $($column.Type) $($this.IsNull) $($rep)";
+        }
+    }
+    # TODO make isnull, createtable, and finish createcolumns methods
 }

@@ -1,4 +1,7 @@
+Param([switch]$ClearScreen)
+if($ClearScreen){Clear-Host;}
 Import-Module ($PSScriptRoot + "\StartMods\BRANDONMFONG.psm1")
+Greetings;
 Write-Host "`n";
 Get-Weather -Today -Area "San Diego"
 $Calendar.GetCalendarMonth();

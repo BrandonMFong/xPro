@@ -529,7 +529,8 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
-          <Redirect></Redirect>
+          <Redirect>
+          </Redirect>
         </List>
       </Class>
     </Object>
@@ -662,6 +663,7 @@
   <!--Modules to include, mainly just for small functions-->
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
+    <Module>\Modules\ConfigHandler.psm1</Module>
   </Modules>
   <!-- Lists -->
   <Lists>
@@ -678,7 +680,10 @@
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
-          <Item rank="3" name="Goto adddir to private" Completed="false" />
+          <Item rank="3" name="Make a config editor" Completed="false">
+            <Item rank="4" name="Put Add directory" Completed="true" />
+            <Item rank="4" name="Put Add private directory" Completed="false" />
+          </Item>
           <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
           <Item rank="3" name="Weather" Completed="true" />
           <Item rank="3" name="Prompting" Completed="true">

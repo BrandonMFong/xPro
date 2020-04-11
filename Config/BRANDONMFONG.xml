@@ -646,6 +646,7 @@
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
     <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
+    <Program Alias="Start-Script" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

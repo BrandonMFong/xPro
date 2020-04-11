@@ -1,5 +1,9 @@
 
 
+Version 1.12.0 changes:
+    - Moved List-Directory and add directory methods to modules 
+        - first step in creating config handler methods for command line editor
+
 Version 1.11.0 changes:
     - Adding an option for the list object to read another xml document
         - New tag used: <Redirect>

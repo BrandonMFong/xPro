@@ -2,21 +2,19 @@ using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
-using module .\..\Classes\Windows.psm1;
 using module .\..\Classes\List.psm1;
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
-    switch($XmlElement.Class.ClassName)
+    switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
-        "Windows" {$x = [Windows]::new();return $x;}
-        "List"{$x = [List]::new($XmlElement.Class.Title);return $x;}
+        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect);return $x;}
         default
         {
             Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
@@ -51,12 +49,22 @@ function IsNotSpace($x){return ($x -ne " ");}
 
 function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 {
-    $n = 1; $u = 0;
+    $n = 1; # This helps find the first index
+    $u = 0; # This holds the value to figure out how far to look in the interval for another node
     $foundbeginning = $false;
     foreach($v in $value.Key)
     {
-        if(($v.Node -eq $Node) -and !$foundbeginning){$start.Value = $n-1;$u = 1;$foundbeginning = $true;}
-        elseif($v.Node -eq $Node){$u++;}
+        if(($v.Node -eq $Node) -and !$foundbeginning)
+        {
+            $start.Value = $n-1;
+            $u = 1;
+            $foundbeginning = $true;
+        }
+        elseif($v.Node -eq $Node)
+        {
+            $n++; # Figure out what index this is and that it does not overlap
+            $u = $n - $start.Value ; # Expands the interval to look for
+        }
         else{$n++;}
     }
     $end.Value = $u;
@@ -83,15 +91,12 @@ function MakeHash($value,[int]$lvl,$Node)
     
     if($value.Key.Count -ne $value.Value.Count)
     {throw "Objects must have equal key and values in config."}
-
-    # TODO figure this out
     elseif($null -ne $Node)
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
         for($i=$start;$i -le $($start + $end + 1);$i++)
         {
-            # Found the count but how do you know when to start/stop indexing?
             if($node -eq $value.Key[$i].Node)
             {
                 if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
@@ -105,8 +110,6 @@ function MakeHash($value,[int]$lvl,$Node)
     {
         for($i=0;$i -lt $value.Key.Count;$i++)
         {
-            # TODO How to tell yourself to get out of the loop when you already calculated the other nodes
-            # Does this need to be an OR op?
             if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
             {
                 $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
@@ -156,3 +159,40 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
+
+function LoadPrograms
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Programs.Program)
+    {
+        switch($val.Type)
+        {
+            "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose -Scope Global;}
+            "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose -Scope Global;}
+            default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
+        }
+    }
+}
+function LoadModules
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Modules.Module)
+    {
+        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global;
+    }
+}
+function LoadObjects
+{
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    foreach($val in $XMLReader.Machine.Objects.Object)
+    {
+        switch ($val.Type)
+        {
+            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
+            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+            "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
+            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+        }
+    } 
+}
+

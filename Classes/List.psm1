@@ -5,10 +5,18 @@ class List
     [string]$Title; # Must match the title attribute for List tag
     hidden [string]$FilePath; # The data file that will contain todo list
 
-    List($Title)
+    List([string]$Title,[string]$XMLRedirectPath)
     {
         $this.Title = $Title;
-        $this.FilePath = $($PSScriptRoot.ToString() + '\..\Config\BRANDONMFONG.xml');
+        if([string]::IsNullOrEmpty($XMLRedirectPath)) # if using user config
+        {
+            [string]$File = (Get-Variable 'AppPointer').Value.Machine.ConfigFile; 
+            $this.FilePath = ($PSScriptRoot + '\..\Config\' + $File);
+        }
+        else # if you're using another config
+        {
+            $this.FilePath = $XMLRedirectPath;
+        }
     }
 
     Save(){$this.xml.Save($this.FilePath);}

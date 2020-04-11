@@ -37,7 +37,27 @@ class SQL
         foreach ($t in $tablestochoosefrom){$i++;Write-host "$($i) - $($t.ItemArray)";} 
         $index = Read-Host -Prompt "So?";
         if($index -gt $i){throw "Index out of range";break;}
-
+        
+        # If you are inserting into personalinfo then print type content table
+        if([string]($tablestochoosefrom[$index-1].ItemArray) -eq "PersonalInfo")
+        {
+            [System.Object[]]$Table = $this.Query("select * from typecontent");
+            Write-Host "`nType Content Table:";
+            Write-Host "ID" -ForegroundColor Red -NoNewline;
+            Write-Host " - " -NoNewline;
+            Write-Host "Description" -ForegroundColor Red;
+            foreach($t in $Table)
+            {
+                foreach($item in $t)
+                {
+                    Write-Host "$($item.ID)" -ForegroundColor Green -NoNewline;
+                    Write-Host " - " -NoNewline;
+                    Write-Host "$($item.Description)" -ForegroundColor Green;
+                }
+            }
+            Write-Host `n;
+        }
+        
         $table = $tablestochoosefrom[$index - 1].ItemArray;
         $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
 
@@ -50,8 +70,11 @@ class SQL
         # Prompt user what values they want to insert per column
         foreach($val in $values)
         {
-            Write-Warning "For $($val.COLUMN_NAME)";
-            $val.Value = Read-Host -Prompt "Value?";
+            if($val.DATA_TYPE -ne 'uniqueidentifier') # you do not need to provide a guid since it's already being provided
+            {
+                Write-Warning "For $($val.COLUMN_NAME)";
+                $val.Value = Read-Host -Prompt "Value?";
+            }
         }
 
         $this.QueryConstructor("Insert", [ref]$querystring, $table, $values);
@@ -121,7 +144,7 @@ class SQL
         switch($val.DATA_TYPE)
         {
             "int"{$string = "$($val.Value)";break;}
-            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$($val.Value)'))";break;}
+            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
             "varchar"{$string = "'$($val.Value)'";break;}
             default{$string = "$($val.Value)";break;}
         }

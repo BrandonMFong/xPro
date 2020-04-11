@@ -69,8 +69,21 @@ class Calculations
         if($composite_flag){Write-Host "$i is composite"}
         else {Write-Host "$i is prime"}
     }
+    
+    # Self Entropy
     [double]I([double]$x)
     {
         return -$this.Log2($x);
+    }
+
+    # Message Entropy
+    [double]H($Codewords)
+    {
+        [double]$ans = 0;
+        for($i = 0;$i -lt $Codewords.Count;$i++)
+        {
+            $ans = $ans + ( $Codewords[$i] * $this.Log2($Codewords[$i]));
+        }
+        return -$ans;
     }
 }

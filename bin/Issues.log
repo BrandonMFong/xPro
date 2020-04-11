@@ -1,3 +1,4 @@
+
 Issue: Everytime we add a column to a table, we need to manual do that to all dbs
     Fix Commit: 
     Notes:
@@ -5,7 +6,44 @@ Issue: Everytime we add a column to a table, we need to manual do that to all db
             - Config should be define under the object
     Post:
 
+Issue: Get-Weather takes a long time to execute 
+    Status: Open 
+    Fix Commit:
+    Branch:
+    Notes:
+        - How do you time a function in powershell?
+
+Issue: List edit config 
+    Status: Closed 
+    Fix Commit: b3cb298
+    Branch: feature-PointToOtherXMLOption
+    Notes:
+        - I have to push my config everytime I edit my list 
+        - Make a redirect capability to look at another xml file 
+        - Changing config
+            - Adding a new param in List object config 
+        - Test runs
+            - Trial 1
+                - Redirect worked for lists that are redirecting
+                - This affects the lists that are not redirecting
+                - Adding [string]::isnullorempty()
+            - Trial 2
+                - Success
+                - Properly compared null value
+
+Issue: HashTable Type Bug
+    Status: Closed
+    Fix Commit: ebfd70f 
+    Branch: bug-HashTable 
+    Notes:
+        - I don't think the FindInterval function finds the correct interval
+        - The $u variable was only incrementing when there was another node found
+            - it does not consider that the node is indexes away
+    Post:
+        - This was a quick fix that needed a code change for the FindInterval method
+
 Issue: Archive errors out when there is a an item with the same name
+    Status: Closed
     Fix Commit: 9ae7db7 
     Notes:
         - Maybe write an exception error 

@@ -809,6 +809,7 @@
   </Programs>
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
+    <Module>\Modules\ConfigHandler.psm1</Module>
   </Modules>
   <Calendar>
     <SpecialDays>

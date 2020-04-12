@@ -219,10 +219,10 @@ class SQL
 
     SyncConfig()
     {
-        foreach($table in $this.tables)
+        foreach($table in $this.tables.Table)
         {
             if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
-            else{$this.CreateColumns($table);}
+            else{$this.CreateColumns($table);}# This internally checks if the columns do exist
         }
     }
 
@@ -230,32 +230,38 @@ class SQL
     {
         $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
         $res = $null # reset
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
 
     hidden CreateColumns([system.Object[]]$table)
     {
+        $i = 0;
         $rep = "|||";
         $querystring = "ALTER TABLE $($table.Name) ADD ($($rep) "; # Using ( to find this part of the string
         foreach ($column in $table.Column)
         {
-            $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
-            if(!$this.DoesColumnExist($table.Name,$column))
+            $querystring = $querystring.Replace("$($rep)", ", ");
+            if(!$this.DoesColumnExist($table.Name,$column.Name))
             {
-                $querystring.Value += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+                $i++;
+                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
             }
         }
-        $querystring.Value = $querystring.Value.Replace("$($rep)", "");
-        $querystring.Value = $querystring.Value.Replace("(,", "(");
+        $querystring = $querystring.Replace("$($rep)", "");
+        $querystring = $querystring.Replace("(,", "(");
+
+        # else all columns are there
+        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;}
+        else {Write-Host "Table is up to date!" -ForegroundColor Green;}
     }
 
     hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)
     {
         $querystring = "select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)' and COLUMN_NAME = '$($columnname)' ";
         $res = $null;
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -263,7 +269,7 @@ class SQL
     hidden [string]IsNull($val)
     {
         if($val.IsNull -eq "true"){return "NULL"}
-        else {return ""}
+        else {return "NOT NULL"}
     }
 
     # Creates table and columns
@@ -273,12 +279,12 @@ class SQL
         $querystring = "CREATE TABLE $($table.Name) ($($rep) "
         foreach ($column in $table.Column)
         {
-            $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
-            $querystring.Value += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+            $querystring = $querystring.Replace("$($rep)", ", ");
+            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
         }
-        $querystring.Value = $querystring.Value.Replace("$($rep)", ")");
-        $querystring.Value = $querystring.Value.Replace("(,", "(");
+        $querystring = $querystring.Replace("$($rep)", ")");
+        $querystring = $querystring.Replace("(,", "(");
 
-        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
     }
 }

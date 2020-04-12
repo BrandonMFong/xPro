@@ -47,6 +47,20 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:element>
+        <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
+            <xs:attribute name="Enabled" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        Toggle notification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:annotation>
+                <xs:documentation>
+                    The value will change the prompt on the command line to red if your battery life falls below that value
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
         <xs:element name="String" minOccurs="1" maxOccurs="1">
             <xs:attribute name="Color" use="mandatory">
                 <xs:annotation>

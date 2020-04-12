@@ -46,7 +46,7 @@ function prompt
     $BatteryPercent = (Get-WmiObject win32_battery).EstimatedChargeRemaining;
 
     # Prompt output
-    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.String.InnerXml -eq ""))
+    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.String.InnerXml -eq "") -or ([string]::IsNullOrEmpty($XMLReader.Machine.Prompt)))
     {"PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
     else 
     {
@@ -59,16 +59,28 @@ function prompt
         $OutString = $OutString.Replace($tag.batteryperc, $BatteryPercent);
         $OutString = $OutString.Replace("&gt","`>");
         $OutString = $OutString.Replace(";","");
+
         if($prompt.String.Color -eq "")
         {
-            if($prompt.BaterryLifeThreshold.Enabled -eq "true")
+            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($BatteryPercent -lt $prompt.BaterryLifeThreshold.InnerXml))
             {
-                if($BatteryPercent -lt $prompt.BaterryLifeThreshold.InnerXml)
+                Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline
             }
-            Write-Host ("$($OutString)") -ForegroundColor White -NoNewline
+            else 
+            {
+                Write-Host ("$($OutString)") -ForegroundColor White -NoNewline
+            }
         }
-        else{
-            Write-Host ("$($OutString)") -ForegroundColor $prompt.String.Color -NoNewline;
+        else
+        {
+            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($BatteryPercent -lt $prompt.BaterryLifeThreshold.InnerXml))
+            {
+                Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline
+            }
+            else 
+            {
+                Write-Host ("$($OutString)") -ForegroundColor $prompt.String.Color -NoNewline;
+            }
         }
         return " ";
     }

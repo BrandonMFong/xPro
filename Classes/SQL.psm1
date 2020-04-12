@@ -22,7 +22,7 @@ class SQL
     {
         $this.results = $null # reset
         $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        if($null -eq $this.results){throw "Nothing returned from query string"}
+        if($null -eq $this.results){Write-Warning "Nothing returned from query string"; return 0;}
         else {return $this.results;} # display
     }
 
@@ -60,7 +60,7 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
+        $NewIDShouldBe = $this.Query("select count(id)+1 from $($table)");
 
         Write-Warning "The new id should be: $($NewIDShouldBe.ItemArray)`n`n";
 
@@ -246,11 +246,11 @@ class SQL
             if(!$this.DoesColumnExist($table.Name,$column.Name))
             {
                 $i++;
-                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
             }
         }
         $querystring = $querystring.Replace("$($rep)", "");
-        $querystring = $querystring.Replace("(,", "(");
+        $querystring = $querystring.Replace("(,", "");
 
         # else all columns are there
         if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;}
@@ -272,6 +272,12 @@ class SQL
         else {return "NOT NULL"}
     }
 
+    hidden [string]IsPK($val) 
+    {
+        if($val.IsPrimaryKey -eq "true"){return "PRIMARY KEY"}
+        else {return ""}
+    }
+
     # Creates table and columns
     hidden [void] CreateTable([system.Object[]]$table)
     {
@@ -280,7 +286,7 @@ class SQL
         foreach ($column in $table.Column)
         {
             $querystring = $querystring.Replace("$($rep)", ", ");
-            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
         }
         $querystring = $querystring.Replace("$($rep)", ")");
         $querystring = $querystring.Replace("(,", "(");

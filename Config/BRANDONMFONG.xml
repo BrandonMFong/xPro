@@ -615,6 +615,11 @@
         </List>
       </Class>
     </Object>
+    <!-- $Email -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Email</VarName>
+      <Class ClassName="Email" HasParams="false"/>
+    </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -671,6 +676,7 @@
     <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
     <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
+    <Program Alias="Copy-Folder" Type="Internal">\Functions\Email.ps1</Program>
   </Programs>
   <!--Modules to include, mainly just for small functions-->
   <Modules>
@@ -687,7 +693,7 @@
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
           <Item rank="3" name="Change Setup script" Completed="false" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
-          <Item rank="3" name="Email accessibility" Completed="false" />
+          <Item rank="3" name="Email accessibility" Completed="true" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />

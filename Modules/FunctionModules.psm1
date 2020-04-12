@@ -3,6 +3,7 @@ using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
 using module .\..\Classes\List.psm1;
+using module .\..\Classes\Email.psm1;
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
 
@@ -13,6 +14,7 @@ function MakeClass($XmlElement)
         "Calendar" {$x = [Calendar]::new();return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new();return $x;}
+        "Email" {$x = [Email]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
         "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect);return $x;}
         default
@@ -159,7 +161,6 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
-
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
@@ -194,5 +195,11 @@ function LoadObjects
             default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
         }
     } 
+}function InboxObject
+{
+    Add-Type -assembly "Microsoft.Office.Interop.Outlook";
+    $Outlook = New-Object -comobject Outlook.Application;
+    $namespace = $Outlook.GetNameSpace("MAPI");
+    $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
+    return $inbox;
 }
-

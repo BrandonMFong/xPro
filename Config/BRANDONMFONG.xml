@@ -616,10 +616,10 @@
       </Class>
     </Object>
     <!-- $Email -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecurityType="public">Email</VarName>
       <Class ClassName="Email" HasParams="false"/>
-    </Object>
+    </Object> -->
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

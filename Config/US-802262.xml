@@ -225,10 +225,10 @@
       <Class ClassName="Calendar" HasParams="false" />
     </Object>
     <!-- $Email -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecurityType="public">Email</VarName>
       <Class ClassName="Email" HasParams="false"/>
-    </Object>
+    </Object> -->
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
     <Object ID="69" Type="HashTable">
       <VarName SecurityType="private">554B410B-4281-4905-ADF5-6F0398837103</VarName>

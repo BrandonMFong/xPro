@@ -1,4 +1,11 @@
 
+Issue: Email does not work.  It lags at start up
+    Fix Commit: 
+    Branch: 
+    Status: Open
+    Notes:
+    Post:
+
 Issue: Everytime we add a column to a table, we need to manual do that to all dbs
     Fix Commit: 81917b0
     Branch: major-feature-SetupTablesWithConfig 

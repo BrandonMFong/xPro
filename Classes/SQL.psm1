@@ -9,11 +9,12 @@ class SQL
     [System.Object[]]$tables;
 
     # Constructor
-    SQL([string]$database, [string]$serverinstance, [System.Object[]] $tables)
+    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables)
     {
         $this.database = $database;
         $this.serverinstance = $serverinstance;
         $this.tables = $tables
+        $this.SyncConfig();
     }
 
     # Standard queries
@@ -21,7 +22,7 @@ class SQL
     {
         $this.results = $null # reset
         $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        if($null -eq $this.results){throw "Nothing returned from query string"}
+        if($null -eq $this.results){Write-Warning "Nothing returned from query string"; return 0;}
         else {return $this.results;} # display
     }
 
@@ -59,7 +60,7 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");
+        $NewIDShouldBe = $this.Query("select count(id)+1 from $($table)");
 
         Write-Warning "The new id should be: $($NewIDShouldBe.ItemArray)`n`n";
 
@@ -199,9 +200,7 @@ class SQL
             }
             default {throw "Not a valid query type."}
         }
-    }
-
-    ## These are static methods ## 
+    } 
 
     InputCopy([string]$value) # Decodes guid in personalinfo table
     {
@@ -216,5 +215,82 @@ class SQL
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         return $result.Item("Value");
+    }
+
+    SyncConfig()
+    {
+        foreach($table in $this.tables.Table)
+        {
+            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
+            else{$this.CreateColumns($table);}# This internally checks if the columns do exist
+        }
+    }
+
+    hidden [boolean] DoesTableExist([string]$t)
+    {
+        $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
+        $res = $null # reset
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        if($null -eq $res){return $false;}
+        else {return $true;} 
+    }
+
+    hidden CreateColumns([system.Object[]]$table)
+    {
+        $i = 0;
+        $rep = "|||";
+        $querystring = "ALTER TABLE $($table.Name) ADD ($($rep) "; # Using ( to find this part of the string
+        foreach ($column in $table.Column)
+        {
+            $querystring = $querystring.Replace("$($rep)", ", ");
+            if(!$this.DoesColumnExist($table.Name,$column.Name))
+            {
+                $i++;
+                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
+            }
+        }
+        $querystring = $querystring.Replace("$($rep)", "");
+        $querystring = $querystring.Replace("(,", "");
+
+        # else all columns are there
+        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;}
+        else {Write-Host "Table is up to date!" -ForegroundColor Green;}
+    }
+
+    hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)
+    {
+        $querystring = "select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)' and COLUMN_NAME = '$($columnname)' ";
+        $res = $null;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        if($null -eq $res){return $false;}
+        else {return $true;} 
+    }
+
+    hidden [string]IsNull($val)
+    {
+        if($val.IsNull -eq "true"){return "NULL"}
+        else {return "NOT NULL"}
+    }
+
+    hidden [string]IsPK($val) 
+    {
+        if($val.IsPrimaryKey -eq "true"){return "PRIMARY KEY"}
+        else {return ""}
+    }
+
+    # Creates table and columns
+    hidden [void] CreateTable([system.Object[]]$table)
+    {
+        $rep = "|||";
+        $querystring = "CREATE TABLE $($table.Name) ($($rep) "
+        foreach ($column in $table.Column)
+        {
+            $querystring = $querystring.Replace("$($rep)", ", ");
+            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
+        }
+        $querystring = $querystring.Replace("$($rep)", ")");
+        $querystring = $querystring.Replace("(,", "(");
+
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
     }
 }

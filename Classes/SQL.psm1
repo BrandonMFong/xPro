@@ -221,7 +221,7 @@ class SQL
     {
         foreach($table in $this.tables)
         {
-            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table.Name);$this.CreateColumns($table);}
+            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
             else{$this.CreateColumns($table);}
         }
     }
@@ -229,21 +229,56 @@ class SQL
     hidden [boolean] DoesTableExist([string]$t)
     {
         $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
-        $this.results = $null # reset
-        $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        if($null -eq $this.results){return $false;}
+        $res = $null # reset
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        if($null -eq $res){return $false;}
         else {return $true;} 
     }
 
     hidden CreateColumns([system.Object[]]$table)
     {
-        $querystring = "ALTER TABLE $($table.Name) ADD ";
         $rep = "|||";
-        foreach($column in $table.Column)
-        {   
-            #column_b VARCHAR(20) NULL, column_c INT NULL ;";
-            $querystring = $querystring + "$($column.Name) $($column.Type) $($this.IsNull) $($rep)";
+        $querystring = "ALTER TABLE $($table.Name) ADD ($($rep) "; # Using ( to find this part of the string
+        foreach ($column in $table.Column)
+        {
+            $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+            if(!$this.DoesColumnExist($table.Name,$column))
+            {
+                $querystring.Value += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+            }
         }
+        $querystring.Value = $querystring.Value.Replace("$($rep)", "");
+        $querystring.Value = $querystring.Value.Replace("(,", "(");
     }
-    # TODO make isnull, createtable, and finish createcolumns methods
+
+    hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)
+    {
+        $querystring = "select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)' and COLUMN_NAME = '$($columnname)' ";
+        $res = $null;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        if($null -eq $res){return $false;}
+        else {return $true;} 
+    }
+
+    hidden [string]IsNull($val)
+    {
+        if($val.IsNull -eq "true"){return "NULL"}
+        else {return ""}
+    }
+
+    # Creates table and columns
+    hidden [void] CreateTable([system.Object[]]$table)
+    {
+        $rep = "|||";
+        $querystring = "CREATE TABLE $($table.Name) ($($rep) "
+        foreach ($column in $table.Column)
+        {
+            $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+            $querystring.Value += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($rep) ";
+        }
+        $querystring.Value = $querystring.Value.Replace("$($rep)", ")");
+        $querystring.Value = $querystring.Value.Replace("(,", "(");
+
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+    }
 }

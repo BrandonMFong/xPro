@@ -4,6 +4,8 @@ Issue: Everytime we add a column to a table, we need to manual do that to all db
     Notes:
         - Config should describe necessary tables for that class object
             - Config should be define under the object
+        - Using info schema to see if table exists
+            - if table doesn't exist, then you are going to make the columns too (sql server syntax)
     Post:
 
 Issue: Get-Weather takes a long time to execute 

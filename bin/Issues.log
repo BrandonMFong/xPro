@@ -1,6 +1,8 @@
 
 Issue: Everytime we add a column to a table, we need to manual do that to all dbs
     Fix Commit: 
+    Branch: major-feature-SetupTablesWithConfig 
+    Status: Closed
     Notes:
         - Config should describe necessary tables for that class object
             - Config should be define under the object

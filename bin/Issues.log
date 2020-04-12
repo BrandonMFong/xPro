@@ -1,6 +1,6 @@
 
 Issue: Everytime we add a column to a table, we need to manual do that to all dbs
-    Fix Commit: 
+    Fix Commit: 81917b0
     Branch: major-feature-SetupTablesWithConfig 
     Status: Closed
     Notes:

@@ -47,3 +47,4 @@ function Open-Settings{start ms-settings:;}
 function Open-Bluetooth{start ms-settings:bluetooth;}
 function Open-Display{start ms-settings:display;}
 
+function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).EstimatedChargeRemaining )%" -ForegroundColor Cyan}

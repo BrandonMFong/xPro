@@ -16,13 +16,13 @@ class Email # Looks in the inbox
 
     [void] ListInbox()
     {
-        foreach($m in $this.Messages)
+        for($i=0;$i -lt $this.Messages.Length;$i++)
         {
-            Write-Host "Subject: " -ForegroundColor Cyan -NoNewline;Write-Host "$($m.Subject)";
-            Write-Host "From: " -ForegroundColor Cyan -NoNewline;Write-Host "$($m.From)";
-            Write-Host "Date: " -ForegroundColor Cyan -NoNewline;Write-Host "$($m.Date)";
+            Write-Host "Subject: " -ForegroundColor Cyan -NoNewline;Write-Host "$($this.Messages[$i].Subject)";
+            Write-Host "From: " -ForegroundColor Cyan -NoNewline;Write-Host "$($this.Messages[$i].From)";
+            Write-Host "Date: " -ForegroundColor Cyan -NoNewline;Write-Host "$($this.Messages[$i].Date)";
             Write-Host "Body: " -ForegroundColor Cyan;
-            Write-Host "$($m.Body)";
+            Write-Host "$($this.Messages[$i].Body)";
         }
     }
 }

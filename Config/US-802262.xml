@@ -198,8 +198,18 @@
           <Database>Kiran</Database>
           <ServerInstance>US-802262</ServerInstance>
           <Tables>
-            <PersonalInfo>PersonalInfo</PersonalInfo>
-            <TypeContent>TypeContent</TypeContent>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+            </Table>
           </Tables>
         </SQL>
       </Class>
@@ -213,6 +223,11 @@
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
+    </Object>
+    <!-- $Email -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Email</VarName>
+      <Class ClassName="Email" HasParams="false"/>
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
     <Object ID="69" Type="HashTable">

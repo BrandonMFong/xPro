@@ -1,5 +1,10 @@
 
 
+Version 1.14.0 changes:
+    - Email needs to be tested but the object is coded 
+        - As of now it only has the ListInbox() method 
+        - There is bound to be improvements 
+
 Version 1.13.0 changes:
     - SQL Configuration
         - Add columns or create a table with an xml file 

@@ -676,7 +676,6 @@
     <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
     <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
-    <Program Alias="Copy-Folder" Type="Internal">\Functions\Email.ps1</Program>
   </Programs>
   <!--Modules to include, mainly just for small functions-->
   <Modules>

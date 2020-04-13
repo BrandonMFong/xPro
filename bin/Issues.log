@@ -1,4 +1,27 @@
 
+Issue: Email does not work.  It lags at start up
+    Fix Commit: 
+    Branch: 
+    Status: Open
+    Notes:
+    Post:
+
+Issue: Everytime we add a column to a table, we need to manual do that to all dbs
+    Fix Commit: 81917b0
+    Branch: major-feature-SetupTablesWithConfig 
+    Status: Closed
+    Notes:
+        - Config should describe necessary tables for that class object
+            - Config should be define under the object
+        - Using info schema to see if table exists
+            - if table doesn't exist, then you are going to make the columns too (sql server syntax)
+        - Finished the code but I am worried my data will be compromised in the code
+            - there is no drop or delete queries.  I think it's safe to say that my data wont get lost.  I will back up just in case
+    Post:
+        - Everything under the <sql> tag will be considered in the queries.  
+        - Only adds or creates columns/tables.  No deletion.  
+            - Should not have deletions just in case of config errors and risk of lost data
+
 Issue: Get-Weather takes a long time to execute 
     Status: Open 
     Fix Commit:

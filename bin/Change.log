@@ -1,5 +1,18 @@
 
 
+Version 1.14.0 changes:
+    - Email needs to be tested but the object is coded 
+        - As of now it only has the ListInbox() method 
+        - There is bound to be improvements 
+
+Version 1.13.0 changes:
+    - SQL Configuration
+        - Add columns or create a table with an xml file 
+
+Version 1.12.0 changes:
+    - Moved List-Directory and add directory methods to modules 
+        - first step in creating config handler methods for command line editor
+
 Version 1.11.0 changes:
     - Adding an option for the list object to read another xml document
         - New tag used: <Redirect>

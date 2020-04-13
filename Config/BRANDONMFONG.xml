@@ -4,6 +4,7 @@
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
+    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
     <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
   <!-- Directory paths -->
@@ -51,6 +52,8 @@
     <Directory alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
     <Directory alias="eelec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Lectures</Directory>
     <Directory alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
+    <Directory alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
+    <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -512,8 +515,18 @@
           <Database>BrandonMFong</Database>
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
           <Tables>
-            <PersonalInfo>PersonalInfo</PersonalInfo>
-            <TypeContent>TypeContent</TypeContent>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+            </Table>
           </Tables>
         </SQL>
       </Class>
@@ -529,7 +542,8 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
-          <Redirect></Redirect>
+          <Redirect>
+          </Redirect>
         </List>
       </Class>
     </Object>
@@ -603,6 +617,11 @@
         </List>
       </Class>
     </Object>
+    <!-- $Email -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Email</VarName>
+      <Class ClassName="Email" HasParams="false"/>
+    </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -645,6 +664,9 @@
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
     <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
+    <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
+    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\Release\SentryV2.exe</Program>
+    <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
@@ -662,6 +684,7 @@
   <!--Modules to include, mainly just for small functions-->
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
+    <Module>\Modules\ConfigHandler.psm1</Module>
   </Modules>
   <!-- Lists -->
   <Lists>
@@ -670,15 +693,18 @@
       <!-- Version 2 -->
       <Item rank="1" name="Version 2" Completed="false">
         <Item rank="2" name="Major" Completed="false">
-          <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="false" />
+          <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
           <Item rank="3" name="Change Setup script" Completed="false" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
-          <Item rank="3" name="Email accessibility" Completed="false" />
+          <Item rank="3" name="Email accessibility" Completed="true" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
-          <Item rank="3" name="Goto adddir to private" Completed="false" />
+          <Item rank="3" name="Make a config editor" Completed="false">
+            <Item rank="4" name="Put Add directory" Completed="true" />
+            <Item rank="4" name="Put Add private directory" Completed="false" />
+          </Item>
           <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
           <Item rank="3" name="Weather" Completed="true" />
           <Item rank="3" name="Prompting" Completed="true">
@@ -698,10 +724,10 @@
   <!-- Calendar -->
   <Calendar>
     <SpecialDays>
-      <SpecialDay name="EE Project Due">4/2/2020</SpecialDay>
       <SpecialDay name="Compe565 HW 3 Due">4/12/2020</SpecialDay>
       <SpecialDay name="Compe565 Midterm">4/10/2020</SpecialDay>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
+      <SpecialDay name="EE 600 Project 3 due">4/16/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

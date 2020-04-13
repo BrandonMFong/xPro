@@ -5,7 +5,7 @@ declare @TCID int =
 )
 declare @PIID int = 
 (
-	select max(id)+1 from PersonalInfo
+	select count(id)+1 from PersonalInfo
 )
 begin transaction 
 declare @Guid varchar(100) = upper(Newid())

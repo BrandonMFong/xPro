@@ -5,4 +5,5 @@ class Tag
     [string]$currentdir = "@currdir";
     [string]$fulldir = "@fulldir";
     [string]$time = "@time";
+    [string]$batteryperc = "@batteryperc";
 }

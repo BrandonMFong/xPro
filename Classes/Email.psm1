@@ -2,7 +2,7 @@
 
 class Email # Looks in the inbox
 {
-    [Message[]]$Messages;
+    [Message[]]$Messages = 0;
     Email()
     {
         Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
@@ -11,7 +11,7 @@ class Email # Looks in the inbox
         {
             if($i){$this.Messages = [Message]::new($inbox.Items($i));}
             else{$this.Messages += [Message]::new($inbox.Items($i));}
-        }                         
+        }
     }
 
     [void] ListInbox()

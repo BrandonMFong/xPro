@@ -4,7 +4,7 @@
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <BaterryLifeThreshold Enabled="true">20</BaterryLifeThreshold>
+    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
     <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
   <!-- Directory paths -->
@@ -618,10 +618,10 @@
       </Class>
     </Object>
     <!-- $Email -->
-    <!-- <Object Type="PowerShellClass">
+    <Object Type="PowerShellClass">
       <VarName SecurityType="public">Email</VarName>
       <Class ClassName="Email" HasParams="false"/>
-    </Object> -->
+    </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -666,6 +666,7 @@
     <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
     <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
     <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\Release\SentryV2.exe</Program>
+    <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
     <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>

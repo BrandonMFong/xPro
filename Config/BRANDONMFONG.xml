@@ -55,6 +55,7 @@
     <Directory alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
     <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
     <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
+    <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

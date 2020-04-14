@@ -7,8 +7,6 @@
 	Else {"Good Afternoon Brandon"}
 	Get-Weather -Today -Area "San Diego"
 	$Calendar.GetCalendarMonth();
-	Write-Host "`nInbox count: " -NoNewLine;
-	Write-Host "$(Get-Email -Count)`n" -ForegroundColor Cyan -NoNewLine;
 	Write-Host ("`n1. Start`n")
 	$start = Read-Host 
 	if($start -eq "1")

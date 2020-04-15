@@ -24,9 +24,15 @@ class List
     ListOut()
     {
         $this.LoadList();
-        Write-Host "`n$($this.Title)`n" -ForegroundColor Green;
+        Write-Host "`n[$($this.Title)]`n" -ForegroundColor Green;
         $this.GetList($this.xml.Machine.Lists);
         Write-host `n;
+    }
+
+    [void] Edit()
+    {
+        # I need to have an id for each item
+        # should it be in the config or should I dynamically allocate id for item
     }
 
     hidden LoadList()

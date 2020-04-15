@@ -14,7 +14,12 @@ function ConfigEditor
             $add.SetAttribute("alias", $Alias);
 
             $Security = Read-Host -Prompt "Is this private? (y/n)?";
-            if($Security -eq "y"){$add.SetAttribute("SecurityType", "private");}
+            if($Security -eq "y")
+            {
+                $add.SetAttribute("SecurityType", "private");
+                # Do an insert query and get the guid
+                # This is type PrivateDirectory so should be easy
+            }
             else{$add.SetAttribute("SecurityType", "public");}
             
             $add.InnerXml = $PathToAdd;
@@ -27,7 +32,7 @@ function ConfigEditor
 
 }
 
-function ListDirectories
+function List-Directories
 {
     Write-Host "`nDirectories and their aliases:`n" -ForegroundColor Cyan;
     foreach($d in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
@@ -38,7 +43,7 @@ function ListDirectories
     }
     Write-Host `n;
 }
-function ListPrograms
+function List-Programs
 {
     Write-Host "`nPrograms, their aliases, and their type:`n" -ForegroundColor Cyan;
     foreach($p in $(Get-Variable 'XMLReader').Value.Machine.Programs.Program)

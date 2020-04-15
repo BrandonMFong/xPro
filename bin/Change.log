@@ -1,5 +1,8 @@
 
 
+Version 1.16.0 changes:
+    - Specialday will be appended with '***' if current day is the special day
+
 Version 1.15.2 changes:
     - Fixed bug in Test method for Archive.ps1 
 

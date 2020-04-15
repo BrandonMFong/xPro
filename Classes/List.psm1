@@ -49,7 +49,7 @@ class List
             $x = [Item]::new($item)
             [string]$tab = "";
             for($i=0;$i -lt $x.Rank();$i++){$tab = $tab + "  ";}
-            if($x.Completed -eq "true")
+            if($x.Completed)
             {
                 Write-Host "$($tab)$($x.String())" -ForegroundColor Green;
             }

@@ -1,5 +1,8 @@
 
 
+Version 1.16.1 changes:
+    - Simplify if statement in list.psm1
+
 Version 1.16.0 changes:
     - Specialday will be appended with '***' if current day is the special day
 

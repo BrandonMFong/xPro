@@ -160,6 +160,8 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
+
+# TODO should be in the ConfigHandler module
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)

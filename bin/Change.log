@@ -1,5 +1,8 @@
 
 
+Version 1.17.0 changes:
+    - Adding Open-Clock to misc.psm1 module functions 
+
 Version 1.16.1 changes:
     - Simplify if statement in list.psm1
 

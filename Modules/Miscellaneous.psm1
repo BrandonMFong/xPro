@@ -1,5 +1,4 @@
-# Contains any functions that are really short in code
-
+# System functions
 
 function Hop 
 {
@@ -48,3 +47,5 @@ function Open-Bluetooth{start ms-settings:bluetooth;}
 function Open-Display{start ms-settings:display;}
 
 function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).EstimatedChargeRemaining )%" -ForegroundColor Cyan}
+
+function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}

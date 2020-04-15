@@ -56,6 +56,7 @@
     <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
     <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
     <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
+    <Directory alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -553,8 +554,6 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
-          <Redirect>
-          </Redirect>
         </List>
       </Class>
     </Object>
@@ -668,6 +667,7 @@
     <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
     <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
     <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
+    <Program Alias="Her" Type="External">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
@@ -704,11 +704,12 @@
         <Item rank="2" name="Major" Completed="false">
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
           <Item rank="3" name="Change Setup script" Completed="false" />
-          <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Email accessibility" Completed="true" />
+          <Item rank="3" name="Import Types" Completed="true" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />
+          <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
           <Item rank="3" name="Make a config editor" Completed="false">
             <Item rank="4" name="Put Add directory" Completed="true" />

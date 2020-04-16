@@ -249,6 +249,24 @@
       <Key Lvl="2" Node="951a" SecurityType="public">CVC</Key>
       <Value Lvl="2" Node="951a" SecurityType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
     </Object>
+    <!-- $Contacts -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Contacts</VarName>
+      <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
+      <Key Lvl="0" SecurityType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="a1b7"/>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">HomeAddress</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">MobileNumber</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">833f74b4-ef7b-4c9d-b0f1-f1e7e69a58e1</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
+      <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
+      <Key Lvl="0" SecurityType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="7094"/>
+      <Key Lvl="1" Node="7094" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="7094" SecurityType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
+    </Object>
     <!-- $College -->
     <Object Type="HashTable">
       <VarName SecurityType="public">College</VarName>
@@ -711,6 +729,7 @@
           <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
+          <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
           <Item rank="3" name="Make a config editor" Completed="false">
             <Item rank="4" name="Put Add directory" Completed="true" />
             <Item rank="4" name="Put Add private directory" Completed="false" />

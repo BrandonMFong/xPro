@@ -1,4 +1,4 @@
-function ConfigEditor
+function Config-Editor
 {
     Param
     (

@@ -37,6 +37,10 @@ function Restart-Session
 {
     Start-Process powershell;exit;
 }
+function Restart-Admin
+{
+    Start-Process powershell -Verb Runas;
+}
 
 function List-Color
 {

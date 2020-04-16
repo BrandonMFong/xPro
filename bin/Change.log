@@ -1,5 +1,8 @@
 
 
+Version 1.18.0 changes:
+    - Adding admin start to misc.psm1
+
 Version 1.17.0 changes:
     - Adding Open-Clock to misc.psm1 module functions 
 

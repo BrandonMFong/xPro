@@ -1,10 +1,5 @@
 # Script after profile loads
- 	Write-Host "`n";
-	$Hour = (Get-Date).Hour;
-	$Date = Get-Date;
-	If ($Hour -lt 12) {"`n`nGood Morning Brandon"}
-	ElseIf ($Hour -gt 17) {"Good Evening Brandon"}
-	Else {"Good Afternoon Brandon"}
+ 	Greetings;
 	Get-Weather -Today -Area "San Diego"
 	$Calendar.GetCalendarMonth();
 	Write-Host ("`n1. Start`n")
@@ -24,5 +19,6 @@
 			goto repo;
 			Get-ChildItem |
 			Foreach-Object {Set-Location $_.Fullname;write-warning (Get-Location).Path;git pull --rebase;Set-Location ..;}
+			pop-location;
 		}
 	}

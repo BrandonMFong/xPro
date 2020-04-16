@@ -826,6 +826,7 @@
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
     <Module>\Modules\ConfigHandler.psm1</Module>
+    <Module>\StartScripts\StartMods\US-802262.psm1</Module>
   </Modules>
   <Calendar>
     <SpecialDays>

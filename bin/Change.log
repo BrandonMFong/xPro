@@ -1,5 +1,20 @@
 
 
+Version 1.17.0 changes:
+    - Adding Open-Clock to misc.psm1 module functions 
+
+Version 1.16.1 changes:
+    - Simplify if statement in list.psm1
+
+Version 1.16.0 changes:
+    - Specialday will be appended with '***' if current day is the special day
+
+Version 1.15.2 changes:
+    - Fixed bug in Test method for Archive.ps1 
+
+Version 1.15.0 changes:
+    - Battery life notification on the command line
+
 Version 1.14.0 changes:
     - Email needs to be tested but the object is coded 
         - As of now it only has the ListInbox() method 

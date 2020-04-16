@@ -54,6 +54,9 @@
     <Directory alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
     <Directory alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
     <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
+    <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
+    <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
+    <Directory alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
   </Directories>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -122,6 +125,8 @@
       <Value Lvl="1" Node="1376" SecurityType="public">https://sdsu4rent.com/tenants</Value>
       <Key Lvl="1" Node="1376" SecurityType="public">UCSDHealth</Key>
       <Value Lvl="1" Node="1376" SecurityType="public">https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login</Value>
+      <Key Lvl="1" Node="1376" SecurityType="public">WaterPortal</Key>
+      <Value Lvl="1" Node="1376" SecurityType="public">https://customerportal.sandiego.gov/portal/</Value>
       <!--Hostinger-->
       <Key Lvl="0" SecurityType="public">Hostinger</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="d4f9" />
@@ -206,6 +211,13 @@
       <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
       <Key Lvl="1" Node="4dac" SecurityType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
       <Value Lvl="1" Node="4dac" SecurityType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
+      <!--Filmora-->
+      <Key Lvl="0" SecurityType="public">Filmora9</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="63AF" />
+      <Key Lvl="1" Node="63AF" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="63AF" SecurityType="public">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
+      <Key Lvl="1" Node="63AF" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="63AF" SecurityType="public">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
     </Object>
     <!-- $Bank -->
     <Object Type="HashTable">
@@ -236,6 +248,29 @@
       <Value Lvl="2" Node="951a" SecurityType="private">3529af62-e170-4ce8-ac10-5bb7c831f3c7</Value>
       <Key Lvl="2" Node="951a" SecurityType="public">CVC</Key>
       <Value Lvl="2" Node="951a" SecurityType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
+    </Object>
+    <!-- $Contacts -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Contacts</VarName>
+      <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
+      <Key Lvl="0" SecurityType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="a1b7"/>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">HomeAddress</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">MobileNumber</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">833f74b4-ef7b-4c9d-b0f1-f1e7e69a58e1</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
+      <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
+      <Key Lvl="0" SecurityType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="7094"/>
+      <Key Lvl="1" Node="7094" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="7094" SecurityType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
+      <!-- 78531b00-99d7-4e19-ac1f-4f671598cfaa -->
+      <Key Lvl="0" SecurityType="private">78531b00-99d7-4e19-ac1f-4f671598cfaa</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="80ad"/>
+      <Key Lvl="1" Node="80ad" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="80ad" SecurityType="private">139665DA-AD2B-4BC2-B8AE-F9F21B04CF8A</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -542,8 +577,6 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
-          <Redirect>
-          </Redirect>
         </List>
       </Class>
     </Object>
@@ -620,7 +653,7 @@
     <!-- $Email -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Email</VarName>
-      <Class ClassName="Email" HasParams="false"/>
+      <Class ClassName="Email" HasParams="false" />
     </Object>
   </Objects>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
@@ -630,8 +663,6 @@
     <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
     <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
-    <Program Alias="Word" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\winword.exe</Program>
-    <Program Alias="Outlook" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\Microsoft.Office.Desktop_8wekyb3d8bbwe\outlook.exe</Program>
     <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
     <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
@@ -659,13 +690,14 @@
     <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
     <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
     <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
+    <Program Alias="Her" Type="External">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
     <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
     <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
     <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
-    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\Release\SentryV2.exe</Program>
+    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
     <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
     <!-- User Defined Functions/scripts -->
     <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
@@ -695,12 +727,14 @@
         <Item rank="2" name="Major" Completed="false">
           <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
           <Item rank="3" name="Change Setup script" Completed="false" />
-          <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Email accessibility" Completed="true" />
+          <Item rank="3" name="Import Types" Completed="true" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />
+          <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
+          <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
           <Item rank="3" name="Make a config editor" Completed="false">
             <Item rank="4" name="Put Add directory" Completed="true" />
             <Item rank="4" name="Put Add private directory" Completed="false" />
@@ -724,10 +758,12 @@
   <!-- Calendar -->
   <Calendar>
     <SpecialDays>
-      <SpecialDay name="Compe565 HW 3 Due">4/12/2020</SpecialDay>
-      <SpecialDay name="Compe565 Midterm">4/10/2020</SpecialDay>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
       <SpecialDay name="EE 600 Project 3 due">4/16/2020</SpecialDay>
+      <SpecialDay name="CompE 560 Test (Network)">4/23/2020</SpecialDay>
+      <SpecialDay name="CompE 560 Class Participation 2 by midnight">4/14/2020</SpecialDay>
+      <SpecialDay name="Waterbill due">4/24/2020</SpecialDay>
+      <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
 </Machine>

@@ -2,16 +2,13 @@
 
 class Email # Looks in the inbox
 {
-    [Message[]]$Messages;
+    hidden $inbox; # TODO find object type
+    [Messages[]]$Messages = [messages]::new();
+
     Email()
     {
         Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
-        $inbox = InboxObject;
-        for($i=1;$i -le $inbox.Items.count;$i++)
-        {
-            if($i){$this.Messages = [Message]::new($inbox.Items($i));}
-            else{$this.Messages += [Message]::new($inbox.Items($i));}
-        }                         
+        $this.inbox = InboxObject;
     }
 
     [void] ListInbox()
@@ -25,19 +22,25 @@ class Email # Looks in the inbox
             Write-Host "$($this.Messages[$i].Body)";
         }
     }
+
+    hidden [void] LoadInbox()
+    {
+        foreach($i in $this.inbox.Items)
+        {
+            $this.Messages += [Messages]::new($i.Body);
+        } 
+    }
 }
 
-class Message 
+class Messages
 {
-    [string]$Date;
-    [string]$From;
-    [string]$Subject;
     [string]$Body;
-    Message($mail)
+    [string]$From;
+
+    Messages(){}
+
+    Messages([string]$Body,[string]$From)
     {
-        $this.Subject = $mail.TaskSubject;
-        $this.Date = $mail.ReceivedTime;
-        $this.From = $mail.SenderName;
-        $this.Body = $mail.Body;
+        $this.Body = $Body;
     }
 }

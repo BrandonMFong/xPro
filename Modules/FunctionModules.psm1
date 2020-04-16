@@ -146,8 +146,7 @@ function Test
 {
     if(!(Test-Path .\archive\))
     {
-        throw "Directory .\archive\ does not exist."; 
-        exit; # Exists because if archive doesn't exist then why zip
+        mkdir archive;
     }
 }
 function DoesFileExist($file)
@@ -161,6 +160,8 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
+
+# TODO should be in the ConfigHandler module
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
@@ -195,7 +196,9 @@ function LoadObjects
             default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
         }
     } 
-}function InboxObject
+}
+
+function InboxObject
 {
     Add-Type -assembly "Microsoft.Office.Interop.Outlook";
     $Outlook = New-Object -comobject Outlook.Application;

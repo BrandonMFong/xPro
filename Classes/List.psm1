@@ -24,9 +24,15 @@ class List
     ListOut()
     {
         $this.LoadList();
-        Write-Host "`n$($this.Title)`n" -ForegroundColor Green;
+        Write-Host "`n[$($this.Title)]`n" -ForegroundColor Green;
         $this.GetList($this.xml.Machine.Lists);
         Write-host `n;
+    }
+
+    [void] Edit()
+    {
+        # I need to have an id for each item
+        # should it be in the config or should I dynamically allocate id for item
     }
 
     hidden LoadList()
@@ -49,7 +55,7 @@ class List
             $x = [Item]::new($item)
             [string]$tab = "";
             for($i=0;$i -lt $x.Rank();$i++){$tab = $tab + "  ";}
-            if($x.Completed -eq "true")
+            if($x.Completed)
             {
                 Write-Host "$($tab)$($x.String())" -ForegroundColor Green;
             }

@@ -60,7 +60,7 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        $NewIDShouldBe = $this.Query("select count(id)+1 from $($table)");
+        $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");# issue here, what if the table is empty? if count, what if order is wrong
 
         Write-Warning "The new id should be: $($NewIDShouldBe.ItemArray)`n`n";
 

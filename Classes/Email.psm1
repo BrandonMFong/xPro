@@ -7,7 +7,7 @@ class Email # Looks in the inbox
 
     Email()
     {
-        Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
+        # Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
         $this.inbox = InboxObject;
     }
 

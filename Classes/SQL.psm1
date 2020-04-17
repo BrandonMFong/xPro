@@ -7,6 +7,7 @@ class SQL
     [string]$database;
     [System.Object[]]$results;
     [System.Object[]]$tables;
+    hidden $t = @{DATA_TYPE = 'uniqueidentifier'};
 
     # Constructor
     SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables)
@@ -95,6 +96,12 @@ class SQL
         $this.Query("select * from $($table) where $($ColumnName) = $($NewValueForID)");
         return $this.results; # display
     }
+    
+    [int]GetMax([string]$Table)
+    {
+        return ($this.Query("select max(id)+1 as Max from $($Table)")).Max;
+    }
+
 
     [System.Object[]]Select()
     {
@@ -150,6 +157,11 @@ class SQL
             default{$string = "$($val.Value)";break;}
         }
         return $string;
+    }
+
+    [string]GetGuidString()
+    {
+        return $this.SQLConvert($this.t);
     }
 
     # Creates query string dynamically

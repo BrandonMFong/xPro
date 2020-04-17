@@ -37,6 +37,10 @@ function Restart-Session
 {
     Start-Process powershell;exit;
 }
+function Start-Admin
+{
+    Start-Process powershell -Verb Runas;
+}
 
 function List-Color
 {
@@ -50,10 +54,11 @@ function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).E
 
 function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}
 
-function System-Volume
+function Volume
 {
-    Param([double]$Adjust=$null)
-    Add-Type -TypeDefinition @'
+    # https://stackoverflow.com/questions/21355891/change-audio-level-from-powershell
+    Param([double]$Adjust=0,[switch]$Up,[switch]$Down,[switch]$Mute,[switch]$Unmute)
+Add-Type -TypeDefinition @'
 using System.Runtime.InteropServices;
 [Guid("5CDF2C82-841E-4546-9722-0CF74078229A"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 interface IAudioEndpointVolume
@@ -77,7 +82,7 @@ interface IMMDeviceEnumerator
 {
     int f(); // Unused
     int GetDefaultAudioEndpoint(int dataFlow, int role, out IMMDevice endpoint);
-}'
+}
 [ComImport, Guid("BCDE0395-E52F-467C-8E3D-C4579291692E")] class MMDeviceEnumeratorComObject { }
 public class Audio
 {
@@ -102,9 +107,13 @@ public class Audio
         set { Marshal.ThrowExceptionForHR(Vol().SetMute(value, System.Guid.Empty)); }
     }
 }
-'@;
-    if($null -ne $Adjust)
+'@
+    if($Adjust -ne 0)
     {
         [Audio]::Volume = $Adjust * 0.01;
     }
+    if($Up){[Audio]::Volume = [Audio]::Volume + (10 * 0.01);}
+    if($Down){[Audio]::Volume = [Audio]::Volume - (10 * 0.01);}
+    if($Mute){[Audio]::Volume = 0;}
+    if($Unmute){[Audio]::Volume = 0.50;}
 }

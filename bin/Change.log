@@ -1,5 +1,8 @@
 
 
+Version 1.20.0 changes:
+    - Adding private directory in Config-Editor
+
 Version 1.19.0 changes:
     - Introducing Volume function  
         - Mute

@@ -257,7 +257,7 @@
       <VarName SecurityType="public">Contacts</VarName>
       <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
       <Key Lvl="0" SecurityType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="a1b7"/>
+      <Value Lvl="0" SecurityType="public" NodePointer="a1b7" />
       <Key Lvl="1" Node="a1b7" SecurityType="public">HomeAddress</Key>
       <Value Lvl="1" Node="a1b7" SecurityType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
       <Key Lvl="1" Node="a1b7" SecurityType="public">MobileNumber</Key>
@@ -266,17 +266,17 @@
       <Value Lvl="1" Node="a1b7" SecurityType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
       <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
       <Key Lvl="0" SecurityType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="7094"/>
+      <Value Lvl="0" SecurityType="public" NodePointer="7094" />
       <Key Lvl="1" Node="7094" SecurityType="public">Email</Key>
       <Value Lvl="1" Node="7094" SecurityType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
       <!-- 78531b00-99d7-4e19-ac1f-4f671598cfaa -->
       <Key Lvl="0" SecurityType="private">78531b00-99d7-4e19-ac1f-4f671598cfaa</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="80ad"/>
+      <Value Lvl="0" SecurityType="public" NodePointer="80ad" />
       <Key Lvl="1" Node="80ad" SecurityType="public">Email</Key>
       <Value Lvl="1" Node="80ad" SecurityType="private">139665DA-AD2B-4BC2-B8AE-F9F21B04CF8A</Value>
       <!-- 88f7d857-f258-417a-aee4-8e7d2c44a289 -->
       <Key Lvl="0" SecurityType="private">88f7d857-f258-417a-aee4-8e7d2c44a289</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="aee4"/>
+      <Value Lvl="0" SecurityType="public" NodePointer="aee4" />
       <Key Lvl="1" Node="aee4" SecurityType="public">Email</Key>
       <Value Lvl="1" Node="aee4" SecurityType="private">12e4d7cd-f92c-4be9-994c-df37be8b6d43</Value>
     </Object>
@@ -744,9 +744,9 @@
           <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
           <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
-          <Item rank="3" name="Make a config editor" Completed="false">
+          <Item rank="3" name="Make a config editor" Completed="true">
             <Item rank="4" name="Put Add directory" Completed="true" />
-            <Item rank="4" name="Put Add private directory" Completed="false" />
+            <Item rank="4" name="Put Add private directory" Completed="true" />
           </Item>
           <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
           <Item rank="3" name="Weather" Completed="true" />

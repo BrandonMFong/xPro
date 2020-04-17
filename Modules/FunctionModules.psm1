@@ -180,7 +180,7 @@ function LoadModules
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
-        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global;
+        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global -DisableNameChecking;
     }
 }
 function LoadObjects

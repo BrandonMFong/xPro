@@ -1,5 +1,12 @@
 
 
+Version 1.19.0 changes:
+    - Introducing Volume function  
+        - Mute
+        - dial up and down
+        - unmute
+        - Adjust to a specific value
+
 Version 1.18.0 changes:
     - Adding admin start to misc.psm1
 

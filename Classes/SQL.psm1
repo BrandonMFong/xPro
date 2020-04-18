@@ -253,7 +253,7 @@ class SQL
         [boolean]$RowsInserted = $false;
         foreach($Row in $table.Rows.Row)
         {
-            if(!$this.DoesRowExist($Row)) # if row does not exist then insert the row
+            if(!$this.DoesRowExist($Row,$tablename)) # if row does not exist then insert the row
             {
                 [string]$querystring = "";
                 [int]$ID = $this.GetMax($tablename); # Checks db for new id inc
@@ -269,7 +269,7 @@ class SQL
                 $RowsInserted = $true;
             }
         }
-        if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Green;}
+        if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
@@ -283,14 +283,14 @@ class SQL
         else{return $res;}
     }
 
-    hidden [boolean] DoesRowExist($row) # Must have external ID
+    hidden [boolean] DoesRowExist($row,[string]$tablename) # Must have external ID
     {
         $res = $null # reset
-        foreach($Value in $row)
+        foreach($Value in $row.Value)
         {
             if($Value.ColumnName -eq "ExternalID")
             {
-                $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($Value)'";
+                $querystring = "select * from $($tablename) where ExternalID = '$($Value.InnerXML)'";
                 $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
             }
         }
@@ -326,7 +326,7 @@ class SQL
 
         # else all columns are there
         if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;}
-        else {Write-Host "Table is up to date!" -ForegroundColor Green;}
+        else {Write-Host "Table is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)

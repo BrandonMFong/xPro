@@ -1,5 +1,13 @@
 
 
+Version 2.BETA.0.0 changes:
+    - Ready for version 2
+        - This includes data insertion from xml files
+        - new setup script
+        - Email accessiblity 
+            - Has bugs
+                - Deciding between class or function 
+
 Version 1.21.0 changes:
     - Changed the setup script 
         - Dynamically creates the xml file 

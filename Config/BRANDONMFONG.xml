@@ -33,7 +33,7 @@
             <Item rank="4" name="insert rows from config" Completed="false" />
           </Item>
           <Item rank="3" name="Change Setup script" Completed="true" />
-          <Item rank="3" name="Reorganize repo for optimization" Completed="false" />
+          <Item rank="3" name="Reorganize repo for optimization" Completed="true" />
           <Item rank="3" name="Email accessibility" Completed="true" />
           <Item rank="3" name="Import Types" Completed="true" />
         </Item>
@@ -180,7 +180,8 @@
       <VarName SecurityType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
-          <Database>BrandonMFong</Database>
+          <!-- <Database>BrandonMFong</Database> -->
+          <Database>TestDB</Database>
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
           <Tables>
             <Table Name="PersonalInfo">
@@ -194,6 +195,52 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Rows>
+                <Row>
+                  <Value ColumnName="Description">ID</Value>
+                  <Value ColumnName="ExternalID">ID</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Username</Value>
+                  <Value ColumnName="ExternalID">Username</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Password</Value>
+                  <Value ColumnName="ExternalID">Password</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Email</Value>
+                  <Value ColumnName="ExternalID">Email</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">IP Address</Value>
+                  <Value ColumnName="ExternalID">IPAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">PIN</Value>
+                  <Value ColumnName="ExternalID">PIN</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">URL</Value>
+                  <Value ColumnName="ExternalID">URL</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private ColumnName</Value>
+                  <Value ColumnName="ExternalID">PrivateName</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Directory</Value>
+                  <Value ColumnName="ExternalID">PrivateDirectory</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Mobile Number</Value>
+                  <Value ColumnName="ExternalID">MobileNumber</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Home Address</Value>
+                  <Value ColumnName="ExternalID">HomeAddress</Value>
+                </Row>
+              </Rows>
             </Table>
           </Tables>
         </SQL>

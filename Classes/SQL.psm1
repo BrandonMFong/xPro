@@ -7,7 +7,6 @@ class SQL
     [string]$database;
     [System.Object[]]$results;
     [System.Object[]]$tables;
-    hidden $t = @{DATA_TYPE = 'uniqueidentifier'};
 
     # Constructor
     SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables)
@@ -25,6 +24,11 @@ class SQL
         $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         if($null -eq $this.results){Write-Warning "Nothing returned from query string"; return 0;}
         else {return $this.results;} # display
+    }
+
+    hidden [void] QueryNoReturn([string]$querystring) # TODO replace all lines with this method
+    {
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
     }
 
     # This function can insert into all different tables in a database
@@ -99,7 +103,7 @@ class SQL
     
     [int]GetMax([string]$Table)
     {
-        return ($this.Query("select max(id)+1 as Max from $($Table)")).Max;
+        return ($this.Query("select isnull(max(id)+1, 1) as Max from $($Table)")).Max;
     }
 
 
@@ -161,11 +165,13 @@ class SQL
 
     [string]GetGuidString()
     {
-        return $this.SQLConvert($this.t);
+        $t = @{DATA_TYPE = 'uniqueidentifier'};
+        return $this.SQLConvert($t);
     }
 
     # Creates query string dynamically
-    hidden QueryConstructor($TypeQuery, [ref]$querystring, $table, $values)
+    # Just for one insert value
+    hidden QueryConstructor($TypeQuery, [ref]$querystring, $table, $values)# Table should be string type
     {
 
         switch($TypeQuery)
@@ -235,7 +241,59 @@ class SQL
         {
             if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
             else{$this.CreateColumns($table);}# This internally checks if the columns do exist
+
+            # Insert rows
+            $this.InsertRows($table,$table.Name);
         }
+    }
+
+    # Reads config for rows config and creates multiple insert queries for each row config
+    hidden [void] InsertRows($table,[string]$tablename) 
+    {
+        foreach($Row in $table.Rows.Row)
+        {
+            if(!$this.DoesRowExist($Row)) # if row does not exist then insert the row
+            {
+                [string]$querystring = "";
+                [int]$ID = $this.GetMax($tablename); # Checks db for new id inc
+                $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+                foreach($val in $values)
+                {
+                    if($val.COLUMN_NAME -eq "ID"){$val.Value = $ID;}
+                    else{$val.Value = $this.GetInnerXMLByAttribute($Row,$val.COLUMN_NAME);}
+                }
+                $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
+                $this.QueryNoReturn($querystring);
+            }
+            else {Write-Host "Row is up to date!" -ForegroundColor Green;}
+        }
+    }
+
+    hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
+    {
+        [string]$res = "";[boolean]$found = $false;
+        foreach($Value in $Row.Value)
+        {
+            if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
+        }
+        if(!$found){Throw "Something bad happened";}
+        else{return $res;}
+    }
+
+    hidden [boolean] DoesRowExist($row) # Must have external ID
+    {
+        $res = $null # reset
+        foreach($Value in $row)
+        {
+            if($Value.ColumnName -eq "ExternalID")
+            {
+                $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($Value)'";
+                $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+            }
+        }
+        if($null -eq $res){return $false;}
+        else {return $true;} 
     }
 
     hidden [boolean] DoesTableExist([string]$t)

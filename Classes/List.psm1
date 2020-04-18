@@ -40,9 +40,9 @@ class List
         $this.xml = Get-Content $this.FilePath;
     }
 
-    hidden GetList($Lists)
+    hidden GetList()
     {
-        foreach($List in $Lists.List)
+        foreach($List in $this.xml.Machine.Lists.List)
         {
             if($List.Title -eq $this.Title){$this.GetItems($List)}
         }
@@ -67,6 +67,24 @@ class List
         }
     }
 
+    [void] ToggleItem([string]$string,[int]$begin=0,$List)
+    {
+        [string]$ID = "";
+        for($i = $begin;$i -lt $string.Length;$i++)
+        {
+            if($string[$i] -eq ".")
+            {
+                foreach($Item in $List.Item)
+                {
+                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)) # if last one
+                    {
+                        
+                    }
+                }
+            }
+            $ID += $string[$i];
+        }
+    }
 }
 
 class Item 

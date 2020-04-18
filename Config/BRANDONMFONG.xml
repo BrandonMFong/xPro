@@ -27,16 +27,16 @@
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
       <!-- Version 2 -->
-      <Item rank="1" name="Version 3" Completed="false">
-        <Item rank="2" name="Major" Completed="true" />
-        <Item rank="2" name="Minor" Completed="false">
-          <Item rank="3" name="Make copy folder script" Completed="false" />
-          <Item rank="3" name="Email accessibility" Completed="false" />
-          <Item rank="3" name="Dynamically edit this list" Completed="false" />
-          <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
-          <Item rank="3" name="private Alias" Completed="false" />
+      <Item ID="A" rank="1" name="Version 3" Completed="false">
+        <Item ID="A" rank="2" name="Major" Completed="true" />
+        <Item ID="B" rank="2" name="Minor" Completed="false">
+          <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
+          <Item ID="B" rank="3" name="Email accessibility" Completed="false" />
+          <Item ID="C" rank="3" name="Dynamically edit this list" Completed="false" />
+          <Item ID="D" rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
+          <Item ID="E" rank="3" name="private Alias" Completed="false" />
         </Item>
-        <Item rank="2" name="Bug/Patch" Completed="true" />
+        <Item ID="A" rank="2" name="Bug/Patch" Completed="true" />
       </Item>
     </List>
   </Lists>

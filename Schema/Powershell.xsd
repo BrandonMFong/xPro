@@ -345,6 +345,7 @@
             <xs:attribute name="rank" type="xs:int" use="mandatory"/>
             <xs:attribute name="name" type="xs:string" use="mandatory"/>
             <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
+            <xs:attribute name="ID" type="xs:string" use="optional"/>
             <xs:group ref="TodoList"/>
         </xs:element>
     </xs:group>

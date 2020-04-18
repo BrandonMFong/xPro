@@ -8,7 +8,7 @@
 .Example
 
 .Notes
-    TODO finish calendar class with displaying special days
+    
 #>
 param([string]$month,[switch]$Current,[switch]$SpecialDays)
 
@@ -16,9 +16,9 @@ Push-Location $PSScriptRoot;
     Import-Module ..\Modules\FunctionModules.psm1;
     $var = $(GetObjectByClass('Calendar'));
 
-    if($Current)
+    if($SpecialDays)
     {
-        $var.GetCalendarMonth();
+        $var.SpecialDays();
     }
     else 
     {

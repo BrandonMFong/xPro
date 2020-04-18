@@ -1,6 +1,6 @@
 declare @ID int = 
 (
-	select max(id)+1
+	select count(id)+1
 	from typecontent
 )
 begin transaction

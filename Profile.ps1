@@ -10,8 +10,7 @@ $ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.
 [XML]$XMLReader = Get-Content $ConfigFile
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1;
-    Import-Module .\Modules\Prompt.psm1;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
@@ -27,11 +26,11 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        Invoke-Expression $($AppPointer.Machine.GitRepoDir + $XMLReader.Machine.StartScript.InnerXML)
+        if($XMLReader.Machine.StartScript.Enable -eq "true") {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
 
     try 
     {
-        Write-Host "Version - $(git describe --tags) `n" -ForegroundColor Gray;
+        Write-Host "`nVersion - $(git describe --tags) `n" -ForegroundColor Gray;
     }
     catch 
     {

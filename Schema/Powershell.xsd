@@ -4,11 +4,23 @@
 
 <xs:element name="Machine">
     <xs:attribute name="MachineName"/>
-    <xs:element name="StartScript">
+    <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+            <xs:documentation>
+                Full path to the powershell script.  This will execute after profile is loaded
+            </xs:documentation>
+        </xs:annotation>
         <xs:attribute name="ClearHost" type="boolean" use="mandatory">
             <xs:annotation>
                 <xs:documentation>
                     Default is false.  Suggest to keep it false for debug.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Enable" type="boolean" use="mandatory">
+            <xs:annotation>
+                <xs:documentation>
+                    If user wants the profile.ps1 to execute a script after it's done.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -32,6 +44,20 @@
             <xs:annotation>
                 <xs:documentation>
                     Default is hh:mm:ss.  Uses powershell datetime formatting
+                </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
+            <xs:attribute name="Enabled" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        Toggle notification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:annotation>
+                <xs:documentation>
+                    The value will change the prompt on the command line to red if your battery life falls below that value
                 </xs:documentation>
             </xs:annotation>
         </xs:element>
@@ -136,23 +162,57 @@
     </xs:group>
     
     <xs:group name="ListClass">
-        <xs:element name="Title" minOccurs="1">
-            <xs:annotation>
-                <xs:documentation>
-                    The Title of the list you defined in your config
-                </xs:documentation>
-            </xs:annotation>
+        <xs:element name="List" maxOccurs="1">
+            <xs:element name="Title" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Title of the list you defined in your config
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Redirect" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Provide FULL file path if you are pointing to another xml file for your list.  
+                        Note the config layout for the for the redirected list should be the same as this schema instructs.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:element>
     </xs:group>
 
     <xs:group name="SQLClass">
-        <xs:element name="Database" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="ServerInstance" minOccurs="1" maxOccurs="1"/>
-        <xs:complexType name="Tables">
-            <xs:sequence>
-                <xs:any maxOccurs="unbounded" minOccurs="0"/>
-            </xs:sequence>
-        </xs:complexType>
+        <xs:element name="SQL" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    This is a way to alter or create a table in a local database
+                </xs:documentation>
+            </xs:annotation>
+            <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Tables">
+                <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
+                    <xs:attribute name="Name">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Name of the table you are creating
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>
+                                All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:attribute name="Name" type="xs:string" use="mandatory"/>
+                        <xs:attribute name="Type" use="mandatory"/>
+                        <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
+                        <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
+                    </xs:element>
+                </xs:element>
+            </xs:element>
+        </xs:element>
     </xs:group>
     
     <xs:group name="ClassElement">
@@ -169,7 +229,7 @@
         </xs:element>
     </xs:group>
 
-    <xs:element name="Objects">
+    <xs:element name="Objects" maxOccurs="1">
         <xs:attribute name="Database" type="xs:boolean" use="mandatory">
             <xs:annotation>
                 <xs:documentation>
@@ -255,7 +315,7 @@
         </xs:element>
     </xs:element>
     
-    <xs:group name="List">
+    <xs:group name="List" maxOccurs="1">
         <xs:element name="Item">
             <xs:annotation>
                 <xs:documentation>

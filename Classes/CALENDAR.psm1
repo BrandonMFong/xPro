@@ -87,12 +87,20 @@ class Calendar
         Pop-Location;
         foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
         {
+            if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML)))){Write-Host "***" -NoNewline;}
             Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
             Write-Host " - " -NoNewline;
-            Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan;;
+            Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan -NoNewline;
+            if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML)))){Write-Host "***";}
+            else{Write-Host "";}
         }
     }
 
+    hidden [boolean]IsSpecialDay([Day]$Day)
+    {
+        [Day]$ThisDay = [Day]::new($(Get-Date));
+        return $ThisDay.IsEqual($Day);
+    }
     hidden [string]MonthToString($MonthNum)
     {
         return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);

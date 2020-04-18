@@ -5,10 +5,18 @@ class List
     [string]$Title; # Must match the title attribute for List tag
     hidden [string]$FilePath; # The data file that will contain todo list
 
-    List($Title)
+    List([string]$Title,[string]$XMLRedirectPath)
     {
         $this.Title = $Title;
-        $this.FilePath = $($PSScriptRoot.ToString() + '\..\Config\BRANDONMFONG.xml');
+        if([string]::IsNullOrEmpty($XMLRedirectPath)) # if using user config
+        {
+            [string]$File = (Get-Variable 'AppPointer').Value.Machine.ConfigFile; 
+            $this.FilePath = ($PSScriptRoot + '\..\Config\' + $File);
+        }
+        else # if you're using another config
+        {
+            $this.FilePath = $XMLRedirectPath;
+        }
     }
 
     Save(){$this.xml.Save($this.FilePath);}
@@ -16,9 +24,15 @@ class List
     ListOut()
     {
         $this.LoadList();
-        Write-Host "`n$($this.Title)`n" -ForegroundColor Green;
+        Write-Host "`n[$($this.Title)]`n" -ForegroundColor Green;
         $this.GetList($this.xml.Machine.Lists);
         Write-host `n;
+    }
+
+    [void] Edit()
+    {
+        # I need to have an id for each item
+        # should it be in the config or should I dynamically allocate id for item
     }
 
     hidden LoadList()
@@ -41,7 +55,7 @@ class List
             $x = [Item]::new($item)
             [string]$tab = "";
             for($i=0;$i -lt $x.Rank();$i++){$tab = $tab + "  ";}
-            if($x.Completed -eq "true")
+            if($x.Completed)
             {
                 Write-Host "$($tab)$($x.String())" -ForegroundColor Green;
             }

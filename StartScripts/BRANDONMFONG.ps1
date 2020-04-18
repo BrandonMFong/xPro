@@ -1,9 +1,22 @@
-
+Param([switch]$ClearScreen)
+if($ClearScreen){Clear-Host;}
+Import-Module ($PSScriptRoot + "\StartMods\BRANDONMFONG.psm1")
+Greetings;
 Write-Host "`n";
-$Hour = (Get-Date).Hour;
-If ($Hour -lt 12) {"`n`nGood Morning Brandon`n"}
-ElseIf ($Hour -gt 17) {"Good Eventing Brandon`n"}
-Else {"Good Afternoon Brandon`n"}
-Get-Weather -Today -Area "San Diego"
+# Get-Weather -Today -Area "San Diego"
 $Calendar.GetCalendarMonth();
-$GithubRoadMap.ListOut();
+Write-Host "`n[Special Days]" -ForegroundColor Green;
+$Calendar.SpecialDays();
+$x = 
+@{
+    Monday = $MonList;
+    Tuesday = $TueList;
+    Wednesday = $WedList;
+    Thursday = $ThuList;
+    Friday = $FriList;
+    Saturday = $SatList;
+    Sunday = $SunList
+} 
+New-Variable -Name "Todo" -Value $x -Scope Global -Force;
+WeekList -Today;
+

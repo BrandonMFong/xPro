@@ -1,3 +1,90 @@
+
+
+Version 1.20.1 changes:
+    - Private directory method didn't take into account the push-location cmdlet
+
+Version 1.20.0 changes:
+    - Adding private directory in Config-Editor
+
+Version 1.19.0 changes:
+    - Introducing Volume function  
+        - Mute
+        - dial up and down
+        - unmute
+        - Adjust to a specific value
+
+Version 1.18.0 changes:
+    - Adding admin start to misc.psm1
+
+Version 1.17.0 changes:
+    - Adding Open-Clock to misc.psm1 module functions 
+
+Version 1.16.1 changes:
+    - Simplify if statement in list.psm1
+
+Version 1.16.0 changes:
+    - Specialday will be appended with '***' if current day is the special day
+
+Version 1.15.2 changes:
+    - Fixed bug in Test method for Archive.ps1 
+
+Version 1.15.0 changes:
+    - Battery life notification on the command line
+
+Version 1.14.0 changes:
+    - Email needs to be tested but the object is coded 
+        - As of now it only has the ListInbox() method 
+        - There is bound to be improvements 
+
+Version 1.13.0 changes:
+    - SQL Configuration
+        - Add columns or create a table with an xml file 
+
+Version 1.12.0 changes:
+    - Moved List-Directory and add directory methods to modules 
+        - first step in creating config handler methods for command line editor
+
+Version 1.11.0 changes:
+    - Adding an option for the list object to read another xml document
+        - New tag used: <Redirect>
+        - Must provide FULL file path
+
+Version 1.10.1 changes:
+    - Adding math functions
+        - Message Entropy for image compression
+    - Removed new line from weather function 
+
+Version 1.10.0 changes:
+    - Init email methods
+
+Version 1.9.1 changes:
+    - reference to AppPointer in List class
+
+Version 1.9.0 changes:
+    - Start Script config must have full path to powershell Script
+
+Version 1.8.0 changes:
+    - Special days added to Calendar.ps1
+
+Version 1.7.1 changes:
+    - Error in loading objects when nodes are indexes away in config
+
+Version 1.7.0 changes:
+    - SQL.psm1
+        - Automatically sets guid value for insertinto() method if there is a type uniqueidentifier column
+
+Version 1.6.0 changes:
+    - Calendar.psm1
+        - List config
+
+Version 1.5.3 changes:
+    - Calendar.psm1
+        - Put.ps1 evaluates private directoy
+
+Version 1.5.2 changes:
+    - Calendar.psm1
+        - Deleting Windows.psm1 and moving methods to Miscellaneous.psm1
+
 Version 1.5.1 changes:
     - Calendar.psm1
         - Listing Special Days are now color coded
@@ -8,3 +95,8 @@ Version 1.5.0 changes:
 Version 1.4.8 changes:
     - Archive.ps1 
         - appends version number to files that already exist in archive directory
+
+Version 1.0.0
+    - Enable Privacy in config
+        - Must have Sql Server
+    - List Class Finished

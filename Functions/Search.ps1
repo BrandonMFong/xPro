@@ -12,7 +12,7 @@
 #>
 param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
 Push-Location $PSScriptRoot;
-    Import-Module ..\Modules\FunctionModules.psm1;
+    # Import-Module ..\Modules\FunctionModules.psm1;
     $var = $(GetObjectByClass('Web'));
 
     if($Google)

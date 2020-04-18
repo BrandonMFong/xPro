@@ -27,7 +27,7 @@ if($Zip)
                 ForEach-Object{Move-Item $_ $filename;}
         $ZipName = $filename + '.zip';
         Compress-Archive $filename $ZipName;
-        Remove-Item $filename   ;
+        Remove-Item $filename;
         exit;
     }
     else

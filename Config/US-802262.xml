@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript ClearHost="false">\StartScripts\US-802262.ps1</StartScript>
+  <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <Prompt>
     <DateFormat>MM/dd/yyy</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
-    <String Color="Green">[Kiran - @time, @date] @currdir&gt;</String>
+    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
+    <String Color="Cyan">[Kiran - @time, @date] @currdir&gt;_</String>
   </Prompt>
+  <Calendar>
+    <SpecialDays>
+      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
+    </SpecialDays>
+  </Calendar>
+  <Modules>
+    <Module>\Modules\Miscellaneous.psm1</Module>
+    <Module>\Modules\Prompt.psm1</Module>
+    <Module>\StartScripts\StartMods\US-802262.psm1</Module>
+  </Modules>
   <!-- Directory paths -->
   <Directories>
     <Directory alias="main" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong</Directory>
@@ -54,132 +65,56 @@
     <Directory alias="cc50" SecurityType="private">a67217f2-d4f7-4fbc-b52e-7a0ca90244d0</Directory>
     <Directory alias="queries" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SQL\Queryto</Directory>
     <Directory alias="imp" SecurityType="private">b5139669-047d-492a-a58c-eea29788c4ba</Directory>
+    <Directory alias="cc41" SecurityType="private">732c5066-7d04-45b9-9f6c-7d63bef35bf9</Directory>
   </Directories>
+  <!-- Programs to call exectuables, scripts, etc -->
+  <Programs>
+    <!-- Third Party Programs -->
+    <Program Alias="Outlook" Type="External">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
+    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="Excel" Type="External">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Program>
+    <Program Alias="Sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\Ssms.exe</Program>
+    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
+    <Program Alias="Remote" Type="External">C:\Program Files\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="Vim" Type="External">C:\Program Files (x86)\Vim\vim81\vim.exe</Program>
+    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="Adobe" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Acrobat Reader DC.lnk</Program>
+    <Program Alias="Global" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
+    <Program Alias="Snip" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool.lnk</Program>
+    <Program Alias="Webex" Type="External">C:\Users\brandon.fong\AppData\Local\WebEx\WebEx\Applications\ptoneclk.exe</Program>
+    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="Spotify" Type="External">C:\Users\brandon.fong\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk</Program>
+    <Program Alias="FileZilla" Type="External">C:\Program Files (x86)\FileZilla Server\FileZilla Server Interface.exe</Program>
+    <Program Alias="IS" Type="External">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Cloudcords_5.2\IntegrationServices\IntegrationServices.sln</Program>
+    <Program Alias="Papercut" Type="External">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
+    <Program Alias="subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
+    <Program Alias="citrix" Type="External">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
+    <Program Alias="Tix" Type="External">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
+    <Program Alias="vc" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+    <Program Alias="WinSCP" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
+    <Program Alias="IIS" Type="External">C:\Program Files\IIS Express\iisexpress.exe</Program>
+    <Program Alias="Cisco" Type="External">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
+    <!-- User Defined -->
+    <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
+    <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
+    <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
+    <Program Alias="List-Bank" Type="Internal">\Functions\ListBank.ps1</Program>
+    <Program Alias="Time" Type="Internal">\Functions\TIME.ps1</Program>
+    <Program Alias="Ticket" Type="Internal">\Functions\KiranTickets.ps1</Program>
+    <Program Alias="BankUrl" Type="Internal">\Functions\BANKURL.ps1</Program>
+    <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
+    <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
+    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
+    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
+    <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
+    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
+    <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
+    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
+    <Program Alias="Get-Email" Type="Internal">\Functions\Email.ps1</Program>
+  </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
-    <!-- $User -->
-    <Object Type="HashTable">
-      <VarName SecurityType="public">User</VarName>
-      <Key Lvl="0" SecurityType="public">Name</Key>
-      <Value Lvl="0" SecurityType="private">EED5A3CB-FB2B-4E81-8B99-A0EA10FDE10D</Value>
-      <Key Lvl="0" SecurityType="public">Printers</Key>
-      <Value Lvl="0" SecurityType="private">517F45BE-42BA-4C2E-824B-9E781B9EEF24</Value>
-      <!--Links-->
-      <Key Lvl="0" SecurityType="public">Gmail</Key>
-      <Value Lvl="0" SecurityType="public">http://mail.google.com</Value>
-      <Key Lvl="0" SecurityType="public">Youtube</Key>
-      <Value Lvl="0" SecurityType="public">http://youtube.com</Value>
-      <Key Lvl="0" SecurityType="public">GoogleSearch</Key>
-      <Value Lvl="0" SecurityType="public">google.com/search?q=</Value>
-      <Key Lvl="0" SecurityType="private">5DDB4D57-A3E1-47E7-B6B9-E5A2C5E06BC4</Key>
-      <Value Lvl="0" SecurityType="private">8E4A7183-7C7A-4D0B-B598-6181F2792E77</Value>
-      <Key Lvl="0" SecurityType="public">Office</Key>
-      <Value Lvl="0" SecurityType="public">https://Office.com</Value>
-      <Key Lvl="0" SecurityType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
-      <Value Lvl="0" SecurityType="private">23DECC59-AB10-439F-A90F-437E73BA1E9C</Value>
-      <Key Lvl="0" SecurityType="public">Netflix</Key>
-      <Value Lvl="0" SecurityType="public">https://Netflix.com/</Value>
-      <Key Lvl="0" SecurityType="private">129478C9-061C-453B-A702-04DA38BC2ABD</Key>
-      <Value Lvl="0" SecurityType="private">7359B9AD-EC01-42D9-94D7-0B6465FA424F</Value>
-      <Key Lvl="0" SecurityType="private">EF611AF8-22DB-45CD-93A1-70E3E46B2548</Key>
-      <Value Lvl="0" SecurityType="private">05F1259B-814A-43E1-BBAD-A57C43C2B57C</Value>
-      <Key Lvl="0" SecurityType="private">8ED8F528-0EFD-47A8-A7D2-661EAF114EE8</Key>
-      <Value Lvl="0" SecurityType="private">0A4612E8-4C62-46CF-97B8-3C822D1C8B6D</Value>
-      <!--78AB3994-CE13-41E3-9D61-C7B7993648EA-->
-      <Key Lvl="0" SecurityType="private">78AB3994-CE13-41E3-9D61-C7B7993648EA</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="e2fb" />
-      <Key Lvl="1" Node="e2fb" SecurityType="public">URL</Key>
-      <Value Lvl="1" Node="e2fb" SecurityType="private">3B27ABE6-8A04-4496-A4FC-A8D40E2B5CF3</Value>
-      <!--CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2-->
-      <Key Lvl="0" SecurityType="private">CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="8309" />
-      <Key Lvl="1" Node="8309" SecurityType="public">ContactNumbers</Key>
-      <Value Lvl="1" Node="8309" SecurityType="private">A8D5667C-7C2D-4CB6-8A5A-FB5CA799163A</Value>
-      <Key Lvl="1" Node="8309" SecurityType="public">TicketSystem</Key>
-      <Value Lvl="1" Node="8309" SecurityType="private">B8A2FCB6-C4EB-46CB-B7DD-ED7E7AF3B6C8</Value>
-      <!--Sharepoint-->
-      <Key Lvl="0" SecurityType="public">Sharepoint</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="528B" />
-      <Key Lvl="1" Node="528B" SecurityType="public">Main</Key>
-      <Value Lvl="1" Node="528B" SecurityType="private">9C08AA02-7491-428A-9AEC-BB50D24EE4A3</Value>
-      <Key Lvl="1" Node="528B" SecurityType="public">Calendar</Key>
-      <Value Lvl="1" Node="528B" SecurityType="public">Pending</Value>
-      <!--ADP-->
-      <Key Lvl="0" SecurityType="public">ADP</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="26F7" />
-      <Key Lvl="1" Node="26F7" SecurityType="public">URL</Key>
-      <Value Lvl="1" Node="26F7" SecurityType="private">83BB5146-2126-4DAF-B346-53EFAF0B6472</Value>
-      <Key Lvl="1" Node="26F7" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="26F7" SecurityType="private">117EB965-7885-4871-B3ED-7A80C895D53F</Value>
-      <Key Lvl="1" Node="26F7" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="26F7" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
-      <!--F2C7F315-7EAC-4DF1-BF6E-28726EE6876D-->
-      <Key Lvl="0" SecurityType="private">F2C7F315-7EAC-4DF1-BF6E-28726EE6876D</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="ec3b" />
-      <Key Lvl="1" Node="ec3b" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
-      <Value Lvl="1" Node="ec3b" SecurityType="private">60E7C633-9D86-4887-9A53-DE19096B2A97</Value>
-      <Key Lvl="1" Node="ec3b" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="ec3b" SecurityType="private">31CF0B65-3314-4192-A706-8E8CDCEFE4F5</Value>
-      <Key Lvl="1" Node="ec3b" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="ec3b" SecurityType="private">AA64949F-C610-40CE-8632-02B84680F4CA</Value>
-      <!--D0AF8125-D3F1-4A20-8F12-6D5EAC620E90-->
-      <Key Lvl="0" SecurityType="private">D0AF8125-D3F1-4A20-8F12-6D5EAC620E90</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="4066" />
-      <Key Lvl="1" Node="4066" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
-      <Value Lvl="1" Node="4066" SecurityType="private">D17BC42B-90AC-4066-8BE1-27489677BC7B</Value>
-      <Key Lvl="1" Node="4066" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="4066" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
-      <Key Lvl="1" Node="4066" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="4066" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <!--1C00A17C-6A84-43DF-976D-DEED2254635C-->
-      <Key Lvl="0" SecurityType="private">1C00A17C-6A84-43DF-976D-DEED2254635C</Key>
-      <Value Lvl="0" SecurityType="public" NodePointer="3C9D" />
-      <Key Lvl="1" Node="3C9D" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
-      <Value Lvl="1" Node="3C9D" SecurityType="private">9fa6bb42-35de-442b-a6f4-45ddd38fdb52</Value>
-      <Key Lvl="1" Node="3C9D" SecurityType="public">Username</Key>
-      <Value Lvl="1" Node="3C9D" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
-      <Key Lvl="1" Node="3C9D" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="3C9D" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <!--8b74cd6b-def9-4413-ade9-fe9ffed4318f-->
-      <Key Lvl="0" SecurityType="private">8b74cd6b-def9-4413-ade9-fe9ffed4318f</Key>
-      <Value Lvl="0" SecurityType="private">f64b8a2c-9309-4cf0-bb79-e2a84db49298</Value>
-    </Object>
-    <!-- $Passwords -->
-    <Object Type="HashTable">
-      <VarName SecurityType="public">Passwords</VarName>
-      <Key Lvl="0" SecurityType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
-      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <Key Lvl="0" SecurityType="public">GlobalProtect</Key>
-      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <Key Lvl="0" SecurityType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
-      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <Key Lvl="0" SecurityType="private">C20E458A-5F13-4CB6-959B-C4349894851C</Key>
-      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
-      <Key Lvl="0" SecurityType="private">1719EB95-FC38-4623-AD70-59AA0EE4DCB8</Key>
-      <Value Lvl="0" SecurityType="private">85B81005-7676-45E2-8602-1F307853EEEA</Value>
-      <Key Lvl="0" SecurityType="private">87712B6D-76C3-4504-95E6-24E0E0B9CA88</Key>
-      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
-      <Key Lvl="0" SecurityType="public">ADP</Key>
-      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
-      <Key Lvl="0" SecurityType="private">0A6C82D5-26AA-4450-B7CC-04F643DF5BBB</Key>
-      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
-      <Key Lvl="0" SecurityType="private">6BFA3325-3C2E-421C-BFAB-7C93FB2A9B18</Key>
-      <Value Lvl="0" SecurityType="private">2fdc967a-175a-4174-bef1-f739b9109bfb</Value>
-      <Key Lvl="0" SecurityType="public">PersonalHotspot</Key>
-      <Value Lvl="0" SecurityType="private">221ba8a4-5f5d-41ac-8c61-ad77a468b3e4</Value>
-      <Key Lvl="0" SecurityType="private">5DDB4D57-A3E1-47E7-B6B9-E5A2C5E06BC4</Key>
-      <Value Lvl="0" SecurityType="private">85B81005-7676-45E2-8602-1F307853EEEA</Value>
-    </Object>
-    <!-- $Tokens -->
-    <Object Type="HashTable">
-      <VarName SecurityType="public">Tokens</VarName>
-      <Key Lvl="0" SecurityType="public">Alarm</Key>
-      <Value Lvl="0" SecurityType="private">D40D925A-1511-4A07-B47D-703BD5ECDBBA</Value>
-      <Key Lvl="0" SecurityType="private">129478C9-061C-453B-A702-04DA38BC2ABD</Key>
-      <Value Lvl="0" SecurityType="private">02EB3BFF-3941-4941-8508-95552208E2EB</Value>
-      <Key Lvl="0" SecurityType="public">Personal</Key>
-      <Value Lvl="0" SecurityType="private">853D8FE4-664F-4993-8407-A8DA4CCE8999</Value>
-    </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Web</VarName>
@@ -198,8 +133,18 @@
           <Database>Kiran</Database>
           <ServerInstance>US-802262</ServerInstance>
           <Tables>
-            <PersonalInfo>PersonalInfo</PersonalInfo>
-            <TypeContent>TypeContent</TypeContent>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+            </Table>
           </Tables>
         </SQL>
       </Class>
@@ -213,6 +158,11 @@
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
+    </Object>
+    <!-- $Email -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Email</VarName>
+      <Class ClassName="Email" HasParams="false" />
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
     <Object ID="69" Type="HashTable">
@@ -760,57 +710,128 @@
       <Key Lvl="1" Node="8219" SecurityType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
       <Value Lvl="1" Node="8219" SecurityType="private">1428b93d-6231-468c-922f-b794cbc046b7</Value>
     </Object>
+    <!-- $User -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">User</VarName>
+      <Key Lvl="0" SecurityType="public">Name</Key>
+      <Value Lvl="0" SecurityType="private">EED5A3CB-FB2B-4E81-8B99-A0EA10FDE10D</Value>
+      <Key Lvl="0" SecurityType="public">Printers</Key>
+      <Value Lvl="0" SecurityType="private">517F45BE-42BA-4C2E-824B-9E781B9EEF24</Value>
+      <!--Links-->
+      <Key Lvl="0" SecurityType="public">Gmail</Key>
+      <Value Lvl="0" SecurityType="public">http://mail.google.com</Value>
+      <Key Lvl="0" SecurityType="public">Youtube</Key>
+      <Value Lvl="0" SecurityType="public">http://youtube.com</Value>
+      <Key Lvl="0" SecurityType="public">GoogleSearch</Key>
+      <Value Lvl="0" SecurityType="public">google.com/search?q=</Value>
+      <Key Lvl="0" SecurityType="private">5DDB4D57-A3E1-47E7-B6B9-E5A2C5E06BC4</Key>
+      <Value Lvl="0" SecurityType="private">8E4A7183-7C7A-4D0B-B598-6181F2792E77</Value>
+      <Key Lvl="0" SecurityType="public">Office</Key>
+      <Value Lvl="0" SecurityType="public">https://Office.com</Value>
+      <Key Lvl="0" SecurityType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
+      <Value Lvl="0" SecurityType="private">23DECC59-AB10-439F-A90F-437E73BA1E9C</Value>
+      <Key Lvl="0" SecurityType="public">Netflix</Key>
+      <Value Lvl="0" SecurityType="public">https://Netflix.com/</Value>
+      <Key Lvl="0" SecurityType="private">129478C9-061C-453B-A702-04DA38BC2ABD</Key>
+      <Value Lvl="0" SecurityType="private">7359B9AD-EC01-42D9-94D7-0B6465FA424F</Value>
+      <Key Lvl="0" SecurityType="private">EF611AF8-22DB-45CD-93A1-70E3E46B2548</Key>
+      <Value Lvl="0" SecurityType="private">05F1259B-814A-43E1-BBAD-A57C43C2B57C</Value>
+      <Key Lvl="0" SecurityType="private">8ED8F528-0EFD-47A8-A7D2-661EAF114EE8</Key>
+      <Value Lvl="0" SecurityType="private">0A4612E8-4C62-46CF-97B8-3C822D1C8B6D</Value>
+      <!--78AB3994-CE13-41E3-9D61-C7B7993648EA-->
+      <Key Lvl="0" SecurityType="private">78AB3994-CE13-41E3-9D61-C7B7993648EA</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="e2fb" />
+      <Key Lvl="1" Node="e2fb" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="e2fb" SecurityType="private">3B27ABE6-8A04-4496-A4FC-A8D40E2B5CF3</Value>
+      <!--CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2-->
+      <Key Lvl="0" SecurityType="private">CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="8309" />
+      <Key Lvl="1" Node="8309" SecurityType="public">ContactNumbers</Key>
+      <Value Lvl="1" Node="8309" SecurityType="private">A8D5667C-7C2D-4CB6-8A5A-FB5CA799163A</Value>
+      <Key Lvl="1" Node="8309" SecurityType="public">TicketSystem</Key>
+      <Value Lvl="1" Node="8309" SecurityType="private">B8A2FCB6-C4EB-46CB-B7DD-ED7E7AF3B6C8</Value>
+      <!--Sharepoint-->
+      <Key Lvl="0" SecurityType="public">Sharepoint</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="528B" />
+      <Key Lvl="1" Node="528B" SecurityType="public">Main</Key>
+      <Value Lvl="1" Node="528B" SecurityType="private">9C08AA02-7491-428A-9AEC-BB50D24EE4A3</Value>
+      <Key Lvl="1" Node="528B" SecurityType="public">Calendar</Key>
+      <Value Lvl="1" Node="528B" SecurityType="public">Pending</Value>
+      <!--ADP-->
+      <Key Lvl="0" SecurityType="public">ADP</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="26F7" />
+      <Key Lvl="1" Node="26F7" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="26F7" SecurityType="private">83BB5146-2126-4DAF-B346-53EFAF0B6472</Value>
+      <Key Lvl="1" Node="26F7" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="26F7" SecurityType="private">117EB965-7885-4871-B3ED-7A80C895D53F</Value>
+      <Key Lvl="1" Node="26F7" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="26F7" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
+      <!--F2C7F315-7EAC-4DF1-BF6E-28726EE6876D-->
+      <Key Lvl="0" SecurityType="private">F2C7F315-7EAC-4DF1-BF6E-28726EE6876D</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="ec3b" />
+      <Key Lvl="1" Node="ec3b" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
+      <Value Lvl="1" Node="ec3b" SecurityType="private">60E7C633-9D86-4887-9A53-DE19096B2A97</Value>
+      <Key Lvl="1" Node="ec3b" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="ec3b" SecurityType="private">31CF0B65-3314-4192-A706-8E8CDCEFE4F5</Value>
+      <Key Lvl="1" Node="ec3b" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="ec3b" SecurityType="private">AA64949F-C610-40CE-8632-02B84680F4CA</Value>
+      <!--D0AF8125-D3F1-4A20-8F12-6D5EAC620E90-->
+      <Key Lvl="0" SecurityType="private">D0AF8125-D3F1-4A20-8F12-6D5EAC620E90</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="4066" />
+      <Key Lvl="1" Node="4066" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
+      <Value Lvl="1" Node="4066" SecurityType="private">D17BC42B-90AC-4066-8BE1-27489677BC7B</Value>
+      <Key Lvl="1" Node="4066" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="4066" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
+      <Key Lvl="1" Node="4066" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="4066" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <!--1C00A17C-6A84-43DF-976D-DEED2254635C-->
+      <Key Lvl="0" SecurityType="private">1C00A17C-6A84-43DF-976D-DEED2254635C</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="3C9D" />
+      <Key Lvl="1" Node="3C9D" SecurityType="private">1BD22299-3C9D-4009-BCDA-38413F807FD9</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">9fa6bb42-35de-442b-a6f4-45ddd38fdb52</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Username</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">C0AD8D36-9B6F-434A-978D-F67AA3AC8E45</Value>
+      <Key Lvl="1" Node="3C9D" SecurityType="public">Password</Key>
+      <Value Lvl="1" Node="3C9D" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <!--8b74cd6b-def9-4413-ade9-fe9ffed4318f-->
+      <Key Lvl="0" SecurityType="private">8b74cd6b-def9-4413-ade9-fe9ffed4318f</Key>
+      <Value Lvl="0" SecurityType="private">f64b8a2c-9309-4cf0-bb79-e2a84db49298</Value>
+    </Object>
+    <!-- $Passwords -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Passwords</VarName>
+      <Key Lvl="0" SecurityType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
+      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Key Lvl="0" SecurityType="public">GlobalProtect</Key>
+      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Key Lvl="0" SecurityType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
+      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Key Lvl="0" SecurityType="private">C20E458A-5F13-4CB6-959B-C4349894851C</Key>
+      <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Key Lvl="0" SecurityType="private">1719EB95-FC38-4623-AD70-59AA0EE4DCB8</Key>
+      <Value Lvl="0" SecurityType="private">85B81005-7676-45E2-8602-1F307853EEEA</Value>
+      <Key Lvl="0" SecurityType="private">87712B6D-76C3-4504-95E6-24E0E0B9CA88</Key>
+      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
+      <Key Lvl="0" SecurityType="public">ADP</Key>
+      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
+      <Key Lvl="0" SecurityType="private">0A6C82D5-26AA-4450-B7CC-04F643DF5BBB</Key>
+      <Value Lvl="0" SecurityType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
+      <Key Lvl="0" SecurityType="private">6BFA3325-3C2E-421C-BFAB-7C93FB2A9B18</Key>
+      <Value Lvl="0" SecurityType="private">2fdc967a-175a-4174-bef1-f739b9109bfb</Value>
+      <Key Lvl="0" SecurityType="public">PersonalHotspot</Key>
+      <Value Lvl="0" SecurityType="private">221ba8a4-5f5d-41ac-8c61-ad77a468b3e4</Value>
+      <Key Lvl="0" SecurityType="private">5DDB4D57-A3E1-47E7-B6B9-E5A2C5E06BC4</Key>
+      <Value Lvl="0" SecurityType="private">85B81005-7676-45E2-8602-1F307853EEEA</Value>
+    </Object>
+    <!-- $Tokens -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Tokens</VarName>
+      <Key Lvl="0" SecurityType="public">Alarm</Key>
+      <Value Lvl="0" SecurityType="private">D40D925A-1511-4A07-B47D-703BD5ECDBBA</Value>
+      <Key Lvl="0" SecurityType="private">129478C9-061C-453B-A702-04DA38BC2ABD</Key>
+      <Value Lvl="0" SecurityType="private">02EB3BFF-3941-4941-8508-95552208E2EB</Value>
+      <Key Lvl="0" SecurityType="public">Personal</Key>
+      <Value Lvl="0" SecurityType="private">853D8FE4-664F-4993-8407-A8DA4CCE8999</Value>
+    </Object>
   </Objects>
-  <!-- Programs to call exectuables, scripts, etc -->
-  <Programs>
-    <!-- Third Party Programs -->
-    <Program Alias="Outlook" Type="External">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
-    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-    <Program Alias="Excel" Type="External">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Program>
-    <Program Alias="Sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\Ssms.exe</Program>
-    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
-    <Program Alias="Remote" Type="External">C:\Program Files\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
-    <Program Alias="Vim" Type="External">C:\Program Files (x86)\Vim\vim81\vim.exe</Program>
-    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
-    <Program Alias="Adobe" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Acrobat Reader DC.lnk</Program>
-    <Program Alias="Global" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
-    <Program Alias="Snip" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool.lnk</Program>
-    <Program Alias="Webex" Type="External">C:\Users\brandon.fong\AppData\Local\WebEx\WebEx\Applications\ptoneclk.exe</Program>
-    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
-    <Program Alias="Spotify" Type="External">C:\Users\brandon.fong\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk</Program>
-    <Program Alias="FileZilla" Type="External">C:\Program Files (x86)\FileZilla Server\FileZilla Server Interface.exe</Program>
-    <Program Alias="IS" Type="External">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Cloudcords_5.2\IntegrationServices\IntegrationServices.sln</Program>
-    <Program Alias="Papercut" Type="External">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
-    <Program Alias="subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
-    <Program Alias="citrix" Type="External">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
-    <Program Alias="Tix" Type="External">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
-    <Program Alias="vc" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="WinSCP" Type="External">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
-    <Program Alias="IIS" Type="External">C:\Program Files\IIS Express\iisexpress.exe</Program>
-    <!-- User Defined -->
-    <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
-    <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
-    <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-    <Program Alias="List-Bank" Type="Internal">\Functions\ListBank.ps1</Program>
-    <Program Alias="Time" Type="Internal">\Functions\TIME.ps1</Program>
-    <Program Alias="Ticket" Type="Internal">\Functions\KiranTickets.ps1</Program>
-    <Program Alias="BankUrl" Type="Internal">\Functions\BANKURL.ps1</Program>
-    <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
-    <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
-    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
-    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
-    <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
-    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
-    <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
-    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
-  </Programs>
-  <Modules>
-    <Module>\Modules\Miscellaneous.psm1</Module>
-  </Modules>
-  <Calendar>
-    <SpecialDays>
-      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
-    </SpecialDays>
-  </Calendar>
 </Machine>

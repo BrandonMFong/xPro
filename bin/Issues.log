@@ -1,4 +1,72 @@
+
+Issue: Private directory jumps to modules dir and inserts that directory into the db
+    Fix Commit: 640655b
+    Branch: NA
+    Status: Closed
+    Notes: Used location inside the push-location nest
+    Post: Using $PathToAdd var 
+
+Issue: Email does not work.  It lags at start up
+    Fix Commit: 
+    Branch: 
+    Status: Open
+    Notes:
+    Post:
+
+Issue: Everytime we add a column to a table, we need to manual do that to all dbs
+    Fix Commit: 81917b0
+    Branch: major-feature-SetupTablesWithConfig 
+    Status: Closed
+    Notes:
+        - Config should describe necessary tables for that class object
+            - Config should be define under the object
+        - Using info schema to see if table exists
+            - if table doesn't exist, then you are going to make the columns too (sql server syntax)
+        - Finished the code but I am worried my data will be compromised in the code
+            - there is no drop or delete queries.  I think it's safe to say that my data wont get lost.  I will back up just in case
+    Post:
+        - Everything under the <sql> tag will be considered in the queries.  
+        - Only adds or creates columns/tables.  No deletion.  
+            - Should not have deletions just in case of config errors and risk of lost data
+
+Issue: Get-Weather takes a long time to execute 
+    Status: Open 
+    Fix Commit:
+    Branch:
+    Notes:
+        - How do you time a function in powershell?
+
+Issue: List edit config 
+    Status: Closed 
+    Fix Commit: b3cb298
+    Branch: feature-PointToOtherXMLOption
+    Notes:
+        - I have to push my config everytime I edit my list 
+        - Make a redirect capability to look at another xml file 
+        - Changing config
+            - Adding a new param in List object config 
+        - Test runs
+            - Trial 1
+                - Redirect worked for lists that are redirecting
+                - This affects the lists that are not redirecting
+                - Adding [string]::isnullorempty()
+            - Trial 2
+                - Success
+                - Properly compared null value
+
+Issue: HashTable Type Bug
+    Status: Closed
+    Fix Commit: ebfd70f 
+    Branch: bug-HashTable 
+    Notes:
+        - I don't think the FindInterval function finds the correct interval
+        - The $u variable was only incrementing when there was another node found
+            - it does not consider that the node is indexes away
+    Post:
+        - This was a quick fix that needed a code change for the FindInterval method
+
 Issue: Archive errors out when there is a an item with the same name
+    Status: Closed
     Fix Commit: 9ae7db7 
     Notes:
         - Maybe write an exception error 

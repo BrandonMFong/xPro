@@ -1,4 +1,5 @@
 # Functions that are often used on the command line
+Import-Module $($PSScriptRoot +  '\FunctionModules.psm1') -DisableNameChecking -Scope Local;
 
 function Hop 
 {
@@ -123,47 +124,11 @@ function Config-Editor
 {
     Param
     (
-        [switch]$AddDirectory
+        [switch]$AddDirectory,
+        [string]$AddProgram=$null
     )
-    if($AddDirectory)
-    {
-        $PathToAdd = (Get-Location).path; # Get the directory you are adding
-        Push-Location $PSScriptRoot;
-            $add = $(Get-Variable 'XMLReader').Value.CreateElement("Directory"); 
-
-            $Alias = Read-Host -Prompt "Set Alias";
-            $add.SetAttribute("alias", $Alias);
-
-            $Security = Read-Host -Prompt "Is this private? (y/n)?";
-            if($Security -eq "y")
-            {
-                $add.SetAttribute("SecurityType", "private");
-                
-                $insert = GetObjectByClass('SQL');
-                [int]$MaxID = $insert.GetMax('PersonalInfo');
-                [string]$GuidString = $insert.GetGuidString();
-                [string]$subject = Read-Host -Prompt "Subject?";
-                [int]$TypeContentID = ($insert.Query("select id as ID from typecontent where externalid = 'PrivateDirectory'")).ID; # id must exist
-                $querystring = "insert into PersonalInfo values ($($MaxID), $($GuidString),'$($PathToAdd)', '$($subject)', $($TypeContentID))";
-
-                Write-Host "`nQuery: " -NoNewline;Write-Host "$($querystring)`n" -foregroundcolor Cyan;
-                $insert.Query($querystring);
-
-                $Var = ($insert.Query("select guid as Guid from personalinfo where id = $($MaxID)")).Guid;
-                $add.InnerXml = $Var.Guid; # Adding guid
-            }
-            else
-            {
-                $add.SetAttribute("SecurityType", "public")
-                $add.InnerXml = $PathToAdd; # Adding literally path
-            }
-            
-            $x = $(Get-Variable 'XMLReader').Value
-            $x.Machine.Directories.AppendChild($add);
-            $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
-        Pop-Location;
-        break;
-    }
+    if($AddDirectory){InsertFromCmd -Tag "Directories" -PathToAdd $(Get-Location).Path;}
+    if(![string]::IsNullOrEmpty($AddProgram)){InsertFromCmd -Tag "Program" -PathToAdd $(GetFullFilePath($AddProgram));}
 
 }
 
@@ -295,8 +260,8 @@ function Goto
 	{
 		if($Directory.alias -eq $dir)
 		{
-			if($push){Push-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
-			else{Set-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
+			if($push){Push-Location $(Evaluate -value $Directory); $ProcessExecuted = $true;}
+			else{Set-Location $(Evaluate -value $Directory); $ProcessExecuted = $true;}
 		}
 	}
 	if(!($ProcessExecuted))
@@ -314,7 +279,7 @@ function Put
     {
         if($Directory.alias -eq $Destination)
         {
-            move-item $File $(EvaluateDir -value $Directory); $ProcessExecuted = $true;
+            move-item $File $(Evaluate -value $Directory); $ProcessExecuted = $true;
         }
     }
     if(!($ProcessExecuted))

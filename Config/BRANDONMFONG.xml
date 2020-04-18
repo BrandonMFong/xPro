@@ -10,8 +10,8 @@
   </Prompt>
   <!-- Modules -->
   <Modules>
-    <Module>\Modules\System.psm1</Module>
-    <Module>\Modules\Prompt.psm1</Module>
+    <Module>B:\Powershell\Modules\System.psm1</Module>
+    <Module>B:\Powershell\Modules\Prompt.psm1</Module>
   </Modules>
   <!-- Calendar -->
   <Calendar>
@@ -27,141 +27,117 @@
     <!-- Git Hub Roadmap - GlobalScripts -->
     <List Title="Git Hub Roadmap - GlobalScripts">
       <!-- Version 2 -->
-      <Item rank="1" name="Version 2" Completed="false">
-        <Item rank="2" name="Major" Completed="true">
-          <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true">
-            <Item rank="4" name="insert rows from config" Completed="true" />
-          </Item>
-          <Item rank="3" name="Change Setup script" Completed="true" />
-          <Item rank="3" name="Reorganize repo for optimization" Completed="true" />
-          <Item rank="3" name="Import Types" Completed="true" />
-        </Item>
+      <Item rank="1" name="Version 3" Completed="false">
+        <Item rank="2" name="Major" Completed="true" />
         <Item rank="2" name="Minor" Completed="false">
-          <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
           <Item rank="3" name="Email accessibility" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
           <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
-          <Item rank="3" name="Make a config editor" Completed="true">
-            <Item rank="4" name="Put Add directory" Completed="true" />
-            <Item rank="4" name="Put Add private directory" Completed="true" />
-          </Item>
-          <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
-          <Item rank="3" name="Weather" Completed="true" />
-          <Item rank="3" name="Prompting" Completed="true">
-            <Item rank="4" name="Adding Date Format" Completed="true" />
-            <Item rank="4" name="Adding Time Format" Completed="true" />
-          </Item>
-          <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
-          <Item rank="3" name="Point to another xml file for list if true" Completed="true" />
+          <Item rank="3" name="private Alias" Completed="false" />
         </Item>
-        <Item rank="2" name="Bug/Patch" Completed="true">
-          <Item rank="3" name="Color Code Special Days" Completed="true" />
-          <Item rank="3" name="Don't hide filepath for list objects" Completed="true" />
-        </Item>
+        <Item rank="2" name="Bug/Patch" Completed="true" />
       </Item>
     </List>
   </Lists>
   <!-- Directory paths -->
   <Directories>
-    <Directory alias="main" SecurityType="public">B:\</Directory>
-    <Directory alias="code" SecurityType="public">B:\CODE</Directory>
-    <Directory alias="col" SecurityType="public">B:\COLLEGE</Directory>
-    <Directory alias="sc1920" SecurityType="public">B:\COLLEGE\19_20</Directory>
-    <Directory alias="f19" SecurityType="public">B:\COLLEGE\19_20\Fall_19</Directory>
-    <Directory alias="compe361" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
-    <Directory alias="compe475" SecurityType="public">B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
-    <Directory alias="compe496a" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
-    <Directory alias="ee450" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
-    <Directory alias="ee420" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
-    <Directory alias="s20" SecurityType="public">B:\COLLEGE\19_20\Spring_20</Directory>
-    <Directory alias="compe565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
-    <Directory alias="ee600" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
-    <Directory alias="compe560" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
-    <Directory alias="compe496b" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_496B</Directory>
-    <Directory alias="job" SecurityType="public">B:\JOB</Directory>
-    <Directory alias="li" SecurityType="public">B:\LIFE</Directory>
-    <Directory alias="mus" SecurityType="public">B:\MUSIC</Directory>
-    <Directory alias="pers" SecurityType="public">B:\PERSONAL</Directory>
-    <Directory alias="pics" SecurityType="public">B:\PICTURES</Directory>
-    <Directory alias="rec" SecurityType="public">B:\RECYCLE</Directory>
-    <Directory alias="Pow" SecurityType="public">B:\Powershell</Directory>
-    <Directory alias="si" SecurityType="public">B:\SITES</Directory>
-    <Directory alias="bf" SecurityType="public">B:\SITES\BrandonFongMusic</Directory>
-    <Directory alias="source" SecurityType="public">B:\SOURCES</Directory>
-    <Directory alias="repo" SecurityType="public">B:\SOURCES\Repos</Directory>
-    <Directory alias="yes" SecurityType="public">B:\SOURCES\Repos\DualPowerGeneration</Directory>
-    <Directory alias="dl" SecurityType="public">B:\DOWNLOADS</Directory>
-    <Directory alias="docs" SecurityType="public">B:\DOCUMENTS</Directory>
-    <Directory alias="one" SecurityType="public">~\OneDrive</Directory>
-    <Directory alias="c" SecurityType="public">C:\</Directory>
-    <Directory alias="cmain" SecurityType="public">C:\Users\bfwan\Brandon.Fong\</Directory>
-    <Directory alias="pf" SecurityType="public">B:\PROGRAMFILES</Directory>
-    <Directory alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
-    <Directory alias="565hw2" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
-    <Directory alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
-    <Directory alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
-    <Directory alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
-    <Directory alias="eelec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Lectures</Directory>
-    <Directory alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
-    <Directory alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
-    <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
-    <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
-    <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
-    <Directory alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
-    <Directory alias="bakdb" SecurityType="private">5a512b57-8cc4-4437-b059-42882d564e5d</Directory>
+    <Directory Alias="main" SecurityType="public">B:\</Directory>
+    <Directory Alias="code" SecurityType="public">B:\CODE</Directory>
+    <Directory Alias="col" SecurityType="public">B:\COLLEGE</Directory>
+    <Directory Alias="sc1920" SecurityType="public">B:\COLLEGE\19_20</Directory>
+    <Directory Alias="f19" SecurityType="public">B:\COLLEGE\19_20\Fall_19</Directory>
+    <Directory Alias="compe361" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
+    <Directory Alias="compe475" SecurityType="public">B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
+    <Directory Alias="compe496a" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
+    <Directory Alias="ee450" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
+    <Directory Alias="ee420" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
+    <Directory Alias="s20" SecurityType="public">B:\COLLEGE\19_20\Spring_20</Directory>
+    <Directory Alias="compe565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
+    <Directory Alias="ee600" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
+    <Directory Alias="compe560" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
+    <Directory Alias="compe496b" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_496B</Directory>
+    <Directory Alias="job" SecurityType="public">B:\JOB</Directory>
+    <Directory Alias="li" SecurityType="public">B:\LIFE</Directory>
+    <Directory Alias="mus" SecurityType="public">B:\MUSIC</Directory>
+    <Directory Alias="pers" SecurityType="public">B:\PERSONAL</Directory>
+    <Directory Alias="pics" SecurityType="public">B:\PICTURES</Directory>
+    <Directory Alias="rec" SecurityType="public">B:\RECYCLE</Directory>
+    <Directory Alias="Pow" SecurityType="public">B:\Powershell</Directory>
+    <Directory Alias="si" SecurityType="public">B:\SITES</Directory>
+    <Directory Alias="bf" SecurityType="public">B:\SITES\BrandonFongMusic</Directory>
+    <Directory Alias="source" SecurityType="public">B:\SOURCES</Directory>
+    <Directory Alias="repo" SecurityType="public">B:\SOURCES\Repos</Directory>
+    <Directory Alias="yes" SecurityType="public">B:\SOURCES\Repos\DualPowerGeneration</Directory>
+    <Directory Alias="dl" SecurityType="public">B:\DOWNLOADS</Directory>
+    <Directory Alias="docs" SecurityType="public">B:\DOCUMENTS</Directory>
+    <Directory Alias="one" SecurityType="public">~\OneDrive</Directory>
+    <Directory Alias="c" SecurityType="public">C:\</Directory>
+    <Directory Alias="cmain" SecurityType="public">C:\Users\bfwan\Brandon.Fong\</Directory>
+    <Directory Alias="pf" SecurityType="public">B:\PROGRAMFILES</Directory>
+    <Directory Alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Directory>
+    <Directory Alias="565hw2" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW2</Directory>
+    <Directory Alias="vc-ext" SecurityType="private">544AFA33-203E-4A09-ABA6-FF0FB52DD969</Directory>
+    <Directory Alias="hw3565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW3</Directory>
+    <Directory Alias="eep3" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project3</Directory>
+    <Directory Alias="eelec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Lectures</Directory>
+    <Directory Alias="560lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Lectures</Directory>
+    <Directory Alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
+    <Directory Alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
+    <Directory Alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
+    <Directory Alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
+    <Directory Alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <!-- Third party Functions -->
-    <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
-    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
-    <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
-    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
-    <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
-    <Program Alias="GitHub" Type="External">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
-    <Program Alias="Wmplayer" Type="External">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
-    <Program Alias="SDK" Type="External">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
-    <Program Alias="Putty" Type="External">C:\Program Files\PuTTY\putty.exe</Program>
-    <Program Alias="Atmel" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
-    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
-    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
-    <Program Alias="Xampp" Type="External">C:\xampp\xampp-control.exe</Program>
-    <Program Alias="Global" Type="External">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
-    <Program Alias="WinSCP" Type="External">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
-    <Program Alias="Python" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
-    <Program Alias="VC" Type="External">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="PIP" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
-    <Program Alias="Subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
-    <Program Alias="sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
-    <Program Alias="VC-Powershell" Type="External">B:\Powershell\VCODE_Powershell.code-workspace</Program>
-    <Program Alias="VC-DualPowerGeneration" Type="External">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
-    <Program Alias="VC-BrandonFongMusic" Type="External">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
-    <Program Alias="X-Win" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
-    <Program Alias="Xming" Type="External">C:\Program Files (x86)\Xming\Xming.exe</Program>
-    <Program Alias="Modeler" Type="External">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
-    <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
-    <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
-    <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
-    <Program Alias="Her" Type="External">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
-    <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
-    <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
-    <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
-    <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
-    <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
-    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
-    <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
-    <!-- User Defined Functions/scripts -->
-    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
-    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
-    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
-    <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
-    <Program Alias="Week-List" Type="Internal">\Functions\Week-List.ps1</Program>
-    <Program Alias="Greetings" Type="Internal">\Functions\Greetings.ps1</Program>
+    <Program Alias="Vim" SecurityType="public">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
+    <Program Alias="VS" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="Chrome" SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="Matlab" SecurityType="public">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
+    <Program Alias="Spotify" SecurityType="public">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
+    <Program Alias="Npad" SecurityType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="QtSpim" SecurityType="public">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
+    <Program Alias="GitHub" SecurityType="public">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
+    <Program Alias="Wmplayer" SecurityType="public">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
+    <Program Alias="SDK" SecurityType="public">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
+    <Program Alias="Putty" SecurityType="public">C:\Program Files\PuTTY\putty.exe</Program>
+    <Program Alias="Atmel" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
+    <Program Alias="Gitbash" SecurityType="public">C:\Program Files\Git\git-bash.exe</Program>
+    <Program Alias="7z" SecurityType="public">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="Xampp" SecurityType="public">C:\xampp\xampp-control.exe</Program>
+    <Program Alias="Global" SecurityType="public">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
+    <Program Alias="WinSCP" SecurityType="public">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
+    <Program Alias="Python" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
+    <Program Alias="VC" SecurityType="public">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+    <Program Alias="PIP" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
+    <Program Alias="Subl" SecurityType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
+    <Program Alias="sql" SecurityType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
+    <Program Alias="VC-Powershell" SecurityType="public">B:\Powershell\VCODE_Powershell.code-workspace</Program>
+    <Program Alias="VC-DualPowerGeneration" SecurityType="public">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
+    <Program Alias="VC-BrandonFongMusic" SecurityType="public">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
+    <Program Alias="X-Win" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
+    <Program Alias="Xming" SecurityType="public">C:\Program Files (x86)\Xming\Xming.exe</Program>
+    <Program Alias="Modeler" SecurityType="public">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
+    <Program Alias="SDFormatter" SecurityType="public">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
+    <Program Alias="GuiFormat" SecurityType="public">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
+    <Program Alias="VNCViewer" SecurityType="public">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
+    <Program Alias="Her" SecurityType="public">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
+    <Program Alias="CiscoPT" SecurityType="public">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
+    <Program Alias="Zoom" SecurityType="public">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
+    <Program Alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="CompE560Book" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
+    <Program Alias="List" SecurityType="public">B:\Powershell\Config\List\List.xml</Program>
+    <Program Alias="Dashboard" SecurityType="public">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
+    <Program Alias="Sentry-Mode" SecurityType="public">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
+    <Program Alias="Timer" SecurityType="public">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
+    <Program Alias="upconfig" SecurityType="public">B:\Powershell\update-config.ps1</Program>
+    <Program Alias="upprofile" SecurityType="public">B:\Powershell\update-profile.ps1</Program>
+    <Program Alias="Get-Calendar" SecurityType="public">B:\Powershell\Functions\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecurityType="public">B:\Powershell\Functions\Weather.ps1</Program>
+    <Program Alias="Copy-Folder" SecurityType="public">B:\Powershell\Functions\Copy-Folder.ps1</Program>
+    <Program Alias="Week-List" SecurityType="public">B:\Powershell\Functions\Week-List.ps1</Program>
+    <Program Alias="Greetings" SecurityType="public">B:\Powershell\Functions\Greetings.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -239,6 +215,10 @@
                 <Row>
                   <Value ColumnName="Description">Home Address</Value>
                   <Value ColumnName="ExternalID">HomeAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Program</Value>
+                  <Value ColumnName="ExternalID">PrivateProgram</Value>
                 </Row>
               </Rows>
             </Table>

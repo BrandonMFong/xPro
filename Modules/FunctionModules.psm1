@@ -136,7 +136,7 @@ function GetVarName($value)
     }
 }
 
-function EvaluateDir($value)
+function Evaluate($value)
 {
     if($value.SecurityType -eq "private")
     {
@@ -168,25 +168,20 @@ function LoadPrograms
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
-        switch($val.Type)
-        {
-            "External"{Set-Alias $val.Alias "$($val.InnerXML)" -Verbose -Scope Global;}
-            "Internal"{Set-Alias $val.Alias "$($AppPointer.Machine.GitRepoDir + $val.InnerXML)" -Verbose -Scope Global;}
-            default {Write-Error "$($val.Alias) => $($val.InnerXML)`n Not set!"}
-        }
+        Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose -Scope Global;
     }
 }
 function LoadModules
 {
-    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    Param($XMLReader=$XMLReader)
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
-        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global -DisableNameChecking;
+        Import-Module $($val) -Scope Global -DisableNameChecking;
     }
 }
 function LoadObjects
 {
-    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    Param($XMLReader=$XMLReader)
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
         switch ($val.Type)
@@ -206,4 +201,71 @@ function InboxObject
     $namespace = $Outlook.GetNameSpace("MAPI");
     $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
     return $inbox;
+}
+
+
+function InsertFromCmd
+{
+    Param([string]$Tag,[string]$PathToAdd)
+    # Push-Location $PSScriptRoot;  
+        $add = $(Get-Variable 'XMLReader').Value.CreateElement($Tag); 
+
+        $Alias = Read-Host -Prompt "Set Alias";
+        $add.SetAttribute("Alias", $Alias);
+
+        $Security = Read-Host -Prompt "Is this private? (y/n)?";
+        if($Security -eq "y")
+        {
+            $add.SetAttribute("SecurityType", "private");
+            
+            $insert = GetObjectByClass('SQL');
+            [int]$MaxID = $insert.GetMax('PersonalInfo');
+            [string]$GuidString = $insert.GetGuidString();
+            [string]$subject = Read-Host -Prompt "Subject?";
+            [int]$TypeContentID = ($insert.Query("select id as ID from typecontent where externalid = '$(GetTCExtID($Tag))'")).ID; # id must exist
+            $querystring = "insert into PersonalInfo values ($($MaxID), $($GuidString),'$($PathToAdd)', '$($subject)', $($TypeContentID))";
+
+            Write-Host "`nQuery: " -NoNewline;Write-Host "$($querystring)`n" -foregroundcolor Cyan;
+            $insert.Query($querystring);
+
+            $Var = ($insert.Query("select guid as Guid from personalinfo where id = $($MaxID)")).Guid;
+            $add.InnerXml = $Var.Guid; # Adding guid
+        }
+        else
+        {
+            $add.SetAttribute("SecurityType", "public")
+            $add.InnerXml = $PathToAdd; # Adding literally path
+        }
+        
+        $x = $(Get-Variable 'XMLReader').Value
+        AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
+        $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+    Pop-Location;
+    break;
+}
+function GetFullFilePath([string]$File)
+{
+    return (Get-ChildItem $File).FullName
+}
+
+function AppendCorrectChild([string]$Tag,$add,[ref]$x)
+{
+    switch($Tag)
+    {
+        "Directories"{$x.Value.Machine.Directories.AppendChild($add);}
+        "Program"{$x.Value.Machine.Programs.AppendChild($add);}
+        default{throw "Something Bad Happened"}
+    }
+}
+
+function GetTCExtID([string]$Type)
+{
+    [string]$str = "";
+    switch($Type)
+    {
+        "Directories"{$str = "PrivateDirectory"}
+        "Program"{$str = "PrivateProgram"}
+        default{throw "Something Bad Happened"}
+    }
+    return $str;
 }

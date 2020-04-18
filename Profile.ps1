@@ -10,7 +10,7 @@ $ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.
 [XML]$XMLReader = Get-Content $ConfigFile
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking -Scope Local;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}

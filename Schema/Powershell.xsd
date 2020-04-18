@@ -86,7 +86,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:element name="Directory" type="xs:string" minOccurs="1">
-            <xs:attribute name="alias" type="xs:string" use="mandatory"/>
+            <xs:attribute name="Alias" type="xs:string" use="mandatory"/>
             <xs:attribute name="SecurityType" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -314,10 +314,12 @@
             <xs:documentation>
                 Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
             </xs:documentation>
-            <xs:attribute name="Type" type="xs:string">
-                <xs:documentation>
-                    External || Internal
-                </xs:documentation>
+            <xs:attribute name="SecurityType" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default 'public'.  Options: 'public' or 'private'
+                    </xs:documentation>
+                </xs:annotation>
             </xs:attribute>
         </xs:element>
     </xs:element>

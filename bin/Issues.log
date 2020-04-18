@@ -1,4 +1,11 @@
 
+Issue: Private directory jumps to modules dir and inserts that directory into the db
+    Fix Commit: 
+    Branch: 
+    Status: Open
+    Notes:
+    Post:
+
 Issue: Email does not work.  It lags at start up
     Fix Commit: 
     Branch: 

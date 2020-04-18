@@ -1,6 +1,5 @@
 # Script after profile loads
  	Greetings;
-	Get-Weather -Today -Area "San Diego"
 	$Calendar.GetCalendarMonth();
 	Write-Host ("`n1. Start`n")
 	$start = Read-Host 

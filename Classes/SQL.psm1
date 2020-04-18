@@ -250,6 +250,7 @@ class SQL
     # Reads config for rows config and creates multiple insert queries for each row config
     hidden [void] InsertRows($table,[string]$tablename) 
     {
+        [boolean]$RowsInserted = $false;
         foreach($Row in $table.Rows.Row)
         {
             if(!$this.DoesRowExist($Row)) # if row does not exist then insert the row
@@ -265,9 +266,10 @@ class SQL
                 }
                 $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
                 $this.QueryNoReturn($querystring);
+                $RowsInserted = $true;
             }
-            else {Write-Host "Row is up to date!" -ForegroundColor Green;}
         }
+        if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Green;}
     }
 
     hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)

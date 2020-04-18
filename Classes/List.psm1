@@ -25,7 +25,7 @@ class List
     {
         $this.LoadList();
         Write-Host "`n[$($this.Title)]`n" -ForegroundColor Green;
-        $this.GetList($this.xml.Machine.Lists);
+        $this.GetList();
         Write-host `n;
     }
 

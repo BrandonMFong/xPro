@@ -136,7 +136,7 @@ function GetVarName($value)
     }
 }
 
-function Evaluate($value)
+function EvaluateVar($value)
 {
     if($value.SecurityType -eq "private")
     {
@@ -168,7 +168,7 @@ function LoadPrograms
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
-        Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose -Scope Global;
+        Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Verbose -Scope Global;
     }
 }
 function LoadModules

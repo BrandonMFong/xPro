@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
+  <!-- Prompt -->
   <Prompt>
     <DateFormat>dddd MM/dd</DateFormat>
     <TimeFormat>hh:mm tt</TimeFormat>
     <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
     <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
+  <!-- Modules -->
   <Modules>
     <Module>\Modules\Miscellaneous.psm1</Module>
     <Module>\StartScripts\StartMods\BRANDONMFONG.psm1</Module>
@@ -16,9 +18,7 @@
   <Calendar>
     <SpecialDays>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
-      <SpecialDay name="EE 600 Project 3 due">4/16/2020</SpecialDay>
       <SpecialDay name="CompE 560 Test (Network)">4/23/2020</SpecialDay>
-      <SpecialDay name="CompE 560 Class Participation 2 by midnight">4/14/2020</SpecialDay>
       <SpecialDay name="Waterbill due">4/24/2020</SpecialDay>
       <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
     </SpecialDays>
@@ -61,11 +61,8 @@
       </Item>
     </List>
   </Lists>
-   <!-- Directory paths -->
+  <!-- Directory paths -->
   <Directories>
-    <!-- Manadatory Directory Aliases for functions/Classes -->
-    <Directory alias="PowershellRepoPath" SecurityType="public">B:\Powershell</Directory>
-    <!-- User Defined -->
     <Directory alias="main" SecurityType="public">B:\</Directory>
     <Directory alias="code" SecurityType="public">B:\CODE</Directory>
     <Directory alias="col" SecurityType="public">B:\COLLEGE</Directory>
@@ -111,6 +108,7 @@
     <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
     <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
     <Directory alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
+    <Directory alias="bakdb" SecurityType="private">5a512b57-8cc4-4437-b059-42882d564e5d</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -344,6 +342,8 @@
       <!-- Google -->
       <Key Lvl="0" SecurityType="public">Google</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="google" />
+      <Key Lvl="1" Node="google" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://google.com</Value>
       <Key Lvl="1" Node="google" SecurityType="public">Gmail</Key>
       <Value Lvl="1" Node="google" SecurityType="public">https://mail.google.com/mail</Value>
       <Key Lvl="1" Node="google" SecurityType="public">Drive</Key>
@@ -531,6 +531,16 @@
       <Value Lvl="0" SecurityType="public" NodePointer="aee4" />
       <Key Lvl="1" Node="aee4" SecurityType="public">Email</Key>
       <Value Lvl="1" Node="aee4" SecurityType="private">12e4d7cd-f92c-4be9-994c-df37be8b6d43</Value>
+      <!-- f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd -->
+      <Key Lvl="0" SecurityType="private">f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="9a8f" />
+      <Key Lvl="1" Node="9a8f" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="9a8f" SecurityType="private">ad148d6e-9a8f-4872-a404-25500191d7cb</Value>
+      <!-- b37afc46-1081-4bd8-b5d6-c82f0f75cb73 -->
+      <Key Lvl="0" SecurityType="private">b37afc46-1081-4bd8-b5d6-c82f0f75cb73</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="b5d6" />
+      <Key Lvl="1" Node="b5d6" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="b5d6" SecurityType="private">40904a12-065f-42ea-93d4-e560d1f8b467</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">

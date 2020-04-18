@@ -14,6 +14,7 @@ function StartScriptNode([ref]$File)
     ### <StartScript> ##
     $Node_StartScript = $File.Value.CreateElement("StartScript");
     $Node_StartScript.SetAttribute("ClearHost","false");
+    $Node_StartScript.SetAttribute("Enable","false");
     $File.Value.Machine.AppendChild($Node_StartScript); # Append
 }
 
@@ -25,13 +26,18 @@ function PromptNode([ref]$File)
     $Node_DateFormat = $File.Value.CreateElement("DateFormat");
     # <TimeFormat>
     $Node_TimeFormat = $File.Value.CreateElement("TimeFormat");
+    # BaterryLifeThreshold
+    $Node_BaterryLifeThreshold = $File.Value.CreateElement("BaterryLifeThreshold");
     # String
     $Node_String = $File.Value.CreateElement("String");
     $Node_String.SetAttribute("Color", "White");
     $Node_String.InnerXml = "Default";
-    $Node_Prompt.AppendChild($Node_String);#Node
-    $Node_Prompt.AppendChild($Node_TimeFormat);#Node
+    $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
+    $Node_BaterryLifeThreshold.InnerXml = "35";
     $Node_Prompt.AppendChild($Node_DateFormat);#Node
+    $Node_Prompt.AppendChild($Node_TimeFormat);#Node
+    $Node_Prompt.AppendChild($Node_String);#Node
+    $Node_Prompt.AppendChild($Node_BaterryLifeThreshold);#Node
     $File.Value.Machine.AppendChild($Node_Prompt);
 }
 
@@ -65,9 +71,9 @@ function ObjectsNode([ref]$File)
     $Node_Value = $File.Value.CreateElement("Value");
     # Key
     $Node_Key = $File.Value.CreateElement("Key");
-    $Node_Object.AppendChild($Node_Value);
-    $Node_Object.AppendChild($Node_Key);
     $Node_Object.AppendChild($Node_VarName);
+    $Node_Object.AppendChild($Node_Key);
+    $Node_Object.AppendChild($Node_Value);
     $Node_Objects.AppendChild($Node_Object);
     $File.Value.Machine.AppendChild($Node_Objects);
 }

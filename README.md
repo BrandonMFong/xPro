@@ -66,16 +66,14 @@ Have everything on the command line
 
 *Following is a discription of the repository's folder's purposes*
 
-* bin: Contains log files and other misc files
-* Classes: Repository's Core Functions
-* Config: Contains User configuration 
-    * Config files describes the environement the user is on.  Essentially should have one config for every computer 
-* Functions: Repository's Core Functions
-* Modules: Contains essential functions for core scripts 
-* Schema: Schema for xml files
+* bin: Log files and other misc files
+* Classes: Class Definitions
+* Config: User configuration 
+* Functions: Powershell Scripts
+* Modules: Essential functions for core scripts 
+* Schema: Schema for XML files
 * SQLQueries: Example queries for required database tables
 * StartScripts: User scripts at profile load
-    * Also can contain modules for personal functions
 
 ## Developed With
 

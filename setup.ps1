@@ -1,13 +1,12 @@
 
 Push-Location $PSScriptRoot;
-    $PSScriptRoot;
     Import-Module .\Modules\Setup.psm1;
-    
-    Write-Host "`n`n Initializing setup`n`n";
+    Write-Warning "GlobalScripts uses Microsoft.PowerShell_profile.ps1 script.  Continuing will erase the script."
+    $Answer = Read-Host -Prompt "Continue(y/n)?"
 
-    # InitProfile;
+    Write-Host "`nInitializing setup`n";
 
-    # InitPointer;
+    InitProfile;
 
     InitConfig;
 

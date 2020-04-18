@@ -210,6 +210,23 @@
                         <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
                         <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
                     </xs:element>
+                    <xs:element name="Rows" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>
+                                List out the rows you want to insert into the Database at start up 
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="Value"  type="xs:string" minOccurs="1" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The value you are inserting for the specified column
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:attribute name="ColumnName" type="xs:string" use="mandatory"/>
+                            </xs:element>
+                        </xs:element>
+                    </xs:element>
                 </xs:element>
             </xs:element>
         </xs:element>

@@ -34,12 +34,12 @@
           </Item>
           <Item rank="3" name="Change Setup script" Completed="true" />
           <Item rank="3" name="Reorganize repo for optimization" Completed="true" />
-          <Item rank="3" name="Email accessibility" Completed="true" />
           <Item rank="3" name="Import Types" Completed="true" />
         </Item>
         <Item rank="2" name="Minor" Completed="false">
           <Item rank="3" name="Issues text file" Completed="true" />
           <Item rank="3" name="Make copy folder script" Completed="false" />
+          <Item rank="3" name="Email accessibility" Completed="false" />
           <Item rank="3" name="Dynamically edit this list" Completed="false" />
           <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
           <Item rank="3" name="Make a config editor" Completed="true">

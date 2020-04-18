@@ -1,5 +1,9 @@
 
 
+Version 1.21.0 changes:
+    - Changed the setup script 
+        - Dynamically creates the xml file 
+
 Version 1.20.1 changes:
     - Private directory method didn't take into account the push-location cmdlet
 

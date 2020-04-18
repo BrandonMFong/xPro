@@ -192,3 +192,173 @@ function List-Programs
 }
 
 function Reload-Profile {.$PROFILE}
+
+function Append-Date
+{
+    Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass")
+
+    if($FileDate) # this needs work
+    {
+        Get-ChildItem . | 
+            Where-Object {$_.Attributes -eq "Archive"} | 
+                ForEach-Object {$_.CreationTime | 
+                    Sort-Object | 
+                        Select-Object -Last 1 | 
+                            ForEach-Object {$creationdate = $_;}$newname = $_.BaseName + "_" + $creationdate.month.ToString() + $creationdate.day.ToString() + $creationdate.year.ToString() + $_.extension;Rename-Item $_ $newname;}
+        
+        Write-Host "Appended file's creation date.";
+        break;
+    }
+    elseif($FileName -ne "Pass")
+    {
+        $date = Get-Date;
+
+        $append_string = $date.month.ToString() + $date.day.ToString() + $date.year.ToString() + $date.Hour.ToString() + $date.Minute.ToString() + $date.Second.ToString();
+
+        Get-ChildItem $FileName| 
+            #Where-Object {$_.Attributes -eq "Archive";} |
+                ForEach-Object {$newname = $_.BaseName + "_" + $append_string + $_.extension; Rename-Item $_ $newname;}
+        
+        Write-Host "Appended today's date to $($FileName)";
+        break;
+    }
+    else
+    { 
+        $date = Get-Date;
+
+        $append_string = $date.month.ToString() + $date.day.ToString() + $date.year.ToString() + $date.Hour.ToString() + $date.Minute.ToString() + $date.Second.ToString();
+
+        Get-ChildItem | 
+            Where-Object {$_.Attributes -eq "Archive";} |
+                ForEach-Object {$newname = $_.BaseName + "_" + $append_string + $_.extension; Rename-Item $_ $newname;}
+
+        Write-Host "Appended today's date to all file in this directory.";
+        break;
+    }
+}
+
+function Archive
+{
+    Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
+
+    if($Zip)
+    {
+        Test;
+        if((Get-ChildItem .\archive\).count -gt 10)
+        {
+            $filename = "Archive_" + (Get-Date).Month.ToString() + (Get-Date).Day.ToString() + (Get-Date).Year.ToString();
+            Set-Location .\archive\;
+            mkdir $filename;
+            Get-ChildItem | 
+                Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive') -and ($_.Name -ne $filename)} | 
+                    ForEach-Object{Move-Item $_ $filename;}
+            $ZipName = $filename + '.zip';
+            Compress-Archive $filename $ZipName;
+            Remove-Item $filename;
+            exit;
+        }
+        else
+        {
+            throw "Not enough files to compress.";
+            exit;
+        }
+    }
+    elseif($OnlyZipFiles)
+    {
+        Test;
+        Get-ChildItem |
+        Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
+        ForEach-Object{DoesFileExist($_);}
+    }
+    elseif($OnlyFiles)
+    {
+        Test;
+        Get-ChildItem *.*|
+        Where-Object{$_.Name -ne 'archive'} | 
+        ForEach-Object{DoesFileExist($_);}
+    }
+    else 
+    {
+        Test;
+        Get-ChildItem |
+        Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
+        ForEach-Object{DoesFileExist($_);}
+    }
+
+}
+
+function Goto 
+{
+    Param([String[]] $dir, [Alias('p')][Switch] $push)
+    [bool]$ProcessExecuted = $false;
+	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
+	{
+		if($Directory.alias -eq $dir)
+		{
+			if($push){Push-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
+			else{Set-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
+		}
+	}
+	if(!($ProcessExecuted))
+	{
+		throw "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
+	}
+}
+
+function Put 
+{
+    Param([String[]]$File, [Alias ('Dest')][String[]] $Destination)
+    [bool]$ProcessExecuted = $false;
+        
+    foreach ($Directory in $XMLReader.Machine.Directories.Directory)
+    {
+        if($Directory.alias -eq $Destination)
+        {
+            move-item $File $(EvaluateDir -value $Directory); $ProcessExecuted = $true;
+        }
+    }
+    if(!($ProcessExecuted))
+    {
+        throw "Parameter '$($Destination)' does match any aliases in the configuration.  Please check spelling.";
+    }
+}
+
+function Query 
+{
+    param([alias('is')][switch]$inputstring,[string]$Decode="pass")
+    $var = $(GetObjectByClass('SQL'));
+    if(IsNotPass($Decode)){$var.InputCopy($Decode);}
+    elseif($inputstring)
+    {
+        $x = Read-Host -Prompt "Query";
+        $var.query($x);
+    }
+    else{Write-Host "Nothing passed" -foregroundcolor Red};
+}
+
+function Search 
+{
+    param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
+    $var = $(GetObjectByClass('Web'));
+    if($Google)
+    {
+        $v = read-host -prompt "Google"
+        $var.Google($v);
+    }
+    elseif($Sharepoint)
+    {
+        $v = read-host -prompt "Sharepoint"
+        $var.Sharepoint($v);
+    }
+    elseif($Dictionary)
+    {
+        $v = read-host -prompt "Dictionary"
+        $var.Dictionary($v);
+    }
+    elseif($Youtube)
+    {
+        $v = read-host -prompt "Youtube"
+        $var.Youtube($v);
+    }
+    else{throw "Nothing searched";}
+}

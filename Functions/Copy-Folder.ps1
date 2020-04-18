@@ -7,10 +7,6 @@
     I'm assuming the paths provided in the params do not start with \
     How to make it stop at the base dir
 #>
-function Copy-Folder 
-{
-
-
 Param
 (
     [string]$f="null",
@@ -75,6 +71,3 @@ else
 {
     throw "Cannot move $($f) to $($d).";
 }
-}
-
-Copy-Folder -f 'B:\DOWNLOADS\archive\HW1(1)\' -d 'B:\DOWNLOADS\archive\docs\'

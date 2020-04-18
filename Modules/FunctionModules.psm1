@@ -146,8 +146,7 @@ function Test
 {
     if(!(Test-Path .\archive\))
     {
-        throw "Directory .\archive\ does not exist."; 
-        exit; # Exists because if archive doesn't exist then why zip
+        mkdir archive;
     }
 }
 function DoesFileExist($file)
@@ -161,6 +160,8 @@ function DoesFileExist($file)
     }
     else{Move-Item $file.Fullname .\archive\;}
 }
+
+# TODO should be in the ConfigHandler module
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
@@ -179,7 +180,7 @@ function LoadModules
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
-        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global;
+        Import-Module $($AppPointer.Machine.GitRepoDir + $val) -Scope Global -DisableNameChecking;
     }
 }
 function LoadObjects
@@ -195,11 +196,85 @@ function LoadObjects
             default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
         }
     } 
-}function InboxObject
+}
+
+function InboxObject
 {
     Add-Type -assembly "Microsoft.Office.Interop.Outlook";
     $Outlook = New-Object -comobject Outlook.Application;
     $namespace = $Outlook.GetNameSpace("MAPI");
     $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
     return $inbox;
+}
+
+function Config-Editor
+{
+    Param
+    (
+        [switch]$AddDirectory
+    )
+    if($AddDirectory)
+    {
+        $PathToAdd = (Get-Location).path; # Get the directory you are adding
+        Push-Location $PSScriptRoot;
+            $add = $(Get-Variable 'XMLReader').Value.CreateElement("Directory"); 
+
+            $Alias = Read-Host -Prompt "Set Alias";
+            $add.SetAttribute("alias", $Alias);
+
+            $Security = Read-Host -Prompt "Is this private? (y/n)?";
+            if($Security -eq "y")
+            {
+                $add.SetAttribute("SecurityType", "private");
+                
+                $insert = GetObjectByClass('SQL');
+                [int]$MaxID = $insert.GetMax('PersonalInfo');
+                [string]$GuidString = $insert.GetGuidString();
+                [string]$subject = Read-Host -Prompt "Subject?";
+                [int]$TypeContentID = ($insert.Query("select id as ID from typecontent where externalid = 'PrivateDirectory'")).ID; # id must exist
+                $querystring = "insert into PersonalInfo values ($($MaxID), $($GuidString),'$((Get-Location).Path)', '$($subject)', $($TypeContentID))";
+
+                Write-Host "`nQuery: " -NoNewline;Write-Host "$($querystring)`n" -foregroundcolor Cyan;
+                $insert.Query($querystring);
+
+                $Var = ($insert.Query("select guid as Guid from personalinfo where id = $($MaxID)")).Guid;
+                $add.InnerXml = $Var.Guid; # Adding guid
+            }
+            else
+            {
+                $add.SetAttribute("SecurityType", "public")
+                $add.InnerXml = $PathToAdd; # Adding literally path
+            }
+            
+            $x = $(Get-Variable 'XMLReader').Value
+            $x.Machine.Directories.AppendChild($add);
+            $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        Pop-Location;
+        break;
+    }
+
+}
+
+function List-Directories
+{
+    Write-Host "`nDirectories and their aliases:`n" -ForegroundColor Cyan;
+    foreach($d in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
+    {
+        Write-Host "$($d.alias)" -ForegroundColor Green -NoNewline;
+        Write-Host " => " -NoNewline;
+        Write-Host "$($d.InnerXML)" -ForegroundColor Cyan;
+    }
+    Write-Host `n;
+}
+function List-Programs
+{
+    Write-Host "`nPrograms, their aliases, and their type:`n" -ForegroundColor Cyan;
+    foreach($p in $(Get-Variable 'XMLReader').Value.Machine.Programs.Program)
+    {
+        Write-Host "$($p.alias)" -ForegroundColor Green -NoNewline;
+        Write-Host " => " -NoNewline;
+        Write-Host "$($p.InnerXML)" -ForegroundColor Cyan -NoNewline;
+        Write-Host " (" -NoNewline; Write-Host "$($p.Type)" -ForegroundColor Cyan -NoNewline; Write-Host ") ";
+    }
+    Write-Host `n;
 }

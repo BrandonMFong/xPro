@@ -3,9 +3,11 @@
 class Email # Looks in the inbox
 {
     hidden $inbox; # TODO find object type
+    [Messages[]]$Messages = [messages]::new();
+
     Email()
     {
-        Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
+        # Import-Module ($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
         $this.inbox = InboxObject;
     }
 
@@ -19,5 +21,26 @@ class Email # Looks in the inbox
             Write-Host "Body: " -ForegroundColor Cyan;
             Write-Host "$($this.Messages[$i].Body)";
         }
+    }
+
+    hidden [void] LoadInbox()
+    {
+        foreach($i in $this.inbox.Items)
+        {
+            $this.Messages += [Messages]::new($i.Body);
+        } 
+    }
+}
+
+class Messages
+{
+    [string]$Body;
+    [string]$From;
+
+    Messages(){}
+
+    Messages([string]$Body,[string]$From)
+    {
+        $this.Body = $Body;
     }
 }

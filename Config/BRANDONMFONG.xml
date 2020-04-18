@@ -7,7 +7,61 @@
     <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
     <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
-  <!-- Directory paths -->
+  <Modules>
+    <Module>\Modules\Miscellaneous.psm1</Module>
+    <Module>\StartScripts\StartMods\BRANDONMFONG.psm1</Module>
+    <Module>\Modules\Prompt.psm1</Module>
+  </Modules>
+  <!-- Calendar -->
+  <Calendar>
+    <SpecialDays>
+      <SpecialDay name="Graduation">5/16/2020</SpecialDay>
+      <SpecialDay name="EE 600 Project 3 due">4/16/2020</SpecialDay>
+      <SpecialDay name="CompE 560 Test (Network)">4/23/2020</SpecialDay>
+      <SpecialDay name="CompE 560 Class Participation 2 by midnight">4/14/2020</SpecialDay>
+      <SpecialDay name="Waterbill due">4/24/2020</SpecialDay>
+      <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
+    </SpecialDays>
+  </Calendar>
+  <!-- Lists -->
+  <Lists>
+    <!-- Git Hub Roadmap - GlobalScripts -->
+    <List Title="Git Hub Roadmap - GlobalScripts">
+      <!-- Version 2 -->
+      <Item rank="1" name="Version 2" Completed="false">
+        <Item rank="2" name="Major" Completed="false">
+          <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
+          <Item rank="3" name="Change Setup script" Completed="false" />
+          <Item rank="3" name="Reorganize repo for optimization" Completed="false" />
+          <Item rank="3" name="Email accessibility" Completed="true" />
+          <Item rank="3" name="Import Types" Completed="true" />
+        </Item>
+        <Item rank="2" name="Minor" Completed="false">
+          <Item rank="3" name="Issues text file" Completed="true" />
+          <Item rank="3" name="Make copy folder script" Completed="false" />
+          <Item rank="3" name="Dynamically edit this list" Completed="false" />
+          <Item rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
+          <Item rank="3" name="Make a config editor" Completed="true">
+            <Item rank="4" name="Put Add directory" Completed="true" />
+            <Item rank="4" name="Put Add private directory" Completed="true" />
+          </Item>
+          <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
+          <Item rank="3" name="Weather" Completed="true" />
+          <Item rank="3" name="Prompting" Completed="true">
+            <Item rank="4" name="Adding Date Format" Completed="true" />
+            <Item rank="4" name="Adding Time Format" Completed="true" />
+          </Item>
+          <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
+          <Item rank="3" name="Point to another xml file for list if true" Completed="true" />
+        </Item>
+        <Item rank="2" name="Bug/Patch" Completed="true">
+          <Item rank="3" name="Color Code Special Days" Completed="true" />
+          <Item rank="3" name="Don't hide filepath for list objects" Completed="true" />
+        </Item>
+      </Item>
+    </List>
+  </Lists>
+   <!-- Directory paths -->
   <Directories>
     <!-- Manadatory Directory Aliases for functions/Classes -->
     <Directory alias="PowershellRepoPath" SecurityType="public">B:\Powershell</Directory>
@@ -55,9 +109,209 @@
     <Directory alias="565lec" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\lectures</Directory>
     <Directory alias="Sock" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Projects\Socket</Directory>
     <Directory alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
+    <Directory alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
+    <Directory alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
   </Directories>
+  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
+  <Programs>
+    <!-- Third party Functions -->
+    <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
+    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
+    <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
+    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
+    <Program Alias="GitHub" Type="External">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
+    <Program Alias="Wmplayer" Type="External">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
+    <Program Alias="SDK" Type="External">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
+    <Program Alias="Putty" Type="External">C:\Program Files\PuTTY\putty.exe</Program>
+    <Program Alias="Atmel" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
+    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
+    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="Xampp" Type="External">C:\xampp\xampp-control.exe</Program>
+    <Program Alias="Global" Type="External">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
+    <Program Alias="WinSCP" Type="External">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
+    <Program Alias="Python" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
+    <Program Alias="VC" Type="External">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+    <Program Alias="PIP" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
+    <Program Alias="Subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
+    <Program Alias="sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
+    <Program Alias="VC-Powershell" Type="External">B:\Powershell\VCODE_Powershell.code-workspace</Program>
+    <Program Alias="VC-DualPowerGeneration" Type="External">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
+    <Program Alias="VC-BrandonFongMusic" Type="External">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
+    <Program Alias="X-Win" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
+    <Program Alias="Xming" Type="External">C:\Program Files (x86)\Xming\Xming.exe</Program>
+    <Program Alias="Modeler" Type="External">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
+    <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
+    <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
+    <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
+    <Program Alias="Her" Type="External">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
+    <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
+    <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
+    <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
+    <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
+    <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
+    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
+    <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
+    <!-- User Defined Functions/scripts -->
+    <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
+    <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
+    <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
+    <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
+    <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
+    <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
+    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
+    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
+    <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
+    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
+    <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
+  </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
+    <!-- $Web -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Web</VarName>
+      <Class ClassName="Web" HasParams="false" />
+    </Object>
+    <!-- $Math -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Math</VarName>
+      <Class ClassName="Calculations" HasParams="false" />
+    </Object>
+    <!-- $Query -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Query</VarName>
+      <Class ClassName="SQL" HasParams="true">
+        <SQL>
+          <Database>BrandonMFong</Database>
+          <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+          <Tables>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+            </Table>
+          </Tables>
+        </SQL>
+      </Class>
+    </Object>
+    <!-- $Calendar -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Calendar</VarName>
+      <Class ClassName="Calendar" HasParams="false" />
+    </Object>
+    <!-- $GithubRoadMap -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">GithubRoadMap</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Git Hub Roadmap - GlobalScripts</Title>
+        </List>
+      </Class>
+    </Object>
+    <!-- $MonList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">MonList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Monday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $TueList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">TueList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Tuesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $WedList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">WedList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Wednesday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $ThuList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">ThuList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Thursday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $FriList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">FriList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Friday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $SatList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">SatList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Saturday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $SunList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">SunList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Sunday To Do List</Title>
+          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $Email -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">Email</VarName>
+      <Class ClassName="Email" HasParams="false" />
+    </Object>
+    <!-- $SeniorDesignYes -->
+    <Object Type="XmlElement">
+      <VarName SecurityType="public">SeniorDesignYes</VarName>
+      <Values>
+        <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
+        <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+        <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+        <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
+        <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
+        <!-- This is the link for the steps to create a django site -->
+        <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
+        <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+        <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+        <!-- I need to download this in order -->
+        <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+        <FTPServerWinSetp>https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
+      </Values>
+    </Object>
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecurityType="public">User</VarName>
@@ -67,16 +321,12 @@
       <Key Lvl="0" SecurityType="public">LoweredStandardUserName</Key>
       <Value Lvl="0" SecurityType="private">7e15fcbb-2f72-4737-aa51-ee3e3d118e0f</Value>
       <!-- Frequently Used Links -->
-      <Key Lvl="0" SecurityType="public">Gmail</Key>
-      <Value Lvl="0" SecurityType="public">https://mail.google.com/mail</Value>
       <Key Lvl="0" SecurityType="public">Netflix</Key>
       <Value Lvl="0" SecurityType="public">https://Netflix.com</Value>
       <Key Lvl="0" SecurityType="public">Youtube</Key>
       <Value Lvl="0" SecurityType="public">https://Youtube.com</Value>
       <Key Lvl="0" SecurityType="public">Facebook</Key>
       <Value Lvl="0" SecurityType="public">https://facebook.com</Value>
-      <Key Lvl="0" SecurityType="public">GoogleDrive</Key>
-      <Value Lvl="0" SecurityType="public">https://drive.google.com/drive/u/0/my-drive</Value>
       <Key Lvl="0" SecurityType="public">DisneyPlus</Key>
       <Value Lvl="0" SecurityType="public">https://www.disneyplus.com</Value>
       <Key Lvl="0" SecurityType="public">Hulu</Key>
@@ -87,16 +337,23 @@
       <Value Lvl="0" SecurityType="public">https://dualpowergeneration.sdsu.edu</Value>
       <Key Lvl="0" SecurityType="public">iCloud</Key>
       <Value Lvl="0" SecurityType="public">https://www.icloud.com/</Value>
-      <Key Lvl="0" SecurityType="public">GoogleCloud</Key>
-      <Value Lvl="0" SecurityType="public">https://cloud.google.com</Value>
       <Key Lvl="0" SecurityType="public">VNC</Key>
       <Value Lvl="0" SecurityType="public">https://www.realvnc.com/en/</Value>
       <Key Lvl="0" SecurityType="public">IPChicken</Key>
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
-      <Key Lvl="0" SecurityType="public">GoogleCalendars</Key>
-      <Value Lvl="0" SecurityType="public">https://calendar.google.com/calendar</Value>
-      <Key Lvl="0" SecurityType="public">GoogleHangout</Key>
-      <Value Lvl="0" SecurityType="public">https://hangouts.google.com/</Value>
+      <!-- Google -->
+      <Key Lvl="0" SecurityType="public">Google</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="google" />
+      <Key Lvl="1" Node="google" SecurityType="public">Gmail</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://mail.google.com/mail</Value>
+      <Key Lvl="1" Node="google" SecurityType="public">Drive</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://drive.google.com/drive/u/0/my-drive</Value>
+      <Key Lvl="1" Node="google" SecurityType="public">Cloud</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://cloud.google.com</Value>
+      <Key Lvl="1" Node="google" SecurityType="public">Calendar</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://calendar.google.com/calendar</Value>
+      <Key Lvl="1" Node="google" SecurityType="public">Hangout</Key>
+      <Value Lvl="1" Node="google" SecurityType="public">https://hangouts.google.com/</Value>
       <!--Emails-->
       <Key Lvl="0" SecurityType="public">Emails</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="e2fb" />
@@ -246,6 +503,34 @@
       <Value Lvl="2" Node="951a" SecurityType="private">3529af62-e170-4ce8-ac10-5bb7c831f3c7</Value>
       <Key Lvl="2" Node="951a" SecurityType="public">CVC</Key>
       <Value Lvl="2" Node="951a" SecurityType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
+    </Object>
+    <!-- $Contacts -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Contacts</VarName>
+      <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
+      <Key Lvl="0" SecurityType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="a1b7" />
+      <Key Lvl="1" Node="a1b7" SecurityType="public">HomeAddress</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">MobileNumber</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">833f74b4-ef7b-4c9d-b0f1-f1e7e69a58e1</Value>
+      <Key Lvl="1" Node="a1b7" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="a1b7" SecurityType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
+      <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
+      <Key Lvl="0" SecurityType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="7094" />
+      <Key Lvl="1" Node="7094" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="7094" SecurityType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
+      <!-- 78531b00-99d7-4e19-ac1f-4f671598cfaa -->
+      <Key Lvl="0" SecurityType="private">78531b00-99d7-4e19-ac1f-4f671598cfaa</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="80ad" />
+      <Key Lvl="1" Node="80ad" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="80ad" SecurityType="private">139665DA-AD2B-4BC2-B8AE-F9F21B04CF8A</Value>
+      <!-- 88f7d857-f258-417a-aee4-8e7d2c44a289 -->
+      <Key Lvl="0" SecurityType="private">88f7d857-f258-417a-aee4-8e7d2c44a289</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="aee4" />
+      <Key Lvl="1" Node="aee4" SecurityType="public">Email</Key>
+      <Value Lvl="1" Node="aee4" SecurityType="private">12e4d7cd-f92c-4be9-994c-df37be8b6d43</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -418,24 +703,6 @@
       <Key Lvl="2" Node="E194" SecurityType="public">Ethernet</Key>
       <Value Lvl="2" Node="E194" SecurityType="private">b38dddbc-a983-4aa1-b0ed-e201172a1e03</Value>
     </Object>
-    <!-- $SeniorDesignYes -->
-    <Object Type="XmlElement">
-      <VarName SecurityType="public">SeniorDesignYes</VarName>
-      <Values>
-        <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
-        <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
-        <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
-        <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
-        <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
-        <!-- This is the link for the steps to create a django site -->
-        <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
-        <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
-        <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
-        <!-- I need to download this in order -->
-        <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
-        <FTPServerWinSetp>https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
-      </Values>
-    </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
       <VarName SecurityType="public">Passwords</VarName>
@@ -507,237 +774,5 @@
       <Key Lvl="0" SecurityType="public">WifiMesita</Key>
       <Value Lvl="0" SecurityType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
     </Object>
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
-    <!-- $Math -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
-    </Object>
-    <!-- $Query -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Query</VarName>
-      <Class ClassName="SQL" HasParams="true">
-        <SQL>
-          <Database>BrandonMFong</Database>
-          <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
-          <Tables>
-            <Table Name="PersonalInfo">
-              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
-              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
-            </Table>
-            <Table Name="TypeContent">
-              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
-              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-            </Table>
-          </Tables>
-        </SQL>
-      </Class>
-    </Object>
-    <!-- $Calendar -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Calendar</VarName>
-      <Class ClassName="Calendar" HasParams="false" />
-    </Object>
-    <!-- $GithubRoadMap -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">GithubRoadMap</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Git Hub Roadmap - GlobalScripts</Title>
-          <Redirect>
-          </Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $MonList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">MonList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Monday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $TueList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">TueList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Tuesday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $WedList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">WedList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Wednesday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $ThuList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">ThuList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Thursday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $FriList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">FriList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Friday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $SatList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">SatList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Saturday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $SunList -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">SunList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Sunday To Do List</Title>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $Email -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Email</VarName>
-      <Class ClassName="Email" HasParams="false" />
-    </Object>
   </Objects>
-  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
-  <Programs>
-    <!-- Third party Functions -->
-    <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
-    <Program Alias="VS" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-    <Program Alias="Chrome" Type="External">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="Matlab" Type="External">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
-    <Program Alias="Spotify" Type="External">C:\Users\bfwan\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe</Program>
-    <Program Alias="Npad" Type="External">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
-    <Program Alias="QtSpim" Type="External">C:\Program Files (x86)\QtSpim\QtSpim.exe</Program>
-    <Program Alias="GitHub" Type="External">C:\Users\bfwan\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Program>
-    <Program Alias="Wmplayer" Type="External">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
-    <Program Alias="SDK" Type="External">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
-    <Program Alias="Putty" Type="External">C:\Program Files\PuTTY\putty.exe</Program>
-    <Program Alias="Atmel" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
-    <Program Alias="Gitbash" Type="External">C:\Program Files\Git\git-bash.exe</Program>
-    <Program Alias="7z" Type="External">C:\Program Files\7-Zip\7z.exe</Program>
-    <Program Alias="Xampp" Type="External">C:\xampp\xampp-control.exe</Program>
-    <Program Alias="Global" Type="External">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
-    <Program Alias="WinSCP" Type="External">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
-    <Program Alias="Python" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
-    <Program Alias="VC" Type="External">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="PIP" Type="External">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
-    <Program Alias="Subl" Type="External">C:\Program Files\Sublime Text 3\subl.exe</Program>
-    <Program Alias="sql" Type="External">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
-    <Program Alias="VC-Powershell" Type="External">B:\Powershell\VCODE_Powershell.code-workspace</Program>
-    <Program Alias="VC-DualPowerGeneration" Type="External">B:\SOURCES\Repos\DualPowerGeneration\VCODE_DualPowerGeneration.code-workspace</Program>
-    <Program Alias="VC-BrandonFongMusic" Type="External">B:\SITES\BrandonFongMusic\VCODE_BrandonFongMusic.code-workspace</Program>
-    <Program Alias="X-Win" Type="External">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\X-Win32 19.lnk</Program>
-    <Program Alias="Xming" Type="External">C:\Program Files (x86)\Xming\Xming.exe</Program>
-    <Program Alias="Modeler" Type="External">C:\Program Files\Riverbed EDU\17.5.A\sys\pc_intel_win32\bin\modeler.exe</Program>
-    <Program Alias="SDFormatter" Type="External">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
-    <Program Alias="GuiFormat" Type="External">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
-    <Program Alias="VNCViewer" Type="External">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
-    <Program Alias="CiscoPT" Type="External">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
-    <Program Alias="Zoom" Type="External">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="remote" Type="External">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
-    <Program Alias="CompE560Book" Type="External">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
-    <Program Alias="List" Type="External">B:\Powershell\Config\List\List.xml</Program>
-    <Program Alias="Dashboard" Type="External">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
-    <Program Alias="Sentry-Mode" Type="External">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
-    <Program Alias="Timer" Type="External">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
-    <!-- User Defined Functions/scripts -->
-    <Program Alias="goto" Type="Internal">\Functions\GOTO.ps1</Program>
-    <Program Alias="Archive" Type="Internal">\Functions\ARCHIVE.ps1</Program>
-    <Program Alias="Append" Type="Internal">\Functions\AppendDate.ps1</Program>
-    <Program Alias="Put" Type="Internal">\Functions\Put.ps1</Program>
-    <Program Alias="Todo" Type="Internal">\Functions\Todo.ps1</Program>
-    <Program Alias="Query" Type="Internal">\Functions\Query.ps1</Program>
-    <Program Alias="upconfig" Type="Internal">\update-config.ps1</Program>
-    <Program Alias="upprofile" Type="Internal">\update-profile.ps1</Program>
-    <Program Alias="Search" Type="Internal">\Functions\Search.ps1</Program>
-    <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
-    <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
-  </Programs>
-  <!--Modules to include, mainly just for small functions-->
-  <Modules>
-    <Module>\Modules\Miscellaneous.psm1</Module>
-    <Module>\Modules\ConfigHandler.psm1</Module>
-  </Modules>
-  <!-- Lists -->
-  <Lists>
-    <!-- Git Hub Roadmap - GlobalScripts -->
-    <List Title="Git Hub Roadmap - GlobalScripts">
-      <!-- Version 2 -->
-      <Item rank="1" name="Version 2" Completed="false">
-        <Item rank="2" name="Major" Completed="false">
-          <Item rank="3" name="SQL Class edit add and drop tables based on config" Completed="true" />
-          <Item rank="3" name="Change Setup script" Completed="false" />
-          <Item rank="3" name="Make copy folder script" Completed="false" />
-          <Item rank="3" name="Email accessibility" Completed="true" />
-        </Item>
-        <Item rank="2" name="Minor" Completed="false">
-          <Item rank="3" name="Issues text file" Completed="true" />
-          <Item rank="3" name="Dynamically edit this list" Completed="false" />
-          <Item rank="3" name="Make a config editor" Completed="false">
-            <Item rank="4" name="Put Add directory" Completed="true" />
-            <Item rank="4" name="Put Add private directory" Completed="false" />
-          </Item>
-          <Item rank="3" name="Separate method to reload alias, functions, and objects" Completed="true" />
-          <Item rank="3" name="Weather" Completed="true" />
-          <Item rank="3" name="Prompting" Completed="true">
-            <Item rank="4" name="Adding Date Format" Completed="true" />
-            <Item rank="4" name="Adding Time Format" Completed="true" />
-          </Item>
-          <Item rank="3" name="Simplify version for insertinto for sql" Completed="true" />
-          <Item rank="3" name="Point to another xml file for list if true" Completed="true" />
-        </Item>
-        <Item rank="2" name="Bug/Patch" Completed="true">
-          <Item rank="3" name="Color Code Special Days" Completed="true" />
-          <Item rank="3" name="Don't hide filepath for list objects" Completed="true" />
-        </Item>
-      </Item>
-    </List>
-  </Lists>
-  <!-- Calendar -->
-  <Calendar>
-    <SpecialDays>
-      <SpecialDay name="Graduation">5/16/2020</SpecialDay>
-      <SpecialDay name="EE 600 Project 3 due">4/16/2020</SpecialDay>
-      <SpecialDay name="CompE 560 Test ()">4/23/2020</SpecialDay>
-      <SpecialDay name="CompE 560 Class Participation 2 by midnight">4/14/2020</SpecialDay>
-      <SpecialDay name="Waterbill due">4/24/2020</SpecialDay>
-      <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
-    </SpecialDays>
-  </Calendar>
 </Machine>

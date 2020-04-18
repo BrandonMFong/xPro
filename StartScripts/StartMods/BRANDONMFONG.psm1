@@ -1,6 +1,6 @@
 function WeekList 
 {
-    Param([switch]$Today)
+    Param([switch]$Today,[Switch]$All)
     if($Today)
     {
         switch ((Get-Date).DayOfWeek)
@@ -14,6 +14,16 @@ function WeekList
             "Sunday" {$Todo.Sunday.ListOut()}
             default{Write-Host "`n";}
         }
+    }
+    if($All)
+    {
+        $Todo.Monday.ListOut();
+        $Todo.Tuesday.ListOut();
+        $Todo.Wednesday.ListOut();
+        $Todo.Thursday.ListOut();
+        $Todo.Friday.ListOut();
+        $Todo.Saturday.ListOut();
+        $Todo.Sunday.ListOut();
     }
     
 } 

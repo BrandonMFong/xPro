@@ -11,7 +11,6 @@
   <!-- Modules -->
   <Modules>
     <Module>\Modules\System.psm1</Module>
-    <Module>\StartScripts\StartMods\BRANDONMFONG.psm1</Module>
     <Module>\Modules\Prompt.psm1</Module>
   </Modules>
   <!-- Calendar -->
@@ -159,6 +158,8 @@
     <Program Alias="Get-Calendar" Type="Internal">\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" Type="Internal">\Functions\Weather.ps1</Program>
     <Program Alias="Copy-Folder" Type="Internal">\Functions\Copy-Folder.ps1</Program>
+    <Program Alias="Week-List" Type="Internal">\Functions\Week-List.ps1</Program>
+    <Program Alias="Greetings" Type="Internal">\Functions\Greetings.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

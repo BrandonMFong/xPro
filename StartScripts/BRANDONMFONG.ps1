@@ -18,5 +18,5 @@ $x =
     Sunday = $SunList
 } 
 New-Variable -Name "Todo" -Value $x -Scope Global -Force;
-WeekList -Today;
+Week-List -Today;
 

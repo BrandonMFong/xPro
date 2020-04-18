@@ -75,108 +75,25 @@ function MakeConfig
 {
     [XML]$File = [XML]::new();
 
-    # <Machine>
-    $Node_Machine = $File.CreateElement("Machine");
-    $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
-    $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
-    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
-    $File.AppendChild($Node_Machine);#Node
-
-    ### <StartScript> ##
-    $Node_StartScript = $File.CreateElement("StartScript");
-    $Node_StartScript.SetAttribute("ClearHost","false");
-    $File.Machine.AppendChild($Node_StartScript); # Append
+    Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
     
-    ## <Prompt> ##
-    $Node_Prompt = $File.CreateElement("Prompt");
-    # <DateFormat>
-    $Node_DateFormat = $File.CreateElement("DateFormat");
-    # <TimeFormat>
-    $Node_TimeFormat = $File.CreateElement("TimeFormat");
-    # String
-    $Node_String = $File.CreateElement("String");
-    $Node_String.SetAttribute("Color", "White");
-    $Node_String.InnerXml = "Default";
-    $Node_Prompt.AppendChild($Node_String);#Node
-    $Node_Prompt.AppendChild($Node_TimeFormat);#Node
-    $Node_Prompt.AppendChild($Node_DateFormat);#Node
-    $File.Machine.AppendChild($Node_Prompt);
+    MachineNode([ref]$File);
 
-    ## Directories ##
-    $Node_Directories = $File.CreateElement("Directories");
-    # Directory
-    $Node_Directory = $File.CreateElement("Directory");
-    $Node_Directory.SetAttribute("alias", "GitRepo");
-    $Node_Directory.SetAttribute("SecurityType", "public");
-    $Node_Directory.InnerXml = $PSScriptRoot; # putting this dir in the xml
-    $Node_Directories.AppendChild($Node_Directory);#Node
-    $File.Machine.AppendChild($Node_Directories);
+    StartScriptNode([ref]$File);
 
-    # Objects
-    $Node_Objects =  $File.CreateElement("Objects");
-    $Node_Objects.SetAttribute("Database", "");
-    $Node_Objects.SetAttribute("ServerInstance", "");
-    # Object 
-    $Node_Object = $File.CreateElement("Object");
-    $Node_Object.SetAttribute("Type", "XmlElement");
-    # VarName
-    $Node_VarName = $File.CreateElement("VarName");
-    $Node_VarName.SetAttribute("SecurityType","public");
-    $Node_VarName.InnerXml = "User";
-    # Values
-    $Node_Value = $File.CreateElement("Value");
-    # Key
-    $Node_Key = $File.CreateElement("Key");
-    $Node_Object.AppendChild($Node_Value);
-    $Node_Object.AppendChild($Node_Key);
-    $Node_Object.AppendChild($Node_VarName);
-    $Node_Objects.AppendChild($Node_Object);
-    $File.Machine.AppendChild($Node_Objects);
+    PromptNode([ref]$File);
 
-    # Programs
-    $Node_Programs = $File.CreateElement("Programs");
-    # Program
-    $Node_Program = $File.CreateElement("Program");
-    $Node_Program.SetAttribute("Alias", "");
-    $Node_Program.SetAttribute("Type", "");
-    $Node_Programs.AppendChild($Node_Program);
-    $File.Machine.AppendChild($Node_Programs);
-    
-    # Modules
-    $Node_Modules = $File.CreateElement("Modules");
-    # Module
-    $Node_Module = $File.CreateElement("Module");
-    $Node_Modules.AppendChild($Node_Module);
-    $File.Machine.AppendChild($Node_Modules);
+    DirectoryNode([ref]$File);
 
-    # Lists
-    $Node_Lists = $File.CreateElement("Lists");
-    # List
-    $Node_List = $File.CreateElement("List");
-    $Node_List.SetAttribute("Title", "");
-    # Item
-    $Node_Item = $File.CreateElement("Item");
-    $Node_Item.SetAttribute("rank","");
-    $Node_Item.SetAttribute("name","");
-    $Node_Item.SetAttribute("Completed","");
-    $Node_List.AppendChild($Node_Item);
-    $Node_Lists.AppendChild($Node_List);
-    $File.Machine.AppendChild($Node_Lists);
+    ObjectsNode([ref]$File);
 
-    # Calendar
-    $Node_Calendar = $File.CreateElement("Calendar");
+    ProgramNode([ref]$File);
 
-    # SpecialDays
-    $Node_SpecialDays = $File.CreateElement("SpecialDays");
+    ModulesNode([ref]$File);
 
-    # SpecialDay
-    $Node_SpecialDay = $File.CreateElement("SpecialDay");
-    $Node_Item.SetAttribute("name","New Years");
-    $Node_SpecialDay.InnerXml = "1/1/2021";
-    $Node_SpecialDays.AppendChild($Node_SpecialDay);
-    $Node_Calendar.AppendChild($Node_SpecialDays);
-    $File.Machine.AppendChild($Node_Calendar);
+    ListNode([ref]$File);
 
-    [string]$Name = Read-Host "Please name Config file";
-    $File.Save($($PSScriptRoot + '\..\Config\' + $Name + '.xml'));
+    CalendarNode([ref]$File);
+
+    $File.Save($($PSScriptRoot + '\..\Config\' + $ConfigurationName + '.xml'));
 }

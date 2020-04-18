@@ -8,11 +8,9 @@
     <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
     <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
   </Prompt>
-  <!-- Modules -->
-  <Modules>
-    <Module>B:\Powershell\Modules\System.psm1</Module>
-    <Module>B:\Powershell\Modules\Prompt.psm1</Module>
-  </Modules>
+  <Weather>
+    <Area>San Diego</Area>
+  </Weather>
   <!-- Calendar -->
   <Calendar>
     <SpecialDays>
@@ -40,6 +38,11 @@
       </Item>
     </List>
   </Lists>
+  <!-- Modules -->
+  <Modules>
+    <Module>B:\Powershell\Modules\System.psm1</Module>
+    <Module>B:\Powershell\Modules\Prompt.psm1</Module>
+  </Modules>
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="main" SecurityType="public">B:\</Directory>

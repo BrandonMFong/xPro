@@ -14,7 +14,7 @@
 
 param
 (
-    [string]$Area,
+    [string]$Area=$(Get-Variable "XMLReader").Value.Machine.Weather.Area,
     [switch]$RightNow,
     [switch]$Today,
     [switch]$Tomorrow,

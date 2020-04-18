@@ -1,378 +1,387 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
+    <xs:element name="Machine">
+        <xs:attribute name="MachineName"/>
+        <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    Full path to the powershell script.  This will execute after profile is loaded
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="ClearHost" type="boolean" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is false.  Suggest to keep it false for debug.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Enable" type="boolean" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        If user wants the profile.ps1 to execute a script after it's done.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:element>
 
-<xs:element name="Machine">
-    <xs:attribute name="MachineName"/>
-    <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
-        <xs:annotation>
-            <xs:documentation>
-                Full path to the powershell script.  This will execute after profile is loaded
-            </xs:documentation>
-        </xs:annotation>
-        <xs:attribute name="ClearHost" type="boolean" use="mandatory">
+        <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
             <xs:annotation>
                 <xs:documentation>
-                    Default is false.  Suggest to keep it false for debug.
+                    Change the prompt function in the string tag.  
+                    Any change here does not require a reload of powershell session
                 </xs:documentation>
             </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="Enable" type="boolean" use="mandatory">
-            <xs:annotation>
-                <xs:documentation>
-                    If user wants the profile.ps1 to execute a script after it's done.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:element>
-
-    <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
-        <xs:annotation>
-            <xs:documentation>
-                Change the prompt function in the string tag.  
-                Any change here does not require a reload of powershell session
-            </xs:documentation>
-        </xs:annotation>
-        <xs:element name="DateFormat" minOccurs="1" maxOccurs="1" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Default is yyyy-dd-MM.  Uses powershell datetime formatting
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-        <xs:element name="TimeFormat" minOccurs="1" maxOccurs="1" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Default is hh:mm:ss.  Uses powershell datetime formatting
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-        <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
-            <xs:attribute name="Enabled" use="mandatory">
+            <xs:element name="DateFormat" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Toggle notification
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:annotation>
-                <xs:documentation>
-                    The value will change the prompt on the command line to red if your battery life falls below that value
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-        <xs:element name="String" minOccurs="1" maxOccurs="1">
-            <xs:attribute name="Color" use="mandatory">
-                <xs:annotation>
-                    <xs:documentation>
-                        Choices are from powershell foregroundcolor color. 
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:annotation>
-                <xs:documentation>
-                    To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
-                    Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                    @fulldir {Full directory}, @time {Current time, can be formatted}
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-    </xs:element>
-    
-    <xs:element name="Directories" maxOccurs="1">
-        <xs:annotation>
-            <xs:documentation>
-                Parameters that are used in Goto.ps1 nad put.ps1 function
-            </xs:documentation>
-        </xs:annotation>
-        <xs:element name="Directory" type="xs:string" minOccurs="1">
-            <xs:attribute name="Alias" type="xs:string" use="mandatory"/>
-            <xs:attribute name="SecurityType" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        Default 'public'.  Options: 'public' or 'private'
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:annotation>
-                <xs:documentation>
-                    File path for alias
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-    </xs:element>
-
-    <!-- Objects -->
-    <xs:attributeGroup name="HashTableObjectAttributes">
-        <xs:attribute name="SecurityType" use="mandatory">
-            <xs:annotation>
-                <xs:documentation>
-                    public or private. If you are pointing to a level, use public
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="Lvl" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    Level of the node or hash table (still determining the name)
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-
-    <xs:group name="HashTableObjectElement">
-        <xs:element name="Key" minOccurs="1">
-            <xs:attributeGroup ref="HashTableObjectAttributes"/>
-            <xs:attribute name="Node" type="xs:string" use="optional">
-                <xs:annotation>
-                    <xs:documentation>
-                        Unique id for the node pointer to point to
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:element>
-        <xs:element name="Value" minOccurs="1">
-            <xs:attributeGroup ref="HashTableObjectAttributes"/>
-            <xs:attribute name="Node" type="xs:string" use="optional">
-                <xs:annotation>
-                    <xs:documentation>
-                        Unique id for the node pointer to point to
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="NodePointer" use="optional">
-                <xs:annotation>
-                    <xs:documentation>
-                        Provide a unique id to point to the next node value
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:element>
-    </xs:group>
-
-    <xs:group name="XMLElement">
-        <xs:element name="Values">
-            <xs:any/>
-            <xs:annotation>
-                <xs:documentation>
-                    Any node here can be referenced on the command line by the element name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-    </xs:group>
-    
-    <xs:group name="ListClass">
-        <xs:element name="List" maxOccurs="1">
-            <xs:element name="Title" minOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        The Title of the list you defined in your config
+                        Default is yyyy-dd-MM.  Uses powershell datetime formatting
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="Redirect" minOccurs="1">
+            <xs:element name="TimeFormat" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Provide FULL file path if you are pointing to another xml file for your list.  
-                        Note the config layout for the for the redirected list should be the same as this schema instructs.
+                        Default is hh:mm:ss.  Uses powershell datetime formatting
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
+                <xs:attribute name="Enabled" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Toggle notification
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:annotation>
+                    <xs:documentation>
+                        The value will change the prompt on the command line to red if your battery life falls below that value
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="String" minOccurs="1" maxOccurs="1">
+                <xs:attribute name="Color" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Choices are from powershell foregroundcolor color. 
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:annotation>
+                    <xs:documentation>
+                        To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
+                        Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                        @fulldir {Full directory}, @time {Current time, can be formatted}
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:element>
-    </xs:group>
-
-    <xs:group name="SQLClass">
-        <xs:element name="SQL" minOccurs="0" maxOccurs="1">
+        
+        <xs:element name="Directories" maxOccurs="1">
             <xs:annotation>
                 <xs:documentation>
-                    This is a way to alter or create a table in a local database
+                    Parameters that are used in Goto.ps1 nad put.ps1 function
                 </xs:documentation>
             </xs:annotation>
-            <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="Tables">
-                <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
-                    <xs:attribute name="Name">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Name of the table you are creating
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
-                        <xs:annotation>
-                            <xs:documentation>
-                                All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
-                            </xs:documentation>
-                        </xs:annotation>
-                        <xs:attribute name="Name" type="xs:string" use="mandatory"/>
-                        <xs:attribute name="Type" use="mandatory"/>
-                        <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
-                        <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
-                    </xs:element>
-                    <xs:element name="Rows" minOccurs="0" maxOccurs="1">
-                        <xs:annotation>
-                            <xs:documentation>
-                                List out the rows you want to insert into the Database at start up 
-                            </xs:documentation>
-                        </xs:annotation>
-                        <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
-                            <xs:element name="Value"  type="xs:string" minOccurs="1" maxOccurs="unbounded">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        The value you are inserting for the specified column
-                                    </xs:documentation>
-                                </xs:annotation>
-                                <xs:attribute name="ColumnName" type="xs:string" use="mandatory"/>
+            <xs:element name="Directory" type="xs:string" minOccurs="1">
+                <xs:attribute name="Alias" type="xs:string" use="mandatory"/>
+                <xs:attribute name="SecurityType" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Default 'public'.  Options: 'public' or 'private'
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:annotation>
+                    <xs:documentation>
+                        File path for alias
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:element>
+
+        <!-- Objects -->
+        <xs:attributeGroup name="HashTableObjectAttributes">
+            <xs:attribute name="SecurityType" use="mandatory">
+                <xs:annotation>
+                    <xs:documentation>
+                        public or private. If you are pointing to a level, use public
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Lvl" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Level of the node or hash table (still determining the name)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:attributeGroup>
+
+        <xs:group name="HashTableObjectElement">
+            <xs:element name="Key" minOccurs="1">
+                <xs:attributeGroup ref="HashTableObjectAttributes"/>
+                <xs:attribute name="Node" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Unique id for the node pointer to point to
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+            <xs:element name="Value" minOccurs="1">
+                <xs:attributeGroup ref="HashTableObjectAttributes"/>
+                <xs:attribute name="Node" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Unique id for the node pointer to point to
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="NodePointer" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Provide a unique id to point to the next node value
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+        </xs:group>
+
+        <xs:group name="XMLElement">
+            <xs:element name="Values">
+                <xs:any/>
+                <xs:annotation>
+                    <xs:documentation>
+                        Any node here can be referenced on the command line by the element name.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:group>
+        
+        <xs:group name="ListClass">
+            <xs:element name="List" maxOccurs="1">
+                <xs:element name="Title" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The Title of the list you defined in your config
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Redirect" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Provide FULL file path if you are pointing to another xml file for your list.  
+                            Note the config layout for the for the redirected list should be the same as this schema instructs.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:element>
+        </xs:group>
+
+        <xs:group name="SQLClass">
+            <xs:element name="SQL" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This is a way to alter or create a table in a local database
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Tables">
+                    <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
+                        <xs:attribute name="Name">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Name of the table you are creating
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="Name" type="xs:string" use="mandatory"/>
+                            <xs:attribute name="Type" use="mandatory"/>
+                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
+                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
+                        </xs:element>
+                        <xs:element name="Rows" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    List out the rows you want to insert into the Database at start up 
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="Value"  type="xs:string" minOccurs="1" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            The value you are inserting for the specified column
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:attribute name="ColumnName" type="xs:string" use="mandatory"/>
+                                </xs:element>
                             </xs:element>
                         </xs:element>
                     </xs:element>
                 </xs:element>
             </xs:element>
-        </xs:element>
-    </xs:group>
-    
-    <xs:group name="ClassElement">
-        <xs:element name="Class" maxOccurs="1">
-            <xs:attribute name="ClassName" use="mandatory"/>
-            <xs:attribute name="HasParams" use="mandatory" type="boolean"/>
-            <xs:annotation>
-                <xs:documentation>
-                    Nodes below here can be reference when creating a class. 
-                </xs:documentation>
-            </xs:annotation>
-            <xs:group ref="SQLClass"/>
-            <xs:group ref="ListClass"/>
-        </xs:element>
-    </xs:group>
+        </xs:group>
+        
+        <xs:group name="ClassElement">
+            <xs:element name="Class" maxOccurs="1">
+                <xs:attribute name="ClassName" use="mandatory"/>
+                <xs:attribute name="HasParams" use="mandatory" type="boolean"/>
+                <xs:annotation>
+                    <xs:documentation>
+                        Nodes below here can be reference when creating a class. 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:group ref="SQLClass"/>
+                <xs:group ref="ListClass"/>
+            </xs:element>
+        </xs:group>
 
-    <xs:element name="Objects" maxOccurs="1">
-        <xs:attribute name="Database" type="xs:boolean" use="mandatory">
-            <xs:annotation>
-                <xs:documentation>
-                    For the HashTable decoding to work, you need to define this attribute
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="ServerInstance" type="xs:boolean" use="mandatory">
-            <xs:annotation>
-                <xs:documentation>
-                    For the HashTable decoding to work, you need to define this attribute
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:element name="Object">
-            <xs:annotation>
-                <xs:documentation>
-                    Must have one Object element for every object you want to refer to on the cmd line.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:attribute name="Type" type="xs:boolean" use="mandatory">
+        <xs:element name="Objects" maxOccurs="1">
+            <xs:attribute name="Database" type="xs:boolean" use="mandatory">
                 <xs:annotation>
                     <xs:documentation>
-                        Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
-                        XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
-                        HashTable (if the object will be using key and value to populate). 
-                        Default is XmlElement.
+                        For the HashTable decoding to work, you need to define this attribute
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="ID" type="xs:int" use="optional">
+            <xs:attribute name="ServerInstance" type="xs:boolean" use="mandatory">
                 <xs:annotation>
                     <xs:documentation>
-                        Optional for HashTable type, use to match the primary key in DB
+                        For the HashTable decoding to work, you need to define this attribute
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:element name="VarName" minOccurs="1" maxOccurs="1">
+            <xs:element name="Object">
                 <xs:annotation>
                     <xs:documentation>
-                        To define the object name
+                        Must have one Object element for every object you want to refer to on the cmd line.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:attribute name="SecurityType" type="xs:string" use="mandatory">
+                <xs:attribute name="Type" type="xs:boolean" use="mandatory">
                     <xs:annotation>
                         <xs:documentation>
-                            public or private, if private must include the name in the database
+                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
+                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
+                            HashTable (if the object will be using key and value to populate). 
+                            Default is XmlElement.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
+                <xs:attribute name="ID" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Optional for HashTable type, use to match the primary key in DB
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:element name="VarName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            To define the object name
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:attribute name="SecurityType" type="xs:string" use="mandatory">
+                        <xs:annotation>
+                            <xs:documentation>
+                                public or private, if private must include the name in the database
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:element>
+                <xs:group ref="HashTableObjectElement"/>
+                <xs:group ref="XMLElement"/>
+                <xs:group ref="ClassElement"/>
             </xs:element>
-            <xs:group ref="HashTableObjectElement"/>
-            <xs:group ref="XMLElement"/>
-            <xs:group ref="ClassElement"/>
         </xs:element>
-    </xs:element>
-    
+        
 
-    <xs:element name="Programs" maxOccurs="1">
-        <xs:documentation>
-            Whatever is defined here will be referenced by the alias user provides
-        </xs:documentation>
-        <xs:element name="Program" type="xs:string" minOccurs="1">
-            <xs:attribute name="Alias" type="xs:string"/>
+        <xs:element name="Programs" maxOccurs="1">
             <xs:documentation>
-                Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
+                Whatever is defined here will be referenced by the alias user provides
             </xs:documentation>
-            <xs:attribute name="SecurityType" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        Default 'public'.  Options: 'public' or 'private'
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:element>
-    </xs:element>
-
-    <xs:element name="Modules" maxOccurs="1">
-        <xs:element name="Module" type="xs:string" minOccurs="1">
-            <xs:annotation>
-                <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
-                    Path for modules starting at powershell repo
-                </xs:documentation>
-            </xs:annotation>
-        </xs:element>
-    </xs:element>
-    
-    <xs:group name="List" maxOccurs="1">
-        <xs:element name="Item">
-            <xs:annotation>
+            <xs:element name="Program" type="xs:string" minOccurs="1">
+                <xs:attribute name="Alias" type="xs:string"/>
                 <xs:documentation>
-                    You can include as many 'Item' tags, so long as you specify the rank of the item.  
-                    The last one should not have any text within the node.
+                    Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
                 </xs:documentation>
-            </xs:annotation>
-            <xs:attribute name="rank" type="xs:int" use="mandatory"/>
-            <xs:attribute name="name" type="xs:string" use="mandatory"/>
-            <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
-            <xs:attribute name="ID" type="xs:string" use="optional"/>
-            <xs:group ref="TodoList"/>
-        </xs:element>
-    </xs:group>
-    <xs:element name="Lists" minOccurs="0" maxOccurs="1">
-        <xs:element name="List">
-            <xs:attribute name="Title" use="mandatory"/>
-            <xs:group ref="List"/>
-        </xs:element>
-    </xs:element>
-
-    <xs:element name="Calendar" maxOccurs="1">
-        <xs:element name="SpecialDays" maxOccurs="1">
-            <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
-                <xs:annotation>
-                    <xs:documentation>
-                        Must be in datetime format: MM/dd/yyyy 
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="name" type="xs:datetime" use="mandatory">
+                <xs:attribute name="SecurityType" type="xs:string" use="required">
                     <xs:annotation>
                         <xs:documentation>
-                            Name of the day
+                            Default 'public'.  Options: 'public' or 'private'
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
             </xs:element>
         </xs:element>
+
+        <xs:element name="Modules" maxOccurs="1">
+            <xs:element name="Module" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
+                        Path for modules starting at powershell repo
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:element>
+        
+        <xs:group name="List" maxOccurs="1">
+            <xs:element name="Item">
+                <xs:annotation>
+                    <xs:documentation>
+                        You can include as many 'Item' tags, so long as you specify the rank of the item.  
+                        The last one should not have any text within the node.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="rank" type="xs:int" use="mandatory"/>
+                <xs:attribute name="name" type="xs:string" use="mandatory"/>
+                <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
+                <xs:attribute name="ID" type="xs:string" use="optional"/>
+                <xs:group ref="TodoList"/>
+            </xs:element>
+        </xs:group>
+        <xs:element name="Lists" minOccurs="0" maxOccurs="1">
+            <xs:element name="List">
+                <xs:attribute name="Title" use="mandatory"/>
+                <xs:group ref="List"/>
+            </xs:element>
+        </xs:element>
+
+        <xs:element name="Calendar" maxOccurs="1">
+            <xs:element name="SpecialDays" maxOccurs="1">
+                <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Must be in datetime format: MM/dd/yyyy 
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:attribute name="name" type="xs:datetime" use="mandatory">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Name of the day
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:element>
+            </xs:element>
+        </xs:element>
+
+        <xs:element name="Weather" minOccurs="0" maxOccurs="1">
+            <xs:element name="Area" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        City for weather
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:element>
     </xs:element>
-</xs:element>
 </xs:schema>

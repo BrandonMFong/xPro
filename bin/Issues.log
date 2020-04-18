@@ -1,10 +1,10 @@
 
 Issue: Private directory jumps to modules dir and inserts that directory into the db
-    Fix Commit: 
-    Branch: 
-    Status: Open
-    Notes:
-    Post:
+    Fix Commit: 640655b
+    Branch: NA
+    Status: Closed
+    Notes: Used location inside the push-location nest
+    Post: Using $PathToAdd var 
 
 Issue: Email does not work.  It lags at start up
     Fix Commit: 

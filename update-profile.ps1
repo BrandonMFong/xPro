@@ -37,7 +37,6 @@ Push-Location $PSScriptRoot
     {
         Write-Host "`nNo updates to profile`n" -ForegroundColor Green; 
     }
-    Start-Sleep 1;
 Pop-Location
 
 if($Updated){return 1;}

@@ -55,10 +55,6 @@ function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).E
 
 function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}
 
-function Volume
-{
-    # https://stackoverflow.com/questions/21355891/change-audio-level-from-powershell
-    Param([double]$Adjust=0,[switch]$Up,[switch]$Down,[switch]$Mute,[switch]$Unmute)
 Add-Type -TypeDefinition @'
 using System.Runtime.InteropServices;
 [Guid("5CDF2C82-841E-4546-9722-0CF74078229A"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -109,6 +105,11 @@ public class Audio
     }
 }
 '@
+function Volume
+{
+    # https://stackoverflow.com/questions/21355891/change-audio-level-from-powershell
+    Param([double]$Adjust=0,[switch]$Up,[switch]$Down,[switch]$Mute,[switch]$Unmute)
+
     if($Adjust -ne 0)
     {
         [Audio]::Volume = $Adjust * 0.01;
@@ -327,3 +328,11 @@ function Search
     }
     else{throw "Nothing searched";}
 }
+
+$Signature = @"
+[DllImport("user32.dll")]public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+"@
+
+$ShowWindowAsync = Add-Type -MemberDefinition $Signature -Name "Win32ShowWindowAsync" -Namespace Win32Functions -PassThru
+
+function Minimize-Terminal{$ShowWindowAsync::ShowWindowAsync((Get-Process -Id $pid).MainWindowHandle, 2)}

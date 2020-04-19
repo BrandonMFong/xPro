@@ -17,7 +17,7 @@ function MakeClass($XmlElement)
         "Calculations" {$x = [Calculations]::new();return $x;}
         "Email" {$x = [Email]::new();return $x;}
         "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
-        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect);return $x;}
+        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
         default
         {
             Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";

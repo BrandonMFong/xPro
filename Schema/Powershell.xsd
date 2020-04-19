@@ -177,6 +177,13 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="DisplayCompleteWith" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Default 'ColorCoded'.  Options: 'ColorCoded' or 'Markup'
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:element>
         </xs:group>
 

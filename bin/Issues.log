@@ -1,6 +1,6 @@
 
 Issue: Can only edit list once
-    Fix Commit: 
+    Fix Commit: 7035887
     Branch: NA
     Status: Open
     Notes: 
@@ -25,11 +25,15 @@ Issue: Private directory jumps to modules dir and inserts that directory into th
     Post: Using $PathToAdd var 
 
 Issue: Email does not work.  It lags at start up
-    Fix Commit: 
-    Branch: 
-    Status: Open
-    Notes:
+    Fix Commit: e354514
+    Branch: NA
+    Status: Closed
+    Notes: 
+        - Just never worked well as an object
+        - Don't really need it as an object anyways
+        - But should think about it if you have different emails in outlook
     Post:
+        - Changing to script
 
 Issue: Everytime we add a column to a table, we need to manual do that to all dbs
     Fix Commit: 81917b0
@@ -48,11 +52,16 @@ Issue: Everytime we add a column to a table, we need to manual do that to all db
             - Should not have deletions just in case of config errors and risk of lost data
 
 Issue: Get-Weather takes a long time to execute 
-    Status: Open 
-    Fix Commit:
-    Branch:
+    Status: Closed (Suspended)
+    Fix Commit: NA
+    Branch: NA
     Notes:
         - How do you time a function in powershell?
+        - Don't really use it a lot anyways
+    Post:
+        - Only used at startscript and I would see the issue there 
+        - Now just calling it whenever.  
+        - The site seems to have a lot of traffic and has a limit to its request  
 
 Issue: List edit config 
     Status: Closed 

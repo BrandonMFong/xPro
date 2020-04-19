@@ -113,6 +113,10 @@ function Volume
     {
         [Audio]::Volume = $Adjust * 0.01;
     }
+    else
+    {
+        Write-Host "Volume Level: $(([Audio]::Volume*100).ToString("#.##"))%" -ForegroundColor Cyan
+    }
     if($Up){[Audio]::Volume = [Audio]::Volume + (10 * 0.01);}
     if($Down){[Audio]::Volume = [Audio]::Volume - (10 * 0.01);}
     if($Mute){[Audio]::Volume = 0;}

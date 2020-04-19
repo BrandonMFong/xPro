@@ -247,6 +247,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
         </List>
       </Class>
     </Object>
@@ -256,6 +257,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Monday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -266,6 +268,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Tuesday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -276,6 +279,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Wednesday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -286,6 +290,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Thursday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -296,6 +301,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Friday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -306,6 +312,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Saturday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>
@@ -316,6 +323,7 @@
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Sunday To Do List</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
           <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
         </List>
       </Class>

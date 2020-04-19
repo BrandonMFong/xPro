@@ -16,22 +16,26 @@ $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefault
 
 if($ListMessages)
 {
-    Write-Host "------------------------------------------------------------------------------------------";
-    for($i=0;$i -lt $inbox.Items.Count;$i++)
+    if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        Write-Host `n;
-        Write-Host "From: " -ForegroundColor Cyan -NoNewline;
-        Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($i)).SenderName)";
-        Write-Host "Subject: " -ForegroundColor Cyan -NoNewline; 
-        Write-Host "$(($inbox.Items|Select-Object -Property Subject|Select-Object -Index $($i)).Subject)" ;
-        Write-Host "Time: " -ForegroundColor Cyan -NoNewline; 
-        $Time = ($inbox.Items|Select-Object -Property ReceivedTime|Select-Object -Index $($i)).ReceivedTime;
-        Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" ;
-        Write-Host "Body: " -ForegroundColor Cyan;
-        Write-Host "$(($inbox.Items|Select-Object -Property Body|Select-Object -Index $($i)).Body)" ;
         Write-Host "------------------------------------------------------------------------------------------";
+        for($i=0;$i -lt $inbox.Items.Count;$i++)
+        {
+            Write-Host `n;
+            Write-Host "From: " -ForegroundColor Cyan -NoNewline;
+            Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($i)).SenderName)";
+            Write-Host "Subject: " -ForegroundColor Cyan -NoNewline; 
+            Write-Host "$(($inbox.Items|Select-Object -Property Subject|Select-Object -Index $($i)).Subject)" ;
+            Write-Host "Time: " -ForegroundColor Cyan -NoNewline; 
+            $Time = ($inbox.Items|Select-Object -Property ReceivedTime|Select-Object -Index $($i)).ReceivedTime;
+            Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" ;
+            Write-Host "Body: " -ForegroundColor Cyan;
+            Write-Host "$(($inbox.Items|Select-Object -Property Body|Select-Object -Index $($i)).Body)" ;
+            Write-Host "------------------------------------------------------------------------------------------";
+        }
+        Write-Host `n;
     }
-    Write-Host `n;
+    else{Write-Host "No Emails!"}
 }
 if($index -ne 0)
 {

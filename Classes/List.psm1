@@ -5,10 +5,12 @@ class List
     [string]$Title; # Must match the title attribute for List tag
     hidden [string]$FilePath; # The data file that will contain todo list
     hidden [boolean]$ExitLoop = $false;
+    hidden [string]$DisplayFormat;
 
-    List([string]$Title,[string]$XMLRedirectPath)
+    List([string]$Title,[string]$XMLRedirectPath,[string]$DisplayFormat)
     {
         $this.Title = $Title;
+        $this.DisplayFormat = $DisplayFormat
         if([string]::IsNullOrEmpty($XMLRedirectPath)) # if using user config
         {
             [string]$File = (Get-Variable 'AppPointer').Value.Machine.ConfigFile; 
@@ -60,15 +62,30 @@ class List
             $x = [Item]::new($item)
             [string]$tab = "";
             for($i=0;$i -lt $x.Rank();$i++){$tab = $tab + "  ";}
-            if($x.Completed)
-            {
-                Write-Host "$($tab)$($x.String())" -ForegroundColor Green;
-            }
-            else
-            {
-                Write-Host "$($tab)$($x.String())" -ForegroundColor Red;
-            }
+            $this.Display($x,$tab); # Display item string
             if($x.HasChildNodes){$this.GetItems($item);}
+        }
+    }
+
+    hidden [void] Display([Item]$x,[string]$tab)
+    {
+        switch ($this.DisplayFormat)
+        {
+            "ColorCoded"
+            {
+                if($x.Completed){Write-Host "$($tab)$($x.String())" -ForegroundColor Green;}
+                else{Write-Host "$($tab)$($x.String())" -ForegroundColor Red;}
+            }
+            "Markup"
+            {
+                if($x.Completed){Write-Host "$($tab)[X]$($x.String())" -ForegroundColor Yellow;}
+                else{Write-Host "$($tab)[O]$($x.String())" -ForegroundColor Yellow;}
+            }
+            Default
+            {
+                if($x.Completed){Write-Host "$($tab)$($x.String())" -ForegroundColor Green;}
+                else{Write-Host "$($tab)$($x.String())" -ForegroundColor Red;}
+            }
         }
     }
 

@@ -151,7 +151,7 @@ function Test
         mkdir archive;
     }
 }
-function DoesFileExist($file)
+function DoesFileExistInArchive($file)
 {
     If(Test-Path $('.\archive\' + $file.Name))
     {

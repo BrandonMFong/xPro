@@ -11,7 +11,7 @@
 .Notes
     This function is useful when you have have a lot in your directory and you want to get a clean start
 #>
-Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
+Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="!NoFile!")
 
 if($Zip)
 {
@@ -35,25 +35,32 @@ if($Zip)
         exit;
     }
 }
+elseif($Filename -ne "!NoFile!")
+{
+    Test;
+    Get-ChildItem |
+    Where-Object{$(".\" + $_.Name) -eq $FileName} |
+    ForEach-Object{DoesFileExistInArchive($_);}
+}
 elseif($OnlyZipFiles)
 {
     Test;
     Get-ChildItem |
     Where-Object{($_.Extension -eq '.zip') -and ($_.Name -ne 'archive')} | 
-    ForEach-Object{DoesFileExist($_);}
+    ForEach-Object{DoesFileExistInArchive($_);}
 }
 elseif($OnlyFiles)
 {
     Test;
     Get-ChildItem *.*|
     Where-Object{$_.Name -ne 'archive'} | 
-    ForEach-Object{DoesFileExist($_);}
+    ForEach-Object{DoesFileExistInArchive($_);}
 }
 else 
 {
     Test;
     Get-ChildItem |
     Where-Object{($_.Extension -ne '.zip') -and ($_.Name -ne 'archive')} | 
-    ForEach-Object{DoesFileExist($_);}
+    ForEach-Object{DoesFileExistInArchive($_);}
 }
 

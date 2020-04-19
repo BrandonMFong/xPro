@@ -32,15 +32,16 @@ class List
 
     [void] Edit()
     {
+        $this.xml = $null;
         $this.LoadList();
         $string = Read-Host -Prompt "String";
-        $this.SweepItems($string,0,$this.GetList());
+        $this.SweepItems($string,0,$this.GetList(),$null);
         $this.Save();
     }
 
     hidden LoadList()
     {
-        $this.xml = Get-Content $this.FilePath;
+        $this.xml = Get-Content $this.FilePath -Raw;
     }
 
     hidden [System.Xml.XmlElement] GetList()
@@ -71,9 +72,9 @@ class List
         }
     }
 
-    [void] SweepItems([string]$string,[int]$begin=0,$List)
+    [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString)
     {
-        [string]$ID = "";
+        [string]$ID = $IDString;
         for($i = $begin;$i -lt $string.Length;$i++)
         {
             if($this.ExitLoop){break;}
@@ -82,15 +83,23 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+1,$Item);}
-                    elseif($this.ExitLoop){break;}
-                    else{throw "String Error";}
+                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+1,$Item,$string[$i+1]);}
                 }
+                if($this.ExitLoop){break;}
+                throw "String Error";
             }
             elseif([string]::IsNullOrEmpty($string[$i+1])) # this notifies that this is the end
             {
-                [boolean]$val = $List.Completed.ToBoolean($null);
-                $List.Completed = $val.ToString();
+                if([string]::IsNullOrEmpty($ID)){$ID = $string;}
+                foreach($Item in $List.Item)
+                {
+                    # if last one
+                    if($Item.ID -eq $ID)
+                    {
+                        [boolean]$val = !$Item.Completed.ToBoolean($null);
+                        $Item.Completed = $val.ToString();
+                    }
+                }
                 $this.ExitLoop = $true;
             }
             else{$ID += $string[$i];}

@@ -16,7 +16,6 @@
     <SpecialDays>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
       <SpecialDay name="CompE 560 Test (Network)">4/23/2020</SpecialDay>
-      <SpecialDay name="Waterbill due">4/24/2020</SpecialDay>
       <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
@@ -90,6 +89,7 @@
     <Directory Alias="Sentry" SecurityType="public">B:\SOURCES\Repos\SentryV2</Directory>
     <Directory Alias="grad" SecurityType="public">B:\COLLEGE\Graduate</Directory>
     <Directory Alias="hw4565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
+    <Directory Alias="EEFinProj" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project4</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

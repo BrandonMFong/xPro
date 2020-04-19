@@ -1,4 +1,19 @@
 
+Issue: Can only edit list once
+    Fix Commit: 
+    Branch: NA
+    Status: Open
+    Notes: 
+        - Seems that I can reload after every profile reload
+    Post: 
+
+Issue: Get-Calendar brings you to the module directory
+    Fix Commit: 
+    Branch: NA
+    Status: Open
+    Notes: 
+    Post: 
+
 Issue: Private directory jumps to modules dir and inserts that directory into the db
     Fix Commit: 640655b
     Branch: NA

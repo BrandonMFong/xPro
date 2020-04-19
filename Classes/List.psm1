@@ -1,7 +1,7 @@
 
 class List
 {
-    hidden [XML]$xml; # Will contain xml elements
+    hidden [System.Xml.XmlDocument]$xml = [System.Xml.XmlDocument]::new(); # Will contain xml elements
     [string]$Title; # Must match the title attribute for List tag
     hidden [string]$FilePath; # The data file that will contain todo list
     hidden [boolean]$ExitLoop = $false;
@@ -32,7 +32,6 @@ class List
 
     [void] Edit()
     {
-        $this.xml = $null;
         $this.LoadList();
         $string = Read-Host -Prompt "String";
         $this.SweepItems($string,0,$this.GetList(),$null);
@@ -41,7 +40,8 @@ class List
 
     hidden LoadList()
     {
-        $this.xml = Get-Content $this.FilePath -Raw;
+        # $this.xml.PreserveWhitespace = $true;
+        $this.xml.Load($this.FilePath);
     }
 
     hidden [System.Xml.XmlElement] GetList()

@@ -11,7 +11,7 @@
     
 #>
 param([string]$month,[switch]$Current,[switch]$SpecialDays)
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
 $var = $(GetObjectByClass('Calendar'));
 
 if($SpecialDays)

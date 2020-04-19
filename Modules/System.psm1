@@ -127,7 +127,7 @@ function Config-Editor
         [switch]$AddDirectory,
         [string]$AddProgram=$null
     )
-    if($AddDirectory){InsertFromCmd -Tag "Directories" -PathToAdd $(Get-Location).Path;}
+    if($AddDirectory){InsertFromCmd -Tag "Directory" -PathToAdd $(Get-Location).Path;}
     if(![string]::IsNullOrEmpty($AddProgram)){InsertFromCmd -Tag "Program" -PathToAdd $(GetFullFilePath($AddProgram));}
 
 }

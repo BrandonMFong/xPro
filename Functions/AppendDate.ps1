@@ -14,7 +14,7 @@
     Useful for when you have multiple files with the same name in the same directory
 #>
 Param([Alias('F')][Switch]$FileDate, [String]$FileName="Pass")
-
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 if($FileDate) # this needs work
 {
     Get-ChildItem . | 

@@ -1,4 +1,5 @@
 Param([switch]$Today,[Switch]$All)
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 if($Today)
 {
     switch ((Get-Date).DayOfWeek)

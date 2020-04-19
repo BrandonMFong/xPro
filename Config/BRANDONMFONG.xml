@@ -320,11 +320,6 @@
         </List>
       </Class>
     </Object>
-    <!-- $Email -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Email</VarName>
-      <Class ClassName="Email" HasParams="false" />
-    </Object>
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
       <VarName SecurityType="public">SeniorDesignYes</VarName>

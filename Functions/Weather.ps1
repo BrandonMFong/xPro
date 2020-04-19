@@ -21,6 +21,7 @@ param
     [switch]$DayAfterTomorrow,
     [switch]$All
 )
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 $weather = (Invoke-WebRequest "http://wttr.in/$Area").ParsedHtml.body.outerText -split "`n";
 Write-Host "`n$($weather[0])" -ForegroundColor Green;
 

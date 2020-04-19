@@ -11,6 +11,7 @@
 
 #>
 Param([String[]] $dir, [Alias('p')][Switch] $push)
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 [bool]$ProcessExecuted = $false;
 	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
 	{

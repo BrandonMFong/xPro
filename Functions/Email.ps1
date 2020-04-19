@@ -8,8 +8,8 @@
 #>
 
 Param([Switch]$Count, [Switch]$ListInbox,[Switch]$GetObject,[Switch]$GetBody,[int]$index=$null)
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 
-Add-Type -assembly "Microsoft.Office.Interop.Outlook";
 $Outlook = New-Object -comobject Outlook.Application;
 $namespace = $Outlook.GetNameSpace("MAPI");
 $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)

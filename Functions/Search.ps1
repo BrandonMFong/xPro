@@ -11,6 +11,7 @@
     Wondering if there should be a class for Web or just put all strings in this function
 #>
 param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 $var = $(GetObjectByClass('Web'));
 
 if($Google)

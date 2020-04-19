@@ -3,7 +3,6 @@ using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\Web.psm1;
 using module .\..\Classes\List.psm1;
-using module .\..\Classes\Email.psm1;
 
 # These are functions used inside other functions
 
@@ -269,3 +268,5 @@ function GetTCExtID([string]$Type)
     }
     return $str;
 }
+
+Add-Type -assembly "Microsoft.Office.Interop.Outlook";

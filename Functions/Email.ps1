@@ -1,10 +1,10 @@
 <#
 .Synopsis
-	Outlook data mining
+	Lists emails from Outlook app
 .Description
     Refs: https://docs.microsoft.com/en-us/archive/msdn-magazine/2013/march/powershell-managing-an-outlook-mailbox-with-powershell
 .Notes
-    
+    Must have outlook app for this to work
 #>
 
 Param([Switch]$Count, [Switch]$ListMessages, [Switch]$ListInbox,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0)

@@ -126,5 +126,5 @@ class Item
     }
 }
 
-[List]$test = [List]::new('Saturday To Do List','B:\Powershell\Config\List\List.xml')
-$test.Edit();
+# [List]$test = [List]::new('Saturday To Do List','B:\Powershell\Config\List\List.xml')
+# $test.Edit();

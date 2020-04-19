@@ -12,7 +12,6 @@
     This function is useful when you have have a lot in your directory and you want to get a clean start
 #>
 Param([Alias('Z')][Switch]$Zip, [Switch]$OnlyZipFiles, [Switch]$OnlyFiles, [string]$FileName="Pass")
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1")
 
 if($Zip)
 {

@@ -16,13 +16,13 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
         
     <### PROGRAMS ###> 
-        LoadPrograms -XMLReader $XMLReader -AppPointer $AppPointer
+        LoadPrograms -XMLReader $XMLReader
     
     <### MODULES ###>
-        LoadModules -XMLReader $XMLReader -AppPointer $AppPointer
+        LoadModules -XMLReader $XMLReader
         
     <### OBJECTS ###>
-        LoadObjects -XMLReader $XMLReader -AppPointer $AppPointer
+        LoadObjects -XMLReader $XMLReader
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}

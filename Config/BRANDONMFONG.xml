@@ -140,6 +140,13 @@
     <Program Alias="Get-Weather" SecurityType="public">B:\Powershell\Functions\Weather.ps1</Program>
     <Program Alias="Copy-Folder" SecurityType="public">B:\Powershell\Functions\Copy-Folder.ps1</Program>
     <Program Alias="Week-List" SecurityType="public">B:\Powershell\Functions\Week-List.ps1</Program>
+    <Program Alias="Append" SecurityType="public">B:\Powershell\Functions\AppendDate.ps1</Program>
+    <Program Alias="Archive" SecurityType="public">B:\Powershell\Functions\Archive.ps1</Program>
+    <Program Alias="Get-Email" SecurityType="public">B:\Powershell\Functions\Email.ps1</Program>
+    <Program Alias="Goto" SecurityType="public">B:\Powershell\Functions\GOTO.ps1</Program>
+    <Program Alias="Put" SecurityType="public">B:\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Query" SecurityType="public">B:\Powershell\Functions\Query.ps1</Program>
+    <Program Alias="Search" SecurityType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecurityType="public">B:\Powershell\Functions\Greetings.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->

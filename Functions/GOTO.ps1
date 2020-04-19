@@ -11,14 +11,13 @@
 
 #>
 Param([String[]] $dir, [Alias('p')][Switch] $push)
-# Import-Module $($PSScriptRoot.tostring() + '\..\Modules\FunctionModules.psm1');
 [bool]$ProcessExecuted = $false;
 	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
 	{
 		if($Directory.alias -eq $dir)
 		{
-			if($push){Push-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
-			else{Set-Location $(EvaluateDir -value $Directory); $ProcessExecuted = $true;}
+			if($push){Push-Location $(EvaluateVar -value $Directory); $ProcessExecuted = $true;}
+			else{Set-Location $(EvaluateVar -value $Directory); $ProcessExecuted = $true;}
 		}
 		
 	}

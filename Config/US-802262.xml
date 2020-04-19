@@ -95,7 +95,7 @@
     <Program Alias="WinSCP"  SecurityType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
     <Program Alias="IIS"  SecurityType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>
     <Program Alias="Cisco"  SecurityType="public">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
-    <!-- User Defined -->
+    <!-- Git functions -->
     <Program Alias="List-Bank"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\ListBank.ps1</Program>
     <Program Alias="Time"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\TIME.ps1</Program>
     <Program Alias="Ticket"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\KiranTickets.ps1</Program>
@@ -105,6 +105,13 @@
     <Program Alias="Get-Calendar"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
     <Program Alias="Greetings"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Greetings.ps1</Program>
+    <Program Alias="GOTO"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program>
+    <Program Alias="Put"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Aopend"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
+    <Program Alias="Archive"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
+    <Program Alias="Get-Email"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
+    <Program Alias="Search"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
+    <Program Alias="Query"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -137,6 +144,56 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Rows>
+                <Row>
+                  <Value ColumnName="Description">ID</Value>
+                  <Value ColumnName="ExternalID">ID</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Username</Value>
+                  <Value ColumnName="ExternalID">Username</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Password</Value>
+                  <Value ColumnName="ExternalID">Password</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Email</Value>
+                  <Value ColumnName="ExternalID">Email</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">IP Address</Value>
+                  <Value ColumnName="ExternalID">IPAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">PIN</Value>
+                  <Value ColumnName="ExternalID">PIN</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">URL</Value>
+                  <Value ColumnName="ExternalID">URL</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private ColumnName</Value>
+                  <Value ColumnName="ExternalID">PrivateName</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Directory</Value>
+                  <Value ColumnName="ExternalID">PrivateDirectory</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Mobile Number</Value>
+                  <Value ColumnName="ExternalID">MobileNumber</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Home Address</Value>
+                  <Value ColumnName="ExternalID">HomeAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Program</Value>
+                  <Value ColumnName="ExternalID">PrivateProgram</Value>
+                </Row>
+              </Rows>
             </Table>
           </Tables>
         </SQL>

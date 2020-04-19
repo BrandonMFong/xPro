@@ -13,14 +13,13 @@
 	This reads the items under <Directories> in your xml file
 #>
 Param([String[]]$File, [Alias ('Dest')][String[]] $Destination)
-# Import-Module $($PSScriptRoot.tostring() + '\..\Modules\FunctionModules.psm1');
 [bool]$ProcessExecuted = $false;
 	
 foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 {
 	if($Directory.alias -eq $Destination)
 	{
-		move-item $File $(EvaluateDir -value $Directory); $ProcessExecuted = $true;
+		move-item $File $(EvaluateVar -value $Directory); $ProcessExecuted = $true;
 	}
 	
 }

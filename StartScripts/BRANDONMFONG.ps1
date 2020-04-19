@@ -6,6 +6,8 @@ Write-Host "`n";
 $Calendar.GetCalendarMonth();
 Write-Host "`n[Special Days]" -ForegroundColor Green;
 $Calendar.SpecialDays();
+Write-Host "`n[Emails]" -ForegroundColor Green;
+Get-Email -ListInbox;
 $x = 
 @{
     Monday = $MonList;

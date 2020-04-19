@@ -37,10 +37,17 @@ Have everything on the command line
     ```
 * **Edit Prompt**
     ```
-    [@date - @user] @fulldir>
+    [@date - @user] @currdir> 
+
+    [03/28/2020 - BrandonMFong] Powershell>
     ```
 * **Weather Report**
     ```
+    Sample Configuration
+    <Weather>
+        <Area>San Diego</Area>
+    </Weather>
+
     [03/28/2020 - BrandonMFong] Powershell> get-weather -RightNow  
     Weather report: Spring Valley, United States
 
@@ -52,7 +59,55 @@ Have everything on the command line
 
     ```
 * **Create multiple lists (i.e. To Do Lists)**
+    ```
+    <Lists>
+        <!-- Monday -->
+        <List Title="Monday To Do List">
+        <Item ID="A" rank="1" name="CompE 565" Completed="true">
+            <Item ID="A" rank="2" name="Study" Completed="true" />
+            <Item ID="B" rank="2" name="Study" Completed="true" />
+        </Item>
+        <Item ID="A" rank="1" name="CompE 496B" Completed="true">
+            <Item ID="A" rank="2" name="Study" Completed="true" />
+            <Item ID="B" rank="2" name="Study" Completed="true" />
+        </Item>
+        <Item ID="A" rank="1" name="CompE 560" Completed="true">
+            <Item ID="A" rank="2" name="Study" Completed="true" />
+            <Item ID="B" rank="2" name="Study" Completed="true" />
+        </Item>
+        <Item ID="A" rank="1" name="EE 600" Completed="true">
+            <Item ID="A" rank="2" name="Study" Completed="true" />
+            <Item ID="B" rank="2" name="Study" Completed="true" />
+        </Item>
+        </List>
+    </Lists>
+
+    [09:22 PM, Saturday 04/18 - BrandonMFong] Powershell>_ $MonList.ListOut()                                                                            
+    [Monday To Do List]
+
+    1 - CompE 565
+        2 - Study
+        2 - Study
+    1 - CompE 496B
+        2 - Study
+        2 - Study
+    1 - CompE 560
+        2 - Study
+        2 - Study
+    1 - EE 600
+        2 - Study
+        2 - Study
+
+    ```
 * **Set multiple aliases at initial start of powershell**
+    *Public*
+    ```
+    <Program Alias="Chrome" SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    ```
+    *Private*
+    ```
+    <Program Alias="Chrome" SecurityType="private">9b137307-5bf9-4344-9d61-2aef23bba9fa</Program>
+    ```
 * **Quickly hop over to a directory using *goto* function**
 
 ### Prerequisites

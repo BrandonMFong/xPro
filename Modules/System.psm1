@@ -1,4 +1,4 @@
-Import-Module $($PSScriptRoot +  '\FunctionModules.psm1') -DisableNameChecking -Scope Local;
+Import-Module $($PSScriptRoot +  '\FunctionModules.psm1') -DisableNameChecking;
 
 function Hop 
 {

@@ -82,9 +82,8 @@ class Calendar
 
     [void]SpecialDays()
     {
-        Push-Location $PSScriptRoot;
-            [xml]$x = Get-Content $('..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);#AppPointer Defined in Profile.xml
-        Pop-Location;
+        #[xml]$x = Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);#AppPointer Defined in Profile.xml
+        [xml]$x = GetXMLContent;
         foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
         {
             if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML)))){Write-Host "***" -NoNewline;}

@@ -27,9 +27,7 @@ function MakeClass($XmlElement)
 
 function GetXMLContent
 {
-    Push-Location $PSScriptRoot;
-        return Get-Content $('..\Config\' + $env:COMPUTERNAME.ToString() + '.xml');
-    Pop-Location;
+    return Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
 }
 
 # If an object is found that has methods we want to use, return that object

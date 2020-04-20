@@ -1,12 +1,14 @@
 
 Issue: Can only edit list once
-    Fix Commit: 
+    Fix Commit: 0729035
     Branch: NA
-    Status: Open
+    Status: Closed
     Notes: 
         - Seems that I can reload after every profile reload
         - works when I reload objects too
     Post: 
+        - The week-list.ps1 script edits after reloading all objects 
+            - makes it seem like it isn't 
 
 Issue: Get-Calendar brings you to the module directory
     Fix Commit: 7035887

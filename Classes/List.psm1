@@ -92,7 +92,7 @@ class List
     [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString)
     {
         [string]$ID = $IDString;
-        for($i = $begin;$i -lt $string.Length;$i++)
+        for($i = $begin;$i -le $string.Length;$i++)
         {
             if($this.ExitLoop){break;}
             elseif($string[$i] -eq ".")# the . means there are more to the string
@@ -100,7 +100,7 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+1,$Item,$string[$i+1]);}
+                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1]);}
                 }
                 if($this.ExitLoop){break;}
                 throw "String Error";
@@ -152,5 +152,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Saturday To Do List','B:\Powershell\Config\List\List.xml')
+# [List]$test = [List]::new('Git Hub Roadmap - GlobalScripts','B:\Powershell\Config\BRANDONMFONG.xml',$null)
+# $test.ListOut();
 # $test.Edit();

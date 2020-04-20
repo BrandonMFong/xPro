@@ -53,17 +53,21 @@ if($index -ne 0)
 }
 if($ListInbox)
 {
-    for($i=0;$i -lt $inbox.Items.Count;$i++)
+    if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
-        Write-Host "[" -NoNewline -ForegroundColor Cyan;
-        Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($i)).SenderName)" -ForegroundColor Green -NoNewline;
-        Write-Host " - " -NoNewline; 
-        $Time = ($inbox.Items|Select-Object -Property ReceivedTime|Select-Object -Index $($i)).ReceivedTime;
-        Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" -ForegroundColor Green -NoNewline;
-        Write-Host "] " -NoNewline -ForegroundColor Cyan;
-        Write-Host "$(($inbox.Items|Select-Object -Property Subject|Select-Object -Index $($i)).Subject)" -ForegroundColor Yellow;
+        for($i=0;$i -lt $inbox.Items.Count;$i++)
+        {
+            Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
+            Write-Host "[" -NoNewline -ForegroundColor Cyan;
+            Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($i)).SenderName)" -ForegroundColor Green -NoNewline;
+            Write-Host " - " -NoNewline; 
+            $Time = ($inbox.Items|Select-Object -Property ReceivedTime|Select-Object -Index $($i)).ReceivedTime;
+            Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" -ForegroundColor Green -NoNewline;
+            Write-Host "] " -NoNewline -ForegroundColor Cyan;
+            Write-Host "$(($inbox.Items|Select-Object -Property Subject|Select-Object -Index $($i)).Subject)" -ForegroundColor Yellow;
+        }
     }
+    else{Write-Host "No Emails!" -ForegroundColor Yellow}
 }
 if($Count){return ($inbox.Items|Measure-Object).Count;}
 if($GetObject){return $inbox;}

@@ -162,31 +162,46 @@ function DoesFileExistInArchive($file)
 
 function LoadPrograms
 {
-    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer)
+    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$NoVerbose)
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
-        Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Verbose -Scope Global;
+        if($NoVerbose){Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Scope Global;}
+        else{Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Verbose -Scope Global;}
     }
 }
 function LoadModules
 {
-    Param($XMLReader=$XMLReader)
+    Param($XMLReader=$XMLReader,[switch]$NoVerbose)
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
-        Import-Module $($val) -Scope Global -DisableNameChecking;
+        if($NoVerbose){Import-Module $($val) -Scope Global -DisableNameChecking;}
+        else{Import-Module $($val) -Verbose -Scope Global -DisableNameChecking;}
     }
 }
 function LoadObjects
 {
-    Param($XMLReader=$XMLReader)
+    Param($XMLReader=$XMLReader,[switch]$NoVerbose)
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        switch ($val.Type)
+        if($NoVerbose)
         {
-            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
-            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
-            "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
-            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Scope Global;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
+                "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Scope Global; break;}
+                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
+            }
+        }
+        else
+        {
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+                "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
+                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
+            }
         }
     } 
 }

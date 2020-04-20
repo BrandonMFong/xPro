@@ -312,6 +312,7 @@ class SQL
         $i = 0;
         $rep = "|||";
         $querystring = "ALTER TABLE $($table.Name) ADD ($($rep) "; # Using ( to find this part of the string
+        [boolean]$TableCreated = $false;
         foreach ($column in $table.Column)
         {
             $querystring = $querystring.Replace("$($rep)", ", ");
@@ -325,8 +326,8 @@ class SQL
         $querystring = $querystring.Replace("(,", "");
 
         # else all columns are there
-        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;}
-        else {Write-Host "Table is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
+        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;$TableCreated = $true;}
+        if($TableCreated){Write-Host "Table is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)

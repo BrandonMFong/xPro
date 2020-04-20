@@ -1,7 +1,14 @@
 # Script after profile loads
- 	Greetings;
+ 	Param([switch]$ClearScreen)
+	if($ClearScreen){Clear-Host;}
+	Greetings;
+	write-Host `n;
 	$Calendar.GetCalendarMonth();
-	Write-Host ("`n1. Start`n")
+	Write-Host "`n[Special Days]" -ForegroundColor Green;
+	$Calendar.SpecialDays();
+	Write-Host "`n[Emails]" -ForegroundColor Green;
+	Get-Email -ListInbox;
+	Write-Host "`n1. Start`n"
 	$start = Read-Host 
 	if($start -eq "1")
 	{

@@ -6,33 +6,7 @@
 .Notes
     Takes a while to get address by hostname but successfully resolves it
 #>
-function Test-KeyPress
-{
-    param
-    (
-        [Parameter(Mandatory)]
-        [ConsoleKey]
-        $Key,
-
-        [System.ConsoleModifiers]
-        $ModifierKey = 0
-    )
-    if ([Console]::KeyAvailable)
-    {
-        $pressedKey = [Console]::ReadKey($true)
-
-        $isPressedKey = $key -eq $pressedKey.Key
-        if ($isPressedKey)
-        {
-            return ($pressedKey.Modifiers -eq $ModifierKey);
-        }
-        else
-        {
-            return $false
-        }
-    }
-}
-
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
 [Object[]]$Table = ARP.EXE -a;
 [bool]$key = $false;
 for($i = 3;$i -lt $Table.Length;$i++)

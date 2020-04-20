@@ -13,9 +13,8 @@
     </SpecialDays>
   </Calendar>
   <Modules>
-    <Module>\Modules\System.psm1</Module>
-    <Module>\Modules\Prompt.psm1</Module>
-    <Module>\StartScripts\StartMods\US-802262.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Prompt.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -70,48 +69,49 @@
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="Outlook"  SecurityType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
-    <Program Alias="Chrome"  SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="VS"  SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
-    <Program Alias="Excel"  SecurityType="public">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Program>
-    <Program Alias="Sql"  SecurityType="public">C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\Ssms.exe</Program>
-    <Program Alias="Gitbash"  SecurityType="public">C:\Program Files\Git\git-bash.exe</Program>
-    <Program Alias="Remote"  SecurityType="public">C:\Program Files\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
-    <Program Alias="Vim"  SecurityType="public">C:\Program Files (x86)\Vim\vim81\vim.exe</Program>
-    <Program Alias="Npad"  SecurityType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
-    <Program Alias="Adobe"  SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Acrobat Reader DC.lnk</Program>
-    <Program Alias="Global"  SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
-    <Program Alias="Snip"  SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool.lnk</Program>
-    <Program Alias="Webex"  SecurityType="public">C:\Users\brandon.fong\AppData\Local\WebEx\WebEx\Applications\ptoneclk.exe</Program>
-    <Program Alias="7z"  SecurityType="public">C:\Program Files\7-Zip\7z.exe</Program>
-    <Program Alias="Spotify"  SecurityType="public">C:\Users\brandon.fong\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk</Program>
-    <Program Alias="FileZilla"  SecurityType="public">C:\Program Files (x86)\FileZilla Server\FileZilla Server Interface.exe</Program>
-    <Program Alias="IS"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Cloudcords_5.2\IntegrationServices\IntegrationServices.sln</Program>
-    <Program Alias="Papercut"  SecurityType="public">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
-    <Program Alias="subl"  SecurityType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
-    <Program Alias="citrix"  SecurityType="public">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
-    <Program Alias="Tix"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
-    <Program Alias="vc"  SecurityType="public">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="WinSCP"  SecurityType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
-    <Program Alias="IIS"  SecurityType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>
-    <Program Alias="Cisco"  SecurityType="public">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
-    <!-- Git functions -->
-    <Program Alias="List-Bank"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\ListBank.ps1</Program>
-    <Program Alias="Time"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\TIME.ps1</Program>
-    <Program Alias="Ticket"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\KiranTickets.ps1</Program>
-    <Program Alias="BankUrl"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\BANKURL.ps1</Program>
-    <Program Alias="upconfig"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-config.ps1</Program>
-    <Program Alias="upprofile"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-profile.ps1</Program>
-    <Program Alias="Get-Calendar"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
-    <Program Alias="Greetings"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Greetings.ps1</Program>
-    <Program Alias="GOTO"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program>
-    <Program Alias="Put"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
-    <Program Alias="Aopend"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
-    <Program Alias="Archive"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Email"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
-    <Program Alias="Search"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
-    <Program Alias="Query"  SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
+    <Program Alias="Outlook" SecurityType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
+    <Program Alias="Chrome" SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="VS" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="Excel" SecurityType="public">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Program>
+    <Program Alias="Sql" SecurityType="public">C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\Ssms.exe</Program>
+    <Program Alias="Gitbash" SecurityType="public">C:\Program Files\Git\git-bash.exe</Program>
+    <Program Alias="Remote" SecurityType="public">C:\Program Files\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
+    <Program Alias="Vim" SecurityType="public">C:\Program Files (x86)\Vim\vim81\vim.exe</Program>
+    <Program Alias="Npad" SecurityType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="Adobe" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Acrobat Reader DC.lnk</Program>
+    <Program Alias="Global" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
+    <Program Alias="Snip" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool.lnk</Program>
+    <Program Alias="Webex" SecurityType="public">C:\Users\brandon.fong\AppData\Local\WebEx\WebEx\Applications\ptoneclk.exe</Program>
+    <Program Alias="7z" SecurityType="public">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="Spotify" SecurityType="public">C:\Users\brandon.fong\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk</Program>
+    <Program Alias="FileZilla" SecurityType="public">C:\Program Files (x86)\FileZilla Server\FileZilla Server Interface.exe</Program>
+    <Program Alias="IS" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Cloudcords_5.2\IntegrationServices\IntegrationServices.sln</Program>
+    <Program Alias="Papercut" SecurityType="public">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
+    <Program Alias="subl" SecurityType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
+    <Program Alias="citrix" SecurityType="public">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
+    <Program Alias="Tix" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
+    <Program Alias="vc" SecurityType="public">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+    <Program Alias="WinSCP" SecurityType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
+    <Program Alias="IIS" SecurityType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>
+    <Program Alias="Cisco" SecurityType="public">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
+    <Program Alias="List-Bank" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\ListBank.ps1</Program>
+    <Program Alias="Time" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\TIME.ps1</Program>
+    <Program Alias="Ticket" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\KiranTickets.ps1</Program>
+    <Program Alias="BankUrl" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\BANKURL.ps1</Program>
+    <Program Alias="upconfig" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-config.ps1</Program>
+    <Program Alias="upprofile" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-profile.ps1</Program>
+    <Program Alias="Get-Calendar" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
+    <Program Alias="Greetings" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Greetings.ps1</Program>
+    <Program Alias="GOTO" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program>
+    <Program Alias="Put" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Aopend" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
+    <Program Alias="Archive" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
+    <Program Alias="Get-Email" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
+    <Program Alias="Search" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
+    <Program Alias="Query" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
+    <Program Alias="cloud50" SecurityType="private">4a5852e8-3015-4485-84b7-fe946fbfd195</Program>
+    <Program Alias="her" SecurityType="public">r:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -208,11 +208,6 @@
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
-    </Object>
-    <!-- $Email -->
-    <Object Type="PowerShellClass">
-      <VarName SecurityType="public">Email</VarName>
-      <Class ClassName="Email" HasParams="false" />
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
     <Object ID="69" Type="HashTable">

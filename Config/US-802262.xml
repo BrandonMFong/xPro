@@ -110,12 +110,68 @@
     <Program Alias="Get-Email" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Search" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Query" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
+    <Program Alias="Work-List" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Work-List.ps1</Program>
     <Program Alias="cloud50" SecurityType="private">4a5852e8-3015-4485-84b7-fe946fbfd195</Program>
     <Program Alias="her" SecurityType="public">r:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
     <Program Alias="Dashboard" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
+    <!-- $MonList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">MonList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Monday</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>C:\Users\brandon.fong\Brandon.Fong\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $TueList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">TueList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Tuesday</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>C:\Users\brandon.fong\Brandon.Fong\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $WedList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">WedList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Wednesday</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>C:\Users\brandon.fong\Brandon.Fong\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $ThuList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">ThuList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Thursday</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>C:\Users\brandon.fong\Brandon.Fong\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
+    <!-- $FriList -->
+    <Object Type="PowerShellClass">
+      <VarName SecurityType="public">FriList</VarName>
+      <Class ClassName="List" HasParams="true">
+        <List>
+          <Title>Friday</Title>
+          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>C:\Users\brandon.fong\Brandon.Fong\Powershell\Config\List\List.xml</Redirect>
+        </List>
+      </Class>
+    </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
       <VarName SecurityType="public">Web</VarName>

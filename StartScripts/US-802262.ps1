@@ -8,6 +8,18 @@
 	$Calendar.SpecialDays();
 	Write-Host "`n[Emails]" -ForegroundColor Green;
 	Get-Email -ListInbox;
+	$x = 
+	@{
+		Monday = $MonList;
+		Tuesday = $TueList;
+		Wednesday = $WedList;
+		Thursday = $ThuList;
+		Friday = $FriList;
+		Saturday = $SatList;
+		Sunday = $SunList
+	} 
+	New-Variable -Name "Todo" -Value $x -Scope Global -Force;
+	Work-List -Today;
 	Write-Host "`n1. Start`n"
 	$start = Read-Host 
 	if($start -eq "1")

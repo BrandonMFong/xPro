@@ -5,11 +5,12 @@ class Calendar
     hidden [string]$TodayString;
     hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
     hidden [Week[]]$Weeks;
+    hidden [boolean]$WeeksLoaded = $false;
 
     [void] GetCalendarMonth() 
     {
         $this.GetNow();
-        $this.Weeks = $this.WriteWeeks();
+        if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
         $this.GetHeaderString();         
         foreach($w in $this.Weeks)
         {
@@ -20,7 +21,7 @@ class Calendar
     [void] GetCalendarMonth([string]$MonthString) 
     {
         $this.GetNow($this.GetMonthNum($MonthString));
-        $this.Weeks = $this.WriteWeeks();
+        if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
         $this.GetHeaderString();         
         foreach($w in $this.Weeks)
         {
@@ -187,6 +188,7 @@ class Calendar
             }
             $day = $day.AddDays(1);
         }
+        $this.WeeksLoaded = $true;
         return $tempweeks;
     }
 

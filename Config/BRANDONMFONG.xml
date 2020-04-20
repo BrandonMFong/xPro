@@ -29,9 +29,9 @@
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
           <Item ID="B" rank="3" name="Email accessibility" Completed="True" />
-          <Item ID="C" rank="3" name="Dynamically edit this list" Completed="false" />
+          <Item ID="C" rank="3" name="Dynamically edit this list" Completed="True" />
           <Item ID="D" rank="3" name="Make the get-calendar function save the weeks at startup" Completed="false" />
-          <Item ID="E" rank="3" name="private Alias" Completed="false" />
+          <Item ID="E" rank="3" name="private Alias" Completed="True" />
         </Item>
         <Item ID="C" rank="2" name="Bug/Patch" Completed="true" />
       </Item>

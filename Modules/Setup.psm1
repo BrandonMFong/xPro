@@ -81,7 +81,9 @@ function MakeConfig
 
     StartScriptNode([ref]$File);
 
-    PromptNode([ref]$File);
+    TerminalSettingsNode([ref]$File);
+    
+    TerminalSettingsNode([ref]$File);
 
     DirectoryNode([ref]$File);
 

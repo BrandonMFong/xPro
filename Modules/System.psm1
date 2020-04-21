@@ -28,24 +28,12 @@ function Slide
     while($j -gt 0){Set-Locatioin ..;$j = $j - 1}
 }
 
-function CL 
-{
-    Clear-Host;Get-ChildItem;
-}
+function CL {Clear-Host;Get-ChildItem;}
 
-function Restart-Session
-{
-    Start-Process powershell;exit;
-}
-function Start-Admin
-{
-    Start-Process powershell -Verb Runas;
-}
+function Restart-Session{Start-Process powershell;exit;}
+function Start-Admin{Start-Process powershell -Verb Runas;}
 
-function List-Color
-{
-    [Enum]::GetValues([System.ConsoleColor])
-}
+function List-Color{[Enum]::GetValues([System.ConsoleColor])}
 function Open-Settings{start ms-settings:;}
 function Open-Bluetooth{start ms-settings:bluetooth;}
 function Open-Display{start ms-settings:display;}

@@ -25,56 +25,74 @@
             </xs:attribute>
         </xs:element>
 
-        <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
-            <xs:annotation>
-                <xs:documentation>
-                    Change the prompt function in the string tag.  
-                    Any change here does not require a reload of powershell session
-                </xs:documentation>
-            </xs:annotation>
-            <xs:element name="DateFormat" minOccurs="1" maxOccurs="1" type="xs:string">
+        <xs:group name="Formatter">
+            <xs:element name="Date" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
                         Default is yyyy-dd-MM.  Uses powershell datetime formatting
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="TimeFormat" minOccurs="1" maxOccurs="1" type="xs:string">
+            <xs:element name="Time" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
                         Default is hh:mm:ss.  Uses powershell datetime formatting
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
-                <xs:attribute name="Enabled" use="mandatory">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Toggle notification
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:annotation>
-                    <xs:documentation>
-                        The value will change the prompt on the command line to red if your battery life falls below that value
-                    </xs:documentation>
-                </xs:annotation>
+        </xs:group>
+
+        <xs:element name="TerminalSettings" minOccurs="1" maxOccurs="1">
+            <xs:element name="Format" minOccurs="1" maxOccurs="1">
+                <xs:group ref="Formatter"/>
             </xs:element>
-            <xs:element name="String" minOccurs="1" maxOccurs="1">
-                <xs:attribute name="Color" use="mandatory">
+            <xs:element name="Window" minOccurs="1" maxOccurs="1">
+                <xs:element name="HeaderTitle" minOccurs="1" maxOccurs="1">
                     <xs:annotation>
                         <xs:documentation>
-                            Choices are from powershell foregroundcolor color. 
+                            Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                            @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
                         </xs:documentation>
                     </xs:annotation>
-                </xs:attribute>
+                <xs:element name="BackgroundColor" minOccurs="1" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
-                        Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                        @fulldir {Full directory}, @time {Current time, can be formatted}
+                        Change the prompt function in the string tag.  
+                        Any change here does not require a reload of powershell session
                     </xs:documentation>
                 </xs:annotation>
+                <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
+                    <xs:attribute name="Enabled" use="mandatory">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Toggle notification
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:annotation>
+                        <xs:documentation>
+                            The value will change the prompt on the command line to red if your battery life falls below that value
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="String" minOccurs="1" maxOccurs="1">
+                    <xs:attribute name="Color" use="mandatory">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Choices are from powershell foregroundcolor color. 
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:annotation>
+                        <xs:documentation>
+                            To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
+                            Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                            @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:element>
         </xs:element>
         

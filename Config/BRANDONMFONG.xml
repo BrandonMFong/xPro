@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
-  <!-- Prompt -->
-  <Prompt>
-    <DateFormat>dddd MM/dd</DateFormat>
-    <TimeFormat>hh:mm tt</TimeFormat>
-    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-    <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
-  </Prompt>
+  <!-- Terminal Settings -->
+  <TerminalSettings>
+    <Format>
+      <Date>dddd MM/dd/yyyy</Date>
+      <Time>hh:mm:ss tt</Time>
+    </Format>
+    <Window>
+      <BackgroundColor>Black</BackgroundColor>
+      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+    </Window>
+    <Prompt>
+      <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
+      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+    </Prompt>
+  </TerminalSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>
@@ -40,7 +48,7 @@
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
-    <Module>B:\Powershell\Modules\Prompt.psm1</Module>
+    <Module>B:\Powershell\Modules\Terminal.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -329,7 +337,7 @@
         </List>
       </Class>
     </Object>
-    <!-- $User -->
+    <!-- $Todo -->
     <Object Type="HashTable">
       <VarName SecurityType="public">Todo</VarName>
       <!--Key and Value-->

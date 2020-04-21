@@ -4,16 +4,16 @@
   <!-- Terminal Settings -->
   <TerminalSettings>
     <Format>
-      <Date>dddd MM/dd/yyyy</Date>
+      <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Window>
-      <BackgroundColor>Black</BackgroundColor>
-      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+      <!-- <BackgroundColor>Black</BackgroundColor> -->
+      <HeaderTitle>@fulldir</HeaderTitle>
     </Window>
     <Prompt>
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+      <String Color="Cyan">[Kiran - @time, @date] @greaterthan_</String>
     </Prompt>
   </TerminalSettings>
   <Weather>
@@ -26,7 +26,7 @@
   </Calendar>
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Prompt.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

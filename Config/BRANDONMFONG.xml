@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
-  <!-- Prompt -->
-  <Prompt>
-    <DateFormat>dddd MM/dd</DateFormat>
-    <TimeFormat>hh:mm tt</TimeFormat>
-    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-    <String Color="Cyan">[@time, @date - @user] @currdir&gt;_</String>
-  </Prompt>
+  <!-- Terminal Settings -->
+  <TerminalSettings>
+    <Format>
+      <Date>dddd MM/dd/yyyy</Date>
+      <Time>hh:mm:ss tt</Time>
+    </Format>
+    <Window>
+      <BackgroundColor>Black</BackgroundColor>
+      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+    </Window>
+    <Prompt>
+      <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
+      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+    </Prompt>
+  </TerminalSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>
@@ -40,7 +48,7 @@
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
-    <Module>B:\Powershell\Modules\Prompt.psm1</Module>
+    <Module>B:\Powershell\Modules\Terminal.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -125,7 +133,7 @@
     <Program Alias="SDFormatter" SecurityType="public">C:\Program Files (x86)\SDA\SD Card Formatter\SD Card Formatter.exe</Program>
     <Program Alias="GuiFormat" SecurityType="public">B:\PROGRAMFILES\guiformat-x64.Exe</Program>
     <Program Alias="VNCViewer" SecurityType="public">C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe</Program>
-    <Program Alias="Her" SecurityType="public">R:\PHOTOS\camdon\2142020\MyFavorite.jpg</Program>
+    <Program Alias="Her" SecurityType="public">R:\PHOTOS\camdon\2142020\Smile.jpg</Program>
     <Program Alias="CiscoPT" SecurityType="public">C:\Program Files\Cisco Packet Tracer 7.3.0\bin\PacketTracer7.exe</Program>
     <Program Alias="Zoom" SecurityType="public">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
@@ -329,6 +337,25 @@
         </List>
       </Class>
     </Object>
+    <!-- $Todo -->
+    <Object Type="HashTable">
+      <VarName SecurityType="public">Todo</VarName>
+      <!--Key and Value-->
+      <Key Lvl="0" SecurityType="public">Monday</Key>
+      <Value Lvl="0" SecurityType="public">$MonList</Value>
+      <Key Lvl="0" SecurityType="public">Tuesday</Key>
+      <Value Lvl="0" SecurityType="public">$TueList</Value>
+      <Key Lvl="0" SecurityType="public">Wednesday</Key>
+      <Value Lvl="0" SecurityType="public">$WedList</Value>
+      <Key Lvl="0" SecurityType="public">Thursday</Key>
+      <Value Lvl="0" SecurityType="public">$ThuList</Value>
+      <Key Lvl="0" SecurityType="public">Friday</Key>
+      <Value Lvl="0" SecurityType="public">$FriList</Value>
+      <Key Lvl="0" SecurityType="public">Saturday</Key>
+      <Value Lvl="0" SecurityType="public">$SatList</Value>
+      <Key Lvl="0" SecurityType="public">Sunday</Key>
+      <Value Lvl="0" SecurityType="public">$SunList</Value>
+    </Object>
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
       <VarName SecurityType="public">SeniorDesignYes</VarName>
@@ -376,6 +403,8 @@
       <Value Lvl="0" SecurityType="public">https://www.realvnc.com/en/</Value>
       <Key Lvl="0" SecurityType="public">IPChicken</Key>
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
+      <Key Lvl="0" SecurityType="public">Darkroom</Key>
+      <Value Lvl="0" SecurityType="public">https://thedarkroom.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecurityType="public">Google</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="google" />

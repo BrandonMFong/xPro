@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
-  <Prompt>
-    <DateFormat>MM/dd/yyy</DateFormat>
-    <TimeFormat>hh:mm tt</TimeFormat>
-    <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-    <String Color="Cyan">[Kiran - @time, @date] @currdir&gt;_</String>
-  </Prompt>
+  <!-- Terminal Settings -->
+  <TerminalSettings>
+    <Format>
+      <Date>dddd MM/dd/yyyy</Date>
+      <Time>hh:mm:ss tt</Time>
+    </Format>
+    <Window>
+      <BackgroundColor>Black</BackgroundColor>
+      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+    </Window>
+    <Prompt>
+      <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
+      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+    </Prompt>
+  </TerminalSettings>
+  <Weather>
+    <Area>San Diego</Area>
+  </Weather>
   <Calendar>
     <SpecialDays>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
@@ -110,7 +122,7 @@
     <Program Alias="Get-Email" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Search" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Query" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
-    <Program Alias="Work-List" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Work-List.ps1</Program>
+    <Program Alias="Week-List" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Week-List.ps1</Program>
     <Program Alias="cloud50" SecurityType="private">4a5852e8-3015-4485-84b7-fe946fbfd195</Program>
     <Program Alias="her" SecurityType="public">r:\PHOTOS\camdon\2142020\Smile.jpg</Program>
     <Program Alias="Dashboard" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Program>

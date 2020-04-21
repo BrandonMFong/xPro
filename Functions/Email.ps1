@@ -7,13 +7,9 @@
     Must have outlook app for this to work
 #>
 
-Param([Switch]$Count, [Switch]$ListMessages, [Switch]$ListInbox,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0)
+Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-
-$Outlook = New-Object -comobject Outlook.Application;
-$namespace = $Outlook.GetNameSpace("MAPI");
-$inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
-
+$inbox = InboxObject;
 if($ListMessages)
 {
     if(($inbox.Items|Measure-Object).Count -gt 0)
@@ -36,10 +32,12 @@ if($ListMessages)
         Write-Host `n;
     }
     else{Write-Host "No Emails!"}
+    break;
 }
 if($index -ne 0)
 {
     Write-Host `n;
+    Write-Host "----------------------------------------------Start Message--------------------------------------------";
     Write-Host "From: " -ForegroundColor Cyan -NoNewline;
     Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($index-1)).SenderName)";
     Write-Host "Subject: " -ForegroundColor Cyan -NoNewline; 
@@ -49,9 +47,13 @@ if($index -ne 0)
     Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" ;
     Write-Host "Body: " -ForegroundColor Cyan;
     Write-Host "$(($inbox.Items|Select-Object -Property Body|Select-Object -Index $($index-1)).Body)" ;
+    Write-Host "----------------------------------------------End Message-----------------------------------------------";
     Write-Host `n;
+    break;
 }
-if($ListInbox)
+if($Count){return ($inbox.Items|Measure-Object).Count;}
+if($GetObject){return $inbox;}
+else
 {
     if(($inbox.Items|Measure-Object).Count -gt 0)
     {
@@ -69,5 +71,3 @@ if($ListInbox)
     }
     else{Write-Host "No Emails!" -ForegroundColor Yellow}
 }
-if($Count){return ($inbox.Items|Measure-Object).Count;}
-if($GetObject){return $inbox;}

@@ -169,3 +169,9 @@ $Signature = @"
 $ShowWindowAsync = Add-Type -MemberDefinition $Signature -Name "Win32ShowWindowAsync" -Namespace Win32Functions -PassThru
 
 function Minimize-Terminal{$ShowWindowAsync::ShowWindowAsync((Get-Process -Id $pid).MainWindowHandle, 2)}
+
+function Git-Tag
+{
+    [string]$gitstring = "Version: $(git describe --tags)"
+    Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;
+}

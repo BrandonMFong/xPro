@@ -4,16 +4,16 @@
   <!-- Terminal Settings -->
   <TerminalSettings>
     <Format>
-      <Date>dddd MM/dd/yyyy</Date>
+      <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Window>
-      <BackgroundColor>Black</BackgroundColor>
-      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+      <!-- <BackgroundColor>Black</BackgroundColor> -->
+      <HeaderTitle>@fulldir</HeaderTitle>
     </Window>
     <Prompt>
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+      <String Color="Cyan">[@time, @date - @user] @greaterthan_</String>
     </Prompt>
   </TerminalSettings>
   <Weather>

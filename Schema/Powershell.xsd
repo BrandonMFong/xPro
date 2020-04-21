@@ -135,7 +135,7 @@
                 <xs:attribute name="Node" type="xs:string" use="optional">
                     <xs:annotation>
                         <xs:documentation>
-                            Unique id for the node pointer to point to
+                            Unique id for the node pointer to point to (If you are referencing a powershell object, include '$')
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
@@ -286,7 +286,7 @@
                 <xs:attribute name="ID" type="xs:int" use="optional">
                     <xs:annotation>
                         <xs:documentation>
-                            Optional for HashTable type, use to match the primary key in DB
+                            Optional for HashTable type, use to distinguish objects in config
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>

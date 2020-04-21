@@ -76,12 +76,16 @@ function Evaluate($value)
     {
         return $Sql.InputReturn($value.InnerText);
     }
-    else 
+    elseif($null -ne $value.NodePointer)
     {
-        if($null -ne $value.NodePointer)
-        {
-            return $( MakeHash -value $value.ParentNode -lvl $([int]$value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
-        }
+        return $( MakeHash -value $value.ParentNode -lvl $([int]$value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
+    }
+    elseif($value.InnerText.Contains('$'))
+    {
+        return $(Get-Variable $value.InnerText.Replace('$','')).Value;
+    }
+    else
+    {
         return $value.InnerText;
     }
 }
@@ -206,14 +210,6 @@ function LoadObjects
     } 
 }
 
-function InboxObject
-{
-    Add-Type -assembly "Microsoft.Office.Interop.Outlook";
-    $Outlook = New-Object -comobject Outlook.Application;
-    $namespace = $Outlook.GetNameSpace("MAPI");
-    $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
-    return $inbox;
-}
 
 
 function InsertFromCmd
@@ -283,6 +279,13 @@ function GetTCExtID([string]$Type)
 }
 
 Add-Type -assembly "Microsoft.Office.Interop.Outlook";
+function InboxObject
+{
+    $Outlook = New-Object -comobject Outlook.Application;
+    $namespace = $Outlook.GetNameSpace("MAPI");
+    $inbox = $namespace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
+    return $inbox;
+}
 
 function Test-KeyPress
 {

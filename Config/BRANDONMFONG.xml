@@ -4,16 +4,16 @@
   <!-- Terminal Settings -->
   <TerminalSettings>
     <Format>
-      <Date>dddd MM/dd/yyyy</Date>
+      <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Window>
-      <BackgroundColor>Black</BackgroundColor>
-      <HeaderTitle>Brandon Fong - @date</HeaderTitle>
+      <!-- <BackgroundColor>Black</BackgroundColor> -->
+      <HeaderTitle>@fulldir</HeaderTitle>
     </Window>
     <Prompt>
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@time - @user] @currdir@greaterthan_</String>
+      <String Color="Cyan">[@time, @date - @user] @greaterthan_</String>
     </Prompt>
   </TerminalSettings>
   <Weather>
@@ -25,6 +25,7 @@
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
       <SpecialDay name="CompE 560 Test (Network)">4/23/2020</SpecialDay>
       <SpecialDay name="Make a descision">4/25/2020</SpecialDay>
+      <SpecialDay name="Compe 565 HW 4 Due">5/3/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
   <!-- Lists -->
@@ -33,13 +34,19 @@
     <List Title="Git Hub Roadmap - GlobalScripts">
       <!-- Version 2 -->
       <Item ID="A" rank="1" name="Version 3" Completed="false">
-        <Item ID="A" rank="2" name="Major" Completed="true" />
+        <Item ID="A" rank="2" name="Major" Completed="true" >
+          <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false" >
+            <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
+          </Item>
+          <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
+        </Item>
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
-          <Item ID="B" rank="3" name="Email accessibility" Completed="True" />
-          <Item ID="C" rank="3" name="Dynamically edit this list" Completed="True" />
-          <Item ID="D" rank="3" name="Make the get-calendar function save the weeks at startup" Completed="True" />
-          <Item ID="E" rank="3" name="private Alias" Completed="True" />
+          <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
+          <Item ID="B" rank="3" name="Edit Lists" Completed="false" >
+            <Item ID="A" rank="4" name="Add" Completed="false" />
+            <Item ID="A" rank="4" name="Delete" Completed="false" />
+          </Item>
         </Item>
         <Item ID="C" rank="2" name="Bug/Patch" Completed="true" />
       </Item>
@@ -56,13 +63,6 @@
     <Directory Alias="code" SecurityType="public">B:\CODE</Directory>
     <Directory Alias="col" SecurityType="public">B:\COLLEGE</Directory>
     <Directory Alias="sc1920" SecurityType="public">B:\COLLEGE\19_20</Directory>
-    <Directory Alias="f19" SecurityType="public">B:\COLLEGE\19_20\Fall_19</Directory>
-    <Directory Alias="compe361" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_361</Directory>
-    <Directory Alias="compe475" SecurityType="public">B:\COLLEGE\19_20\Fall_19\Compe_475</Directory>
-    <Directory Alias="compe496a" SecurityType="public">B:\COLLEGE\19_20\Fall_19\CompE_496A</Directory>
-    <Directory Alias="ee450" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_450</Directory>
-    <Directory Alias="ee420" SecurityType="public">B:\COLLEGE\19_20\Fall_19\EE_420</Directory>
-    <Directory Alias="s20" SecurityType="public">B:\COLLEGE\19_20\Spring_20</Directory>
     <Directory Alias="compe565" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_565</Directory>
     <Directory Alias="ee600" SecurityType="public">B:\COLLEGE\19_20\Spring_20\EE_600</Directory>
     <Directory Alias="compe560" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560</Directory>
@@ -71,11 +71,7 @@
     <Directory Alias="li" SecurityType="public">B:\LIFE</Directory>
     <Directory Alias="mus" SecurityType="public">B:\MUSIC</Directory>
     <Directory Alias="pers" SecurityType="public">B:\PERSONAL</Directory>
-    <Directory Alias="pics" SecurityType="public">B:\PICTURES</Directory>
-    <Directory Alias="rec" SecurityType="public">B:\RECYCLE</Directory>
     <Directory Alias="Pow" SecurityType="public">B:\Powershell</Directory>
-    <Directory Alias="si" SecurityType="public">B:\SITES</Directory>
-    <Directory Alias="bf" SecurityType="public">B:\SITES\BrandonFongMusic</Directory>
     <Directory Alias="source" SecurityType="public">B:\SOURCES</Directory>
     <Directory Alias="repo" SecurityType="public">B:\SOURCES\Repos</Directory>
     <Directory Alias="yes" SecurityType="public">B:\SOURCES\Repos\DualPowerGeneration</Directory>
@@ -102,7 +98,6 @@
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <!-- Third party Functions -->
-    <Program Alias="Vim" SecurityType="public">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
     <Program Alias="VS" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
     <Program Alias="Chrome" SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="Matlab" SecurityType="public">C:\Program Files\MATLAB\R2019a\bin\matlab.exe</Program>
@@ -113,15 +108,12 @@
     <Program Alias="Wmplayer" SecurityType="public">C:\Program Files (x86)\Windows Media Player\wmplayer.exe</Program>
     <Program Alias="SDK" SecurityType="public">C:\Xilinx.1\SDK\2018.3\bin\xsdk.bat</Program>
     <Program Alias="Putty" SecurityType="public">C:\Program Files\PuTTY\putty.exe</Program>
-    <Program Alias="Atmel" SecurityType="public">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Atmel Studio 7.0\Atmel Studio 7.0.lnk</Program>
-    <Program Alias="Gitbash" SecurityType="public">C:\Program Files\Git\git-bash.exe</Program>
     <Program Alias="7z" SecurityType="public">C:\Program Files\7-Zip\7z.exe</Program>
     <Program Alias="Xampp" SecurityType="public">C:\xampp\xampp-control.exe</Program>
     <Program Alias="Global" SecurityType="public">C:\Program Files\Palo Alto Networks\GlobalProtect\GlobalProtect.lnk</Program>
     <Program Alias="WinSCP" SecurityType="public">C:\Program Files (x86)\WinSCP\winscp.exe</Program>
     <Program Alias="Python" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe</Program>
     <Program Alias="VC" SecurityType="public">C:\Users\bfwan\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
-    <Program Alias="PIP" SecurityType="public">C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Powershell\pip3.7.exe</Program>
     <Program Alias="Subl" SecurityType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
     <Program Alias="sql" SecurityType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
     <Program Alias="VC-Powershell" SecurityType="public">B:\Powershell\VCODE_Powershell.code-workspace</Program>
@@ -138,7 +130,7 @@
     <Program Alias="Zoom" SecurityType="public">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" SecurityType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" SecurityType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
-    <Program Alias="List" SecurityType="public">B:\Powershell\Config\List\List.xml</Program>
+    <Program Alias="List" SecurityType="public">B:\CODE\XML\List\List.xml</Program>
     <Program Alias="Dashboard" SecurityType="public">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
     <Program Alias="Sentry-Mode" SecurityType="public">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
     <Program Alias="Timer" SecurityType="public">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
@@ -155,7 +147,7 @@
     <Program Alias="Put" SecurityType="public">B:\Powershell\Functions\Put.ps1</Program>
     <Program Alias="Query" SecurityType="public">B:\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Search" SecurityType="public">B:\Powershell\Functions\Search.ps1</Program>
-    <Program Alias="Greetings" SecurityType="public">B:\Powershell\Functions\Greetings.ps1</Program>
+    <Program Alias="Greetings" SecurityType="public">B:\CODE\Scripts\Greetings.ps1</Program>
     <Program Alias="Get-IPAndHostName" SecurityType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
@@ -267,7 +259,7 @@
         <List>
           <Title>Monday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -278,7 +270,7 @@
         <List>
           <Title>Tuesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -289,7 +281,7 @@
         <List>
           <Title>Wednesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -300,7 +292,7 @@
         <List>
           <Title>Thursday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -311,7 +303,7 @@
         <List>
           <Title>Friday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -322,7 +314,7 @@
         <List>
           <Title>Saturday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -333,7 +325,7 @@
         <List>
           <Title>Sunday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\Powershell\Config\List\List.xml</Redirect>
+          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
     </Object>

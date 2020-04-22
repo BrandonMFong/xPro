@@ -12,7 +12,7 @@ function GetHeader
 # Terminal Settings
 function SetTerminal
 {
-    $Host.UI.RawUI.BackgroundColor = $(Get-Variable "XmlReader").Value.Machine.TerminalSettings.Window.BackgroundColor;
+    # $Host.UI.RawUI.BackgroundColor = $(Get-Variable "XmlReader").Value.Machine.TerminalSettings.Window.BackgroundColor;
     $Host.UI.RawUI.WindowTitle = GetHeader;
 }
 

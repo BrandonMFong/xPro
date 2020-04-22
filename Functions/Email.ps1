@@ -38,6 +38,10 @@ if($index -ne 0)
 {
     Write-Host `n;
     Write-Host "----------------------------------------------Start Message--------------------------------------------";
+    Write-Host "To: " -ForegroundColor Cyan -NoNewline;
+    Write-Host "$(($inbox.Items|Select-Object -Property To|Select-Object -Index $($index-1)).To)";
+    Write-Host "CC: " -ForegroundColor Cyan -NoNewline;
+    Write-Host "$(($inbox.Items|Select-Object -Property CC|Select-Object -Index $($index-1)).CC)";
     Write-Host "From: " -ForegroundColor Cyan -NoNewline;
     Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($index-1)).SenderName)";
     Write-Host "Subject: " -ForegroundColor Cyan -NoNewline; 

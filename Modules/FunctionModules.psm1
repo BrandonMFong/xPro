@@ -260,7 +260,7 @@ function AppendCorrectChild([string]$Tag,$add,[ref]$x)
 {
     switch($Tag)
     {
-        "Directories"{$x.Value.Machine.Directories.AppendChild($add);}
+        "Directory"{$x.Value.Machine.Directories.AppendChild($add);}
         "Program"{$x.Value.Machine.Programs.AppendChild($add);}
         default{throw "Something Bad Happened"}
     }
@@ -271,7 +271,7 @@ function GetTCExtID([string]$Type)
     [string]$str = "";
     switch($Type)
     {
-        "Directories"{$str = "PrivateDirectory"}
+        "Directory"{$str = "PrivateDirectory"}
         "Program"{$str = "PrivateProgram"}
         default{throw "Something Bad Happened"}
     }

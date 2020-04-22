@@ -1,9 +1,9 @@
-Param([switch]$Today,[Switch]$All,[switch]$EditToday)
+Param([switch]$Tomorrow,[Switch]$All,[switch]$EditToday)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Global;
 $x = $(Get-Variable "Todo").Value
-if($Today)
+if($Tomorrow)
 {
-    switch ((Get-Date).DayOfWeek)
+    switch (((Get-Date).AddDays(1)).DayOfWeek)
     {
         "Monday" {$x.Monday.ListOut()}
         "Tuesday" {$x.Tuesday.ListOut()}
@@ -14,6 +14,22 @@ if($Today)
         "Sunday" {$x.Sunday.ListOut()}
         default{Write-Host "`n";}
     }
+    break;
+}
+if($Yesterday)
+{
+    switch (((Get-Date).AddDays(-1)).DayOfWeek)
+    {
+        "Monday" {$x.Monday.ListOut()}
+        "Tuesday" {$x.Tuesday.ListOut()}
+        "Wednesday" {$x.Wednesday.ListOut()}
+        "Thursday" {$x.Thursday.ListOut()}
+        "Friday" {$x.Friday.ListOut()}
+        "Saturday" {$x.Saturday.ListOut()}
+        "Sunday" {$x.Sunday.ListOut()}
+        default{Write-Host "`n";}
+    }
+    break;
 }
 if($EditToday)
 {
@@ -29,6 +45,7 @@ if($EditToday)
         "Sunday" {$(Get-Variable 'SunList').Value.Edit();}
         default{Write-Host "`n";}
     }
+    break;
 }
 if($All)
 {
@@ -39,4 +56,19 @@ if($All)
     $x.Friday.ListOut();
     $x.Saturday.ListOut();
     $x.Sunday.ListOut();
+    break;
+}
+else
+{
+    switch ((Get-Date).DayOfWeek)
+    {
+        "Monday" {$x.Monday.ListOut()}
+        "Tuesday" {$x.Tuesday.ListOut()}
+        "Wednesday" {$x.Wednesday.ListOut()}
+        "Thursday" {$x.Thursday.ListOut()}
+        "Friday" {$x.Friday.ListOut()}
+        "Saturday" {$x.Saturday.ListOut()}
+        "Sunday" {$x.Sunday.ListOut()}
+        default{Write-Host "`n";}
+    }
 }

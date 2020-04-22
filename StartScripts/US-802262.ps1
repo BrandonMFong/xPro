@@ -2,12 +2,12 @@
  	Param([switch]$ClearScreen)
 	if($ClearScreen){Clear-Host;}
 	Greetings;
-	write-Host `n;
-	$Calendar.GetCalendarMonth();
+	Write-Host "`n";
+	Get-Calendar;
 	Write-Host "`n[Special Days]" -ForegroundColor Green;
 	$Calendar.SpecialDays();
 	Write-Host "`n[Emails]" -ForegroundColor Green;
-	Get-Email -ListInbox;
+	Get-Email;
 	$x = 
 	@{
 		Monday = $MonList;
@@ -19,7 +19,7 @@
 		Sunday = $SunList
 	} 
 	New-Variable -Name "Todo" -Value $x -Scope Global -Force;
-	Work-List -Today;
+	Week-List;
 	Write-Host "`n1. Start`n"
 	$start = Read-Host 
 	if($start -eq "1")

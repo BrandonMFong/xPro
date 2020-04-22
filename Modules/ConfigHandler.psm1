@@ -18,14 +18,21 @@ function StartScriptNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_StartScript); # Append
 }
 
-function PromptNode([ref]$File)
+function TerminalSettingsNode([ref]$File)
 {
     ## <Prompt> ##
+    $Node_TerminalSettings = $File.Value.CreateElement("TerminalSettings");
     $Node_Prompt = $File.Value.CreateElement("Prompt");
-    # <DateFormat>
-    $Node_DateFormat = $File.Value.CreateElement("DateFormat");
+    $Node_Window = $File.Value.CreateElement("Window");
+    $Node_Format = $File.Value.CreateElement("Format");
+    # <BackgroundColor>
+    $Node_BackgroundColor = $File.Value.CreateElement("BackgroundColor");
     # <TimeFormat>
-    $Node_TimeFormat = $File.Value.CreateElement("TimeFormat");
+    $Node_HeaderTitle = $File.Value.CreateElement("HeaderTitle");
+    # <DateFormat>
+    $Node_DateFormat = $File.Value.CreateElement("Date");
+    # <TimeFormat>
+    $Node_TimeFormat = $File.Value.CreateElement("Time");
     # BaterryLifeThreshold
     $Node_BaterryLifeThreshold = $File.Value.CreateElement("BaterryLifeThreshold");
     # String
@@ -34,11 +41,16 @@ function PromptNode([ref]$File)
     $Node_String.InnerXml = "Default";
     $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
     $Node_BaterryLifeThreshold.InnerXml = "35";
-    $Node_Prompt.AppendChild($Node_DateFormat);#Node
-    $Node_Prompt.AppendChild($Node_TimeFormat);#Node
+    $Node_Window.AppendChild($Node_BackgroundColor);#Node
+    $Node_Window.AppendChild($Node_HeaderTitle);#Node
+    $Node_Format.AppendChild($Node_DateFormat);#Node
+    $Node_Format.AppendChild($Node_TimeFormat);#Node
     $Node_Prompt.AppendChild($Node_String);#Node
     $Node_Prompt.AppendChild($Node_BaterryLifeThreshold);#Node
-    $File.Value.Machine.AppendChild($Node_Prompt);
+    $Node_TerminalSettings.AppendChild($Node_Prompt);#Node
+    $Node_TerminalSettings.AppendChild($Node_Format);#Node
+    $Node_TerminalSettings.AppendChild($Node_Window);#Node
+    $File.Value.Machine.AppendChild($Node_TerminalSettings);
 }
 
 function DirectoryNode([ref]$File)
@@ -52,6 +64,14 @@ function DirectoryNode([ref]$File)
     $Node_Directory.InnerXml = $PSScriptRoot; # putting this dir in the xml
     $Node_Directories.AppendChild($Node_Directory);#Node
     $File.Value.Machine.AppendChild($Node_Directories);
+}
+function WeatherNode([ref]$File)
+{
+    ## Directories ##
+    $Node_Weather = $File.Value.CreateElement("Weather");
+    $Node_Area = $File.Value.CreateElement("Area");
+    $Node_Weather.AppendChild($Node_Area);#Node
+    $File.Value.Machine.AppendChild($Node_Weather);
 }
 
 function ObjectsNode([ref]$File)

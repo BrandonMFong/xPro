@@ -6,4 +6,5 @@ class Tag
     [string]$fulldir = "@fulldir";
     [string]$time = "@time";
     [string]$batteryperc = "@batteryperc";
+    [string]$greaterthan = "@greaterthan";
 }

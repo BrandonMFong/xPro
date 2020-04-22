@@ -30,7 +30,8 @@ Push-Location $AppPointer.Machine.GitRepoDir;
 
     try 
     {
-        Write-Host "`nVersion - $(git describe --tags) `n" -ForegroundColor Gray;
+        [string]$gitstring = "Version: $(git describe --tags)"
+        Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;
     }
     catch 
     {

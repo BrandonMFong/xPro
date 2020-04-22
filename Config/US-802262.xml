@@ -23,10 +23,10 @@
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>
+      <From>True</From>
       <Subject>True</Subject>
       <Body>True</Body>
     </IncludeFields>
-    <OutByPaging>True</OutByPaging>
     <ListInboxMax>10</ListInboxMax>
   </Email>
   <Calendar>

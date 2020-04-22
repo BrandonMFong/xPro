@@ -3,6 +3,7 @@
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
+        <!-- Start Script -->
         <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
             <xs:annotation>
                 <xs:documentation>
@@ -24,7 +25,8 @@
                 </xs:annotation>
             </xs:attribute>
         </xs:element>
-
+        
+        <!-- Formatter -->
         <xs:group name="Formatter">
             <xs:element name="Date" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
@@ -42,6 +44,7 @@
             </xs:element>
         </xs:group>
 
+        <!-- Terminal Settings -->
         <xs:element name="TerminalSettings" minOccurs="1" maxOccurs="1">
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
                 <xs:group ref="Formatter"/>
@@ -373,6 +376,7 @@
                 <xs:group ref="TodoList"/>
             </xs:element>
         </xs:group>
+
         <xs:element name="Lists" minOccurs="0" maxOccurs="1">
             <xs:element name="List">
                 <xs:attribute name="Title" use="mandatory"/>
@@ -407,6 +411,36 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
+        </xs:element>
+
+        <xs:element name="Email" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    Settings for Email.ps1
+                </xs:documentation>
+            </xs:annotation>
+            <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        What to print when listing mail from inbox.  Default is false;
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="To" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="CC" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="From" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Subject" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Body" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="OutByPaging" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is False.  If you want to output the message by page
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        </xs:element>
+
         </xs:element>
     </xs:element>
 </xs:schema>

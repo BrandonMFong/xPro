@@ -114,6 +114,7 @@ class Calendar
 
     hidden GetNow([byte]$m)
     {
+        if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
         $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
         $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
@@ -345,3 +346,7 @@ class Day
         return $IsSpecialDay;
     }
 }
+
+# [Calendar]$test = [Calendar]::new();
+# $test.GetCalendarMonth();
+# $test.GetCalendarMonth("June");

@@ -1,4 +1,15 @@
 
+Issue: Cal object not printing other months
+    Fix Commit: 
+    Branch: bug-MonthsNotChanging
+    Status: Closed
+    Notes: 
+        - The overloaded function updated the main 'Today' field before the check
+            - The check was to see if the weeks were already loaded
+            - This resulted in the getcalendarmonth to alway use the method 
+    Post: 
+        - Reset the WeeksLoaded bool private field in the Overloaded GetNow() method
+
 Issue: Can only edit list once
     Fix Commit: 0729035
     Branch: NA

@@ -8,7 +8,7 @@
     Can read the configuration dynamically
 #>
 
-Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0)
+Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0,[switch]$BoundedList)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 [XML]$xml = $(Get-Content ($PSScriptRoot + "\..\Config\" + (Get-Variable "AppPointer").Value.Machine.ConfigFile));
 $x = $xml.Machine.Email;
@@ -100,6 +100,26 @@ if($index -ne 0)
 }
 if($Count){return ($inbox.Items|Measure-Object).Count;}
 if($GetObject){return $inbox;}
+if($BoundedList)
+{
+    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax)){$Max = $x.ListInboxMax;}
+    else{$Max = $inbox.Items.Count;}
+    if(($inbox.Items|Measure-Object).Count -gt 0)
+    {
+        for($i=0;$i -lt $Max;$i++)
+        {
+            Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
+            Write-Host "[" -NoNewline -ForegroundColor Cyan;
+            Write-Host "$(($inbox.Items|Select-Object -Property SenderName|Select-Object -Index $($i)).SenderName)" -ForegroundColor Green -NoNewline;
+            Write-Host " - " -NoNewline; 
+            $Time = ($inbox.Items|Select-Object -Property ReceivedTime|Select-Object -Index $($i)).ReceivedTime;
+            Write-Host "$(Get-Date $Time -Format "MM/dd/yyyy hh:mm tt")" -ForegroundColor Green -NoNewline;
+            Write-Host "] " -NoNewline -ForegroundColor Cyan;
+            Write-Host "$(($inbox.Items|Select-Object -Property Subject|Select-Object -Index $($i)).Subject)" -ForegroundColor Yellow;
+        }
+    }
+    else{Write-Host "No Emails!" -ForegroundColor Yellow}
+}
 else
 {
     if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax)){$Max = $x.ListInboxMax;}

@@ -42,40 +42,11 @@ function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).E
 
 function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}
 
-function Config-Editor
+function Set-Brightness
 {
-    Param
-    (
-        [switch]$AddDirectory,
-        [string]$AddProgram=$null
-    )
-    if($AddDirectory){InsertFromCmd -Tag "Directory" -PathToAdd $(Get-Location).Path;}
-    if(![string]::IsNullOrEmpty($AddProgram)){InsertFromCmd -Tag "Program" -PathToAdd $(GetFullFilePath($AddProgram));}
-
-}
-
-function List-Directories
-{
-    Write-Host "`nDirectories and their aliases:`n" -ForegroundColor Cyan;
-    foreach($d in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
-    {
-        Write-Host "$($d.alias)" -ForegroundColor Green -NoNewline;
-        Write-Host " => " -NoNewline;
-        Write-Host "$($d.InnerXML)" -ForegroundColor Cyan;
-    }
-    Write-Host `n;
-}
-function List-Programs
-{
-    Write-Host "`nPrograms, their aliases, and their type:`n" -ForegroundColor Cyan;
-    foreach($p in $(Get-Variable 'XMLReader').Value.Machine.Programs.Program)
-    {
-        Write-Host "$($p.alias)" -ForegroundColor Green -NoNewline;
-        Write-Host " => " -NoNewline;
-        Write-Host "$($p.InnerXML)" -ForegroundColor Cyan -NoNewline;
-        Write-Host " (" -NoNewline; Write-Host "$($p.Type)" -ForegroundColor Cyan -NoNewline; Write-Host ") ";
-    }
-    Write-Host `n;
+    param([int]$Percentage)
+    $monitor = Get-WmiObject -ns root/wmi -class wmiMonitorBrightNessMethods
+    $monitor.WmiSetBrightness(0,$Percentage)
 }
 
 function Reload-Profile {.$PROFILE}

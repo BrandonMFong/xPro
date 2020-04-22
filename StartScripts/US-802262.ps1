@@ -34,7 +34,7 @@
 		$p = Read-Host -Prompt "Are you VPN'd in?(yes/no)";
 		if($p -eq "yes")
 		{
-			goto repo;
+			goto repo -push;
 			Get-ChildItem |
 			Foreach-Object {Set-Location $_.Fullname;write-warning (Get-Location).Path;git pull --rebase;Set-Location ..;}
 			pop-location;

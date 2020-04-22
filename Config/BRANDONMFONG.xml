@@ -9,11 +9,11 @@
     </Format>
     <Window>
       <!-- <BackgroundColor>Black</BackgroundColor> -->
-      <HeaderTitle>@fulldir</HeaderTitle>
+      <HeaderTitle>[@time, @date] @fulldir</HeaderTitle>
     </Window>
     <Prompt>
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@time, @date - @user] @greaterthan_</String>
+      <String Color="Cyan">[@user] @currdir@greaterthan_</String>
     </Prompt>
   </TerminalSettings>
   <Weather>

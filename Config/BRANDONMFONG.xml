@@ -139,7 +139,7 @@
     <Program Alias="Query" SecurityType="public">B:\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Search" SecurityType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecurityType="public">B:\CODE\Scripts\Greetings.ps1</Program>
-    <Program Alias="Get-IPAndHostName" SecurityType="public">B:\SOURCES\Repos\GetHostAndIp\GetIPAndHostName.ps1</Program>
+    <Program Alias="Get-IPAndHostName" SecurityType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

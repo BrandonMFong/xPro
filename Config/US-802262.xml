@@ -19,6 +19,16 @@
   <Weather>
     <Area>San Diego</Area>
   </Weather>
+  <Email>
+    <IncludeFields>
+      <To>True</To>
+      <CC>True</CC>
+      <Subject>True</Subject>
+      <Body>True</Body>
+    </IncludeFields>
+    <OutByPaging>True</OutByPaging>
+    <ListInboxMax>10</ListInboxMax>
+  </Email>
   <Calendar>
     <SpecialDays>
       <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>

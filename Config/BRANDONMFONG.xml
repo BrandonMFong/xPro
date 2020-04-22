@@ -67,6 +67,9 @@
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
     <Module>B:\Powershell\Modules\Terminal.psm1</Module>
+    <Module>B:\Powershell\Modules\MinTerminal.psm1</Module>
+    <Module>B:\Powershell\Modules\Volume.psm1</Module>
+    <Module>B:\Powershell\Modules\Git.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

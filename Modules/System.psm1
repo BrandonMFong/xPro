@@ -79,9 +79,3 @@ function List-Programs
 }
 
 function Reload-Profile {.$PROFILE}
-
-function Git-Tag
-{
-    [string]$gitstring = "Version: $(git describe --tags)"
-    Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;
-}

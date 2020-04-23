@@ -4,6 +4,6 @@ Push-Location $PSScriptRoot;
     Write-Warning "GlobalScripts uses Microsoft.PowerShell_profile.ps1 script.  Continuing will erase the script."
     $Answer = Read-Host -Prompt "Continue(y/n)?"
     Write-Host "`nInitializing setup`n";
-    InitProfile;
-    InitConfig;
+    _InitProfile;
+    _InitConfig;
 Pop-Location;

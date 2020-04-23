@@ -1,20 +1,5 @@
 
-function MakeXMLFile
-{
-    [XML]$File = [XML]::new();
-    $Node_Machine = $File.CreateElement("Machine");
-    $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
-    $Node_GitRepoDir = $File.CreateElement("GitRepoDir");
-    $Node_ConfigFile = $File.CreateElement("ConfigFile");
-    $File.AppendChild($Node_Machine);
-    $File.Machine.AppendChild($Node_GitRepoDir)
-    $File.Machine.AppendChild($Node_ConfigFile)
-    $File.Machine.GitRepoDir = $($PSScriptRoot | Split-Path -Parent).ToString();
-    $File.Machine.ConfigFile = $($env:COMPUTERNAME.ToString() + ".xml");
-    return $File;
-}
-
-function GetContents # static
+function _GetContents # static
 {
     Param([xml]$x)
     Write-Host("Machine Name : $($x.Machine.MachineName)");
@@ -38,10 +23,10 @@ function InitConfig
     if ($x -eq 1)
     {
         [string]$name = Read-Host "Name the configuration file";
-        New-Variable -Name "ConfigurationName" -Value $name -Scope Global; # needs to be global for the other function
-        $NewXml.Machine.ConfigFile = $($ConfigurationName);
+        New-Variable -Name "ConfigurationName" -Value $name -Scope Global -Force; # needs to be global for the other function
+        $NewXml.Machine.ConfigFile = $($ConfigurationName + ".xml");
         Write-Host "`nPlease review:" -Foregroundcolor Cyan;
-        GetContents($NewXml);
+        _GetContents($NewXml);
         if($(Read-Host -Prompt "Approve? (y/n)") -eq "y")
         {
             $NewXml.Save($($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml");

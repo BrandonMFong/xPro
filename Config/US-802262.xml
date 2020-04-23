@@ -9,7 +9,7 @@
     </Format>
     <Window>
       <!-- <BackgroundColor>Black</BackgroundColor> -->
-      <HeaderTitle>[@time, @date] @fulldir</HeaderTitle>
+      <HeaderTitle>{@batteryperc%} [@time, @date] @fulldir</HeaderTitle>
     </Window>
     <Prompt>
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
@@ -86,6 +86,7 @@
     <Directory Alias="queries" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SQL\Queryto</Directory>
     <Directory Alias="imp" SecurityType="private">b5139669-047d-492a-a58c-eea29788c4ba</Directory>
     <Directory Alias="cc41" SecurityType="private">732c5066-7d04-45b9-9f6c-7d63bef35bf9</Directory>
+    <Directory Alias="cc40" SecurityType="private">964875e8-9d49-4a01-bde4-7c7ca968b73e</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
@@ -134,6 +135,9 @@
     <Program Alias="her" SecurityType="public">r:\PHOTOS\camdon\2142020\Smile.jpg</Program>
     <Program Alias="Dashboard" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Program>
     <Program Alias="List" SecurityType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Program>
+    <Program Alias="cloud41" SecurityType="private">59ae4552-5595-400e-8460-95500174aa43</Program>
+    <Program Alias="StrTemp" SecurityType="private">ade4adf8-7034-430a-a1c8-fb40d91974ce</Program>
+    <Program Alias="cloud40" SecurityType="private">a1b3b272-9295-4107-bbf5-6b4a16baa29b</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

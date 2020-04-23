@@ -66,3 +66,4 @@ function Volume
     if($Mute){[Audio]::Volume = 0;}
     if($Unmute){[Audio]::Volume = 0.50;}
 }
+#https://dev.to/demg_dev/powershell-music-player-4gbn

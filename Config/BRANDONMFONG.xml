@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript Enable="true" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
+  <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
-  <TerminalSettings>
+  <ShellSettings>
     <Format>
       <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
-    <Window>
-      <!-- <BackgroundColor>Black</BackgroundColor> -->
-      <HeaderTitle>{@batteryperc%} [@time, @date] @fulldir</HeaderTitle>
-    </Window>
-    <Prompt>
+    <Header Enabled="True">
+      <String>{@batteryperc%} [@time, @date] @fulldir</String>
+    </Header>
+    <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[@user] @currdir@greaterthan_</String>
     </Prompt>
-  </TerminalSettings>
+  </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>
@@ -68,7 +67,7 @@
     <Module>B:\Powershell\Modules\System.psm1</Module>
     <Module>B:\Powershell\Modules\Terminal.psm1</Module>
     <Module>B:\Powershell\Modules\MinTerminal.psm1</Module>
-    <Module>B:\Powershell\Modules\Volume.psm1</Module>
+    <Module>B:\Powershell\Modules\Sound.psm1</Module>
     <Module>B:\Powershell\Modules\Git.psm1</Module>
     <Module>B:\Powershell\Modules\ConfigHandler.psm1</Module>
   </Modules>

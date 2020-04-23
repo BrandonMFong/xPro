@@ -27,11 +27,12 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
         if($XMLReader.Machine.StartScript.Enable -eq "true") {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
-
+    
     try 
     {
         [string]$gitstring = "Version: $(git describe --tags)"
-        Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;
+        if($gitstring.Contains("-")){$gitstring.Substring(0,$gitstring.IndexOf("-"))}
+        Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;
     }
     catch 
     {

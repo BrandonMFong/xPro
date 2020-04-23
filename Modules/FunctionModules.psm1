@@ -248,8 +248,8 @@ function InsertFromCmd
         $x = $(Get-Variable 'XMLReader').Value
         AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
         $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
-    Pop-Location;
-    break;
+    # Pop-Location;
+    # break;
 }
 function GetFullFilePath([string]$File)
 {

@@ -13,9 +13,7 @@ function Hop
 
 function Jump 
 {
-    
     Param($j)
-
     for($i = 0; $i -lt $j; $i++)
     {
         Set-Location ..;

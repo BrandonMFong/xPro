@@ -44,20 +44,33 @@
             </xs:element>
         </xs:group>
 
+        <xs:group name="String">
+            <xs:element name="String" minOccurs="1" maxOccurs="1">
+                <xs:attribute name="Color" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Choices are from powershell foregroundcolor color. 
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:annotation>
+                    <xs:documentation>
+                        Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:group>
+
         <!-- Terminal Settings -->
-        <xs:element name="TerminalSettings" minOccurs="1" maxOccurs="1">
+        <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
                 <xs:group ref="Formatter"/>
             </xs:element>
-            <xs:element name="Window" minOccurs="1" maxOccurs="1">
-                <xs:element name="HeaderTitle" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                            @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
-                        </xs:documentation>
-                    </xs:annotation>
+            <xs:element name="Header" minOccurs="1" maxOccurs="1">
+                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
                 <xs:element name="BackgroundColor" minOccurs="1" maxOccurs="1"/>
+                <xs:group ref="String"/>
             </xs:element>
             <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
@@ -66,6 +79,7 @@
                         Any change here does not require a reload of powershell session
                     </xs:documentation>
                 </xs:annotation>
+                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
                 <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
                     <xs:attribute name="Enabled" use="mandatory">
                         <xs:annotation>
@@ -80,22 +94,7 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="String" minOccurs="1" maxOccurs="1">
-                    <xs:attribute name="Color" use="mandatory">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Choices are from powershell foregroundcolor color. 
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:annotation>
-                        <xs:documentation>
-                            To replace the prompt string on command line.  Putting Default or leaving it null will keep the usual prompt.
-                            Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                            @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:group ref="String"/>
             </xs:element>
         </xs:element>
         
@@ -441,6 +440,5 @@
             <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
         </xs:element>
 
-        </xs:element>
     </xs:element>
 </xs:schema>

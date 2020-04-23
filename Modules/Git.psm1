@@ -11,24 +11,26 @@ function Set-Tag
     [string]$str = "$(git describe --tags)"
     if($Major)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag:$str -begin:0 -TagType:1 -tagstring:$null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 1 -tagstring $null)"
     }
     elseif($Minor)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag:$str -begin:0 -TagType:2 -tagstring:$null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 2 -tagstring $null)"
     }
     elseif($BugPatch)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag:$str -begin:0 -TagType:3 -tagstring:$null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 3 -tagstring $null)"
     }
     else{Write-Warning "Not Tagging"}
 }
 
 [int]$Tag = 0;
-function SweepTagAndSet
+function SweepTagAndSet # Parameters aren't working
 {
-    param([string]$tag,[int]$begin=0,[int]$TagType,[string]$tagstring) # got this from list.psm1
+    Param([string]$tag,[int]$begin,[int]$TagType,[string]$tagstring) # got this from list.psm1
     [string]$temptag = $tagstring;
+    [string]$NewTag = "";
+
     for($i = $begin;$i -le $tag.Length;$i++)
     {
         if($tag[$i] -eq ".")# the . means there are more to the string
@@ -36,7 +38,8 @@ function SweepTagAndSet
             $Tag++;
             if($TagType -eq $Tag)
             {
-                [string]$NewTag = $($temptag.ToInt16() + 1).ToString() + $(GetRestOfTag -Tag:$tag -index:$i);
+                $NewTag = $($temptag.ToInt16() + 1).ToString() + $(GetRestOfTag -Tag:$tag -index:$i);
+                return $NewTag;
             }
             else{$(SweepTagAndSet -string:$tag -begin:($i+2) -TagType:$TagType -IDString:$tag[$i+1])}
         }

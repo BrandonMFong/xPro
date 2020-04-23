@@ -545,6 +545,15 @@
       <Value Lvl="1" Node="63AF" SecurityType="public">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
       <Key Lvl="1" Node="63AF" SecurityType="public">Password</Key>
       <Value Lvl="1" Node="63AF" SecurityType="public">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <!-- Spotify Developer -->
+      <Key Lvl="0" SecurityType="public">DevSpotify</Key>
+      <Value Lvl="0" SecurityType="public" NodePointer="6849" />
+      <Key Lvl="1" Node="6849" SecurityType="public">URL</Key>
+      <Value Lvl="1" Node="6849" SecurityType="public">https://developer.spotify.com/dashboard/</Value>
+      <Key Lvl="1" Node="6849" SecurityType="public">ClientID</Key>
+      <Value Lvl="1" Node="6849" SecurityType="private">be42167a-6849-48b0-b4fe-263af885c96f</Value>
+      <Key Lvl="1" Node="6849" SecurityType="public">ClientSecret</Key>
+      <Value Lvl="1" Node="6849" SecurityType="private">1f4a0e05-29bc-47de-99f5-e102f57d9156</Value>
     </Object>
     <!-- $Bank -->
     <Object Type="HashTable">

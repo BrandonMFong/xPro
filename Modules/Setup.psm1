@@ -38,7 +38,7 @@ function InitConfig
     if ($x -eq 1)
     {
         [string]$name = Read-Host "Name the configuration file";
-        New-Variable -Name "ConfigurationName" -Value $name -Scope Global; # needs to be global for the other function
+        New-Variable -Name "ConfigurationName" -Value $name -Scope Global -Force; # needs to be global for the other function
         $NewXml.Machine.ConfigFile = $($ConfigurationName);
         Write-Host "`nPlease review:" -Foregroundcolor Cyan;
         GetContents($NewXml);

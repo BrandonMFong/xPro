@@ -6,7 +6,7 @@
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
 Pop-Location
-$ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile;
+[string]$ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile;
 [XML]$XMLReader = Get-Content $ConfigFile
 
 Push-Location $AppPointer.Machine.GitRepoDir; 

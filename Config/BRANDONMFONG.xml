@@ -413,8 +413,6 @@
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecurityType="public">Darkroom</Key>
       <Value Lvl="0" SecurityType="public">https://thedarkroom.com/</Value>
-      <Key Lvl="0" SecurityType="public">iCloud</Key>
-      <Value Lvl="0" SecurityType="public">https://www.icloud.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecurityType="public">Google</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="google" />

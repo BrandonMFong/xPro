@@ -1,4 +1,4 @@
-Param([bool]$ProfileOverride=$true)
+Param([bool]$ForceUpdate=$true)
 
 [boolean]$Updated = $false;
 
@@ -21,7 +21,7 @@ Push-Location $PSScriptRoot
     {
         Write-Host  "There is an update to Powershell profile." -ForegroundColor Red
         $update = Read-Host -Prompt "Want to update? (y/n)";
-        if($update -eq "y")
+        if(($update -eq "y") -or ($ForceUpdate))
         {
             Push-Location $($PROFILE |Split-Path -Parent);
                 Remove-Item .\Microsoft.PowerShell_profile.ps1 -Verbose; 

@@ -6,6 +6,15 @@ function _GetContents # static
     Write-Host("Git Repository Directory : $($x.Machine.GitRepoDir)");
     Write-Host("Configuration File : $($x.Machine.ConfigFile)");
 }
+
+function _GetFullContent
+{
+    Param([string]$FileName)
+    [String]$content = Get-Content $FileName;
+    [String]$FirstLine = "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n";
+    [String]$FullContent = $FirstLine + $content;
+    return $FullContent;
+}
 function _InitConfig
 {
     [XML]$NewXml = [XML]::new();
@@ -30,19 +39,20 @@ function _InitConfig
         if($(Read-Host -Prompt "Approve? (y/n)") -eq "y")
         {
             [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-            [String]$content = Get-Content $FileName;
-            [String]$FirstLine = "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n";
-            [String]$FullContent = $FirstLine + $content;
-            $FullContent | Out-File $FileName;
             $NewXml.Save($FileName);
+            [String] $FullContent = _GetFullContent($FileName);
+            $FullContent | Out-File $FileName;
         }
         else {throw "Please restart setup then."} # maybe call this function again
 
-        MakeConfig;
+        _MakeConfig;
     }
     elseif($x -eq 2) 
     {
-        $NewXml.Save($($PRFOILE | Split-Path -Parent).ToString() + "\Profile.xml");
+        [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
+        $NewXml.Save($FileName);
+        [String] $FullContent = _GetFullContent($FileName);
+        $FullContent | Out-File $FileName;
         .\.\update-config.ps1;
     }
     else{Throw "Please Specify an option"}
@@ -61,7 +71,7 @@ function _InitProfile
     }
 }
 
-function MakeConfig
+function _MakeConfig
 {
     [XML]$File = [XML]::new();
 

@@ -1,4 +1,14 @@
 
+Issue: List Objects not able to find list
+    Fix Commit: NA 
+    Branch: NA 
+    Status: Closed
+    Notes: 
+        - Something wrong with just the thursday list
+            - might be a config error
+    Post: 
+        - Didn't have title attribute
+
 Issue: Cal object not printing other months
     Fix Commit: 552ebac
     Branch: bug-MonthsNotChanging

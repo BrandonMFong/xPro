@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="BRANDONMFONG" LoadProcedure="Verbose" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
@@ -44,21 +44,23 @@
     <List Title="Git Hub Roadmap - GlobalScripts">
       <!-- Version 2 -->
       <Item ID="A" rank="1" name="Version 3" Completed="false">
-        <Item ID="A" rank="2" name="Major" Completed="true" >
+        <Item ID="A" rank="2" name="Major" Completed="false" >
           <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false" >
             <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
           </Item>
           <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
+          <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
         </Item>
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
           <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
+          <Item ID="B" rank="3" name="Continue with email object" Completed="false" />
+          <Item ID="B" rank="3" name="Git tagging" Completed="false" />
           <Item ID="B" rank="3" name="Edit Lists" Completed="false" >
             <Item ID="A" rank="4" name="Add" Completed="false" />
             <Item ID="A" rank="4" name="Delete" Completed="false" />
           </Item>
         </Item>
-        <Item ID="C" rank="2" name="Bug/Patch" Completed="true" />
       </Item>
     </List>
   </Lists>
@@ -411,6 +413,8 @@
       <Value Lvl="0" SecurityType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecurityType="public">Darkroom</Key>
       <Value Lvl="0" SecurityType="public">https://thedarkroom.com/</Value>
+      <Key Lvl="0" SecurityType="public">iCloud</Key>
+      <Value Lvl="0" SecurityType="public">https://www.icloud.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecurityType="public">Google</Key>
       <Value Lvl="0" SecurityType="public" NodePointer="google" />

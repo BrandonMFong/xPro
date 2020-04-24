@@ -3,6 +3,13 @@
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
+        <xs:attribute name="LoadProcedure">
+            <xs:annotation>
+                <xs:documentation>
+                    TODO make different load prompting
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <!-- Start Script -->
         <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
             <xs:annotation>

@@ -1,4 +1,4 @@
-Param([switch]$Tomorrow,[Switch]$All,[switch]$EditToday)
+Param([switch]$Tomorrow,[Switch]$All,[switch]$EditToday,[switch]$Yesterday)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Global;
 $x = $(Get-Variable "Todo").Value
 if($Tomorrow)

@@ -2,20 +2,19 @@
 <Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
-  <TerminalSettings>
+  <ShellSettings>
     <Format>
-      <Date>dddd MM/dd/yyyy</Date>
+      <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
-    <Window>
-      <!-- <BackgroundColor>Black</BackgroundColor> -->
-      <HeaderTitle>{@batteryperc%} [@time, @date] @fulldir</HeaderTitle>
-    </Window>
-    <Prompt>
+    <Header Enabled="True">
+      <String>{@batteryperc%} [@time, @date] @fulldir</String>
+    </Header>
+    <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[Kiran Analytics] @currdir@greaterthan_</String>
+      <String Color="Cyan">[@user] @currdir@greaterthan_</String>
     </Prompt>
-  </TerminalSettings>
+  </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>

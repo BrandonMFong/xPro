@@ -55,8 +55,8 @@ class Folder
 
 $f = $f.Replace('.','');
 $d = $d.Replace('.','');
-if (!(Test-Path $((Get-Location).Path + $f))){throw "$($f) does not exist."}
-if (!(Test-Path $((Get-Location).Path + $d))){throw "$($d) does not exist."}
+if (!(Test-Path $((Get-Location).Path + $f))){throw [GlobalScriptsException] "$($f) does not exist."}
+if (!(Test-Path $((Get-Location).Path + $d))){throw [GlobalScriptsException] "$($d) does not exist."}
 
 
 if(("null" -ne $f) -and ("null" -ne $d))
@@ -69,5 +69,5 @@ if(("null" -ne $f) -and ("null" -ne $d))
 }
 else 
 {
-    throw "Cannot move $($f) to $($d).";
+    throw [GlobalScriptsException] "Cannot move $($f) to $($d).";
 }

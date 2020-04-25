@@ -34,4 +34,4 @@ elseif($Youtube)
     $v = read-host -prompt "Youtube"
     $var.Youtube($v);
 }
-else{throw "Nothing searched";}
+else{throw [GlobalScriptsException] "Nothing searched";}

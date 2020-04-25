@@ -26,5 +26,5 @@ foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 }
 if(!($ProcessExecuted))
 {
-	throw "Parameter '$($Destination)' does match any aliases in the configuration.  Please check spelling.";
+	throw [GlobalScriptsException] "Parameter '$($Destination)' does match any aliases in the configuration.  Please check spelling.";
 }

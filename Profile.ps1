@@ -13,7 +13,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking;
 
     <### CHECK UPDATES ###>
-        if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
+        if(.\update-profile.ps1){throw [GlobalScriptsException] "Profile was updated, please rerun Profile load.";}
         
     <### PROGRAMS ###> 
         LoadPrograms -XMLReader $XMLReader

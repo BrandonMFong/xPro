@@ -31,7 +31,7 @@ if($Zip)
     }
     else
     {
-        throw "Not enough files to compress.";
+        throw [GlobalScriptsException] "Not enough files to compress.";
         exit;
     }
 }

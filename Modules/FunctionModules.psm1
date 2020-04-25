@@ -1,3 +1,4 @@
+using module .\..\Classes\GlobalScriptsException.psm1;
 using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
@@ -42,7 +43,7 @@ function GetObjectByClass([string]$Class)
             return $(Get-Variable $Object.VarName.InnerXml).Value;
         }
     }
-    throw "Object not found!";
+    throw [GlobalScriptsException] "Object not found!";
 }
 
 function IsNotPass($x){return ($x -ne "pass");}
@@ -95,7 +96,7 @@ function MakeHash($value,[int]$lvl,$Node)
     $t = @{}; # Init hash object 
     
     if($value.Key.Count -ne $value.Value.Count)
-    {throw "Objects must have equal key and values in config."}
+    {throw [GlobalScriptsException] "Objects must have equal key and values in config."}
     elseif($null -ne $Node)
     {
         $start = 0;$end = 0;
@@ -262,7 +263,7 @@ function AppendCorrectChild([string]$Tag,$add,[ref]$x)
     {
         "Directory"{$x.Value.Machine.Directories.AppendChild($add);}
         "Program"{$x.Value.Machine.Programs.AppendChild($add);}
-        default{throw "Something Bad Happened"}
+        default{throw [GlobalScriptsException] "Something Bad Happened"}
     }
 }
 
@@ -273,7 +274,7 @@ function GetTCExtID([string]$Type)
     {
         "Directory"{$str = "PrivateDirectory"}
         "Program"{$str = "PrivateProgram"}
-        default{throw "Something Bad Happened"}
+        default{throw [GlobalScriptsException] "Something Bad Happened"}
     }
     return $str;
 }

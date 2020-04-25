@@ -20,7 +20,7 @@ function MakeClass
         "ToDoList"{$x = [ToDoList]::new($val.Class.filename);return $x;}
         default
         {
-            throw "Class $($val.Class.ClassName) was not made.";
+            throw [GlobalScriptsException] "Class $($val.Class.ClassName) was not made.";
         }
     }
 }

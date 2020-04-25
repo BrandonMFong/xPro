@@ -1,3 +1,4 @@
+using module .\..\Classes\GlobalScriptsException.psm1;
 # A way for me to query my local db through powershell
 # Object for each database
 class SQL 
@@ -42,7 +43,7 @@ class SQL
         $i = 0;
         foreach ($t in $tablestochoosefrom){$i++;Write-host "$($i) - $($t.ItemArray)";} 
         $index = Read-Host -Prompt "So?";
-        if($index -gt $i){throw "Index out of range";break;}
+        if($index -gt $i){throw [GlobalScriptsException] "Index out of range";break;}
         
         # If you are inserting into personalinfo then print type content table
         if([string]($tablestochoosefrom[$index-1].ItemArray) -eq "PersonalInfo")
@@ -216,7 +217,7 @@ class SQL
                 $querystring.Value += " from $($table)";
                 break;
             }
-            default {throw "Not a valid query type."}
+            default {throw [GlobalScriptsException] "Not a valid query type."}
         }
     } 
 
@@ -279,7 +280,7 @@ class SQL
         {
             if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
         }
-        if(!$found){Throw "Something bad happened";}
+        if(!$found){throw [GlobalScriptsException] "Something bad happened";}
         else{return $res;}
     }
 

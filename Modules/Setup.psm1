@@ -43,7 +43,7 @@ function _InitConfig
             [String] $FullContent = _GetFullContent($FileName);
             $FullContent | Out-File $FileName;
         }
-        else {throw "Please restart setup then."} # maybe call this function again
+        else {throw [GlobalScriptsException] "Please restart setup then."} # maybe call this function again
 
         _MakeConfig;
     }
@@ -55,7 +55,7 @@ function _InitConfig
         $FullContent | Out-File $FileName;
         .\.\update-config.ps1;
     }
-    else{Throw "Please Specify an option"}
+    else{Throw [GlobalScriptsException] "Please Specify an option"}
 }
 
 function _InitProfile

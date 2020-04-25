@@ -1,3 +1,4 @@
+using module .\..\Classes\GlobalScriptsException.psm1;
 
 class List
 {
@@ -52,7 +53,7 @@ class List
         {
             if($List.Title -eq $this.Title){return $List;}
         }
-        throw "Couldn't find list"
+        throw [GlobalScriptsException] "Couldn't find list"
     }
 
     hidden GetItems($List)
@@ -103,7 +104,7 @@ class List
                     if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1]);}
                 }
                 if($this.ExitLoop){break;}
-                throw "String Error";
+                throw [GlobalScriptsException] "String Error";
             }
             elseif([string]::IsNullOrEmpty($string[$i+1])) # this notifies that this is the end
             {

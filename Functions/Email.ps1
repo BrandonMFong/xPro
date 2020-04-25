@@ -10,9 +10,20 @@
 
 Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0,[switch]$BoundedList)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-[XML]$xml = $(Get-Content ($PSScriptRoot + "\..\Config\" + (Get-Variable "AppPointer").Value.Machine.ConfigFile));
+[XML]$xml = $(Get-Content (Get-Variable "ConfigFile").Value);
 $x = $xml.Machine.Email;
 $inbox = InboxObject;
+if($x.ListOrderBy -eq "Descending")
+{
+    [int]$OrderFactor = ($inbox.Items|Measure-Object).Count;
+    [int]$IncFactor = -1;
+}
+else
+{
+    [int]$OrderFactor = 0;
+    [int]$IncFactor = 1;
+}
+
 if($ListMessages)
 {
     if(($inbox.Items|Measure-Object).Count -gt 0)
@@ -106,7 +117,7 @@ if($BoundedList)
     else{$Max = $inbox.Items.Count;}
     if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        for($i=0;$i -lt $Max;$i++)
+        for($i=$OrderFactor - 0;$i -lt ($OrderFactor - $Max);$i = $i + $IncFactor)
         {
             Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
             Write-Host "[" -NoNewline -ForegroundColor Cyan;
@@ -126,7 +137,7 @@ else
     else{$Max = $inbox.Items.Count;}
     if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        for($i=0;$i -lt $Max;$i++)
+        for($i=$OrderFactor - 0;$i -lt ($OrderFactor - $Max);$i = $i + $IncFactor)
         {
             Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
             Write-Host "[" -NoNewline -ForegroundColor Cyan;

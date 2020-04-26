@@ -236,6 +236,7 @@ class SQL
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        $this.UpdateLastAccess($value);  # Updates access date, good for tracking
         return $result.Item("Value");
     }
 

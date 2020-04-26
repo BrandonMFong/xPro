@@ -74,7 +74,6 @@ function Evaluate($value)
 {
     if($value.SecurityType -eq "private")
     {
-        $Sql.UpdateLastAccess($value.InnerText); # Updates access, good for tracking
         return $Sql.InputReturn($value.InnerText);
     }
     elseif($null -ne $value.NodePointer)

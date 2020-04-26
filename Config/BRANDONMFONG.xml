@@ -55,7 +55,6 @@
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
           <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
-          <Item ID="B" rank="3" name="Continue with email object" Completed="false" />
           <Item ID="B" rank="3" name="Git tagging" Completed="false" />
           <Item ID="B" rank="3" name="Edit Lists" Completed="false" >
             <Item ID="A" rank="4" name="Add" Completed="false" />

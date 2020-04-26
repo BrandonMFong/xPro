@@ -170,7 +170,7 @@ class SQL
     [string]GetGuidString()
     {
         $t = @{DATA_TYPE = 'uniqueidentifier'};
-        return $this.SQLConvert($t);
+        return $this.SQLConvert($t,$null);
     }
 
     # Creates query string dynamically

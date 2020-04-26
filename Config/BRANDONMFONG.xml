@@ -50,7 +50,7 @@
           </Item>
           <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
           <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
-          <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="True" />
+          <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="false" />
         </Item>
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
@@ -192,7 +192,6 @@
               <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
             </Table>

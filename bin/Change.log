@@ -1,5 +1,8 @@
 
 
+Version 2.13.0 changes:
+    - List has add and delete methods
+
 Version 2.11.5 changes:
     - 552ebac
 

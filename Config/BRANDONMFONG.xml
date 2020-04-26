@@ -44,21 +44,21 @@
     <List Title="Git Hub Roadmap - GlobalScripts">
       <!-- Version 2 -->
       <Item ID="A" rank="1" name="Version 3" Completed="false">
-        <Item ID="A" rank="2" name="Major" Completed="false" >
-          <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false" >
+        <Item ID="A" rank="2" name="Major" Completed="false">
+          <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false">
             <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
           </Item>
           <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
           <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
-          <Item ID="C" rank="3" name="Put datetimes in personalinfo table" Completed="false" />
+          <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="false" />
         </Item>
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
           <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
-          <Item ID="B" rank="3" name="Git tagging" Completed="false" />
-          <Item ID="B" rank="3" name="Edit Lists" Completed="false" >
-            <Item ID="A" rank="4" name="Add" Completed="false" />
-            <Item ID="A" rank="4" name="Delete" Completed="false" />
+          <Item ID="C" rank="3" name="Git tagging" Completed="false" />
+          <Item ID="D" rank="3" name="Edit Lists" Completed="True">
+            <Item ID="A" rank="4" name="Add" Completed="True" />
+            <Item ID="B" rank="4" name="Delete" Completed="True" />
           </Item>
         </Item>
       </Item>
@@ -754,7 +754,7 @@
       <Key Lvl="1" Node="4679" SecurityType="public">Username</Key>
       <Value Lvl="1" Node="4679" SecurityType="private">597d9ef8-44a4-4679-909c-0228b3fa8a31</Value>
       <Key Lvl="1" Node="4679" SecurityType="public">Password</Key>
-      <Value Lvl="1" Node="4679" SecurityType="private">f0349632-eabf-49d3-bcdd-e2d801fedd08</Value> 
+      <Value Lvl="1" Node="4679" SecurityType="private">f0349632-eabf-49d3-bcdd-e2d801fedd08</Value>
     </Object>
     <!-- $RPi -->
     <Object Type="HashTable">

@@ -370,4 +370,10 @@ class SQL
 
         Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
     }
+
+    [void] UpdateLastAccess([string]$Guid)
+    {
+        [string]$querystring = "update PersonalInfo set LastAccessDate = GETDATE() where Guid = '$($Guid)'";
+        $this.QueryNoReturn($querystring);
+    }
 }

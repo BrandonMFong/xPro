@@ -1,3 +1,4 @@
+using module .\Math.psm1;
 
 class List
 {
@@ -32,17 +33,25 @@ class List
         Write-host `n;
     }
 
-    [void] Edit()
+    [void] Mark()
     {
         $this.LoadList();
         $string = Read-Host -Prompt "String";
-        $this.SweepItems($string,0,$this.GetList(),$null);
+        $this.SweepItems($string,0,$this.GetList(),$null,'Mark',$null);
+        $this.Save();
+    }
+
+    [void] Add()
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        [string]$string = Read-Host -Prompt "String";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Add',$string);
         $this.Save();
     }
 
     hidden LoadList()
     {
-        # $this.xml.PreserveWhitespace = $true;
         $this.xml.Load($this.FilePath);
     }
 
@@ -89,7 +98,7 @@ class List
         }
     }
 
-    [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString)
+    [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString,[string]$Method,[string]$ItemName)
     {
         [string]$ID = $IDString;
         for($i = $begin;$i -le $string.Length;$i++)
@@ -113,14 +122,38 @@ class List
                     # if last one
                     if($Item.ID -eq $ID)
                     {
-                        [boolean]$val = !$Item.Completed.ToBoolean($null);
-                        $Item.Completed = $val.ToString();
+                        switch($Method)
+                        {
+                            "Mark"
+                            {
+                                [boolean]$val = !$Item.Completed.ToBoolean($null);
+                                $Item.Completed = $val.ToString();
+                            }
+                            "Add" # Don't need to save
+                            {
+                                [Calculations]$Math = [Calculations]::new();
+                                $New = $this.xml.CreateElement("Item");
+                                
+                                $New.SetAttribute("ID",$Math.HexToAscii($Math.AsciiToHex($this.GetLastIDFromChildNode($Item)) + 1));
+                                $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                $New.SetAttribute("name",$ItemName);
+                                $New.SetAttribute("Completed","false");
+
+                                $Item.AppendChild($New);
+                            }
+                            Default {throw "Something bad happened!";}
+                        }
                     }
                 }
                 $this.ExitLoop = $true;
             }
             else{$ID += $string[$i];}
         }
+    }
+
+    hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
+    {
+        return $Item.Item[$Item.Item.Count - 1].ID;
     }
 }
 
@@ -152,6 +185,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Git Hub Roadmap - GlobalScripts','B:\CODE\XML\List\List.xml','ColorCoded)
-# $test.ListOut();
-# $test.Edit();
+[List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+$test.ListOut();
+$test.Add();

@@ -86,4 +86,14 @@ class Calculations
         }
         return -$ans;
     }
+
+    [int]AsciiToHex([string]$string)
+    {
+        return [BYTE][CHAR]$string;
+    }
+
+    [string]HexToAscii([int]$Hex)
+    {
+        return [CHAR][BYTE]$Hex;
+    }
 }

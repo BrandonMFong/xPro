@@ -30,6 +30,7 @@ Issue: Can only edit list once
     Post: 
         - The week-list.ps1 script edits after reloading all objects 
             - makes it seem like it isn't 
+        - There was actually a bool check that didn't allow the the edit to go through
 
 Issue: Get-Calendar brings you to the module directory
     Fix Commit: 7035887

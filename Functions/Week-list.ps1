@@ -33,16 +33,15 @@ if($Yesterday)
 }
 if($EditToday)
 {
-    LoadObjects -NoVerbose;
     switch ((Get-Date).DayOfWeek)
     {
-        "Monday" {$(Get-Variable 'MonList').Value.Edit();}
-        "Tuesday" {$(Get-Variable 'TueList').Value.Edit();}
-        "Wednesday" {$(Get-Variable 'WedList').Value.Edit();}
-        "Thursday" {$(Get-Variable 'ThuList').Value.Edit();}
-        "Friday" {$(Get-Variable 'FriList').Value.Edit();}
-        "Saturday" {$(Get-Variable 'SatList').Value.Edit();}
-        "Sunday" {$(Get-Variable 'SunList').Value.Edit();}
+        "Monday" {$(Get-Variable 'MonList').Value.Mark();}
+        "Tuesday" {$(Get-Variable 'TueList').Value.Mark();}
+        "Wednesday" {$(Get-Variable 'WedList').Value.Mark();}
+        "Thursday" {$(Get-Variable 'ThuList').Value.Mark();}
+        "Friday" {$(Get-Variable 'FriList').Value.Mark();}
+        "Saturday" {$(Get-Variable 'SatList').Value.Mark();}
+        "Sunday" {$(Get-Variable 'SunList').Value.Mark();}
         default{Write-Host "`n";}
     }
     break;

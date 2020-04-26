@@ -33,7 +33,6 @@ if($Yesterday)
 }
 if($EditToday)
 {
-    LoadObjects -NoVerbose;
     switch ((Get-Date).DayOfWeek)
     {
         "Monday" {$(Get-Variable 'MonList').Value.Mark();}

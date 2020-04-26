@@ -7,6 +7,7 @@ class List
     hidden [string]$FilePath; # The data file that will contain todo list
     hidden [boolean]$ExitLoop = $false;
     hidden [string]$DisplayFormat;
+    hidden [bool]$FoundNode = $false;
 
     List([string]$Title,[string]$XMLRedirectPath,[string]$DisplayFormat)
     {
@@ -36,8 +37,8 @@ class List
     [void] Mark()
     {
         $this.LoadList();
-        $string = Read-Host -Prompt "String";
-        $this.SweepItems($string,0,$this.GetList(),$null,'Mark',$null);
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Mark',$null);
         $this.Save();
     }
 
@@ -50,8 +51,17 @@ class List
         $this.Save();
     }
 
+    [void] Delete()
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Delete',$null);
+        $this.Save();
+    }
+
     hidden LoadList()
     {
+        $this.ExitLoop = $false;
         $this.xml.Load($this.FilePath);
     }
 
@@ -109,10 +119,10 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1]);}
+                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1],$Method,$ItemName);}
                 }
                 if($this.ExitLoop){break;}
-                throw "String Error";
+                throw "Something Bad Happened";
             }
             elseif([string]::IsNullOrEmpty($string[$i+1])) # this notifies that this is the end
             {
@@ -128,6 +138,7 @@ class List
                             {
                                 [boolean]$val = !$Item.Completed.ToBoolean($null);
                                 $Item.Completed = $val.ToString();
+                                $this.FoundNode = $true;
                             }
                             "Add" # Don't need to save
                             {
@@ -140,15 +151,22 @@ class List
                                 $New.SetAttribute("Completed","false");
 
                                 $Item.AppendChild($New);
+                                $this.FoundNode = $true;
+                            }
+                            "Delete" 
+                            {
+                                $List.RemoveChild($Item);
+                                $this.FoundNode = $true;
                             }
                             Default {throw "Something bad happened!";}
                         }
                     }
                 }
-                $this.ExitLoop = $true;
+                $this.ExitLoop = $true; # If we are here then we are at the end of the string
             }
             else{$ID += $string[$i];}
         }
+        if(!$this.FoundNode){Write-Warning "$($string) was not found.  Please check the node string.";}
     }
 
     hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
@@ -185,6 +203,7 @@ class Item
     }
 }
 
-[List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
-$test.ListOut();
-$test.Add();
+# [List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+# $test.ListOut();
+# $test.Mark();
+# $test.Delete();

@@ -2,7 +2,8 @@
 function Get-Tag
 {
     [string]$gitstring = "Version: $(git describe --tags)"
-    Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;
+    if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
+    else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
 
 function Set-Tag

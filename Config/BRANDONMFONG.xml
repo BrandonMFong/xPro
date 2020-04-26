@@ -192,6 +192,7 @@
               <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
             </Table>

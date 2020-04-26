@@ -11,23 +11,23 @@ function Set-Tag
     [string]$str = "$(git describe --tags)"
     if($Major)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 1 -tagstring $null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::Major -tagstring $null)"
     }
     elseif($Minor)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 2 -tagstring $null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::Minor -tagstring $null)"
     }
     elseif($BugPatch)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType 3 -tagstring $null)"
+        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::BugPatch -tagstring $null)"
     }
     else{Write-Warning "Not Tagging"}
 }
 
-[int]$Tag = 0;
-function SweepTagAndSet # Parameters aren't working
+[int]$Tagnum = 0;
+function SweepTagAndSet($tag,$begin,$TagType,$tagstring) # Parameters aren't working
 {
-    Param([string]$tag,[int]$begin,[int]$TagType,[string]$tagstring) # got this from list.psm1
+    # Param([string]$tag,[int]$begin,[int]$TagType,[string]$tagstring) # got this from list.psm1
     [string]$temptag = $tagstring;
     [string]$NewTag = "";
 
@@ -35,13 +35,7 @@ function SweepTagAndSet # Parameters aren't working
     {
         if($tag[$i] -eq ".")# the . means there are more to the string
         {
-            $Tag++;
-            if($TagType -eq $Tag)
-            {
-                $NewTag = $($temptag.ToInt16() + 1).ToString() + $(GetRestOfTag -Tag:$tag -index:$i);
-                return $NewTag;
-            }
-            else{$(SweepTagAndSet -string:$tag -begin:($i+2) -TagType:$TagType -IDString:$tag[$i+1])}
+            
         }
         else{$temptag += $tag[$i];}
     }
@@ -60,7 +54,9 @@ function GetRestOfTag([string]$Tag,[int]$index)
 
 class TagType 
 {
-    static [int] Major(){return 1;}
-    static [int] Minor(){return 2;}
-    static [int] BugPatch(){return 3;}
+    static [int] $Major = 1;
+    static [int] $Minor = 2;
+    static [int] $BugPatch = 3;
 }
+
+Set-Tag -Major

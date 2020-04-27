@@ -36,6 +36,7 @@
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\ConfigHandler.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -924,6 +925,8 @@
     <!-- $Passwords -->
     <Object Type="HashTable">
       <VarName SecurityType="public">Passwords</VarName>
+      <Key Lvl="0" SecurityType="public">Default</Key>
+      <Value Lvl="0" SecurityType="private">FF2EEEE1-E2EF-4BFD-8CAD-C6D5EE3F4708</Value>
       <Key Lvl="0" SecurityType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
       <Value Lvl="0" SecurityType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <Key Lvl="0" SecurityType="public">GlobalProtect</Key>

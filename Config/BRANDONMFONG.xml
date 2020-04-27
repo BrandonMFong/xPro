@@ -33,8 +33,10 @@
     <SpecialDays>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
       <SpecialDay name="Compe 565 HW 4 Due">5/3/2020</SpecialDay>
+      <SpecialDay name="Compe 560 Sock due">5/5/2020</SpecialDay>
       <SpecialDay name="Last day to accept">6/1/2020</SpecialDay>
       <SpecialDay name="Finish Senior design hw">5/1/2020</SpecialDay>
+      <SpecialDay name="EE 600 Project 4 @ midnight">5/1/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
   <!-- Lists -->
@@ -573,7 +575,7 @@
       <Value Lvl="2" Node="8A95" SecurityType="private">80b0f318-9d3d-4a31-be69-ad76cade626a</Value>
       <Key Lvl="2" Node="8A95" SecurityType="public">Expiration</Key>
       <Value Lvl="2" Node="8A95" SecurityType="private">593cc690-85b3-4b1b-84cc-192879244113</Value>
-      <Key Lvl="2" Node="8A95" SecurityType="public">CVC</Key>
+      <Key Lvl="2" Node="8A95" SecurityType="public">CVV</Key>
       <Value Lvl="2" Node="8A95" SecurityType="private">948d840d-0fcb-47ce-951a-7565f18dedd7</Value>
       <!-- Disney -->
       <Key Lvl="1" Node="f675" SecurityType="public">Disney</Key>
@@ -586,6 +588,10 @@
       <Value Lvl="2" Node="951a" SecurityType="private">3529af62-e170-4ce8-ac10-5bb7c831f3c7</Value>
       <Key Lvl="2" Node="951a" SecurityType="public">CVC</Key>
       <Value Lvl="2" Node="951a" SecurityType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
+      <Key Lvl="2" Node="951a" SecurityType="public">ActNum</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">84542346-87e7-45e4-8a33-bb8f77f1a18a</Value>
+      <Key Lvl="2" Node="951a" SecurityType="public">RouteNum</Key>
+      <Value Lvl="2" Node="951a" SecurityType="private">9298d1f8-268a-480d-ae49-3214d66b95cc</Value>
     </Object>
     <!-- $Contacts -->
     <Object Type="HashTable">

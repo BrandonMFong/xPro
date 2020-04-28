@@ -72,7 +72,7 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 }
 function Evaluate($value)
 {
-    if($value.SecurityType -eq "private")
+    if($value.SecType -eq "private")
     {
         return $Sql.InputReturn($value.InnerText);
     }
@@ -80,7 +80,7 @@ function Evaluate($value)
     {
         return $( MakeHash -value $value.ParentNode -lvl $([int]$value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
     }
-    elseif($value.InnerText.Contains('$'))
+    elseif($value.InnerText.Contains('$')) # if powershell object
     {
         return $(Get-Variable $value.InnerText.Replace('$','')).Value;
     }
@@ -125,26 +125,8 @@ function MakeHash($value,[int]$lvl,$Node)
     return $t;
 }
 
-function GetVarName($value)
-{
-    switch ($value.SecurityType)
-    {
-        "private"
-        {
-            return $Sql.InputReturn($value.InnerXML);
-        }
-        default{return $value.InnerXML}
-    }
-}
 
-function EvaluateVar($value)
-{
-    if($value.SecurityType -eq "private")
-    {
-        return $Sql.InputReturn($value.InnerText);
-    }
-    else {return $value.InnerText;}
-}
+
 function Test 
 {
     if(!(Test-Path .\archive\))
@@ -169,8 +151,8 @@ function LoadPrograms
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$NoVerbose)
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
-        if($NoVerbose){Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Scope Global;}
-        else{Set-Alias $val.Alias "$(EvaluateVar -value $val)" -Verbose -Scope Global;}
+        if($NoVerbose){Set-Alias $val.Alias "$(Evaluate -value $val)" -Scope Global;}
+        else{Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose -Scope Global;}
     }
 }
 function LoadModules
@@ -193,7 +175,7 @@ function LoadObjects
             {
                 "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Scope Global;break;}
                 "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
-                "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Scope Global; break;}
+                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Scope Global; break;}
                 default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
             }
         }
@@ -203,7 +185,7 @@ function LoadObjects
             {
                 "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
                 "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
-                "HashTable"{New-Variable -Name "$(GetVarName -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
+                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
                 default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
             }
         }
@@ -224,7 +206,7 @@ function InsertFromCmd
         $Security = Read-Host -Prompt "Is this private? (y/n)?";
         if($Security -eq "y")
         {
-            $add.SetAttribute("SecurityType", "private");
+            $add.SetAttribute("SecType", "private");
             
             $insert = GetObjectByClass('SQL');
             [int]$MaxID = $insert.GetMax('PersonalInfo');
@@ -241,7 +223,7 @@ function InsertFromCmd
         }
         else
         {
-            $add.SetAttribute("SecurityType", "public")
+            $add.SetAttribute("SecType", "public")
             $add.InnerXml = $PathToAdd; # Adding literally path
         }
         

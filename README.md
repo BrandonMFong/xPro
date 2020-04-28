@@ -67,7 +67,7 @@ Have everything on the command line
     ```
     <!-- $MonList -->
     <Object Type="PowerShellClass">
-      <VarName SecurityType="public">MonList</VarName>
+      <VarName SecType="public">MonList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
           <Title>Monday To Do List</Title>
@@ -118,11 +118,11 @@ Have everything on the command line
 * **Set multiple aliases at initial start of powershell**
     *Public*
     ```
-    <Program Alias="Chrome" SecurityType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     ```
     *Private*
     ```
-    <Program Alias="Chrome" SecurityType="private">9b137307-5bf9-4344-9d61-2aef23bba9fa</Program>
+    <Program Alias="Chrome" SecType="private">9b137307-5bf9-4344-9d61-2aef23bba9fa</Program>
     ```
 
 * **Set Volume**

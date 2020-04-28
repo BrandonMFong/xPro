@@ -60,7 +60,7 @@ function DirectoryNode([ref]$File)
     # Directory
     $Node_Directory = $File.Value.CreateElement("Directory");
     $Node_Directory.SetAttribute("alias", "GitRepo");
-    $Node_Directory.SetAttribute("SecurityType", "public");
+    $Node_Directory.SetAttribute("SecType", "public");
     $Node_Directory.InnerXml = $PSScriptRoot; # putting this dir in the xml
     $Node_Directories.AppendChild($Node_Directory);#Node
     $File.Value.Machine.AppendChild($Node_Directories);
@@ -85,7 +85,7 @@ function ObjectsNode([ref]$File)
     $Node_Object.SetAttribute("Type", "XmlElement");
     # VarName
     $Node_VarName = $File.Value.CreateElement("VarName");
-    $Node_VarName.SetAttribute("SecurityType","public");
+    $Node_VarName.SetAttribute("SecType","public");
     $Node_VarName.InnerXml = "User";
     # Values
     $Node_Value = $File.Value.CreateElement("Value");

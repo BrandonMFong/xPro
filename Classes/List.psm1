@@ -1,3 +1,4 @@
+using module .\Math.psm1;
 
 class List
 {
@@ -6,6 +7,7 @@ class List
     hidden [string]$FilePath; # The data file that will contain todo list
     hidden [boolean]$ExitLoop = $false;
     hidden [string]$DisplayFormat;
+    hidden [bool]$FoundNode = $false;
 
     List([string]$Title,[string]$XMLRedirectPath,[string]$DisplayFormat)
     {
@@ -32,17 +34,34 @@ class List
         Write-host `n;
     }
 
-    [void] Edit()
+    [void] Mark()
     {
         $this.LoadList();
-        $string = Read-Host -Prompt "String";
-        $this.SweepItems($string,0,$this.GetList(),$null);
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Mark',$null);
+        $this.Save();
+    }
+
+    [void] Add()
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        [string]$string = Read-Host -Prompt "String";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Add',$string);
+        $this.Save();
+    }
+
+    [void] Delete()
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Delete',$null);
         $this.Save();
     }
 
     hidden LoadList()
     {
-        # $this.xml.PreserveWhitespace = $true;
+        $this.ExitLoop = $false;
         $this.xml.Load($this.FilePath);
     }
 
@@ -89,7 +108,7 @@ class List
         }
     }
 
-    [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString)
+    [void] SweepItems([string]$string,[int]$begin=0,[System.Xml.XmlElement]$List,[string]$IDString,[string]$Method,[string]$ItemName)
     {
         [string]$ID = $IDString;
         for($i = $begin;$i -le $string.Length;$i++)
@@ -100,10 +119,10 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1]);}
+                    if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1],$Method,$ItemName);}
                 }
                 if($this.ExitLoop){break;}
-                throw "String Error";
+                throw "Something Bad Happened";
             }
             elseif([string]::IsNullOrEmpty($string[$i+1])) # this notifies that this is the end
             {
@@ -113,14 +132,46 @@ class List
                     # if last one
                     if($Item.ID -eq $ID)
                     {
-                        [boolean]$val = !$Item.Completed.ToBoolean($null);
-                        $Item.Completed = $val.ToString();
+                        switch($Method)
+                        {
+                            "Mark"
+                            {
+                                [boolean]$val = !$Item.Completed.ToBoolean($null);
+                                $Item.Completed = $val.ToString();
+                                $this.FoundNode = $true;
+                            }
+                            "Add" # Don't need to save
+                            {
+                                [Calculations]$Math = [Calculations]::new();
+                                $New = $this.xml.CreateElement("Item");
+                                
+                                $New.SetAttribute("ID",$Math.HexToAscii($Math.AsciiToHex($this.GetLastIDFromChildNode($Item)) + 1));
+                                $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                $New.SetAttribute("name",$ItemName);
+                                $New.SetAttribute("Completed","false");
+
+                                $Item.AppendChild($New);
+                                $this.FoundNode = $true;
+                            }
+                            "Delete" 
+                            {
+                                $List.RemoveChild($Item);
+                                $this.FoundNode = $true;
+                            }
+                            Default {throw "Something bad happened!";}
+                        }
                     }
                 }
-                $this.ExitLoop = $true;
+                $this.ExitLoop = $true; # If we are here then we are at the end of the string
             }
             else{$ID += $string[$i];}
         }
+        if(!$this.FoundNode){Write-Warning "$($string) was not found.  Please check the node string.";}
+    }
+
+    hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
+    {
+        return $Item.Item[$Item.Item.Count - 1].ID;
     }
 }
 
@@ -152,6 +203,7 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Git Hub Roadmap - GlobalScripts','B:\CODE\XML\List\List.xml','ColorCoded)
+# [List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
 # $test.ListOut();
-# $test.Edit();
+# $test.Mark();
+# $test.Delete();

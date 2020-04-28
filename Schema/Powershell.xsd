@@ -113,10 +113,10 @@
             </xs:annotation>
             <xs:element name="Directory" type="xs:string" minOccurs="1">
                 <xs:attribute name="Alias" type="xs:string" use="mandatory"/>
-                <xs:attribute name="SecurityType" type="xs:string" use="required">
+                <xs:attribute name="SecType" type="xs:string" use="required">
                     <xs:annotation>
                         <xs:documentation>
-                            Default 'public'.  Options: 'public' or 'private'
+                            Securty Type: Default 'public'.  Options: 'public' or 'private'
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
@@ -130,10 +130,10 @@
 
         <!-- Objects -->
         <xs:attributeGroup name="HashTableObjectAttributes">
-            <xs:attribute name="SecurityType" use="mandatory">
+            <xs:attribute name="SecType" use="mandatory">
                 <xs:annotation>
                     <xs:documentation>
-                        public or private. If you are pointing to a level, use public
+                        Securty Type: public or private. If you are pointing to a level, use public
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -323,10 +323,10 @@
                             To define the object name
                         </xs:documentation>
                     </xs:annotation>
-                    <xs:attribute name="SecurityType" type="xs:string" use="mandatory">
+                    <xs:attribute name="SecType" type="xs:string" use="mandatory">
                         <xs:annotation>
                             <xs:documentation>
-                                public or private, if private must include the name in the database
+                                Securty Type: public or private, if private must include the name in the database
                             </xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
@@ -347,10 +347,10 @@
                 <xs:documentation>
                     Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
                 </xs:documentation>
-                <xs:attribute name="SecurityType" type="xs:string" use="required">
+                <xs:attribute name="SecType" type="xs:string" use="required">
                     <xs:annotation>
                         <xs:documentation>
-                            Default 'public'.  Options: 'public' or 'private'
+                            Securty Type: Default 'public'.  Options: 'public' or 'private'
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>

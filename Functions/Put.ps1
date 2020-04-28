@@ -20,7 +20,7 @@ foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 {
 	if($Directory.alias -eq $Destination)
 	{
-		move-item $File $(EvaluateVar -value $Directory); $ProcessExecuted = $true;
+		move-item $File $(Evaluate -value $Directory); $ProcessExecuted = $true;
 	}
 	
 }

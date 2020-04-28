@@ -65,18 +65,13 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        $NewIDShouldBe = $this.Query("select max(id)+1 from $($table)");# issue here, what if the table is empty? if count, what if order is wrong
-
-        Write-Warning "The new id should be: $($NewIDShouldBe.ItemArray)`n`n";
-
-
         $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
 
         # Prompt user what values they want to insert per column
         foreach($val in $values)
         {
-            if($val.DATA_TYPE -ne 'uniqueidentifier') # you do not need to provide a guid since it's already being provided
+            if(!$this.IsIgnoredTypes($val)) # you do not need to provide a guid since it's already being provided
             {
                 Write-Warning "For $($val.COLUMN_NAME)";
                 $val.Value = Read-Host -Prompt "Value?";
@@ -94,11 +89,14 @@ class SQL
             break;
         }
 
-        Write-Host "`nNew Data inserted successfully" -ForegroundColor Green;
-        $ColumnName = $values[0].COLUMN_NAME;
-        $NewValueForID = $values[0].Value;
-        $this.Query("select * from $($table) where $($ColumnName) = $($NewValueForID)");
-        return $this.results; # display
+        $res = $this.Query("select top 1 * from $($table) order by id desc");
+        if($res -ne 0){Write-Host "`nLatest Date from $($table):" -ForegroundColor Green;}
+        return $res; # display
+    }
+
+    hidden [boolean] IsIgnoredTypes($val)
+    {
+        return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
     }
     
     [int]GetMax([string]$Table)
@@ -150,14 +148,20 @@ class SQL
         net start "SQL Server Agent(SQLEXPRESS)";
     }
 
-    hidden [string]SQLConvert($val)
+    hidden [string]SQLConvert($val,$table)
     {
         [string]$string = $null;
         switch($val.DATA_TYPE)
         {
-            "int"{$string = "$($val.Value)";break;}
+            "int"
+            {
+                if($val.COLUMN_NAME -eq "ID"){ $string = "$($this.GetMax($table))";}
+                else{$string = "$($val.Value)";}
+                break;
+            }
             "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
             "varchar"{$string = "'$($val.Value)'";break;}
+            "datetime"{$string = "GETDATE()";break;}
             default{$string = "$($val.Value)";break;}
         }
         return $string;
@@ -166,7 +170,7 @@ class SQL
     [string]GetGuidString()
     {
         $t = @{DATA_TYPE = 'uniqueidentifier'};
-        return $this.SQLConvert($t);
+        return $this.SQLConvert($t,$null);
     }
 
     # Creates query string dynamically
@@ -187,7 +191,7 @@ class SQL
                 foreach($val in $values)
                 {
                     $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
-                    $querystring.Value += $this.SQLConvert($val) + "$($rep)";
+                    $querystring.Value += $this.SQLConvert($val,$table) + "$($rep)";
                 }
 
                 $querystring.Value = $querystring.Value.Replace("$($rep)", ")");
@@ -232,6 +236,7 @@ class SQL
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        $this.UpdateLastAccess($value);  # Updates access date, good for tracking
         return $result.Item("Value");
     }
 
@@ -258,7 +263,7 @@ class SQL
                 [string]$querystring = "";
                 [int]$ID = $this.GetMax($tablename); # Checks db for new id inc
                 $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
                 foreach($val in $values)
                 {
                     if($val.COLUMN_NAME -eq "ID"){$val.Value = $ID;}
@@ -365,5 +370,11 @@ class SQL
         $querystring = $querystring.Replace("(,", "(");
 
         Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+    }
+
+    [void] UpdateLastAccess([string]$Guid)
+    {
+        [string]$querystring = "update PersonalInfo set LastAccessDate = GETDATE() where Guid = '$($Guid)'";
+        $this.QueryNoReturn($querystring);
     }
 }

@@ -263,7 +263,7 @@ class SQL
                 [string]$querystring = "";
                 [int]$ID = $this.GetMax($tablename); # Checks db for new id inc
                 $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
                 foreach($val in $values)
                 {
                     if($val.COLUMN_NAME -eq "ID"){$val.Value = $ID;}

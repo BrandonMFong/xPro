@@ -37,6 +37,7 @@
       <SpecialDay name="Last day to accept">6/1/2020</SpecialDay>
       <SpecialDay name="Finish Senior design hw">5/1/2020</SpecialDay>
       <SpecialDay name="EE 600 Project 4 @ midnight">5/1/2020</SpecialDay>
+      <SpecialDay name="Senior Design Day">5/6/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
   <!-- Lists -->
@@ -52,6 +53,7 @@
           <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
           <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
           <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="True" />
+          <Item ID="E" rank="3" name="Improve MakeHash logic" Completed="false" />
         </Item>
         <Item ID="B" rank="2" name="Minor" Completed="false">
           <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
@@ -61,6 +63,7 @@
             <Item ID="A" rank="4" name="Add" Completed="True" />
             <Item ID="B" rank="4" name="Delete" Completed="True" />
             <Item ID="C" rank="4" name="Add Node if no items on list" Completed="false" />
+            <Item ID="D" rank="4" name="Edit method" Completed="false" />
           </Item>
         </Item>
       </Item>

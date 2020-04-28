@@ -171,7 +171,13 @@ class List
 
     hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
     {
-        return $Item.Item[$Item.Item.Count - 1].ID;
+        return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));
+    }
+
+    hidden [string] CheckIfIDIsNull([string]$ID) # A little work around because the '`' is before 'a' in the ascii table
+    {
+        if([string]::IsNullOrEmpty($ID)){return "``";}
+        else {return $ID;}
     }
 }
 

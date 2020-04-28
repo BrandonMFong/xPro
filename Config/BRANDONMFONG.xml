@@ -27,7 +27,7 @@
       <Body>True</Body>
     </IncludeFields>
     <ListInboxMax>10</ListInboxMax>
-    <ListOrderBy>Ascending</ListOrderBy>
+    <ListOrderBy>Asc</ListOrderBy>
   </Email>
   <!-- Calendar -->
   <Calendar>

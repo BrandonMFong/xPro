@@ -295,3 +295,21 @@ function Test-KeyPress
         }
     }
 }
+
+function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
+{
+    [System.Xml.XmlDocument]$xml = GetXMLContent;
+    if($xml.Machine.Email.ListOrderBy -eq "Asc")
+    {
+        return ($i -lt ($Max - $OrderFactor));
+    }
+    elseif($xml.Machine.Email.ListOrderBy -eq "Desc")
+    {
+        return ($i -gt ($Max - $OrderFactor));
+    }
+    else
+    {
+        return $false;
+    }
+
+}

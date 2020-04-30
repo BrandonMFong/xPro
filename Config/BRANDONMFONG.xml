@@ -416,6 +416,8 @@
       <Value Lvl="0" SecType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecType="public">Darkroom</Key>
       <Value Lvl="0" SecType="public">https://thedarkroom.com/</Value>
+      <Key Lvl="0" SecType="public">Amazon</Key>
+      <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />

@@ -171,12 +171,15 @@ class List
 
     hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
     {
-        return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));
+        # If there is only one item in the node, it can't count because its the only leaf in that node
+        # This is a temp/bad fix (and ghetto) but it works out
+        if([string]::IsNullOrEmpty($Item.Item.Count)){return $Item.Item.ID}
+        else{return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));}
     }
 
     hidden [string] CheckIfIDIsNull([string]$ID) # A little work around because the '`' is before 'a' in the ascii table
     {
-        if([string]::IsNullOrEmpty($ID)){return "``";}
+        if([string]::IsNullOrEmpty($ID)){return "@";}# index before all caps
         else {return $ID;}
     }
 }
@@ -209,7 +212,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
-# $test.ListOut();
-# $test.Mark();
-# $test.Delete();
+[List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+$test.ListOut();
+$test.Add()

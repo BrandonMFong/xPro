@@ -145,7 +145,7 @@ class List
                                 [Calculations]$Math = [Calculations]::new();
                                 $New = $this.xml.CreateElement("Item");
                                 
-                                $New.SetAttribute("ID",$Math.HexToAscii($Math.AsciiToHex($this.GetLastIDFromChildNode($Item)) + 1));
+                                $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
                                 $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
                                 $New.SetAttribute("name",$ItemName);
                                 $New.SetAttribute("Completed","false");

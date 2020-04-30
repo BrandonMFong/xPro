@@ -212,6 +212,6 @@ class Item
     }
 }
 
-[List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
-$test.ListOut();
-$test.Add()
+# [List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+# $test.ListOut();
+# $test.Add()

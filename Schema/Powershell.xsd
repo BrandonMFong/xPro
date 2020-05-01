@@ -6,7 +6,7 @@
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>
-                    TODO make different load prompting
+                    Put "Verbose" to see verbose text.  Without it you will see progress bar
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

@@ -167,27 +167,16 @@ function LoadModules
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$NoVerbose)
+    [boolean]$ver = $true;
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
-        if($NoVerbose)
+        if($NoVerbose){$ver = $false;}
+        switch ($val.Type)
         {
-            switch ($val.Type)
-            {
-                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Scope Global;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
-                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Scope Global; break;}
-                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Scope Global;break;}
-            }
-        }
-        else
-        {
-            switch ($val.Type)
-            {
-                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose -Scope Global;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
-                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose -Scope Global; break;}
-                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose -Scope Global;break;}
-            }
+            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$ver -Scope Global;break;}
+            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$ver -Scope Global;break;}
+            "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$ver -Scope Global; break;}
+            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$ver -Scope Global;break;}
         }
     } 
 }

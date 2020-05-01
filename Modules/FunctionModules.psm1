@@ -149,8 +149,12 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$NoVerbose)
+    [int]$Complete = 0;
+    [int]$Total = $XMLReader.Machine.Programs.Program.Count;
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
+        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML | Split-Path -Parent)" -PercentComplete (($Complete / $Total)*100);
+        $Complete++;
         if($NoVerbose){Set-Alias $val.Alias "$(Evaluate -value $val)" -Scope Global;}
         else{Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose -Scope Global;}
     }
@@ -158,8 +162,12 @@ function LoadPrograms
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$NoVerbose)
+    [int]$Complete = 0;
+    [int]$Total = $XMLReader.Machine.Modules.Module.Count;
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
+        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML | Split-Path -Parent)" -PercentComplete (($Complete / $Total)*100);
+        $Complete++;
         if($NoVerbose){Import-Module $($val) -Scope Global -DisableNameChecking;}
         else{Import-Module $($val) -Verbose -Scope Global -DisableNameChecking;}
     }
@@ -168,8 +176,12 @@ function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$NoVerbose)
     [boolean]$ver = $true;
+    [int]$Complete = 0;
+    [int]$Total = $XMLReader.Machine.Objects.Object.Count;
     foreach($val in $XMLReader.Machine.Objects.Object)
     {
+        Write-Progress -Activity "Loading Modules" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+        $Complete++;
         if($NoVerbose){$ver = $false;}
         switch ($val.Type)
         {

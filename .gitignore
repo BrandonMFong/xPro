@@ -22,5 +22,5 @@ Playground/*
 # Log Files
 bin/debug.log
 
-# List 
-Config/List/*
+# User Config 
+Config/User/*

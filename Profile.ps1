@@ -6,7 +6,6 @@
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
 Pop-Location
-# [string]$ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile;
 [XML]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
 
 if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}

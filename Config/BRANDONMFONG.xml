@@ -39,7 +39,6 @@
       <SpecialDay name="EE 600 Project 4 @ midnight">5/1/2020</SpecialDay>
       <SpecialDay name="Senior Design Day">5/6/2020</SpecialDay>
       <SpecialDay name="EE 600 Presentation">5/5/2020</SpecialDay>
-      <SpecialDay name="EE 600 paper due">4/30/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
   <!-- Lists -->
@@ -53,7 +52,7 @@
             <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
           </Item>
           <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
-          <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
+          <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="True" />
           <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="True" />
           <Item ID="E" rank="3" name="Improve MakeHash logic" Completed="false" />
         </Item>
@@ -154,7 +153,7 @@
     <Program Alias="Zoom" SecType="public">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" SecType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" SecType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
-    <Program Alias="List" SecType="public">B:\CODE\XML\List\List.xml</Program>
+    <Program Alias="List" SecType="public">B:\Powershell\Config\User\List.xml</Program>
     <Program Alias="Dashboard" SecType="public">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
     <Program Alias="Sentry-Mode" SecType="public">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
     <Program Alias="Timer" SecType="public">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
@@ -284,7 +283,7 @@
         <List>
           <Title>Monday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -295,7 +294,7 @@
         <List>
           <Title>Tuesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -306,7 +305,7 @@
         <List>
           <Title>Wednesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -317,7 +316,7 @@
         <List>
           <Title>Thursday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -328,7 +327,7 @@
         <List>
           <Title>Friday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -339,7 +338,7 @@
         <List>
           <Title>Saturday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -350,7 +349,7 @@
         <List>
           <Title>Sunday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>

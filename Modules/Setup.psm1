@@ -63,12 +63,16 @@ function _InitProfile
     if(!(Test-Path $Profile))
     {
         New-Item -Path $Profile -Type File -Force;
-        $PSScriptRoot\..\update-profile.ps1 -ForceUpdate $true;
+        Push-Location $PSScriptRoot\..\;
+            update-profile.ps1 -ForceUpdate $true;
+        Pop-Location;
         Write-Host "`nCreated Profile script!`n" -BackgroundColor Black -ForegroundColor Yellow;
     }
     else
     {
-        $PSScriptRoot\..\update-profile.ps1 -ForceUpdate $true;
+        Push-Location $PSScriptRoot\..\;
+            update-profile.ps1 -ForceUpdate $true;
+        Pop-Location;
         Write-Host "`nProfile already exists!`n" -BackgroundColor Black -ForegroundColor Yellow;
     }
 }

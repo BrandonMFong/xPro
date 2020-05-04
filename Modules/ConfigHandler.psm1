@@ -21,12 +21,12 @@ function StartScriptNode([ref]$File)
 function TerminalSettingsNode([ref]$File)
 {
     ## <Prompt> ##
-    $Node_TerminalSettings = $File.Value.CreateElement("TerminalSettings");
+    $Node_ShellSettings = $File.Value.CreateElement("ShellSettings");
     $Node_Prompt = $File.Value.CreateElement("Prompt");
-    $Node_Window = $File.Value.CreateElement("Window");
+    $Node_Header = $File.Value.CreateElement("Header");
     $Node_Format = $File.Value.CreateElement("Format");
-    # <BackgroundColor>
-    $Node_BackgroundColor = $File.Value.CreateElement("BackgroundColor");
+    # # <BackgroundColor>
+    # $Node_BackgroundColor = $File.Value.CreateElement("BackgroundColor");
     # <TimeFormat>
     $Node_HeaderTitle = $File.Value.CreateElement("HeaderTitle");
     # <DateFormat>
@@ -41,16 +41,16 @@ function TerminalSettingsNode([ref]$File)
     $Node_String.InnerXml = "Default";
     $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
     $Node_BaterryLifeThreshold.InnerXml = "35";
-    $Node_Window.AppendChild($Node_BackgroundColor);#Node
-    $Node_Window.AppendChild($Node_HeaderTitle);#Node
+    $Node_Header.AppendChild($Node_BackgroundColor);#Node
+    $Node_Header.AppendChild($Node_HeaderTitle);#Node
     $Node_Format.AppendChild($Node_DateFormat);#Node
     $Node_Format.AppendChild($Node_TimeFormat);#Node
     $Node_Prompt.AppendChild($Node_String);#Node
     $Node_Prompt.AppendChild($Node_BaterryLifeThreshold);#Node
-    $Node_TerminalSettings.AppendChild($Node_Prompt);#Node
-    $Node_TerminalSettings.AppendChild($Node_Format);#Node
-    $Node_TerminalSettings.AppendChild($Node_Window);#Node
-    $File.Value.Machine.AppendChild($Node_TerminalSettings);
+    $Node_ShellSettings.AppendChild($Node_Prompt);#Node
+    $Node_ShellSettings.AppendChild($Node_Format);#Node
+    $Node_ShellSettings.AppendChild($Node_Header);#Node
+    $File.Value.Machine.AppendChild($Node_ShellSettings);
 }
 
 function DirectoryNode([ref]$File)

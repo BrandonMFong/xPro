@@ -12,7 +12,7 @@
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@user] @currdir@greaterthan_</String>
+      <String Color="Cyan">[Kiran Analytics] @currdir@greaterthan_</String>
     </Prompt>
   </ShellSettings>
   <Weather>
@@ -140,6 +140,7 @@
     <Program Alias="StrTemp" SecType="private">ade4adf8-7034-430a-a1c8-fb40d91974ce</Program>
     <Program Alias="cloud40" SecType="private">a1b3b272-9295-4107-bbf5-6b4a16baa29b</Program>
     <Program Alias="cloud52" SecType="private">1bfecdc8-453f-4f80-9863-9a426a57d068</Program>
+    <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

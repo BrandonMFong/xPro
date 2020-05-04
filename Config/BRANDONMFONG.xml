@@ -78,6 +78,7 @@
     <Module>B:\Powershell\Modules\Sound.psm1</Module>
     <Module>B:\Powershell\Modules\Git.psm1</Module>
     <Module>B:\Powershell\Modules\ConfigHandler.psm1</Module>
+    <Module>B:\Powershell\Modules\OutlookType.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

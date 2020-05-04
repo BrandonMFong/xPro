@@ -41,7 +41,7 @@ function TerminalSettingsNode([ref]$File)
     $Node_String.InnerXml = "Default";
     $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
     $Node_BaterryLifeThreshold.InnerXml = "35";
-    $Node_Header.AppendChild($Node_BackgroundColor);#Node
+    # $Node_Header.AppendChild($Node_BackgroundColor);#Node
     $Node_Header.AppendChild($Node_HeaderTitle);#Node
     $Node_Format.AppendChild($Node_DateFormat);#Node
     $Node_Format.AppendChild($Node_TimeFormat);#Node

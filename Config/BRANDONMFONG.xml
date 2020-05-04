@@ -117,6 +117,7 @@
     <Directory Alias="hw4565" SecType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
     <Directory Alias="EEFinProj" SecType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project4</Directory>
     <Directory Alias="AlarmSettingsDir" SecType="public">C:\Users\bfwan\AppData\Local\Packages\Microsoft.WindowsAlarms_8wekyb3d8bbwe\LocalCache</Directory>
+    <Directory Alias="site" SecType="public">B:\SOURCES\Repos\site</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -473,6 +474,14 @@
       <Value Lvl="1" Node="d4f9" SecType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Password</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">Database</Key>
+      <Value Lvl="1" Node="d4f9" SecType="public" NodePointer="475b" />
+      <Key Lvl="2" Node="475b" SecType="public">DatabaseName</Key>
+      <Value Lvl="2" Node="475b" SecType="private">93f52cb8-f9ec-46d2-9ca0-e384ea7354af</Value>
+      <Key Lvl="2" Node="475b" SecType="public">Username</Key>
+      <Value Lvl="2" Node="475b" SecType="private">94b3cc95-5c69-4617-9466-195f664c9356</Value>
+      <Key Lvl="2" Node="475b" SecType="public">Password</Key>
+      <Value Lvl="2" Node="475b" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <!--Chase-->
       <Key Lvl="0" SecType="public">Chase</Key>
       <Value Lvl="0" SecType="public" NodePointer="4467" />

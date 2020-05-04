@@ -9,6 +9,7 @@ FTPFromVolta.ps1
 # Work
 Functions/KiranTickets.ps1
 Functions/BANKURL.ps1
+Config/Server.xml
 
 # Test files
 test*.*

@@ -177,16 +177,6 @@
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
-    <!-- $Math -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
-    </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Query</VarName>
@@ -208,6 +198,7 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Rows>
                 <Row>
                   <Value ColumnName="Description">ID</Value>
@@ -238,20 +229,12 @@
                   <Value ColumnName="ExternalID">URL</Value>
                 </Row>
                 <Row>
-                  <Value ColumnName="Description">Private ColumnName</Value>
+                  <Value ColumnName="Description">Private Name</Value>
                   <Value ColumnName="ExternalID">PrivateName</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Directory</Value>
                   <Value ColumnName="ExternalID">PrivateDirectory</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Mobile Number</Value>
-                  <Value ColumnName="ExternalID">MobileNumber</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Home Address</Value>
-                  <Value ColumnName="ExternalID">HomeAddress</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Program</Value>
@@ -262,6 +245,16 @@
           </Tables>
         </SQL>
       </Class>
+    </Object>
+    <!-- $Web -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Web</VarName>
+      <Class ClassName="Web" HasParams="false" />
+    </Object>
+    <!-- $Math -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Math</VarName>
+      <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
@@ -421,6 +414,8 @@
       <Value Lvl="0" SecType="public">https://thedarkroom.com/</Value>
       <Key Lvl="0" SecType="public">Amazon</Key>
       <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
+      <Key Lvl="0" SecType="public">Site</Key>
+      <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />
@@ -615,44 +610,6 @@
       <Value Lvl="2" Node="951a" SecType="private">84542346-87e7-45e4-8a33-bb8f77f1a18a</Value>
       <Key Lvl="2" Node="951a" SecType="public">RouteNum</Key>
       <Value Lvl="2" Node="951a" SecType="private">9298d1f8-268a-480d-ae49-3214d66b95cc</Value>
-    </Object>
-    <!-- $Contacts -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Contacts</VarName>
-      <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
-      <Key Lvl="0" SecType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
-      <Value Lvl="0" SecType="public" NodePointer="a1b7" />
-      <Key Lvl="1" Node="a1b7" SecType="public">HomeAddress</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
-      <Key Lvl="1" Node="a1b7" SecType="public">MobileNumber</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">833f74b4-ef7b-4c9d-b0f1-f1e7e69a58e1</Value>
-      <Key Lvl="1" Node="a1b7" SecType="public">Email</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
-      <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
-      <Key Lvl="0" SecType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
-      <Value Lvl="0" SecType="public" NodePointer="7094" />
-      <Key Lvl="1" Node="7094" SecType="public">Email</Key>
-      <Value Lvl="1" Node="7094" SecType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
-      <!-- 78531b00-99d7-4e19-ac1f-4f671598cfaa -->
-      <Key Lvl="0" SecType="private">78531b00-99d7-4e19-ac1f-4f671598cfaa</Key>
-      <Value Lvl="0" SecType="public" NodePointer="80ad" />
-      <Key Lvl="1" Node="80ad" SecType="public">Email</Key>
-      <Value Lvl="1" Node="80ad" SecType="private">139665DA-AD2B-4BC2-B8AE-F9F21B04CF8A</Value>
-      <!-- 88f7d857-f258-417a-aee4-8e7d2c44a289 -->
-      <Key Lvl="0" SecType="private">88f7d857-f258-417a-aee4-8e7d2c44a289</Key>
-      <Value Lvl="0" SecType="public" NodePointer="aee4" />
-      <Key Lvl="1" Node="aee4" SecType="public">Email</Key>
-      <Value Lvl="1" Node="aee4" SecType="private">12e4d7cd-f92c-4be9-994c-df37be8b6d43</Value>
-      <!-- f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd -->
-      <Key Lvl="0" SecType="private">f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd</Key>
-      <Value Lvl="0" SecType="public" NodePointer="9a8f" />
-      <Key Lvl="1" Node="9a8f" SecType="public">Email</Key>
-      <Value Lvl="1" Node="9a8f" SecType="private">ad148d6e-9a8f-4872-a404-25500191d7cb</Value>
-      <!-- b37afc46-1081-4bd8-b5d6-c82f0f75cb73 -->
-      <Key Lvl="0" SecType="private">b37afc46-1081-4bd8-b5d6-c82f0f75cb73</Key>
-      <Value Lvl="0" SecType="public" NodePointer="b5d6" />
-      <Key Lvl="1" Node="b5d6" SecType="public">Email</Key>
-      <Value Lvl="1" Node="b5d6" SecType="private">40904a12-065f-42ea-93d4-e560d1f8b467</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">

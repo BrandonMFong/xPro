@@ -16,8 +16,8 @@
     </Prompt>
     <ShellColors>
       <BackgroundColor>Black</BackgroundColor>
-      <ForegroundColor>Black</ForegroundColor>
-      <ProgressForegroundColor>DarkBlue</ProgressForegroundColor>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <!-- <StartDirectory>B:\</StartDirectory> -->
@@ -45,6 +45,7 @@
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\ConfigHandler.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Outlooktype.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Git.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -238,6 +239,7 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Rows>
                 <Row>
                   <Value ColumnName="Description">ID</Value>
@@ -274,14 +276,6 @@
                 <Row>
                   <Value ColumnName="Description">Private Directory</Value>
                   <Value ColumnName="ExternalID">PrivateDirectory</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Mobile Number</Value>
-                  <Value ColumnName="ExternalID">MobileNumber</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Home Address</Value>
-                  <Value ColumnName="ExternalID">HomeAddress</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Program</Value>

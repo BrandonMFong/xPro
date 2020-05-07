@@ -1,11 +1,11 @@
-# A way for me to query my local db through powershell
+# A way for me to query my local sql server db through powershell
 # Object for each database
 class SQL 
 {
     # Object fields
     [string]$serverinstance;
     [string]$database;
-    [System.Object[]]$results;
+    hidden [System.Object[]]$results;
     [System.Object[]]$tables;
 
     # Constructor
@@ -236,7 +236,7 @@ class SQL
     {
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        $this.UpdateLastAccess($value);  # Updates access date, good for tracking
+        $this.UpdateLastAccessByGuid($value);  # Updates access date, good for tracking
         return $result.Item("Value");
     }
 
@@ -273,8 +273,22 @@ class SQL
                 $this.QueryNoReturn($querystring);
                 $RowsInserted = $true;
             }
+            $this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));
         }
         if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
+    }
+
+    hidden [string] GetExternalIDFromRowConfig($row)
+    {
+        [string]$extid = "";
+        [bool]$FoundExternalID = $false;
+        foreach($Value in $row.Value)
+        {
+            if($Value.ColumnName -eq "ExternalID"){$extid = $Value.InnerXML;$FoundExternalID = $true;}
+        }
+
+        if(!$FoundExternalID){throw "Something bad happened.  Check config if there is an externalid column for the row."}
+        return $extid;
     }
 
     hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
@@ -291,14 +305,8 @@ class SQL
     hidden [boolean] DoesRowExist($row,[string]$tablename) # Must have external ID
     {
         $res = $null # reset
-        foreach($Value in $row.Value)
-        {
-            if($Value.ColumnName -eq "ExternalID")
-            {
-                $querystring = "select * from $($tablename) where ExternalID = '$($Value.InnerXML)'";
-                $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
-            }
-        }
+        $querystring = "select * from $($tablename) where ExternalID = '$($this.GetExternalIDFromRowConfig($row))'";
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -372,9 +380,15 @@ class SQL
         Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
     }
 
-    [void] UpdateLastAccess([string]$Guid)
+    hidden [void] UpdateLastAccessByGuid([string]$Guid) # Personalinfo
     {
         [string]$querystring = "update PersonalInfo set LastAccessDate = GETDATE() where Guid = '$($Guid)'";
+        $this.QueryNoReturn($querystring);
+    }
+
+    hidden [void] UpdateLastAccessByExternalID([string]$ExternalID) # Type Content
+    {
+        [string]$querystring = "update TypeContent set LastAccessDate = GETDATE() where ExternalID = '$($ExternalID)'";
         $this.QueryNoReturn($querystring);
     }
 }

@@ -58,18 +58,32 @@ function _Replace
     if($OutString.Value.Contains($tag.greaterthan)){$OutString.Value = $OutString.Value.Replace($tag.greaterthan,"`>");}
 }
 
-function _GetHeader
+function _SetHeader
 {
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
-    [string]$OutString = $x.Machine.ShellSettings.Header.String;
+    [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($x.Machine.ShellSettings.Header.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Header)))
-    {$OutString = $Host.UI.RawUI.WindowTitle}
-    return $OutString;
+    if(($XMLReader.Machine.ShellSettings.Header.Enabled -ne "False") -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
+    {$Host.UI.RawUI.WindowTitle = $OutString}
+}
+function _SetBackgroundColor
+{
+    # BackgroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor))
+    {$Host.UI.RawUI.BackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor;}
+    # ForegroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor))
+    {$Host.UI.RawUI.ForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor;}
+    # ProgressForegroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor))
+    {$Host.PrivateData.ProgressForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor;}
+    # ProgressBackgroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor))
+    {$Host.PrivateData.ProgressBackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
 }
 function prompt
 {
-    $Host.UI.RawUI.WindowTitle = _GetHeader; # Sets Header
+    _SetHeader; # Sets Header
+    _SetBackgroundColor; # Sets BG color
     [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
     $prompt = $x.Machine.ShellSettings.Prompt;
     [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;

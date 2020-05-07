@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="US-802262" LoadProcedure="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
@@ -14,6 +14,13 @@
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[Kiran Analytics] @currdir@greaterthan_</String>
     </Prompt>
+    <ShellColors>
+      <BackgroundColor>Black</BackgroundColor>
+      <ForegroundColor>Black</ForegroundColor>
+      <ProgressForegroundColor>DarkBlue</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
+    </ShellColors>
+    <!-- <StartDirectory>B:\</StartDirectory> -->
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>

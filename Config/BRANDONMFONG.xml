@@ -16,7 +16,9 @@
     </Prompt>
     <ShellColors>
       <BackgroundColor>Black</BackgroundColor>
-      <ForegroundColor>Black</ForegroundColor>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>B:\</StartDirectory>
   </ShellSettings>

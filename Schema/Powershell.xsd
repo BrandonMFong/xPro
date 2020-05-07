@@ -103,6 +103,13 @@
                 </xs:element>
                 <xs:group ref="String"/>
             </xs:element>
+            <xs:element name="ShellColors" maxOccurs="1">
+                <xs:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ForegroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="StartDirectory" maxOccurs="1">
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">

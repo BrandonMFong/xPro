@@ -12,7 +12,10 @@ if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}
 else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking -Scope Local;
+    Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
+    
+    _SetBackgroundColor;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}

@@ -152,6 +152,7 @@
     <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
     <Program Alias="mobi" SecType="public">C:\Program Files (x86)\EaseUS\EaseUS MobiMover\bin\MobiMoverUILaunch.exe</Program>
     <Program Alias="sb" SecType="public">Set-Brightness</Program>
+    <Program Alias="mysql" SecType="public">C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

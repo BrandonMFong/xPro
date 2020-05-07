@@ -14,6 +14,11 @@
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[@user] @currdir@greaterthan_</String>
     </Prompt>
+    <ShellColors>
+      <BackgroundColor>Black</BackgroundColor>
+      <ForegroundColor>Black</ForegroundColor>
+    </ShellColors>
+    <StartDirectory>B:\</StartDirectory>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
@@ -144,6 +149,7 @@
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
     <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
     <Program Alias="mobi" SecType="public">C:\Program Files (x86)\EaseUS\EaseUS MobiMover\bin\MobiMoverUILaunch.exe</Program>
+    <Program Alias="sb" SecType="public">Set-Brightness</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -830,6 +836,8 @@
       <Value Lvl="0" SecType="private">266D3C1E-DE41-475B-B169-BDD5D2518440</Value>
       <Key Lvl="0" SecType="public">WifiMesita</Key>
       <Value Lvl="0" SecType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
+      <Key Lvl="0" SecType="public">MySQL</Key>
+      <Value Lvl="0" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
     </Object>
   </Objects>
 </Machine>

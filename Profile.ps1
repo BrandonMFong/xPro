@@ -1,7 +1,7 @@
 # Engineer: Brandon Fong
 # TODO
 # ...
-
+Param([bool]$StartDir=$true)
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
@@ -42,3 +42,6 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     }
 
 Pop-Location;
+
+if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
+{Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}

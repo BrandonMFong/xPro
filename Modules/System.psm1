@@ -47,4 +47,4 @@ function Set-Brightness
     $monitor.WmiSetBrightness(0,$Percentage)
 }
 
-function Reload-Profile {.$PROFILE}
+function Reload-Profile {.$PROFILE -StartDir:$false;}

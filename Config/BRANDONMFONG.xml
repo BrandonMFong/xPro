@@ -32,44 +32,13 @@
   <Calendar>
     <SpecialDays>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
-      <SpecialDay name="Compe 565 HW 4 Due">5/3/2020</SpecialDay>
       <SpecialDay name="Compe 560 Sock due">5/5/2020</SpecialDay>
       <SpecialDay name="Last day to accept">6/1/2020</SpecialDay>
-      <SpecialDay name="Finish Senior design hw">5/1/2020</SpecialDay>
-      <SpecialDay name="EE 600 Project 4 @ midnight">5/1/2020</SpecialDay>
       <SpecialDay name="Senior Design Day">5/6/2020</SpecialDay>
-      <SpecialDay name="EE 600 Presentation">5/5/2020</SpecialDay>
+      <SpecialDay name="CompE 560 final">5/14/2020</SpecialDay>
+      <SpecialDay name="CompE 565 final">5/11/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
-  <!-- Lists -->
-  <Lists>
-    <!-- Git Hub Roadmap - GlobalScripts -->
-    <List Title="Git Hub Roadmap - GlobalScripts">
-      <!-- Version 2 -->
-      <Item ID="A" rank="1" name="Version 3" Completed="false">
-        <Item ID="A" rank="2" name="Major" Completed="false">
-          <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false">
-            <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
-          </Item>
-          <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
-          <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="True" />
-          <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="True" />
-          <Item ID="E" rank="3" name="Improve MakeHash logic" Completed="false" />
-        </Item>
-        <Item ID="B" rank="2" name="Minor" Completed="false">
-          <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
-          <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
-          <Item ID="C" rank="3" name="Git tagging" Completed="false" />
-          <Item ID="D" rank="3" name="Edit Lists" Completed="False">
-            <Item ID="A" rank="4" name="Add" Completed="True" />
-            <Item ID="B" rank="4" name="Delete" Completed="True" />
-            <Item ID="C" rank="4" name="Add Node if no items on list" Completed="false" />
-            <Item ID="D" rank="4" name="Edit method" Completed="false" />
-          </Item>
-        </Item>
-      </Item>
-    </List>
-  </Lists>
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
@@ -174,6 +143,7 @@
     <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
     <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
+    <Program Alias="mobi" SecType="public">C:\Program Files (x86)\EaseUS\EaseUS MobiMover\bin\MobiMoverUILaunch.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -268,6 +238,7 @@
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>

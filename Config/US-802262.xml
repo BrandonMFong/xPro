@@ -97,6 +97,7 @@
     <Directory Alias="cc41" SecType="private">732c5066-7d04-45b9-9f6c-7d63bef35bf9</Directory>
     <Directory Alias="cc40" SecType="private">964875e8-9d49-4a01-bde4-7c7ca968b73e</Directory>
     <Directory Alias="cc52" SecType="private">0adb2a9c-b580-41d3-8db7-f5962b4e0d3b</Directory>
+    <Directory Alias="cc51" SecType="private">3d704ed8-a9e3-43a4-82fc-91c1cb5f3c49</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
@@ -150,6 +151,7 @@
     <Program Alias="cloud40" SecType="private">a1b3b272-9295-4107-bbf5-6b4a16baa29b</Program>
     <Program Alias="cloud52" SecType="private">1bfecdc8-453f-4f80-9863-9a426a57d068</Program>
     <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
+    <Program Alias="cloud51" SecType="private">b5965d33-be87-48e2-89b5-1e6234ae59a6</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

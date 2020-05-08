@@ -21,7 +21,7 @@
       <ProgressForegroundColor>White</ProgressForegroundColor>
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
-    <!-- <StartDirectory>B:\</StartDirectory> -->
+    <StartDirectory>C:\Users\brandon.fong\Brandon.Fong</StartDirectory>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>

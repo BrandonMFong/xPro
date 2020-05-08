@@ -99,6 +99,7 @@
     <Directory Alias="cc40" SecType="private">964875e8-9d49-4a01-bde4-7c7ca968b73e</Directory>
     <Directory Alias="cc52" SecType="private">0adb2a9c-b580-41d3-8db7-f5962b4e0d3b</Directory>
     <Directory Alias="cc51" SecType="private">3d704ed8-a9e3-43a4-82fc-91c1cb5f3c49</Directory>
+    <Directory Alias="cit" SecType="private">841baad2-27d2-4ff2-8591-18edc079e658</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>

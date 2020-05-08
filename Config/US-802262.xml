@@ -4,7 +4,7 @@
   <!-- Terminal Settings -->
   <ShellSettings>
     <Format>
-      <Date>dddd MM/dd</Date>
+      <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
       <GitString> [@gitbranch] </GitString>
     </Format>
@@ -121,7 +121,7 @@
     <Program Alias="Papercut" SecType="public">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
     <Program Alias="subl" SecType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
     <Program Alias="citrix" SecType="public">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
-    <Program Alias="Tix" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
+    <Program Alias="Tix" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Implementation\Utils\Tickets\Tickets\bin\Release\Tickets.exe</Program>
     <Program Alias="vc" SecType="public">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
     <Program Alias="WinSCP" SecType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
     <Program Alias="IIS" SecType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>

@@ -65,8 +65,9 @@ function _Replace
         if(![string]::IsNullOrEmpty($BranchString))
         {
             [string]$gitchanges = $null;
-            $gitchanges = "$(git diff --exit-code)";
-            $gitchanges = "$(git diff --cached)";
+            $gitchangesUnstaged = "$(git diff --exit-code)";
+            $gitchangesStaged = "$(git diff --cached)";
+            if(![string]::IsNullOrEmpty($gitchangesUnstaged) -or ![string]::IsNullOrEmpty($gitchangesStaged)){$BranchString += "*";} # for changes
             if(![string]::IsNullOrEmpty($gitchanges)){$BranchString += "*";} # for changes
             if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
             {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}

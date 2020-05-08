@@ -7,4 +7,5 @@ class Tag
     [string]$time = "@time";
     [string]$batteryperc = "@batteryperc";
     [string]$greaterthan = "@greaterthan";
+    [string]$gitbranch = "@gitbranch";
 }

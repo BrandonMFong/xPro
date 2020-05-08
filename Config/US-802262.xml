@@ -6,13 +6,14 @@
     <Format>
       <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
+      <GitString> [@gitbranch] </GitString>
     </Format>
     <Header Enabled="True">
       <String>{@batteryperc%} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[Kiran Analytics] @currdir@greaterthan_</String>
+      <String Color="Cyan">[Kiran Analytics] @currdir@gitbranch@greaterthan_</String>
     </Prompt>
     <ShellColors>
       <BackgroundColor>Black</BackgroundColor>

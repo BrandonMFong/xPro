@@ -56,6 +56,21 @@ function _Replace
 
     # Greater than sign
     if($OutString.Value.Contains($tag.greaterthan)){$OutString.Value = $OutString.Value.Replace($tag.greaterthan,"`>");}
+
+    # Git Branch
+    if($OutString.Value.Contains($tag.gitbranch))
+    {
+        [string]$BranchString = $null;
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        if(![string]::IsNullOrEmpty($BranchString))
+        {
+            if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
+            {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
+            else{[string]$gitstring = " ($($BranchString)) ";}
+            $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
+        }
+        else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
+    }
 }
 
 function _SetHeader
@@ -110,3 +125,5 @@ function prompt
         return " ";
     }
 }
+
+# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/

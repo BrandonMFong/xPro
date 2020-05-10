@@ -28,16 +28,16 @@ Pop-Location;
 for([int]$i = 0; $i -lt $AllFolderPathsFormer.Length;$i++)
 {
     $AllFolderPathsLadder[$i] = $AllFolderPathsFormer[$i].Replace($OldBasePath,$NewBasePath);
-    Write-Host "REWRITE: $($AllFolderPathsFormer[$i]) => $($AllFolderPathsLadder[$i])" -BackgroundColor Black -ForegroundColor Yellow;
+    Write-Verbose "REWRITE: $($AllFolderPathsFormer[$i]) => $($AllFolderPathsLadder[$i])";
     Write-Progress -Activity "Replacing old base path to new base path" -status "New Path: $($AllFolderPathsLadder[$i])" -PercentComplete ((($i+1) / $AllFolderPathsFormer.Length)*100);
 }
 Write-Progress -Activity "Replacing old base path to new base path" -Completed;
 
 for([int]$i = 0; $i -lt $AllFolderPathsLadder.Length;$i++)
 {
-    New-Item -Force $AllFolderPathsLadder[$i];
+    New-Item -Force $AllFolderPathsLadder[$i] | Out-Null;
     Copy-Item $AllFolderPathsFormer[$i] $AllFolderPathsLadder[$i] -Recurse -Force;
-    Write-Host "COPY-ITEM: $($AllFolderPathsFormer[$i]) => $($AllFolderPathsLadder[$i])" -BackgroundColor Black -ForegroundColor Yellow;
+    Write-Verbose "COPY-ITEM: $($AllFolderPathsFormer[$i]) => $($AllFolderPathsLadder[$i])";
     Write-Progress -Activity "Copy Item" -status "Item: $($AllFolderPathsLadder[$i] | Split-Path -Leaf)" -PercentComplete ((($i+1) / $AllFolderPathsLadder.Length)*100);
 }
 Write-Progress -Activity "Replacing old base path to new base path" -Completed;

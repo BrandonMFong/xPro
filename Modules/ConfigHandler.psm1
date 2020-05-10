@@ -1,5 +1,5 @@
 
-function MachineNode([ref]$File)
+function _MachineNode([ref]$File)
 {
     # <Machine>
     $Node_Machine = $File.Value.CreateElement("Machine");
@@ -9,7 +9,7 @@ function MachineNode([ref]$File)
     $File.Value.AppendChild($Node_Machine);#Node
 }
 
-function StartScriptNode([ref]$File)
+function _StartScriptNode([ref]$File)
 {
     ### <StartScript> ##
     $Node_StartScript = $File.Value.CreateElement("StartScript");
@@ -18,30 +18,32 @@ function StartScriptNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_StartScript); # Append
 }
 
-function TerminalSettingsNode([ref]$File)
+function _ShellSettingsNode([ref]$File)
 {
     ## <Prompt> ##
     $Node_ShellSettings = $File.Value.CreateElement("ShellSettings");
+
     $Node_Prompt = $File.Value.CreateElement("Prompt");
+    # String
+    $Node_String = $File.Value.CreateElement("String");
+    $Node_String.InnerXml = "Default";
+    # BaterryLifeThreshold
+    $Node_BaterryLifeThreshold = $File.Value.CreateElement("BaterryLifeThreshold");
+    $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
+    $Node_BaterryLifeThreshold.InnerXml = "35";
+
     $Node_Header = $File.Value.CreateElement("Header");
+    $Node_Header.SetAttribute("Enabled", "False");
+
     $Node_Format = $File.Value.CreateElement("Format");
-    # # <BackgroundColor>
-    # $Node_BackgroundColor = $File.Value.CreateElement("BackgroundColor");
-    # <TimeFormat>
-    $Node_HeaderTitle = $File.Value.CreateElement("HeaderTitle");
     # <DateFormat>
     $Node_DateFormat = $File.Value.CreateElement("Date");
     # <TimeFormat>
     $Node_TimeFormat = $File.Value.CreateElement("Time");
-    # BaterryLifeThreshold
-    $Node_BaterryLifeThreshold = $File.Value.CreateElement("BaterryLifeThreshold");
-    # String
-    $Node_String = $File.Value.CreateElement("String");
-    $Node_String.SetAttribute("Color", "White");
-    $Node_String.InnerXml = "Default";
-    $Node_BaterryLifeThreshold.SetAttribute("Enabled", "true");
-    $Node_BaterryLifeThreshold.InnerXml = "35";
-    # $Node_Header.AppendChild($Node_BackgroundColor);#Node
+
+    $Node_ShellColors = $File.Value.CreateElement("ShellColors");
+    $Node_StartDirectory = $File.Value.CreateElement("StartDirectory");
+
     $Node_Header.AppendChild($Node_HeaderTitle);#Node
     $Node_Format.AppendChild($Node_DateFormat);#Node
     $Node_Format.AppendChild($Node_TimeFormat);#Node
@@ -50,10 +52,12 @@ function TerminalSettingsNode([ref]$File)
     $Node_ShellSettings.AppendChild($Node_Prompt);#Node
     $Node_ShellSettings.AppendChild($Node_Format);#Node
     $Node_ShellSettings.AppendChild($Node_Header);#Node
+    $Node_ShellSettings.AppendChild($Node_ShellColors);#Node
+    $Node_ShellSettings.AppendChild($Node_StartDirectory);#Node
     $File.Value.Machine.AppendChild($Node_ShellSettings);
 }
 
-function DirectoryNode([ref]$File)
+function _DirectoryNode([ref]$File)
 {
     ## Directories ##
     $Node_Directories = $File.Value.CreateElement("Directories");
@@ -65,7 +69,7 @@ function DirectoryNode([ref]$File)
     $Node_Directories.AppendChild($Node_Directory);#Node
     $File.Value.Machine.AppendChild($Node_Directories);
 }
-function WeatherNode([ref]$File)
+function _WeatherNode([ref]$File)
 {
     ## Directories ##
     $Node_Weather = $File.Value.CreateElement("Weather");
@@ -74,7 +78,7 @@ function WeatherNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_Weather);
 }
 
-function ObjectsNode([ref]$File)
+function _ObjectsNode([ref]$File)
 {
     # Objects
     $Node_Objects =  $File.Value.CreateElement("Objects");
@@ -98,7 +102,7 @@ function ObjectsNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_Objects);
 }
 
-function ProgramNode([ref]$File)
+function _ProgramNode([ref]$File)
 {
     # Programs
     $Node_Programs = $File.Value.CreateElement("Programs");
@@ -110,7 +114,7 @@ function ProgramNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_Programs);
 }
 
-function ModulesNode([ref]$File)
+function _ModulesNode([ref]$File)
 {
     # Modules
     $Node_Modules = $File.Value.CreateElement("Modules");
@@ -120,7 +124,7 @@ function ModulesNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_Modules);
 }
 
-function ListNode([ref]$File)
+function _ListNode([ref]$File)
 {
     # Lists
     $Node_Lists = $File.Value.CreateElement("Lists");
@@ -138,7 +142,7 @@ function ListNode([ref]$File)
     $File.Value.Machine.AppendChild($Node_Lists);
 }
 
-function CalendarNode([ref]$File)
+function _CalendarNode([ref]$File)
 {
     # Calendar
     $Node_Calendar = $File.Value.CreateElement("Calendar");

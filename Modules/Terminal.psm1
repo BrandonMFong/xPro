@@ -76,6 +76,14 @@ function _Replace
         }
         else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
     }
+
+    # admin
+    if($OutString.Value.Contains($tag.admin))
+    {
+        $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+        if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq "True"){$OutString.Value = $OutString.Value.Replace($tag.admin," <Admin> ");}
+        else{$OutString.Value = $OutString.Value.Replace($tag.admin,"");}
+    }
 }
 
 function _SetHeader

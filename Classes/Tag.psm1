@@ -8,4 +8,5 @@ class Tag
     [string]$batteryperc = "@batteryperc";
     [string]$greaterthan = "@greaterthan";
     [string]$gitbranch = "@gitbranch";
+    [string]$admin = "@admin";
 }

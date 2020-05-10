@@ -8,7 +8,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>{@batteryperc%} [@time, @date]@gitbranch @fulldir</String>
+      <String>@admin{@batteryperc%} [@time, @date]@gitbranch @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>

@@ -22,7 +22,7 @@ param
     [switch]$All
 )
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-$weather = (Invoke-WebRequest "http://wttr.in/$Area").ParsedHtml.body.outerText -split "`n";
+$weather = (Invoke-WebRequest "http://wttr.in/$Area").Content;
 Write-Host "`n$($weather[0])" -ForegroundColor Green;
 
 try 

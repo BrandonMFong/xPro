@@ -6,7 +6,7 @@
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>
-                    TODO make different load prompting
+                    Put "Verbose" to see verbose text.  Without it you will see progress bar
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -46,6 +46,14 @@
                 <xs:annotation>
                     <xs:documentation>
                         Default is hh:mm:ss.  Uses powershell datetime formatting
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="GitString" minOccurs="0" maxOccurs="1" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is (@gitbranch).  Git string format if included in the string tag.  Must include the @gitbranch tag if it is how you want it to look. 
+                        Example: [@gitbranch] = [dev] or {@gitbranch} = {dev}
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -103,6 +111,13 @@
                 </xs:element>
                 <xs:group ref="String"/>
             </xs:element>
+            <xs:element name="ShellColors" maxOccurs="1">
+                <xs:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ForegroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="StartDirectory" maxOccurs="1">
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">

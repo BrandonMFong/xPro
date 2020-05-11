@@ -6,6 +6,11 @@ function Get-Tag
     else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
 
+function Push-With-Tag
+{
+    git push;git push --tags;
+}
+
 function Set-Tag
 {
     Param([switch]$Major,[Switch]$Minor,[Switch]$BugPatch)
@@ -59,5 +64,3 @@ class TagType
     static [int] $Minor = 2;
     static [int] $BugPatch = 3;
 }
-
-Set-Tag -Major

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="US-802262" LoadProcedure="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
     <Format>
-      <Date>dddd MM/dd</Date>
+      <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
+      <GitString> [@gitbranch] </GitString>
     </Format>
     <Header Enabled="True">
       <String>{@batteryperc%} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
-      <String Color="Cyan">[@user] @currdir@greaterthan_</String>
+      <String Color="Cyan">[Kiran Analytics] @currdir@gitbranch@greaterthan_</String>
     </Prompt>
+    <ShellColors>
+      <BackgroundColor>Black</BackgroundColor>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
+    </ShellColors>
+    <StartDirectory>C:\Users\brandon.fong\Brandon.Fong</StartDirectory>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
@@ -37,6 +45,8 @@
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\ConfigHandler.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Outlooktype.psm1</Module>
+    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Git.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -87,6 +97,9 @@
     <Directory Alias="imp" SecType="private">b5139669-047d-492a-a58c-eea29788c4ba</Directory>
     <Directory Alias="cc41" SecType="private">732c5066-7d04-45b9-9f6c-7d63bef35bf9</Directory>
     <Directory Alias="cc40" SecType="private">964875e8-9d49-4a01-bde4-7c7ca968b73e</Directory>
+    <Directory Alias="cc52" SecType="private">0adb2a9c-b580-41d3-8db7-f5962b4e0d3b</Directory>
+    <Directory Alias="cc51" SecType="private">3d704ed8-a9e3-43a4-82fc-91c1cb5f3c49</Directory>
+    <Directory Alias="cit" SecType="private">841baad2-27d2-4ff2-8591-18edc079e658</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
@@ -109,7 +122,7 @@
     <Program Alias="Papercut" SecType="public">C:\ProgramData\chocolatey\bin\Papercut.exe</Program>
     <Program Alias="subl" SecType="public">C:\Program Files\Sublime Text 3\subl.exe</Program>
     <Program Alias="citrix" SecType="public">C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin\SelfService.exe</Program>
-    <Program Alias="Tix" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Tickets\Tickets\bin\Release\Tickets.exe</Program>
+    <Program Alias="Tix" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Source\Repos\Implementation\Utils\Tickets\Tickets\bin\Release\Tickets.exe</Program>
     <Program Alias="vc" SecType="public">C:\Users\brandon.fong\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
     <Program Alias="WinSCP" SecType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
     <Program Alias="IIS" SecType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>
@@ -138,6 +151,9 @@
     <Program Alias="cloud41" SecType="private">59ae4552-5595-400e-8460-95500174aa43</Program>
     <Program Alias="StrTemp" SecType="private">ade4adf8-7034-430a-a1c8-fb40d91974ce</Program>
     <Program Alias="cloud40" SecType="private">a1b3b272-9295-4107-bbf5-6b4a16baa29b</Program>
+    <Program Alias="cloud52" SecType="private">1bfecdc8-453f-4f80-9863-9a426a57d068</Program>
+    <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
+    <Program Alias="cloud51" SecType="private">b5965d33-be87-48e2-89b5-1e6234ae59a6</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -227,6 +243,7 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Rows>
                 <Row>
                   <Value ColumnName="Description">ID</Value>
@@ -263,14 +280,6 @@
                 <Row>
                   <Value ColumnName="Description">Private Directory</Value>
                   <Value ColumnName="ExternalID">PrivateDirectory</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Mobile Number</Value>
-                  <Value ColumnName="ExternalID">MobileNumber</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Home Address</Value>
-                  <Value ColumnName="ExternalID">HomeAddress</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Program</Value>
@@ -822,6 +831,26 @@
       <Value Lvl="0" SecType="private">33983877-0564-426b-b900-960ab73f0fa7</Value>
       <Key Lvl="0" SecType="private">6D9EB41E-A44C-45B6-883E-86E8A446855D</Key>
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
+    </Object>
+    <!-- 7ed5fd24-cb4f-48dc-862e-173b3214e954 -->
+    <Object ID="222" Type="HashTable">
+      <VarName SecType="private">7ed5fd24-cb4f-48dc-862e-173b3214e954</VarName>
+      <Key Lvl="0" SecType="public">URL</Key>
+      <Value Lvl="0" SecType="private">a1147dec-d6a7-473a-976c-a4f95aadfd1a</Value>
+      <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
+      <Value Lvl="0" SecType="private">d77fb7fb-adfe-424a-bd4d-5d793ed0965c</Value>
+      <Key Lvl="0" SecType="private">1EE09C9C-73D8-45A1-AB88-2C8F15D57E1C</Key>
+      <Value Lvl="0" SecType="public">Victor</Value>
+      <Key Lvl="0" SecType="private">82026677-8894-4467-AA1D-A39570690C88</Key>
+      <Value Lvl="0" SecType="public">Brandon</Value>
+      <Key Lvl="0" SecType="private">25E84F30-EAF4-44E7-9771-5161BC008DBE</Key>
+      <Value Lvl="0" SecType="public">Bob</Value>
+      <Key Lvl="0" SecType="private">a301b99e-4e7b-4a5c-9a1c-019dd630257a</Key>
+      <Value Lvl="0" SecType="public">d</Value>
+      <Key Lvl="0" SecType="private">c66d8ed6-e0d0-47b5-a93c-41c487235349</Key>
+      <Value Lvl="0" SecType="public">w</Value>
+      <Key Lvl="0" SecType="private">dbd356ec-dc49-4e52-927f-c0992844d30d</Key>
+      <Value Lvl="0" SecType="private">85577230-17c1-47dd-a96e-922a515dad24</Value>
     </Object>
     <!-- 752F75AC-6844-4EE0-8219-D64FF15042B1 -->
     <Object ID="85" Type="HashTable">

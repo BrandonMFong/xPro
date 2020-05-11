@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="BRANDONMFONG" LoadProcedure="Verbose" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="BRANDONMFONG" LoadProcedure="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
@@ -8,12 +8,19 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>{@batteryperc%} [@time, @date] @fulldir</String>
+      <String>@admin{@batteryperc%} [@time, @date]@gitbranch @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[@user] @currdir@greaterthan_</String>
     </Prompt>
+    <ShellColors>
+      <BackgroundColor>Black</BackgroundColor>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
+    </ShellColors>
+    <StartDirectory>B:\</StartDirectory>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
@@ -33,39 +40,13 @@
   <Calendar>
     <SpecialDays>
       <SpecialDay name="Graduation">5/16/2020</SpecialDay>
-      <SpecialDay name="Compe 565 HW 4 Due">5/3/2020</SpecialDay>
       <SpecialDay name="Compe 560 Sock due">5/5/2020</SpecialDay>
       <SpecialDay name="Last day to accept">6/1/2020</SpecialDay>
-      <SpecialDay name="Finish Senior design hw">5/1/2020</SpecialDay>
-      <SpecialDay name="EE 600 Project 4 @ midnight">5/1/2020</SpecialDay>
+      <SpecialDay name="Senior Design Day">5/6/2020</SpecialDay>
+      <SpecialDay name="CompE 560 final">5/14/2020</SpecialDay>
+      <SpecialDay name="CompE 565 final">5/11/2020</SpecialDay>
     </SpecialDays>
   </Calendar>
-  <!-- Lists -->
-  <Lists>
-    <!-- Git Hub Roadmap - GlobalScripts -->
-    <List Title="Git Hub Roadmap - GlobalScripts">
-      <!-- Version 2 -->
-      <Item ID="A" rank="1" name="Version 3" Completed="false">
-        <Item ID="A" rank="2" name="Major" Completed="false">
-          <Item ID="A" rank="3" name="Make exceptions for database load objects" Completed="false">
-            <Item ID="A" rank="4" name="Ensure that data is not compromised" Completed="false" />
-          </Item>
-          <Item ID="B" rank="3" name="Make exceptions for database load programs (Maybe bring back ext and int)" Completed="false" />
-          <Item ID="C" rank="3" name="Record progress for loading profile (configure it)" Completed="false" />
-          <Item ID="D" rank="3" name="Put datetimes in personalinfo table" Completed="True" />
-        </Item>
-        <Item ID="B" rank="2" name="Minor" Completed="false">
-          <Item ID="A" rank="3" name="Make copy folder script" Completed="false" />
-          <Item ID="B" rank="3" name="Hex and Binary conversion in math class" Completed="false" />
-          <Item ID="C" rank="3" name="Git tagging" Completed="false" />
-          <Item ID="D" rank="3" name="Edit Lists" Completed="True">
-            <Item ID="A" rank="4" name="Add" Completed="True" />
-            <Item ID="B" rank="4" name="Delete" Completed="True" />
-          </Item>
-        </Item>
-      </Item>
-    </List>
-  </Lists>
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
@@ -74,6 +55,7 @@
     <Module>B:\Powershell\Modules\Sound.psm1</Module>
     <Module>B:\Powershell\Modules\Git.psm1</Module>
     <Module>B:\Powershell\Modules\ConfigHandler.psm1</Module>
+    <Module>B:\Powershell\Modules\OutlookType.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -113,6 +95,7 @@
     <Directory Alias="hw4565" SecType="public">B:\COLLEGE\19_20\Spring_20\CompE_565\Repo\CompE565_HW4</Directory>
     <Directory Alias="EEFinProj" SecType="public">B:\COLLEGE\19_20\Spring_20\EE_600\Projects\Project4</Directory>
     <Directory Alias="AlarmSettingsDir" SecType="public">C:\Users\bfwan\AppData\Local\Packages\Microsoft.WindowsAlarms_8wekyb3d8bbwe\LocalCache</Directory>
+    <Directory Alias="site" SecType="public">B:\SOURCES\Repos\site</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -149,7 +132,7 @@
     <Program Alias="Zoom" SecType="public">C:\Users\bfwan\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="remote" SecType="public">B:\PROGRAMFILES\mRemoteNG-Portable-1.76.20.24669\mRemoteNG.exe</Program>
     <Program Alias="CompE560Book" SecType="public">B:\COLLEGE\19_20\Spring_20\CompE_560\Prentice Hall - Computer Networks Tanenbaum 4ed.pdf</Program>
-    <Program Alias="List" SecType="public">B:\CODE\XML\List\List.xml</Program>
+    <Program Alias="List" SecType="public">B:\Powershell\Config\User\List.xml</Program>
     <Program Alias="Dashboard" SecType="public">B:\Powershell\StartScripts\BRANDONMFONG.ps1</Program>
     <Program Alias="Sentry-Mode" SecType="public">B:\SOURCES\Repos\SentryV2\out\SentryV2.exe</Program>
     <Program Alias="Timer" SecType="public">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
@@ -168,19 +151,13 @@
     <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
     <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
+    <Program Alias="mobi" SecType="public">C:\Program Files (x86)\EaseUS\EaseUS MobiMover\bin\MobiMoverUILaunch.exe</Program>
+    <Program Alias="sb" SecType="public">Set-Brightness</Program>
+    <Program Alias="mysql" SecType="public">C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe</Program>
+    <Program Alias="vc-site" SecType="public">B:\SOURCES\Repos\Site\VCODE_Site.code-workspace</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
-    <!-- $Math -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
-    </Object>
     <!-- $Query -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Query</VarName>
@@ -202,6 +179,7 @@
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Rows>
                 <Row>
                   <Value ColumnName="Description">ID</Value>
@@ -232,20 +210,12 @@
                   <Value ColumnName="ExternalID">URL</Value>
                 </Row>
                 <Row>
-                  <Value ColumnName="Description">Private ColumnName</Value>
+                  <Value ColumnName="Description">Private Name</Value>
                   <Value ColumnName="ExternalID">PrivateName</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Directory</Value>
                   <Value ColumnName="ExternalID">PrivateDirectory</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Mobile Number</Value>
-                  <Value ColumnName="ExternalID">MobileNumber</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Home Address</Value>
-                  <Value ColumnName="ExternalID">HomeAddress</Value>
                 </Row>
                 <Row>
                   <Value ColumnName="Description">Private Program</Value>
@@ -256,6 +226,16 @@
           </Tables>
         </SQL>
       </Class>
+    </Object>
+    <!-- $Web -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Web</VarName>
+      <Class ClassName="Web" HasParams="false" />
+    </Object>
+    <!-- $Math -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Math</VarName>
+      <Class ClassName="Calculations" HasParams="false" />
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
@@ -269,6 +249,7 @@
         <List>
           <Title>Git Hub Roadmap - GlobalScripts</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -279,7 +260,7 @@
         <List>
           <Title>Monday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -290,7 +271,7 @@
         <List>
           <Title>Tuesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -301,7 +282,7 @@
         <List>
           <Title>Wednesday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -312,7 +293,7 @@
         <List>
           <Title>Thursday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -323,7 +304,7 @@
         <List>
           <Title>Friday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -334,7 +315,7 @@
         <List>
           <Title>Saturday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -345,7 +326,7 @@
         <List>
           <Title>Sunday To Do List</Title>
           <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>B:\CODE\XML\List\List.xml</Redirect>
+          <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
     </Object>
@@ -390,10 +371,6 @@
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
       <!--Key and Value-->
-      <Key Lvl="0" SecType="public">StandardUserName</Key>
-      <Value Lvl="0" SecType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
-      <Key Lvl="0" SecType="public">LoweredStandardUserName</Key>
-      <Value Lvl="0" SecType="private">7e15fcbb-2f72-4737-aa51-ee3e3d118e0f</Value>
       <!-- Frequently Used Links -->
       <Key Lvl="0" SecType="public">Netflix</Key>
       <Value Lvl="0" SecType="public">https://Netflix.com</Value>
@@ -417,6 +394,10 @@
       <Value Lvl="0" SecType="public">https://ipchicken.com/</Value>
       <Key Lvl="0" SecType="public">Darkroom</Key>
       <Value Lvl="0" SecType="public">https://thedarkroom.com/</Value>
+      <Key Lvl="0" SecType="public">Amazon</Key>
+      <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
+      <Key Lvl="0" SecType="public">Site</Key>
+      <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />
@@ -471,6 +452,14 @@
       <Value Lvl="1" Node="d4f9" SecType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Password</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">Database</Key>
+      <Value Lvl="1" Node="d4f9" SecType="public" NodePointer="475b" />
+      <Key Lvl="2" Node="475b" SecType="public">DatabaseName</Key>
+      <Value Lvl="2" Node="475b" SecType="private">93f52cb8-f9ec-46d2-9ca0-e384ea7354af</Value>
+      <Key Lvl="2" Node="475b" SecType="public">Username</Key>
+      <Value Lvl="2" Node="475b" SecType="private">94b3cc95-5c69-4617-9466-195f664c9356</Value>
+      <Key Lvl="2" Node="475b" SecType="public">Password</Key>
+      <Value Lvl="2" Node="475b" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
       <!--Chase-->
       <Key Lvl="0" SecType="public">Chase</Key>
       <Value Lvl="0" SecType="public" NodePointer="4467" />
@@ -560,6 +549,15 @@
       <Value Lvl="1" Node="6849" SecType="private">be42167a-6849-48b0-b4fe-263af885c96f</Value>
       <Key Lvl="1" Node="6849" SecType="public">ClientSecret</Key>
       <Value Lvl="1" Node="6849" SecType="private">1f4a0e05-29bc-47de-99f5-e102f57d9156</Value>
+      <!-- OpenPortIO -->
+      <Key Lvl="0" SecType="public">OpenPortIO</Key>
+      <Value Lvl="0" SecType="public" NodePointer="port" />
+      <Key Lvl="1" Node="port" SecType="public">URL</Key>
+      <Value Lvl="1" Node="port" SecType="public">https://openport.io/</Value>
+      <Key Lvl="1" Node="port" SecType="public">Username</Key>
+      <Value Lvl="1" Node="port" SecType="private">1853A79C-4A36-437E-A36C-6EC69789D926</Value>
+      <Key Lvl="1" Node="port" SecType="public">Password</Key>
+      <Value Lvl="1" Node="port" SecType="private">266D3C1E-DE41-475B-B169-BDD5D2518440</Value>
     </Object>
     <!-- $Bank -->
     <Object Type="HashTable">
@@ -594,44 +592,6 @@
       <Value Lvl="2" Node="951a" SecType="private">84542346-87e7-45e4-8a33-bb8f77f1a18a</Value>
       <Key Lvl="2" Node="951a" SecType="public">RouteNum</Key>
       <Value Lvl="2" Node="951a" SecType="private">9298d1f8-268a-480d-ae49-3214d66b95cc</Value>
-    </Object>
-    <!-- $Contacts -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Contacts</VarName>
-      <!-- f309563d-7790-4f05-a1b7-9fe203e13a2f -->
-      <Key Lvl="0" SecType="private">f309563d-7790-4f05-a1b7-9fe203e13a2f</Key>
-      <Value Lvl="0" SecType="public" NodePointer="a1b7" />
-      <Key Lvl="1" Node="a1b7" SecType="public">HomeAddress</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">3db5ac4e-5ea7-4c53-965b-875dd3835ef0</Value>
-      <Key Lvl="1" Node="a1b7" SecType="public">MobileNumber</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">833f74b4-ef7b-4c9d-b0f1-f1e7e69a58e1</Value>
-      <Key Lvl="1" Node="a1b7" SecType="public">Email</Key>
-      <Value Lvl="1" Node="a1b7" SecType="private">15f6f883-e120-4484-b093-3c1ea9649828</Value>
-      <!-- 030f23fe-f490-4c29-83bd-cf9cbebcf28f -->
-      <Key Lvl="0" SecType="private">030f23fe-f490-4c29-83bd-cf9cbebcf28f</Key>
-      <Value Lvl="0" SecType="public" NodePointer="7094" />
-      <Key Lvl="1" Node="7094" SecType="public">Email</Key>
-      <Value Lvl="1" Node="7094" SecType="private">f6a52f17-7094-4218-b333-681e44dcf16e</Value>
-      <!-- 78531b00-99d7-4e19-ac1f-4f671598cfaa -->
-      <Key Lvl="0" SecType="private">78531b00-99d7-4e19-ac1f-4f671598cfaa</Key>
-      <Value Lvl="0" SecType="public" NodePointer="80ad" />
-      <Key Lvl="1" Node="80ad" SecType="public">Email</Key>
-      <Value Lvl="1" Node="80ad" SecType="private">139665DA-AD2B-4BC2-B8AE-F9F21B04CF8A</Value>
-      <!-- 88f7d857-f258-417a-aee4-8e7d2c44a289 -->
-      <Key Lvl="0" SecType="private">88f7d857-f258-417a-aee4-8e7d2c44a289</Key>
-      <Value Lvl="0" SecType="public" NodePointer="aee4" />
-      <Key Lvl="1" Node="aee4" SecType="public">Email</Key>
-      <Value Lvl="1" Node="aee4" SecType="private">12e4d7cd-f92c-4be9-994c-df37be8b6d43</Value>
-      <!-- f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd -->
-      <Key Lvl="0" SecType="private">f493c9ac-f9f8-4e17-bc22-2bb5bdb1fadd</Key>
-      <Value Lvl="0" SecType="public" NodePointer="9a8f" />
-      <Key Lvl="1" Node="9a8f" SecType="public">Email</Key>
-      <Value Lvl="1" Node="9a8f" SecType="private">ad148d6e-9a8f-4872-a404-25500191d7cb</Value>
-      <!-- b37afc46-1081-4bd8-b5d6-c82f0f75cb73 -->
-      <Key Lvl="0" SecType="private">b37afc46-1081-4bd8-b5d6-c82f0f75cb73</Key>
-      <Value Lvl="0" SecType="public" NodePointer="b5d6" />
-      <Key Lvl="1" Node="b5d6" SecType="public">Email</Key>
-      <Value Lvl="1" Node="b5d6" SecType="private">40904a12-065f-42ea-93d4-e560d1f8b467</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -881,6 +841,8 @@
       <Value Lvl="0" SecType="private">266D3C1E-DE41-475B-B169-BDD5D2518440</Value>
       <Key Lvl="0" SecType="public">WifiMesita</Key>
       <Value Lvl="0" SecType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
+      <Key Lvl="0" SecType="public">MySQL</Key>
+      <Value Lvl="0" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
     </Object>
   </Objects>
 </Machine>

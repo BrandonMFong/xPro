@@ -1,28 +1,33 @@
 # Engineer: Brandon Fong
 # TODO
 # ...
-
+Param([bool]$StartDir=$true)
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
 Pop-Location
-[string]$ConfigFile = $AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile;
-[XML]$XMLReader = Get-Content $ConfigFile
+[XML]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
+
+if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}
+else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking -Scope Local;
+    Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
+    
+    _SetBackgroundColor;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
         
     <### PROGRAMS ###> 
-        LoadPrograms -XMLReader $XMLReader
+        LoadPrograms -XMLReader:$XMLReader -Verbose:$Verbose
     
     <### MODULES ###>
-        LoadModules -XMLReader $XMLReader
+        LoadModules -XMLReader:$XMLReader -Verbose:$Verbose
         
     <### OBJECTS ###>
-        LoadObjects -XMLReader $XMLReader
+        LoadObjects -XMLReader:$XMLReader -Verbose:$Verbose
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
@@ -40,3 +45,6 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     }
 
 Pop-Location;
+
+if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
+{Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}

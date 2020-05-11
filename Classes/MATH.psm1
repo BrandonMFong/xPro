@@ -87,12 +87,12 @@ class Calculations
         return -$ans;
     }
 
-    [int]AsciiToHex([string]$string)
+    [BYTE]AsciiToDec([string]$string)
     {
         return [BYTE][CHAR]$string;
     }
 
-    [string]HexToAscii([int]$Hex)
+    [CHAR]DecToAscii([int]$Hex)
     {
         return [CHAR][BYTE]$Hex;
     }

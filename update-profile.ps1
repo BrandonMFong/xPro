@@ -15,9 +15,7 @@ Push-Location $PSScriptRoot
             foreach-Object {[datetime]$GitProfile = $_.LastWriteTime}   
     Pop-Location;
 
-    Write-Host -NoNewline "`nChecking for updates to profile`n" -ForegroundColor Red;
-
-    if($GitProfile -gt $PSProfile)
+    if(($GitProfile -gt $PSProfile) -or ($ForceUpdate))
     {
         Write-Host  "There is an update to Powershell profile." -ForegroundColor Red
         $update = Read-Host -Prompt "Want to update? (y/n)";

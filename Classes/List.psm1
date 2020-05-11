@@ -145,7 +145,7 @@ class List
                                 [Calculations]$Math = [Calculations]::new();
                                 $New = $this.xml.CreateElement("Item");
                                 
-                                $New.SetAttribute("ID",$Math.HexToAscii($Math.AsciiToHex($this.GetLastIDFromChildNode($Item)) + 1));
+                                $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
                                 $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
                                 $New.SetAttribute("name",$ItemName);
                                 $New.SetAttribute("Completed","false");
@@ -171,7 +171,16 @@ class List
 
     hidden [string] GetLastIDFromChildNode([System.Xml.XmlElement]$Item)
     {
-        return $Item.Item[$Item.Item.Count - 1].ID;
+        # If there is only one item in the node, it can't count because its the only leaf in that node
+        # This is a temp/bad fix (and ghetto) but it works out
+        if([string]::IsNullOrEmpty($Item.Item.Count)){return $Item.Item.ID}
+        else{return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));}
+    }
+
+    hidden [string] CheckIfIDIsNull([string]$ID) # A little work around because the '`' is before 'a' in the ascii table
+    {
+        if([string]::IsNullOrEmpty($ID)){return "@";}# index before all caps
+        else {return $ID;}
     }
 }
 
@@ -203,7 +212,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Wednesday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+# [List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
 # $test.ListOut();
-# $test.Mark();
-# $test.Delete();
+# $test.Add()

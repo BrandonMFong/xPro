@@ -56,20 +56,62 @@ function _Replace
 
     # Greater than sign
     if($OutString.Value.Contains($tag.greaterthan)){$OutString.Value = $OutString.Value.Replace($tag.greaterthan,"`>");}
+
+    # Git Branch
+    if($OutString.Value.Contains($tag.gitbranch))
+    {
+        [string]$BranchString = $null;
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        if(![string]::IsNullOrEmpty($BranchString))
+        {
+            [string]$gitchanges = $null;
+            $gitchangesUnstaged = "$(git diff --exit-code)";
+            $gitchangesStaged = "$(git diff --cached)";
+            if(![string]::IsNullOrEmpty($gitchangesUnstaged) -or ![string]::IsNullOrEmpty($gitchangesStaged)){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchanges)){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
+            {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
+            else{[string]$gitstring = " ($($BranchString)) ";}
+            $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
+        }
+        else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
+    }
+
+    # admin
+    if($OutString.Value.Contains($tag.admin))
+    {
+        $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+        if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq "True"){$OutString.Value = $OutString.Value.Replace($tag.admin," <Admin> ");}
+        else{$OutString.Value = $OutString.Value.Replace($tag.admin,"");}
+    }
 }
 
-function _GetHeader
+function _SetHeader
 {
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
-    [string]$OutString = $x.Machine.ShellSettings.Header.String;
+    [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($x.Machine.ShellSettings.Header.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Header)))
-    {$OutString = $Host.UI.RawUI.WindowTitle}
-    return $OutString;
+    if(($XMLReader.Machine.ShellSettings.Header.Enabled -ne "False") -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
+    {$Host.UI.RawUI.WindowTitle = $OutString}
+}
+function _SetBackgroundColor
+{
+    # BackgroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor))
+    {$Host.UI.RawUI.BackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor;}
+    # ForegroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor))
+    {$Host.UI.RawUI.ForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor;}
+    # ProgressForegroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor))
+    {$Host.PrivateData.ProgressForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor;}
+    # ProgressBackgroundColor
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor))
+    {$Host.PrivateData.ProgressBackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
 }
 function prompt
 {
-    $Host.UI.RawUI.WindowTitle = _GetHeader; # Sets Header
+    _SetHeader; # Sets Header
+    _SetBackgroundColor; # Sets BG color
     [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
     $prompt = $x.Machine.ShellSettings.Prompt;
     [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
@@ -96,3 +138,5 @@ function prompt
         return " ";
     }
 }
+
+# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/

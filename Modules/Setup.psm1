@@ -63,12 +63,12 @@ function _InitProfile
     if(!(Test-Path $Profile))
     {
         New-Item -Path $Profile -Type File -Force;
-        Invoke-Expression $(($PSScriptRoot + "\..\update-profile.ps1") -ForceUpdate $true);
+        .\.\update-profile.ps1 -ForceUpdate $true;
         Write-Host "`nCreated Profile script!`n" -BackgroundColor Black -ForegroundColor Yellow;
     }
     else
     {
-        Invoke-Expression $(($PSScriptRoot + "\..\update-profile.ps1") -ForceUpdate $true);
+        .\.\update-profile.ps1 -ForceUpdate $true;
         Write-Host "`nProfile already exists!`n" -BackgroundColor Black -ForegroundColor Yellow;
     }
 }
@@ -79,25 +79,21 @@ function _MakeConfig
 
     Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
     
-    MachineNode([ref]$File);
+    _MachineNode([ref]$File);
 
-    StartScriptNode([ref]$File);
+    _StartScriptNode([ref]$File);
 
-    TerminalSettingsNode([ref]$File);
+    _ShellSettingsNode([ref]$File);
     
-    TerminalSettingsNode([ref]$File);
+    _DirectoryNode([ref]$File);
 
-    DirectoryNode([ref]$File);
+    _ObjectsNode([ref]$File);
 
-    ObjectsNode([ref]$File);
+    _ProgramNode([ref]$File);
 
-    ProgramNode([ref]$File);
+    _ModulesNode([ref]$File);
 
-    ModulesNode([ref]$File);
-
-    ListNode([ref]$File);
-
-    CalendarNode([ref]$File);
+    _CalendarNode([ref]$File);
 
     $File.Save($($PSScriptRoot + '\..\Config\' + $ConfigurationName + '.xml'));
 }

@@ -235,7 +235,11 @@
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
+      <Class ClassName="Calculations" HasParams="true">
+        <Math>
+          <QuantizedStepSize>6</QuantizedStepSize>
+        </Math>
+      </Class>
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">

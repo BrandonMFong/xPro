@@ -279,6 +279,18 @@
                 </xs:element>
             </xs:element>
         </xs:group>
+
+        <xs:group name="MathClass">
+            <xs:element name="Math">
+                <xs:element name="QuantizedStepSize" type="xs:int" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used for Quantizing method
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:element>
+        </xs:group>
         
         <xs:group name="ClassElement">
             <xs:element name="Class" maxOccurs="1">
@@ -291,6 +303,7 @@
                 </xs:annotation>
                 <xs:group ref="SQLClass"/>
                 <xs:group ref="ListClass"/>
+                <xs:group ref="MathClass"/>
             </xs:element>
         </xs:group>
 

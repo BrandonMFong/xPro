@@ -1,5 +1,11 @@
-class Calculations
+class Calculations : Math
 {
+    [int]$QuantizedStepSize;
+    Calculations([int]$QuantizedStepSize=$null)
+    {
+        if($null -ne $QuantizedStepSize){$this.QuantizedStepSize = $QuantizedStepSize;}
+        else{$this.QuantizedStepSize = 5;}
+    }
     # Object method
     [double]KgToPounds($x) #0.453592kg per 1 lb
     {
@@ -44,7 +50,7 @@ class Calculations
 
     [double]Log2($x)
     {
-        return [Math]::Log($x)/[Math]::Log(2);
+        return $this.Log($x)/$this.Log(2);
     }
 
     [void]WaterBillSplit([Double]$TotalPayment, [int]$TotalHousemates=10)
@@ -95,5 +101,10 @@ class Calculations
     [CHAR]DecToAscii([int]$Hex)
     {
         return [CHAR][BYTE]$Hex;
+    }
+
+    [int]Quantize([int]$Value)
+    {
+        return ([int]$Value/$this.QuantizedStepSize)*$this.QuantizedStepSize;
     }
 }

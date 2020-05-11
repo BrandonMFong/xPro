@@ -3,6 +3,7 @@
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
+        <xs:attribute name="Secure"/>
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>

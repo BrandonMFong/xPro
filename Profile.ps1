@@ -8,6 +8,28 @@ Push-Location $($PROFILE |Split-Path -Parent);
 Pop-Location
 [XML]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
 
+# Get credentials
+# Should this be in the beginning?
+if($XMLReader.Machine.Secure -eq "True")
+{
+    $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
+    [string]$user = Read-Host -prompt "Username"; 
+    $pw = Read-Host -prompt "Password" -AsSecureString; 
+    $pw1 = ConvertFrom-SecureString $pw; 
+    $pw2 = ConvertTo-SecureString $pw1; 
+    $binarystr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pw2);
+    $pwstr = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($binarystr);
+
+    $credpw = ConvertTo-SecureString -SecureString $cred.Password;
+    $credbin = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($credpw);
+    $decpw = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($credbin)
+
+    if(($user -ne $cred.Username) -or ($pwstr -ne $decpw))
+    {
+        Write-Error "WRONG CREDENTIALS";
+        return;
+    }
+}
 if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}
 else{[bool]$Verbose = $false}
 

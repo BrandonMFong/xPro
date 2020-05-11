@@ -117,7 +117,7 @@
                 <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
             </xs:element>
-            <xs:element name="StartDirectory" maxOccurs="1">
+            <xs:element name="StartDirectory" maxOccurs="1"/>
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">
@@ -460,6 +460,7 @@
                 </xs:annotation>
             </xs:element>
             <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="ListOrderBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:element>
 
     </xs:element>

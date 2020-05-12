@@ -847,6 +847,8 @@
       <Value Lvl="0" SecType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
       <Key Lvl="0" SecType="public">MySQL</Key>
       <Value Lvl="0" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="0" SecType="public">EDD</Key>
+      <Value Lvl="0" SecType="private">fe572d64-7c05-4d02-92ba-0a655b78f317</Value>
     </Object>
   </Objects>
 </Machine>

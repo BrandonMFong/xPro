@@ -1,4 +1,4 @@
-class Calculations : Math
+class Calculations
 {
     [int]$QuantizedStepSize;
     Calculations([int]$QuantizedStepSize=$null)
@@ -50,7 +50,7 @@ class Calculations : Math
 
     [double]Log2($x)
     {
-        return $this.Log($x)/$this.Log(2);
+        return [Math]::Log($x)/[Math]::Log(2);
     }
 
     [void]WaterBillSplit([Double]$TotalPayment, [int]$TotalHousemates=10)
@@ -105,6 +105,42 @@ class Calculations : Math
 
     [int]Quantize([int]$Value)
     {
-        return ([int]$Value/$this.QuantizedStepSize)*$this.QuantizedStepSize;
+        return [int]($Value/$this.QuantizedStepSize)*$this.QuantizedStepSize;
+    }
+
+    [string]IntToBinary([int]$int)
+    {
+        [string]$Binary = $null;
+
+        # Convert
+        for([int]$MaxBits = [int]($this.Log2($int) + 0.5); $MaxBits -gt 0;$MaxBits--)
+        {
+            $x = [math]::Pow(2,$MaxBits - 1);
+            if($x -le $int) {$Binary += "1";$int = $int - $x;}
+            else {$Binary += "0";}
+        }
+
+        # Zero pad
+        while($true)
+        {
+            if(($Binary.Length % 4) -eq 0){break;}
+            else{$Binary = "0" + $Binary;}
+        }
+
+        return $Binary;
+    }
+
+    # Basically a method to split up the binary conversion
+    [void]InsertSpace($InsertForEvery=$null, [ref]$ref)
+    {
+        if($null -eq $InsertForEvery){$InsertForEvery = 4}
+        for([int]$i = $ref.Value.Length;$i -gt 0;$i = $i - $InsertForEvery)
+        {
+
+        }
     }
 }
+
+# $test = [Calculations]::new($asdf)
+# $test.IntToBinary(7);
+# $test.IntToBinary(8);

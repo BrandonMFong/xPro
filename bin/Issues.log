@@ -4,7 +4,9 @@ Issue: Addprogram not inserting into db
     Branch:  
     Status: Open
     Notes: 
-        - 
+        - I do not see the issue on my end
+        - Might be an issue on the computer itself.
+            - Maybe a database instance issue
         
 Issue: List Objects not able to find list
     Fix Commit: NA 

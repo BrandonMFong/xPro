@@ -59,6 +59,22 @@ class List
         $this.Save();
     }
 
+    [void] Edit() # TODO
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Delete',$null);
+        $this.Save();
+    }
+
+    [void] Help()
+    {
+        Write-Host "@: New Item";
+        Write-Host "Mark: path.to.id"
+        Write-Host "Delete: path.to.id, everything below is deleted"
+        Write-Host "Add: path.to.id, adds new node below last"
+    }
+
     hidden LoadList()
     {
         $this.ExitLoop = $false;
@@ -130,7 +146,7 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if($Item.ID -eq $ID)
+                    if(($Item.ID -eq $ID) -or ($ID -eq "@"))
                     {
                         switch($Method)
                         {
@@ -145,12 +161,26 @@ class List
                                 [Calculations]$Math = [Calculations]::new();
                                 $New = $this.xml.CreateElement("Item");
                                 
-                                $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
-                                $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                # checks for @ indicating that user is creating a new item hierarchy within list
+                                if($ID -eq "@")
+                                {
+                                    # Passes parent node
+                                    $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item.ParentNode)) + 1))
+                                    $New.SetAttribute("rank","$($Item.rank.ToInt16($null))"); # Keeps rank
+                                } 
+                                else
+                                {
+                                    $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
+                                    $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                }
+                                
                                 $New.SetAttribute("name",$ItemName);
                                 $New.SetAttribute("Completed","false");
 
-                                $Item.AppendChild($New);
+                                # If creating a new item hierarchy then must append to list node
+                                if($ID -eq "@"){$Item.ParentNode.AppendChild($New);}
+                                else{$Item.AppendChild($New);}
+
                                 $this.FoundNode = $true;
                             }
                             "Delete" 
@@ -212,6 +242,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+# [List]$test = [List]::new('Tuesday To Do List','B:\Powershell\Config\User\List.xml','ColorCoded')
 # $test.ListOut();
 # $test.Add()

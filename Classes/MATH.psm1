@@ -1,6 +1,10 @@
 class Calculations
 {
     [int]$QuantizedStepSize;
+    Calculations() 
+    {
+        $this.QuantizedStepSize = 1; # basically not event quantizing
+    }
     Calculations([int]$QuantizedStepSize=$null)
     {
         if($null -ne $QuantizedStepSize){$this.QuantizedStepSize = $QuantizedStepSize;}

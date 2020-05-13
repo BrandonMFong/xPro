@@ -170,7 +170,7 @@
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(1000)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />

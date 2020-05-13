@@ -2,11 +2,13 @@
 Issue: Addprogram not inserting into db
     Fix Commit:  
     Branch:  
-    Status: Open
+    Status: Closed
     Notes: 
         - I do not see the issue on my end
         - Might be an issue on the computer itself.
             - Maybe a database instance issue
+    Post:
+        - The max of value was 100 and any value with length 100+ will not be inserted
         
 Issue: List Objects not able to find list
     Fix Commit: NA 

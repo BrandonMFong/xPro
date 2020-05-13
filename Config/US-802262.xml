@@ -154,7 +154,7 @@
     <Program Alias="cloud52" SecType="private">1bfecdc8-453f-4f80-9863-9a426a57d068</Program>
     <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
     <Program Alias="cloud51" SecType="private">b5965d33-be87-48e2-89b5-1e6234ae59a6</Program>
-    <Program Alias="MinStaff" SecType="private" />
+    <Program Alias="MinStaff" SecType="private">FE39B595-EF33-4DD2-954E-5558D0C22509</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -234,7 +234,7 @@
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
               <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(1000)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="true" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />

@@ -155,6 +155,7 @@
     <Program Alias="sb" SecType="public">Set-Brightness</Program>
     <Program Alias="mysql" SecType="public">C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe</Program>
     <Program Alias="vc-site" SecType="public">B:\SOURCES\Repos\Site\VCODE_Site.code-workspace</Program>
+    <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

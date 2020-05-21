@@ -6,7 +6,6 @@
     <Format>
       <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
-      <GitString> [@gitbranch] </GitString>
     </Format>
     <Header Enabled="True">
       <String>{@batteryperc%} [@time, @date] @fulldir</String>

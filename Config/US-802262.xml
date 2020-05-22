@@ -6,7 +6,6 @@
     <Format>
       <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
-      <GitString> [@gitbranch] </GitString>
     </Format>
     <Header Enabled="True">
       <String>{@batteryperc%} [@time, @date] @fulldir</String>
@@ -35,6 +34,7 @@
       <Body>True</Body>
     </IncludeFields>
     <ListInboxMax>10</ListInboxMax>
+    <ListOrderBy>Asc</ListOrderBy>
   </Email>
   <Calendar>
     <SpecialDays>
@@ -155,6 +155,8 @@
     <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
     <Program Alias="cloud51" SecType="private">b5965d33-be87-48e2-89b5-1e6234ae59a6</Program>
     <Program Alias="MinStaff" SecType="private">FE39B595-EF33-4DD2-954E-5558D0C22509</Program>
+    <Program Alias="ConnectNetDrive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\ReconnectNetDrives.ps1</Program>
+    <Program Alias="Pull-CC" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\GitPullCC.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -212,6 +214,21 @@
           <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
         </List>
       </Class>
+    </Object>
+    <!-- $Todo -->
+    <Object Type="HashTable">
+      <VarName SecType="public">Todo</VarName>
+      <!--Key and Value-->
+      <Key Lvl="0" SecType="public">Monday</Key>
+      <Value Lvl="0" SecType="public">$MonList</Value>
+      <Key Lvl="0" SecType="public">Tuesday</Key>
+      <Value Lvl="0" SecType="public">$TueList</Value>
+      <Key Lvl="0" SecType="public">Wednesday</Key>
+      <Value Lvl="0" SecType="public">$WedList</Value>
+      <Key Lvl="0" SecType="public">Thursday</Key>
+      <Value Lvl="0" SecType="public">$ThuList</Value>
+      <Key Lvl="0" SecType="public">Friday</Key>
+      <Value Lvl="0" SecType="public">$FriList</Value>
     </Object>
     <!-- $Web -->
     <Object Type="PowerShellClass">
@@ -296,6 +313,16 @@
     <Object Type="PowerShellClass">
       <VarName SecType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="false" />
+    </Object>
+    <!-- Webex -->
+    <Object ID="69" Type="HashTable">
+      <VarName SecType="public">Webex</VarName>
+      <Key Lvl="0" SecType="public">Andrea</Key>
+      <Value Lvl="0" SecType="private">a381a66e-8fe0-4afe-9f31-75b692fea9dc</Value>
+      <Key Lvl="0" SecType="public">Matt</Key>
+      <Value Lvl="0" SecType="private">11fe2e81-afed-46b2-8297-f02c005d5b43</Value>
+      <Key Lvl="0" SecType="public">Nieko</Key>
+      <Value Lvl="0" SecType="private">59c86220-f99b-41c7-9d72-527a77cebfc1</Value>
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
     <Object ID="69" Type="HashTable">

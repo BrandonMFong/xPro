@@ -1016,6 +1016,8 @@
       <Value Lvl="0" SecType="private">02EB3BFF-3941-4941-8508-95552208E2EB</Value>
       <Key Lvl="0" SecType="public">Personal</Key>
       <Value Lvl="0" SecType="private">853D8FE4-664F-4993-8407-A8DA4CCE8999</Value>
+      <Key Lvl="0" SecType="public">BitLocker</Key>
+      <Value Lvl="0" SecType="private">ee0f791f-73c4-4adc-ae61-e5710f646b65</Value>
     </Object>
   </Objects>
 </Machine>

@@ -250,6 +250,22 @@ class SQL
             # Insert rows
             $this.InsertRows($table,$table.Name);
         }
+
+        # Update Scripts
+        Push-Location $PSScriptRoot\..\SQLQueries
+            [Xml]$Update = Get-Content Alter.xml;
+            foreach($Script in $Update.Machine.ScriptBlock)
+            {
+                try
+                {
+                    $this.QueryNoReturn($Script.'#cdata-section');
+                }
+                catch 
+                {
+                    throw "Something bad happened!";
+                }
+            }
+        Pop-Location;
     }
 
     # Reads config for rows config and creates multiple insert queries for each row config

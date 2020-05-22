@@ -71,7 +71,7 @@
                 <xs:annotation>
                     <xs:documentation>
                         Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
+                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}, @admin {Signifies if you are in an admin prompt}
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>

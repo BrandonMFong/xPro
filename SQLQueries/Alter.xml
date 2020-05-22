@@ -4,4 +4,7 @@
   
   <!-- Used to change value length-->
   <!-- <ScriptBlock><![CDATA[ alter table personalinfo alter column Value varchar(1000); ]]></ScriptBlock> -->
+
+  <!-- Deleting unused externalids -->
+  <ScriptBlock><![CDATA[ delete typecontent where externalid in ('Token', 'MobileNumber', 'HomeAddress'); ]]></ScriptBlock>
 </Machine>

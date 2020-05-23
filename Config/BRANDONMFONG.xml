@@ -453,10 +453,14 @@
       <Value Lvl="1" Node="d4f9" SecType="public">https://www.hostinger.com/cpanel-login</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">DatabaseURL</Key>
       <Value Lvl="1" Node="d4f9" SecType="public">https://auth-db221.hostinger.com/</Value>
-      <Key Lvl="1" Node="d4f9" SecType="public">SSHUsername</Key>
+      <Key Lvl="1" Node="d4f9" SecType="public">Username</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Password</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">IPAddress</Key>
+      <Value Lvl="1" Node="d4f9" SecType="private">9f6b684b-7d2f-4d40-ae28-9ac4553349f1</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">Port</Key>
+      <Value Lvl="1" Node="d4f9" SecType="private">0e91e4ab-92bf-4659-a256-23608b08b6cf</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Database</Key>
       <Value Lvl="1" Node="d4f9" SecType="public" NodePointer="475b" />
       <Key Lvl="2" Node="475b" SecType="public">DatabaseName</Key>
@@ -602,10 +606,13 @@
     <Object Type="HashTable">
       <VarName SecType="public">College</VarName>
       <!--Key and Value-->
-      <Key Lvl="0" SecType="public">Blackboard</Key>
-      <Value Lvl="0" SecType="public">https://Blackboard.sdsu.edu</Value>
-      <Key Lvl="0" SecType="public">WebPortal</Key>
-      <Value Lvl="0" SecType="public">https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</Value>
+      <!--SDSU-->
+      <Key Lvl="0" SecType="public">SDSU</Key>
+      <Value Lvl="0" SecType="public" NodePointer="4ea4" />
+      <Key Lvl="1" Node="4ea4" SecType="public">Blackboard</Key>
+      <Value Lvl="1" Node="4ea4" SecType="public">https://Blackboard.sdsu.edu</Value>
+      <Key Lvl="1" Node="4ea4" SecType="public">WebPortal</Key>
+      <Value Lvl="1" Node="4ea4" SecType="public">https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</Value>
       <!--cPanel-->
       <Key Lvl="0" SecType="public">cPanel</Key>
       <Value Lvl="0" SecType="public" NodePointer="937f" />
@@ -658,15 +665,6 @@
       <Value Lvl="1" Node="475b" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="475b" SecType="public">Password</Key>
       <Value Lvl="1" Node="475b" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
-      <!--SJSU-->
-      <Key Lvl="0" SecType="public">SJSU</Key>
-      <Value Lvl="0" SecType="public" NodePointer="aa3b" />
-      <Key Lvl="1" Node="aa3b" SecType="public">SJSUID</Key>
-      <Value Lvl="1" Node="aa3b" SecType="private">2cc6c5ea-1803-43cb-a5ec-710a97d97871</Value>
-      <Key Lvl="1" Node="aa3b" SecType="public">URL</Key>
-      <Value Lvl="1" Node="aa3b" SecType="public">https://one.sjsu.edu/</Value>
-      <Key Lvl="1" Node="aa3b" SecType="public">Password</Key>
-      <Value Lvl="1" Node="aa3b" SecType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
       <!--FAFSA-->
       <Key Lvl="0" SecType="public">FAFSA</Key>
       <Value Lvl="0" SecType="public" NodePointer="0435" />

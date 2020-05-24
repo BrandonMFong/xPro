@@ -38,6 +38,7 @@ class SQL
     {
         return $this.Query('select table_name from Information_schema.tables');
     }
+
     # This function can insert into all different tables in a database
     [System.Object[]]InsertInto()
     {
@@ -317,7 +318,7 @@ class SQL
             # else, leave it to the above algorithm to do the job
             else{$this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));}
         }
-        if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
+        if($RowsInserted) {Write-Host "$($tablename)'s rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [string] GetExternalIDFromRowConfig($row)
@@ -383,7 +384,7 @@ class SQL
 
         # else all columns are there
         if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;$TableCreated = $true;}
-        if($TableCreated){Write-Host "Table is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
+        if($TableCreated){Write-Host "$($table.Name) is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)

@@ -13,11 +13,13 @@ class Calendar
     # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
+    [string]$TimeStampFilePath;
 
-    Calendar([String]$PathToImportFile,[string]$EventConfig)
+    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig)){$this.EventConfig = $EventConfig;}
+        $this.TimeStampFilePath = $TimeStampFilePath;
     }
 
     [void] Reset()
@@ -241,7 +243,7 @@ class Calendar
             foreach($val in $values)
             {
                 # goes through rows in csv and loads the value
-                if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = 'Event'")).ID;}
+                if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = 'Event'")).ID;} #Typecontent externalid is 'Event'
                 if($val.COLUMN_NAME -eq "ExternalID"){$val.Value = $CSVReader[$i].ExternalID;}
                 if($val.COLUMN_NAME -eq "Subject"){$val.Value = $CSVReader[$i].Subject.Replace("'","''");}
                 if($val.COLUMN_NAME -eq "EventDate"){$val.Value = $CSVReader[$i].EventDate;}
@@ -252,6 +254,41 @@ class Calendar
             [string]$querystring = "if not exists (select * from $($tablename) where ExternalID = '$($extid)') begin @insertquery end" # If exists query
             $this.SQL.QueryNoReturn($querystring.Replace("@insertquery", $insertquery));
         }
+    }
+
+    hidden [void]TimeStamp([string]$TypeContentExternalID,[string]$TypeString)
+    {
+        [string]$insertquery = $null;
+        [string]$tablename = "Calendar"; # hard coding table name
+        $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+        [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
+        # Adds the actual values to use for the insert query
+        # There are also checks for other types of 
+        foreach($val in $values)
+        {
+            # goes through rows in csv and loads the value
+            if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = '$($TypeContentExternalID)'")).ID;} #Typecontent externalid is 'Event'
+            if($val.COLUMN_NAME -eq "ExternalID"){$val.Value = $CalendarExtID;}
+            if($val.COLUMN_NAME -eq "Subject"){$val.Value = "[$($TypeString)] $(Get-Date -Format "MM/dd, hh:mm:ss tt")" ;}
+            if($val.COLUMN_NAME -eq "EventDate"){$val.Value = "$(Get-Date)";}
+            if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = "0";}
+        }
+        $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\TimeStamp.sql)";
+        $querystring = $querystring.Replace("@tablename",$tablename);
+        $querystring = $querystring.Replace("@CalendarExtID",$CalendarExtID);
+        $querystring = $querystring.Replace("@TCExterID",$TypeContentExternalID);
+        $this.SQL.QueryNoReturn($querystring.Replace("@insertquery", $insertquery));
+    }
+
+    [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
+    [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
+    [void]GetTimeStampDuration()
+    {
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
+        [string]$time = $($this.SQL.Query($querystring)).Time;
+        Write-Host "Log Time: $($(Get-Date $time).ToString('HH:mm:ss'))";
     }
 }
 class Week

@@ -10,4 +10,17 @@
       end
     ]]>
   </ScriptBlock> -->
+  <!-- <ScriptBlock>
+    <![CDATA[
+      if exists (select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'Calendar' and COLUMN_NAME in ('StartTime', 'EndTime'))
+      begin
+        alter table Calendar drop column StartTime, EndTime;  
+      end
+    ]]>
+  </ScriptBlock> -->
+  <!-- <ScriptBlock>
+    <![CDATA[
+      delete from typecontent where externalid = 'TimeStamp'
+    ]]>
+  </ScriptBlock> -->
 </Machine>

@@ -242,6 +242,9 @@
         <SQL>
           <Database>Kiran</Database>
           <ServerInstance>US-802262</ServerInstance>
+          <SyncConfiguration>True</SyncConfiguration>
+          <UpdateVerbose>True</UpdateVerbose>
+          <SQLConvertFlags>ID EventDate</SQLConvertFlags>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />

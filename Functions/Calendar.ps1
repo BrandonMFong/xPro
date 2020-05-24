@@ -10,13 +10,17 @@
 .Notes
     
 #>
-param([string]$month,[switch]$Current,[switch]$SpecialDays)
+param([string]$month,[switch]$Current,[switch]$SpecialDays,[switch]$InsertEvents)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
 $var = $(GetObjectByClass('Calendar'));
 
 if($SpecialDays)
 {
     $var.SpecialDays();
+}
+if($InsertEvents)
+{
+    $var.InsertEvents();
 }
 else 
 {

@@ -4,9 +4,9 @@ if exists
     where externalid = @DayString
     and 
     (
-        (IsAnnual = 1) -- If the event is an annual event
+        (IsAnnual = 1) /*If the event is an annual event*/
         or 
-        (YEAR(EventDate) = YEAR(GetDate())) -- Or if this event is from this year
+        (YEAR(EventDate) = YEAR(GetDate())) /*Or if this event is from this year*/
     )
 ) 
 begin 

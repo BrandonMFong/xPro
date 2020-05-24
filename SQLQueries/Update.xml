@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Update.xsd">
   <!-- Used to change value length-->
-  <ScriptBlock><![CDATA[alter table personalinfo alter column Value varchar(1000);]]></ScriptBlock>
+  <!-- <ScriptBlock><![CDATA[alter table personalinfo alter column Value varchar(1000);]]></ScriptBlock>
   <ScriptBlock>
     <![CDATA[
       if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'Calendar') 
@@ -9,5 +9,5 @@
         alter table Calendar alter column EventDate datetime NOT NULL;
       end
     ]]>
-  </ScriptBlock>
+  </ScriptBlock> -->
 </Machine>

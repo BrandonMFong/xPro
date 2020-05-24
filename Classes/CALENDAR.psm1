@@ -101,16 +101,22 @@ class Calendar
 
     [void]SpecialDays()
     {
-        #[xml]$x = Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);#AppPointer Defined in Profile.xml
-        [xml]$x = GetXMLContent;
-        foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
+        if($this.EventConfig -eq "Database")
         {
-            if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***" -NoNewline;}
-            Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
-            Write-Host " - " -NoNewline;
-            Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan -NoNewline;
-            if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***";}
-            else{Write-Host "";}
+
+        }
+        else
+        {
+            [xml]$x = GetXMLContent;
+            foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
+            {
+                if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***" -NoNewline;}
+                Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
+                Write-Host " - " -NoNewline;
+                Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan -NoNewline;
+                if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***";}
+                else{Write-Host "";}
+            }
         }
     }
 
@@ -237,7 +243,7 @@ class Calendar
                 # goes through rows in csv and loads the value
                 if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = 'Event'")).ID;}
                 if($val.COLUMN_NAME -eq "ExternalID"){$val.Value = $CSVReader[$i].ExternalID;}
-                if($val.COLUMN_NAME -eq "Subject"){$val.Value = $CSVReader[$i].Subject;}
+                if($val.COLUMN_NAME -eq "Subject"){$val.Value = $CSVReader[$i].Subject.Replace("'","''");}
                 if($val.COLUMN_NAME -eq "EventDate"){$val.Value = $CSVReader[$i].EventDate;}
                 if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = $CSVReader[$i].IsAnnual;}
             }

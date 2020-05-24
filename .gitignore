@@ -6,6 +6,8 @@ VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace
 FTPFromVolta.ps1
 bin/credentials/
+Resources/CalendarImports/*
+
 # Work
 Functions/KiranTickets.ps1
 Functions/BANKURL.ps1
@@ -13,9 +15,6 @@ Config/Server.xml
 
 # Test files
 test*.*
-
-# Update Files
-update*.*
 
 # Misc Code
 Playground/*

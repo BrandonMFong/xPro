@@ -6,17 +6,27 @@ using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
     switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
-        "Calendar" {$x = [Calendar]::new();return $x;}
+        "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig);return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize);return $x;}
         "Email" {$x = [Email]::new();return $x;}
-        "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
+        "SQL" 
+        {
+            [string]$Database = $XmlElement.Class.SQL.Database;
+            [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
+            [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
+            [boolean]$SyncConfiguration = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
+            [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
+            [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
+            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags);
+            return $x;
+        }
         "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
         default
         {

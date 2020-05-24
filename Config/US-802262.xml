@@ -36,11 +36,6 @@
     <ListInboxMax>10</ListInboxMax>
     <ListOrderBy>Asc</ListOrderBy>
   </Email>
-  <Calendar>
-    <SpecialDays>
-      <SpecialDay name="Fourth Of July">7/4/2020</SpecialDay>
-    </SpecialDays>
-  </Calendar>
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
@@ -305,6 +300,14 @@
                 </Row>
               </Rows>
             </Table>
+            <Table Name="Calendar">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="false" />
+              <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsNull="false" /> <!-- format: MMddyyyy -->
+              <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsNull="true" />
+            </Table>
           </Tables>
         </SQL>
       </Class>
@@ -312,7 +315,12 @@
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Calendar</VarName>
-      <Class ClassName="Calendar" HasParams="false" />
+      <Class ClassName="Calendar"  HasParams="true">
+        <Calendar>
+          <!-- <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport> -->
+          <!-- <EventConfig>Database</EventConfig> -->
+        </Calendar>
+      </Class>
     </Object>
     <!-- Webex -->
     <Object ID="69" Type="HashTable">

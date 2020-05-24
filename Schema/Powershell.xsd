@@ -238,6 +238,27 @@
                 </xs:annotation>
                 <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
                 <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="SyncConfiguration" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Flag to allow the class to update your database from profile load.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="UpdateVerbose" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Verbose flag for debugging update scripts
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SQLConvertFlags" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Include the name of the row that should be excluded by default data
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="Tables">
                     <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
                         <xs:attribute name="Name">
@@ -261,7 +282,8 @@
                         <xs:element name="Rows" minOccurs="0" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    List out the rows you want to insert into the Database at start up 
+                                    List out the rows you want to insert into the Database at start up.  
+                                    Only thing you do not need to provide are values for ID, Date, and Guids 
                                 </xs:documentation>
                             </xs:annotation>
                             <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
@@ -291,6 +313,26 @@
                 </xs:element>
             </xs:element>
         </xs:group>
+
+        <xs:group name="CalendarClass">
+            <xs:element name="Calendar">
+                <xs:element name="PathToEventImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            File path to the import file.  
+                            Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="EventConfig" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Default: XML.  Choices = XML or Database
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:element>
+        </xs:group>
         
         <xs:group name="ClassElement">
             <xs:element name="Class" maxOccurs="1">
@@ -304,6 +346,7 @@
                 <xs:group ref="SQLClass"/>
                 <xs:group ref="ListClass"/>
                 <xs:group ref="MathClass"/>
+                <xs:group ref="CalendarClass"/>
             </xs:element>
         </xs:group>
 
@@ -331,9 +374,9 @@
                 <xs:attribute name="Type" type="xs:boolean" use="mandatory">
                     <xs:annotation>
                         <xs:documentation>
-                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
-                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
-                            HashTable (if the object will be using key and value to populate). 
+                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),  
+                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),  
+                            HashTable (if the object will be using key and value to populate).   
                             Default is XmlElement.
                         </xs:documentation>
                     </xs:annotation>

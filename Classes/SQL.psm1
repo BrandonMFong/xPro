@@ -7,14 +7,18 @@ class SQL
     [string]$database;
     hidden [System.Object[]]$results;
     [System.Object[]]$tables;
+    hidden [Boolean]$UpdateVerbose;
+    hidden [string]$SQLConvertFlags;
 
     # Constructor
-    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables)
+    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags)
     {
         $this.database = $database;
         $this.serverinstance = $serverinstance;
         $this.tables = $tables
-        $this.SyncConfig();
+        $this.UpdateVerbose = $UpdateVerbose;
+        $this.SQLConvertFlags = $SQLConvertFlags;
+        if($SyncConfiguration){$this.SyncConfig();}
     }
 
     # Standard queries
@@ -22,8 +26,7 @@ class SQL
     {
         $this.results = $null # reset
         $this.results = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
-        if($null -eq $this.results){Write-Warning "Nothing returned from query string"; return 0;}
-        else {return $this.results;} # display
+        return $this.results; # display or return value
     }
 
     hidden [void] QueryNoReturn([string]$querystring) # TODO replace all lines with this method
@@ -31,12 +34,16 @@ class SQL
         Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
     }
 
+    [system.object[]]ShowTables()
+    {
+        return $this.Query('select table_name from Information_schema.tables');
+    }
     # This function can insert into all different tables in a database
     [System.Object[]]InsertInto()
     {
         $querystring = $null;
 
-        [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
+        [system.object[]]$tablestochoosefrom = $this.ShowTables();
 
         Write-Host "`nWhich Table are you inserting into?" -ForegroundColor Red -BackgroundColor Yellow;
         $i = 0;
@@ -155,13 +162,18 @@ class SQL
         {
             "int"
             {
-                if($val.COLUMN_NAME -eq "ID"){ $string = "$($this.GetMax($table))";}
+                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){ $string = "$($this.GetMax($table))";} # if it is ID, get max id inc
                 else{$string = "$($val.Value)";}
                 break;
             }
             "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
             "varchar"{$string = "'$($val.Value)'";break;}
-            "datetime"{$string = "GETDATE()";break;}
+            "datetime"
+            {
+                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){$string = "'$($val.Value)'"; } # for EventDate, use what is provided
+                else{$string = "GETDATE()";}
+                break;
+            }
             default{$string = "$($val.Value)";break;}
         }
         return $string;
@@ -175,7 +187,7 @@ class SQL
 
     # Creates query string dynamically
     # Just for one insert value
-    hidden QueryConstructor($TypeQuery, [ref]$querystring, $table, $values)# Table should be string type
+    QueryConstructor([string]$TypeQuery, [ref]$querystring, [string]$table, [system.object[]]$values)# Table should be string type
     {
 
         switch($TypeQuery)
@@ -190,7 +202,7 @@ class SQL
                 # add to query string
                 foreach($val in $values)
                 {
-                    $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+                    $querystring.Value = $querystring.Value.Replace("$($rep)", ", "); # replaces with , to match syntax
                     $querystring.Value += $this.SQLConvert($val,$table) + "$($rep)";
                 }
 
@@ -242,30 +254,38 @@ class SQL
 
     SyncConfig()
     {
-        foreach($table in $this.tables.Table)
-        {
-            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
-            else{$this.CreateColumns($table);}# This internally checks if the columns do exist
-
-            # Insert rows
-            $this.InsertRows($table,$table.Name);
-        }
-
         # Update Scripts
         Push-Location $PSScriptRoot\..\SQLQueries
-            [Xml]$Update = Get-Content Alter.xml;
+            [Xml]$Update = Get-Content Update.xml;
+            Write-Host "`n";
+            Write-Verbose "UPDATING DATABASE START" -Verbose:$this.UpdateVerbose;
             foreach($Script in $Update.Machine.ScriptBlock)
             {
                 try
                 {
                     $this.QueryNoReturn($Script.'#cdata-section');
+                    Write-Verbose "Executing : {$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
                 }
                 catch 
                 {
                     throw "Something bad happened!";
                 }
             }
+            Write-Verbose "UPDATING DATABASE END" -Verbose:$this.UpdateVerbose;
+            Write-Host "`n";
         Pop-Location;
+
+        foreach($table in $this.tables.Table)
+        {
+
+            if(!$this.DoesTableExist($table.Name)){$this.CreateTable($table);}
+            else{$this.CreateColumns($table);}# This internally checks if the columns do exist
+
+            # Insert rows
+            # Allows you to add rows into the table 
+            # Cannot remove rows, must do that in the xml file provided under the sql directory
+            $this.InsertRows($table,$table.Name);
+        }
     }
 
     # Reads config for rows config and creates multiple insert queries for each row config
@@ -276,20 +296,26 @@ class SQL
         {
             if(!$this.DoesRowExist($Row,$tablename)) # if row does not exist then insert the row
             {
-                [string]$querystring = "";
-                [int]$ID = $this.GetMax($tablename); # Checks db for new id inc
+                [string]$querystring = $null;
                 $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
                 $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+                # Adds the actual values to use for the insert query
+                # There are also checks for other types of 
                 foreach($val in $values)
                 {
-                    if($val.COLUMN_NAME -eq "ID"){$val.Value = $ID;}
-                    else{$val.Value = $this.GetInnerXMLByAttribute($Row,$val.COLUMN_NAME);}
+                    # if column in ID or a datetime, the value will be handled by SQLConvert
+                    if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime"))
+                    {$val.Value = $this.GetInnerXMLByAttribute($Row,$val.COLUMN_NAME);}
                 }
                 $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
                 $this.QueryNoReturn($querystring);
                 $RowsInserted = $true;
             }
-            $this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));
+            # I update the date when the row is created
+            # will put this as an else
+            # I.e. if the row does exist, update the lastaccess column
+            # else, leave it to the above algorithm to do the job
+            else{$this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));}
         }
         if($RowsInserted) {Write-Host "Rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
@@ -307,6 +333,7 @@ class SQL
         return $extid;
     }
 
+    # Runs the the config of the row and gets the innerxml if it is for the right column
     hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
     {
         [string]$res = "";[boolean]$found = $false;
@@ -402,9 +429,15 @@ class SQL
         $this.QueryNoReturn($querystring);
     }
 
+    # Keeps track of the last time this externalid was referenced by the config
+    # Helps auditing so I know when to remove it
+    # To remove use Alter.xml (name might change [4/23/2020])
     hidden [void] UpdateLastAccessByExternalID([string]$ExternalID) # Type Content
     {
         [string]$querystring = "update TypeContent set LastAccessDate = GETDATE() where ExternalID = '$($ExternalID)'";
         $this.QueryNoReturn($querystring);
     }
 }
+
+# [XML]$xml = Get-Content $PSScriptRoot\..\Config\BRANDONMFONG.xml;
+# [SQL]$query = [SQL]::new($xml.Machine.Objects.Object[0].Class.SQL.Database, $xml.Machine.Objects.Object[0].Class.SQL.ServerInstance, $xml.Machine.Objects.Object[0].Class.SQL.Tables);

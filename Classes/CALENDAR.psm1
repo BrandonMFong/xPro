@@ -105,21 +105,43 @@ class Calendar
     {
         if($this.EventConfig -eq "Database")
         {
-
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetAllEvents.sql)";
+            [System.Object[]]$Events = $this.SQL.Query($querystring);
+            for([int]$i=0;$i -lt $Events.Length;$i++)
+            {
+                # if($this.IsSpecialDay([Day]::new((Get-Date $Events[$i].EventDate),$null))){Write-Host "***" -NoNewline;}
+                # Write-Host "$($Events[$i].Subject)" -ForegroundColor Yellow -NoNewline;
+                # Write-Host " - " -NoNewline;
+                # Write-Host "$($Events[$i].EventDate)" -ForegroundColor Cyan -NoNewline;
+                # if($this.IsSpecialDay([Day]::new((Get-Date $Events[$i].EventDate),$null))){Write-Host "***";}
+                # else{Write-Host "";}
+                $this.EventToString($Events[$i].EventDate.ToString("MM/dd/yyyy"),$Events[$i].Subject);
+            }
         }
         else
         {
             [xml]$x = GetXMLContent;
             foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
             {
-                if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***" -NoNewline;}
-                Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
-                Write-Host " - " -NoNewline;
-                Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan -NoNewline;
-                if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***";}
-                else{Write-Host "";}
+                # if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***" -NoNewline;}
+                # Write-Host "$($Event.Name)" -ForegroundColor Yellow -NoNewline;
+                # Write-Host " - " -NoNewline;
+                # Write-Host "$($Event.InnerXML)" -ForegroundColor Cyan -NoNewline;
+                # if($this.IsSpecialDay([Day]::new((Get-Date $Event.InnerXML),$null))){Write-Host "***";}
+                # else{Write-Host "";}
+                $this.EventToString($Event.InnerXML,$Event.Name);
             }
         }
+    }
+
+    hidden [void]EventToString([string]$EventDate,[string]$Subject)
+    {
+        if($this.IsSpecialDay([Day]::new((Get-Date $EventDate),$null))){Write-Host "***" -NoNewline;}
+        Write-Host "$($Subject)" -ForegroundColor Yellow -NoNewline;
+        Write-Host " - " -NoNewline;
+        Write-Host "$($EventDate)" -ForegroundColor Cyan -NoNewline;
+        if($this.IsSpecialDay([Day]::new((Get-Date $EventDate),$null))){Write-Host "***";}
+        else{Write-Host "";}
     }
 
     hidden [boolean]IsSpecialDay([Day]$Day)

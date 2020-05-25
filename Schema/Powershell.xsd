@@ -311,6 +311,35 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="PathToGradeImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Path to import file for grades
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GradeColors" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Color configuration.  Must list Descending Minimum Thresholds Values 
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="GradeColor" minOccurs="0" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Must be colors from powershell terminal
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:attribute name="MinimumThreshold" type="xs:double">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Values must be in descending order.
+                                    Maximum Threshold is 100%
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:element>
+                </xs:element>
             </xs:element>
         </xs:group>
 

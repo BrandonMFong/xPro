@@ -14,7 +14,7 @@ function MakeClass($XmlElement)
     {
         "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig,$XmlElement.Class.Calendar.TimeStampFilePath);return $x;}
         "Web" {$x = [Web]::new();return $x;}
-        "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize);return $x;}
+        "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
         "Email" {$x = [Email]::new();return $x;}
         "SQL" 
         {

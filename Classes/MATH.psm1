@@ -1,15 +1,22 @@
 class Calculations
 {
     [int]$QuantizedStepSize;
+    [string]$PathToGradeImport = $null;
+    [System.Object[]]$GradeColors = $null;
+
     Calculations() 
     {
         $this.QuantizedStepSize = 1; # basically not event quantizing
     }
-    Calculations([int]$QuantizedStepSize=$null)
+
+    Calculations([int]$QuantizedStepSize=$null,[string]$PathToGradeImport,[System.Object[]]$GradeColors)
     {
         if($null -ne $QuantizedStepSize){$this.QuantizedStepSize = $QuantizedStepSize;}
         else{$this.QuantizedStepSize = 5;}
+        $this.PathToGradeImport = $PathToGradeImport;
+        $this.GradeColors = $GradeColors;
     }
+
     # Object method
     [double]KgToPounds($x) #0.453592kg per 1 lb
     {
@@ -133,14 +140,56 @@ class Calculations
 
         return $Binary;
     }
-
-    # Basically a method to split up the binary conversion
-    [void]InsertSpace($InsertForEvery=$null, [ref]$ref)
+    
+    [void]GetGrade()
     {
-        if($null -eq $InsertForEvery){$InsertForEvery = 4}
-        for([int]$i = $ref.Value.Length;$i -gt 0;$i = $i - $InsertForEvery)
-        {
+        if([string]::IsNullOrEmpty($this.PathToGradeImport)){Write-Warning "File not configured!";break;} # Checks to see if file is configured
 
+        Write-Host "`n";
+        [System.Object[]]$CSVReader = Import-Csv $this.PathToGradeImport;
+        [double]$TotalGrade = 0;
+        for([int]$i=0;$i -lt $CSVReader.Length;$i++)
+        {
+            [double]$Grade = ($CSVReader[$i].ActualGrade/$CSVReader[$i].TotalGrade);
+
+            # Default weight is 1
+            if($CSVReader[$i].Weight -eq 0){[double]$WeightedGrade = $Grade*1;}
+            else{[double]$WeightedGrade = $Grade*$CSVReader[$i].Weight;}
+
+            $TotalGrade += $WeightedGrade; # Total Grade
+
+            Write-Host "$($CSVReader[$i].GradeName) :" -NoNewline;
+            Write-Host " $($($WeightedGrade*100).ToString("##.##"))%" -ForegroundColor $this.GetGradeColor($Grade*100);# Determines color from unweight grade
+        }
+        Write-Host "Total Grade : $($($TotalGrade*100).ToString("##.##"))%" -ForegroundColor $this.GetGradeColor($TotalGrade*100);
+        Write-Host "`n";
+    }
+
+    # Gets color from configuration
+    # Default is White
+    hidden [string]GetGradeColor([double]$Grade)
+    {
+        [string]$Color = "White";
+
+        # Starts from the highest grade and decides the color for the grade
+        foreach($GradeColor in $this.GradeColors.GradeColor)
+        {
+            if($Grade -ge $GradeColor.MinimumThreshold.ToDouble($null)){$Color = $GradeColor.InnerXml;break;}
+        }
+        return $Color;
+    }
+
+    # Lists colors from configured
+    [void]ListGradeColors()
+    {
+        [double]$MaxValue = 100;
+        [double]$MinValue = 0;
+        foreach($GradeColor in $this.GradeColors.GradeColor)
+        {
+            $MinValue = $GradeColor.MinimumThreshold.ToDouble($null);
+            Write-Host "$($MaxValue)%-$($MinValue)% : " -NoNewline;
+            Write-Host "$($GradeColor.InnerXml)" -ForegroundColor $GradeColor.InnerXml;
+            $MaxValue = $MinValue;
         }
     }
 }

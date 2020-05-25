@@ -252,6 +252,13 @@
       <Class ClassName="Calculations" HasParams="true">
         <Math>
           <QuantizedStepSize>6</QuantizedStepSize>
+          <PathToGradeImport>B:\Powershell\Resources\MathImports\GradeImport.csv</PathToGradeImport>
+          <GradeColors>
+            <GradeColor MinimumThreshold="90">Green</GradeColor>
+            <GradeColor MinimumThreshold="80">Cyan</GradeColor>
+            <GradeColor MinimumThreshold="60">Yellow</GradeColor>
+            <GradeColor MinimumThreshold="0">Red</GradeColor>
+          </GradeColors>
         </Math>
       </Class>
     </Object>

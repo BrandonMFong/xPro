@@ -274,10 +274,35 @@
                                     All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
                                 </xs:documentation>
                             </xs:annotation>
-                            <xs:attribute name="Name" type="xs:string" use="mandatory"/>
-                            <xs:attribute name="Type" use="mandatory"/>
-                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
-                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
+                            <xs:attribute name="Name" type="xs:string" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Name of the column
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="Type" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Column data type
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this column is the primary key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this row can be null.  
+                                        If table is already made, cannot make column that is not null
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
                         </xs:element>
                         <xs:element name="Rows" minOccurs="0" maxOccurs="1">
                             <xs:annotation>
@@ -333,7 +358,7 @@
                         <xs:attribute name="MinimumThreshold" type="xs:double">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Values must be in descending order.
+                                    Values must be in descending order.  
                                     Maximum Threshold is 100%
                                 </xs:documentation>
                             </xs:annotation>

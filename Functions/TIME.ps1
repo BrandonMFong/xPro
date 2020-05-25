@@ -22,7 +22,8 @@ Param
 	[Alias('C')][Switch]$Clear, 
 	[Alias('A')][Switch]$Archive
 )
-[Calendar]$var = GetObjectByClass('Calendar');
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+$var = GetObjectByClass('Calendar');
 
 if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 {

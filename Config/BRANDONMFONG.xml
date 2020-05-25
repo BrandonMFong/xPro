@@ -153,8 +153,8 @@
       <VarName SecType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
-          <Database>TestDB</Database>
-          <!-- <Database>BrandonMFong</Database> -->
+          <!-- <Database>TestDB</Database> -->
+          <Database>BrandonMFong</Database>
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>

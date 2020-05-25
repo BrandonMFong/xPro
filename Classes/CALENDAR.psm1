@@ -168,9 +168,8 @@ class Calendar
     }
 
     hidden GetHeaderString()
-    {
-        $MonthName = $this.MonthToString($this.Today.Month);
-        Write-Host "$($MonthName) $($this.Today.Year)";
+    {   
+        Write-Host "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
         Write-Host "su  mo  tu  we  th  fr  sa";
         Write-Host "--  --  --  --  --  --  --";
     }

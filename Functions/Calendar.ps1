@@ -16,7 +16,9 @@ $var = $(GetObjectByClass('Calendar'));
 
 if($SpecialDays)
 {
+    Write-Host "`n";
     $var.SpecialDays();
+    Write-Host "`n";
 }
 if($InsertEvents)
 {
@@ -24,6 +26,7 @@ if($InsertEvents)
 }
 else 
 {
+    Write-Host "`n";
     switch ($month)
     {
         "January"{$var.GetCalendarMonth("January");break;}
@@ -40,4 +43,5 @@ else
         "December"{$var.GetCalendarMonth("December");break;}
         default{$var.GetCalendarMonth();break;}
     }
+    Write-Host "`n";
 }

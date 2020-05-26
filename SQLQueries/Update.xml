@@ -23,4 +23,6 @@
       delete from typecontent where externalid = 'TimeStamp'
     ]]>
   </ScriptBlock> -->
+  
+  <!-- <ScriptBlock><![CDATA[ delete typecontent where externalid in ('Token', 'MobileNumber', 'HomeAddress'); ]]></ScriptBlock> -->
 </Machine>

@@ -48,3 +48,9 @@ function Set-Brightness
 }
 
 function Reload-Profile {.$PROFILE -StartDir:$false;}
+
+function Toggle-Load 
+{
+    $XMLReader.Machine.LoadProfile = (!$XMLReader.Machine.LoadProfile.ToBoolean($null)).ToString();
+    $XMLReader.Save($($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile));
+}

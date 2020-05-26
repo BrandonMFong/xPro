@@ -8,7 +8,8 @@ Push-Location $($PROFILE |Split-Path -Parent);
 Pop-Location
 [XML]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
 
-if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}
+if(!$XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
+if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Helps debugging if on
 else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 

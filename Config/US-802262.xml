@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" LoadProcedure="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
@@ -240,7 +240,8 @@
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsNull="false" /> <!-- format: MMddyyyy -->
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
               <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsNull="true" />
             </Table>
           </Tables>
@@ -330,7 +331,7 @@
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Calendar</VarName>
-      <Class ClassName="Calendar"  HasParams="true">
+      <Class ClassName="Calendar" HasParams="true">
         <Calendar>
           <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>

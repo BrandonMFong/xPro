@@ -1,4 +1,13 @@
 
+Issue: Time Stamp method
+    Fix Commit:  
+    Branch:  
+    Status: Open
+    Notes: 
+        - Cannot have two timestamps in one day.  How to account for break?
+            - Should there be another type for break?
+    Post:
+        
 Issue: Addprogram not inserting into db
     Fix Commit:  
     Branch:  

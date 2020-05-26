@@ -332,8 +332,8 @@
       <VarName SecType="public">Calendar</VarName>
       <Class ClassName="Calendar"  HasParams="true">
         <Calendar>
-          <!-- <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport> -->
-          <!-- <EventConfig>Database</EventConfig> -->
+          <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport>
+          <EventConfig>Database</EventConfig>
         </Calendar>
       </Class>
     </Object>

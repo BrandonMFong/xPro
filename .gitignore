@@ -8,6 +8,7 @@ FTPFromVolta.ps1
 bin/credentials/
 Resources/CalendarImports/*
 Resources/MathImports/*
+ssh.json
 
 # Work
 Functions/KiranTickets.ps1

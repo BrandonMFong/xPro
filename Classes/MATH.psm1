@@ -7,6 +7,7 @@ class Calculations
     Calculations() 
     {
         $this.QuantizedStepSize = 1; # basically not event quantizing
+        $this.MakeNecessaryDirectories();
     }
 
     Calculations([int]$QuantizedStepSize=$null,[string]$PathToGradeImport,[System.Object[]]$GradeColors)
@@ -15,7 +16,14 @@ class Calculations
         else{$this.QuantizedStepSize = 5;}
         $this.PathToGradeImport = $PathToGradeImport;
         $this.GradeColors = $GradeColors;
+        $this.MakeNecessaryDirectories();
     }
+
+    hidden [void]MakeNecessaryDirectories()
+    {
+        if(!(Test-Path $PSScriptRoot\..\Resources\MathImports\)){mkdir $PSScriptRoot\..\Resources\MathImports\;}
+    }
+
 
     # Object method
     [double]KgToPounds($x) #0.453592kg per 1 lb

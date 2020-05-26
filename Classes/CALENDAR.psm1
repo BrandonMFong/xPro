@@ -20,6 +20,12 @@ class Calendar
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig)){$this.EventConfig = $EventConfig;}
         $this.TimeStampFilePath = $TimeStampFilePath;
+        $this.MakeNecessaryDirectories();
+    }
+    
+    hidden [void]MakeNecessaryDirectories()
+    {
+        if(!(Test-Path $PSScriptRoot\..\Resources\CalendarImports\)){mkdir $PSScriptRoot\..\Resources\CalendarImports\;}
     }
 
     [void] Reset()

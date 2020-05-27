@@ -295,12 +295,7 @@ class Calendar
             if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = "0";}
         }
         $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\TimeStamp.sql)";
-        $querystring = $querystring.Replace("@tablename",$tablename);
-        $querystring = $querystring.Replace("@CalendarExtID",$CalendarExtID);
-        $querystring = $querystring.Replace("@TCExterID",$TypeContentExternalID);
-        $this.SQL.QueryNoReturn($querystring.Replace("@insertquery", $insertquery));
-        # $this.SQL.QueryNoReturn($insertquery);
+        $this.SQL.QueryNoReturn($insertquery);
     }
 
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}

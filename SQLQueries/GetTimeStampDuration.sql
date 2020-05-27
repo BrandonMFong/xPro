@@ -4,6 +4,7 @@ insert into @TimeIn
 select ROW_NUMBER() over(order by id) RowNum,tic.EventDate
 from Calendar tic 
 where tic.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampIn')
+and (CONVERT(VARCHAR(10), tic.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))/*Make sure to only data from today*/
 order by tic.EventDate asc /*Ordering so that I number the rows correctly*/
 
 /*Time Out Data*/
@@ -12,6 +13,7 @@ insert into @TimeOut
 select ROW_NUMBER() over(order by id) RowNum,toc.EventDate
 from Calendar toc 
 where toc.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampOut')
+and (CONVERT(VARCHAR(10), toc.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))
 order by toc.EventDate asc
 
 /*s=second;m=minute;h=hour*/

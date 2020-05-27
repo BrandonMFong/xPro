@@ -157,7 +157,7 @@ function _CalendarNode([ref]$File)
 }
 
 function Config-Editor
-{
+{ # Seems that you would need to restart ps session
     Param
     (
         [switch]$AddDirectory,

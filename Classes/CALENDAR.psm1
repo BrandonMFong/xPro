@@ -411,7 +411,7 @@ class Day
     [int]$Year;
     [string]$DayOfWeek
     [string]$DayString;
-    hidden $SQL = $(GetObjectByClass('SQL'));
+    hidden $SQL;
     [string]$EventConfig;
 
     Day([DateTime]$Date,$EventConfig)
@@ -422,7 +422,12 @@ class Day
         $this.Year = $Date.Year;
         $this.DayString = $Date.ToString("MMddyyyy"); # following externalid format in calendar table
         $this.DayOfWeek = $Date.DayOfWeek.ToString();
-        $this.EventConfig = $EventConfig;
+        if(![string]::IsNullOrEmpty($EventConfig))
+        {
+            $this.EventConfig = $EventConfig;
+            if($EventConfig -eq "Database"){$this.SQL = $(GetObjectByClass('SQL'));}
+            else{$this.SQL = $null;}
+        }
     }
 
     [boolean]IsEqual([Day]$d) # Not comparing time

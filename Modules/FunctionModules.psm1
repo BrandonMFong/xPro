@@ -216,8 +216,8 @@ function LoadObjects
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-    # Push-Location $PSScriptRoot;  
-        $add = $(Get-Variable 'XMLReader').Value.CreateElement($Tag); 
+        [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        $add = $x.CreateElement($Tag); 
 
         $Alias = Read-Host -Prompt "Set Alias";
         $add.SetAttribute("Alias", $Alias);
@@ -246,11 +246,8 @@ function InsertFromCmd
             $add.InnerXml = $PathToAdd; # Adding literally path
         }
         
-        $x = $(Get-Variable 'XMLReader').Value
         AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
         $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
-    # Pop-Location;
-    # break;
 }
 function GetFullFilePath([string]$File)
 {

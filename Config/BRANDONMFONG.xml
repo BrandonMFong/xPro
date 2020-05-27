@@ -228,6 +228,10 @@
                   <Value ColumnName="Description">Time Stamp Out</Value>
                   <Value ColumnName="ExternalID">TimeStampOut</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="Description">Security Question And Answer</Value>
+                  <Value ColumnName="ExternalID">SecurityQA</Value>
+                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">

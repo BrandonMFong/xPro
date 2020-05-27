@@ -2,10 +2,11 @@
 Issue: Event not popping up on calendar
     Fix Commit:  
     Branch:  
-    Status: Open
+    Status: Close
     Notes: 
         - Configuration?
     Post:
+        - it was the query, forgot I didn't use the tag
         
 Issue: Time Stamp method
     Fix Commit:  

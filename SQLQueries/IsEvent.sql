@@ -1,7 +1,7 @@
 if exists 
 (
     select * from Calendar 
-    where externalid = '05252020'
+    where externalid = @DayString
     and 
     (
         (IsAnnual = 1) /*If the event is an annual event*/

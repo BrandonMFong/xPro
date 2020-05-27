@@ -411,7 +411,7 @@ class Day
     [int]$Year;
     [string]$DayOfWeek
     [string]$DayString;
-    hidden $SQL = $(GetObjectByClass('SQL'));
+    hidden $SQL;
     [string]$EventConfig;
 
     Day([DateTime]$Date,$EventConfig)

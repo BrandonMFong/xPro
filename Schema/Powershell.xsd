@@ -295,6 +295,13 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:attribute>
+                            <xs:attribute name="IsForeignKey" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this column is the foreign key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
                             <xs:attribute name="IsNull" type="xs:boolean" use="mandatory">
                                 <xs:annotation>
                                     <xs:documentation>

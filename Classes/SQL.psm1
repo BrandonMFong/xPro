@@ -376,7 +376,7 @@ class SQL
             if(!$this.DoesColumnExist($table.Name,$column.Name))
             {
                 $i++;
-                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
+                $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($this.IsFK($column)) $($rep) "; # TODO make a method
             }
         }
         $querystring = $querystring.Replace("$($rep)", "");
@@ -407,6 +407,11 @@ class SQL
         if($val.IsPrimaryKey -eq "true"){return "PRIMARY KEY"}
         else {return ""}
     }
+    hidden [string]IsFK($val) 
+    {
+        if($val.IsForeignKey -eq "true"){return "PRIMARY KEY"}
+        else {return ""}
+    }
 
     # Creates table and columns
     hidden [void] CreateTable([system.Object[]]$table)
@@ -416,7 +421,7 @@ class SQL
         foreach ($column in $table.Column)
         {
             $querystring = $querystring.Replace("$($rep)", ", ");
-            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($rep) ";
+            $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($this.IsFK($column)) $($rep) ";
         }
         $querystring = $querystring.Replace("$($rep)", ")");
         $querystring = $querystring.Replace("(,", "(");

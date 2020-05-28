@@ -25,12 +25,11 @@ order by toc.EventDate asc
 
 select  
 convert(varchar(10), TimeIn.EventDate, 101) [Date],
-TimeIn.EventDate [TimeIn],
+convert(varchar, TimeIn.EventDate, 20)[TimeIn],
 case 
-	when TimeOut.EventDate is null then (select 'Still Timed in')
-	else TimeOut.EventDate
-end 
-[TimeOut]
+	when TimeOut.EventDate is null then (select '--:--:-- --')
+	else convert(varchar, TimeOut.EventDate, 20)
+end [TimeOut]
 from @TimeIn TimeIn 
 full outer join @TimeOut TimeOut 
 on TimeIn.RowNum = TimeOut.RowNum

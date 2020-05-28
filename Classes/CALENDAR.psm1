@@ -13,9 +13,10 @@ class Calendar
     # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
-    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports\");  
+    [string]$TimeStampFilePath; # this is for timestampt.csv, if I do not have database
+    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports");  
 
-    Calendar([String]$PathToImportFile,[string]$EventConfig)
+    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig))
@@ -24,18 +25,13 @@ class Calendar
             if($EventConfig -eq "Database"){$this.SQL = $(GetObjectByClass('SQL'));}
             else{$this.SQL = $null;}
         }
+        $this.TimeStampFilePath = $TimeStampFilePath;
         $this.MakeNecessaryDirectories();
     }
     
-    hidden [void]MakeNecessaryDirectories()
-    {
-        if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}
-    }
+    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}}
 
-    [void] Reset()
-    {
-        $this.WeeksLoaded = $false;
-    }
+    hidden [void] Reset(){$this.WeeksLoaded = $false;}
 
     [void] GetCalendarMonth() 
     {
@@ -147,10 +143,7 @@ class Calendar
         [Day]$ThisDay = [Day]::new($(Get-Date),$null);
         return $ThisDay.IsEqual($Day);
     }
-    hidden [string]MonthToString($MonthNum)
-    {
-        return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);
-    }
+    hidden [string]MonthToString($MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
 
     hidden GetNow()
     {
@@ -282,6 +275,7 @@ class Calendar
         $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
         [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
+
         # Adds the actual values to use for the insert query
         # There are also checks for other types of 
         foreach($val in $values)
@@ -293,8 +287,18 @@ class Calendar
             if($val.COLUMN_NAME -eq "EventDate"){$val.Value = "$(Get-Date)";}
             if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = "0";}
         }
+
+        # There can be more than one row for time in/out
+        # It the matter of how to organize it
+        # in the query I rank them from young to old records and join them
+        # But what if I never time out and there is always one more time in record
+        # I can handle this in the query
         $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
-        $this.SQL.QueryNoReturn($insertquery);
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\TimeStamp.sql)";
+        $querystring = $querystring.Replace("@insertquery",$insertquery);
+        $querystring = $querystring.Replace("@CalendarExtID",$CalendarExtID);
+        $querystring = $querystring.Replace("@TCExterID",$TypeContentExternalID);
+        $this.SQL.QueryNoReturn($querystring);
     }
 
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
@@ -306,38 +310,29 @@ class Calendar
         Write-Host "Log Time: $($(Get-Date $time).ToString('HH:mm:ss'))";
     }
 
-    [void]Report()
-    {
-        $this.GetTime("Select");
-    }
+    [void]Report(){$this.GetTime("Select");}
 
-    [void]Report([string]$MinDate,[string]$MaxDate)
-    {
-        $this.GetTime("Select",[string]$MinDate,[string]$MaxDate);
-    }
+    [void]Report([string]$MinDate,[string]$MaxDate){$this.GetTime("Select",[string]$MinDate,[string]$MaxDate);}
 
-    [void]Export()
-    {
-        $this.GetTime("Export");
-    }
+    [void]Export(){$this.GetTime("Export");}
 
-    [void]Export([string]$MinDate,[string]$MaxDate)
-    {
-        $this.GetTime("Export",[string]$MinDate,[string]$MaxDate);
-    }
+    [void]Export([string]$MinDate,[string]$MaxDate){$this.GetTime("Export",[string]$MinDate,[string]$MaxDate);}
 
     hidden [Void]GetTime([string]$Method)
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
-        $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'");
+        $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
         $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
+
+        # Two different methods
+        # Select: prints full time stamp report
         if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
         if($Method -eq "Export")
         {
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
             [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
-            $ExportCSV | Export-Csv $ExportName;
+            $ExportCSV | Export-Csv $ExportName -Force;
         }
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
@@ -352,7 +347,7 @@ class Calendar
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
             [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
-            $ExportCSV | Export-Csv $ExportName;
+            $ExportCSV | Export-Csv $ExportName -Force;
         }
     }
 
@@ -367,8 +362,8 @@ class Calendar
         for([int]$i = 0;$i -lt $results.Length;$i++)
         {
             [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
-            if($results[$i] -ne "Still Timed in"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
-            else{[string]$TimeOut = $results[$i];}
+            if($results[$i].TimeOut -ne "--:--:-- --"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
+            else{[string]$TimeOut = $results[$i].TimeOut;}
             Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
         }
         if($null -ne $results)

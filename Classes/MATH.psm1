@@ -3,6 +3,7 @@ class Calculations
     [int]$QuantizedStepSize;
     [string]$PathToGradeImport = $null;
     [System.Object[]]$GradeColors = $null;
+    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\MathImports");  
 
     Calculations() 
     {
@@ -19,10 +20,7 @@ class Calculations
         $this.MakeNecessaryDirectories();
     }
 
-    hidden [void]MakeNecessaryDirectories()
-    {
-        if(!(Test-Path $PSScriptRoot\..\Resources\MathImports\)){mkdir $PSScriptRoot\..\Resources\MathImports\;}
-    }
+    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}}
 
 
     # Object method

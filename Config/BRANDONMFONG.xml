@@ -146,6 +146,7 @@
     <Program Alias="vc-site" SecType="public">B:\SOURCES\Repos\Site\VCODE_Site.code-workspace</Program>
     <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
     <Program Alias="Open-Putty" SecType="public">B:\Powershell\Functions\Open-Putty.ps1</Program>
+    <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -239,7 +240,8 @@
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
-              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" /> <!-- format: MMddyyyy -->
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
               <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
           </Tables>

@@ -12,7 +12,7 @@ function MakeClass($XmlElement)
 {
     switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
-        "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig);return $x;}
+        "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig,$XmlElement.Class.Calendar.TimeStampFilePath);return $x;}
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
         "Email" {$x = [Email]::new();return $x;}
@@ -159,7 +159,7 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    [int]$Complete = 0;
+    [int]$Complete = 1;
     [int]$Total = $XMLReader.Machine.Programs.Program.Count;
     foreach($val in $XMLReader.Machine.Programs.Program)
     {
@@ -175,7 +175,7 @@ function LoadPrograms
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 0;
+    [int]$Complete = 1;
     [int]$Total = $XMLReader.Machine.Modules.Module.Count;
     foreach($val in $XMLReader.Machine.Modules.Module)
     {
@@ -191,7 +191,7 @@ function LoadModules
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 0;
+    [int]$Complete = 1;
     [int]$Total = $XMLReader.Machine.Objects.Object.Count;
     foreach($val in $XMLReader.Machine.Objects.Object)
     {

@@ -32,6 +32,7 @@ if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 	if($Login){$var.TimeIn();}
 	if($Logout){$var.TimeOut();}
 	if($View){$var.GetTimeStampDuration();}
+	break;
 }
 if($Report){$var.Report();break;}
 if($Export){$var.Export();break;}

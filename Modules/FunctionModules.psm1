@@ -123,11 +123,16 @@ function MakeHash($value,[int]$lvl,$Node)
     }
     else 
     {
-        for($i=0;$i -lt $value.Key.Count;$i++)
+        # For the corner case where there is only one node
+        if([string]::IsNullOrEmpty($value.Key.Count)){$t.Add($(Evaluate($value.Key)),$(Evaluate($value.Value)));}
+        else 
         {
-            if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
+            for($i=0;$i -lt $value.Key.Count;$i++)
             {
-                $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
+                {
+                    $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                }
             }
         }
     }
@@ -135,15 +140,8 @@ function MakeHash($value,[int]$lvl,$Node)
     return $t;
 }
 
+function Test {if(!(Test-Path .\archive\)){ mkdir archive;}}
 
-
-function Test 
-{
-    if(!(Test-Path .\archive\))
-    {
-        mkdir archive;
-    }
-}
 function DoesFileExistInArchive($file)
 {
     If(Test-Path $('.\archive\' + $file.Name))

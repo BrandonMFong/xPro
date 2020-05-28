@@ -1,5 +1,7 @@
 using module .\..\Classes\Tag.psm1;
 
+Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+
 function _Replace 
 {
     Param([ref]$OutString)
@@ -83,6 +85,15 @@ function _Replace
         $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
         if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq "True"){$OutString.Value = $OutString.Value.Replace($tag.admin," <Admin> ");}
         else{$OutString.Value = $OutString.Value.Replace($tag.admin,"");}
+    }
+
+    # Time Stamp
+    if($OutString.Value.Contains($tag.timestamp))
+    {
+        $var = GetObjectByClass('Calendar'); # If I want the timestamp, I am assuming it is already configured
+        [string]$time = $var.GetTimeStampDuration();
+        if(![string]::IsNullOrEmpty($time)){$OutString.Value = $OutString.Value.Replace($tag.stamp,$time);}
+        else{$OutString.Value = $OutString.Value.Replace($tag.stamp,"");}
     }
 }
 

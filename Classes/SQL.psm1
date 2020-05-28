@@ -253,27 +253,27 @@ class SQL
         return $result.Item("Value");
     }
 
-    SyncConfig()
+    [void]UpdateQueries()
     {
         # Update Scripts
-        Push-Location $PSScriptRoot\..\SQLQueries
-            [Xml]$Update = Get-Content Update.xml;
-            Write-Host "`n";
-            foreach($Script in $Update.Machine.ScriptBlock)
+        [Xml]$Update = Get-Content $PSScriptRoot\..\SQLQueries\Update.xml;
+        Write-Host "`n";
+        foreach($Script in $Update.Machine.ScriptBlock)
+        {
+            try
             {
-                try
-                {
-                    $this.QueryNoReturn($Script.'#cdata-section');
-                    Write-Verbose "UPDATE : `n{$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
-                }
-                catch 
-                {
-                    throw "Something bad happened!";
-                }
+                $this.QueryNoReturn($Script.'#cdata-section');
+                Write-Verbose "UPDATE : `n{$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
             }
-            Write-Host "`n";
-        Pop-Location;
-
+            catch 
+            {
+                throw "Something bad happened!";
+            }
+        }
+        Write-Host "`n";
+    }
+    SyncConfig()
+    {
         foreach($table in $this.tables.Table)
         {
 
@@ -285,6 +285,7 @@ class SQL
             # Cannot remove rows, must do that in the xml file provided under the sql directory
             $this.InsertRows($table,$table.Name);
         }
+        $this.UpdateQueries();
     }
 
     # Reads config for rows config and creates multiple insert queries for each row config

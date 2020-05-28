@@ -9,4 +9,5 @@ class Tag
     [string]$greaterthan = "@greaterthan";
     [string]$gitbranch = "@gitbranch";
     [string]$admin = "@admin";
+    [string]$stamp = "@stamp";
 }

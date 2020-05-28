@@ -303,11 +303,11 @@ class Calendar
 
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
     [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
-    [void]GetTimeStampDuration()
+    [string]GetTimeStampDuration()
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
         [string]$time = $($this.SQL.Query($querystring)).Time;
-        Write-Host "Log Time: $($(Get-Date $time).ToString('HH:mm:ss'))";
+        return "$($(Get-Date $time).ToString('HH:mm:ss'))";
     }
 
     [void]Report(){$this.GetTime("Select");}

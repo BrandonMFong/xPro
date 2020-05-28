@@ -259,20 +259,18 @@ class SQL
         Push-Location $PSScriptRoot\..\SQLQueries
             [Xml]$Update = Get-Content Update.xml;
             Write-Host "`n";
-            Write-Verbose "UPDATING DATABASE START" -Verbose:$this.UpdateVerbose;
             foreach($Script in $Update.Machine.ScriptBlock)
             {
                 try
                 {
                     $this.QueryNoReturn($Script.'#cdata-section');
-                    Write-Verbose "Executing : {$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
+                    Write-Verbose "UPDATE : `n{$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
                 }
                 catch 
                 {
                     throw "Something bad happened!";
                 }
             }
-            Write-Verbose "UPDATING DATABASE END" -Verbose:$this.UpdateVerbose;
             Write-Host "`n";
         Pop-Location;
 

@@ -20,7 +20,9 @@ Param
 	[Alias('Out')][Switch]$Logout, 
 	[Alias('V')][Switch]$View, 
 	[Alias('C')][Switch]$Clear, 
-	[Alias('A')][Switch]$Archive
+	[Alias('A')][Switch]$Archive, 
+	[Alias('R')][Switch]$Report, 
+	[Alias('E')][Switch]$Export
 )
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 $var = GetObjectByClass('Calendar');
@@ -31,6 +33,8 @@ if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 	if($Logout){$var.TimeOut();}
 	if($View){$var.GetTimeStampDuration();}
 }
+if($Report){$var.Report();break;}
+if($Export){$var.Export();break;}
 
 # todo finish
 else 

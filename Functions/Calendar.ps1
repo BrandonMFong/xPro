@@ -19,11 +19,9 @@ if($SpecialDays)
     Write-Host "`n";
     $var.SpecialDays();
     Write-Host "`n";
+    break;
 }
-if($InsertEvents)
-{
-    $var.InsertEvents();
-}
+if($InsertEvents){$var.InsertEvents();break;}
 else 
 {
     Write-Host "`n";

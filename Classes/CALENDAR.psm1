@@ -13,9 +13,9 @@ class Calendar
     # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
-    [string]$TimeStampFilePath;
+    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports\");  
 
-    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
+    Calendar([String]$PathToImportFile,[string]$EventConfig)
     {
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig))
@@ -24,13 +24,12 @@ class Calendar
             if($EventConfig -eq "Database"){$this.SQL = $(GetObjectByClass('SQL'));}
             else{$this.SQL = $null;}
         }
-        $this.TimeStampFilePath = $TimeStampFilePath;
         $this.MakeNecessaryDirectories();
     }
     
     hidden [void]MakeNecessaryDirectories()
     {
-        if(!(Test-Path $PSScriptRoot\..\Resources\CalendarImports\)){mkdir $PSScriptRoot\..\Resources\CalendarImports\;}
+        if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}
     }
 
     [void] Reset()
@@ -305,6 +304,77 @@ class Calendar
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
         [string]$time = $($this.SQL.Query($querystring)).Time;
         Write-Host "Log Time: $($(Get-Date $time).ToString('HH:mm:ss'))";
+    }
+
+    [void]Report()
+    {
+        $this.GetTime("Select");
+    }
+
+    [void]Report([string]$MinDate,[string]$MaxDate)
+    {
+        $this.GetTime("Select",[string]$MinDate,[string]$MaxDate);
+    }
+
+    [void]Export()
+    {
+        $this.GetTime("Export");
+    }
+
+    [void]Export([string]$MinDate,[string]$MaxDate)
+    {
+        $this.GetTime("Export",[string]$MinDate,[string]$MaxDate);
+    }
+
+    hidden [Void]GetTime([string]$Method)
+    {
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
+        $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'");
+        $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
+        if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
+        if($Method -eq "Export")
+        {
+            $this.GetNow();
+            [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
+            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
+            $ExportCSV | Export-Csv $ExportName;
+        }
+    }
+    hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
+    {
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
+        $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
+        $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
+        $this.WriteTimeReport($this.SQL.Query($querystring));
+        if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
+        if($Method -eq "Export")
+        {
+            $this.GetNow();
+            [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
+            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
+            $ExportCSV | Export-Csv $ExportName;
+        }
+    }
+
+    hidden [void]WriteTimeReport([System.Object[]]$results)
+    {
+        if($null -ne $results)
+        {
+            Write-Host "`n                    TIME REPORT";
+            Write-Host " ------------------------------------------------------ ";
+            Write-Host "|    Date    |      Time In       |      Time Out      |"
+        }
+        for([int]$i = 0;$i -lt $results.Length;$i++)
+        {
+            [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
+            if($results[$i] -ne "Still Timed in"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
+            else{[string]$TimeOut = $results[$i];}
+            Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
+        }
+        if($null -ne $results)
+        {
+            Write-Host " ------------------------------------------------------ `n";
+        }
     }
 }
 class Week

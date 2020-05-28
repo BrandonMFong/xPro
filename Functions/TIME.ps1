@@ -27,15 +27,14 @@ Param
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 $var = GetObjectByClass('Calendar');
 
+if($Report){$var.Report();break;}
+if($Export){$var.Export();break;}
 if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 {
 	if($Login){$var.TimeIn();}
 	if($Logout){$var.TimeOut();}
 	if($View){$var.GetTimeStampDuration();}
-	break;
 }
-if($Report){$var.Report();break;}
-if($Export){$var.Export();break;}
 
 # todo finish
 else 

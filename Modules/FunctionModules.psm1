@@ -100,13 +100,60 @@ function Evaluate($value)
     }
 }
 
-function MakeHash($value,[int]$lvl,$Node)
+function GetAllIntervals([System.Object[]]$Keys)
+{
+    # Goal: 
+    # - Sweep all nodes [X]
+    # - Find nodes and record index []
+    # - sort all nodes in []
+    #   - [0] A to [last index] Z
+    # - implement binary search []
+    [Calculations]$m = [Calculations]::new();
+    $t = @{};
+    $n = @{"Node"="";"Start"="";"End"="";};
+    [bool]$StartFound = $false; [bool]$EndFound = $false;
+    for([int]$i=0;$i -lt $Keys.Length;$i++)
+    {
+        if(![string]::IsNullOrEmpty($Keys[$i].Node) -and [string]::IsNullOrEmpty($n.Node) -and [string]::IsNullOrEmpty($n.Start))
+        {
+            $n.Start = $i.ToString();
+            $n.Node = $Keys[$i].Node;
+            break;
+        }
+
+        # End of the interval. Sort the nodes here
+        if(($n.Node -ne $Keys[$i].Node) -and ![string]::IsNullOrEmpty($n.Node) -and ![string]::IsNullOrEmpty($n.Start)) # If node interval just passed
+        {
+            $n.End = $($i-1).ToString();
+
+            # if Z > A
+            if($m.AsciiToDec($n.Node[0]) -gt $m.AsciiToDec($Keys[$i].Node[0]))
+            {
+                $t.Add($n.Node,$n);
+            }
+            # if Z < A
+            elseif($m.AsciiToDec($n.Node[0]) -lt $m.AsciiToDec($Keys[$i].Node[0]))
+            {
+                # sort
+                $temp = $t;
+                $t = @{};$t.Add($n.Node,$n);$t.
+            }
+            $n = @{"Node"="";"Start"="";"End"="";}; # reset
+        }
+
+    }
+    return $t;
+}
+
+function MakeHash($value,[int]$lvl,[string]$Node)
 {
     $t = @{}; # Init hash object 
+    $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
     
-    if($value.Key.Count -ne $value.Value.Count)
-    {throw "Objects must have equal key and values in config."}
-    elseif($null -ne $Node)
+    if($value.Key.Count -ne $value.Value.Count){throw "Objects must have equal key and values in config."}
+
+    # When there is a node pointer
+    elseif(![string]::IsNullOrEmpty($Node))
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
@@ -121,6 +168,8 @@ function MakeHash($value,[int]$lvl,$Node)
             }
         }
     }
+
+    # For the leaf node
     else 
     {
         # For the corner case where there is only one node
@@ -136,7 +185,6 @@ function MakeHash($value,[int]$lvl,$Node)
             }
         }
     }
-
     return $t;
 }
 

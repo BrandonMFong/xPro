@@ -6,5 +6,5 @@ begin
 end
 else 
 begin 
-    select 0 [Inserted] 
+    select 0 [Inserted];
 end

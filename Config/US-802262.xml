@@ -350,7 +350,7 @@
       <VarName SecType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="true">
         <Calendar>
-          <PathToEventImport>C:\Users\brandon.fong\Brandon.Fong\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport>
+          <PathToEventImport>C:\Users\brandon.fong\Brandon.Fong\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
         </Calendar>
       </Class>

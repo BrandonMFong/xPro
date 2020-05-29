@@ -301,8 +301,12 @@ class Calendar
     {
         [string]$insertquery = $null;
         [string]$tablename = "Calendar"; # hard coding table name
-        $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+
+        # # TODO put below in a class method
+        # $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+        [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+        
         [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
 
         # Adds the actual values to use for the insert query

@@ -14,7 +14,7 @@ class Calendar
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
     [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
-    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports");  
+    hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
     [Week]$ThisWeek;
     [string]$FirstDayString = "Sunday";
 
@@ -58,7 +58,7 @@ class Calendar
         return $hold;
     }
     
-    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}}
+    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ResourceDir)){mkdir $this.ResourceDir;}}
 
     hidden [void] Reset(){$this.WeeksLoaded = $false;}
 
@@ -301,8 +301,12 @@ class Calendar
     {
         [string]$insertquery = $null;
         [string]$tablename = "Calendar"; # hard coding table name
-        $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+
+        # # TODO put below in a class method
+        # $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+        [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+        
         [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
 
         # Adds the actual values to use for the insert query
@@ -353,29 +357,26 @@ class Calendar
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
         $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
-
-        # Two different methods
-        # Select: prints full time stamp report
-        if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
-        if($Method -eq "Export")
-        {
-            $this.GetNow();
-            [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
-            $ExportCSV | Export-Csv $ExportName -Force;
-        }
+        $this.FinalStep($Method,$querystring);
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
         $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
+        $this.FinalStep($Method,$querystring);
+    }
+
+    # Two different methods
+    # Select: prints full time stamp report
+    hidden [Void]FinalStep([string]$Method,[string]$querystring)
+    {
         if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
         if($Method -eq "Export")
         {
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
+            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.TodayString + ".csv");
             $ExportCSV | Export-Csv $ExportName -Force;
         }
     }

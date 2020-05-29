@@ -233,6 +233,10 @@
                   <Value ColumnName="Description">Security Question And Answer</Value>
                   <Value ColumnName="ExternalID">SecurityQA</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="Description">Update Scripts</Value>
+                  <Value ColumnName="ExternalID">UpdateScript</Value>
+                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">
@@ -243,6 +247,13 @@
               <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <!-- format: MMddyyyy -->
               <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="UpdateLog">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Topic" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
             </Table>
           </Tables>
         </SQL>

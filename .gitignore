@@ -6,7 +6,7 @@ VCODE_Powershell.code-workspace
 VC-Powershell.code-workspace
 FTPFromVolta.ps1
 bin/credentials/
-Resources/CalendarImports/*
+Resources/Calendar/*
 Resources/MathImports/*
 ssh.json
 

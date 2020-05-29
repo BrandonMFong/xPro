@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="Machine">
-        <xs:element name="ScriptBlock"/>
+        <xs:element name="ScriptBlock">
+            <xs:attribute name="ScriptID" type="xs:string" use="mandatory"/>
+            <xs:attribute name="Topic" type="xs:string" use="mandatory"/>
+        </xs:element>
     </xs:element>
 </xs:schema>

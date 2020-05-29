@@ -51,6 +51,8 @@ function Reload-Profile {.$PROFILE -StartDir:$false;}
 
 function Toggle-Load 
 {
+    param([switch]$Restart)
     $XMLReader.Machine.LoadProfile = (!$XMLReader.Machine.LoadProfile.ToBoolean($null)).ToString();
     $XMLReader.Save($($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile));
+    if($Restart){Restart-Session;}
 }

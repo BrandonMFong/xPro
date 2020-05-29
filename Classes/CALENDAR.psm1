@@ -336,7 +336,8 @@ class Calendar
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
         [string]$time = $($this.SQL.Query($querystring)).Time;
-        return "$($(Get-Date $time).ToString('HH:mm:ss'))";
+        if($time -eq "0:0:"){return $null;} # when you haven't timed in yet
+        else{return "$($(Get-Date $time).ToString('HH:mm:ss'))";}
     }
 
     [void]Report(){$this.GetTime("Select");}

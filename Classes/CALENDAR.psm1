@@ -13,11 +13,14 @@ class Calendar
     # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
-    [string]$TimeStampFilePath; # this is for timestampt.csv, if I do not have database
+    [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
     hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports");  
+    [Week]$ThisWeek;
+    [string]$FirstDayString = "Sunday";
 
     Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
+        $this.Today = Get-Date;
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig))
         {
@@ -27,6 +30,32 @@ class Calendar
         }
         $this.TimeStampFilePath = $TimeStampFilePath;
         $this.MakeNecessaryDirectories();
+        $this.LoadThisWeek();
+    }
+
+    hidden [void]LoadThisWeek()
+    {
+        # This can potential better the WriteWeek algorithm
+        [DateTime]$Day = $this.GetFirstDayOfWeek();
+        [Day]$su=[Day]::new($Day.AddDays(0),$this.EventConfig);
+        [Day]$mo=[Day]::new($Day.AddDays(1),$this.EventConfig);
+        [Day]$tu=[Day]::new($Day.AddDays(2),$this.EventConfig);
+        [Day]$we=[Day]::new($Day.AddDays(3),$this.EventConfig);
+        [Day]$th=[Day]::new($Day.AddDays(4),$this.EventConfig);
+        [Day]$fr=[Day]::new($Day.AddDays(5),$this.EventConfig);
+        [Day]$sa=[Day]::new($Day.AddDays(6),$this.EventConfig);
+        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+    }
+
+    hidden [DateTime]GetFirstDayOfWeek()
+    {
+        [DateTime]$hold = $this.Today;
+        while($true)
+        {
+            if($hold.DayOfWeek -eq $this.FirstDayString){break;}
+            else{$hold = $hold.AddDays(-1);}
+        }
+        return $hold;
     }
     
     hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}}
@@ -340,7 +369,6 @@ class Calendar
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
         $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
-        $this.WriteTimeReport($this.SQL.Query($querystring));
         if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
         if($Method -eq "Export")
         {
@@ -355,7 +383,8 @@ class Calendar
     {
         if($null -ne $results)
         {
-            Write-Host "`n                    TIME REPORT";
+            Write-Host "`n ------------------------------------------------------ ";
+            Write-Host "|                    TIME REPORT                       |";
             Write-Host " ------------------------------------------------------ ";
             Write-Host "|    Date    |      Time In       |      Time Out      |"
         }
@@ -374,28 +403,13 @@ class Calendar
 }
 class Week
 {
-    [Day]$su;
-    [Day]$mo;
-    [Day]$tu;
-    [Day]$we;
-    [Day]$th;
-    [Day]$fr;
-    [Day]$sa;
+    [Day]$su;[Day]$mo;[Day]$tu;[Day]$we;
+    [Day]$th;[Day]$fr;[Day]$sa;
 
-    Week([Day]$su, 
-        [Day]$mo, 
-        [Day]$tu, 
-        [Day]$we, 
-        [Day]$th, 
-        [Day]$fr, 
-        [Day]$sa)
+    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa)
     {
-        $this.su = $su;
-        $this.mo = $mo;
-        $this.tu = $tu;
-        $this.we = $we;
-        $this.th = $th;
-        $this.fr = $fr;
+        $this.su = $su;$this.mo = $mo;$this.tu = $tu;
+        $this.we = $we;$this.th = $th;$this.fr = $fr;
         $this.sa = $sa;
     }
 
@@ -470,7 +484,7 @@ class Week
 
 class Day
 { 
-    hidden [datetime]$Date;
+    [datetime]$Date;
     [int]$Number;
     [int]$Month;
     [int]$Year;

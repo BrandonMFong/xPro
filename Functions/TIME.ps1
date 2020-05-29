@@ -31,7 +31,8 @@ $var = GetObjectByClass('Calendar');
 
 if($Report)
 {
-	if($Today){$var.Report("$((Get-Date).ToString('MM/dd/yyyy')) 00:00:00.0000000","$((Get-Date).ToString('MM/dd/yyyy')) 12:59:59.9999999");} # this returns two tables
+	if($Today){$var.Report("$((Get-Date).ToString('MM/dd/yyyy')) 00:00:00.0000000","$((Get-Date).AddDays(1).ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
+	elseif($Week){$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
 	else{$var.Report();}
 	break;
 }

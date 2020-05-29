@@ -106,7 +106,7 @@ class SQL
     [System.Object[]]GetTableSchema([string]$tablename)
     {
         # TODO put below in a class method
-        $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
         return $values;
     }
@@ -284,7 +284,7 @@ class SQL
                 foreach($val in $values)
                 {
                     # if column in ID or a datetime, the value will be handled by SQLConvert
-                    if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = "UpdateScript";}
+                    if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = "(select id from TypeContent where externalid = 'UpdateScript')";}
                     if($val.COLUMN_NAME -eq "Topic"){$val.Value = $Script.Topic;}
                     if($val.COLUMN_NAME -eq "ScriptID"){$val.Value = $Script.ScriptID;}
                 }
@@ -301,6 +301,7 @@ class SQL
             }
             catch 
             {
+                $StackTrace;
                 $_;
                 throw "Something bad happened!";
             }
@@ -334,7 +335,7 @@ class SQL
                 [string]$querystring = $null;
                 # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
                 # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
-                [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+                [System.Object[]]$values = $this.GetTableSchema($tablename);
 
                 # Adds the actual values to use for the insert query
                 # There are also checks for other types of 
@@ -386,7 +387,7 @@ class SQL
     {
         $res = $null # reset
         $querystring = "select * from $($tablename) where ExternalID = '$($this.GetExternalIDFromRowConfig($row))'";
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -395,7 +396,7 @@ class SQL
     {
         $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
         $res = $null # reset
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -419,7 +420,7 @@ class SQL
         $querystring = $querystring.Replace("(,", "");
 
         # else all columns are there
-        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;$TableCreated = $true;}
+        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;$TableCreated = $true;}
         if($TableCreated){Write-Host "$($table.Name) is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
@@ -427,7 +428,7 @@ class SQL
     {
         $querystring = "select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)' and COLUMN_NAME = '$($columnname)' ";
         $res = $null;
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -462,7 +463,7 @@ class SQL
         $querystring = $querystring.Replace("$($rep)", ")");
         $querystring = $querystring.Replace("(,", "(");
 
-        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
     }
 
     hidden [void] UpdateLastAccessByGuid([string]$Guid) # Personalinfo

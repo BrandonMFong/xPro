@@ -161,8 +161,8 @@
       <VarName SecType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
-          <!-- <Database>Kiran</Database> -->
-          <Database>TestDB</Database>
+          <Database>Kiran</Database>
+          <!-- <Database>TestDB</Database> -->
           <ServerInstance>US-802262</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
@@ -259,6 +259,7 @@
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="Topic" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
             </Table>
           </Tables>
         </SQL>

@@ -88,7 +88,7 @@ function _Replace
     }
 
     # Time Stamp
-    if($OutString.Value.Contains($tag.timestamp))
+    if($OutString.Value.Contains($tag.stamp))
     {
         $var = GetObjectByClass('Calendar'); # If I want the timestamp, I am assuming it is already configured
         [string]$time = $var.GetTimeStampDuration();

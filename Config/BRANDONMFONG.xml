@@ -160,7 +160,7 @@
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate</SQLConvertFlags>
+          <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -242,10 +242,10 @@
             <Table Name="Calendar">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
               <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
-              <!-- format: MMddyyyy -->
               <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
             <Table Name="UpdateLog">

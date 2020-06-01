@@ -162,11 +162,16 @@ class List
                                 $New = $this.xml.CreateElement("Item");
                                 
                                 # checks for @ indicating that user is creating a new item hierarchy within list
+                                # @ signifies adding a new top item node
                                 if($ID -eq "@")
                                 {
                                     # Passes parent node
                                     $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item.ParentNode)) + 1))
-                                    $New.SetAttribute("rank","$($Item.rank.ToInt16($null))"); # Keeps rank
+
+                                    # This might be null everytime I am adding something new
+                                    if([string]::IsNullOrEmpty($Item.rank)){[string]$Rank = "1"}
+                                    else{[string]$Rank = "$($Item.rank.ToInt16($null))"}
+                                    $New.SetAttribute("rank","$($Rank)"); # Keeps rank
                                 } 
                                 else
                                 {
@@ -178,7 +183,12 @@ class List
                                 $New.SetAttribute("Completed","false");
 
                                 # If creating a new item hierarchy then must append to list node
-                                if($ID -eq "@"){$Item.ParentNode.AppendChild($New);}
+                                if($ID -eq "@")
+                                {
+                                    # Maybe it's null because there is nothing under the list node
+                                    if([String]::IsNullOrEmpty($Item.ParentNode)){$List.AppendChild($New);}
+                                    else{$Item.ParentNode.AppendChild($New);}
+                                }
                                 else{$Item.AppendChild($New);}
 
                                 $this.FoundNode = $true;
@@ -204,6 +214,7 @@ class List
         # If there is only one item in the node, it can't count because its the only leaf in that node
         # This is a temp/bad fix (and ghetto) but it works out
         if([string]::IsNullOrEmpty($Item.Item.Count)){return $Item.Item.ID}
+        elseif([String]::IsNullOrEmpty($Item)){return "@";}
         else{return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));}
     }
 
@@ -242,6 +253,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Tuesday To Do List','B:\Powershell\Config\User\List.xml','ColorCoded')
+# [List]$test = [List]::new('Monday To Do List','B:\Powershell\Config\User\List.xml','ColorCoded')
 # $test.ListOut();
 # $test.Add()

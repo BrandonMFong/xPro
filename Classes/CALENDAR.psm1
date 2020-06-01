@@ -409,8 +409,14 @@ class Calendar
 
     [void]FixTimeStamp()
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FixTimeStamp.sql)";
-        $this.SQL.QueryNoReturn($querystring);
+        Write-Warning "This will insert a time out stamp based on the last null pair.";
+        if('y' -eq $(Read-Host -Prompt 'Do you want to continue?'))
+        {
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FixTimeStamp.sql)";
+            $this.SQL.QueryNoReturn($querystring);
+            Write-Host "Query executed.";
+        }
+        else{Write-Host "Not executing.";}
     }
 }
 class Week

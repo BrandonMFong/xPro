@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Update.xsd">
-  <!-- Used to change value length-->
+  <ScriptBlock Topic="Put value for new TypeContent column (StartDate)" ScriptID="F752AA07-3AC3-43E8-A4EE-6033C380B595">
+    <![CDATA[
+      /*** Put value for new TypeContent column ***/
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'TypeContent') 
+      begin 
+        update TypeContent
+        set StartDate = GETDATE()
+      end
+    ]]>
+  </ScriptBlock>
   <ScriptBlock Topic="Extend varchar data type length" ScriptID="35CA7191-384E-449D-B722-5AFA3D4C0BEF">
     <![CDATA[
       alter table PersonalInfo alter column Value varchar(1000);

@@ -4,6 +4,7 @@
 
 class Calendar
 {
+    # TODO make type [Day]
     [DateTime]$Today;
     hidden [string]$TodayString;
     hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
@@ -301,10 +302,6 @@ class Calendar
     {
         [string]$insertquery = $null;
         [string]$tablename = "Calendar"; # hard coding table name
-
-        # # TODO put below in a class method
-        # $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
         [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
         
         [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
@@ -383,24 +380,37 @@ class Calendar
 
     hidden [void]WriteTimeReport([System.Object[]]$results)
     {
-        if($null -ne $results)
+        try
         {
-            Write-Host "`n ------------------------------------------------------ ";
-            Write-Host "|                    TIME REPORT                       |";
-            Write-Host " ------------------------------------------------------ ";
-            Write-Host "|    Date    |      Time In       |      Time Out      |"
+            if($null -ne $results)
+            {
+                Write-Host "`n ------------------------------------------------------ ";
+                Write-Host "|                    TIME REPORT                       |";
+                Write-Host " ------------------------------------------------------ ";
+                Write-Host "|    Date    |      Time In       |      Time Out      |"
+            }
+            for([int]$i = 0;$i -lt $results.Length;$i++)
+            {
+                [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
+                if($results[$i].TimeOut -ne "--:--:-- --"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
+                else{[string]$TimeOut = $results[$i].TimeOut;}
+                Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
+            }
+            if($null -ne $results)
+            {
+                Write-Host " ------------------------------------------------------ `n";
+            }
         }
-        for([int]$i = 0;$i -lt $results.Length;$i++)
+        catch [System.Management.Automation.ParameterBindingException]
         {
-            [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
-            if($results[$i].TimeOut -ne "--:--:-- --"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
-            else{[string]$TimeOut = $results[$i].TimeOut;}
-            Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
+            throw "You might have not timed out.  Run Fix Time Stamp query, but please check!";
         }
-        if($null -ne $results)
-        {
-            Write-Host " ------------------------------------------------------ `n";
-        }
+    }
+
+    [void]FixTimeStamp()
+    {
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FixTimeStamp.sql)";
+        $this.SQL.QueryNoReturn($querystring);
     }
 }
 class Week

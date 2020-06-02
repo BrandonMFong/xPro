@@ -157,7 +157,7 @@
     <Program Alias="MinStaff" SecType="private">FE39B595-EF33-4DD2-954E-5558D0C22509</Program>
     <Program Alias="ConnectNetDrive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\ReconnectNetDrives.ps1</Program>
     <Program Alias="Pull-CC" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\GitPullCC.ps1</Program>
-    <Program Alias="vc-powershell" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\VC-Powershell.code-workspace</Program>
+    <Program Alias="VC-Powershell" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\VC-Powershell.code-workspace</Program>
     <Program Alias="Teams" SecType="public">C:\Users\brandon.fong\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->

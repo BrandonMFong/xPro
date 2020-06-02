@@ -1,4 +1,12 @@
 
+Issue: Emails not bounded
+    Fix Commit:  
+    Branch:  
+    Status: Open
+    Notes: 
+        - the bounded list switch is not setting the limit
+    Post:
+
 Issue: Event not popping up on calendar
     Fix Commit:  b654f59
     Branch:  

@@ -4,6 +4,7 @@
 
 class Calendar
 {
+    # TODO make type [Day]
     [DateTime]$Today;
     hidden [string]$TodayString;
     hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
@@ -13,11 +14,14 @@ class Calendar
     # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
-    [string]$TimeStampFilePath; # this is for timestampt.csv, if I do not have database
-    hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\CalendarImports");  
+    [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
+    hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
+    [Week]$ThisWeek;
+    [string]$FirstDayString = "Sunday";
 
     Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
+        $this.Today = Get-Date;
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig))
         {
@@ -27,9 +31,35 @@ class Calendar
         }
         $this.TimeStampFilePath = $TimeStampFilePath;
         $this.MakeNecessaryDirectories();
+        $this.LoadThisWeek();
+    }
+
+    hidden [void]LoadThisWeek()
+    {
+        # This can potential better the WriteWeek algorithm
+        [DateTime]$Day = $this.GetFirstDayOfWeek();
+        [Day]$su=[Day]::new($Day.AddDays(0),$this.EventConfig);
+        [Day]$mo=[Day]::new($Day.AddDays(1),$this.EventConfig);
+        [Day]$tu=[Day]::new($Day.AddDays(2),$this.EventConfig);
+        [Day]$we=[Day]::new($Day.AddDays(3),$this.EventConfig);
+        [Day]$th=[Day]::new($Day.AddDays(4),$this.EventConfig);
+        [Day]$fr=[Day]::new($Day.AddDays(5),$this.EventConfig);
+        [Day]$sa=[Day]::new($Day.AddDays(6),$this.EventConfig);
+        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+    }
+
+    hidden [DateTime]GetFirstDayOfWeek()
+    {
+        [DateTime]$hold = $this.Today;
+        while($true)
+        {
+            if($hold.DayOfWeek -eq $this.FirstDayString){break;}
+            else{$hold = $hold.AddDays(-1);}
+        }
+        return $hold;
     }
     
-    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ImportDir)){mkdir $this.ImportDir;}}
+    hidden [void]MakeNecessaryDirectories(){if(!(Test-Path $this.ResourceDir)){mkdir $this.ResourceDir;}}
 
     hidden [void] Reset(){$this.WeeksLoaded = $false;}
 
@@ -272,8 +302,8 @@ class Calendar
     {
         [string]$insertquery = $null;
         [string]$tablename = "Calendar"; # hard coding table name
-        $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+        [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+        
         [string]$CalendarExtID = $((Get-Date -Format "MMddyyyy").ToString()); # DateTime ExternalID (format MMddyyyy)
 
         # Adds the actual values to use for the insert query
@@ -303,11 +333,12 @@ class Calendar
 
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
     [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
-    [void]GetTimeStampDuration()
+    [string]GetTimeStampDuration()
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
         [string]$time = $($this.SQL.Query($querystring)).Time;
-        Write-Host "Log Time: $($(Get-Date $time).ToString('HH:mm:ss'))";
+        if($time -eq "0:0:"){return $null;} # when you haven't timed in yet
+        else{return "$($(Get-Date $time).ToString('HH:mm:ss'))";}
     }
 
     [void]Report(){$this.GetTime("Select");}
@@ -323,79 +354,80 @@ class Calendar
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
         $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
-
-        # Two different methods
-        # Select: prints full time stamp report
-        if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
-        if($Method -eq "Export")
-        {
-            $this.GetNow();
-            [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
-            $ExportCSV | Export-Csv $ExportName -Force;
-        }
+        $this.FinalStep($Method,$querystring);
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
         $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
-        $this.WriteTimeReport($this.SQL.Query($querystring));
+        $this.FinalStep($Method,$querystring);
+    }
+
+    # Two different methods
+    # Select: prints full time stamp report
+    hidden [Void]FinalStep([string]$Method,[string]$querystring)
+    {
         if($Method -eq "Select"){$this.WriteTimeReport($this.SQL.Query($querystring));}
         if($Method -eq "Export")
         {
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ImportDir + "\Time_" + $this.TodayString + ".csv");
+            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.TodayString + ".csv");
             $ExportCSV | Export-Csv $ExportName -Force;
         }
     }
 
     hidden [void]WriteTimeReport([System.Object[]]$results)
     {
-        if($null -ne $results)
+        try
         {
-            Write-Host "`n                    TIME REPORT";
-            Write-Host " ------------------------------------------------------ ";
-            Write-Host "|    Date    |      Time In       |      Time Out      |"
+            if($null -ne $results)
+            {
+                Write-Host "`n ------------------------------------------------------ ";
+                Write-Host "|                    TIME REPORT                       |";
+                Write-Host " ------------------------------------------------------ ";
+                Write-Host "|    Date    |      Time In       |      Time Out      |"
+            }
+            for([int]$i = 0;$i -lt $results.Length;$i++)
+            {
+                [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
+                if($results[$i].TimeOut -ne "--:--:-- --"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
+                else{[string]$TimeOut = $results[$i].TimeOut;}
+                Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
+            }
+            if($null -ne $results)
+            {
+                Write-Host " ------------------------------------------------------ `n";
+            }
         }
-        for([int]$i = 0;$i -lt $results.Length;$i++)
+        catch [System.Management.Automation.ParameterBindingException]
         {
-            [string]$TimeIn =  $(Get-Date $results[$i].TimeIn -Format "hh:mm:ss tt");
-            if($results[$i].TimeOut -ne "--:--:-- --"){[string]$TimeOut =  $(Get-Date $results[$i].TimeOut -Format "hh:mm:ss tt");}
-            else{[string]$TimeOut = $results[$i].TimeOut;}
-            Write-Host "| $($results[$i].Date) |     $($TimeIn)    |     $($TimeOut)    |"
+            throw "You might have not timed out.  Run Fix Time Stamp query, but please check!";
         }
-        if($null -ne $results)
+    }
+
+    [void]FixTimeStamp()
+    {
+        Write-Warning "This will insert a time out stamp based on the last null pair.";
+        if('y' -eq $(Read-Host -Prompt 'Do you want to continue?'))
         {
-            Write-Host " ------------------------------------------------------ `n";
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FixTimeStamp.sql)";
+            $this.SQL.QueryNoReturn($querystring);
+            Write-Host "Query executed.";
         }
+        else{Write-Host "Not executing.";}
     }
 }
 class Week
 {
-    [Day]$su;
-    [Day]$mo;
-    [Day]$tu;
-    [Day]$we;
-    [Day]$th;
-    [Day]$fr;
-    [Day]$sa;
+    [Day]$su;[Day]$mo;[Day]$tu;[Day]$we;
+    [Day]$th;[Day]$fr;[Day]$sa;
 
-    Week([Day]$su, 
-        [Day]$mo, 
-        [Day]$tu, 
-        [Day]$we, 
-        [Day]$th, 
-        [Day]$fr, 
-        [Day]$sa)
+    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa)
     {
-        $this.su = $su;
-        $this.mo = $mo;
-        $this.tu = $tu;
-        $this.we = $we;
-        $this.th = $th;
-        $this.fr = $fr;
+        $this.su = $su;$this.mo = $mo;$this.tu = $tu;
+        $this.we = $we;$this.th = $th;$this.fr = $fr;
         $this.sa = $sa;
     }
 
@@ -470,7 +502,7 @@ class Week
 
 class Day
 { 
-    hidden [datetime]$Date;
+    [datetime]$Date;
     [int]$Number;
     [int]$Month;
     [int]$Year;

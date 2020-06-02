@@ -22,20 +22,27 @@ Param
 	[Alias('C')][Switch]$Clear, 
 	[Alias('A')][Switch]$Archive, 
 	[Alias('R')][Switch]$Report, 
+	[Alias('T')][Switch]$Today, 
+	[Alias('W')][Switch]$Week, 
 	[Alias('E')][Switch]$Export
 )
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 $var = GetObjectByClass('Calendar');
 
+if($Report)
+{
+	if($Today){$var.Report("$((Get-Date).ToString('MM/dd/yyyy')) 00:00:00.0000000","$((Get-Date).AddDays(1).ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
+	elseif($Week){$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
+	else{$var.Report();}
+	break;
+}
+if($Export){$var.Export();break;}
 if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 {
 	if($Login){$var.TimeIn();}
 	if($Logout){$var.TimeOut();}
-	if($View){$var.GetTimeStampDuration();}
-	break;
+	if($View){Write-Host "Log Time: $($var.GetTimeStampDuration())";}
 }
-if($Report){$var.Report();break;}
-if($Export){$var.Export();break;}
 
 # todo finish
 else 

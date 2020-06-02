@@ -73,8 +73,9 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
-        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+        # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
+        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
+        [System.Object[]]$values = $this.GetTableSchema($table);
 
         # Prompt user what values they want to insert per column
         foreach($val in $values)
@@ -102,6 +103,14 @@ class SQL
         return $res; # display
     }
 
+    [System.Object[]]GetTableSchema([string]$tablename)
+    {
+        # TODO put below in a class method
+        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+        return $values;
+    }
+
     hidden [boolean] IsIgnoredTypes($val)
     {
         return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
@@ -126,6 +135,7 @@ class SQL
 
         $table = $tablestochoosefrom[$index - 1].ItemArray;
 
+        # Can I use GetTableSchema on this?
         $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value, WantToSee); # add another column
 
@@ -167,7 +177,12 @@ class SQL
                 else{$string = "$($val.Value)";}
                 break;
             }
-            "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
+            "uniqueidentifier"
+            {
+                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){$string = "'$($val.Value)'"; } # Guid from user, so no auto guid applied
+                else{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";}
+                break;
+            }
             "varchar"{$string = "'$($val.Value)'";break;}
             "datetime"
             {
@@ -253,29 +268,48 @@ class SQL
         return $result.Item("Value");
     }
 
-    SyncConfig()
+    [void]UpdateQueries()
     {
         # Update Scripts
-        Push-Location $PSScriptRoot\..\SQLQueries
-            [Xml]$Update = Get-Content Update.xml;
-            Write-Host "`n";
-            Write-Verbose "UPDATING DATABASE START" -Verbose:$this.UpdateVerbose;
-            foreach($Script in $Update.Machine.ScriptBlock)
+        [Xml]$Update = Get-Content $PSScriptRoot\..\SQLQueries\Update.xml;
+        Write-Host "`n";
+        foreach($Script in $Update.Machine.ScriptBlock)
+        {
+            try
             {
-                try
+                # Insert rows into UpdateLog table
+                # Purpose of not running the script when it was already done
+                [string]$tablename = 'UpdateLog';
+                [System.Object[]]$values = $this.GetTableSchema($tablename);
+                foreach($val in $values)
                 {
-                    $this.QueryNoReturn($Script.'#cdata-section');
-                    Write-Verbose "Executing : {$($Script.'#cdata-section')}" -Verbose:$this.UpdateVerbose;
+                    # if column in ID or a datetime, the value will be handled by SQLConvert
+                    if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = "(select id from TypeContent where externalid = 'UpdateScript')";}
+                    if($val.COLUMN_NAME -eq "Topic"){$val.Value = $Script.Topic;}
+                    if($val.COLUMN_NAME -eq "ScriptID"){$val.Value = $Script.ScriptID;}
                 }
-                catch 
+                [string]$InsertUpdateLog = $null;
+                $this.QueryConstructor("Insert",[ref]$InsertUpdateLog,$tablename,$values); # Construct the log
+                [string]$updatestring = Get-Content $PSScriptRoot\..\SQLQueries\UpdateLogExist.sql; # Get query structure
+                $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
+                $updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); # Put Script block
+                $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
+                if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
                 {
-                    throw "Something bad happened!";
+                    Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
                 }
             }
-            Write-Verbose "UPDATING DATABASE END" -Verbose:$this.UpdateVerbose;
-            Write-Host "`n";
-        Pop-Location;
-
+            catch 
+            {
+                $StackTrace;
+                $_;
+                throw "Something bad happened!";
+            }
+        }
+        Write-Host "`n";
+    }
+    SyncConfig()
+    {
         foreach($table in $this.tables.Table)
         {
 
@@ -287,6 +321,7 @@ class SQL
             # Cannot remove rows, must do that in the xml file provided under the sql directory
             $this.InsertRows($table,$table.Name);
         }
+        $this.UpdateQueries();
     }
 
     # Reads config for rows config and creates multiple insert queries for each row config
@@ -298,8 +333,10 @@ class SQL
             if(!$this.DoesRowExist($Row,$tablename)) # if row does not exist then insert the row
             {
                 [string]$querystring = $null;
-                $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-                $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+                # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
+                # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+                [System.Object[]]$values = $this.GetTableSchema($tablename);
+
                 # Adds the actual values to use for the insert query
                 # There are also checks for other types of 
                 foreach($val in $values)
@@ -350,7 +387,7 @@ class SQL
     {
         $res = $null # reset
         $querystring = "select * from $($tablename) where ExternalID = '$($this.GetExternalIDFromRowConfig($row))'";
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -359,7 +396,7 @@ class SQL
     {
         $querystring = "select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '$($t)'";
         $res = $null # reset
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -383,7 +420,7 @@ class SQL
         $querystring = $querystring.Replace("(,", "");
 
         # else all columns are there
-        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;$TableCreated = $true;}
+        if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;$TableCreated = $true;}
         if($TableCreated){Write-Host "$($table.Name) is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
@@ -391,7 +428,7 @@ class SQL
     {
         $querystring = "select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)' and COLUMN_NAME = '$($columnname)' ";
         $res = $null;
-        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
     }
@@ -409,7 +446,7 @@ class SQL
     }
     hidden [string]IsFK($val) 
     {
-        if($val.IsForeignKey -eq "true"){return "PRIMARY KEY"}
+        if($val.IsForeignKey -eq "true"){return "FOREIGN KEY"}
         else {return ""}
     }
 
@@ -426,7 +463,7 @@ class SQL
         $querystring = $querystring.Replace("$($rep)", ")");
         $querystring = $querystring.Replace("(,", "(");
 
-        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose;
+        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
     }
 
     hidden [void] UpdateLastAccessByGuid([string]$Guid) # Personalinfo

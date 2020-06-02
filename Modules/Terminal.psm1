@@ -63,17 +63,20 @@ function _Replace
     if($OutString.Value.Contains($tag.gitbranch))
     {
         [string]$BranchString = $null;
-        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)"; # This checks if we are in a branch
         if(![string]::IsNullOrEmpty($BranchString))
         {
-            [string]$gitchanges = $null;
             $gitchangesUnstaged = "$(git diff --exit-code)";
             $gitchangesStaged = "$(git diff --cached)";
+            [string[]]$gitchangesCommits = git log "@{u}.." --oneline;
             if(![string]::IsNullOrEmpty($gitchangesUnstaged) -or ![string]::IsNullOrEmpty($gitchangesStaged)){$BranchString += "*";} # for changes
-            if(![string]::IsNullOrEmpty($gitchanges)){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesStaged) -and !$BranchString.Contains('*')){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesCommits)){$BranchString += ", commits: $($gitchangesCommits.Length)";} # for changes
+
+            # Add to Outstring
             if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
             {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
-            else{[string]$gitstring = " ($($BranchString)) ";}
+            else{[string]$gitstring = " ($($BranchString)) ";} # Default is ()
             $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
         }
         else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}

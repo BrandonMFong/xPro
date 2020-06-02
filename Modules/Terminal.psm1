@@ -149,5 +149,3 @@ function prompt
         return " ";
     }
 }
-
-# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/

@@ -4,7 +4,7 @@
 .Description
     With this list you can toggle switches to access the essential parts of the List class.
 .Notes
-    You must have the list class configured
+    You must have the list class configured and it must be named 'Todo'
 #>
 Param([switch]$Tomorrow,[Switch]$All,[switch]$Mark,[switch]$Delete,[switch]$Add,[switch]$Yesterday)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Global;

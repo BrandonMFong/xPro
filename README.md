@@ -221,7 +221,9 @@ Have everything on the command line
 * **Quickly hop over to a directory using *goto* function**
     Cmd Line
     ```
-    [Kiran Analytics] Powershell (master*) >_ goto main                                                                                         [Kiran Analytics] Brandon.Fong>_ (pwd).Path                                                                                                 C:\Users\brandon.fong\Brandon.Fong
+    [Kiran Analytics] Powershell (master*) >_ goto main                                                                                         
+    [Kiran Analytics] Brandon.Fong>_ (pwd).Path                                                                                                 
+    C:\Users\brandon.fong\Brandon.Fong
 
     ```
     Config

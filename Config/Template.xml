@@ -1,232 +1,65 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="BRANDONMFONG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript ClearHost="false">\StartScripts\BRANDONMFONG.ps1</StartScript>
-  <Prompt>
-    <DateFormat></DateFormat>
-    <String Color=""></String>
-  </Prompt>
+<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+  <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
+  <!-- Terminal Settings -->
+  <ShellSettings>
+    <Format>
+      <Date></Date>
+      <Time></Time>
+    </Format>
+    <Header Enabled="True">
+      <String></String>
+    </Header>
+    <Prompt Enabled="True">
+      <BaterryLifeThreshold Enabled="true"></BaterryLifeThreshold>
+      <String Color="Cyan"></String>
+    </Prompt>
+    <ShellColors>
+      <BackgroundColor></BackgroundColor>
+      <ForegroundColor></ForegroundColor>
+      <ProgressForegroundColor></ProgressForegroundColor>
+      <ProgressBackgroundColor></ProgressBackgroundColor>
+    </ShellColors>
+    <StartDirectory></StartDirectory>
+    <GitSettings>
+      <Unstaged></Unstaged>
+      <Staged></Staged>
+      <Commits></Commits>
+    </GitSettings>
+  </ShellSettings>
+  <Weather>
+    <Area></Area>
+  </Weather>
+  <Email>
+    <IncludeFields>
+      <To></To>
+      <CC></CC>
+      <From></From>
+      <Subject></Subject>
+      <Body></Body>
+    </IncludeFields>
+    <ListInboxMax></ListInboxMax>
+    <ListOrderBy></ListOrderBy>
+  </Email>
+  <Modules>
+    <Module></Module>
+  </Modules>
   <!-- Directory paths -->
   <Directories>
-    <!-- Manadatory Directory Aliases for functions/Classes -->
-    <Directory alias="PowershellRepoPath" SecType="public">B:\Powershell</Directory>
+    <Directory Alias="" SecType=""></Directory>
   </Directories>
+  <!-- Programs to call exectuables, scripts, etc -->
+  <Programs>
+    <!-- Third Party Programs -->
+    <Program Alias="" SecType=""></Program>
+  </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
+  <Objects Database="" ServerInstance="">
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
-      <!--Key and Value-->
-      <Key Lvl="0" SecType="public">StandardUserName</Key>
-      <Value Lvl="0" SecType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
-      <Key Lvl="0" SecType="public">LoweredStandardUserName</Key>
-      <Value Lvl="0" SecType="private">7e15fcbb-2f72-4737-aa51-ee3e3d118e0f</Value>
-      <!-- Frequently Used Links -->
-      <Key Lvl="0" SecType="public">Gmail</Key>
-      <Value Lvl="0" SecType="public">https://mail.google.com/mail</Value>
-      <Key Lvl="0" SecType="public">Netflix</Key>
-      <Value Lvl="0" SecType="public">https://Netflix.com</Value>
-      <Key Lvl="0" SecType="public">Youtube</Key>
-      <Value Lvl="0" SecType="public">https://Youtube.com</Value>
-      <Key Lvl="0" SecType="public">Facebook</Key>
-      <Value Lvl="0" SecType="public">https://facebook.com</Value>
-      <Key Lvl="0" SecType="public">GoogleDrive</Key>
-      <Value Lvl="0" SecType="public">https://drive.google.com/drive/u/0/my-drive</Value>
-      <Key Lvl="0" SecType="public">DisneyPlus</Key>
-      <Value Lvl="0" SecType="public">https://www.disneyplus.com</Value>
-      <Key Lvl="0" SecType="public">Hulu</Key>
-      <Value Lvl="0" SecType="public">https://www.hulu.com</Value>
-      <Key Lvl="0" SecType="public">Slack</Key>
-      <Value Lvl="0" SecType="public">https://dualpowergeneration.slack.com</Value>
-      <Key Lvl="0" SecType="public">YES</Key>
-      <Value Lvl="0" SecType="public">https://dualpowergeneration.sdsu.edu</Value>
-      <Key Lvl="0" SecType="public">iCloud</Key>
-      <Value Lvl="0" SecType="public">https://www.icloud.com/</Value>
-      <Key Lvl="0" SecType="public">GoogleCloud</Key>
-      <Value Lvl="0" SecType="public">https://cloud.google.com</Value>
-      <Key Lvl="0" SecType="public">VNC</Key>
-      <Value Lvl="0" SecType="public">https://www.realvnc.com/en/</Value>
-      <Key Lvl="0" SecType="public">IPChicken</Key>
-      <Value Lvl="0" SecType="public">https://ipchicken.com/</Value>
-      <Key Lvl="0" SecType="public">GoogleCalendars</Key>
-      <Value Lvl="0" SecType="public">https://calendar.google.com/calendar</Value>
-      <Key Lvl="0" SecType="public">GoogleHangout</Key>
-      <Value Lvl="0" SecType="public">https://hangouts.google.com/</Value>
-      <!--Emails-->
-      <Key Lvl="0" SecType="public">Emails</Key>
-      <Value Lvl="0" SecType="public" NodePointer="e2fb" />
-      <Key Lvl="1" Node="e2fb" SecType="public">Personal</Key>
-      <Value Lvl="1" Node="e2fb" SecType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Value>
-      <Key Lvl="1" Node="e2fb" SecType="public">Professional</Key>
-      <Value Lvl="1" Node="e2fb" SecType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
-      <Key Lvl="1" Node="e2fb" SecType="public">Music</Key>
-      <Value Lvl="1" Node="e2fb" SecType="private">2508beb5-3958-48d5-931b-c7b55efa7c92</Value>
-      <Key Lvl="1" Node="e2fb" SecType="public">Work</Key>
-      <Value Lvl="1" Node="e2fb" SecType="private">340861de-d4f9-43a3-badd-d0945e3e392a</Value>
-      <Key Lvl="1" Node="e2fb" SecType="public">SDSU</Key>
-      <Value Lvl="1" Node="e2fb" SecType="private">d5e56cab-19a1-4d1f-aabc-eec6793cf439</Value>
-      <Key Lvl="1" Node="e2fb" SecType="public">Passwords</Key>
-      <Value Lvl="1" Node="e2fb" SecType="public" NodePointer="48d5" />
-      <Key Lvl="2" Node="48d5" SecType="public">Professional</Key>
-      <Value Lvl="2" Node="48d5" SecType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
-      <!--LIFE-->
-      <Key Lvl="0" SecType="public">LIFE</Key>
-      <Value Lvl="0" SecType="public" NodePointer="1376" />
-      <Key Lvl="1" Node="1376" SecType="public">HousePortal</Key>
-      <Value Lvl="1" Node="1376" SecType="public">https://sdsu4rent.com/tenants</Value>
-      <Key Lvl="1" Node="1376" SecType="public">UCSDHealth</Key>
-      <Value Lvl="1" Node="1376" SecType="public">https://ucsdhealth.samaritan.com/custom/527/#/volunteer_login</Value>
-      <!--Hostinger-->
-      <Key Lvl="0" SecType="public">Hostinger</Key>
-      <Value Lvl="0" SecType="public" NodePointer="d4f9" />
-      <Key Lvl="1" Node="d4f9" SecType="public">URL</Key>
-      <Value Lvl="1" Node="d4f9" SecType="public">https://www.hostinger.com/cpanel-login</Value>
-      <Key Lvl="1" Node="d4f9" SecType="public">DatabaseURL</Key>
-      <Value Lvl="1" Node="d4f9" SecType="public">https://auth-db221.hostinger.com/</Value>
-      <Key Lvl="1" Node="d4f9" SecType="public">SSHUsername</Key>
-      <Value Lvl="1" Node="d4f9" SecType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
-      <Key Lvl="1" Node="d4f9" SecType="public">Password</Key>
-      <Value Lvl="1" Node="d4f9" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
-      <!--Chase-->
-      <Key Lvl="0" SecType="public">Chase</Key>
-      <Value Lvl="0" SecType="public" NodePointer="de41" />
-      <Key Lvl="1" Node="de41" SecType="public">Username</Key>
-      <Value Lvl="1" Node="de41" SecType="private">d391a359-7973-4592-a6b2-21f568fe966c</Value>
-      <Key Lvl="1" Node="de41" SecType="public">URL</Key>
-      <Value Lvl="1" Node="de41" SecType="public">https://www.chase.com/</Value>
-      <Key Lvl="1" Node="de41" SecType="public">Password</Key>
-      <Value Lvl="1" Node="de41" SecType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
-      <!--Taxact-->
-      <Key Lvl="0" SecType="public">Taxact</Key>
-      <Value Lvl="0" SecType="public" NodePointer="7973" />
-      <Key Lvl="1" Node="7973" SecType="public">URL</Key>
-      <Value Lvl="1" Node="7973" SecType="public">https://www.taxact.com/</Value>
-      <Key Lvl="1" Node="7973" SecType="public">Username</Key>
-      <Value Lvl="1" Node="7973" SecType="private">F139B118-40C4-4293-9A60-498FEA8AE1B7</Value>
-      <Key Lvl="1" Node="7973" SecType="public">Password</Key>
-      <Value Lvl="1" Node="7973" SecType="private">53A9CF28-D09B-48F4-9BD5-DDC04E496039</Value>
-      <!--LinkedIn-->
-      <Key Lvl="0" SecType="public">LinkedIn</Key>
-      <Value Lvl="0" SecType="public" NodePointer="D09B" />
-      <Key Lvl="1" Node="D09B" SecType="public">URL</Key>
-      <Value Lvl="1" Node="D09B" SecType="public">https://www.linkedin.com/nhome/</Value>
-      <Key Lvl="1" Node="D09B" SecType="public">Profile</Key>
-      <Value Lvl="1" Node="D09B" SecType="public">https://www.linkedin.com/in/brandonmfong/</Value>
-      <!--GitHub-->
-      <Key Lvl="0" SecType="public">GitHub</Key>
-      <Value Lvl="0" SecType="public" NodePointer="40C4" />
-      <Key Lvl="1" Node="40C4" SecType="public">URL</Key>
-      <Value Lvl="1" Node="40C4" SecType="public">https://github.com/</Value>
-      <Key Lvl="1" Node="40C4" SecType="public">Profile</Key>
-      <Value Lvl="1" Node="40C4" SecType="public">https://github.com/BrandonMFong</Value>
-      <!--NoIP-->
-      <Key Lvl="0" SecType="public">NoIP</Key>
-      <Value Lvl="0" SecType="public" NodePointer="4293" />
-      <Key Lvl="1" Node="4293" SecType="public">URL</Key>
-      <Value Lvl="1" Node="4293" SecType="public">https://www.noip.com/</Value>
-      <Key Lvl="1" Node="4293" SecType="public">Email</Key>
-      <Value Lvl="1" Node="4293" SecType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
-      <Key Lvl="1" Node="4293" SecType="public">Password</Key>
-      <Value Lvl="1" Node="4293" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
-      <!--WeCollect-->
-      <Key Lvl="0" SecType="public">WeCollect</Key>
-      <Value Lvl="0" SecType="public" NodePointer="0435" />
-      <Key Lvl="1" Node="0435" SecType="public">Email</Key>
-      <Value Lvl="1" Node="0435" SecType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Value>
-      <Key Lvl="1" Node="0435" SecType="public">Password</Key>
-      <Value Lvl="1" Node="0435" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
-      <!--WifiCOX-->
-      <Key Lvl="0" SecType="public">WifiCOX</Key>
-      <Value Lvl="0" SecType="public" NodePointer="de41" />
-      <Key Lvl="1" Node="de41" SecType="public">UserID</Key>
-      <Value Lvl="1" Node="de41" SecType="private">7caa5f82-b906-4467-b4e5-69e908abab3e</Value>
-      <Key Lvl="1" Node="de41" SecType="public">PIN</Key>
-      <Value Lvl="1" Node="de41" SecType="private">b3c5908c-dd09-4987-9f57-cc5e55dd1c24</Value>
-      <Key Lvl="1" Node="de41" SecType="public">Password</Key>
-      <Value Lvl="1" Node="de41" SecType="private">aef1c23e-408f-4eda-a51c-8867240ccb6f</Value>
-      <Key Lvl="1" Node="de41" SecType="public">URL</Key>
-      <Value Lvl="1" Node="de41" SecType="public">https://wifi.cox.com</Value>
-      <!--Router-->
-      <Key Lvl="0" SecType="public">Router</Key>
-      <Value Lvl="0" SecType="public" NodePointer="408f" />
-      <Key Lvl="1" Node="408f" SecType="public">Password</Key>
-      <Value Lvl="1" Node="408f" SecType="public">c555faf3-4dac-468c-817e-c12ff84a1217</Value>
-      <!--Microsoft-->
-      <Key Lvl="0" SecType="public">Microsoft</Key>
-      <Value Lvl="0" SecType="public" NodePointer="4dac" />
-      <Key Lvl="1" Node="4dac" SecType="private">94edc712-0435-4574-80ad-fbb1aab3dc20</Key>
-      <Value Lvl="1" Node="4dac" SecType="private" NodePointer="817e">ca16b2ba-f675-4257-a84f-2107311b43a9</Value>
-      <Key Lvl="1" Node="4dac" SecType="private">c4a21f9b-1376-41db-a7a6-4bbaf09e1dd8</Key>
-      <Value Lvl="1" Node="4dac" SecType="private" NodePointer="817e">9517939F-B925-4A5D-8A95-8F101B6D63AF</Value>
-    </Object>
-    
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
-    <!-- $Math -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
-    </Object>
-    <!-- $Query -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Query</VarName>
-      <Class ClassName="SQL" HasParams="true">
-        <SQL>
-          <Database>BrandonMFong</Database>
-          <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
-          <Tables>
-            <PersonalInfo>PersonalInfo</PersonalInfo>
-            <TypeContent>TypeContent</TypeContent>
-          </Tables>
-        </SQL>
-      </Class>
-    </Object>
-    <!-- $Windows -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Windows</VarName>
-      <Class ClassName="Windows" HasParams="false" />
-    </Object>
-    <!-- $Calendar -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Calendar</VarName>
-      <Class ClassName="Calendar" HasParams="false" />
-    </Object>
-    <!-- $GithubRoadMap -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">GithubRoadMap</VarName>
-      <Class ClassName="List" HasParams="true">
-        <Title>Git Hub Roadmap - GlobalScripts</Title>
-      </Class>
+      <Key Lvl="0" SecType="public">Name</Key>
+      <Value Lvl="0" SecType="private">EED5A3CB-FB2B-4E81-8B99-A0EA10FDE10D</Value>
     </Object>
   </Objects>
-  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
-  <Programs>
-    <Program Alias="Vim" Type="External">C:\Program Files (x86)\vim\vim80\vim.exe</Program>
-  </Programs>
-  <!--Modules to include, mainly just for small functions-->
-  <Modules>
-    <Module>\Modules\Miscellaneous.psm1</Module>
-  </Modules>
-  <Lists>
-    <!-- Git Hub Roadmap - GlobalScripts -->
-    <List Title="Git Hub Roadmap - GlobalScripts">
-      <Item rank="1" name="Version 2" Completed="false">
-        <Item rank="2" name="Weather" Completed="false"/>
-        <Item rank="2" name="SQL Class edit add and drop tables based on config" Completed="false"/>
-        <Item rank="2" name="Make readme" Completed="false"/>
-      </Item>
-      <Item rank="1" name="Version 1" Completed="true">
-        <Item rank="2" name="Publish other config" Completed="true"/>
-        <Item rank="2" name="List class" Completed="true"/>
-        <Item rank="2" name="Make readme" Completed="true"/>
-      </Item>
-    </List>
-  </Lists>
-  <Calendar>
-    <SpecialDays>
-      <SpecialDay name="New Years">1/1/2020</SpecialDay>
-    </SpecialDays>
-  </Calendar>
 </Machine>

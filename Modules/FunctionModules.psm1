@@ -100,6 +100,7 @@ function Evaluate($value)
     }
 }
 
+# Hmmmmm, what if a node is on difference indexes
 function GetAllIntervals([System.Object[]]$Keys)
 {
     # Goal: 
@@ -108,41 +109,50 @@ function GetAllIntervals([System.Object[]]$Keys)
     # - sort all nodes in []
     #   - [0] A to [last index] Z
     # - implement binary search []
-    [Calculations]$m = [Calculations]::new();
-    $t = @{};
-    $n = @{"Node"="";"Start"="";"End"="";};
+    $t = [Ordered]@{};
+    $n = @{"Node"="";"Start"="";"End"="";}; # New node
     [bool]$StartFound = $false; [bool]$EndFound = $false;
     for([int]$i=0;$i -lt $Keys.Length;$i++)
     {
+        # If the key has a node, the $n object node is empty and the $n start is empty
         if(![string]::IsNullOrEmpty($Keys[$i].Node) -and [string]::IsNullOrEmpty($n.Node) -and [string]::IsNullOrEmpty($n.Start))
         {
             $n.Start = $i.ToString();
             $n.Node = $Keys[$i].Node;
-            break;
         }
 
         # End of the interval. Sort the nodes here
         if(($n.Node -ne $Keys[$i].Node) -and ![string]::IsNullOrEmpty($n.Node) -and ![string]::IsNullOrEmpty($n.Start)) # If node interval just passed
         {
             $n.End = $($i-1).ToString();
-
-            # if Z > A
-            if($m.AsciiToDec($n.Node[0]) -gt $m.AsciiToDec($Keys[$i].Node[0]))
-            {
-                $t.Add($n.Node,$n);
-            }
-            # if Z < A
-            elseif($m.AsciiToDec($n.Node[0]) -lt $m.AsciiToDec($Keys[$i].Node[0]))
-            {
-                # sort
-                $temp = $t;
-                $t = @{};$t.Add($n.Node,$n);$t.
-            }
+            SortHash -t ([ref]$t) -n ([ref]$n) -index:0 -Key $Keys[$i];
             $n = @{"Node"="";"Start"="";"End"="";}; # reset
         }
 
     }
     return $t;
+}
+
+# The higher the alphabet, the higher the index
+# So 'A' would be [0]
+function SortHash([ref]$t,[ref]$n,[int]$index,[System.Xml.XmlElement]$Key)
+{
+    [Calculations]$m = [Calculations]::new();
+    # if Z > A
+    # If the saved node is greater than the next node
+    if($m.AsciiToDec($n.Value.Node[$index]) -gt $m.AsciiToDec($Key.Node[$index])){$t.Value.Add($n.Value.Node,$n);}
+
+    # if Z < A
+    # If the saved node is less than the next node
+    elseif($m.AsciiToDec($n.Value.Node[$index]) -lt $m.AsciiToDec($Key.Node[$index]))
+    {
+        # sort
+        $temp = $t.Value;
+        $t.Value = @{};
+        $t.Value.Add($n.Value.Node,$n);
+        $t = $t + $temp; # Add on top of old
+    }
+    else{SorHash -t ([ref]$t) -n ([ref]$n) -index:$($index+1) -Key:$Key;}
 }
 
 function MakeHash($value,[int]$lvl,[string]$Node)

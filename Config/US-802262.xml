@@ -21,6 +21,11 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>C:\Users\brandon.fong\Brandon.Fong</StartDirectory>
+    <GitSettings>
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>True</Commits>
+    </GitSettings>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>

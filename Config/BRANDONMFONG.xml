@@ -21,6 +21,11 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>B:\</StartDirectory>
+    <GitSettings>
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>False</Commits>
+    </GitSettings>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>

@@ -118,6 +118,16 @@
                 <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
             </xs:element>
             <xs:element name="StartDirectory" maxOccurs="1"/>
+            <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Git notificatons for Unstaged/Staged changes and unpushed commits
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">

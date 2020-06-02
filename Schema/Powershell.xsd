@@ -80,6 +80,11 @@
         <!-- Terminal Settings -->
         <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This format applies to all under ShellSettings
+                    </xs:documentation>
+                </xs:annotation>
                 <xs:group ref="Formatter"/>
             </xs:element>
             <xs:element name="Header" minOccurs="1" maxOccurs="1">
@@ -117,7 +122,6 @@
                 <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
             </xs:element>
-            <xs:element name="StartDirectory" maxOccurs="1"/>
             <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -127,6 +131,13 @@
                 <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="StartDirectory" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is whatever is configured in the app settings
+                    </xs:documentation>
+                </xs:annotation>
             </xs:element>
         </xs:element>
         
@@ -203,7 +214,7 @@
 
         <xs:group name="XMLElement">
             <xs:element name="Values">
-                <xs:any/>
+                <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
                 <xs:annotation>
                     <xs:documentation>
                         Any node here can be referenced on the command line by the element name.

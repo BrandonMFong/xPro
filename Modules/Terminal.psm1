@@ -64,7 +64,7 @@ function _Replace
     if($OutString.Value.Contains($tag.gitbranch))
     {
         [string]$BranchString = $null;
-        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)"; # This checks if we are in a branch
         if(![string]::IsNullOrEmpty($BranchString))
         {
             # If user wants
@@ -80,7 +80,7 @@ function _Replace
             # Add to Outstring
             if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
             {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
-            else{[string]$gitstring = " ($($BranchString)) ";}
+            else{[string]$gitstring = " ($($BranchString)) ";} # Default is ()
             $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
         }
         else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
@@ -156,5 +156,3 @@ function prompt
         return " ";
     }
 }
-
-# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/

@@ -291,8 +291,15 @@ class SQL
                 [string]$InsertUpdateLog = $null;
                 $this.QueryConstructor("Insert",[ref]$InsertUpdateLog,$tablename,$values); # Construct the log
                 [string]$updatestring = Get-Content $PSScriptRoot\..\SQLQueries\UpdateLogExist.sql; # Get query structure
+
+                if($Script.IsFunction.ToString().ToBoolean($null))
+                {
+                    $this.QueryNoReturn($Script.'#cdata-section'); # Create Function can only be in batch alone
+                    $updatestring = $updatestring.Replace("@ScriptBlock",''); # Put Script block
+                }
+                else{$updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); }# Put Script block
+
                 $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
-                $updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); # Put Script block
                 $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
                 if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
                 {

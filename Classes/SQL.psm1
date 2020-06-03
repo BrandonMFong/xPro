@@ -292,18 +292,31 @@ class SQL
                 $this.QueryConstructor("Insert",[ref]$InsertUpdateLog,$tablename,$values); # Construct the log
                 [string]$updatestring = Get-Content $PSScriptRoot\..\SQLQueries\UpdateLogExist.sql; # Get query structure
 
+                # Checks if the script block is creating a function
+                # I could create another method that deals with functions
+                # But how often am I going to make a function?
                 if($Script.IsFunction.ToString().ToBoolean($null))
                 {
-                    $this.QueryNoReturn($Script.'#cdata-section'); # Create Function can only be in batch alone
                     $updatestring = $updatestring.Replace("@ScriptBlock",''); # Put Script block
-                }
-                else{$updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); }# Put Script block
+                    $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
+                    $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
 
-                $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
-                $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
-                if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
+                    # Executes the block separately because the create function has to be in its own batch
+                    if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
+                    {
+                        Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
+                        $this.QueryNoReturn($Script.'#cdata-section'); # Create Function can only be in batch alone
+                    }
+                }
+                else
                 {
-                    Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
+                    $updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); # Put Script block
+                    $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
+                    $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
+                    if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
+                    {
+                        Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
+                    }
                 }
             }
             catch 

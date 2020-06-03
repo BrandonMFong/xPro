@@ -4,10 +4,7 @@
 
 class Calendar
 {
-    # TODO make type [Day]
     [Day]$Today = [Day]::new($(Get-Date),$null);
-    # hidden [string]$TodayString;
-    hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
     hidden [Week[]]$Weeks;
     hidden [boolean]$WeeksLoaded = $false;
     hidden $SQL;
@@ -17,7 +14,7 @@ class Calendar
     [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
     hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
     [Week]$ThisWeek;
-    [string]$FirstDayString = "Sunday";
+    [string]$FirstDayString = "Monday";
 
     Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
@@ -44,7 +41,7 @@ class Calendar
         [Day]$th=[Day]::new($Day.AddDays(4),$this.EventConfig);
         [Day]$fr=[Day]::new($Day.AddDays(5),$this.EventConfig);
         [Day]$sa=[Day]::new($Day.AddDays(6),$this.EventConfig);
-        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
     }
 
     hidden [DateTime]GetFirstDayOfWeek()
@@ -174,23 +171,19 @@ class Calendar
 
     hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$null)}
 
-    hidden GetNow()
-    {
-        $this.UpdateDay();
-    #     $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
-    }
+    hidden GetNow(){$this.UpdateDay();}
 
     hidden GetNow([byte]$m)
     {
         if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
         $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
-        # $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
 
     hidden GetHeaderString()
     {   
         Write-Host "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
-        Write-Host "su  mo  tu  we  th  fr  sa";
+        # Write-Host "su  mo  tu  we  th  fr  sa";
+        $this.ThisWeek.ToHeader();
         Write-Host "--  --  --  --  --  --  --";
     }
 
@@ -204,7 +197,7 @@ class Calendar
         [Day]$fr=[Day]::new(0,$this.EventConfig);
         [Day]$sa=[Day]::new(0,$this.EventConfig);
 
-        [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+        [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
         [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today.Date),$this.EventConfig); # this is returning a null value
         [int]$MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         [bool]$IsFirstWeek = $true;
@@ -226,10 +219,10 @@ class Calendar
             {
                 if($IsFirstWeek)
                 {
-                    $tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);$IsFirstWeek=$false;
+                    $tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));$IsFirstWeek=$false;
                     $tempweeks.FillWeek();
                 }
-                else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa)}
+                else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString))}
             }
 
             #Fills up the rest of the month
@@ -251,7 +244,7 @@ class Calendar
                     }
                     if($day.DayOfWeek -eq "Saturday"){break;}
                 }
-                $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+                $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
                 break;
             }
             $day = $day.AddDays(1);
@@ -372,7 +365,7 @@ class Calendar
         {
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.TodayString + ".csv");
+            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.Today.DayString + ".csv");
             $ExportCSV | Export-Csv $ExportName -Force;
         }
     }
@@ -417,30 +410,86 @@ class Calendar
         }
         else{Write-Host "Not executing.";}
     }
+
+    # I can implement the calendar to adjust first day of week using these indexes
+    hidden [int]WeekNum([string]$DayOfWeek)
+    {
+        [int]$WeekNum = 0;
+        switch($DayOfWeek)
+        {
+            "Sunday"{$WeekNum = 1;}
+            "Monday"{$WeekNum = 2;}
+            "Tuesday"{$WeekNum = 3;}
+            "Wednesday"{$WeekNum = 4;}
+            "Thursday"{$WeekNum = 5;}
+            "Friday"{$WeekNum = 6;}
+            "Saturday"{$WeekNum = 7;}
+            Default{$WeekNum = 1;} # Default Sunday
+        }
+        return $WeekNum;
+    }
 }
 class Week
 {
     [Day]$su;[Day]$mo;[Day]$tu;[Day]$we;
     [Day]$th;[Day]$fr;[Day]$sa;
+    [int]$FirstDayIndex;
+    hidden [int]$IndexCheck = 0;
 
-    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa)
+    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa,[int]$FirstDayIndex)
     {
         $this.su = $su;$this.mo = $mo;$this.tu = $tu;
         $this.we = $we;$this.th = $th;$this.fr = $fr;
         $this.sa = $sa;
+        $this.FirstDayIndex = $FirstDayIndex;
     }
 
     ToString()
     {
         [string]$week = "";
-        $this.Evaluate_Days($this.su,[ref]$week);
-        $this.Evaluate_Days($this.mo,[ref]$week);
-        $this.Evaluate_Days($this.tu,[ref]$week);
-        $this.Evaluate_Days($this.we,[ref]$week);
-        $this.Evaluate_Days($this.th,[ref]$week);
-        $this.Evaluate_Days($this.fr,[ref]$week);
-        $this.Evaluate_Days($this.sa,[ref]$week);
+        $this.InOrderWeek($this.FirstDayIndex,[ref]$week);
         Write-Host "$($week)"
+    }
+
+    ToHeader()
+    {
+        [string]$header = "";
+        $this.InOrderHeader($this.FirstDayIndex,[ref]$header);
+        Write-Host "$($header)"
+    }
+    
+    hidden InOrderHeader([int]$index,[ref]$header)
+    {
+        if($index -eq 8){$index = 1;}
+        if($this.IndexCheck -lt 7){$this.IndexCheck++;}
+        else{break;}
+        switch($index)
+        {
+            1{$header.Value += $this.su.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            2{$header.Value += $this.mo.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            3{$header.Value += $this.tu.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            4{$header.Value += $this.we.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            5{$header.Value += $this.th.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            6{$header.Value += $this.fr.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            7{$header.Value += $this.sa.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+        }
+    }
+
+    hidden [void]InOrderWeek([int]$index,[ref]$week)
+    {
+        if($index -eq 8){$index = 1;}
+        if($this.IndexCheck -lt 7){$this.IndexCheck++;}
+        else{break;}
+        switch($index)
+        {
+            1{$this.Evaluate_Days($this.su,$week);$this.InOrderWeek(($index+1),$week);}
+            2{$this.Evaluate_Days($this.mo,$week);$this.InOrderWeek(($index+1),$week);}
+            3{$this.Evaluate_Days($this.tu,$week);$this.InOrderWeek(($index+1),$week);}
+            4{$this.Evaluate_Days($this.we,$week);$this.InOrderWeek(($index+1),$week);}
+            5{$this.Evaluate_Days($this.th,$week);$this.InOrderWeek(($index+1),$week);}
+            6{$this.Evaluate_Days($this.fr,$week);$this.InOrderWeek(($index+1),$week);}
+            7{$this.Evaluate_Days($this.sa,$week);$this.InOrderWeek(($index+1),$week);}
+        }
     }
 
     FillWeek()
@@ -525,6 +574,8 @@ class Day
             else{$this.SQL = $null;}
         }
     }
+
+    [string]GetAbbreviation(){return "$($this.DayOfWeek.ToLower().SubString(0,2))  ";}
 
     [boolean]IsEqual([Day]$d) # Not comparing time
     {

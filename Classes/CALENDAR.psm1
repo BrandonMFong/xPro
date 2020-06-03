@@ -5,8 +5,8 @@
 class Calendar
 {
     # TODO make type [Day]
-    [DateTime]$Today;
-    hidden [string]$TodayString;
+    [Day]$Today = [Day]::new($(Get-Date),$null);
+    # hidden [string]$TodayString;
     hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
     hidden [Week[]]$Weeks;
     hidden [boolean]$WeeksLoaded = $false;
@@ -21,7 +21,6 @@ class Calendar
 
     Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
     {
-        $this.Today = Get-Date;
         $this.PathToImportFile = $PathToImportFile;
         if(![string]::IsNullOrEmpty($EventConfig))
         {
@@ -50,7 +49,7 @@ class Calendar
 
     hidden [DateTime]GetFirstDayOfWeek()
     {
-        [DateTime]$hold = $this.Today;
+        [DateTime]$hold = $this.Today.Date;
         while($true)
         {
             if($hold.DayOfWeek -eq $this.FirstDayString){break;}
@@ -68,10 +67,7 @@ class Calendar
         $this.GetNow();
         if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
         $this.GetHeaderString();         
-        foreach($w in $this.Weeks)
-        {
-            $w.ToString();
-        }
+        foreach($w in $this.Weeks){$w.ToString();}
     }
 
     [void] GetCalendarMonth([string]$MonthString) 
@@ -97,7 +93,7 @@ class Calendar
             "January"{$MaxDays =  $Jan;break;}
             "February"
             {
-                if (($this.Today.Year % 4 )){$MaxDays =  $FebLeapYear;break;}
+                if (($this.Today.Date.Year % 4 )){$MaxDays =  $FebLeapYear;break;}
                 else{$MaxDays =  $Feb;break;};
             }
             "March"{$MaxDays =  $Mar;break;}
@@ -173,19 +169,22 @@ class Calendar
         [Day]$ThisDay = [Day]::new($(Get-Date),$null);
         return $ThisDay.IsEqual($Day);
     }
-    hidden [string]MonthToString($MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
+
+    hidden [string]MonthToString([int]$MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
+
+    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$null)}
 
     hidden GetNow()
     {
-        $this.Today = Get-Date;
-        $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
+        $this.UpdateDay();
+    #     $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
 
     hidden GetNow([byte]$m)
     {
         if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
         $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
-        $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
+        # $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
 
     hidden GetHeaderString()
@@ -206,7 +205,7 @@ class Calendar
         [Day]$sa=[Day]::new(0,$this.EventConfig);
 
         [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
-        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today),$this.EventConfig); # this is returning a null value
+        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today.Date),$this.EventConfig); # this is returning a null value
         [int]$MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         [bool]$IsFirstWeek = $true;
 

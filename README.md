@@ -1,6 +1,6 @@
 # GlobalScripts
 
-GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual environment defined by and .xml file.  Rather than having your aliases, modules, hashtables, variables, etc. defined in the profile script you can have it defined in the .xml file.  The .xml file serves as a configuration point, allowing the user to use GlobalScripts on more than one machine.
+GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual environment defined by an .xml file.  Rather than having your aliases, modules, hashtables, variables, etc. defined in the profile script you can have it defined in the .xml file.  The .xml file serves as a configuration point, allowing the user to use the same scripts on different computers.
 
 ## Features 
 

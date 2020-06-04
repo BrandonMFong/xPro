@@ -271,6 +271,7 @@ class Calendar
         return $Date;
     }
     
+    # I can probably consolodate Insert & TimeStamp
     [void]InsertEvents()
     {
         [System.Object[]]$CSVReader = Get-Content $this.PathToImportFile | ConvertFrom-Csv;
@@ -278,8 +279,8 @@ class Calendar
         {
             [string]$insertquery = $null;
             [string]$tablename = "Calendar"; # hard coding table name
-            $values = $this.SQL.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-            $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
+            [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+            
             # Adds the actual values to use for the insert query
             # There are also checks for other types of 
             foreach($val in $values)

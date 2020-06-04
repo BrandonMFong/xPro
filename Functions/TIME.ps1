@@ -1,18 +1,10 @@
 <#
 .Synopsis
-	Keeps time stamps in a .csv file
+	Keeps time stamps in a .csv file or in the local database
 .Description
 	
-.Parameter Login
-	Creates a row with login timestamp
-.Parameter Logout
-	Creates a row with logout timestamp
-.Parameter View
-	Get-Content on timestamp.csv
-.Example
-
 .Notes
-	The location of User directory is hard coded
+	Default Report is week
 #>
 Param
 (
@@ -24,6 +16,7 @@ Param
 	[Alias('R')][Switch]$Report, 
 	[Alias('T')][Switch]$Today, 
 	[Alias('W')][Switch]$Week, 
+	[Switch]$All, 
 	[Alias('E')][Switch]$Export
 )
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
@@ -33,7 +26,8 @@ if($Report)
 {
 	if($Today){$var.Report("$((Get-Date).ToString('MM/dd/yyyy')) 00:00:00.0000000","$((Get-Date).AddDays(1).ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
 	elseif($Week){$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
-	else{$var.Report();}
+	elseif($All){$var.Report();}
+	else{$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");} # this returns two tables
 	break;
 }
 if($Export){$var.Export();break;}

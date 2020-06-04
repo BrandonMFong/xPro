@@ -34,6 +34,6 @@ declare @IsAnnual bit = 0
 insert into Calendar values
 (
 	@MaxID,@TCExtID,@CalendarExternalID,
-	@Subject,@EventDateFix,@IsAnnual
+	@Subject,(select EventDate from @TimeFix),@IsAnnual
 )
 /*This will insert again.  I need to put a check on it*/

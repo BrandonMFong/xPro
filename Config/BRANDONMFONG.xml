@@ -141,6 +141,7 @@
     <Program Alias="Get-Email" SecType="public">B:\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Goto" SecType="public">B:\Powershell\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">B:\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">B:\Powershell\Functions\Open.ps1</Program>
     <Program Alias="Query" SecType="public">B:\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>

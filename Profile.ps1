@@ -48,4 +48,3 @@ Pop-Location;
 
 if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
 {Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}
-

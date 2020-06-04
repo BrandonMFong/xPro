@@ -438,6 +438,7 @@ class Week
 
     [void]ToHeader()
     {
+        $this.IndexCheck = 0;
         [string]$header = "";
         $this.InOrderHeader($this.FirstDayIndex,[ref]$header);
         Write-Host "$($header)"
@@ -462,6 +463,7 @@ class Week
 
     [void]ToString()
     {
+        $this.IndexCheck = 0;
         [string]$week = "";
         $this.InOrderWeek($this.FirstDayIndex,[ref]$week);
         Write-Host "$($week)"

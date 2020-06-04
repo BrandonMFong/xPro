@@ -8,7 +8,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>{@batteryperc%, TIME: @stamp} [@time, @date] @fulldir</String>
+      <String>{@batteryperc%, Clock in Time: @stamp} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
@@ -360,7 +360,7 @@
         <Calendar>
           <PathToEventImport>C:\Users\brandon.fong\Brandon.Fong\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
-          <FirstDayOfWeek>Monday</FirstDayOfWeek>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
         </Calendar>
       </Class>
     </Object>

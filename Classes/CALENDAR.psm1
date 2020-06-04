@@ -1,13 +1,6 @@
-# using module .\SQL.psm1;
-# Import-Module $PSScriptRoot\..\Modules\FunctionModules.psm1;
-# Make a calendar function
-
 class Calendar
 {
-    # TODO make type [Day]
-    [DateTime]$Today;
-    hidden [string]$TodayString;
-    hidden [string]$ParseExactDateStringFormat = "MMddyyyy";
+    [Day]$Today = [Day]::new($(Get-Date),$null);
     hidden [Week[]]$Weeks;
     hidden [boolean]$WeeksLoaded = $false;
     hidden $SQL;
@@ -19,10 +12,10 @@ class Calendar
     [Week]$ThisWeek;
     [string]$FirstDayString = "Sunday";
 
-    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath)
+    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath,[string]$FirstDayOfWeek)
     {
-        $this.Today = Get-Date;
         $this.PathToImportFile = $PathToImportFile;
+        if(![string]::IsNullOrEmpty($FirstDayOfWeek)){$this.FirstDayString = $FirstDayOfWeek;}
         if(![string]::IsNullOrEmpty($EventConfig))
         {
             $this.EventConfig = $EventConfig;
@@ -45,15 +38,16 @@ class Calendar
         [Day]$th=[Day]::new($Day.AddDays(4),$this.EventConfig);
         [Day]$fr=[Day]::new($Day.AddDays(5),$this.EventConfig);
         [Day]$sa=[Day]::new($Day.AddDays(6),$this.EventConfig);
-        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+        $this.ThisWeek = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
     }
 
     hidden [DateTime]GetFirstDayOfWeek()
     {
-        [DateTime]$hold = $this.Today;
+        [DateTime]$hold = $this.Today.Date;
         while($true)
         {
-            if($hold.DayOfWeek -eq $this.FirstDayString){break;}
+            # Need to be Sunday because it is the default first day of the week
+            if($hold.DayOfWeek -eq "Sunday"){break;}
             else{$hold = $hold.AddDays(-1);}
         }
         return $hold;
@@ -67,22 +61,16 @@ class Calendar
     {
         $this.GetNow();
         if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        $this.GetHeaderString();         
-        foreach($w in $this.Weeks)
-        {
-            $w.ToString();
-        }
+        $this.GetHeaderString();
+        foreach($w in $this.Weeks){$w.ToString();}
     }
 
     [void] GetCalendarMonth([string]$MonthString) 
     {
         $this.GetNow($this.GetMonthNum($MonthString));
         if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        $this.GetHeaderString();         
-        foreach($w in $this.Weeks)
-        {
-            $w.ToString();
-        }
+        $this.GetHeaderString();
+        foreach($w in $this.Weeks){$w.ToString();}
     }
 
     [int]GetMaxDayOfMonth([string]$Month) #Of the current year
@@ -97,7 +85,7 @@ class Calendar
             "January"{$MaxDays =  $Jan;break;}
             "February"
             {
-                if (($this.Today.Year % 4 )){$MaxDays =  $FebLeapYear;break;}
+                if (($this.Today.Date.Year % 4 )){$MaxDays =  $FebLeapYear;break;}
                 else{$MaxDays =  $Feb;break;};
             }
             "March"{$MaxDays =  $Mar;break;}
@@ -137,7 +125,7 @@ class Calendar
         return $i;
     }
 
-    [void]SpecialDays()
+    [void]Events()
     {
         if($this.EventConfig -eq "Database")
         {
@@ -145,7 +133,7 @@ class Calendar
             [System.Object[]]$Events = $this.SQL.Query($querystring);
             for([int]$i=0;$i -lt $Events.Length;$i++)
             {
-                $this.EventToString($Events[$i].EventDate.ToString("MM/dd/yyyy"),$Events[$i].Subject);
+                $this.EventToString([Day]::new((Get-Date $Events[$i].EventDate.ToString("MM/dd/yyyy")),$this.EventConfig),$Events[$i].Subject);
             }
         }
         else
@@ -158,40 +146,33 @@ class Calendar
         }
     }
 
-    hidden [void]EventToString([string]$EventDate,[string]$Subject)
+    hidden [void]EventToString([Day]$EventDate,[string]$Subject)
     {
-        if($this.IsSpecialDay([Day]::new((Get-Date $EventDate),$null))){Write-Host "***" -NoNewline;}
+        if($this.Today.IsEqual($EventDate)){Write-Host "***" -NoNewline;}
         Write-Host "$($Subject)" -ForegroundColor Yellow -NoNewline;
         Write-Host " - " -NoNewline;
-        Write-Host "$($EventDate)" -ForegroundColor Cyan -NoNewline;
-        if($this.IsSpecialDay([Day]::new((Get-Date $EventDate),$null))){Write-Host "***";}
+        Write-Host "$($EventDate.Date.ToString("MM/dd/yyyy"))" -ForegroundColor Cyan -NoNewline;
+        if($this.Today.IsEqual($EventDate)){Write-Host "***";}
         else{Write-Host "";}
     }
 
-    hidden [boolean]IsSpecialDay([Day]$Day)
-    {
-        [Day]$ThisDay = [Day]::new($(Get-Date),$null);
-        return $ThisDay.IsEqual($Day);
-    }
-    hidden [string]MonthToString($MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
+    hidden [string]MonthToString([int]$MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
 
-    hidden GetNow()
-    {
-        $this.Today = Get-Date;
-        $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
-    }
+    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
+
+    hidden GetNow(){$this.UpdateDay();}
 
     hidden GetNow([byte]$m)
     {
         if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
         $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
-        $this.TodayString = $this.Today.Month.ToString() + $this.Today.Day.ToString() + $this.Today.Year.ToString();
     }
 
     hidden GetHeaderString()
     {   
         Write-Host "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
-        Write-Host "su  mo  tu  we  th  fr  sa";
+        # Write-Host "su  mo  tu  we  th  fr  sa";
+        $this.ThisWeek.ToHeader();
         Write-Host "--  --  --  --  --  --  --";
     }
 
@@ -205,8 +186,8 @@ class Calendar
         [Day]$fr=[Day]::new(0,$this.EventConfig);
         [Day]$sa=[Day]::new(0,$this.EventConfig);
 
-        [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
-        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today),$this.EventConfig); # this is returning a null value
+        [Week[]]$tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
+        [Day]$day = [Day]::new($this.GetFirstDayOfMonth($this.Today.Date),$this.EventConfig); # this is returning a null value
         [int]$MaxDays = $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month));
         [bool]$IsFirstWeek = $true;
 
@@ -227,10 +208,10 @@ class Calendar
             {
                 if($IsFirstWeek)
                 {
-                    $tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);$IsFirstWeek=$false;
+                    $tempweeks = [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));$IsFirstWeek=$false;
                     $tempweeks.FillWeek();
                 }
-                else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa)}
+                else{$tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString))}
             }
 
             #Fills up the rest of the month
@@ -252,7 +233,7 @@ class Calendar
                     }
                     if($day.DayOfWeek -eq "Saturday"){break;}
                 }
-                $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa);
+                $tempweeks += [week]::new($su,$mo,$tu,$we,$th,$fr,$sa,$this.WeekNum($this.FirstDayString));
                 break;
             }
             $day = $day.AddDays(1);
@@ -374,7 +355,7 @@ class Calendar
         {
             $this.GetNow();
             [System.Object[]]$ExportCSV = $this.SQL.Query($querystring);
-            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.TodayString + ".csv");
+            [string]$ExportName = $($this.ResourceDir + "\Time_" + $this.Today.DateString + ".csv");
             $ExportCSV | Export-Csv $ExportName -Force;
         }
     }
@@ -419,30 +400,96 @@ class Calendar
         }
         else{Write-Host "Not executing.";}
     }
+
+    # I can implement the calendar to adjust first day of week using these indexes
+    hidden [int]WeekNum([string]$DayOfWeek)
+    {
+        [int]$WeekNum = 0;
+        switch($DayOfWeek)
+        {
+            "Sunday"{$WeekNum = 1;}
+            "Monday"{$WeekNum = 2;}
+            "Tuesday"{$WeekNum = 3;}
+            "Wednesday"{$WeekNum = 4;}
+            "Thursday"{$WeekNum = 5;}
+            "Friday"{$WeekNum = 6;}
+            "Saturday"{$WeekNum = 7;}
+            Default{$WeekNum = 1;} # Default Sunday
+        }
+        return $WeekNum;
+    }
 }
+
+# The idea of ordering the week by the first day of the week is adding 7 to the days depending on which day that is offset
 class Week
 {
     [Day]$su;[Day]$mo;[Day]$tu;[Day]$we;
     [Day]$th;[Day]$fr;[Day]$sa;
+    [int]$FirstDayIndex;
+    hidden [int]$IndexCheck = 0;
 
-    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa)
+    Week([Day]$su,[Day]$mo,[Day]$tu,[Day]$we,[Day]$th,[Day]$fr,[Day]$sa,[int]$FirstDayIndex)
     {
         $this.su = $su;$this.mo = $mo;$this.tu = $tu;
         $this.we = $we;$this.th = $th;$this.fr = $fr;
         $this.sa = $sa;
+        $this.FirstDayIndex = $FirstDayIndex;
     }
 
-    ToString()
+    [void]ToHeader()
+    {
+        [string]$header = "";
+        $this.InOrderHeader($this.FirstDayIndex,[ref]$header);
+        Write-Host "$($header)"
+    }
+    
+    hidden InOrderHeader([int]$index,[ref]$header)
+    {
+        if($index -eq 8){$index = 1;}
+        if($this.IndexCheck -lt 7){$this.IndexCheck++;}
+        else{break;}
+        switch($index)
+        {
+            1{$header.Value += $this.su.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            2{$header.Value += $this.mo.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            3{$header.Value += $this.tu.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            4{$header.Value += $this.we.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            5{$header.Value += $this.th.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            6{$header.Value += $this.fr.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+            7{$header.Value += $this.sa.GetAbbreviation();$this.InOrderHeader(($index+1),$header);}
+        }
+    }
+
+    [void]ToString()
     {
         [string]$week = "";
-        $this.Evaluate_Days($this.su,[ref]$week);
-        $this.Evaluate_Days($this.mo,[ref]$week);
-        $this.Evaluate_Days($this.tu,[ref]$week);
-        $this.Evaluate_Days($this.we,[ref]$week);
-        $this.Evaluate_Days($this.th,[ref]$week);
-        $this.Evaluate_Days($this.fr,[ref]$week);
-        $this.Evaluate_Days($this.sa,[ref]$week);
+        $this.InOrderWeek($this.FirstDayIndex,[ref]$week);
         Write-Host "$($week)"
+    }
+
+    hidden [void]InOrderWeek([int]$index,[ref]$week)
+    {
+        if($index -eq 8){$index = 1;}
+        if($this.IndexCheck -lt 7){$this.IndexCheck++;}
+        else{break;}
+        switch($index)
+        {
+            # How do I offset a week if the first day of the week is n
+            # There needs to be a method
+            1{$this.Evaluate_Days($this.su.AddDays($this.GetOffset($this.FirstDayIndex,1)),$week);$this.InOrderWeek(($index+1),$week);}
+            2{$this.Evaluate_Days($this.mo.AddDays($this.GetOffset($this.FirstDayIndex,2)),$week);$this.InOrderWeek(($index+1),$week);}
+            3{$this.Evaluate_Days($this.tu.AddDays($this.GetOffset($this.FirstDayIndex,3)),$week);$this.InOrderWeek(($index+1),$week);}
+            4{$this.Evaluate_Days($this.we.AddDays($this.GetOffset($this.FirstDayIndex,4)),$week);$this.InOrderWeek(($index+1),$week);}
+            5{$this.Evaluate_Days($this.th.AddDays($this.GetOffset($this.FirstDayIndex,5)),$week);$this.InOrderWeek(($index+1),$week);}
+            6{$this.Evaluate_Days($this.fr.AddDays($this.GetOffset($this.FirstDayIndex,6)),$week);$this.InOrderWeek(($index+1),$week);}
+            7{$this.Evaluate_Days($this.sa.AddDays($this.GetOffset($this.FirstDayIndex,7)),$week);$this.InOrderWeek(($index+1),$week);}
+        }
+    }
+
+    hidden [int]GetOffset([int]$Offset,[int]$DayNum)
+    {
+        if($Offset -gt $DayNum){return 7;}
+        else{return 0;}
     }
 
     FillWeek()
@@ -498,17 +545,16 @@ class Week
         elseif(($day.Number -ge 10) -and !($day.IsEqual($today))){$week.Value += "$($day.Number)  ";} # For Normal Day
         else{$week.Value += "$($day.Number)   ";} # For Normal Day
     }
-
 }
 
 class Day
 { 
-    [datetime]$Date;
+    [DateTime]$Date;
     [int]$Number;
     [int]$Month;
     [int]$Year;
     [string]$DayOfWeek
-    [string]$DayString;
+    [string]$DateString;
     hidden $SQL;
     [string]$EventConfig;
 
@@ -518,7 +564,7 @@ class Day
         $this.Number = $Date.Day;
         $this.Month = $Date.Month;
         $this.Year = $Date.Year;
-        $this.DayString = $Date.ToString("MMddyyyy"); # following externalid format in calendar table
+        $this.DateString = $Date.ToString("MMddyyyy"); # following externalid format in calendar table
         $this.DayOfWeek = $Date.DayOfWeek.ToString();
         if(![string]::IsNullOrEmpty($EventConfig))
         {
@@ -528,15 +574,14 @@ class Day
         }
     }
 
+    [string]GetAbbreviation(){return "$($this.DayOfWeek.ToLower().SubString(0,2))  ";}
+
     [boolean]IsEqual([Day]$d) # Not comparing time
     {
         return ($d.Number -eq $this.Number) -and ($d.Month -eq $this.Month) -and ($d.Year -eq $this.Year);
     }
 
-    [Day]AddDays([int]$x)
-    {
-        return [Day]::new($this.Date.AddDays($x),$this.EventConfig)
-    }
+    [Day]AddDays([int]$x){return [Day]::new($this.Date.AddDays($x),$this.EventConfig);}
 
     [boolean]IsSpecialDay()
     {
@@ -544,7 +589,7 @@ class Day
         if($this.EventConfig -eq "Database")
         {
             [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\IsEvent.sql)";
-            $querystring = $querystring.Replace('@DayString',$this.DayString);
+            $querystring = $querystring.Replace('@DayString',$this.DateString);
             if(($this.SQL.Query($querystring)).Exists)
             {$IsSpecialDay = $true;}
         }

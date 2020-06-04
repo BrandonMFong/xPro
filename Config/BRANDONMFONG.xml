@@ -294,6 +294,7 @@
         <Calendar>
           <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
         </Calendar>
       </Class>
     </Object>

@@ -12,7 +12,15 @@ function MakeClass($XmlElement)
 {
     switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
-        "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig,$XmlElement.Class.Calendar.TimeStampFilePath);return $x;}
+        "Calendar" 
+        {
+            [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
+            [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
+            [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
+            [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
+            $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
+            return $x;
+        }
         "Web" {$x = [Web]::new();return $x;}
         "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
         "Email" {$x = [Email]::new();return $x;}

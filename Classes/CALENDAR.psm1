@@ -10,7 +10,7 @@ class Calendar
     [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
     hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
     [Week]$ThisWeek;
-    [string]$FirstDayString = "Monday";
+    [string]$FirstDayString = "Sunday";
 
     Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath,[string]$FirstDayOfWeek)
     {
@@ -46,7 +46,8 @@ class Calendar
         [DateTime]$hold = $this.Today.Date;
         while($true)
         {
-            if($hold.DayOfWeek -eq $this.FirstDayString){break;}
+            # Need to be Sunday because it is the default first day of the week
+            if($hold.DayOfWeek -eq "Sunday"){break;}
             else{$hold = $hold.AddDays(-1);}
         }
         return $hold;
@@ -157,7 +158,7 @@ class Calendar
 
     hidden [string]MonthToString([int]$MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
 
-    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$null)}
+    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
 
     hidden GetNow(){$this.UpdateDay();}
 
@@ -467,7 +468,6 @@ class Week
 
     hidden [void]InOrderWeek([int]$index,[ref]$week)
     {
-        [int]$Offset = $index;
         if($index -eq 8){$index = 1;}
         if($this.IndexCheck -lt 7){$this.IndexCheck++;}
         else{break;}
@@ -475,13 +475,13 @@ class Week
         {
             # How do I offset a week if the first day of the week is n
             # There needs to be a method
-            1{$this.Evaluate_Days($this.su.AddDays($this.GetOffset($Offset,1)),$week);$this.InOrderWeek(($index+1),$week);}
-            2{$this.Evaluate_Days($this.mo.AddDays($this.GetOffset($Offset,2)),$week);$this.InOrderWeek(($index+1),$week);}
-            3{$this.Evaluate_Days($this.tu.AddDays($this.GetOffset($Offset,3)),$week);$this.InOrderWeek(($index+1),$week);}
-            4{$this.Evaluate_Days($this.we.AddDays($this.GetOffset($Offset,4)),$week);$this.InOrderWeek(($index+1),$week);}
-            5{$this.Evaluate_Days($this.th.AddDays($this.GetOffset($Offset,5)),$week);$this.InOrderWeek(($index+1),$week);}
-            6{$this.Evaluate_Days($this.fr.AddDays($this.GetOffset($Offset,6)),$week);$this.InOrderWeek(($index+1),$week);}
-            7{$this.Evaluate_Days($this.sa.AddDays($this.GetOffset($Offset,7)),$week);$this.InOrderWeek(($index+1),$week);}
+            1{$this.Evaluate_Days($this.su.AddDays($this.GetOffset($this.FirstDayIndex,1)),$week);$this.InOrderWeek(($index+1),$week);}
+            2{$this.Evaluate_Days($this.mo.AddDays($this.GetOffset($this.FirstDayIndex,2)),$week);$this.InOrderWeek(($index+1),$week);}
+            3{$this.Evaluate_Days($this.tu.AddDays($this.GetOffset($this.FirstDayIndex,3)),$week);$this.InOrderWeek(($index+1),$week);}
+            4{$this.Evaluate_Days($this.we.AddDays($this.GetOffset($this.FirstDayIndex,4)),$week);$this.InOrderWeek(($index+1),$week);}
+            5{$this.Evaluate_Days($this.th.AddDays($this.GetOffset($this.FirstDayIndex,5)),$week);$this.InOrderWeek(($index+1),$week);}
+            6{$this.Evaluate_Days($this.fr.AddDays($this.GetOffset($this.FirstDayIndex,6)),$week);$this.InOrderWeek(($index+1),$week);}
+            7{$this.Evaluate_Days($this.sa.AddDays($this.GetOffset($this.FirstDayIndex,7)),$week);$this.InOrderWeek(($index+1),$week);}
         }
     }
 

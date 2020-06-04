@@ -359,6 +359,7 @@
         <Calendar>
           <PathToEventImport>C:\Users\brandon.fong\Brandon.Fong\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Monday</FirstDayOfWeek>
         </Calendar>
       </Class>
     </Object>

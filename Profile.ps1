@@ -1,5 +1,5 @@
 # Engineer: Brandon Fong
-Param([bool]$StartDir=$true)
+Param([bool]$StartDir=$true,[Bool]$StartScript=$true)
 
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
@@ -31,7 +31,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        if($XMLReader.Machine.StartScript.Enable -eq "true") {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
+        if(($XMLReader.Machine.StartScript.Enable -eq "true") -and ($StartScript)) {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
     
     try 
     {

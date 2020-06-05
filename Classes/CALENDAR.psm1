@@ -25,6 +25,7 @@ class Calendar
         $this.TimeStampFilePath = $TimeStampFilePath;
         $this.MakeNecessaryDirectories();
         $this.LoadThisWeek();
+        $this.InsertEvents();
     }
 
     hidden [void]LoadThisWeek()

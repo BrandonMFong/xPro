@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
+  <StartScript Enable="true" ClearHost="false"></StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
     <Format>
@@ -30,38 +30,23 @@
   <Weather>
     <Area></Area>
   </Weather>
-  <Email>
-    <EmailAddress SecType=""></EmailAddress>
-    <DefaultFolder></DefaultFolder>
-    <IncludeFields>
-      <To></To>
-      <CC></CC>
-      <From></From>
-      <Subject></Subject>
-      <Body></Body>
-    </IncludeFields>
-    <ListInboxMax></ListInboxMax>
-    <ListOrderBy></ListOrderBy>
-  </Email>
   <Modules>
-    <Module></Module>
+    <Module/>
   </Modules>
   <!-- Directory paths -->
   <Directories>
-    <Directory Alias="" SecType=""></Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="" SecType=""></Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="" ServerInstance="">
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
-      <Key Lvl="0" SecType="public">Name</Key>
-      <Value Lvl="0" SecType="private">EED5A3CB-FB2B-4E81-8B99-A0EA10FDE10D</Value>
+      <Key Lvl="0" SecType="public"/>
+      <Value Lvl="0" SecType="private"/>
     </Object>
   </Objects>
 </Machine>

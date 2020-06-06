@@ -137,8 +137,8 @@ function prompt
     _Replace([ref]$OutString);
 
     # Prompt output
-    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt)))
-    {"PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
+    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)))
+    {Write-Host "PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
     else 
     {
         if($prompt.String.Color -eq "")

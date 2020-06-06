@@ -592,6 +592,27 @@
                     Settings for Email.ps1
                 </xs:documentation>
             </xs:annotation>
+            <xs:element name="EmailAddress" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Email address you want to read your emails from 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="SecType" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Securty Type: Default 'public'.  Options: 'public' or 'private'
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+            <xs:element name="DefaultFolder" type="xs:string"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Folder you are reading from (i.e. the \Inbox folder)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>

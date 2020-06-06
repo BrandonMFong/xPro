@@ -88,7 +88,7 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
     }
     $end.Value = $u;
 }
-function Evaluate($value)
+function Evaluate([System.Object[]]$value)
 {
     if($value.SecType -eq "private")
     {
@@ -102,10 +102,7 @@ function Evaluate($value)
     {
         return $(Get-Variable $value.InnerText.Replace('$','')).Value;
     }
-    else
-    {
-        return $value.InnerText;
-    }
+    else{return $value.InnerText;}
 }
 
 function MakeHash($value,[int]$lvl,$Node)

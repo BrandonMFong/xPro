@@ -77,6 +77,8 @@ function _MakeConfig
 {
     [XML]$File = Get-Content $($PSScriptRoot + "\..\Config\Template.xml");
 
+    # Not creating config by code but by template
+
     # Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
     
     # _MachineNode([ref]$File);

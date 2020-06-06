@@ -164,56 +164,65 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Programs.Program.Count;
-    foreach($val in $XMLReader.Machine.Programs.Program)
+    if($XMLReader.Machine.Programs.Program.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Programs.Program.Count;
+        foreach($val in $XMLReader.Machine.Programs.Program)
         {
-            Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
         }
-        Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
+        Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
 }
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Modules.Module.Count;
-    foreach($val in $XMLReader.Machine.Modules.Module)
+    if($XMLReader.Machine.Modules.Module.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Modules.Module.Count;
+        foreach($val in $XMLReader.Machine.Modules.Module)
         {
-            Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
         }
-        Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
+        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
 }
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Objects.Object.Count;
-    foreach($val in $XMLReader.Machine.Objects.Object)
+    if($XMLReader.Machine.Objects.Object.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Objects.Object.Count;
+        foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
-        }
-        switch ($val.Type)
-        {
-            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
-            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-            "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
-            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-        }
-        Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
-    } 
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
+                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+            }
+            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
+        } 
+    }
 }
 
 

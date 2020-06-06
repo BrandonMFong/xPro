@@ -317,7 +317,7 @@ function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
     }
     elseif($xml.Machine.Email.ListOrderBy -eq "Desc")
     {
-        return ($i -gt 0);
+        return ($i -gt ($OrderFactor - $Max));
     }
     else
     {

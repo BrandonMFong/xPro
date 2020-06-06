@@ -75,25 +75,27 @@ function _InitProfile
 
 function _MakeConfig
 {
-    [XML]$File = [XML]::new();
+    [XML]$File = Get-Content $($PSScriptRoot + "\..\Config\Template.xml");
 
-    Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
+    # Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
     
-    _MachineNode([ref]$File);
+    # _MachineNode([ref]$File);
 
-    _StartScriptNode([ref]$File);
+    # _StartScriptNode([ref]$File);
 
-    _ShellSettingsNode([ref]$File);
+    # _ShellSettingsNode([ref]$File);
     
-    _DirectoryNode([ref]$File);
+    # _DirectoryNode([ref]$File);
 
-    _ObjectsNode([ref]$File);
+    # _ObjectsNode([ref]$File);
 
-    _ProgramNode([ref]$File);
+    # _ProgramNode([ref]$File);
 
-    _ModulesNode([ref]$File);
+    # _ModulesNode([ref]$File);
 
-    _CalendarNode([ref]$File);
+    # _CalendarNode([ref]$File);
+
+
 
     $File.Save($($PSScriptRoot + '\..\Config\' + $ConfigurationName + '.xml'));
 }

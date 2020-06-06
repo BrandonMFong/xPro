@@ -31,6 +31,8 @@
     <Area></Area>
   </Weather>
   <Email>
+    <EmailAddress SecType=""></EmailAddress>
+    <DefaultFolder></DefaultFolder>
     <IncludeFields>
       <To></To>
       <CC></CC>

@@ -45,6 +45,7 @@
   <Directories>
     <Directory Alias="Main" SecType="public">C:\Users\BrandonMFong</Directory>
     <Directory Alias="pow" SecType="public">C:\Users\BrandonMFong\GlobalScripts</Directory>
+    <Directory Alias="pow" SecType="public">C:\Users\BrandonMFong\GlobalScripts</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
@@ -58,6 +59,8 @@
     <Program Alias="Get-Weather" SecType="public">C:\Users\BrandonMFong\GlobalScripts\Functions\Weather.ps1</Program>
     <Program Alias="Search" SecType="public">C:\Users\BrandonMFong\GlobalScripts\Functions\Search.ps1</Program>
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Hakashi" ServerInstance="HAKASHI\SQLEXPRESS">

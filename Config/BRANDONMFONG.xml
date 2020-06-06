@@ -31,6 +31,8 @@
     <Area>San Diego</Area>
   </Weather>
   <Email>
+    <EmailAddress SecType="private">6adb4d6b-6a36-4ad5-a9b5-5913a3b70538</EmailAddress>
+    <DefaultFolder>\CODE</DefaultFolder>
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>

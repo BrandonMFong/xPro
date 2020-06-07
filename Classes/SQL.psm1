@@ -9,15 +9,17 @@ class SQL
     [System.Object[]]$tables;
     hidden [Boolean]$UpdateVerbose;
     hidden [string]$SQLConvertFlags;
+    hidden [Boolean]$RunUpdates;
 
     # Constructor
-    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags)
+    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags,[Boolean]$RunUpdates)
     {
         $this.database = $database;
         $this.serverinstance = $serverinstance;
         $this.tables = $tables
         $this.UpdateVerbose = $UpdateVerbose;
         $this.SQLConvertFlags = $SQLConvertFlags;
+        $this.RunUpdates = $RunUpdates;
         if($SyncConfiguration){$this.SyncConfig();}
     }
 
@@ -270,6 +272,8 @@ class SQL
 
     [void]UpdateQueries()
     {
+        if(!$this.RunUpdates){break;}
+
         # Update Scripts
         [Xml]$Update = Get-Content $PSScriptRoot\..\SQLQueries\Update.xml;
         Write-Host "`n";

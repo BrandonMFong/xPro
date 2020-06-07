@@ -6,7 +6,7 @@ using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null, $false); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
@@ -32,7 +32,8 @@ function MakeClass($XmlElement)
             [boolean]$SyncConfiguration = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
             [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
             [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
-            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags);
+            [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates;
+            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags,$RunUpdates);
             return $x;
         }
         "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}

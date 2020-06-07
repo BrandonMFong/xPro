@@ -355,7 +355,7 @@ function CheckCredentials
             if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
             else{exit;}
         }
-        else{[Boolean]$LoggedIn = $true;}
+        else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
     }
 }
 

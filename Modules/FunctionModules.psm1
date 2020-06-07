@@ -333,5 +333,27 @@ function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
     {
         return $false;
     }
+}
 
+function CheckCredentials
+{
+    if($XMLReader.Machine.Secure.ToBoolean($null) -and !$LoggedIn)
+    {
+        $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
+        [string]$user = Read-Host -prompt "Username"; 
+
+        # Get Secure string and then convert it back to plain text
+        [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
+        [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var)
+        [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+        
+        if(($user -ne $cred.Username) -or ($cred.Password -ne $password))
+        {
+            Write-Error "WRONG CREDENTIALS";
+            Start-Sleep 1;
+            Pop-Location;
+            stop-process -Id $PID;
+        }
+        else{[Boolean]$LoggedIn = $true;}
+    }
 }

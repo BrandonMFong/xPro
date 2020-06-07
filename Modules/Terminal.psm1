@@ -1,10 +1,13 @@
 using module .\..\Classes\Tag.psm1;
 
+Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+
 function _Replace 
 {
     Param([ref]$OutString)
     [Tag]$tag = [Tag]::new();
     [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+    [System.Object[]]$GitSettings = $x.Machine.ShellSettings.GitSettings;
     $format = $x.Machine.ShellSettings.Format;
     # @ tag replacements
 
@@ -61,17 +64,23 @@ function _Replace
     if($OutString.Value.Contains($tag.gitbranch))
     {
         [string]$BranchString = $null;
-        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)"; # This checks if we are in a branch
         if(![string]::IsNullOrEmpty($BranchString))
         {
-            [string]$gitchanges = $null;
-            $gitchangesUnstaged = "$(git diff --exit-code)";
-            $gitchangesStaged = "$(git diff --cached)";
+            # If user wants
+            # Having it all enabled can reduce performance
+            if(![string]::IsNullOrEmpty($GitSettings.Unstaged) -and $GitSettings.Unstaged.ToBoolean($null)){$gitchangesUnstaged = "$(git diff --exit-code)";}
+            if(![string]::IsNullOrEmpty($GitSettings.Staged) -and $GitSettings.Staged.ToBoolean($null)){$gitchangesStaged = "$(git diff --cached)";}
+            if(![string]::IsNullOrEmpty($GitSettings.Commits) -and $GitSettings.Commits.ToBoolean($null)){[string[]]$gitchangesCommits = git log "@{u}.." --oneline;}
+
             if(![string]::IsNullOrEmpty($gitchangesUnstaged) -or ![string]::IsNullOrEmpty($gitchangesStaged)){$BranchString += "*";} # for changes
-            if(![string]::IsNullOrEmpty($gitchanges)){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesStaged) -and !$BranchString.Contains('*')){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesCommits)){$BranchString += ", commits: $($gitchangesCommits.Length)";} # for commits
+
+            # Add to Outstring
             if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
             {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
-            else{[string]$gitstring = " ($($BranchString)) ";}
+            else{[string]$gitstring = " ($($BranchString)) ";} # Default is ()
             $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
         }
         else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
@@ -83,6 +92,15 @@ function _Replace
         $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
         if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq "True"){$OutString.Value = $OutString.Value.Replace($tag.admin," <Admin> ");}
         else{$OutString.Value = $OutString.Value.Replace($tag.admin,"");}
+    }
+
+    # Time Stamp
+    if($OutString.Value.Contains($tag.stamp))
+    {
+        $var = GetObjectByClass('Calendar'); # If I want the timestamp, I am assuming it is already configured
+        [string]$time = $var.GetTimeStampDuration();
+        if(![string]::IsNullOrEmpty($time)){$OutString.Value = $OutString.Value.Replace($tag.stamp,$time);}
+        else{$OutString.Value = $OutString.Value.Replace($tag.stamp,"");}
     }
 }
 
@@ -119,8 +137,8 @@ function prompt
     _Replace([ref]$OutString);
 
     # Prompt output
-    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt)))
-    {"PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
+    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)))
+    {Write-Host "PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
     else 
     {
         if($prompt.String.Color -eq "")
@@ -138,5 +156,3 @@ function prompt
         return " ";
     }
 }
-
-# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/

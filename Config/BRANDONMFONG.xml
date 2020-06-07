@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="BRANDONMFONG" LoadProcedure="" Secure="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+<Machine MachineName="BRANDONMFONG" LoadProcedure="" Secure="True" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings>
@@ -21,11 +21,18 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>B:\</StartDirectory>
+    <GitSettings>
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>False</Commits>
+    </GitSettings>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>
   <Email>
+    <EmailAddress SecType="private">6adb4d6b-6a36-4ad5-a9b5-5913a3b70538</EmailAddress>
+    <DefaultFolder>\Inbox</DefaultFolder>
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>
@@ -34,18 +41,8 @@
       <Body>True</Body>
     </IncludeFields>
     <ListInboxMax>10</ListInboxMax>
+    <ListOrderBy>Asc</ListOrderBy>
   </Email>
-  <!-- Calendar -->
-  <Calendar>
-    <SpecialDays>
-      <SpecialDay name="Graduation">5/16/2020</SpecialDay>
-      <SpecialDay name="Compe 560 Sock due">5/5/2020</SpecialDay>
-      <SpecialDay name="Last day to accept">6/1/2020</SpecialDay>
-      <SpecialDay name="Senior Design Day">5/6/2020</SpecialDay>
-      <SpecialDay name="CompE 560 final">5/14/2020</SpecialDay>
-      <SpecialDay name="CompE 565 final">5/11/2020</SpecialDay>
-    </SpecialDays>
-  </Calendar>
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>
@@ -146,6 +143,7 @@
     <Program Alias="Get-Email" SecType="public">B:\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Goto" SecType="public">B:\Powershell\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">B:\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">B:\Powershell\Functions\Open.ps1</Program>
     <Program Alias="Query" SecType="public">B:\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
@@ -154,6 +152,9 @@
     <Program Alias="sb" SecType="public">Set-Brightness</Program>
     <Program Alias="mysql" SecType="public">C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe</Program>
     <Program Alias="vc-site" SecType="public">B:\SOURCES\Repos\Site\VCODE_Site.code-workspace</Program>
+    <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
+    <Program Alias="Open-Putty" SecType="public">B:\Powershell\Functions\Open-Putty.ps1</Program>
+    <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -165,20 +166,25 @@
           <!-- <Database>TestDB</Database> -->
           <Database>BrandonMFong</Database>
           <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+          <SyncConfiguration>True</SyncConfiguration>
+          <UpdateVerbose>True</UpdateVerbose>
+          <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
           <Tables>
             <Table Name="PersonalInfo">
-              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
-              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Value" Type="varchar(100)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(1000)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
             <Table Name="TypeContent">
-              <Column Name="ID" Type="int" IsPrimaryKey="true" IsNull="false" />
-              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsNull="true" />
-              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsNull="true" />
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Rows>
                 <Row>
                   <Value ColumnName="Description">ID</Value>
@@ -220,7 +226,43 @@
                   <Value ColumnName="Description">Private Program</Value>
                   <Value ColumnName="ExternalID">PrivateProgram</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="Description">Event</Value>
+                  <Value ColumnName="ExternalID">Event</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp In</Value>
+                  <Value ColumnName="ExternalID">TimeStampIn</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp Out</Value>
+                  <Value ColumnName="ExternalID">TimeStampOut</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Security Question And Answer</Value>
+                  <Value ColumnName="ExternalID">SecurityQA</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Update Scripts</Value>
+                  <Value ColumnName="ExternalID">UpdateScript</Value>
+                </Row>
               </Rows>
+            </Table>
+            <Table Name="Calendar">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
+              <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="UpdateLog">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Topic" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
             </Table>
           </Tables>
         </SQL>
@@ -234,12 +276,29 @@
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>
-      <Class ClassName="Calculations" HasParams="false" />
+      <Class ClassName="Calculations" HasParams="true">
+        <Math>
+          <QuantizedStepSize>6</QuantizedStepSize>
+          <PathToGradeImport>B:\Powershell\Resources\MathImports\GradeImport.csv</PathToGradeImport>
+          <GradeColors>
+            <GradeColor MinimumThreshold="90">Green</GradeColor>
+            <GradeColor MinimumThreshold="80">Cyan</GradeColor>
+            <GradeColor MinimumThreshold="60">Yellow</GradeColor>
+            <GradeColor MinimumThreshold="0">Red</GradeColor>
+          </GradeColors>
+        </Math>
+      </Class>
     </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Calendar</VarName>
-      <Class ClassName="Calendar" HasParams="false" />
+      <Class ClassName="Calendar" HasParams="true">
+        <Calendar>
+          <PathToEventImport>B:\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
+          <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
+        </Calendar>
+      </Class>
     </Object>
     <!-- $GithubRoadMap -->
     <Object Type="PowerShellClass">
@@ -332,7 +391,7 @@
     <!-- $Todo -->
     <Object Type="HashTable">
       <VarName SecType="public">Todo</VarName>
-      <!--Key and Value-->
+      <!-- Key and Value -->
       <Key Lvl="0" SecType="public">Monday</Key>
       <Value Lvl="0" SecType="public">$MonList</Value>
       <Key Lvl="0" SecType="public">Tuesday</Key>
@@ -397,6 +456,8 @@
       <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
       <Key Lvl="0" SecType="public">Site</Key>
       <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
+      <Key Lvl="0" SecType="public">devSite</Key>
+      <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />
@@ -447,10 +508,14 @@
       <Value Lvl="1" Node="d4f9" SecType="public">https://www.hostinger.com/cpanel-login</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">DatabaseURL</Key>
       <Value Lvl="1" Node="d4f9" SecType="public">https://auth-db221.hostinger.com/</Value>
-      <Key Lvl="1" Node="d4f9" SecType="public">SSHUsername</Key>
+      <Key Lvl="1" Node="d4f9" SecType="public">Username</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">05318085-dcfe-485b-9505-b9b1d662bbb9</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Password</Key>
       <Value Lvl="1" Node="d4f9" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">IPAddress</Key>
+      <Value Lvl="1" Node="d4f9" SecType="private">9f6b684b-7d2f-4d40-ae28-9ac4553349f1</Value>
+      <Key Lvl="1" Node="d4f9" SecType="public">Port</Key>
+      <Value Lvl="1" Node="d4f9" SecType="private">0e91e4ab-92bf-4659-a256-23608b08b6cf</Value>
       <Key Lvl="1" Node="d4f9" SecType="public">Database</Key>
       <Value Lvl="1" Node="d4f9" SecType="public" NodePointer="475b" />
       <Key Lvl="2" Node="475b" SecType="public">DatabaseName</Key>
@@ -596,10 +661,13 @@
     <Object Type="HashTable">
       <VarName SecType="public">College</VarName>
       <!--Key and Value-->
-      <Key Lvl="0" SecType="public">Blackboard</Key>
-      <Value Lvl="0" SecType="public">https://Blackboard.sdsu.edu</Value>
-      <Key Lvl="0" SecType="public">WebPortal</Key>
-      <Value Lvl="0" SecType="public">https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</Value>
+      <!--SDSU-->
+      <Key Lvl="0" SecType="public">SDSU</Key>
+      <Value Lvl="0" SecType="public" NodePointer="4ea4" />
+      <Key Lvl="1" Node="4ea4" SecType="public">Blackboard</Key>
+      <Value Lvl="1" Node="4ea4" SecType="public">https://Blackboard.sdsu.edu</Value>
+      <Key Lvl="1" Node="4ea4" SecType="public">WebPortal</Key>
+      <Value Lvl="1" Node="4ea4" SecType="public">https://sunspot.sdsu.edu/AuthenticationService/loginVerifier.html?pc=portal</Value>
       <!--cPanel-->
       <Key Lvl="0" SecType="public">cPanel</Key>
       <Value Lvl="0" SecType="public" NodePointer="937f" />
@@ -652,15 +720,10 @@
       <Value Lvl="1" Node="475b" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="475b" SecType="public">Password</Key>
       <Value Lvl="1" Node="475b" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
-      <!--SJSU-->
-      <Key Lvl="0" SecType="public">SJSU</Key>
-      <Value Lvl="0" SecType="public" NodePointer="aa3b" />
-      <Key Lvl="1" Node="aa3b" SecType="public">SJSUID</Key>
-      <Value Lvl="1" Node="aa3b" SecType="private">2cc6c5ea-1803-43cb-a5ec-710a97d97871</Value>
-      <Key Lvl="1" Node="aa3b" SecType="public">URL</Key>
-      <Value Lvl="1" Node="aa3b" SecType="public">https://one.sjsu.edu/</Value>
-      <Key Lvl="1" Node="aa3b" SecType="public">Password</Key>
-      <Value Lvl="1" Node="aa3b" SecType="private">9fd118e5-c785-4b9b-a687-b06c65285e67</Value>
+      <Key Lvl="1" Node="475b" SecType="public">ID</Key>
+      <Value Lvl="1" Node="475b" SecType="private">ad91c031-123c-4803-a69b-5b78fff8e87c</Value>
+      <Key Lvl="1" Node="475b" SecType="public">Email</Key>
+      <Value Lvl="1" Node="475b" SecType="private">298b6bcb-e1db-4884-8e0e-2ea960818ad8</Value>
       <!--FAFSA-->
       <Key Lvl="0" SecType="public">FAFSA</Key>
       <Value Lvl="0" SecType="public" NodePointer="0435" />
@@ -842,6 +905,10 @@
       <Value Lvl="0" SecType="private">cfeaef5b-1003-4b38-b20d-b3e9ca2241a1</Value>
       <Key Lvl="0" SecType="public">MySQL</Key>
       <Value Lvl="0" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="0" SecType="public">EDD</Key>
+      <Value Lvl="0" SecType="private">fe572d64-7c05-4d02-92ba-0a655b78f317</Value>
+      <Key Lvl="0" SecType="public">SSUExt</Key>
+      <Value Lvl="0" SecType="private">3cde223e-a0c4-432f-baea-95688b5f2b92</Value>
     </Object>
   </Objects>
 </Machine>

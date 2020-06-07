@@ -47,7 +47,7 @@ public class Audio
         set { Marshal.ThrowExceptionForHR(Vol().SetMute(value, System.Guid.Empty)); }
     }
 }
-'@
+'@ -IgnoreWarnings;
 function Volume
 {
     # https://stackoverflow.com/questions/21355891/change-audio-level-from-powershell

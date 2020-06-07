@@ -59,6 +59,22 @@ class List
         $this.Save();
     }
 
+    [void] Edit() # TODO
+    {
+        $this.LoadList();
+        [string]$Node = Read-Host -Prompt "Node";
+        $this.SweepItems($Node,0,$this.GetList(),$null,'Delete',$null);
+        $this.Save();
+    }
+
+    [void] Help()
+    {
+        Write-Host "@: New Item";
+        Write-Host "Mark: path.to.id"
+        Write-Host "Delete: path.to.id, everything below is deleted"
+        Write-Host "Add: path.to.id, adds new node below last"
+    }
+
     hidden LoadList()
     {
         $this.ExitLoop = $false;
@@ -130,7 +146,7 @@ class List
                 foreach($Item in $List.Item)
                 {
                     # if last one
-                    if($Item.ID -eq $ID)
+                    if(($Item.ID -eq $ID) -or ($ID -eq "@"))
                     {
                         switch($Method)
                         {
@@ -145,12 +161,36 @@ class List
                                 [Calculations]$Math = [Calculations]::new();
                                 $New = $this.xml.CreateElement("Item");
                                 
-                                $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
-                                $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                # checks for @ indicating that user is creating a new item hierarchy within list
+                                # @ signifies adding a new top item node
+                                if($ID -eq "@")
+                                {
+                                    # Passes parent node
+                                    $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item.ParentNode)) + 1))
+
+                                    # This might be null everytime I am adding something new
+                                    if([string]::IsNullOrEmpty($Item.rank)){[string]$Rank = "1"}
+                                    else{[string]$Rank = "$($Item.rank.ToInt16($null))"}
+                                    $New.SetAttribute("rank","$($Rank)"); # Keeps rank
+                                } 
+                                else
+                                {
+                                    $New.SetAttribute("ID",$Math.DecToAscii($Math.AsciiToDec($this.GetLastIDFromChildNode($Item)) + 1));
+                                    $New.SetAttribute("rank","$($Item.rank.ToInt16($null) + 1)");
+                                }
+                                
                                 $New.SetAttribute("name",$ItemName);
                                 $New.SetAttribute("Completed","false");
 
-                                $Item.AppendChild($New);
+                                # If creating a new item hierarchy then must append to list node
+                                if($ID -eq "@")
+                                {
+                                    # Maybe it's null because there is nothing under the list node
+                                    if([String]::IsNullOrEmpty($Item.ParentNode)){$List.AppendChild($New);}
+                                    else{$Item.ParentNode.AppendChild($New);}
+                                }
+                                else{$Item.AppendChild($New);}
+
                                 $this.FoundNode = $true;
                             }
                             "Delete" 
@@ -174,6 +214,7 @@ class List
         # If there is only one item in the node, it can't count because its the only leaf in that node
         # This is a temp/bad fix (and ghetto) but it works out
         if([string]::IsNullOrEmpty($Item.Item.Count)){return $Item.Item.ID}
+        elseif([String]::IsNullOrEmpty($Item)){return "@";}
         else{return $this.CheckIfIDIsNull(($Item.Item[$Item.Item.Count - 1].ID));}
     }
 
@@ -212,6 +253,6 @@ class Item
     }
 }
 
-# [List]$test = [List]::new('Friday To Do List','B:\CODE\XML\List\List.xml','ColorCoded')
+# [List]$test = [List]::new('Monday To Do List','B:\Powershell\Config\User\List.xml','ColorCoded')
 # $test.ListOut();
 # $test.Add()

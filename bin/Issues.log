@@ -1,4 +1,54 @@
 
+Issue: Get-Calendar not printing
+    Fix Commit:  
+    Branch:  
+    Status: Closed
+    Notes: 
+        - Works when I load my profile but not after?
+    Post:
+        - Did not reset index check
+        
+
+Issue: Emails not bounded
+    Fix Commit:  a77d8bc712cbfe6ed6fa3bc79521ca640fe67d83
+    Branch:  
+    Status: Closed
+    Notes: 
+        - the bounded list switch is not setting the limit
+    Post:
+        - Had a redundant check
+
+Issue: Event not popping up on calendar
+    Fix Commit:  b654f59
+    Branch:  
+    Status: Closed
+    Notes: 
+        - Configuration?
+    Post:
+        - it was the query, forgot I didn't use the tag
+        
+Issue: Time Stamp method
+    Fix Commit:  9b78c15
+    Branch:  improve-FixQueryForMultipleTimeStampsInDay
+    Status: Closed
+    Notes: 
+        - Cannot have two timestamps in one day.  How to account for break?
+            - Should there be another type for break?
+    Post:
+        - Fixed query
+            - Added a join column
+        
+Issue: Addprogram not inserting into db
+    Fix Commit:  
+    Branch:  
+    Status: Closed
+    Notes: 
+        - I do not see the issue on my end
+        - Might be an issue on the computer itself.
+            - Maybe a database instance issue
+    Post:
+        - The max of value was 100 and any value with length 100+ will not be inserted
+        
 Issue: List Objects not able to find list
     Fix Commit: NA 
     Branch: NA 

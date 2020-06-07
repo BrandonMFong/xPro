@@ -72,7 +72,7 @@
                 <xs:annotation>
                     <xs:documentation>
                         Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}
+                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}, @admin {Signifies if you are in an admin prompt}
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -81,6 +81,11 @@
         <!-- Terminal Settings -->
         <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This format applies to all under ShellSettings
+                    </xs:documentation>
+                </xs:annotation>
                 <xs:group ref="Formatter"/>
             </xs:element>
             <xs:element name="Header" minOccurs="1" maxOccurs="1">
@@ -118,7 +123,23 @@
                 <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
             </xs:element>
+            <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Git notificatons for Unstaged/Staged changes and unpushed commits
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
             <xs:element name="StartDirectory" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is whatever is configured in the app settings
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">
@@ -194,7 +215,7 @@
 
         <xs:group name="XMLElement">
             <xs:element name="Values">
-                <xs:any/>
+                <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
                 <xs:annotation>
                     <xs:documentation>
                         Any node here can be referenced on the command line by the element name.
@@ -239,6 +260,27 @@
                 </xs:annotation>
                 <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
                 <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="SyncConfiguration" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Flag to allow the class to update your database from profile load.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="UpdateVerbose" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Verbose flag for debugging update scripts
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SQLConvertFlags" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Include the name of the row that should be excluded by default data
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="Tables">
                     <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
                         <xs:attribute name="Name">
@@ -254,15 +296,48 @@
                                     All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
                                 </xs:documentation>
                             </xs:annotation>
-                            <xs:attribute name="Name" type="xs:string" use="mandatory"/>
-                            <xs:attribute name="Type" use="mandatory"/>
-                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory"/>
-                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory"/>
+                            <xs:attribute name="Name" type="xs:string" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Name of the column
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="Type" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Column data type
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this column is the primary key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="IsForeignKey" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this column is the foreign key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this row can be null.  
+                                        If table is already made, cannot make column that is not null
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
                         </xs:element>
                         <xs:element name="Rows" minOccurs="0" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    List out the rows you want to insert into the Database at start up 
+                                    List out the rows you want to insert into the Database at start up.  
+                                    Only thing you do not need to provide are values for ID, Date, and Guids 
                                 </xs:documentation>
                             </xs:annotation>
                             <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
@@ -280,6 +355,81 @@
                 </xs:element>
             </xs:element>
         </xs:group>
+
+        <xs:group name="MathClass">
+            <xs:element name="Math">
+                <xs:element name="QuantizedStepSize" type="xs:int" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used for Quantizing method
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PathToGradeImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Path to import file for grades
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GradeColors" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Color configuration.  Must list Descending Minimum Thresholds Values 
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="GradeColor" minOccurs="0" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Must be colors from powershell terminal
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:attribute name="MinimumThreshold" type="xs:double">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Values must be in descending order.  
+                                    Maximum Threshold is 100%
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:element>
+                </xs:element>
+            </xs:element>
+        </xs:group>
+
+        <xs:group name="CalendarClass">
+            <xs:element name="Calendar">
+                <xs:element name="PathToEventImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            File path to the import file.  
+                            Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="EventConfig" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Default: XML.  Choices = XML or Database
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="TimeStampFilePath" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Full path to timestamp.csv
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FirstDayOfWeek" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            First Day of the week
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:element>
+        </xs:group>
         
         <xs:group name="ClassElement">
             <xs:element name="Class" maxOccurs="1">
@@ -292,6 +442,8 @@
                 </xs:annotation>
                 <xs:group ref="SQLClass"/>
                 <xs:group ref="ListClass"/>
+                <xs:group ref="MathClass"/>
+                <xs:group ref="CalendarClass"/>
             </xs:element>
         </xs:group>
 
@@ -319,9 +471,9 @@
                 <xs:attribute name="Type" type="xs:boolean" use="mandatory">
                     <xs:annotation>
                         <xs:documentation>
-                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),
-                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),
-                            HashTable (if the object will be using key and value to populate). 
+                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),  
+                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),  
+                            HashTable (if the object will be using key and value to populate).   
                             Default is XmlElement.
                         </xs:documentation>
                     </xs:annotation>
@@ -441,6 +593,27 @@
                     Settings for Email.ps1
                 </xs:documentation>
             </xs:annotation>
+            <xs:element name="EmailAddress" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Email address you want to read your emails from 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="SecType" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Securty Type: Default 'public'.  Options: 'public' or 'private'
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+            <xs:element name="DefaultFolder" type="xs:string"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Folder you are reading from (i.e. the \Inbox folder)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -461,6 +634,7 @@
                 </xs:annotation>
             </xs:element>
             <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="ListOrderBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:element>
 
     </xs:element>

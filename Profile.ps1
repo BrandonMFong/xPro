@@ -1,7 +1,6 @@
 # Engineer: Brandon Fong
-# TODO
-# ...
-Param([bool]$StartDir=$true)
+Param([bool]$StartDir=$true,[Bool]$StartScript=$true)
+
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
@@ -30,7 +29,8 @@ if($XMLReader.Machine.Secure -eq "True")
         return;
     }
 }
-if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true}
+if(!$XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
+if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Helps debugging if on
 else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
@@ -53,7 +53,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        if($XMLReader.Machine.StartScript.Enable -eq "true") {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
+        if(($XMLReader.Machine.StartScript.Enable -eq "true") -and ($StartScript)) {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
     
     try 
     {

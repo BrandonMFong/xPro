@@ -6,17 +6,35 @@ using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
     switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
     {
-        "Calendar" {$x = [Calendar]::new();return $x;}
+        "Calendar" 
+        {
+            [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
+            [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
+            [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
+            [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
+            $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
+            return $x;
+        }
         "Web" {$x = [Web]::new();return $x;}
-        "Calculations" {$x = [Calculations]::new();return $x;}
+        "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
         "Email" {$x = [Email]::new();return $x;}
-        "SQL" {$x = [SQL]::new($XmlElement.Class.SQL.Database, $XmlElement.Class.SQL.ServerInstance, $XmlElement.Class.SQL.Tables);return $x;}
+        "SQL" 
+        {
+            [string]$Database = $XmlElement.Class.SQL.Database;
+            [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
+            [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
+            [boolean]$SyncConfiguration = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
+            [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
+            [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
+            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags);
+            return $x;
+        }
         "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
         default
         {
@@ -70,7 +88,7 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
     }
     $end.Value = $u;
 }
-function Evaluate($value)
+function Evaluate([System.Object[]]$value)
 {
     if($value.SecType -eq "private")
     {
@@ -84,10 +102,7 @@ function Evaluate($value)
     {
         return $(Get-Variable $value.InnerText.Replace('$','')).Value;
     }
-    else
-    {
-        return $value.InnerText;
-    }
+    else{return $value.InnerText;}
 }
 
 function MakeHash($value,[int]$lvl,$Node)
@@ -149,56 +164,65 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    [int]$Complete = 0;
-    [int]$Total = $XMLReader.Machine.Programs.Program.Count;
-    foreach($val in $XMLReader.Machine.Programs.Program)
+    if($XMLReader.Machine.Programs.Program.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Programs.Program.Count;
+        foreach($val in $XMLReader.Machine.Programs.Program)
         {
-            Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
         }
-        Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
+        Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
 }
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 0;
-    [int]$Total = $XMLReader.Machine.Modules.Module.Count;
-    foreach($val in $XMLReader.Machine.Modules.Module)
+    if($XMLReader.Machine.Modules.Module.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Modules.Module.Count;
+        foreach($val in $XMLReader.Machine.Modules.Module)
         {
-            Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
         }
-        Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
+        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
 }
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 0;
-    [int]$Total = $XMLReader.Machine.Objects.Object.Count;
-    foreach($val in $XMLReader.Machine.Objects.Object)
+    if($XMLReader.Machine.Objects.Object.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Objects.Object.Count;
+        foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
-        }
-        switch ($val.Type)
-        {
-            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
-            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-            "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
-            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-        }
-        Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
-    } 
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
+                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+            }
+            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
+        } 
+    }
 }
 
 
@@ -206,8 +230,8 @@ function LoadObjects
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-    # Push-Location $PSScriptRoot;  
-        $add = $(Get-Variable 'XMLReader').Value.CreateElement($Tag); 
+        [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        $add = $x.CreateElement($Tag); 
 
         $Alias = Read-Host -Prompt "Set Alias";
         $add.SetAttribute("Alias", $Alias);
@@ -236,11 +260,8 @@ function InsertFromCmd
             $add.InnerXml = $PathToAdd; # Adding literally path
         }
         
-        $x = $(Get-Variable 'XMLReader').Value
         AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
         $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
-    # Pop-Location;
-    # break;
 }
 function GetFullFilePath([string]$File)
 {
@@ -294,4 +315,22 @@ function Test-KeyPress
             return $false
         }
     }
+}
+
+function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
+{
+    [System.Xml.XmlDocument]$xml = GetXMLContent;
+    if($xml.Machine.Email.ListOrderBy -eq "Asc")
+    {
+        return ($i -lt ($Max - $OrderFactor));
+    }
+    elseif($xml.Machine.Email.ListOrderBy -eq "Desc")
+    {
+        return ($i -gt ($OrderFactor - $Max));
+    }
+    else
+    {
+        return $false;
+    }
+
 }

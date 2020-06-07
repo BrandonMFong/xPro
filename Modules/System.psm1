@@ -47,4 +47,17 @@ function Set-Brightness
     $monitor.WmiSetBrightness(0,$Percentage)
 }
 
-function Reload-Profile {.$PROFILE -StartDir:$false;}
+function Reload-Profile 
+{
+    param([Switch]$StartScript)
+    if($StartScript){.$PROFILE -StartDir:$false -StartScript:$true;}
+    else{.$PROFILE -StartDir:$false -StartScript:$false;}
+}
+
+function Toggle-Load 
+{
+    param([Switch]$Restart)
+    $XMLReader.Machine.LoadProfile = (!$XMLReader.Machine.LoadProfile.ToBoolean($null)).ToString();
+    $XMLReader.Save($($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile));
+    if($Restart){Restart-Session;}
+}

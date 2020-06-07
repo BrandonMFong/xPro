@@ -5,21 +5,11 @@
 	Write-Host "`n";
 	Get-Calendar;
 	Write-Host "`n[Special Days]" -ForegroundColor Green;
-	$Calendar.SpecialDays();
+	$Calendar.Events();
 	Write-Host "`n[Emails]" -ForegroundColor Green;
 	Get-Email -BoundedList;
-	$x = 
-	@{
-		Monday = $MonList;
-		Tuesday = $TueList;
-		Wednesday = $WedList;
-		Thursday = $ThuList;
-		Friday = $FriList;
-		Saturday = $SatList;
-		Sunday = $SunList
-	} 
-	New-Variable -Name "Todo" -Value $x -Scope Global -Force;
 	Week-List;
+	ConnectNetDrive;
 	Write-Host "`n1. Start`n"
 	$start = Read-Host 
 	if($start -eq "1")
@@ -32,11 +22,5 @@
 		else {BankUrl;}
 		global;
 		$p = Read-Host -Prompt "Are you VPN'd in?(yes/no)";
-		if($p -eq "yes")
-		{
-			goto repo -push;
-			Get-ChildItem |
-			Foreach-Object {Set-Location $_.Fullname;write-warning (Get-Location).Path;git pull --rebase;Set-Location ..;}
-			pop-location;
-		}
+		if($p -eq "yes"){Pull-CC;}
 	}

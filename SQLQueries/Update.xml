@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Update.xsd">
+  <ScriptBlock Topic="Create Time Stamp Report function in SQL Server" ScriptID="4AE6DB7F-5D7A-4686-9D13-17899EBE10E3" IsFunction="True">
+    <![CDATA[
+      create function TimeReport()
+      returns @TimeStamp table(Date varchar(100),TimeIn varchar(100), TimeOut varchar(100)) as
+      begin
+        /*Time In Data*/
+        declare @TimeIn TABLE (RowNum int, EventDate datetime, TypContentID int, ExternalID varchar(50));
+        insert into @TimeIn
+        select ROW_NUMBER() over(order by tic.EventDate) RowNum,tic.EventDate,tic.TypeContentID, tic.ExternalID
+        from Calendar tic where tic.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampIn')
+
+        /*Time Out Data*/
+        declare @TimeOut TABLE (RowNum int, EventDate datetime, TypContentID int, ExternalID varchar(50));
+        insert into @TimeOut
+        select ROW_NUMBER() over(order by toc.EventDate) RowNum,toc.EventDate,toc.TypeContentID, toc.ExternalID
+        from Calendar toc where toc.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampOut')
+
+        insert into @TimeStamp
+        select convert(varchar(10), TimeIn.EventDate, 101) [Date], convert(varchar, TimeIn.EventDate, 20)[TimeIn],
+        case 
+          when TimeOut.EventDate is null then (select '--:--:-- --')
+          else convert(varchar, TimeOut.EventDate, 20)
+        end [TimeOut]
+        from @TimeIn TimeIn 
+        full outer join @TimeOut TimeOut 
+        on TimeIn.RowNum = TimeOut.RowNum and TimeIn.ExternalID = TimeOut.ExternalID
+        return 
+      end
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Put value for new TypeContent column (StartDate)" ScriptID="F752AA07-3AC3-43E8-A4EE-6033C380B595" IsFunction="False">
+    <![CDATA[
+      /*** Put value for new TypeContent column ***/
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'TypeContent') 
+      begin 
+        update TypeContent
+        set StartDate = GETDATE()
+      end
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Extend varchar data type length" ScriptID="35CA7191-384E-449D-B722-5AFA3D4C0BEF" IsFunction="False">
+    <![CDATA[
+      alter table PersonalInfo alter column Value varchar(1000);
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Put EventDate to Not Null"  ScriptID="F33DEA5E-636D-421E-BA8F-E0B6E705853B" IsFunction="False">
+    <![CDATA[
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'Calendar') 
+      begin 
+        alter table Calendar alter column EventDate datetime NOT NULL;
+      end
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Dropping StartTime and EndTime"  ScriptID="3F2E643B-FB08-48ED-B8FC-85E02335B94E" IsFunction="False">
+    <![CDATA[
+      if exists (select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'Calendar' and COLUMN_NAME in ('StartTime', 'EndTime'))
+      begin
+        alter table Calendar drop column StartTime, EndTime;  
+      end
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Delete TimeStamp from TypeContent"  ScriptID="BEACA3BD-A9AE-4428-B50F-1C48146293C8" IsFunction="False">
+    <![CDATA[
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'TypeContent') 
+      begin 
+        delete from TypeContent where externalid = 'TimeStamp'
+      end
+    ]]>
+  </ScriptBlock>
+  <ScriptBlock Topic="Delete Toke, MobileNumber, and HomeAddress from TypeContent"  ScriptID="095D5F9E-4733-49F1-BF07-90DC28CB8A8B" IsFunction="False">
+    <![CDATA[ 
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'TypeContent') 
+      begin 
+        delete TypeContent where externalid in ('Token', 'MobileNumber', 'HomeAddress');
+      end
+    ]]>
+  </ScriptBlock>
+</Machine>

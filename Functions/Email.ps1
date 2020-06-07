@@ -10,9 +10,20 @@
 
 Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0,[switch]$BoundedList)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-[XML]$xml = $(Get-Content ($PSScriptRoot + "\..\Config\" + (Get-Variable "AppPointer").Value.Machine.ConfigFile));
+[XML]$xml = GetXMLContent;
 $x = $xml.Machine.Email;
 $inbox = InboxObject;
+if($x.ListOrderBy -eq "Desc")
+{
+    [int]$OrderFactor = ($inbox.Items|Measure-Object).Count - 1;
+    [int]$IncFactor = -1;
+}
+else
+{
+    [int]$OrderFactor = 0;
+    [int]$IncFactor = 1;
+}
+
 if($ListMessages)
 {
     if(($inbox.Items|Measure-Object).Count -gt 0)
@@ -102,11 +113,12 @@ if($Count){return ($inbox.Items|Measure-Object).Count;}
 if($GetObject){return $inbox;}
 if($BoundedList)
 {
-    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax)){$Max = $x.ListInboxMax;}
-    else{$Max = $inbox.Items.Count;}
+    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax))
+    {$Max = $x.ListInboxMax;}
+    else{$Max = $($inbox.Items|Measure-Object).Count ;}
     if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        for($i=0;$i -lt $Max;$i++)
+        for($i=$OrderFactor - 0;$true -eq $(EmailOrder -i $i -Max $Max -OrderFactor $OrderFactor);$i = $i + $IncFactor)
         {
             Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
             Write-Host "[" -NoNewline -ForegroundColor Cyan;
@@ -122,11 +134,12 @@ if($BoundedList)
 }
 else
 {
-    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax)){$Max = $x.ListInboxMax;}
-    else{$Max = $inbox.Items.Count;}
+    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -lt $x.ListInboxMax) -and ($x.ListInboxMax -ge $($inbox.Items|Measure-Object).Count))
+    { $Max = $x.ListInboxMax;}
+    else{$Max = $($inbox.Items|Measure-Object).Count ;}
     if(($inbox.Items|Measure-Object).Count -gt 0)
     {
-        for($i=0;$i -lt $Max;$i++)
+        for($i=$OrderFactor - 0;$true -eq $(EmailOrder -i $i -Max $Max -OrderFactor $OrderFactor);$i = $i + $IncFactor)
         {
             Write-Host "{$($i+1)} " -NoNewline -ForegroundColor Cyan;
             Write-Host "[" -NoNewline -ForegroundColor Cyan;

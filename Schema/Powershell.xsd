@@ -4,13 +4,6 @@
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
         <xs:attribute name="LoadProfile"/>
-        <xs:attribute name="Secure" type="xs:boolean" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>
@@ -146,6 +139,16 @@
                         Default is whatever is configured in the app settings
                     </xs:documentation>
                 </xs:annotation>
+            </xs:element>
+            <xs:element name="Security" minOccurs="0" maxOccurs="1">
+                <xs:element name="Secure" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CloseSessionIfIncorrect" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
             </xs:element>
         </xs:element>
         

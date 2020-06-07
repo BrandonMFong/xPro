@@ -337,23 +337,39 @@ function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 
 function CheckCredentials
 {
-    if($XMLReader.Machine.Secure.ToBoolean($null) -and !$LoggedIn)
+    if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
     {
         $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
         [string]$user = Read-Host -prompt "Username"; 
 
         # Get Secure string and then convert it back to plain text
         [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
-        [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var)
-        [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+        [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var);
+        [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr);
         
-        if(($user -ne $cred.Username) -or ($cred.Password -ne $password))
+        if(($user -ne $cred.Username) -or ($cred.Password -ne $(GetPassWord -password:$password -cred:$cred)))
         {
             Write-Error "WRONG CREDENTIALS";
             Start-Sleep 1;
             Pop-Location;
-            stop-process -Id $PID;
+            if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
+            else{exit;}
         }
         else{[Boolean]$LoggedIn = $true;}
+    }
+}
+
+function GetPassWord([String]$password, [System.Object[]]$cred)
+{
+    if($cred.Decode -eq "PlainText")
+    {
+        return $password
+    }
+    elseif($cred.Decode -eq "Binary")
+    {
+        [string]$out = $null;
+        [Calculations]$math = [Calculations]::new();
+        for($i = 0;$i -lt $password.Length;$i++){$out +=$math.IntToBinary($math.AsciiToDec($password[$i]))}
+        return $out;
     }
 }

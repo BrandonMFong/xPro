@@ -3,7 +3,14 @@
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
-        <xs:attribute name="Secure"/>
+        <xs:attribute name="LoadProfile"/>
+        <xs:attribute name="Secure" type="xs:boolean" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>

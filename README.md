@@ -250,7 +250,6 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 * [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7) - Powershell Version 5
 * [SQL](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15) - SQL Server
     * *Must have two tables defined (PersonalInfo & TypeContent)*
-* [Posh-Git](https://github.com/dahlbyk/posh-git) - Git for Powershell
 
 ## Developed With
 

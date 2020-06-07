@@ -13,22 +13,19 @@ if($XMLReader.Machine.Secure -eq "True")
 {
     $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
     [string]$user = Read-Host -prompt "Username"; 
-    $pw = Read-Host -prompt "Password" -AsSecureString; 
-    $pw1 = ConvertFrom-SecureString $pw; 
-    $pw2 = ConvertTo-SecureString $pw1; 
-    $binarystr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pw2);
-    $pwstr = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($binarystr);
 
-    $credpw = ConvertTo-SecureString -SecureString $cred.Password;
-    $credbin = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($credpw);
-    $decpw = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($credbin)
-
-    if(($user -ne $cred.Username) -or ($pwstr -ne $decpw))
+    # Get Secure string and then convert it back to plain text
+    [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
+    [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var)
+    [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+    
+    if(($user -ne $cred.Username) -or ($cred.Password -ne $password))
     {
         Write-Error "WRONG CREDENTIALS";
-        return;
+        exit;
     }
 }
+
 if(!$XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
 if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Helps debugging if on
 else{[bool]$Verbose = $false}

@@ -126,21 +126,20 @@ function _SetBackgroundColor
     if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor))
     {$Host.PrivateData.ProgressBackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
 }
-function prompt
-{
-    _SetHeader; # Sets Header
-    _SetBackgroundColor; # Sets BG color
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
-    $prompt = $x.Machine.ShellSettings.Prompt;
-    [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
-    
-    _Replace([ref]$OutString);
 
-    # Prompt output
-    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)))
-    {Write-Host "PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
-    else 
+# Prompt output
+[Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+$prompt = $x.Machine.ShellSettings.Prompt;
+if(($prompt.Enabled -eq "True") -and (![string]::IsNullOrEmpty($prompt.String)))
+{
+    function prompt
     {
+        _SetHeader; # Sets Header
+        _SetBackgroundColor; # Sets BG color
+        [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
+        
+        _Replace([ref]$OutString);
+
         if($prompt.String.Color -eq "")
         {
             if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))

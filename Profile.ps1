@@ -9,7 +9,7 @@ Pop-Location
 
 # Get credentials
 # Should this be in the beginning?
-if($XMLReader.Machine.Secure -eq "True")
+if($XMLReader.Machine.Secure.ToBoolean($null) -and !$LoggedIn)
 {
     $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
     [string]$user = Read-Host -prompt "Username"; 
@@ -24,6 +24,7 @@ if($XMLReader.Machine.Secure -eq "True")
         Write-Error "WRONG CREDENTIALS";
         exit;
     }
+    else{[Boolean]$LoggedIn = $true;}
 }
 
 if(!$XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)

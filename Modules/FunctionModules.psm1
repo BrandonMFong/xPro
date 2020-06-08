@@ -337,25 +337,29 @@ function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 
 function CheckCredentials
 {
-    if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
+    # If the security elements are configured
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Security.Secure))
     {
-        $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
-        [string]$user = Read-Host -prompt "Username"; 
-
-        # Get Secure string and then convert it back to plain text
-        [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
-        [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var);
-        [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr);
-        
-        if(($user -ne $cred.Username) -or ($cred.Password -ne $(GetPassWord -password:$password -cred:$cred)))
+        if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
         {
-            Write-Error "WRONG CREDENTIALS";
-            Start-Sleep 1;
-            Pop-Location;
-            if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
-            else{exit;}
+            $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
+            [string]$user = Read-Host -prompt "Username"; 
+
+            # Get Secure string and then convert it back to plain text
+            [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
+            [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var);
+            [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr);
+            
+            if(($user -ne $cred.Username) -or ($cred.Password -ne $(GetPassWord -password:$password -cred:$cred)))
+            {
+                Write-Error "WRONG CREDENTIALS";
+                Start-Sleep 1;
+                Pop-Location;
+                if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
+                else{exit;}
+            }
+            else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
         }
-        else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
     }
 }
 

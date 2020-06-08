@@ -26,6 +26,10 @@
       <Staged>True</Staged>
       <Commits>True</Commits>
     </GitSettings>
+    <Security>
+      <Secure>True</Secure>
+      <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
+    </Security>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>

@@ -18,11 +18,11 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
 
     <### GET CREDENTIALS ###>
-    CheckCredentials;
+        CheckCredentials;
     
     # Background setting for write-progress
-    Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
-    _SetBackgroundColor;
+        Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
+        _SetBackgroundColor;
         
     <### PROGRAMS ###> 
         LoadPrograms -XMLReader:$XMLReader -Verbose:$Verbose

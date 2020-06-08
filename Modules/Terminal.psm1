@@ -143,7 +143,7 @@ if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOr
             
             _Replace([ref]$OutString);
     
-            if(($prompt.BaterryLifeThreshold.Enabled.ToBoolean($null)) -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
+            if(($prompt.BaterryLifeThreshold.Enabled -eq "True") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
             {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
             else {Write-Host ("$($OutString)") -ForegroundColor $(_EvalColor($prompt.String.Color)) -NoNewline;}
             

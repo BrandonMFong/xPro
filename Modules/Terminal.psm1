@@ -108,7 +108,7 @@ function _SetHeader
 {
     [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($XMLReader.Machine.ShellSettings.Header.Enabled -ne "False") -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
+    if(($XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
     {$Host.UI.RawUI.WindowTitle = $OutString}
 }
 function _SetBackgroundColor
@@ -130,28 +130,30 @@ function _SetBackgroundColor
 # Prompt output
 [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
 $prompt = $x.Machine.ShellSettings.Prompt;
-if(($prompt.Enabled -eq "True") -and (![string]::IsNullOrEmpty($prompt.String)))
+if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)))
 {
     function prompt
     {
         _SetHeader; # Sets Header
         _SetBackgroundColor; # Sets BG color
-        [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
-        
-        _Replace([ref]$OutString);
 
-        if($prompt.String.Color -eq "")
+        if($prompt.Enabled.ToBoolean($null) -and (![string]::IsNullOrEmpty($prompt)))
         {
-            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
+            [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
+            
+            _Replace([ref]$OutString);
+    
+            if(($prompt.BaterryLifeThreshold.Enabled.ToBoolean($null)) -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
             {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
-            else {Write-Host ("$($OutString)") -ForegroundColor White -NoNewline;}
+            else {Write-Host ("$($OutString)") -ForegroundColor $(_EvalColor($prompt.String.Color)) -NoNewline;}
+            
+            return " ";
         }
-        else
-        {
-            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
-            {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
-            else {Write-Host ("$($OutString)") -ForegroundColor $prompt.String.Color -NoNewline;}
-        }
-        return " ";
     }
+}
+
+function _EvalColor([string]$Color)
+{
+    if([string]::IsNullOrEmpty($Color)){return "White"}
+    else{return $Color}
 }

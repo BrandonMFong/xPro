@@ -10,9 +10,12 @@ class SQL
     hidden [Boolean]$UpdateVerbose;
     hidden [string]$SQLConvertFlags;
     hidden [Boolean]$RunUpdates;
+    hidden [Boolean]$CreateDatabase;
 
     # Constructor
-    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags,[Boolean]$RunUpdates)
+    SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, 
+    [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags,
+    [Boolean]$RunUpdates,[Boolean]$CreateDatabase)
     {
         $this.database = $database;
         $this.serverinstance = $serverinstance;
@@ -20,6 +23,7 @@ class SQL
         $this.UpdateVerbose = $UpdateVerbose;
         $this.SQLConvertFlags = $SQLConvertFlags;
         $this.RunUpdates = $RunUpdates;
+        $this.CreateDatabase = $CreateDatabase;
         if($SyncConfiguration){$this.SyncConfig();}
     }
 
@@ -275,7 +279,7 @@ class SQL
         if(!$this.RunUpdates){break;}
 
         # Update Scripts
-        [Xml]$Update = Get-Content $PSScriptRoot\..\SQLQueries\Update.xml;
+        [Xml]$Update = Get-Content $PSScriptRoot\..\SQL\Update.xml;
         Write-Host "`n";
         foreach($Script in $Update.Machine.ScriptBlock)
         {
@@ -294,7 +298,7 @@ class SQL
                 }
                 [string]$InsertUpdateLog = $null;
                 $this.QueryConstructor("Insert",[ref]$InsertUpdateLog,$tablename,$values); # Construct the log
-                [string]$updatestring = Get-Content $PSScriptRoot\..\SQLQueries\UpdateLogExist.sql; # Get query structure
+                [string]$updatestring = Get-Content $PSScriptRoot\..\SQL\UpdateLogExist.sql; # Get query structure
 
                 # Checks if the script block is creating a function
                 # I could create another method that deals with functions
@@ -332,8 +336,10 @@ class SQL
         }
         Write-Host "`n";
     }
+
     SyncConfig()
     {
+        $this.CreateDB();
         foreach($table in $this.tables.Table)
         {
 
@@ -346,6 +352,17 @@ class SQL
             $this.InsertRows($table,$table.Name);
         }
         $this.UpdateQueries();
+    }
+
+    # Creates the database
+    [void] CreateDB()
+    {
+        if($this.CreateDatabase)
+        {
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\CreateDatabase.sql)";
+            $querystring = $querystring.Replace("@DBName",$this.database);
+            Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database "master";
+        }
     }
 
     # Reads config for rows config and creates multiple insert queries for each row config

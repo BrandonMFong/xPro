@@ -66,7 +66,6 @@ function GetObjectByClass([string]$Class)
 }
 
 function IsNotPass($x){return ($x -ne "pass");}
-function IsNotSpace($x){return ($x -ne " ");}
 
 function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 {

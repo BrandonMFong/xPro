@@ -2,7 +2,7 @@
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
-  <ShellSettings>
+  <ShellSettings Enabled="True">
     <Format>
       <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
@@ -176,6 +176,7 @@
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
+          <CreateDatabase>False</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />

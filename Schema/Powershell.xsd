@@ -80,6 +80,7 @@
 
         <!-- Terminal Settings -->
         <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
+            <xs:attribute name="Enabled" use="mandatory" type="xs:boolean"/>
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -292,6 +293,13 @@
                     </xs:annotation>
                 </xs:element>
                 <xs:element name="RunUpdates" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="CreateDatabase" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Whether or not you want the code to make the database for you.  Good when you first start using the database.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="Tables">
                     <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
                         <xs:attribute name="Name">

@@ -130,7 +130,7 @@ class Calendar
     {
         if($this.EventConfig -eq "Database")
         {
-            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetAllEvents.sql)";
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetAllEvents.sql)";
             [System.Object[]]$Events = $this.SQL.Query($querystring);
             for([int]$i=0;$i -lt $Events.Length;$i++)
             {
@@ -310,7 +310,7 @@ class Calendar
         # But what if I never time out and there is always one more time in record
         # I can handle this in the query
         $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\TimeStamp.sql)";
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\TimeStamp.sql)";
         $querystring = $querystring.Replace("@insertquery",$insertquery);
         $querystring = $querystring.Replace("@CalendarExtID",$CalendarExtID);
         $querystring = $querystring.Replace("@TCExterID",$TypeContentExternalID);
@@ -321,7 +321,7 @@ class Calendar
     [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
     [string]GetTimeStampDuration()
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\GetTimeStampDuration.sql)";
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetTimeStampDuration.sql)";
         [string]$time = $($this.SQL.Query($querystring)).Time;
         if($time -eq "0:0:"){return $null;} # when you haven't timed in yet
         else{return "$($(Get-Date $time).ToString('HH:mm:ss'))";}
@@ -337,14 +337,14 @@ class Calendar
 
     hidden [Void]GetTime([string]$Method)
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
         $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
         $this.FinalStep($Method,$querystring);
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FullTimeStampReport.sql)";
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FullTimeStampReport.sql)";
         $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
         $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
         $this.FinalStep($Method,$querystring);
@@ -398,7 +398,7 @@ class Calendar
         Write-Warning "This will insert a time out stamp based on the last null pair.";
         if('y' -eq $(Read-Host -Prompt 'Do you want to continue?'))
         {
-            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\FixTimeStamp.sql)";
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FixTimeStamp.sql)";
             $this.SQL.QueryNoReturn($querystring);
             Write-Host "Query executed.";
         }
@@ -594,7 +594,7 @@ class Day
         [boolean]$IsSpecialDay = $false;
         if($this.EventConfig -eq "Database")
         {
-            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQLQueries\IsEvent.sql)";
+            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\IsEvent.sql)";
             $querystring = $querystring.Replace('@DayString',$this.DateString);
             if(($this.SQL.Query($querystring)).Exists)
             {$IsSpecialDay = $true;}

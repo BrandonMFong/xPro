@@ -6,7 +6,7 @@ using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null, $false); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null, $false, $false); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
@@ -29,11 +29,12 @@ function MakeClass($XmlElement)
             [string]$Database = $XmlElement.Class.SQL.Database;
             [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
             [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
-            [boolean]$SyncConfiguration = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
+            [boolean]$Sync = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
             [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
             [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
-            [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates;
-            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags,$RunUpdates);
+            [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates.ToBoolean($null);
+            [boolean]$Create = $XmlElement.Class.SQL.CreateDatabase.ToBoolean($null);
+            $x = [SQL]::new($Database, $ServerInstance, $Tables, $Sync, $UpdateVerbose, $SQLConvertFlags,$RunUpdates,$Create);
             return $x;
         }
         "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}

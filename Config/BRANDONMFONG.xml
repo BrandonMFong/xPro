@@ -174,6 +174,7 @@
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
+          <CreateDatabase>False</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />

@@ -359,17 +359,44 @@ function CheckCredentials
     }
 }
 
-function GetPassWord([String]$password, [System.Object[]]$cred)
+function GetPassWord([String]$password, [System.Object[]]$cred) # Encrypts password
 {
-    if($cred.Decode -eq "PlainText")
-    {
-        return $password
-    }
+    # PlainText
+    if($cred.Decode -eq "PlainText"){return $password;}
+    # Binary
     elseif($cred.Decode -eq "Binary")
     {
         [string]$out = $null;
         [Calculations]$math = [Calculations]::new();
-        for($i = 0;$i -lt $password.Length;$i++){$out +=$math.IntToBinary($math.AsciiToDec($password[$i]))}
+        for($i = 0;$i -lt $password.Length;$i++){$out += $math.IntToBinary($math.AsciiToDec($password[$i]))}
         return $out;
     }
+    # HexMax
+    elseif($cred.Decode -eq "HexMax")
+    {
+        [string]$out = $null;
+        [Calculations]$math = [Calculations]::new();
+        for($i = 0;$i -lt $password.Length;$i++)
+        {
+            $string = $math.IntToBinary($math.AsciiToDec($password[$i]));
+            for($j = 0;$j -lt $string.Length;$j = $j + 4)
+            {
+                $out += $math.BinaryToInt($string.Substring($j,4));
+            }
+        }
+        return $out;
+    }
+    else{return $password;}
+}
+
+function GenerateEncryption
+{
+    param
+    (
+        [ValidateSet('PlainText','Binary','HexMax')]
+        [string]$Encryption,
+        [Parameter(Mandatory)][string]$password
+    )
+    $t = @{"Decode"=$Encryption};
+    GetPassWord -password:$password -cred:$t;
 }

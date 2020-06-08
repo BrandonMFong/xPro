@@ -2,7 +2,7 @@
 <Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
   <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
-  <ShellSettings>
+  <ShellSettings Enabled="True">
     <Format>
       <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>

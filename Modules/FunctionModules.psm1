@@ -101,7 +101,9 @@ function Evaluate([System.Object[]]$value)
     }
     elseif($value.InnerText.Contains('$')) # if powershell object
     {
-        return $(Get-Variable $value.InnerText.Replace('$','')).Value;
+        # If user is using PSScriptRoot, must use it in the context that this file will return the script root
+        if($value.InnerText.Contains('$PSScriptRoot')){return $(Get-ChildItem $value.InnerText).Fullname;}
+        else{return $(Get-Variable $value.InnerText.Replace('$','')).Value;} # Else return the variable
     }
     else{return $value.InnerText;}
 }

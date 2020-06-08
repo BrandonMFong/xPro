@@ -136,7 +136,8 @@
     <Program Alias="Get-Calendar" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
     <Program Alias="Greetings" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SCRIPTS\Greetings.ps1</Program>
-    <Program Alias="GOTO" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program>
+    <!-- <Program Alias="GOTO" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program> -->
+    <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Open.ps1</Program>
     <Program Alias="Aopend" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>

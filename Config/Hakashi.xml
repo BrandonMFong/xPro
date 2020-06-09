@@ -60,6 +60,7 @@
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
     <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program>
+    <Program Alias="Dismount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program><!-- Assuming every computer has it here -->
     <Program Alias="npad" SecType="public">$PSScriptRoot\..\..\Notepad++\notepad++.exe</Program>
   </Programs>

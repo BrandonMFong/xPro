@@ -417,3 +417,12 @@ function GenerateEncryption
     $t = @{"Decode"=$Encryption};
     GetPassWord -password:$password -cred:$t;
 }
+
+function CreateCredentials
+{
+    [System.Object[]]$user = @{"Username"="";"Password"="";"Decode"=""};
+    [string]$CredPath = ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
+    New-Item $CredPath -Force;
+    $user | ConvertTo-Json | Out-File $CredPath;
+    Write-Host "Created credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;
+}

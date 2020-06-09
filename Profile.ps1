@@ -12,7 +12,7 @@ if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Hel
 else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking -Scope Local;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
@@ -21,7 +21,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         CheckCredentials;
     
     # Background setting for write-progress
-        Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
+        Import-Module .\Modules\Terminal.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
         _SetBackgroundColor;
         
     <### PROGRAMS ###> 

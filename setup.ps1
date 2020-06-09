@@ -8,4 +8,4 @@ Push-Location $PSScriptRoot;
     _InitProfile;
     _InitConfig;
 Pop-Location;
-Start-Process powershell;exit;
+# Start-Process powershell;exit;

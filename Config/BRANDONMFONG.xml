@@ -159,6 +159,7 @@
     <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
     <Program Alias="Open-Putty" SecType="public">B:\Powershell\Functions\Open-Putty.ps1</Program>
     <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
+    <Program Alias="Dismount" SecType="public">B:\Powershell\Functions\DismountDrive.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

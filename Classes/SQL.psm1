@@ -100,6 +100,7 @@ class SQL
         try{Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;}
         catch
         {
+            Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
             Write-Warning "$($_)";
             break;
         }
@@ -160,6 +161,7 @@ class SQL
         try{$this.Query($querystring);}
         catch
         {
+            Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
             Write-Warning "$($_)";
             break;
         }
@@ -329,6 +331,7 @@ class SQL
             }
             catch 
             {
+                Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
                 $StackTrace;
                 $_;
                 throw "Something bad happened!";

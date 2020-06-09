@@ -89,8 +89,9 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
     }
     $end.Value = $u;
 }
-function Evaluate([System.Object[]]$value)
+function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
 {
+    # param([Switch]$IsGoto)
     if($value.SecType -eq "private")
     {
         return $Sql.InputReturn($value.InnerText);
@@ -102,7 +103,17 @@ function Evaluate([System.Object[]]$value)
     elseif($value.InnerText.Contains('$')) # if powershell object
     {
         # If user is using PSScriptRoot, must use it in the context that this file will return the script root
-        if($value.InnerText.Contains('$PSScriptRoot')){return $(Get-ChildItem $value.InnerText).Fullname;}
+        if($value.InnerText.Contains('$PSScriptRoot'))
+        {
+            if($IsDirectory)
+            {
+                Push-Location $value.Innertext;
+                    [String]$path = (Get-Location).Path;
+                Pop-Location;
+                return $path;
+            }
+            else{return $(Get-ChildItem $value.InnerText).Fullname;}
+        }
         else{return $(Get-Variable $value.InnerText.Replace('$','')).Value;} # Else return the variable
     }
     else{return $value.InnerText;}

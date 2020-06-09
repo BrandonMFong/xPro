@@ -260,28 +260,41 @@ class Calendar
         {
             if(Test-Path $this.PathToImportFile)
             {
-                [System.Object[]]$CSVReader = Get-Content $this.PathToImportFile | ConvertFrom-Csv;
-                for([int]$i=0;$i -lt $CSVReader.Length;$i++)
+                try
                 {
-                    [string]$insertquery = $null;
-                    [string]$tablename = "Calendar"; # hard coding table name
-                    [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
-                    
-                    # Adds the actual values to use for the insert query
-                    # There are also checks for other types of 
-                    foreach($val in $values)
+                    [System.Object[]]$CSVReader = Get-Content $this.PathToImportFile | ConvertFrom-Csv;
+                    for([int]$i=0;$i -lt $CSVReader.Length;$i++)
                     {
-                        # goes through rows in csv and loads the value
-                        if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = 'Event'")).ID;} #Typecontent externalid is 'Event'
-                        if($val.COLUMN_NAME -eq "ExternalID"){$val.Value = $CSVReader[$i].ExternalID;}
-                        if($val.COLUMN_NAME -eq "Subject"){$val.Value = $CSVReader[$i].Subject.Replace("'","''");}
-                        if($val.COLUMN_NAME -eq "EventDate"){$val.Value = $CSVReader[$i].EventDate;}
-                        if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = $CSVReader[$i].IsAnnual;}
+                        [string]$insertquery = $null;
+                        [string]$tablename = "Calendar"; # hard coding table name
+                        [System.Object[]]$values = $this.SQL.GetTableSchema($tablename);
+                        
+                        # Adds the actual values to use for the insert query
+                        # There are also checks for other types of 
+                        foreach($val in $values)
+                        {
+                            # goes through rows in csv and loads the value
+                            if($val.COLUMN_NAME -eq "TypeContentID"){$val.Value = ($this.SQL.Query("select id from typecontent where externalid = 'Event'")).ID;} #Typecontent externalid is 'Event'
+                            if($val.COLUMN_NAME -eq "ExternalID"){$val.Value = $CSVReader[$i].ExternalID;}
+                            if($val.COLUMN_NAME -eq "Subject"){$val.Value = $CSVReader[$i].Subject.Replace("'","''");}
+                            if($val.COLUMN_NAME -eq "EventDate"){$val.Value = $CSVReader[$i].EventDate;}
+                            if($val.COLUMN_NAME -eq "IsAnnual"){$val.Value = $CSVReader[$i].IsAnnual;}
+                        }
+                        $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
+                        [string]$extid = $CSVReader[$i].ExternalID; # extracts external id
+                        [string]$querystring = "if not exists (select * from $($tablename) where ExternalID = '$($extid)') begin @insertquery end" # If exists query
+                        $this.SQL.QueryNoReturn($querystring.Replace("@insertquery", $insertquery));
                     }
-                    $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
-                    [string]$extid = $CSVReader[$i].ExternalID; # extracts external id
-                    [string]$querystring = "if not exists (select * from $($tablename) where ExternalID = '$($extid)') begin @insertquery end" # If exists query
-                    $this.SQL.QueryNoReturn($querystring.Replace("@insertquery", $insertquery));
+                }
+                catch [System.Management.Automation.RuntimeException]
+                {
+                    Write-Warning "[CALENDAR] You may have the PathToImportFile configured but not a database"
+                }
+                catch
+                {
+                    Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
+                    Write-Warning "$($_)";
+                    Write-Warning "$($_.ScriptStackTrace)";
                 }
             }
         }

@@ -36,6 +36,7 @@ try
 }
 catch 
 {
+    Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
     Write-Warning "Error in Weather, following is the exception";
     Write-Warning $_;
 }

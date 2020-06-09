@@ -31,5 +31,12 @@ for($i = 3;$i -lt $Table.Length;$i++)
         Write-Host "IP: " -ForegroundColor Cyan -NoNewline;
         Write-Host "$($str)" -ForegroundColor Yellow;
     }
+    catch 
+    {
+        Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
+        $StackTrace;
+        $_;
+        throw "Something bad happened!";
+    }
     $key = Test-KeyPress -Key Q; # test key
 }

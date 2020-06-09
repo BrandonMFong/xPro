@@ -355,6 +355,7 @@ function CheckCredentials
     {
         if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
         {
+            Write-Host "CONFIG: $($AppPointer.Machine.ConfigFile)`n" -foregroundcolor Gray;
             $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
             [string]$user = Read-Host -prompt "Username"; 
 

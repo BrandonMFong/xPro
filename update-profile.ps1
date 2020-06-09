@@ -17,8 +17,11 @@ Push-Location $PSScriptRoot
 
     if(($GitProfile -gt $PSProfile) -or ($ForceUpdate))
     {
-        Write-Host  "There is an update to Powershell profile." -ForegroundColor Red
-        $update = Read-Host -Prompt "Want to update? (y/n)";
+        if(!$ForceUpdate)
+        {
+            Write-Host  "`nThere is an update to Powershell profile." -ForegroundColor Red
+            $update = Read-Host -Prompt "Want to update? (y/n)";
+        }
         if(($update -eq "y") -or ($ForceUpdate))
         {
             Push-Location $($PROFILE |Split-Path -Parent);

@@ -6,6 +6,14 @@ if(!$Force)
     if('y' -ne $(Read-Host -Prompt "So?")){exit;}
 }
 Push-Location $($PROFILE | Split-Path -Parent);
-    Remove-Item $PROFILE -Force;
-    Remove-Item .\Profile.xml;
+    if(Test-Path .\Profile.xml)
+    {
+        Remove-Item $PROFILE -Force;
+        Write-Host "Removed $($PROFILE)" -ForegroundColor Green;
+    }
+    if(Test-Path .\Profile.xml)
+    {
+        Remove-Item .\Profile.xml;
+        Write-Host "Removed .\Profile.xml" -ForegroundColor Green;
+    }
 Pop-Location;

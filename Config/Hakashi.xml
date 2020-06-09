@@ -15,12 +15,12 @@
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[Hakashi] @currdir@greaterthan_</String>
     </Prompt>
-    <ShellColors>
-      <BackgroundColor>Black</BackgroundColor>
-      <ForegroundColor>White</ForegroundColor>
-      <ProgressForegroundColor>White</ProgressForegroundColor>
-      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
-    </ShellColors>
+    <!-- <ShellColors> -->
+      <!-- <BackgroundColor>Black</BackgroundColor> -->
+      <!-- <ForegroundColor>White</ForegroundColor> -->
+      <!-- <ProgressForegroundColor>White</ProgressForegroundColor> -->
+      <!-- <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor> -->
+    <!-- </ShellColors> -->
     <StartDirectory>~\</StartDirectory>
     <GitSettings>
       <Unstaged>False</Unstaged>

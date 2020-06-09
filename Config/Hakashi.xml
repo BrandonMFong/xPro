@@ -98,10 +98,11 @@
       </Class>
     </Object>
     <!-- $User -->
-    <Object Type="HashTable">
+    <Object Type="XmlElement">
       <VarName SecType="public">User</VarName>
-      <Key Lvl="0" SecType="public">Name</Key>
-      <Value Lvl="0" SecType="public">Brandon</Value>
+      <Values>
+        <Facebook>https://facebook.com</Facebo>
+      </Values>
     </Object>
   </Objects>
 </Machine>

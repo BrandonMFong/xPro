@@ -15,8 +15,13 @@
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[Hakashi] @currdir@greaterthan_</String>
     </Prompt>
+    <ShellColors>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
+    </ShellColors>
     <StartDirectory>~\</StartDirectory>
-    <GitSettings>
+    <GitSettings Enabled="False">
       <Unstaged>False</Unstaged>
       <Staged>False</Staged>
       <Commits>False</Commits>
@@ -26,18 +31,13 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
-  <!-- <Weather>
-    <Area>San Diego</Area>
-  </Weather> -->
   <!-- Modules -->
   <Modules>
     <Module>.\Modules\System.psm1</Module>
     <Module>.\Modules\Terminal.psm1</Module>
     <Module>.\Modules\MinTerminal.psm1</Module>
     <Module>.\Modules\Sound.psm1</Module>
-    <!-- <Module>.\Modules\Git.psm1</Module> -->
     <Module>.\Modules\ConfigHandler.psm1</Module>
-    <!-- <Module>$PSScriptRoot\..\Modules\OutlookType.psm1</Module> -->
   </Modules>
   <!-- Directory paths -->
   <Directories>

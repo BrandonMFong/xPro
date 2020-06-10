@@ -16,6 +16,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
+        if(.\update-config.ps1 -CheckUpdate){throw "Config was updated, please rerun Profile load.";}
 
     <### GET CREDENTIALS ###>
         CheckCredentials;
@@ -55,5 +56,3 @@ Pop-Location;
 
 if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
 {Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}
-
-Run-Upgrade

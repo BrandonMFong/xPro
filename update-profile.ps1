@@ -19,7 +19,7 @@ Push-Location $PSScriptRoot
     {
         if(!$ForceUpdate)
         {
-            Write-Host  "`nThere is an update to Powershell profile." -ForegroundColor Red
+            Write-Host  "`nThere is an update to GlobalScripts profile." -ForegroundColor Red
             $update = Read-Host -Prompt "Want to update? (y/n)";
         }
         if(($update -eq "y") -or ($ForceUpdate))

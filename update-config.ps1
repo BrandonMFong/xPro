@@ -2,9 +2,25 @@
 .Synopsis
    Updates the config pointer
 #>
-Param([string]$ConfigName=$null)
+Param([string]$ConfigName=$null,[Switch]$CheckUpdate)
 Push-Location $PSScriptRoot
     
+    if($CheckUpdate)
+    {
+        [string[]]$Scripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).Name;
+        if($Scripts.Count -ne [int]$XMLReader.Machine.UpdateStamp.Count)
+        {
+            Write-Host  "`nThere is an update to GlobalScripts Config." -ForegroundColor Red
+            [string]$update = Read-Host -Prompt "Want to update? (y/n)";
+            if($update -eq "y")
+            {
+                Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local;
+                Run-Update;
+                return 1; # Exiting code
+            }
+        }
+        else{return 0;}
+    }
     $ForPrompt = [System.Collections.ArrayList]::new(); 
     $ForConfig = [System.Collections.ArrayList]::new(); 
     $i = 1;

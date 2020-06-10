@@ -11,6 +11,14 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:element name="UpdateStamp" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    Stamp to see what was the latest update script that was ran
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="Value" type="xs:string" use="mandatory"/>
+        </xs:element>
         <!-- Start Script -->
         <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
             <xs:annotation>
@@ -130,6 +138,7 @@
                         Git notificatons for Unstaged/Staged changes and unpushed commits
                     </xs:documentation>
                 </xs:annotation>
+                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
                 <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>

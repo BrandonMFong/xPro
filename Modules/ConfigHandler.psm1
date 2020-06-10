@@ -1,4 +1,3 @@
-
 function _MachineNode([ref]$File)
 {
     # <Machine>
@@ -196,6 +195,8 @@ function Run-Upgrade
 {
     Write-Host "`nRunning upgrade scripts`n" -ForegroundColor Cyan;
 
-    [System.Object[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpgradeConfig).Name; # Only using the base name to determine update stamp
-
+    [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
+    $args = @{Object=$UpgradeScripts;Method="SelectionSort"};
+    $command = $(Get-ChildItem $($PSScriptRoot + "\..\Functions\Sort-Object.ps1")).FullName;
+    [string[]]$InOrderScripts = $(& $command @args); # WOAH
 }

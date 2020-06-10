@@ -5,6 +5,8 @@
 Param([string]$ConfigName=$null,[Switch]$CheckUpdate)
 Push-Location $PSScriptRoot
     
+    # This segment runs independtly.  I could have made another script but the context of this script is similar to this segment's goal
+    # Can probably be arranged better
     if($CheckUpdate)
     {
         [string[]]$Scripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).Name;
@@ -15,12 +17,13 @@ Push-Location $PSScriptRoot
             if($update -eq "y")
             {
                 Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local;
-                Run-Update;
+                Run-Update; # Updates configuration file
                 return 1; # Exiting code
             }
         }
         else{return 0;}
     }
+
     $ForPrompt = [System.Collections.ArrayList]::new(); 
     $ForConfig = [System.Collections.ArrayList]::new(); 
     $i = 1;

@@ -18,6 +18,8 @@
                 </xs:documentation>
             </xs:annotation>
             <xs:attribute name="Value" type="xs:string" use="mandatory"/>
+            <!-- Count attribute does not have to be here, it's temp.  I can just check latest update script and compare it to value -->
+            <xs:attribute name="Count" type="xs:int" use="mandatory"/>
         </xs:element>
         <!-- Start Script -->
         <xs:element name="StartScript" minOccurs="1" maxOccurs="1">

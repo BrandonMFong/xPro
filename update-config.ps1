@@ -1,3 +1,7 @@
+<#
+.Synopsis
+   Updates the config pointer
+#>
 Param([string]$ConfigName=$null)
 Push-Location $PSScriptRoot
     

@@ -10,7 +10,7 @@
 
 Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0,[switch]$BoundedList)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-[XML]$xml = GetXMLContent;
+[XML]$xml = _GetXMLContent;
 $x = $xml.Machine.Email;
 $inbox = InboxObject;
 if($x.ListOrderBy -eq "Desc")

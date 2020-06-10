@@ -6,7 +6,8 @@ function _Replace
 {
     Param([ref]$OutString)
     [Tag]$tag = [Tag]::new();
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+    # [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+    [Xml]$x = _GetXMLContent;
     [System.Object[]]$GitSettings = $x.Machine.ShellSettings.GitSettings;
     $format = $x.Machine.ShellSettings.Format;
     # @ tag replacements
@@ -128,7 +129,7 @@ function _SetBackgroundColor
 }
 
 # Prompt output
-[Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+[Xml]$x = _GetXMLContent;
 $prompt = $x.Machine.ShellSettings.Prompt;
 if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)))
 {

@@ -45,16 +45,17 @@ function MakeClass($XmlElement)
     }
 }
 
-function GetXMLContent
+function _GetXMLContent
 {
-    return Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+    # return Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+    return Get-Content $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
 }
 
 # If an object is found that has methods we want to use, return that object
 # Object must be configured
 function GetObjectByClass([string]$Class)
 {
-    [xml]$xml = GetXMLContent;
+    [xml]$xml = _GetXMLContent;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
@@ -244,7 +245,8 @@ function LoadObjects
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-        [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        # [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        [XML]$x = _GetXMLContent;
         $add = $x.CreateElement($Tag); 
 
         $Alias = Read-Host -Prompt "Set Alias";
@@ -333,7 +335,7 @@ function Test-KeyPress
 
 function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 {
-    [System.Xml.XmlDocument]$xml = GetXMLContent;
+    [System.Xml.XmlDocument]$xml = _GetXMLContent;
     if($xml.Machine.Email.ListOrderBy -eq "Asc")
     {
         return ($i -lt ($Max - $OrderFactor));

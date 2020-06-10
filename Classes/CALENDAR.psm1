@@ -139,7 +139,7 @@ class Calendar
         }
         else
         {
-            [xml]$x = GetXMLContent;
+            [xml]$x = _GetXMLContent;
             foreach($Event in $x.Machine.Calendar.SpecialDays.SpecialDay)
             {
                 $this.EventToString($Event.InnerXML,$Event.Name);

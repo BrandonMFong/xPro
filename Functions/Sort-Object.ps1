@@ -38,7 +38,7 @@ if($Method.Equals('SelectionSort'))
         # Rearrange
         [String[]]$Former = $IntervalObject[$index];
         [String[]]$Latter = @();
-        for($k=$i;$k -lt $IntervalObject.Length;$k++)
+        for($k=0;$k -lt $IntervalObject.Length;$k++) # Construct new Interval object
         {
             if($IntervalObject[$k] -ne $Former)
             {

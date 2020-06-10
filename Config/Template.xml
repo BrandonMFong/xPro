@@ -1,52 +1,73 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <StartScript Enable="true" ClearHost="false"></StartScript>
+<Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+  <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
-  <ShellSettings>
+  <ShellSettings Enabled="True">
     <Format>
-      <Date></Date>
-      <Time></Time>
+      <Date>dddd MM/dd</Date>
+      <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String></String>
+      <String>Default</String>
     </Header>
     <Prompt Enabled="True">
-      <BaterryLifeThreshold Enabled="true"></BaterryLifeThreshold>
-      <String Color="Cyan"></String>
+      <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
+      <String Color="Default">Default</String>
     </Prompt>
     <ShellColors>
-      <BackgroundColor></BackgroundColor>
-      <ForegroundColor></ForegroundColor>
-      <ProgressForegroundColor></ProgressForegroundColor>
-      <ProgressBackgroundColor></ProgressBackgroundColor>
+      <ForegroundColor>White</ForegroundColor>
+      <ProgressForegroundColor>White</ProgressForegroundColor>
+      <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
-    <StartDirectory></StartDirectory>
+    <StartDirectory>B:\</StartDirectory>
     <GitSettings>
-      <Unstaged></Unstaged>
-      <Staged></Staged>
-      <Commits></Commits>
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>False</Commits>
     </GitSettings>
+    <Security>
+      <Secure>True</Secure>
+      <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
+    </Security>
   </ShellSettings>
-  <Weather>
-    <Area></Area>
-  </Weather>
+  <!-- Modules -->
   <Modules>
-    <Module/>
+    <Module>B:\Powershell\Modules\System.psm1</Module>
+    <Module>B:\Powershell\Modules\Terminal.psm1</Module>
+    <Module>B:\Powershell\Modules\ConfigHandler.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
+    <Directory Alias="main" SecType="public">~\</Directory>
   </Directories>
-  <!-- Programs to call exectuables, scripts, etc -->
+  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <!-- Third Party Programs -->
+    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Functions\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects Database="" ServerInstance="">
-    <!-- $User -->
-    <Object Type="HashTable">
-      <VarName SecType="public">User</VarName>
-      <Key Lvl="0" SecType="public"/>
-      <Value Lvl="0" SecType="private"/>
+  <Objects>
+    <!-- $SeniorDesignYes -->
+    <Object Type="XmlElement">
+      <VarName SecType="public">SeniorDesignYes</VarName>
+      <Values>
+        <InfraredTracker>https://www.amazon.com/Infrared-1-Channel-Reflection-Avoidance-Detection/dp/B07S6BDMP9/</InfraredTracker>
+        <GPIO>https://www.raspberrypi.org/documentation/usage/gpio/</GPIO>
+        <ResistorColorTable>https://www.electronics-tutorials.ws/resistor/res_2.html</ResistorColorTable>
+        <ADC>https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076</ADC>
+        <ADCGit>https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15</ADCGit>
+        <!-- This is the link for the steps to create a django site -->
+        <Django>https://mikesmithers.wordpress.com/2017/02/21/configuring-django-with-apache-on-a-raspberry-pi/</Django>
+        <DjangoWorksHere>https://www.codingforentrepreneurs.com/blog/raspberry-pi-network-server-guide-with-django-ssh/</DjangoWorksHere>
+        <SharingNetworkViaEthernet>https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922</SharingNetworkViaEthernet>
+        <!-- I need to download this in order -->
+        <CircuitPython>https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
+        <FTPServerWinSetp>https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
+      </Values>
     </Object>
   </Objects>
 </Machine>

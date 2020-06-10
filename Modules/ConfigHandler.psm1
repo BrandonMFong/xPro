@@ -191,3 +191,11 @@ function List-Programs
     }
     Write-Host `n;
 }
+
+function Run-Upgrade
+{
+    Write-Host "`nRunning upgrade scripts`n" -ForegroundColor Cyan;
+
+    [System.Object[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpgradeConfig).Name; # Only using the base name to determine update stamp
+
+}

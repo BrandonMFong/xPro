@@ -109,7 +109,7 @@ function _SetHeader
 {
     [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
+    if(($XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)) -and ($XMLReader.Machine.ShellSettings.Header.String -ne "Default"))
     {$Host.UI.RawUI.WindowTitle = $OutString}
 }
 function _SetBackgroundColor
@@ -131,7 +131,7 @@ function _SetBackgroundColor
 # Prompt output
 [Xml]$x = _GetXMLContent;
 $prompt = $x.Machine.ShellSettings.Prompt;
-if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)))
+if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String -ne "Default"))
 {
     function prompt
     {
@@ -155,6 +155,6 @@ if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOr
 
 function _EvalColor([string]$Color)
 {
-    if([string]::IsNullOrEmpty($Color)){return "White"}
+    if([string]::IsNullOrEmpty($Color) -or ($Color -eq "Default")){return "White"}
     else{return $Color}
 }

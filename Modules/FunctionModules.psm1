@@ -47,8 +47,11 @@ function MakeClass($XmlElement)
 
 function _GetXMLContent
 {
-    # return Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
     return Get-Content $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+}
+function _GetXMLFilePath
+{
+    return $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile).ToString();
 }
 
 # If an object is found that has methods we want to use, return that object

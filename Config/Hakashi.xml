@@ -15,12 +15,6 @@
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
       <String Color="Cyan">[Hakashi] @currdir@greaterthan_</String>
     </Prompt>
-    <!-- <ShellColors> -->
-      <!-- <BackgroundColor>Black</BackgroundColor> -->
-      <!-- <ForegroundColor>White</ForegroundColor> -->
-      <!-- <ProgressForegroundColor>White</ProgressForegroundColor> -->
-      <!-- <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor> -->
-    <!-- </ShellColors> -->
     <StartDirectory>~\</StartDirectory>
     <GitSettings>
       <Unstaged>False</Unstaged>
@@ -101,7 +95,7 @@
     <Object Type="XmlElement">
       <VarName SecType="public">User</VarName>
       <Values>
-        <Facebook>https://facebook.com</Facebo>
+        <Facebook>https://facebook.com</Facebook>
       </Values>
     </Object>
   </Objects>

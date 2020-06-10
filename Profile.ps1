@@ -39,9 +39,12 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     try 
     {
-        [string]$gitstring = "Version: $(git describe --tags)"
-        if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
-        else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
+        if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.GitSettings) -and ($XMLReader.Machine.ShellSettings.Enabled.ToBoolean($null)))
+        {
+            [string]$gitstring = "Version: $(git describe --tags)"
+            if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
+            else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
+        }
     }
     catch 
     {

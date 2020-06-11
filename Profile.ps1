@@ -1,7 +1,6 @@
 # Engineer: Brandon Fong
-# TODO
-# ...
-Param([bool]$StartDir=$true)
+Param([bool]$StartDir=$true,[Bool]$StartScript=$true)
+
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
     [XML]$AppPointer = Get-Content Profile.xml;
@@ -13,13 +12,18 @@ if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Hel
 else{[bool]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
-    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking -Scope Local;
-    Import-Module .\Modules\Terminal.psm1 -DisableNameChecking -Scope Local;
-    
-    _SetBackgroundColor;
+    Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
     <### CHECK UPDATES ###>
         if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
+        if(.\update-config.ps1 -CheckUpdate){throw "Config was updated, please rerun Profile load.";}
+
+    <### GET CREDENTIALS ###>
+        CheckCredentials;
+    
+    # Background setting for write-progress
+        Import-Module .\Modules\Terminal.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+        _SetBackgroundColor;
         
     <### PROGRAMS ###> 
         LoadPrograms -XMLReader:$XMLReader -Verbose:$Verbose
@@ -32,13 +36,16 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        if($XMLReader.Machine.StartScript.Enable -eq "true") {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
+        if(($XMLReader.Machine.StartScript.Enable -eq "true") -and ($StartScript)) {Invoke-Expression $(Evaluate -value:$XMLReader.Machine.StartScript)}
     
     try 
     {
-        [string]$gitstring = "Version: $(git describe --tags)"
-        if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
-        else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
+        if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.GitSettings) -and ($XMLReader.Machine.ShellSettings.Enabled.ToBoolean($null)))
+        {
+            [string]$gitstring = "Version: $(git describe --tags)"
+            if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
+            else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
+        }
     }
     catch 
     {

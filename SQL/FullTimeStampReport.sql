@@ -30,5 +30,4 @@ case
 end [TimeOut]
 from @TimeIn TimeIn 
 full outer join @TimeOut TimeOut 
-on TimeIn.RowNum = TimeOut.RowNum /*What if I forget to time out? Maybe I can join on two columns*/
-and TimeIn.ExternalID = TimeOut.ExternalID
+on TimeIn.RowNum = TimeOut.RowNum and TimeIn.ExternalID = TimeOut.ExternalID

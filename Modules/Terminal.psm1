@@ -6,7 +6,9 @@ function _Replace
 {
     Param([ref]$OutString)
     [Tag]$tag = [Tag]::new();
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+    # [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
+    [Xml]$x = _GetXMLContent;
+    [System.Object[]]$GitSettings = $x.Machine.ShellSettings.GitSettings;
     $format = $x.Machine.ShellSettings.Format;
     # @ tag replacements
 
@@ -63,17 +65,23 @@ function _Replace
     if($OutString.Value.Contains($tag.gitbranch))
     {
         [string]$BranchString = $null;
-        $BranchString = "$(git rev-parse --abbrev-ref HEAD)";
+        $BranchString = "$(git rev-parse --abbrev-ref HEAD)"; # This checks if we are in a branch
         if(![string]::IsNullOrEmpty($BranchString))
         {
-            [string]$gitchanges = $null;
-            $gitchangesUnstaged = "$(git diff --exit-code)";
-            $gitchangesStaged = "$(git diff --cached)";
+            # If user wants
+            # Having it all enabled can reduce performance
+            if(![string]::IsNullOrEmpty($GitSettings.Unstaged) -and $GitSettings.Unstaged.ToBoolean($null)){$gitchangesUnstaged = "$(git diff --exit-code)";}
+            if(![string]::IsNullOrEmpty($GitSettings.Staged) -and $GitSettings.Staged.ToBoolean($null)){$gitchangesStaged = "$(git diff --cached)";}
+            if(![string]::IsNullOrEmpty($GitSettings.Commits) -and $GitSettings.Commits.ToBoolean($null)){[string[]]$gitchangesCommits = git log "@{u}.." --oneline;}
+
             if(![string]::IsNullOrEmpty($gitchangesUnstaged) -or ![string]::IsNullOrEmpty($gitchangesStaged)){$BranchString += "*";} # for changes
-            if(![string]::IsNullOrEmpty($gitchanges)){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesStaged) -and !$BranchString.Contains('*')){$BranchString += "*";} # for changes
+            if(![string]::IsNullOrEmpty($gitchangesCommits)){$BranchString += ", commits: $($gitchangesCommits.Length)";} # for commits
+
+            # Add to Outstring
             if(![string]::IsNullOrEmpty($x.Machine.ShellSettings.Format.GitString))
             {[string]$gitstring = $x.Machine.ShellSettings.Format.GitString.Replace($tag.gitbranch,$BranchString);}
-            else{[string]$gitstring = " ($($BranchString)) ";}
+            else{[string]$gitstring = " ($($BranchString)) ";} # Default is ()
             $OutString.Value = $OutString.Value.Replace($tag.gitbranch,$gitstring);
         }
         else{$OutString.Value = $OutString.Value.Replace($tag.gitbranch,'')}
@@ -101,7 +109,7 @@ function _SetHeader
 {
     [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($XMLReader.Machine.ShellSettings.Header.Enabled -ne "False") -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)))
+    if(($XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)) -and ($XMLReader.Machine.ShellSettings.Header.String -ne "Default"))
     {$Host.UI.RawUI.WindowTitle = $OutString}
 }
 function _SetBackgroundColor
@@ -119,35 +127,34 @@ function _SetBackgroundColor
     if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor))
     {$Host.PrivateData.ProgressBackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
 }
-function prompt
-{
-    _SetHeader; # Sets Header
-    _SetBackgroundColor; # Sets BG color
-    [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
-    $prompt = $x.Machine.ShellSettings.Prompt;
-    [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
-    
-    _Replace([ref]$OutString);
 
-    # Prompt output
-    if(($prompt.String.InnerXml -eq "Default") -or ($prompt.Enabled -eq "False") -or ([string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt)))
-    {"PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) ";}
-    else 
+# Prompt output
+[Xml]$x = _GetXMLContent;
+$prompt = $x.Machine.ShellSettings.Prompt;
+if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String -ne "Default"))
+{
+    function prompt
     {
-        if($prompt.String.Color -eq "")
+        _SetHeader; # Sets Header
+        _SetBackgroundColor; # Sets BG color
+
+        if($prompt.Enabled.ToBoolean($null) -and (![string]::IsNullOrEmpty($prompt)))
         {
-            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
+            [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
+            
+            _Replace([ref]$OutString);
+    
+            if(($prompt.BaterryLifeThreshold.Enabled -eq "True") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
             {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
-            else {Write-Host ("$($OutString)") -ForegroundColor White -NoNewline;}
+            else {Write-Host ("$($OutString)") -ForegroundColor $(_EvalColor($prompt.String.Color)) -NoNewline;}
+            
+            return " ";
         }
-        else
-        {
-            if(($prompt.BaterryLifeThreshold.Enabled -eq "true") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
-            {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
-            else {Write-Host ("$($OutString)") -ForegroundColor $prompt.String.Color -NoNewline;}
-        }
-        return " ";
     }
 }
 
-# https://marco-difeo.de/2012/06/19/powershell-colorize-string-output-with-colorvariables-in-the-output-string/
+function _EvalColor([string]$Color)
+{
+    if([string]::IsNullOrEmpty($Color) -or ($Color -eq "Default")){return "White"}
+    else{return $Color}
+}

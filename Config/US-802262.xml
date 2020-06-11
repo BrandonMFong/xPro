@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+  <UpdateStamp Value="06092020" Count="1" />
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
-  <ShellSettings>
+  <ShellSettings Enabled="True">
     <Format>
       <Date>ddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>{@batteryperc%, TIME: @stamp} [@time, @date] @fulldir</String>
+      <String>{@batteryperc%, Clock in Time: @stamp} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
@@ -21,6 +22,15 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>C:\Users\brandon.fong\Brandon.Fong</StartDirectory>
+    <GitSettings Enabled="True">
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>True</Commits>
+    </GitSettings>
+    <Security>
+      <Secure>True</Secure>
+      <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
+    </Security>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
@@ -131,8 +141,10 @@
     <Program Alias="Get-Calendar" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
     <Program Alias="Greetings" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SCRIPTS\Greetings.ps1</Program>
-    <Program Alias="GOTO" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program>
+    <!-- <Program Alias="GOTO" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program> -->
+    <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Open.ps1</Program>
     <Program Alias="Aopend" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
     <Program Alias="Archive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
     <Program Alias="Get-Email" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
@@ -152,7 +164,7 @@
     <Program Alias="MinStaff" SecType="private">FE39B595-EF33-4DD2-954E-5558D0C22509</Program>
     <Program Alias="ConnectNetDrive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\ReconnectNetDrives.ps1</Program>
     <Program Alias="Pull-CC" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\GitPullCC.ps1</Program>
-    <Program Alias="vc-powershell" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\VC-Powershell.code-workspace</Program>
+    <Program Alias="VC-Powershell" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\VC-Powershell.code-workspace</Program>
     <Program Alias="Teams" SecType="public">C:\Users\brandon.fong\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
@@ -168,6 +180,8 @@
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
+          <RunUpdates>True</RunUpdates>
+          <CreateDatabase>False</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -354,11 +368,12 @@
         <Calendar>
           <PathToEventImport>C:\Users\brandon.fong\Brandon.Fong\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
         </Calendar>
       </Class>
     </Object>
     <!-- Webex -->
-    <Object ID="69" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="public">Webex</VarName>
       <Key Lvl="0" SecType="public">Andrea</Key>
       <Value Lvl="0" SecType="private">a381a66e-8fe0-4afe-9f31-75b692fea9dc</Value>
@@ -368,8 +383,10 @@
       <Value Lvl="0" SecType="private">59c86220-f99b-41c7-9d72-527a77cebfc1</Value>
     </Object>
     <!-- 554B410B-4281-4905-ADF5-6F0398837103 -->
-    <Object ID="69" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">554B410B-4281-4905-ADF5-6F0398837103</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">69</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">8723DA22-7BD4-4E9B-B6B6-3B50E8F7B056</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -392,8 +409,10 @@
       <Value Lvl="0" SecType="private">AAFE046B-0756-469C-A0EF-CB0F8CD2325A</Value>
     </Object>
     <!-- D9819BC8-CB66-4F55-8B7A-070363024863 -->
-    <Object ID="88" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">D9819BC8-CB66-4F55-8B7A-070363024863</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">88</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">569DD587-9374-46D3-958E-D3E9C6DE977F</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -410,8 +429,10 @@
       <Value Lvl="0" SecType="private">84B55583-E9AC-4359-B8EE-FAD24C28885E</Value>
     </Object>
     <!-- 314CAEBA-048B-48D0-9689-69861D50D8CB -->
-    <Object ID="89" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">314CAEBA-048B-48D0-9689-69861D50D8CB</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">89</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">76F015F6-1AEC-4CF5-9433-EB47A441391E</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -432,8 +453,10 @@
       <Value Lvl="0" SecType="private">33983877-0564-426b-b900-960ab73f0fa7</Value>
     </Object>
     <!-- F0507E9D-FDF9-4E8D-B238-5A9E8758AC77 -->
-    <Object ID="90" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">F0507E9D-FDF9-4E8D-B238-5A9E8758AC77</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">90</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">144A2829-32B2-460F-A802-D8A57481A7E6</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -454,8 +477,10 @@
       <Value Lvl="0" SecType="public">33983877-0564-426b-b900-960ab73f0fa7</Value>
     </Object>
     <!-- 7A4BE275-E5D9-4C3C-A5D5-732ED9EC0D23 -->
-    <Object ID="91" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">7A4BE275-E5D9-4C3C-A5D5-732ED9EC0D23</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">91</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">27511D94-7405-4BF4-AE90-3343B812D73A</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -476,8 +501,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 2492CA41-772A-4264-BA09-A10D394F10F7 -->
-    <Object ID="92" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">2492CA41-772A-4264-BA09-A10D394F10F7</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">92</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">62C7136C-0344-40D0-B28D-C2E10A2B4995</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -498,8 +525,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 6737378B-DD46-4A60-8BB0-91D3E3DDC075 -->
-    <Object ID="93" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">6737378B-DD46-4A60-8BB0-91D3E3DDC075</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">93</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">86E343AF-4BA2-4A2E-8955-8A61C5E2791A</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -520,8 +549,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- D4A22CBD-E88C-4A1E-B70B-FBA86F13C535 -->
-    <Object ID="94" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">D4A22CBD-E88C-4A1E-B70B-FBA86F13C535</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">94</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">96A9A719-9B71-45AD-972D-61EF3BC1DDBC</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -544,8 +575,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- F0B58F16-AE69-483D-8E3E-A3C1A58174AD -->
-    <Object ID="95" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">F0B58F16-AE69-483D-8E3E-A3C1A58174AD</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">95</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">ED9EF594-B66E-4952-AA2F-2F5F32860A4A</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -568,8 +601,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 56A57C0C-BB2E-418E-A34C-091DF03914BE -->
-    <Object ID="96" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">56A57C0C-BB2E-418E-A34C-091DF03914BE</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">96</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">455581D2-878E-4BE1-A572-764D89E458D7</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -592,8 +627,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 56318067-C324-4944-9284-E8D2E2D85D6F -->
-    <Object ID="97" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">56318067-C324-4944-9284-E8D2E2D85D6F</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">97</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">69FD0879-F701-4C78-A9E2-4292232DA1A7</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -616,8 +653,10 @@
       <Value Lvl="0" SecType="private">0E53B806-DA5A-45C7-9CD5-202665F7FB80</Value>
     </Object>
     <!-- B422BE4C-6FEB-497B-8942-4159BA172EF5 -->
-    <Object ID="98" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">B422BE4C-6FEB-497B-8942-4159BA172EF5</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">98</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">F7CD5C73-ADF3-4B94-A84A-86EA355B5D13</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -638,8 +677,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- CFB7057F-BF3B-4859-AC3B-EB68B2A29A99 -->
-    <Object ID="99" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">CFB7057F-BF3B-4859-AC3B-EB68B2A29A99</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">99</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">0B133606-A347-4D9A-9591-15EC2A479EC7</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -660,8 +701,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- A2F82350-C03A-464D-A607-10B255DE6818 -->
-    <Object ID="100" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">A2F82350-C03A-464D-A607-10B255DE6818</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">100</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">EEC57CF0-9F0D-4315-B408-E40BC768F965</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -682,8 +725,10 @@
       <Value Lvl="0" SecType="private">33983877-0564-426b-b900-960ab73f0fa7</Value>
     </Object>
     <!-- BF313F02-813D-444F-9A51-70C00BBBC87B -->
-    <Object ID="101" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">BF313F02-813D-444F-9A51-70C00BBBC87B</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">101</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">BF51BA46-2947-4C86-B70D-4107579EDA43</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -704,8 +749,10 @@
       <Value Lvl="0" SecType="private">33983877-0564-426b-b900-960ab73f0fa7</Value>
     </Object>
     <!-- C4564EA7-5286-429A-8C64-DA6D68D03D04 -->
-    <Object ID="102" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">C4564EA7-5286-429A-8C64-DA6D68D03D04</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">102</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">22362611-C716-4753-880A-E191044C4EFB</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -726,8 +773,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 30571776-3D23-41BC-8E12-8E3EDA684C0A -->
-    <Object ID="103" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">30571776-3D23-41BC-8E12-8E3EDA684C0A</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">103</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">35E61D3A-A3E0-4B86-BB87-24436D502BEA</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -750,8 +799,10 @@
       <Value Lvl="0" SecType="private">ff533c4f-e350-46f4-937a-9384fec33ea8</Value>
     </Object>
     <!-- 3664B00A-5B8A-40C4-AE01-984EEC460C12 -->
-    <Object ID="104" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">3664B00A-5B8A-40C4-AE01-984EEC460C12</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">104</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">FA865730-0112-469F-9E8B-007011036E1B</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -772,8 +823,10 @@
       <Value Lvl="0" SecType="private">33983877-0564-426b-b900-960ab73f0fa7</Value>
     </Object>
     <!-- 97B66A59-2F4B-427F-956F-54EF3B06014E -->
-    <Object ID="105" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">97B66A59-2F4B-427F-956F-54EF3B06014E</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">105</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">BE9757C4-60CE-4047-A9BE-101AF5356724</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -794,8 +847,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- BB090624-94F2-4D59-9ABF-E9D61532EBB5 -->
-    <Object ID="106" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">BB090624-94F2-4D59-9ABF-E9D61532EBB5</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">106</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">B40CB4F5-72FD-4BC2-A4F9-F109C85330CF</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -818,8 +873,10 @@
       <Value Lvl="0" SecType="private">06612E50-F1F5-4A72-A851-203004E35A41</Value>
     </Object>
     <!-- 85CAA11A-F81B-4CD0-90E4-DC943EFA08D1 -->
-    <Object ID="107" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">85CAA11A-F81B-4CD0-90E4-DC943EFA08D1</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">107</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">1808180B-6F68-4327-BCB3-C40732678AD5</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -836,8 +893,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 20B22331-AE08-4D75-A320-39A689E896DF -->
-    <Object ID="108" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">20B22331-AE08-4D75-A320-39A689E896DF</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">108</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">1617B4A6-48D5-4FE0-AFFF-EB50A7DAFDDF</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -858,8 +917,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- A6FA8A2F-25D3-4B50-A166-CF039B609A0B -->
-    <Object ID="109" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">A6FA8A2F-25D3-4B50-A166-CF039B609A0B</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">109</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">4BD0EE85-2574-478F-A3BE-1EDC64C0F88E</Value>
       <Key Lvl="0" SecType="private">1EE09C9C-73D8-45A1-AB88-2C8F15D57E1C</Key>
@@ -882,8 +943,10 @@
       <Value Lvl="0" SecType="private">D8C728A4-6B4C-4EC5-9117-0EAC34F5D42A</Value>
     </Object>
     <!-- 96DDE451-0612-4FCD-A47D-E5C8926F6214 -->
-    <Object ID="110" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">96DDE451-0612-4FCD-A47D-E5C8926F6214</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">110</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">207F1BC2-7CA4-4E46-AEDE-10EF7D1D1D90</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -904,8 +967,10 @@
       <Value Lvl="0" SecType="private">643d9e5c-42ab-4525-ae16-69bf1114d7d2</Value>
     </Object>
     <!-- 7ed5fd24-cb4f-48dc-862e-173b3214e954 -->
-    <Object ID="222" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">7ed5fd24-cb4f-48dc-862e-173b3214e954</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">222</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="private">a1147dec-d6a7-473a-976c-a4f95aadfd1a</Value>
       <Key Lvl="0" SecType="private">19443844-F3C4-4C1C-B5B0-FEB3BF25F623</Key>
@@ -924,8 +989,10 @@
       <Value Lvl="0" SecType="private">85577230-17c1-47dd-a96e-922a515dad24</Value>
     </Object>
     <!-- 752F75AC-6844-4EE0-8219-D64FF15042B1 -->
-    <Object ID="85" Type="HashTable">
+    <Object Type="HashTable">
       <VarName SecType="private">752F75AC-6844-4EE0-8219-D64FF15042B1</VarName>
+      <Key Lvl="0" SecType="public">ID</Key>
+      <Value Lvl="0" SecType="public">85</Value>
       <Key Lvl="0" SecType="public">URL</Key>
       <Value Lvl="0" SecType="public" NodePointer="9C46" />
       <Key Lvl="1" Node="9C46" SecType="private">83CEA2E7-0086-480A-90F6-F103B6977DFD</Key>
@@ -957,6 +1024,10 @@
       <Value Lvl="0" SecType="private">23DECC59-AB10-439F-A90F-437E73BA1E9C</Value>
       <Key Lvl="0" SecType="public">Netflix</Key>
       <Value Lvl="0" SecType="public">https://Netflix.com/</Value>
+      <Key Lvl="0" SecType="public">GitHub</Key>
+      <Value Lvl="0" SecType="public">https://github.com/BrandonMFong</Value>
+      <Key Lvl="0" SecType="public">Facebook</Key>
+      <Value Lvl="0" SecType="public">https://www.facebook.com/</Value>
       <Key Lvl="0" SecType="private">129478C9-061C-453B-A702-04DA38BC2ABD</Key>
       <Value Lvl="0" SecType="private">7359B9AD-EC01-42D9-94D7-0B6465FA424F</Value>
       <Key Lvl="0" SecType="private">EF611AF8-22DB-45CD-93A1-70E3E46B2548</Key>
@@ -1030,6 +1101,8 @@
       <Key Lvl="0" SecType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
       <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <Key Lvl="0" SecType="public">GlobalProtect</Key>
+      <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Key Lvl="0" SecType="public">Okta</Key>
       <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <Key Lvl="0" SecType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
       <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>

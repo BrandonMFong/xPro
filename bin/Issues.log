@@ -1,11 +1,30 @@
 
-Issue: Emails not bounded
+Issue: Reload Profile brings me back to repo
+    Fix Commit:  b58fb8ee879ef14248c959c59a519699c14c4cf5 
+    Branch:  
+    Status: Closed
+    Notes: 
+    Post:
+        - Did not pop in the update config before the return
+        
+Issue: Get-Calendar not printing
     Fix Commit:  
     Branch:  
-    Status: Open
+    Status: Closed
+    Notes: 
+        - Works when I load my profile but not after?
+    Post:
+        - Did not reset index check
+        
+
+Issue: Emails not bounded
+    Fix Commit:  a77d8bc712cbfe6ed6fa3bc79521ca640fe67d83
+    Branch:  
+    Status: Closed
     Notes: 
         - the bounded list switch is not setting the limit
     Post:
+        - Had a redundant check
 
 Issue: Event not popping up on calendar
     Fix Commit:  b654f59

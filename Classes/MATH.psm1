@@ -198,6 +198,18 @@ class Calculations
             $MaxValue = $MinValue;
         }
     }
+
+    [int]BinaryToInt([string]$string)
+    {
+        [int]$res = 0;
+        for($i=$string.Length;$i -gt 0;$i--)
+        {
+            [int]$x = [math]::Pow(2,$i-1);
+            [int]$y = ([int]$string.Substring($string.Length-$i,1));
+            $res += ($x * $y);
+        }
+        return $res;
+    }
 }
 
 # $test = [Calculations]::new($asdf)

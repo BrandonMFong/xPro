@@ -5,7 +5,7 @@
 	Write-Host "`n";
 	Get-Calendar;
 	Write-Host "`n[Special Days]" -ForegroundColor Green;
-	$Calendar.SpecialDays();
+	$Calendar.Events();
 	Write-Host "`n[Emails]" -ForegroundColor Green;
 	Get-Email -BoundedList;
 	Week-List;

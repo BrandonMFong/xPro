@@ -2,8 +2,7 @@ archive/*
 .vs/*
 .vscode/*
 Profile/*
-VCODE_Powershell.code-workspace
-VC-Powershell.code-workspace
+*.code-workspace
 FTPFromVolta.ps1
 bin/credentials/
 Resources/Calendar/*

@@ -1,4 +1,3 @@
-
 function _MachineNode([ref]$File)
 {
     # <Machine>
@@ -190,4 +189,40 @@ function List-Programs
         Write-Host " (" -NoNewline; Write-Host "$($p.Type)" -ForegroundColor Cyan -NoNewline; Write-Host ") ";
     }
     Write-Host `n;
+}
+
+
+Import-Module $($PSScriptRoot + "\FunctionModules.psm1") -Scope Local;
+
+# Runs Upgrade scripts on the config files that is currently pointed
+# Not going to be in the profile load since this is a module
+# Must include in startscripts
+# Also it isn't required to have a config
+function Run-Update
+{
+    Write-Host "`nRunning upgrade scripts`n" -ForegroundColor Cyan;
+
+    [String]$ParseString="MMddyyyy"
+    [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
+    $args = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
+    $command = $(Get-ChildItem $($PSScriptRoot + "\..\Functions\Sort-Object.ps1")).FullName;
+    [string[]]$InOrderScripts = $(& $command @args); # WOAH
+
+    [System.Xml.XmlDocument]$xml = _GetXMLContent;
+    if([string]::IsNullOrEmpty($xml.Machine.UpdateStamp.Value)){[string]$val = "01012020";} # start of 2020
+    else{[string]$val = $xml.Machine.UpdateStamp.Value;}
+    [DateTime]$UpdateStamp = [DateTime]::ParseExact($val,$ParseString,$null); # Get update stamp from configuration
+
+    for($i=0;$i -lt $InOrderScripts.Length;$i++)
+    {
+        # Compare with scripts
+        [DateTime]$CurrentStamp = [DateTime]::ParseExact($InOrderScripts[$i],$ParseString,$null);
+        if($UpdateStamp -lt $CurrentStamp) # Only run the scripts that have not been run yet
+        {
+            $script = $(Get-ChildItem $($PSScriptRoot + "\..\Config\UpdateConfig\$($InOrderScripts[$i]).ps1")).FullName;
+            & $script; # WOAH
+            Write-Host "Executed $($script)" -ForegroundColor Gray;
+        }
+    }
+    Write-Host "`n";
 }

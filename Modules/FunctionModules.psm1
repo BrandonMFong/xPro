@@ -1,50 +1,72 @@
 using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
-using module .\..\Classes\Web.psm1;
 using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null, $false, $false); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
-    switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
+    try 
     {
-        "Calendar" {$x = [Calendar]::new($XmlElement.Class.Calendar.PathToEventImport,$XmlElement.Class.Calendar.EventConfig,$XmlElement.Class.Calendar.TimeStampFilePath);return $x;}
-        "Web" {$x = [Web]::new();return $x;}
-        "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
-        "Email" {$x = [Email]::new();return $x;}
-        "SQL" 
+        switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
         {
-            [string]$Database = $XmlElement.Class.SQL.Database;
-            [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
-            [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
-            [boolean]$SyncConfiguration = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
-            [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
-            [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
-            $x = [SQL]::new($Database, $ServerInstance, $Tables, $SyncConfiguration, $UpdateVerbose, $SQLConvertFlags);
-            return $x;
+            "Calendar" 
+            {
+                [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
+                [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
+                [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
+                [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
+                $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
+                return $x;
+            }
+            "Web" {$x = [Web]::new();return $x;}
+            "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
+            "Email" {$x = [Email]::new();return $x;}
+            "SQL" 
+            {
+                [string]$Database = $XmlElement.Class.SQL.Database;
+                [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
+                [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
+                [boolean]$Sync = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
+                [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
+                [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
+                [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates.ToBoolean($null);
+                [boolean]$Create = $XmlElement.Class.SQL.CreateDatabase.ToBoolean($null);
+                $x = [SQL]::new($Database, $ServerInstance, $Tables, $Sync, $UpdateVerbose, $SQLConvertFlags,$RunUpdates,$Create);
+                return $x;
+            }
+            "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
+            default
+            {
+                Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
+            }
         }
-        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
-        default
-        {
-            Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
-        }
+    }
+    catch
+    {
+        Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
+        Write-Warning "$($_)";
+        Write-Warning "$($_.ScriptStackTrace)";
     }
 }
 
-function GetXMLContent
+function _GetXMLContent
 {
-    return Get-Content $($PSScriptRoot + '\..\Config\' + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+    return Get-Content $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+}
+function _GetXMLFilePath
+{
+    return $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile).ToString();
 }
 
 # If an object is found that has methods we want to use, return that object
 # Object must be configured
 function GetObjectByClass([string]$Class)
 {
-    [xml]$xml = GetXMLContent;
+    [xml]$xml = _GetXMLContent;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
@@ -56,7 +78,6 @@ function GetObjectByClass([string]$Class)
 }
 
 function IsNotPass($x){return ($x -ne "pass");}
-function IsNotSpace($x){return ($x -ne " ");}
 
 function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 {
@@ -80,8 +101,9 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
     }
     $end.Value = $u;
 }
-function Evaluate($value)
+function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
 {
+    # param([Switch]$IsGoto)
     if($value.SecType -eq "private")
     {
         return $Sql.InputReturn($value.InnerText);
@@ -92,12 +114,21 @@ function Evaluate($value)
     }
     elseif($value.InnerText.Contains('$')) # if powershell object
     {
-        return $(Get-Variable $value.InnerText.Replace('$','')).Value;
+        # If user is using PSScriptRoot, must use it in the context that this file will return the script root
+        if($value.InnerText.Contains('$PSScriptRoot'))
+        {
+            if($IsDirectory)
+            {
+                Push-Location $value.Innertext;
+                    [String]$path = (Get-Location).Path;
+                Pop-Location;
+                return $path;
+            }
+            else{return $(Get-ChildItem $value.InnerText).Fullname;}
+        }
+        else{return $(Get-Variable $value.InnerText.Replace('$','')).Value;} # Else return the variable
     }
-    else
-    {
-        return $value.InnerText;
-    }
+    else{return $value.InnerText;}
 }
 
 # Hmmmmm, what if a node is on difference indexes
@@ -215,56 +246,65 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Programs.Program.Count;
-    foreach($val in $XMLReader.Machine.Programs.Program)
+    if($XMLReader.Machine.Programs.Program.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Programs.Program.Count;
+        foreach($val in $XMLReader.Machine.Programs.Program)
         {
-            Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
         }
-        Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
+        Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
 }
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Modules.Module.Count;
-    foreach($val in $XMLReader.Machine.Modules.Module)
+    if($XMLReader.Machine.Modules.Module.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Modules.Module.Count;
+        foreach($val in $XMLReader.Machine.Modules.Module)
         {
-            Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
         }
-        Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
+        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
     }
-    Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
 }
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    [int]$Complete = 1;
-    [int]$Total = $XMLReader.Machine.Objects.Object.Count;
-    foreach($val in $XMLReader.Machine.Objects.Object)
+    if($XMLReader.Machine.Objects.Object.Count -gt 0)
     {
-        if(!$Verbose)
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.Objects.Object.Count;
+        foreach($val in $XMLReader.Machine.Objects.Object)
         {
-            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-            $Complete++;
-        }
-        switch ($val.Type)
-        {
-            "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
-            "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-            "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
-            default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-        }
-        Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
-    } 
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            switch ($val.Type)
+            {
+                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
+                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
+                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+            }
+            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
+        } 
+    }
 }
 
 
@@ -272,7 +312,8 @@ function LoadObjects
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-        [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        # [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        [XML]$x = _GetXMLContent;
         $add = $x.CreateElement($Tag); 
 
         $Alias = Read-Host -Prompt "Set Alias";
@@ -361,18 +402,97 @@ function Test-KeyPress
 
 function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 {
-    [System.Xml.XmlDocument]$xml = GetXMLContent;
+    [System.Xml.XmlDocument]$xml = _GetXMLContent;
     if($xml.Machine.Email.ListOrderBy -eq "Asc")
     {
         return ($i -lt ($Max - $OrderFactor));
     }
     elseif($xml.Machine.Email.ListOrderBy -eq "Desc")
     {
-        return ($i -ge 0);
+        return ($i -gt ($OrderFactor - $Max));
     }
     else
     {
         return $false;
     }
+}
 
+function CheckCredentials
+{
+    # If the security elements are configured
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Security.Secure))
+    {
+        if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
+        {
+            Write-Host "CONFIG: $($AppPointer.Machine.ConfigFile)`n" -foregroundcolor Gray;
+            $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
+            [string]$user = Read-Host -prompt "Username"; 
+
+            # Get Secure string and then convert it back to plain text
+            [System.Object]$var = Read-Host -prompt "Password" -AsSecureString; 
+            [System.ValueType]$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($var);
+            [String]$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr);
+            
+            if(($user -ne $cred.Username) -or ($cred.Password -ne $(GetPassWord -password:$password -cred:$cred)))
+            {
+                Write-Error "WRONG CREDENTIALS";
+                Start-Sleep 1;
+                Pop-Location;
+                if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
+                else{exit;}
+            }
+            else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
+        }
+    }
+}
+
+function GetPassWord([String]$password, [System.Object[]]$cred) # Encrypts password
+{
+    # PlainText
+    if($cred.Decode -eq "PlainText"){return $password;}
+    # Binary
+    elseif($cred.Decode -eq "Binary")
+    {
+        [string]$out = $null;
+        [Calculations]$math = [Calculations]::new();
+        for($i = 0;$i -lt $password.Length;$i++){$out += $math.IntToBinary($math.AsciiToDec($password[$i]))}
+        return $out;
+    }
+    # HexMax
+    elseif($cred.Decode -eq "HexMax")
+    {
+        [string]$out = $null;
+        [Calculations]$math = [Calculations]::new();
+        for($i = 0;$i -lt $password.Length;$i++)
+        {
+            $string = $math.IntToBinary($math.AsciiToDec($password[$i]));
+            for($j = 0;$j -lt $string.Length;$j = $j + 4)
+            {
+                $out += $math.BinaryToInt($string.Substring($j,4));
+            }
+        }
+        return $out;
+    }
+    else{return $password;}
+}
+
+function GenerateEncryption
+{
+    param
+    (
+        [ValidateSet('PlainText','Binary','HexMax')]
+        [string]$Encryption,
+        [Parameter(Mandatory)][string]$password
+    )
+    $t = @{"Decode"=$Encryption};
+    GetPassWord -password:$password -cred:$t;
+}
+
+function CreateCredentials
+{
+    [System.Object[]]$user = @{"Username"="";"Password"="";"Decode"=""};
+    [string]$CredPath = ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
+    New-Item $CredPath -Force;
+    $user | ConvertTo-Json | Out-File $CredPath;
+    Write-Host "Created credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;
 }

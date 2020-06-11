@@ -3,6 +3,7 @@
 <!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
         <xs:attribute name="MachineName"/>
+        <xs:attribute name="LoadProfile"/>
         <xs:attribute name="LoadProcedure">
             <xs:annotation>
                 <xs:documentation>
@@ -10,6 +11,16 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:element name="UpdateStamp" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+                <xs:documentation>
+                    Stamp to see what was the latest update script that was ran
+                </xs:documentation>
+            </xs:annotation>
+            <xs:attribute name="Value" type="xs:string" use="mandatory"/>
+            <!-- Count attribute does not have to be here, it's temp.  I can just check latest update script and compare it to value -->
+            <xs:attribute name="Count" type="xs:int" use="mandatory"/>
+        </xs:element>
         <!-- Start Script -->
         <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
             <xs:annotation>
@@ -79,7 +90,13 @@
 
         <!-- Terminal Settings -->
         <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
+            <xs:attribute name="Enabled" use="mandatory" type="xs:boolean"/>
             <xs:element name="Format" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This format applies to all under ShellSettings
+                    </xs:documentation>
+                </xs:annotation>
                 <xs:group ref="Formatter"/>
             </xs:element>
             <xs:element name="Header" minOccurs="1" maxOccurs="1">
@@ -117,7 +134,34 @@
                 <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
             </xs:element>
-            <xs:element name="StartDirectory" maxOccurs="1"/>
+            <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Git notificatons for Unstaged/Staged changes and unpushed commits
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
+                <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
+            <xs:element name="StartDirectory" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Default is whatever is configured in the app settings
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Security" minOccurs="0" maxOccurs="1">
+                <xs:element name="Secure" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CloseSessionIfIncorrect" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            </xs:element>
         </xs:element>
         
         <xs:element name="Directories" maxOccurs="1">
@@ -193,7 +237,7 @@
 
         <xs:group name="XMLElement">
             <xs:element name="Values">
-                <xs:any/>
+                <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
                 <xs:annotation>
                     <xs:documentation>
                         Any node here can be referenced on the command line by the element name.
@@ -256,6 +300,14 @@
                     <xs:annotation>
                         <xs:documentation>
                             Include the name of the row that should be excluded by default data
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RunUpdates" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="CreateDatabase" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Whether or not you want the code to make the database for you.  Good when you first start using the database.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -396,6 +448,13 @@
                     <xs:annotation>
                         <xs:documentation>
                             Full path to timestamp.csv
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FirstDayOfWeek" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            First Day of the week
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -564,6 +623,27 @@
                     Settings for Email.ps1
                 </xs:documentation>
             </xs:annotation>
+            <xs:element name="EmailAddress" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Email address you want to read your emails from 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:attribute name="SecType" use="mandatory">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Securty Type: Default 'public'.  Options: 'public' or 'private'
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:element>
+            <xs:element name="DefaultFolder" type="xs:string"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Folder you are reading from (i.e. the \Inbox folder)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>

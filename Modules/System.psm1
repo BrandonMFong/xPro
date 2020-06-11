@@ -47,12 +47,30 @@ function Set-Brightness
     $monitor.WmiSetBrightness(0,$Percentage)
 }
 
-function Reload-Profile {.$PROFILE -StartDir:$false;}
+function Reload-Profile 
+{
+    param([Switch]$StartScript)
+    if($StartScript){.$PROFILE -StartDir:$false -StartScript:$true;}
+    else{.$PROFILE -StartDir:$false -StartScript:$false;}
+}
 
 function Toggle-Load 
 {
-    param([switch]$Restart)
+    param([Switch]$Restart)
     $XMLReader.Machine.LoadProfile = (!$XMLReader.Machine.LoadProfile.ToBoolean($null)).ToString();
     $XMLReader.Save($($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile));
     if($Restart){Restart-Session;}
+}
+
+function Get-Size
+{
+    Param
+    (
+        [String]$Item,
+        [ValidateSet('Giga','Mega','Kilo')][String]$Type
+    )
+    if($Type.Equals('Giga')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1GB; }
+    elseif($Type.Equals('Mega')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1MB; }
+    elseif($Type.Equals('Kilo')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1KB; }
+    else{return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum; }
 }

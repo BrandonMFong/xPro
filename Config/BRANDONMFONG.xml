@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
+  <UpdateStamp Value="06102020" Count="2" />
   <StartScript Enable="True" ClearHost="false">B:\Powershell\StartScripts\BRANDONMFONG.ps1</StartScript>
   <!-- Terminal Settings -->
-  <ShellSettings>
+  <ShellSettings Enabled="True">
     <Format>
       <Date>dddd MM/dd</Date>
       <Time>hh:mm:ss tt</Time>
@@ -21,11 +22,22 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>B:\</StartDirectory>
+    <GitSettings Enabled="True">
+      <Unstaged>True</Unstaged>
+      <Staged>True</Staged>
+      <Commits>False</Commits>
+    </GitSettings>
+    <Security>
+      <Secure>True</Secure>
+      <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
+    </Security>
   </ShellSettings>
   <Weather>
     <Area>San Diego</Area>
   </Weather>
   <Email>
+    <EmailAddress SecType="private">6adb4d6b-6a36-4ad5-a9b5-5913a3b70538</EmailAddress>
+    <DefaultFolder>\Inbox</DefaultFolder>
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>
@@ -34,7 +46,7 @@
       <Body>True</Body>
     </IncludeFields>
     <ListInboxMax>10</ListInboxMax>
-    <ListOrderBy>Desc</ListOrderBy>
+    <ListOrderBy>Asc</ListOrderBy>
   </Email>
   <!-- Modules -->
   <Modules>
@@ -136,6 +148,7 @@
     <Program Alias="Get-Email" SecType="public">B:\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Goto" SecType="public">B:\Powershell\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">B:\Powershell\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">B:\Powershell\Functions\Open.ps1</Program>
     <Program Alias="Query" SecType="public">B:\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
@@ -147,6 +160,7 @@
     <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
     <Program Alias="Open-Putty" SecType="public">B:\Powershell\Functions\Open-Putty.ps1</Program>
     <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
+    <Program Alias="Dismount" SecType="public">B:\Powershell\Functions\DismountDrive.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
@@ -161,6 +175,8 @@
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
+          <RunUpdates>True</RunUpdates>
+          <CreateDatabase>False</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -260,11 +276,6 @@
         </SQL>
       </Class>
     </Object>
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>
@@ -286,8 +297,9 @@
       <VarName SecType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="true">
         <Calendar>
-          <PathToEventImport>B:\Powershell\Resources\CalendarImports\ImportEvents.csv</PathToEventImport>
+          <PathToEventImport>B:\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
         </Calendar>
       </Class>
     </Object>
@@ -382,7 +394,7 @@
     <!-- $Todo -->
     <Object Type="HashTable">
       <VarName SecType="public">Todo</VarName>
-      <!--Key and Value-->
+      <!-- Key and Value -->
       <Key Lvl="0" SecType="public">Monday</Key>
       <Value Lvl="0" SecType="public">$MonList</Value>
       <Key Lvl="0" SecType="public">Tuesday</Key>
@@ -745,6 +757,10 @@
       <Value Lvl="1" Node="475b" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="475b" SecType="public">Password</Key>
       <Value Lvl="1" Node="475b" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
+      <Key Lvl="1" Node="475b" SecType="public">ID</Key>
+      <Value Lvl="1" Node="475b" SecType="private">ad91c031-123c-4803-a69b-5b78fff8e87c</Value>
+      <Key Lvl="1" Node="475b" SecType="public">Email</Key>
+      <Value Lvl="1" Node="475b" SecType="private">298b6bcb-e1db-4884-8e0e-2ea960818ad8</Value>
       <!--FAFSA-->
       <Key Lvl="0" SecType="public">FAFSA</Key>
       <Value Lvl="0" SecType="public" NodePointer="0435" />

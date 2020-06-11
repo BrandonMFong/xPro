@@ -10,15 +10,15 @@
 .Notes
 
 #>
-Param([String[]] $dir, [Alias('p')][Switch] $push)
+Param([String]$dir, [Alias('p')][Switch]$push)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 [bool]$ProcessExecuted = $false;
 	foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
 	{
 		if($Directory.alias -eq $dir)
 		{
-			if($push){Push-Location $(Evaluate -value $Directory); $ProcessExecuted = $true;}
-			else{Set-Location $(Evaluate -value $Directory); $ProcessExecuted = $true;}
+			if($push){Push-Location $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;}
+			else{Set-Location $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;}
 		}
 		
 	}

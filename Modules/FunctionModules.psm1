@@ -132,6 +132,7 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
 }
 
 # Hmmmmm, what if a node is on difference indexes
+# TODO finish.  This might not work out in terms of improving performance
 function GetAllIntervals([System.Object[]]$Keys)
 {
     # Goal: 
@@ -188,8 +189,8 @@ function SortHash([ref]$t,[ref]$n,[int]$index,[System.Xml.XmlElement]$Key)
 
 function MakeHash($value,[int]$lvl,[string]$Node)
 {
-    $t = @{}; # Init hash object 
-    $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
+    [Hashtable]$t = @{}; # Init hash object 
+    # $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
     
     if($value.Key.Count -ne $value.Value.Count){throw "Objects must have equal key and values in config."}
 

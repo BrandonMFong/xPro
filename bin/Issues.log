@@ -1,10 +1,11 @@
 
 Issue: Reload Profile brings me back to repo
-    Fix Commit:  
+    Fix Commit:  b58fb8ee879ef14248c959c59a519699c14c4cf5 
     Branch:  
-    Status: Open
+    Status: Closed
     Notes: 
     Post:
+        - Did not pop in the update config before the return
         
 Issue: Get-Calendar not printing
     Fix Commit:  

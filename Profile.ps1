@@ -36,7 +36,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        if(($XMLReader.Machine.StartScript.Enable -eq "true") -and ($StartScript)) {Invoke-Expression $($XMLReader.Machine.StartScript.InnerXML)}
+        if(($XMLReader.Machine.StartScript.Enable -eq "true") -and ($StartScript)) {Invoke-Expression $(Evaluate -value:$XMLReader.Machine.StartScript)}
     
     try 
     {

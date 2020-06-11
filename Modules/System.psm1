@@ -61,3 +61,16 @@ function Toggle-Load
     $XMLReader.Save($($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile));
     if($Restart){Restart-Session;}
 }
+
+function Get-Size
+{
+    Param
+    (
+        [String]$Item,
+        [ValidateSet('Giga','Mega','Kilo')][String]$Type
+    )
+    if($Type.Equals('Giga')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1GB; }
+    elseif($Type.Equals('Mega')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1MB; }
+    elseif($Type.Equals('Kilo')){return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum/1KB; }
+    else{return (Get-ChildItem $Item | Measure-Object Length -Sum).Sum; }
+}

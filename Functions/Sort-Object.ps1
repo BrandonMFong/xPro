@@ -8,13 +8,13 @@ Param
 (
     [String[]]$Object, # Assuming that the array arriving is the base name of the files
     [ValidateSet('SelectionSort')][string]$Method,
-    [String]$ParseString="MMddyyyy"
+    [String]$ParseString="MMddyyyy",
+    [ValidateSet('DateTime')][String]$DateType="DateTime"
 )
 
 if($Method.Equals('SelectionSort'))
 {
     [String[]]$Output = @();
-    # [String[]]$FinalObject = @();
     [String[]]$Latter = @();
     for($i=0;$i -lt $Object.Length;$i++) # Over all window to sort, should be shrinking the inner loop
     {
@@ -27,10 +27,24 @@ if($Method.Equals('SelectionSort'))
         {
             if(![string]::IsNullOrEmpty($IntervalObject[$j+1])) # If I am not at the end of the object array
             {
-                # If second is less than first, put it first
-                if([DateTime]::ParseExact($IntervalObject[$j+1],$ParseString,$null) -lt [DateTime]::ParseExact($IntervalObject[$j],$ParseString,$null))
+                switch($DateType)
                 {
-                    $index = $j+1;
+                    "DateTime"
+                    {
+                        # If second is less than first, put it first
+                        if([DateTime]::ParseExact($IntervalObject[$j+1],$ParseString,$null) -lt [DateTime]::ParseExact($IntervalObject[$j],$ParseString,$null))
+                        {
+                            $index = $j+1;
+                        }
+                    }
+                    Default
+                    {
+                        # If second is less than first, put it first
+                        if([DateTime]::ParseExact($IntervalObject[$j+1],$ParseString,$null) -lt [DateTime]::ParseExact($IntervalObject[$j],$ParseString,$null))
+                        {
+                            $index = $j+1;
+                        }
+                    }
                 }
             }
         }
@@ -45,7 +59,6 @@ if($Method.Equals('SelectionSort'))
                 $Latter += $IntervalObject[$k];
             }
         }
-        # $FinalObject = $Former + $Latter; # Combine all together
         $Output += $Former; # Combine all together
     }
     return $Output;

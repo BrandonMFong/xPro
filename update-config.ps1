@@ -10,7 +10,7 @@ Push-Location $PSScriptRoot
     if($CheckUpdate)
     {
         [string[]]$Scripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).Name;
-        if($Scripts.Count -ne [int]$XMLReader.Machine.UpdateStamp.Count)
+        if($Scripts.Count -lt [int]$XMLReader.Machine.UpdateStamp.Count)
         {
             Write-Host  "`nThere is an update to GlobalScripts Config." -ForegroundColor Red
             [string]$update = Read-Host -Prompt "Want to update? (y/n)";

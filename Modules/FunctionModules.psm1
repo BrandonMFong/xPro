@@ -131,13 +131,71 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
     else{return $value.InnerText;}
 }
 
-function MakeHash($value,[int]$lvl,$Node)
+# Hmmmmm, what if a node is on difference indexes
+# TODO finish.  This might not work out in terms of improving performance
+function GetAllIntervals([System.Object[]]$Keys)
 {
-    $t = @{}; # Init hash object 
+    # Goal: 
+    # - Sweep all nodes [X]
+    # - Find nodes and record index []
+    # - sort all nodes in []
+    #   - [0] A to [last index] Z
+    # - implement binary search []
+    $t = [Ordered]@{};
+    $n = @{"Node"="";"Start"="";"End"="";}; # New node
+    [bool]$StartFound = $false; [bool]$EndFound = $false;
+    for([int]$i=0;$i -lt $Keys.Length;$i++)
+    {
+        # If the key has a node, the $n object node is empty and the $n start is empty
+        if(![string]::IsNullOrEmpty($Keys[$i].Node) -and [string]::IsNullOrEmpty($n.Node) -and [string]::IsNullOrEmpty($n.Start))
+        {
+            $n.Start = $i.ToString();
+            $n.Node = $Keys[$i].Node;
+        }
+
+        # End of the interval. Sort the nodes here
+        if(($n.Node -ne $Keys[$i].Node) -and ![string]::IsNullOrEmpty($n.Node) -and ![string]::IsNullOrEmpty($n.Start)) # If node interval just passed
+        {
+            $n.End = $($i-1).ToString();
+            SortHash -t ([ref]$t) -n ([ref]$n) -index:0 -Key $Keys[$i];
+            $n = @{"Node"="";"Start"="";"End"="";}; # reset
+        }
+
+    }
+    return $t;
+}
+
+# The higher the alphabet, the higher the index
+# So 'A' would be [0]
+function SortHash([ref]$t,[ref]$n,[int]$index,[System.Xml.XmlElement]$Key)
+{
+    [Calculations]$m = [Calculations]::new();
+    # if Z > A
+    # If the saved node is greater than the next node
+    if($m.AsciiToDec($n.Value.Node[$index]) -gt $m.AsciiToDec($Key.Node[$index])){$t.Value.Add($n.Value.Node,$n);}
+
+    # if Z < A
+    # If the saved node is less than the next node
+    elseif($m.AsciiToDec($n.Value.Node[$index]) -lt $m.AsciiToDec($Key.Node[$index]))
+    {
+        # sort
+        $temp = $t.Value;
+        $t.Value = @{};
+        $t.Value.Add($n.Value.Node,$n);
+        $t = $t + $temp; # Add on top of old
+    }
+    else{SorHash -t ([ref]$t) -n ([ref]$n) -index:$($index+1) -Key:$Key;}
+}
+
+function MakeHash($value,[int]$lvl,[string]$Node)
+{
+    [Hashtable]$t = @{}; # Init hash object 
+    # $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
     
-    if($value.Key.Count -ne $value.Value.Count)
-    {throw "Objects must have equal key and values in config."}
-    elseif($null -ne $Node)
+    if($value.Key.Count -ne $value.Value.Count){throw "Objects must have equal key and values in config."}
+
+    # When there is a node pointer
+    elseif(![string]::IsNullOrEmpty($Node))
     {
         $start = 0;$end = 0;
         FindNodeInterval -value $value -Node $Node -start ([ref]$start) -end ([ref]$end);
@@ -152,29 +210,28 @@ function MakeHash($value,[int]$lvl,$Node)
             }
         }
     }
+
+    # For the leaf node
     else 
     {
-        for($i=0;$i -lt $value.Key.Count;$i++)
+        # For the corner case where there is only one node
+        if([string]::IsNullOrEmpty($value.Key.Count)){$t.Add($(Evaluate($value.Key)),$(Evaluate($value.Value)));}
+        else 
         {
-            if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
+            for($i=0;$i -lt $value.Key.Count;$i++)
             {
-                $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
+                {
+                    $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                }
             }
         }
     }
-
     return $t;
 }
 
+function Test {if(!(Test-Path .\archive\)){ mkdir archive;}}
 
-
-function Test 
-{
-    if(!(Test-Path .\archive\))
-    {
-        mkdir archive;
-    }
-}
 function DoesFileExistInArchive($file)
 {
     If(Test-Path $('.\archive\' + $file.Name))

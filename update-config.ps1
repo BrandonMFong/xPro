@@ -18,10 +18,10 @@ Push-Location $PSScriptRoot
             {
                 Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local;
                 Run-Update; # Updates configuration file
-                return 1; # Exiting code
+                Pop-location; return 1; # Exiting code
             }
         }
-        else{return 0;}
+        else{Pop-location;return 0;}
     }
 
     $ForPrompt = [System.Collections.ArrayList]::new(); 
@@ -44,5 +44,4 @@ Push-Location $PSScriptRoot
         $XmlEditor.Machine.ConfigFile = $ForConfig[$ConfigIndex-1];
         $XmlEditor.Save($Path);
     Pop-Location
-
 Pop-Location

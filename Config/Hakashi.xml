@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06092020" Count="1" />
+  <UpdateStamp Value="06102020" Count="2" />
   <StartScript Enable="True" ClearHost="false">$PSScriptRoot\..\StartScripts\Hakashi.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -62,11 +62,6 @@
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>
-    <!-- $Web -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">Web</VarName>
-      <Class ClassName="Web" HasParams="false" />
-    </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>
@@ -100,6 +95,7 @@
         <Youtube>https://Youtube.com</Youtube>
         <Site>http://www.BrandonMFong.com/</Site>
         <IPChicken>https://ipchicken.com/</IPChicken>
+        <GitHub>https://github.com/</GitHub>
       </Values>
     </Object>
   </Objects>

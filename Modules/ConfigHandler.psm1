@@ -220,12 +220,8 @@ function Run-Update
         if($UpdateStamp -lt $CurrentStamp) # Only run the scripts that have not been run yet
         {
             $script = $(Get-ChildItem $($PSScriptRoot + "\..\Config\UpdateConfig\$($InOrderScripts[$i]).ps1")).FullName;
-            [int]$ExecuteResult = $(& $script); # WOAH
-            if(!$ExecuteResult)
-            {
-                Write-Host "Executed $($script)" -ForegroundColor Gray;
-            }
-            else{Write-Host "Error in $($script)" -ForegroundColor Red;}
+            & $script; # WOAH
+            Write-Host "Executed $($script)" -ForegroundColor Gray;
         }
     }
     Write-Host "`n";

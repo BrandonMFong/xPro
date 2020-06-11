@@ -1,7 +1,6 @@
 using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
-using module .\..\Classes\Web.psm1;
 using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
@@ -10,38 +9,47 @@ $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects
 
 function MakeClass($XmlElement)
 {
-    switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
+    try 
     {
-        "Calendar" 
+        switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
         {
-            [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
-            [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
-            [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
-            [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
-            $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
-            return $x;
+            "Calendar" 
+            {
+                [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
+                [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
+                [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
+                [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
+                $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
+                return $x;
+            }
+            "Web" {$x = [Web]::new();return $x;}
+            "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
+            "Email" {$x = [Email]::new();return $x;}
+            "SQL" 
+            {
+                [string]$Database = $XmlElement.Class.SQL.Database;
+                [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
+                [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
+                [boolean]$Sync = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
+                [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
+                [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
+                [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates.ToBoolean($null);
+                [boolean]$Create = $XmlElement.Class.SQL.CreateDatabase.ToBoolean($null);
+                $x = [SQL]::new($Database, $ServerInstance, $Tables, $Sync, $UpdateVerbose, $SQLConvertFlags,$RunUpdates,$Create);
+                return $x;
+            }
+            "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
+            default
+            {
+                Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
+            }
         }
-        "Web" {$x = [Web]::new();return $x;}
-        "Calculations" {$x = [Calculations]::new($XmlElement.Class.Math.QuantizedStepSize,$XmlElement.Class.Math.PathToGradeImport,$XmlElement.Class.Math.GradeColors);return $x;}
-        "Email" {$x = [Email]::new();return $x;}
-        "SQL" 
-        {
-            [string]$Database = $XmlElement.Class.SQL.Database;
-            [string]$ServerInstance = $XmlElement.Class.SQL.ServerInstance;
-            [System.Object[]]$Tables = $XmlElement.Class.SQL.Tables;
-            [boolean]$Sync = $XmlElement.Class.SQL.SyncConfiguration.ToBoolean($null);
-            [boolean]$UpdateVerbose = $XmlElement.Class.SQL.UpdateVerbose.ToBoolean($null);
-            [string]$SQLConvertFlags = $XmlElement.Class.SQL.SQLConvertFlags;
-            [boolean]$RunUpdates = $XmlElement.Class.SQL.RunUpdates.ToBoolean($null);
-            [boolean]$Create = $XmlElement.Class.SQL.CreateDatabase.ToBoolean($null);
-            $x = [SQL]::new($Database, $ServerInstance, $Tables, $Sync, $UpdateVerbose, $SQLConvertFlags,$RunUpdates,$Create);
-            return $x;
-        }
-        "List"{$x = [List]::new($XmlElement.Class.List.Title,$XmlElement.Class.List.Redirect,$XmlElement.Class.List.DisplayCompleteWith);return $x;}
-        default
-        {
-            Write-Warning "Class $($XmlElement.Class.ClassName) was not made.";
-        }
+    }
+    catch
+    {
+        Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
+        Write-Warning "$($_)";
+        Write-Warning "$($_.ScriptStackTrace)";
     }
 }
 

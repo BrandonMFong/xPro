@@ -12,26 +12,23 @@
 #>
 param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-$var = $(GetObjectByClass('Web'));
 
 if($Google)
 {
-    $v = read-host -prompt "Google"
-    $var.Google($v);
-}
-elseif($Sharepoint)
-{
-    $v = read-host -prompt "Sharepoint"
-    $var.Sharepoint($v);
+    $Value = read-host -prompt "Google";
+    $Search = "https://google.com/search?q= $($Value)";
+    Start-Process $Search;
 }
 elseif($Dictionary)
 {
-    $v = read-host -prompt "Dictionary"
-    $var.Dictionary($v);
+    $Value = read-host -prompt "Dictionary";
+    $Search = "https://www.dictionary.com/browse/" + $Value;
+    Start-Process $Search;
 }
 elseif($Youtube)
 {
-    $v = read-host -prompt "Youtube"
-    $var.Youtube($v);
+    $Value = read-host -prompt "Youtube";
+    $YT_Search = "https://youtube.com/results?search_query= $Value";
+    Start-Process $YT_Search;
 }
 else{throw "Nothing searched";}

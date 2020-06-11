@@ -16,7 +16,7 @@ Push-Location $PSScriptRoot
             [string]$update = Read-Host -Prompt "Want to update? (y/n)";
             if($update -eq "y")
             {
-                Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local;
+                Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local -DisableNameChecking;
                 Run-Update; # Updates configuration file
                 Pop-location; return 1; # Exiting code
             }

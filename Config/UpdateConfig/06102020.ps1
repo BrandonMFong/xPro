@@ -10,7 +10,14 @@ try
    [String]$FilePath = _GetXMLFilePath;
    
    <# UPDATE START #>
-
+      foreach($Object in $xml.Machine.Objects.Object)
+      {
+         if(($Object.Type -eq "PowerShellClass") -and ($Object.Class.ClassName -eq "Web"))
+         {
+            $Object.ParentNode.RemoveChild($Object); # Removing element
+            break;
+         }
+      }
 
    <# UPDATE END #>
    

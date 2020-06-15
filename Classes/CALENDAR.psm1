@@ -166,7 +166,7 @@ class Calendar
     hidden GetNow([byte]$m)
     {
         if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
-        $this.Today = Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString());
+        $this.Today = [Day]::new($(Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString())),$null);
     }
 
     hidden GetHeaderString()

@@ -623,6 +623,13 @@
                     Settings for Email.ps1
                 </xs:documentation>
             </xs:annotation>
+            <xs:attribute name="AssemblyPath" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        In Powershell 7 (as far as I know) The add-Type AssemblyName parameter needs the full file path.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:element name="EmailAddress" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>

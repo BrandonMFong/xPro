@@ -28,7 +28,11 @@ function Slide
 
 function CL {Clear-Host;Get-ChildItem;}
 
-function Restart-Session{Start-Process powershell;exit;}
+function Restart-Session
+{
+    if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;exit;}
+    else{Start-Process pwsh;exit;}
+}
 function Start-Admin{Start-Process powershell -Verb Runas;}
 
 function List-Color{[Enum]::GetValues([System.ConsoleColor])}
@@ -36,7 +40,11 @@ function Open-Settings{start ms-settings:;}
 function Open-Bluetooth{start ms-settings:bluetooth;}
 function Open-Display{start ms-settings:display;}
 
-function Get-BatteryLife{Write-Host "Battery @ $((Get-WmiObject win32_battery).EstimatedChargeRemaining )%" -ForegroundColor Cyan}
+function Get-BatteryLife
+{
+    if($PSVersionTable.PSVersion.Major -lt 7){Write-Host "Battery @ $((Get-WmiObject win32_battery).EstimatedChargeRemaining )%" -ForegroundColor Cyan;}
+    else{Write-Host "Battery @ $((Get-CimInstance win32_battery).EstimatedChargeRemaining )%" -ForegroundColor Cyan;}
+}
 
 function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}
 

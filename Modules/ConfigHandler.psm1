@@ -186,7 +186,7 @@ function List-Programs
         Write-Host "$($p.alias)" -ForegroundColor Green -NoNewline;
         Write-Host " => " -NoNewline;
         Write-Host "$($p.InnerXML)" -ForegroundColor Cyan -NoNewline;
-        Write-Host " (" -NoNewline; Write-Host "$($p.Type)" -ForegroundColor Cyan -NoNewline; Write-Host ") ";
+        Write-Host " (" -NoNewline; Write-Host "$($p.SecType)" -ForegroundColor Cyan -NoNewline; Write-Host ") ";
     }
     Write-Host `n;
 }

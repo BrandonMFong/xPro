@@ -13,54 +13,32 @@ function Push-With-Tag
 
 function Set-Tag
 {
-    Param([switch]$Major,[Switch]$Minor,[Switch]$BugPatch)
-    [string]$str = "$(git describe --tags)"
+    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch)
+    [String]$tag = "$(git describe --tags)";
+    $tag = $tag.Substring(0,$tag.IndexOf("-"));
+    [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
+    $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+    [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
+    $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+    [int]$BugPatchString = $tag; # At this point we are at the end
+
     if($Major)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::Major -tagstring $null)"
+        [String]$TagString = "$($MajorString+1).0.0";
     }
     elseif($Minor)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::Minor -tagstring $null)"
+        [String]$TagString = "$($MajorString).$($MinorString+1).0";
     }
     elseif($BugPatch)
     {
-        Write-Host "New Tag $(SweepTagAndSet -tag $str -begin 0 -TagType [TagType]::BugPatch -tagstring $null)"
+        [String]$TagString = "$($MajorString).$($MinorString).$($BugPatchString+1)";
     }
-    else{Write-Warning "Not Tagging"}
-}
-
-[int]$Tagnum = 0;
-function SweepTagAndSet($tag,$begin,$TagType,$tagstring) # Parameters aren't working
-{
-    # Param([string]$tag,[int]$begin,[int]$TagType,[string]$tagstring) # got this from list.psm1
-    [string]$temptag = $tagstring;
-    [string]$NewTag = "";
-
-    for($i = $begin;$i -le $tag.Length;$i++)
+    else
     {
-        if($tag[$i] -eq ".")# the . means there are more to the string
-        {
-            
-        }
-        else{$temptag += $tag[$i];}
+        throw "Please choose type of tag increment you want!";
     }
-    return $NewTag;
-}
-
-function GetRestOfTag([string]$Tag,[int]$index)
-{
-    [string]$RestTag = "";
-    for($i = $index;$i -lt $Tag.Length;$i++)
-    {
-        $RestTag += $Tag[$i];
-    }
-    return $RestTag;
-}
-
-class TagType 
-{
-    static [int] $Major = 1;
-    static [int] $Minor = 2;
-    static [int] $BugPatch = 3;
+    
+    # Tag
+    git tag $TagString;
 }

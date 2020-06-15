@@ -1,5 +1,9 @@
 Import-Module $($PSScriptRoot + "\FunctionModules.psm1");
-Add-Type -assembly "Microsoft.Office.Interop.Outlook";
+
+
+if($PSVersionTable.PSVersion.Major -lt 7){Add-Type -assembly "Microsoft.Office.Interop.Outlook";}
+else{Add-Type -AssemblyName $XMLReader.Machine.Email.AssemblyPath;}
+
 function InboxObject
 {
     [System.Xml.XmlElement]$var = $(Get-Variable "XMLReader").Value.Machine.Email;

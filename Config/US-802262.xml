@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06102020" Count="2" />
+  <UpdateStamp Value="06142020" Count="3" />
   <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -35,7 +35,7 @@
   <Weather>
     <Area>San Diego</Area>
   </Weather>
-  <Email>
+  <Email AssemblyPath="">
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>

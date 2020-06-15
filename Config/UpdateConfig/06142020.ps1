@@ -11,8 +11,11 @@ try
    
    <# UPDATE START #>
    
-      [System.Xml.XmlNodeList]$AssemblyPath = $xml.SelectNodes("//Email");
-      $AssemblyPath.SetAttribute("AssemblyPath","");
+      if(![string]::IsNullOrEmpty($xml.Machine.Email))
+      {
+         [System.Xml.XmlNodeList]$AssemblyPath = $xml.SelectNodes("//Email");
+         $AssemblyPath.SetAttribute("AssemblyPath","");
+      }
 
    <# UPDATE END #>
    

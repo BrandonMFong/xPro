@@ -28,7 +28,11 @@ function Slide
 
 function CL {Clear-Host;Get-ChildItem;}
 
-function Restart-Session{Start-Process powershell;exit;}
+function Restart-Session
+{
+    if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;exit;}
+    else{Start-Process pwsh;exit;}
+}
 function Start-Admin{Start-Process powershell -Verb Runas;}
 
 function List-Color{[Enum]::GetValues([System.ConsoleColor])}

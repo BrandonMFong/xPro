@@ -24,11 +24,11 @@ function Set-Tag
 
     if($Major)
     {
-        [String]$TagString = "$($MajorString+1).$($MinorString).$($BugPatchString)";
+        [String]$TagString = "$($MajorString+1).0.0";
     }
     elseif($Minor)
     {
-        [String]$TagString = "$($MajorString).$($MinorString+1).$($BugPatchString)";
+        [String]$TagString = "$($MajorString).$($MinorString+1).0";
     }
     elseif($BugPatch)
     {

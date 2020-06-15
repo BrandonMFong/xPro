@@ -162,5 +162,5 @@ function _EvalColor([string]$Color)
 function GetBatteryStatus
 {
     if($PSVersionTable.PSVersion.Major -lt 7){return (Get-WmiObject win32_battery).EstimatedChargeRemaining;}
-    else{return 100;} # Powershell 7 removed the wmi objects
+    else{(Get-CimInstance win32_battery).EstimatedChargeRemaining;} # Powershell 7 removed the wmi objects
 }

@@ -35,7 +35,7 @@
   <Weather>
     <Area>San Diego</Area>
   </Weather>
-  <Email>
+  <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
     <EmailAddress SecType="private">6adb4d6b-6a36-4ad5-a9b5-5913a3b70538</EmailAddress>
     <DefaultFolder>\Inbox</DefaultFolder>
     <IncludeFields>

@@ -14,7 +14,7 @@ function _Replace
 
     # Username
     if($OutString.Value.Contains($tag.user))
-    {$OutString.Value = $OutString.Value.Replace($tag.user, $(((Get-WMIObject -class Win32_ComputerSystem | Select-Object -ExpandProperty username) -split '\\' )[1]));}
+    {$OutString.Value = $OutString.Value.Replace($tag.user, $([System.Environment]::UserName));}
     
     # Date
     if($OutString.Value.Contains($tag.date))
@@ -56,7 +56,7 @@ function _Replace
     }
 
     # Battery Life
-    if($OutString.Value.Contains($tag.batteryperc)){$OutString.Value = $OutString.Value.Replace($tag.batteryperc, $((Get-WmiObject win32_battery).EstimatedChargeRemaining));}
+    if($OutString.Value.Contains($tag.batteryperc)){$OutString.Value = $OutString.Value.Replace($tag.batteryperc, $(GetBatteryStatus));}
 
     # Greater than sign
     if($OutString.Value.Contains($tag.greaterthan)){$OutString.Value = $OutString.Value.Replace($tag.greaterthan,"`>");}
@@ -130,21 +130,21 @@ function _SetBackgroundColor
 
 # Prompt output
 [Xml]$x = _GetXMLContent;
-$prompt = $x.Machine.ShellSettings.Prompt;
-if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String -ne "Default"))
+if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String -ne "Default"))
 {
     function prompt
     {
+        [System.Xml.XmlElement]$prompt = $XMLReader.Machine.ShellSettings.Prompt;
         _SetHeader; # Sets Header
         _SetBackgroundColor; # Sets BG color
 
         if($prompt.Enabled.ToBoolean($null) -and (![string]::IsNullOrEmpty($prompt)))
         {
-            [string]$OutString = $x.Machine.ShellSettings.Prompt.String.InnerXml;
+            [string]$OutString = $XMLReader.Machine.ShellSettings.Prompt.String.InnerXml;
             
             _Replace([ref]$OutString);
     
-            if(($prompt.BaterryLifeThreshold.Enabled -eq "True") -and ($((Get-WmiObject win32_battery).EstimatedChargeRemaining) -lt $prompt.BaterryLifeThreshold.InnerXml))
+            if(($prompt.BaterryLifeThreshold.Enabled -eq "True") -and ($(GetBatteryStatus) -lt $prompt.BaterryLifeThreshold.InnerXml))
             {Write-Host ("$($OutString)") -ForegroundColor Red -NoNewline;}
             else {Write-Host ("$($OutString)") -ForegroundColor $(_EvalColor($prompt.String.Color)) -NoNewline;}
             
@@ -157,4 +157,10 @@ function _EvalColor([string]$Color)
 {
     if([string]::IsNullOrEmpty($Color) -or ($Color -eq "Default")){return "White"}
     else{return $Color}
+}
+
+function GetBatteryStatus
+{
+    if($PSVersionTable.PSVersion.Major -lt 7){return (Get-WmiObject win32_battery).EstimatedChargeRemaining;}
+    else{return 100;} # Powershell 7 removed the wmi objects
 }

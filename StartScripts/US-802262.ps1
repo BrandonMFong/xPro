@@ -18,6 +18,7 @@
 		else{Time -Login};
 		Outlook;
 		Tix;
+		Teams;
 		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
 		else {BankUrl;}
 		global;

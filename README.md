@@ -1,6 +1,37 @@
-# GlobalScripts
+# XmlPSProfile
 
-GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual environment defined by an .xml file.  Rather than having your aliases, modules, hashtables, variables, etc. defined in the profile script you can have it defined in the .xml file.  The .xml file serves as a configuration point, allowing the user to use the same scripts on different computers.
+What is in your Powershell profile script?  XmlPSProfile leverages .xml files to load the profile scripts.  Using .xml files, XmlPSProfile allows you to declare:
+
+* Aliases
+* Modules
+* Objects
+* Shell Settings
+
+XmlPSProfile also offers its own set of libraries and scripts that are developed and in development like:
+
+* Featured Scripts:
+    * Archive.ps1
+    * AppendDate.ps1
+    * GetIPAndHostName.ps1
+    * Open-Putty.ps1
+    * Goto.ps1
+    * Put.ps1
+    * Open.ps1
+    * Sort-Object.ps1
+    * Weather.ps1
+* Object Types:
+    * SQL - Allows access to local SQL Server
+    * Calendar - Prints calendar month, keeps track of events, and tracks clock in time
+    * List - To Do lists
+    * Math - Log base 2, binary/hex/decimal duplex conversion, Entropy calculations, etc.
+* Offered CmdLets:
+    * Set-Tag & Get-Tag - *Git Hub tag*
+    * Open-Bluetooth
+    * Open-Display
+    * Restart-Session
+    * Set-Brightness
+    * Volume
+    * Minimize-Terminal
 
 ## Features 
 
@@ -8,6 +39,7 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
     * *Print Calendar month*
         * *Marks current day*
         * *Marks event defined by config or import file (must have a SQL Server Database)*
+
     ```
     Sample Configuration:
     <Calendar>
@@ -51,6 +83,7 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 
 * **Query Local Database**
     * *Dynamically Insert into database for any table*
+
     ```
     [Kiran Analytics] Powershell (master*) >_ $Query.Query('select * from updatelog')                                                           
 
@@ -195,7 +228,8 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 * **Read Emails**
     User can read emails using Get-Email (Must have Outlook app installed)
     ```
-    [Kiran Analytics] Powershell (master*) >_ Get-Email                                                                                         {1} [Visual Studio Dev Essentials - 01/13/2020 10:32 AM] New developer resources for the new year
+    [Kiran Analytics] Powershell (master*) >_ Get-Email                                                                                         
+    {1} [Visual Studio Dev Essentials - 01/13/2020 10:32 AM] New developer resources for the new year
     {2} [GitHub - 06/02/2020 11:02 AM] [GitHub] A third-party OAuth application has been added to your account
     [Kiran Analytics] Powershell (master*) >_ Get-Email -index 2                                                                                
 
@@ -234,7 +268,8 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 * **GitHub Indicator**
     Enabled to determined branch and uncommitted change
     ```
-    [Kiran Analytics] Powershell (master*) >_ git status                                                                                        On branch master
+    [Kiran Analytics] Powershell (master*) >_ git status                                                                                        
+    On branch master
     Your branch is up to date with 'origin/master'.
 
     Changes not staged for commit:

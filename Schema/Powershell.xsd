@@ -350,7 +350,7 @@
                             <xs:attribute name="IsForeignKey" type="xs:boolean" use="mandatory">
                                 <xs:annotation>
                                     <xs:documentation>
-                                        If this column is the foreign key
+                                        If this column is the foreign key. If true, must fill ForeignKeyRef element
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:attribute>
@@ -362,6 +362,17 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:attribute>
+                            <xs:element name="ForeignKeyRef" type="xs:string" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        cdata must contain the following json format:  
+                                        {  
+                                            "ForeignTable": "Name of Table",  
+                                            "ForeignColumn": "Name of the column in the table"  
+                                        }  
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
                         </xs:element>
                         <xs:element name="Rows" minOccurs="0" maxOccurs="1">
                             <xs:annotation>

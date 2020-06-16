@@ -445,6 +445,7 @@ function CheckCredentials
             else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
         }
     }
+    Write-Host "`n";
 }
 
 function GetPassWord([String]$password, [System.Object[]]$cred) # Encrypts password

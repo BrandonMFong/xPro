@@ -86,10 +86,21 @@ class SQL
         # Prompt user what values they want to insert per column
         foreach($val in $values)
         {
-            if(!$this.IsIgnoredTypes($val)) # you do not need to provide a guid since it's already being provided
+            if($table -eq "PersonalInfo")
             {
-                Write-Warning "For $($val.COLUMN_NAME)";
-                $val.Value = Read-Host -Prompt "Value?";
+                if(!$this.IsIgnoredTypes($val)) # you do not need to provide a guid since it's already being provided
+                {
+                    Write-Warning "For $($val.COLUMN_NAME)";
+                    $val.Value = Read-Host -Prompt "Value?";
+                }
+            }
+            else 
+            {
+                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME) -and ($val.COLUMN_NAME -ne "ID")) # you do not need to provide a guid since it's already being provided
+                {
+                    Write-Warning "For $($val.COLUMN_NAME)";
+                    $val.Value = Read-Host -Prompt "Value?";
+                }
             }
         }
 
@@ -174,6 +185,11 @@ class SQL
         net start "SQL Server Agent(SQLEXPRESS)";
     }
 
+    # If column name is contained in SQLConvertFlags config then theh value in the innerxml will be inserted
+    # Otherwise, default values will be inserted
+    # Guid => New-Guid
+    # ID => Max ID
+    # DateTime => Current date time 
     hidden [string]SQLConvert($val,$table)
     {
         [string]$string = $null;
@@ -377,8 +393,6 @@ class SQL
             if(!$this.DoesRowExist($Row,$tablename)) # if row does not exist then insert the row
             {
                 [string]$querystring = $null;
-                # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($tablename)'"); # By now the table should be created
-                # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
                 [System.Object[]]$values = $this.GetTableSchema($tablename);
 
                 # Adds the actual values to use for the insert query
@@ -465,7 +479,7 @@ class SQL
 
         # else all columns are there
         if($i -gt 0){Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;$TableCreated = $true;}
-        if($TableCreated){Write-Host "$($table.Name) is up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
+        if($TableCreated){Write-Host "$($table.Name)'s columns are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     hidden [boolean] DoesColumnExist([string]$tablename,[string]$columnname)
@@ -477,20 +491,24 @@ class SQL
         else {return $true;} 
     }
 
-    hidden [string]IsNull($val)
+    hidden [string]IsNull([System.Object[]]$val)
     {
         if($val.IsNull -eq "true"){return "NULL"}
         else {return "NOT NULL"}
     }
 
-    hidden [string]IsPK($val) 
+    hidden [string]IsPK([System.Object[]]$val) 
     {
         if($val.IsPrimaryKey -eq "true"){return "PRIMARY KEY"}
         else {return ""}
     }
-    hidden [string]IsFK($val) 
+    hidden [string]IsFK([System.Object[]]$val) 
     {
-        if($val.IsForeignKey -eq "true"){return "FOREIGN KEY"}
+        if($val.IsForeignKey -eq "true")
+        {
+            [System.Object[]]$JSONReader = $val.ForeignKeyRef.'#cdata-section'|Out-String|ConvertFrom-Json
+            return "FOREIGN KEY REFERENCES $($JSONReader.ForeignTable)($($JSONReader.ForeignColumn))";
+        }
         else {return ""}
     }
 
@@ -508,6 +526,7 @@ class SQL
         $querystring = $querystring.Replace("(,", "(");
 
         Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
+        Write-Verbose "Table $($table.Name) successfully created!" -Verbose:$this.UpdateVerbose;
     }
 
     hidden [void] UpdateLastAccessByGuid([string]$Guid) # Personalinfo

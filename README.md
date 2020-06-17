@@ -8,6 +8,7 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
     * *Print Calendar month*
         * *Marks current day*
         * *Marks event defined by config or import file (must have a SQL Server Database)*
+
     ```
     Sample Configuration:
     <Calendar>
@@ -194,8 +195,10 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 
 * **Read Emails**
     User can read emails using Get-Email (Must have Outlook app installed)
+
     ```
-    [Kiran Analytics] Powershell (master*) >_ Get-Email                                                                                         {1} [Visual Studio Dev Essentials - 01/13/2020 10:32 AM] New developer resources for the new year
+    [Kiran Analytics] Powershell (master*) >_ Get-Email                                                                                         
+    {1} [Visual Studio Dev Essentials - 01/13/2020 10:32 AM] New developer resources for the new year
     {2} [GitHub - 06/02/2020 11:02 AM] [GitHub] A third-party OAuth application has been added to your account
     [Kiran Analytics] Powershell (master*) >_ Get-Email -index 2                                                                                
 
@@ -234,7 +237,8 @@ GlobalScripts utilizes the Microsoft.PowerShell_profile.ps1 to create a virtual 
 * **GitHub Indicator**
     Enabled to determined branch and uncommitted change
     ```
-    [Kiran Analytics] Powershell (master*) >_ git status                                                                                        On branch master
+    [Kiran Analytics] Powershell (master*) >_ git status                                                                                        
+    On branch master
     Your branch is up to date with 'origin/master'.
 
     Changes not staged for commit:

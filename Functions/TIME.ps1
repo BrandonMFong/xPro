@@ -28,13 +28,13 @@ if($Report) # Default is week view
 	elseif($Week)
 	{
 		Write-Host "`nView: Week" -ForegroundColor Gray;
-		$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");
+		$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.AddDays(1).Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");
 	}
 	elseif($All){$var.Report();}
 	else
 	{
 		Write-Host "`nView: Week" -ForegroundColor Gray;
-		$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");
+		$var.Report("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.AddDays(1).Date.ToString('MM/dd/yyyy')) 00:00:00.0000000");
 	}
 	break;
 }
@@ -43,7 +43,11 @@ if([string]::IsNullOrEmpty($var.TimeStampFilePath))# Database config
 {
 	if($Login){$var.TimeIn();}
 	if($Logout){$var.TimeOut();}
-	if($View){Write-Host "Log Time: $($var.GetTimeStampDuration())";}
+	if($View)
+	{
+		if($Week){Write-Host "Log Time: $($var.GetTimeStampDuration("$($var.ThisWeek.su.Date.ToString('MM/dd/yyyy')) 00:00:00.0000000","$($var.ThisWeek.sa.AddDays(1).Date.ToString('MM/dd/yyyy')) 00:00:00.0000000"))";}
+		else{Write-Host "Log Time: $($var.GetTimeStampDuration())";}
+	}
 }
 
 # todo finish

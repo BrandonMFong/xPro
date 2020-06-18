@@ -946,6 +946,8 @@
       <Value Lvl="0" SecType="private">fe572d64-7c05-4d02-92ba-0a655b78f317</Value>
       <Key Lvl="0" SecType="public">SSUExt</Key>
       <Value Lvl="0" SecType="private">3cde223e-a0c4-432f-baea-95688b5f2b92</Value>
+      <Key Lvl="0" SecType="public">Xilinx</Key>
+      <Value Lvl="0" SecType="private">266d3c1e-de41-475b-b169-bdd5d2518440</Value>
     </Object>
   </Objects>
 </Machine>

@@ -1,8 +1,8 @@
 /*Bounds*/
 /*declare @MinDate datetime2(7) = '5/1/2020 00:00:00.0000000'*/
 /*declare @MaxDate datetime2(7) = '5/30/2020 00:00:00.0000000'*/
-declare @MinDate datetime2(7) = CONVERT(VARCHAR(10), GETDATE(), 101)
-declare @MaxDate datetime2(7) = CONVERT(VARCHAR(10), DATEADD(DAY,1,GETDATE()), 101)
+declare @MinDate datetime2(7) = @MinDateExt
+declare @MaxDate datetime2(7) = @MaxDateExt
 
 /*Time data for the day*/
 /*Time In Data*/

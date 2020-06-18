@@ -649,9 +649,3 @@ class Day
         return $IsSpecialDay;
     }
 }
-
-
-# [Calendar]$test = [Calendar]::new('B:\Powershell\Resources\CalendarImports\ImportEvents.csv');
-# $test.InsertEvents();
-# $test.GetCalendarMonth();
-# $test.GetCalendarMonth("June");

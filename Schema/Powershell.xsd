@@ -365,6 +365,7 @@
                             <xs:element name="ForeignKeyRef" type="xs:string" minOccurs="0" maxOccurs="1">
                                 <xs:annotation>
                                     <xs:documentation>
+                                        I can probably just make it an xml tree but eh  
                                         cdata must contain the following json format:  
                                         {  
                                             "ForeignTable": "Name of Table",  

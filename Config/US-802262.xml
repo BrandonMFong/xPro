@@ -108,7 +108,6 @@
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
-    <!-- Third Party Programs -->
     <Program Alias="Outlook" SecType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="VS" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
@@ -352,7 +351,6 @@
       <Key Lvl="0" SecType="public">Friday</Key>
       <Value Lvl="0" SecType="public">$FriList</Value>
     </Object>
-    <!-- $Web -->
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>

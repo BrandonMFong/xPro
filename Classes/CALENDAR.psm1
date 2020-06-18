@@ -335,9 +335,25 @@ class Calendar
 
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
     [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
-    [string]GetTimeStampDuration()
+
+    [String]GetTimeStampDuration()
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetTimeStampDuration.sql)";
+        $querystring = $querystring.Replace("@MinDateExt","CONVERT(VARCHAR(10), GETDATE(), 101)"); # Default range is today
+        $querystring = $querystring.Replace("@MaxDateExt","CONVERT(VARCHAR(10), DATEADD(DAY,1,GETDATE()), 101)");
+        return $this.TimeDurationExecute($querystring);
+    }
+
+    [String]GetTimeStampDuration([string]$MinDate,[string]$MaxDate)
+    {
+        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetTimeStampDuration.sql)";
+        $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
+        $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
+        return $this.TimeDurationExecute($querystring);
+    }
+
+    hidden [String]TimeDurationExecute([string]$querystring)
+    {
         [string]$time = $($this.SQL.Query($querystring)).Time;
         if($time -eq "0:0:"){return $null;} # when you haven't timed in yet
         else{return "$($(Get-Date $time).ToString('HH:mm:ss'))";}
@@ -633,9 +649,3 @@ class Day
         return $IsSpecialDay;
     }
 }
-
-
-# [Calendar]$test = [Calendar]::new('B:\Powershell\Resources\CalendarImports\ImportEvents.csv');
-# $test.InsertEvents();
-# $test.GetCalendarMonth();
-# $test.GetCalendarMonth("June");

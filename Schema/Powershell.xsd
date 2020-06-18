@@ -570,7 +570,7 @@
             <xs:element name="Module" type="xs:string" minOccurs="1">
                 <xs:annotation>
                     <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
-                        Path for modules starting at powershell repo
+                        Full file path to the module
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>

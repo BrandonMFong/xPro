@@ -26,7 +26,7 @@
 param
 (
     [Parameter(Mandatory)]
-    [ValidateSet('Hostinger','kojami')]
+    [ValidateSet('Hostinger','kojami','nokita')]
     [string]$Server
 )
 $JSONReader = Get-Content $PSScriptRoot\..\config\ssh.json|Out-String|ConvertFrom-Json
@@ -38,4 +38,4 @@ foreach($j in $JSONReader.Servers.Server)
 }
 if(!$Found){throw "Server Not configured!";}
 if($creds.name -eq 'Hostinger'){putty -ssh "$($creds.Username)@$($creds.IP)" $creds.Port -i $creds.sshkeyPath -pw $creds.Password;}
-if($creds.name -eq 'kojami'){putty -ssh "$($creds.Username)@$($creds.IP)" $creds.Port -pw $creds.Password;}
+if(($creds.name -eq 'kojami') -or ($creds.name -eq 'nokita')){putty -ssh "$($creds.Username)@$($creds.IP)" $creds.Port -pw $creds.Password;}

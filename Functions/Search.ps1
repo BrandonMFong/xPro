@@ -10,7 +10,7 @@
 .Notes
     Wondering if there should be a class for Web or just put all strings in this function
 #>
-param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
+param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube,[Switch]$NewWindow)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 
 if($Google)

@@ -1,5 +1,5 @@
 # Engineer: Brandon Fong
-Param([bool]$StartDir=$true,[Bool]$StartScript=$true)
+Param([bool]$StartDir=$true,[Bool]$StartScript=$true,[Bool]$DebugFlag=$false)
 
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
@@ -56,3 +56,10 @@ Pop-Location;
 
 if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
 {Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}
+
+if($DebugFlag)
+{
+    $DebugScript = $($AppPointer.Machine.GitRepoDir + "\Resources\Debug.ps1");
+    if(!(Test-Path $DebugScript)){New-Item $DebugScript;}
+    & $DebugScript;
+}

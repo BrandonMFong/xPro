@@ -1,6 +1,6 @@
 archive/*
 .vs/*
-.vscode/*
+.vscode/launch.json
 Profile/*
 *.code-workspace
 FTPFromVolta.ps1
@@ -25,3 +25,6 @@ bin/debug.log
 
 # User Config 
 Config/User/*
+
+#Debug Script
+Resources/Debug.ps1;

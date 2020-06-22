@@ -27,4 +27,4 @@ bin/debug.log
 Config/User/*
 
 #Debug Script
-Resources/Debug.ps1;
+Resources/Debug.ps1

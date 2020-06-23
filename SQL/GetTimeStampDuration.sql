@@ -43,4 +43,4 @@ if (@s >= 60) begin set @m = @s/60; set @s = @s%60; end
 else begin set @m = 0; end
 
 /*Get Time*/
-select concat(convert(varchar(10),@h),':',convert(varchar(10),@m),':',convert(varchar(10),@s)) [Time]
+select CONVERT(varchar,cast(concat(convert(varchar(10),@h),':',convert(varchar(10),@m),':',convert(varchar(10),@s)) as time), 8) [Time]

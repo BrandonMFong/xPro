@@ -134,7 +134,7 @@ if($BoundedList)
 }
 else
 {
-    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -lt $x.ListInboxMax) -and ($x.ListInboxMax -ge $($inbox.Items|Measure-Object).Count))
+    if((![string]::IsNullOrEmpty($x.ListInboxMax)) -and ($(($inbox.Items|Measure-Object).Count) -gt $x.ListInboxMax))
     { $Max = $x.ListInboxMax;}
     else{$Max = $($inbox.Items|Measure-Object).Count ;}
     if(($inbox.Items|Measure-Object).Count -gt 0)

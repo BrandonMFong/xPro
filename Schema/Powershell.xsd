@@ -288,7 +288,26 @@
                                 </xs:annotation>
                             </xs:element>
                             <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
-                            <xs:element name="ListOrderBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="ListOrderBy" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string" >
+                                        <xs:enumeration value="Asc">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Ascending
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                        <xs:enumeration value="Desc">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Descending
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
                         </xs:sequence>
                         <xs:attribute name="AssemblyPath" type="xs:string" use="optional">
                             <xs:annotation>

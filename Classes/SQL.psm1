@@ -79,8 +79,6 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
-        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
         [System.Object[]]$values = $this.GetTableSchema($table);
 
         # Prompt user what values they want to insert per column
@@ -129,6 +127,7 @@ class SQL
         return $values;
     }
 
+    # Correction, this is just the type of ignored types that the code will generate
     hidden [boolean] IsIgnoredTypes($val)
     {
         return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
@@ -459,10 +458,10 @@ class SQL
         [boolean]$TableCreated = $false;
         foreach ($column in $table.Column)
         {
-            $querystring = $querystring.Replace("$($rep)", ", ");
             if(!$this.DoesColumnExist($table.Name,$column.Name))
             {
                 $i++;
+                $querystring = $querystring.Replace("$($rep)", ", "); # This is left at the end of the string
                 $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($this.IsFK($column)) $($rep) "; # TODO make a method
             }
         }

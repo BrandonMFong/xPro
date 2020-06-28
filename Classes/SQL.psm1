@@ -297,7 +297,6 @@ class SQL
 
         # Update Scripts
         [Xml]$Update = Get-Content $PSScriptRoot\..\SQL\Update.xml;
-        Write-Host "`n";
         foreach($Script in $Update.Machine.ScriptBlock)
         {
             try
@@ -329,7 +328,7 @@ class SQL
 
                 if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
                 {
-                    Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
+                    Write-Verbose "`nUPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
 
                     # Create Function can only be in batch alone
                     # If it is a function, execute the init function 
@@ -344,7 +343,6 @@ class SQL
                 throw "Something bad happened!";
             }
         }
-        Write-Host "`n";
     }
 
     SyncConfig()
@@ -392,7 +390,7 @@ class SQL
                 {
                     # if column in ID or a datetime, the value will be handled by SQLConvert
                     if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime"))
-                    {$val.Value = $this.GetInnerXMLByAttribute($Row,$val.COLUMN_NAME);}
+                    {$val.Value = $this.GetSQLBaseValue($Row,$val.COLUMN_NAME,'Attribute');}
                 }
                 $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
                 $this.QueryNoReturn($querystring);
@@ -402,31 +400,28 @@ class SQL
             # will put this as an else
             # I.e. if the row does exist, update the lastaccess column
             # else, leave it to the above algorithm to do the job
-            else{$this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));}
+            else{$this.UpdateLastAccessByExternalID($this.GetSQLBaseValue($Row,$null,'ExternalID'));}
         }
         if($RowsInserted) {Write-Host "$($tablename)'s rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
-    hidden [string] GetExternalIDFromRowConfig($row)
-    {
-        [string]$extid = "";
-        [bool]$FoundExternalID = $false;
-        foreach($Value in $row.Value)
-        {
-            if($Value.ColumnName -eq "ExternalID"){$extid = $Value.InnerXML;$FoundExternalID = $true;}
-        }
-
-        if(!$FoundExternalID){throw "Something bad happened.  Check config if there is an externalid column for the row."}
-        return $extid;
-    }
-
     # Runs the the config of the row and gets the innerxml if it is for the right column
-    hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
+    hidden [string] GetSQLBaseValue($Row,[string]$Attribute,[String]$Context)
     {
         [string]$res = "";[boolean]$found = $false;
         foreach($Value in $Row.Value)
         {
-            if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
+            switch($Context)
+            {
+                "Attribute"
+                {
+                    if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
+                }
+                "ExternalID"
+                {
+                    if($Value.ColumnName -eq "ExternalID"){$res = $Value.InnerXML;$found = $true;break;}
+                }
+            }
         }
         if(!$found){Throw "Something bad happened";}
         else{return $res;}
@@ -435,7 +430,7 @@ class SQL
     hidden [boolean] DoesRowExist($row,[string]$tablename) # Must have external ID
     {
         $res = $null # reset
-        $querystring = "select * from $($tablename) where ExternalID = '$($this.GetExternalIDFromRowConfig($row))'";
+        $querystring = "select * from $($tablename) where ExternalID = '$($this.GetSQLBaseValue($row,$null,'ExternalID'))'";
         $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
@@ -535,6 +530,3 @@ class SQL
         $this.QueryNoReturn($querystring);
     }
 }
-
-# [XML]$xml = Get-Content $PSScriptRoot\..\Config\BRANDONMFONG.xml;
-# [SQL]$query = [SQL]::new($xml.Machine.Objects.Object[0].Class.SQL.Database, $xml.Machine.Objects.Object[0].Class.SQL.ServerInstance, $xml.Machine.Objects.Object[0].Class.SQL.Tables);

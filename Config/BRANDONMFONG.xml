@@ -240,6 +240,10 @@
                   <Value ColumnName="Description">Update Scripts</Value>
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="Description">Test</Value>
+                  <Value ColumnName="ExternalID">Test</Value>
+                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">

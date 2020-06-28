@@ -240,10 +240,6 @@
                   <Value ColumnName="Description">Update Scripts</Value>
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
-                <Row>
-                  <Value ColumnName="Description">Test</Value>
-                  <Value ColumnName="ExternalID">Test</Value>
-                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">
@@ -270,12 +266,7 @@
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
-                <ForeignKeyRef><![CDATA[
-                  {
-                     "ForeignTable": "PersonalInfo",
-                     "ForeignColumn": "ID"
-                  }
-               ]]></ForeignKeyRef>
+                <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
               </Column>
             </Table>
           </Tables>

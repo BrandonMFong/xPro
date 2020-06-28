@@ -1,10 +1,17 @@
+/*Bounds*/
+/*declare @MinDate datetime2(7) = '5/1/2020 00:00:00.0000000'*/
+/*declare @MaxDate datetime2(7) = '5/30/2020 00:00:00.0000000'*/
+declare @MinDate datetime2(7) = @MinDateExt
+declare @MaxDate datetime2(7) = @MaxDateExt
+
 /*Time data for the day*/
 /*Time In Data*/
 declare @TimeIn TABLE (RowNum int, EventDate datetime);
 insert into @TimeIn
 select ROW_NUMBER() over(order by id) RowNum,tic.EventDate from Calendar tic 
 where tic.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampIn')
-and (CONVERT(VARCHAR(10), tic.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))/*Make sure to only data from today*/
+/*and (CONVERT(VARCHAR(10), tic.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))*/
+and CONVERT(DATE,tic.EventDate) between @MinDate and @MaxDate
 order by tic.EventDate asc /*Ordering so that I number the rows correctly*/
 
 /*Time Out Data*/
@@ -12,7 +19,8 @@ declare @TimeOut TABLE (RowNum int, EventDate datetime);
 insert into @TimeOut
 select ROW_NUMBER() over(order by id) RowNum,toc.EventDate from Calendar toc 
 where toc.TypeContentID = (select id from TypeContent where ExternalID = 'TimeStampOut')
-and (CONVERT(VARCHAR(10), toc.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))
+/*and (CONVERT(VARCHAR(10), toc.EventDate, 101) = CONVERT(VARCHAR(10), GETDATE(), 101))*/
+and CONVERT(DATE,toc.EventDate) between @MinDate and @MaxDate
 order by toc.EventDate asc
 
 /*s=second;m=minute;h=hour*/
@@ -35,4 +43,4 @@ if (@s >= 60) begin set @m = @s/60; set @s = @s%60; end
 else begin set @m = 0; end
 
 /*Get Time*/
-select concat(convert(varchar(10),@h),':',convert(varchar(10),@m),':',convert(varchar(10),@s)) [Time]
+select CONVERT(varchar,cast(concat(convert(varchar(10),@h),':',convert(varchar(10),@m),':',convert(varchar(10),@s)) as time), 8) [Time]

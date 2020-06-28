@@ -79,8 +79,6 @@ class SQL
         }
         
         $table = $tablestochoosefrom[$index - 1].ItemArray;
-        # $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
-        # $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column
         [System.Object[]]$values = $this.GetTableSchema($table);
 
         # Prompt user what values they want to insert per column
@@ -129,6 +127,7 @@ class SQL
         return $values;
     }
 
+    # Correction, this is just the type of ignored types that the code will generate
     hidden [boolean] IsIgnoredTypes($val)
     {
         return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
@@ -298,7 +297,6 @@ class SQL
 
         # Update Scripts
         [Xml]$Update = Get-Content $PSScriptRoot\..\SQL\Update.xml;
-        Write-Host "`n";
         foreach($Script in $Update.Machine.ScriptBlock)
         {
             try
@@ -321,28 +319,20 @@ class SQL
                 # Checks if the script block is creating a function
                 # I could create another method that deals with functions
                 # But how often am I going to make a function?
-                if($Script.IsFunction.ToString().ToBoolean($null))
-                {
-                    $updatestring = $updatestring.Replace("@ScriptBlock",''); # Put Script block
-                    $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
-                    $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
+                if($Script.IsFunction.ToString().ToBoolean($null)){$ScriptBlock = $null} # If function, don't execute with update query
+                else{$ScriptBlock = $Script.'#cdata-section';} # Else, put Script block
+                
+                $updatestring = $updatestring.Replace("@ScriptBlock",$ScriptBlock);
+                $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
+                $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
 
-                    # Executes the block separately because the create function has to be in its own batch
-                    if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
-                    {
-                        Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
-                        $this.QueryNoReturn($Script.'#cdata-section'); # Create Function can only be in batch alone
-                    }
-                }
-                else
+                if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
                 {
-                    $updatestring = $updatestring.Replace("@ScriptBlock",$Script.'#cdata-section'); # Put Script block
-                    $updatestring = $updatestring.Replace("@ScriptID",$Script.ScriptID); # Put script guid
-                    $updatestring = $updatestring.Replace("@InsertUpdateLog",$InsertUpdateLog); # Put log
-                    if(($this.Query($updatestring)).Inserted) # Query will return one if it was inserted
-                    {
-                        Write-Verbose "UPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
-                    }
+                    Write-Verbose "`nUPDATE TABLES : `n$($Script.'#cdata-section')" -Verbose:$this.UpdateVerbose;
+
+                    # Create Function can only be in batch alone
+                    # If it is a function, execute the init function 
+                    if($Script.IsFunction.ToString().ToBoolean($null)){$this.QueryNoReturn($Script.'#cdata-section');}
                 }
             }
             catch 
@@ -353,7 +343,6 @@ class SQL
                 throw "Something bad happened!";
             }
         }
-        Write-Host "`n";
     }
 
     SyncConfig()
@@ -401,7 +390,7 @@ class SQL
                 {
                     # if column in ID or a datetime, the value will be handled by SQLConvert
                     if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime"))
-                    {$val.Value = $this.GetInnerXMLByAttribute($Row,$val.COLUMN_NAME);}
+                    {$val.Value = $this.GetSQLBaseValue($Row,$val.COLUMN_NAME,'Attribute');}
                 }
                 $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
                 $this.QueryNoReturn($querystring);
@@ -411,31 +400,28 @@ class SQL
             # will put this as an else
             # I.e. if the row does exist, update the lastaccess column
             # else, leave it to the above algorithm to do the job
-            else{$this.UpdateLastAccessByExternalID($this.GetExternalIDFromRowConfig($Row));}
+            else{$this.UpdateLastAccessByExternalID($this.GetSQLBaseValue($Row,$null,'ExternalID'));}
         }
         if($RowsInserted) {Write-Host "$($tablename)'s rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
-    hidden [string] GetExternalIDFromRowConfig($row)
-    {
-        [string]$extid = "";
-        [bool]$FoundExternalID = $false;
-        foreach($Value in $row.Value)
-        {
-            if($Value.ColumnName -eq "ExternalID"){$extid = $Value.InnerXML;$FoundExternalID = $true;}
-        }
-
-        if(!$FoundExternalID){throw "Something bad happened.  Check config if there is an externalid column for the row."}
-        return $extid;
-    }
-
     # Runs the the config of the row and gets the innerxml if it is for the right column
-    hidden [string] GetInnerXMLByAttribute($Row,[string]$Attribute)
+    hidden [string] GetSQLBaseValue($Row,[string]$Attribute,[String]$Context)
     {
         [string]$res = "";[boolean]$found = $false;
         foreach($Value in $Row.Value)
         {
-            if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
+            switch($Context)
+            {
+                "Attribute"
+                {
+                    if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
+                }
+                "ExternalID"
+                {
+                    if($Value.ColumnName -eq "ExternalID"){$res = $Value.InnerXML;$found = $true;break;}
+                }
+            }
         }
         if(!$found){Throw "Something bad happened";}
         else{return $res;}
@@ -444,7 +430,7 @@ class SQL
     hidden [boolean] DoesRowExist($row,[string]$tablename) # Must have external ID
     {
         $res = $null # reset
-        $querystring = "select * from $($tablename) where ExternalID = '$($this.GetExternalIDFromRowConfig($row))'";
+        $querystring = "select * from $($tablename) where ExternalID = '$($this.GetSQLBaseValue($row,$null,'ExternalID'))'";
         $res = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database -Verbose:$this.UpdateVerbose;
         if($null -eq $res){return $false;}
         else {return $true;} 
@@ -467,10 +453,10 @@ class SQL
         [boolean]$TableCreated = $false;
         foreach ($column in $table.Column)
         {
-            $querystring = $querystring.Replace("$($rep)", ", ");
             if(!$this.DoesColumnExist($table.Name,$column.Name))
             {
                 $i++;
+                $querystring = $querystring.Replace("$($rep)", ", "); # This is left at the end of the string
                 $querystring += " $($column.Name) $($column.Type) $($this.IsNull($column)) $($this.IsPK($column)) $($this.IsFK($column)) $($rep) "; # TODO make a method
             }
         }
@@ -544,6 +530,3 @@ class SQL
         $this.QueryNoReturn($querystring);
     }
 }
-
-# [XML]$xml = Get-Content $PSScriptRoot\..\Config\BRANDONMFONG.xml;
-# [SQL]$query = [SQL]::new($xml.Machine.Objects.Object[0].Class.SQL.Database, $xml.Machine.Objects.Object[0].Class.SQL.ServerInstance, $xml.Machine.Objects.Object[0].Class.SQL.Tables);

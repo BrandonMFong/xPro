@@ -10,7 +10,27 @@
 .Notes
     
 #>
-param([string]$month,[switch]$Current,[switch]$Events,[switch]$InsertEvents)
+param
+(
+    [ValidateSet(
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    )]
+    [string]$month,
+    [switch]$Current,
+    [switch]$Events,
+    [switch]$InsertEvents
+)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
 $var = $(GetObjectByClass('Calendar'));
 

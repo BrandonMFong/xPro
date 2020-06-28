@@ -10,7 +10,7 @@
 .Notes
     Wondering if there should be a class for Web or just put all strings in this function
 #>
-param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube)
+param([switch]$Google,[switch]$Sharepoint,[switch]$Dictionary,[switch]$Youtube,[Switch]$NewWindow,[Switch]$Facebook)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 
 if($Google)
@@ -30,5 +30,11 @@ elseif($Youtube)
     $Value = read-host -prompt "Youtube";
     $YT_Search = "https://youtube.com/results?search_query= $Value";
     Start-Process $YT_Search;
+}
+elseif($Facebook)
+{
+    $Value = read-host -prompt "Facebook";
+    $Search = "https://www.facebook.com/search/top/?q=$Value&epa=SEARCH_BOX";
+    Start-Process $Search;
 }
 else{throw "Nothing searched";}

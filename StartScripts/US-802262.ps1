@@ -18,8 +18,9 @@
 		else{Time -Login};
 		Outlook;
 		Tix;
-		if(($Date.Day%2) -eq 0){BankUrl -Reverse;}
-		else {BankUrl;}
+		Teams;
+		if(($Date.Day%2) -eq 0){BankUrl -All;}
+		else {BankUrl -All;}
 		global;
 		$p = Read-Host -Prompt "Are you VPN'd in?(yes/no)";
 		if($p -eq "yes"){Pull-CC;}

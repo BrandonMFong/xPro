@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Update.xsd">
+  <ScriptBlock Topic="Dropping LinkGuid column" ScriptID="F1BDE7B2-5B1D-47F4-BDDE-FF8C64B5F066" IsFunction="False">
+    <![CDATA[
+      /*** Dropping LinkGuid column ***/
+      if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'LinkInfo') 
+      begin 
+        alter table LinkInfo 
+        drop column LinkGuid /* This is assuming the linkinfo table was not initialized already */
+      end
+    ]]>
+  </ScriptBlock>
   <ScriptBlock Topic="Create Time Stamp Report function in SQL Server" ScriptID="4AE6DB7F-5D7A-4686-9D13-17899EBE10E3" IsFunction="True">
     <![CDATA[
       create function TimeReport()

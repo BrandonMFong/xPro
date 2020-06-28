@@ -1,51 +1,546 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<!--https://www.liquid-technologies.com/xml-schema-tutorial/xsd-elements-attributes-->
     <xs:element name="Machine">
-        <xs:attribute name="MachineName"/>
-        <xs:attribute name="LoadProfile"/>
-        <xs:attribute name="LoadProcedure">
-            <xs:annotation>
-                <xs:documentation>
-                    Put "Verbose" to see verbose text.  Without it you will see progress bar
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:element name="UpdateStamp" minOccurs="1" maxOccurs="1">
-            <xs:annotation>
-                <xs:documentation>
-                    Stamp to see what was the latest update script that was ran
-                </xs:documentation>
-            </xs:annotation>
-            <xs:attribute name="Value" type="xs:string" use="mandatory"/>
-            <!-- Count attribute does not have to be here, it's temp.  I can just check latest update script and compare it to value -->
-            <xs:attribute name="Count" type="xs:int" use="mandatory"/>
-        </xs:element>
-        <!-- Start Script -->
-        <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
-            <xs:annotation>
-                <xs:documentation>
-                    Full path to the powershell script.  This will execute after profile is loaded
-                </xs:documentation>
-            </xs:annotation>
-            <xs:attribute name="ClearHost" type="boolean" use="mandatory">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="UpdateStamp" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Stamp to see what was the latest update script that was ran
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="Value" type="xs:string" use="required"/>
+                                <!-- Count attribute does not have to be here, it's temp.  I can just check latest update script and compare it to value -->
+                                <xs:attribute name="Count" type="xs:int" use="required"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <!-- Start Script -->
+                <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Full path to the powershell script.  This will execute after profile is loaded
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="ClearHost" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            Default is false.  Suggest to keep it false for debug.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="True"/>
+                                                <xs:enumeration value="False"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attributeGroup ref="Enable"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- Terminal Settings -->
+                <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Format" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        This format applies to all under ShellSettings
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:group ref="Formatter"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Header" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:group ref="String"/>
+                                        <xs:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
+                                    </xs:sequence>
+                                    <xs:attributeGroup ref="Enable"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Change the prompt function in the string tag.  
+                                        Any change here does not require a reload of powershell session
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    The value will change the prompt on the command line to red if your battery life falls below that value
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attributeGroup ref="Enable"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:group ref="String"/>
+                                    </xs:sequence>
+                                    <xs:attributeGroup ref="Enable"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ShellColors" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="ForegroundColor" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="StartDirectory" type="xs:string" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Default is whatever is configured in the app settings
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Git notificatons for Unstaged/Staged changes and unpushed commits
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Unstaged" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="Staged" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="Commits" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attributeGroup ref="Enable"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Security" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Secure" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="CloseSessionIfIncorrect" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attributeGroup ref="Enable"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Weather" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Area" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        City for weather
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Email" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Settings for Email.ps1
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="EmailAddress" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The Email address you want to read your emails from 
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attributeGroup ref="SecurityType"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="DefaultFolder" type="xs:string"  minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Folder you are reading from (i.e. the \Inbox folder)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        What to print when listing mail from inbox.  Default is false;
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="To" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="CC" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="From" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="Subject" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="Body" minOccurs="0" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="True"/>
+                                                    <xs:enumeration value="False"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="OutByPaging" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Default is False.  If you want to output the message by page
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="ListOrderBy" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string" >
+                                        <xs:enumeration value="Asc">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Ascending
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                        <xs:enumeration value="Desc">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Descending
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="AssemblyPath" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    In Powershell 7 (as far as I know) The add-Type AssemblyName parameter needs the full file path.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Lists" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="List">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:group ref="List"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="Title" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Calendar" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="SpecialDays" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Must be in datetime format: MM/dd/yyyy 
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="name" type="xs:dateTime" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            Name of the day
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Modules" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Module" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
+                                        Full file path to the module
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Directories" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Parameters that are used in Goto.ps1 nad put.ps1 function
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Directory" minOccurs="1" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        File path for alias
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:anyURI">
+                                            <xs:attribute name="Alias" type="xs:string" use="required"/>
+                                            <xs:attributeGroup ref="SecurityType"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Programs" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Whatever is defined here will be referenced by the alias user provides
+                        </xs:documentation>
+                    </xs:annotation>    
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Program" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:anyURI">
+                                            <xs:attribute name="Alias" type="xs:string"/>
+                                            <xs:attributeGroup ref="SecurityType"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Objects" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Object" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Must have one Object element for every object you want to refer to on the cmd line.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="VarName" minOccurs="1" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    To define the object name
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attributeGroup ref="SecurityType"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:choice>
+                                            <xs:group ref="HashTableObjectElement"/>
+                                            <xs:group ref="XMLElement"/>
+                                            <xs:group ref="ClassElement"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                    <xs:attribute name="Type" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Values: PowerShellClass (if there is a class in the Classes folder the object is building from),  
+                                                XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),  
+                                                HashTable (if the object will be using key and value to populate).   
+                                                Default is XmlElement.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="ID" type="xs:int" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Optional for HashTable type, use to distinguish objects in config
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Database" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    For the HashTable decoding to work, you need to define this attribute
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="ServerInstance" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    For the HashTable decoding to work, you need to define this attribute
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="MachineName"/>
+            <xs:attribute name="LoadProfile"/>
+            <xs:attribute name="LoadProcedure">
                 <xs:annotation>
                     <xs:documentation>
-                        Default is false.  Suggest to keep it false for debug.
+                        Put "Verbose" to see verbose text.  Without it you will see progress bar
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Enable" type="boolean" use="mandatory">
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Group definition -->
+    <xs:group name="String">
+        <xs:sequence>
+            <xs:element name="String" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        If user wants the profile.ps1 to execute a script after it's done.
+                        Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
+                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}, @admin {Signifies if you are in an admin prompt}
                     </xs:documentation>
                 </xs:annotation>
-            </xs:attribute>
-        </xs:element>
-        
-        <!-- Formatter -->
-        <xs:group name="Formatter">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Color" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Choices are from powershell foregroundcolor color. 
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <!-- Formatter -->
+    <xs:group name="Formatter">
+        <xs:sequence>
             <xs:element name="Date" minOccurs="1" maxOccurs="1" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
@@ -68,515 +563,448 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:group name="String">
-            <xs:element name="String" minOccurs="1" maxOccurs="1">
-                <xs:attribute name="Color" use="optional">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Choices are from powershell foregroundcolor color. 
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:annotation>
-                    <xs:documentation>
-                        Tags: @user {User name on computer}, @date {Today's date, can be formatted}, @currdir {Current directory}, 
-                        @fulldir {Full directory}, @time {Current time, can be formatted}, @greaterthan {For '>'}, @admin {Signifies if you are in an admin prompt}
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:group>
-
-        <!-- Terminal Settings -->
-        <xs:element name="ShellSettings" minOccurs="1" maxOccurs="1">
-            <xs:attribute name="Enabled" use="mandatory" type="xs:boolean"/>
-            <xs:element name="Format" minOccurs="1" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        This format applies to all under ShellSettings
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:group ref="Formatter"/>
-            </xs:element>
-            <xs:element name="Header" minOccurs="1" maxOccurs="1">
-                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
-                <xs:element name="BackgroundColor" minOccurs="1" maxOccurs="1"/>
-                <xs:group ref="String"/>
-            </xs:element>
-            <xs:element name="Prompt" minOccurs="1" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Change the prompt function in the string tag.  
-                        Any change here does not require a reload of powershell session
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
-                <xs:element name="BaterryLifeThreshold" minOccurs="1" maxOccurs="1" type="xs:int">
-                    <xs:attribute name="Enabled" use="mandatory">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Toggle notification
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:annotation>
-                        <xs:documentation>
-                            The value will change the prompt on the command line to red if your battery life falls below that value
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:group ref="String"/>
-            </xs:element>
-            <xs:element name="ShellColors" maxOccurs="1">
-                <xs:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="ForegroundColor" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="ProgressForegroundColor" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="ProgressBackgroundColor" minOccurs="0" maxOccurs="1"/>
-            </xs:element>
-            <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Git notificatons for Unstaged/Staged changes and unpushed commits
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="Enabled" type="xs:boolean" use="mandatory"/>
-                <xs:element name="Unstaged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="Staged" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="Commits" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-            </xs:element>
-            <xs:element name="StartDirectory" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Default is whatever is configured in the app settings
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="Security" minOccurs="0" maxOccurs="1">
-                <xs:element name="Secure" type="xs:boolean" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Should user be prompted for credentials.  Uses basic .json non-encrypted file to hold credentials in \bin\credentials\user.json
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="CloseSessionIfIncorrect" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-            </xs:element>
-        </xs:element>
-        
-        <xs:element name="Directories" maxOccurs="1">
+    <!-- Objects -->
+    <xs:attributeGroup name="HashTableObjectAttributes">
+        <xs:attributeGroup ref="SecurityType"/>
+        <xs:attribute name="Lvl" use="optional">
             <xs:annotation>
                 <xs:documentation>
-                    Parameters that are used in Goto.ps1 nad put.ps1 function
+                    Level of the node or hash table (still determining the name)
                 </xs:documentation>
             </xs:annotation>
-            <xs:element name="Directory" type="xs:string" minOccurs="1">
-                <xs:attribute name="Alias" type="xs:string" use="mandatory"/>
-                <xs:attribute name="SecType" type="xs:string" use="required">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Securty Type: Default 'public'.  Options: 'public' or 'private'
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:annotation>
-                    <xs:documentation>
-                        File path for alias
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:element>
+        </xs:attribute>
+    </xs:attributeGroup>
 
-        <!-- Objects -->
-        <xs:attributeGroup name="HashTableObjectAttributes">
-            <xs:attribute name="SecType" use="mandatory">
-                <xs:annotation>
-                    <xs:documentation>
-                        Securty Type: public or private. If you are pointing to a level, use public
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="Lvl" use="optional">
-                <xs:annotation>
-                    <xs:documentation>
-                        Level of the node or hash table (still determining the name)
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:attributeGroup>
+    <xs:attributeGroup name="Enable">
+        <xs:attribute name="Enabled" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="True"/>
+                    <xs:enumeration value="False"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
 
-        <xs:group name="HashTableObjectElement">
-            <xs:element name="Key" minOccurs="1">
-                <xs:attributeGroup ref="HashTableObjectAttributes"/>
-                <xs:attribute name="Node" type="xs:string" use="optional">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Unique id for the node pointer to point to
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-            </xs:element>
-            <xs:element name="Value" minOccurs="1">
-                <xs:attributeGroup ref="HashTableObjectAttributes"/>
-                <xs:attribute name="Node" type="xs:string" use="optional">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Unique id for the node pointer to point to (If you are referencing a powershell object, include '$')
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:attribute name="NodePointer" use="optional">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Provide a unique id to point to the next node value
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-            </xs:element>
-        </xs:group>
+    <xs:group name="HashTableObjectElement">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:group ref="NodeKey"/>
+                <xs:group ref="NodeValue"/>
+            </xs:choice>
+            <xs:choice maxOccurs="unbounded">
+                <xs:group ref="NodeValue"/>
+                <xs:group ref="NodeKey"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:group name="XMLElement">
-            <xs:element name="Values">
-                <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
+    <xs:group name="NodeKey">
+        <xs:sequence>
+            <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Node" type="xs:string" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Unique id for the node pointer to point to
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attributeGroup ref="HashTableObjectAttributes"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="NodeValue">
+        <xs:sequence>
+            <xs:element name="Value" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Node" type="xs:string" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Unique id for the node pointer to point to (If you are referencing a powershell object, include '$')
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="NodePointer" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Provide a unique id to point to the next node value
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attributeGroup ref="HashTableObjectAttributes"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="XMLElement">
+        <xs:sequence>
+            <xs:element name="Values" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         Any node here can be referenced on the command line by the element name.
                     </xs:documentation>
                 </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:any processContents="strict" namespace="##local"/>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
-        </xs:group>
-        
-        <xs:group name="ListClass">
-            <xs:element name="List" maxOccurs="1">
-                <xs:element name="Title" minOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            The Title of the list you defined in your config
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="Redirect" minOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Provide FULL file path if you are pointing to another xml file for your list.  
-                            Note the config layout for the for the redirected list should be the same as this schema instructs.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="DisplayCompleteWith" type="xs:string" minOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Default 'ColorCoded'.  Options: 'ColorCoded' or 'Markup'
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-            </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:group name="SQLClass">
+    <xs:simpleType name="XMLAny">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    
+    <xs:group name="ClassElement">
+        <xs:sequence>
+            <xs:element name="Class" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nodes below here can be reference when creating a class. 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice>
+                            <xs:group ref="SQLClass"/>
+                            <xs:group ref="ListClass"/>
+                            <xs:group ref="MathClass"/>
+                            <xs:group ref="CalendarClass"/>
+                        </xs:choice>
+                    </xs:sequence>
+                    <xs:attribute name="ClassName" use="required"/>
+                    <xs:attribute name="HasParams" use="required" type="xs:boolean"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    
+    <xs:group name="ListClass">
+        <xs:sequence>
+            <xs:element name="List" maxOccurs="1">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="Title" minOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The Title of the list you defined in your config
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Redirect" minOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Provide FULL file path if you are pointing to another xml file for your list.  
+                                    Note the config layout for the for the redirected list should be the same as this schema instructs.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="DisplayCompleteWith" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Default 'ColorCoded'.  Options: 'ColorCoded' or 'Markup'
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="SQLClass">
+        <xs:sequence>
             <xs:element name="SQL" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         This is a way to alter or create a table in a local database
                     </xs:documentation>
                 </xs:annotation>
-                <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="SyncConfiguration" type="xs:boolean" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Flag to allow the class to update your database from profile load.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="UpdateVerbose" type="xs:boolean" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Verbose flag for debugging update scripts
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="SQLConvertFlags" type="xs:string" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Include the name of the row that should be excluded by default data
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="RunUpdates" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="CreateDatabase" type="xs:boolean" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Whether or not you want the code to make the database for you.  Good when you first start using the database.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="Tables">
-                    <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
-                        <xs:attribute name="Name">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Database" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ServerInstance" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="SyncConfiguration" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Name of the table you are creating
+                                    Flag to allow the class to update your database from profile load.
                                 </xs:documentation>
                             </xs:annotation>
-                        </xs:attribute>
-                        <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
-                            <xs:annotation>
-                                <xs:documentation>
-                                    All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
-                                </xs:documentation>
-                            </xs:annotation>
-                            <xs:attribute name="Name" type="xs:string" use="mandatory">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        Name of the column
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:attribute>
-                            <xs:attribute name="Type" use="mandatory">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        Column data type
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:attribute>
-                            <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="mandatory">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        If this column is the primary key
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:attribute>
-                            <xs:attribute name="IsForeignKey" type="xs:boolean" use="mandatory">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        If this column is the foreign key. If true, must fill ForeignKeyRef element
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:attribute>
-                            <xs:attribute name="IsNull" type="xs:boolean" use="mandatory">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        If this row can be null.  
-                                        If table is already made, cannot make column that is not null
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:attribute>
-                            <xs:element name="ForeignKeyRef" type="xs:string" minOccurs="0" maxOccurs="1">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        cdata must contain the following json format:  
-                                        {  
-                                            "ForeignTable": "Name of Table",  
-                                            "ForeignColumn": "Name of the column in the table"  
-                                        }  
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="True"/>
+                                    <xs:enumeration value="False"/>
+                                </xs:restriction>
+                            </xs:simpleType>
                         </xs:element>
-                        <xs:element name="Rows" minOccurs="0" maxOccurs="1">
+                        <xs:element name="UpdateVerbose" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    List out the rows you want to insert into the Database at start up.  
-                                    Only thing you do not need to provide are values for ID, Date, and Guids 
+                                    Verbose flag for debugging update scripts
                                 </xs:documentation>
                             </xs:annotation>
-                            <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
-                                <xs:element name="Value"  type="xs:string" minOccurs="1" maxOccurs="unbounded">
-                                    <xs:annotation>
-                                        <xs:documentation>
-                                            The value you are inserting for the specified column
-                                        </xs:documentation>
-                                    </xs:annotation>
-                                    <xs:attribute name="ColumnName" type="xs:string" use="mandatory"/>
-                                </xs:element>
-                            </xs:element>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="True"/>
+                                    <xs:enumeration value="False"/>
+                                </xs:restriction>
+                            </xs:simpleType>
                         </xs:element>
-                    </xs:element>
-                </xs:element>
+                        <xs:element name="SQLConvertFlags" type="xs:string" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Include the name of the row that should be excluded by default data
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="RunUpdates" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="True"/>
+                                    <xs:enumeration value="False"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="CreateDatabase" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Whether or not you want the code to make the database for you.  Good when you first start using the database.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="True"/>
+                                    <xs:enumeration value="False"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="Tables">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            All attributes here are important.  Must have a value for each attributes in order for the queries to execute successfully 
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="ForeignKeyRef" type="xs:string" minOccurs="0" maxOccurs="1">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>
+                                                                        If there is a foreign key, must include the .json script
+                                                                    </xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                        <xs:attribute name="Name" type="xs:string" use="required">
+                                                            <xs:annotation>
+                                                                <xs:documentation>
+                                                                    Name of the column
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="Type" use="required">
+                                                            <xs:annotation>
+                                                                <xs:documentation>
+                                                                    Column data type
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="required">
+                                                            <xs:annotation>
+                                                                <xs:documentation>
+                                                                    If this column is the primary key
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="IsForeignKey" type="xs:boolean" use="required">
+                                                            <xs:annotation>
+                                                                <xs:documentation>
+                                                                    If this column is the foreign key
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="IsNull" type="xs:boolean" use="required">
+                                                            <xs:annotation>
+                                                                <xs:documentation>
+                                                                    If this row can be null.  
+                                                                    If table is already made, cannot make column that is not null
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                                <xs:element name="Rows" minOccurs="0" maxOccurs="1">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            List out the rows you want to insert into the Database at start up.  
+                                                            Only thing you do not need to provide are values for ID, Date, and Guids 
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element name="Value" minOccurs="1" maxOccurs="unbounded">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>
+                                                                                    The value you are inserting for the specified column
+                                                                                </xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:complexType>
+                                                                                <xs:simpleContent>
+                                                                                    <xs:extension base="xs:string">
+                                                                                        <xs:attribute name="ColumnName" type="xs:string" use="required"/>
+                                                                                    </xs:extension>
+                                                                                </xs:simpleContent>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                            <xs:attribute name="Name">
+                                                <xs:annotation>
+                                                    <xs:documentation>
+                                                        Name of the table you are creating
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:group name="MathClass">
+    <xs:group name="MathClass">
+        <xs:sequence>
             <xs:element name="Math">
-                <xs:element name="QuantizedStepSize" type="xs:int" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used for Quantizing method
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="PathToGradeImport" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Path to import file for grades
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="GradeColors" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Color configuration.  Must list Descending Minimum Thresholds Values 
-                        </xs:documentation>
-                    </xs:annotation>
-                    <xs:element name="GradeColor" minOccurs="0" type="xs:string">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Must be colors from powershell terminal
-                            </xs:documentation>
-                        </xs:annotation>
-                        <xs:attribute name="MinimumThreshold" type="xs:double">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="QuantizedStepSize" type="xs:int" minOccurs="0" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Values must be in descending order.  
-                                    Maximum Threshold is 100%
+                                    Used for Quantizing method
                                 </xs:documentation>
                             </xs:annotation>
-                        </xs:attribute>
-                    </xs:element>
-                </xs:element>
+                        </xs:element>
+                        <xs:element name="PathToGradeImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Path to import file for grades
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="GradeColors" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Color configuration.  Must list Descending Minimum Thresholds Values 
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="GradeColor" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Must be colors from powershell terminal
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:simpleContent>
+                                                <xs:extension base="xs:string">
+                                                    <xs:attribute name="MinimumThreshold" type="xs:double">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Values must be in descending order.  
+                                                                Maximum Threshold is 100%
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:attribute>
+                                                </xs:extension>
+                                            </xs:simpleContent>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:group name="CalendarClass">
+    <xs:group name="CalendarClass">
+        <xs:sequence>
             <xs:element name="Calendar">
-                <xs:element name="PathToEventImport" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            File path to the import file.  
-                            Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="EventConfig" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Default: XML.  Choices = XML or Database
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="TimeStampFilePath" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Full path to timestamp.csv
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element name="FirstDayOfWeek" type="xs:string" minOccurs="0" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            First Day of the week
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="PathToEventImport" type="xs:string" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    File path to the import file.  
+                                    Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="EventConfig" type="xs:string" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Default: XML.  Choices = XML or Database
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="TimeStampFilePath" type="xs:string" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Full path to timestamp.csv
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="FirstDayOfWeek" type="xs:string" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    First Day of the week
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
-        </xs:group>
-        
-        <xs:group name="ClassElement">
-            <xs:element name="Class" maxOccurs="1">
-                <xs:attribute name="ClassName" use="mandatory"/>
-                <xs:attribute name="HasParams" use="mandatory" type="boolean"/>
-                <xs:annotation>
-                    <xs:documentation>
-                        Nodes below here can be reference when creating a class. 
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:group ref="SQLClass"/>
-                <xs:group ref="ListClass"/>
-                <xs:group ref="MathClass"/>
-                <xs:group ref="CalendarClass"/>
-            </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:element name="Objects" maxOccurs="1">
-            <xs:attribute name="Database" type="xs:boolean" use="mandatory">
-                <xs:annotation>
-                    <xs:documentation>
-                        For the HashTable decoding to work, you need to define this attribute
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="ServerInstance" type="xs:boolean" use="mandatory">
-                <xs:annotation>
-                    <xs:documentation>
-                        For the HashTable decoding to work, you need to define this attribute
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:element name="Object">
-                <xs:annotation>
-                    <xs:documentation>
-                        Must have one Object element for every object you want to refer to on the cmd line.
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="Type" type="xs:boolean" use="mandatory">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Values: PowerShellClass (if there is a class in the Classes folder the object is building from),  
-                            XmlElement (if object will inherit objects from Xml elements -- needs varname attribute),  
-                            HashTable (if the object will be using key and value to populate).   
-                            Default is XmlElement.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:attribute name="ID" type="xs:int" use="optional">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Optional for HashTable type, use to distinguish objects in config
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-                <xs:element name="VarName" minOccurs="1" maxOccurs="1">
-                    <xs:annotation>
-                        <xs:documentation>
-                            To define the object name
-                        </xs:documentation>
-                    </xs:annotation>
-                    <xs:attribute name="SecType" type="xs:string" use="mandatory">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Securty Type: public or private, if private must include the name in the database
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:element>
-                <xs:group ref="HashTableObjectElement"/>
-                <xs:group ref="XMLElement"/>
-                <xs:group ref="ClassElement"/>
-            </xs:element>
-        </xs:element>
-        
-
-        <xs:element name="Programs" maxOccurs="1">
-            <xs:documentation>
-                Whatever is defined here will be referenced by the alias user provides
-            </xs:documentation>
-            <xs:element name="Program" type="xs:string" minOccurs="1">
-                <xs:attribute name="Alias" type="xs:string"/>
-                <xs:documentation>
-                    Path the alias will be calling. If Internal, given path must start in the repo (functions must be in the powershell repo)
-                </xs:documentation>
-                <xs:attribute name="SecType" type="xs:string" use="required">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Securty Type: Default 'public'.  Options: 'public' or 'private'
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-            </xs:element>
-        </xs:element>
-
-        <xs:element name="Modules" maxOccurs="1">
-            <xs:element name="Module" type="xs:string" minOccurs="1">
-                <xs:annotation>
-                    <xs:documentation> <!-- TODO include modules outside repo if it isn't imported -->
-                        Path for modules starting at powershell repo
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:element>
-        
-        <xs:group name="List" maxOccurs="1">
+    <xs:group name="List">
+        <xs:sequence>
             <xs:element name="Item">
                 <xs:annotation>
                     <xs:documentation>
@@ -584,106 +1012,27 @@
                         The last one should not have any text within the node.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:attribute name="rank" type="xs:int" use="mandatory"/>
-                <xs:attribute name="name" type="xs:string" use="mandatory"/>
-                <xs:attribute name="Completed" type="xs:boolean" use="mandatory"/>
-                <xs:attribute name="ID" type="xs:string" use="optional"/>
-                <xs:group ref="TodoList"/>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="List"/>
+                    </xs:sequence>
+                    <xs:attribute name="rank" type="xs:int" use="required"/>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="Completed" type="xs:boolean" use="required"/>
+                    <xs:attribute name="ID" type="xs:string" use="optional"/>
+                </xs:complexType>
             </xs:element>
-        </xs:group>
+        </xs:sequence>
+    </xs:group>
 
-        <xs:element name="Lists" minOccurs="0" maxOccurs="1">
-            <xs:element name="List">
-                <xs:attribute name="Title" use="mandatory"/>
-                <xs:group ref="List"/>
-            </xs:element>
-        </xs:element>
-
-        <xs:element name="Calendar" maxOccurs="1">
-            <xs:element name="SpecialDays" maxOccurs="1">
-                <xs:element name="SpecialDay" minOccurs="1" maxOccurs="unbounded">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Must be in datetime format: MM/dd/yyyy 
-                        </xs:documentation>
-                    </xs:annotation>
-                    <xs:attribute name="name" type="xs:datetime" use="mandatory">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Name of the day
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:element>
-            </xs:element>
-        </xs:element>
-
-        <xs:element name="Weather" minOccurs="0" maxOccurs="1">
-            <xs:element name="Area" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        City for weather
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:element>
-
-        <xs:element name="Email" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-                <xs:documentation>
-                    Settings for Email.ps1
-                </xs:documentation>
-            </xs:annotation>
-            <xs:attribute name="AssemblyPath" type="xs:string" use="optional">
-                <xs:annotation>
-                    <xs:documentation>
-                        In Powershell 7 (as far as I know) The add-Type AssemblyName parameter needs the full file path.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:element name="EmailAddress" type="xs:string" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        The Email address you want to read your emails from 
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="SecType" use="mandatory">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Securty Type: Default 'public'.  Options: 'public' or 'private'
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-            </xs:element>
-            <xs:element name="DefaultFolder" type="xs:string"  minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Folder you are reading from (i.e. the \Inbox folder)
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="IncludeFields" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        What to print when listing mail from inbox.  Default is false;
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:element name="To" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="CC" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="From" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="Subject" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="Body" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-            </xs:element>
-            <xs:element name="OutByPaging" type="xs:boolean" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>
-                        Default is False.  If you want to output the message by page
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="ListInboxMax" type="xs:int" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="ListOrderBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        </xs:element>
-
-    </xs:element>
+    <xs:attributeGroup name="SecurityType">
+        <xs:attribute name="SecType" use="required"> 
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="public"/>
+                    <xs:enumeration value="private"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
 </xs:schema>

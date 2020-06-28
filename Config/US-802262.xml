@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06142020" Count="3" />
-  <StartScript Enable="true" ClearHost="false">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
+  <UpdateStamp Value="06152020" Count="4" />
+  <StartScript Enabled="True" ClearHost="False">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Format>
@@ -12,7 +12,7 @@
       <String>{@batteryperc%, Clock in Time: @stamp} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
-      <BaterryLifeThreshold Enabled="true">35</BaterryLifeThreshold>
+      <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
       <String Color="Cyan">[Kiran Analytics] @currdir@gitbranch@greaterthan_</String>
     </Prompt>
     <ShellColors>
@@ -108,7 +108,6 @@
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
-    <!-- Third Party Programs -->
     <Program Alias="Outlook" SecType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="VS" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
@@ -165,7 +164,8 @@
     <Program Alias="ConnectNetDrive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\ReconnectNetDrives.ps1</Program>
     <Program Alias="Pull-CC" SecType="public">C:\Users\brandon.fong\Brandon.Fong\SCRIPTS\GitPullCC.ps1</Program>
     <Program Alias="VC-Powershell" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\VC-Powershell.code-workspace</Program>
-    <Program Alias="Teams" SecType="public">C:\Users\brandon.fong\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe</Program>
+    <Program Alias="teams" SecType="public">C:\Users\brandon.fong\AppData\Local\Microsoft\Teams\current\Teams.exe</Program>
+    <Program Alias="VC-Implementation" SecType="private">103f1b00-7d47-4ddf-ac4e-32dfb95b7d4c</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -179,7 +179,7 @@
           <ServerInstance>US-802262</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate ScriptID</SQLConvertFlags>
+          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID LinkGuid</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>False</CreateDatabase>
           <Tables>
@@ -277,6 +277,22 @@
               <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
             </Table>
+            <Table Name="LinkInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LinkGuid" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
+                <ForeignKeyRef><![CDATA[
+                  {
+                     "ForeignTable": "PersonalInfo",
+                     "ForeignColumn": "ID"
+                  }
+               ]]></ForeignKeyRef>
+              </Column>
+            </Table>
           </Tables>
         </SQL>
       </Class>
@@ -351,7 +367,6 @@
       <Key Lvl="0" SecType="public">Friday</Key>
       <Value Lvl="0" SecType="public">$FriList</Value>
     </Object>
-    <!-- $Web -->
     <!-- $Math -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Math</VarName>
@@ -1057,7 +1072,7 @@
       <Key Lvl="1" Node="26F7" SecType="public">Username</Key>
       <Value Lvl="1" Node="26F7" SecType="private">117EB965-7885-4871-B3ED-7A80C895D53F</Value>
       <Key Lvl="1" Node="26F7" SecType="public">Password</Key>
-      <Value Lvl="1" Node="26F7" SecType="private">4710F3A5-528B-48C3-8309-26F739D7BD76</Value>
+      <Value Lvl="1" Node="26F7" SecType="private">E5E26885-9E7E-402B-B58F-2B11A51E2A10</Value>
       <!--F2C7F315-7EAC-4DF1-BF6E-28726EE6876D-->
       <Key Lvl="0" SecType="private">F2C7F315-7EAC-4DF1-BF6E-28726EE6876D</Key>
       <Value Lvl="0" SecType="public" NodePointer="ec3b" />

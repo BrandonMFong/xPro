@@ -23,10 +23,11 @@ left join @TimeOut TimeOut
 on TimeIn.RowNum = TimeOut.RowNum
 and TimeIn.ExternalID = TimeOut.ExternalID
 where TimeOut.RowNum is null 
+order by TimeIn.EventDate desc /* Get the most recent instance */
 
 
 declare @EventDateFix datetime = dateadd(DAY, 1, Convert(date, (select EventDate from @TimeFix))) /* Get start of the next day */
-declare @MaxID int = (select count(*)+1 from Calendar)
+declare @MaxID int = (select MAX(ID)+1 from Calendar)
 declare @TCExtID int = (select id from TypeContent where ExternalID = 'TimeStampOut') 
 declare @CalendarExternalID varchar(100) = (select ExternalID from @TimeFix)
 declare @Subject varchar(100) = concat('[TIME OUT] Fix on Calendar ID: ',(select id from @TimeFix))

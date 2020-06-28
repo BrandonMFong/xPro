@@ -227,6 +227,7 @@ XmlPSProfile also offers its own set of libraries and scripts that are developed
 
 * **Read Emails**
     User can read emails using Get-Email (Must have Outlook app installed)
+
     ```
     [Kiran Analytics] Powershell (master*) >_ Get-Email                                                                                         
     {1} [Visual Studio Dev Essentials - 01/13/2020 10:32 AM] New developer resources for the new year

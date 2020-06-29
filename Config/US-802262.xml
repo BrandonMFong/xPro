@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06152020" Count="4" />
+  <UpdateStamp Value="06252020" Count="5" />
   <StartScript Enabled="True" ClearHost="False">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -179,7 +179,7 @@
           <ServerInstance>US-802262</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID LinkGuid</SQLConvertFlags>
+          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>False</CreateDatabase>
           <Tables>
@@ -280,17 +280,12 @@
             <Table Name="LinkInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
-              <Column Name="LinkGuid" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Link" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
-                <ForeignKeyRef><![CDATA[
-                  {
-                     "ForeignTable": "PersonalInfo",
-                     "ForeignColumn": "ID"
-                  }
-               ]]></ForeignKeyRef>
+                <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
               </Column>
             </Table>
           </Tables>

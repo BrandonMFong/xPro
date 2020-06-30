@@ -9,7 +9,7 @@
 	Write-Host "`n[Emails]" -ForegroundColor Green;
 	Get-Email -BoundedList;
 	# Week-List;
-	ConnectNetDrive;
+	# ConnectNetDrive;
 	Write-Host "`n1. Start`n"
 	$start = Read-Host 
 	if($start -eq "1")

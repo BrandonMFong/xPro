@@ -12,6 +12,19 @@ class SQL
     hidden [Boolean]$RunUpdates;
     hidden [Boolean]$CreateDatabase;
 
+
+    # Constructor for the funcutionmodule
+    SQL([string]$database, [string]$serverinstance)
+    {
+        $this.database = $database;
+        $this.serverinstance = $serverinstance;
+        $this.tables = $null;
+        $this.UpdateVerbose = $false;
+        $this.SQLConvertFlags = $null;
+        $this.RunUpdates = $false;
+        $this.CreateDatabase = $false;
+    }
+
     # Constructor
     SQL([string]$database, [string]$serverinstance, [System.Object[]]$tables, 
     [boolean]$SyncConfiguration, [boolean]$UpdateVerbose, [string]$SQLConvertFlags,

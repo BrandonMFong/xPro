@@ -48,6 +48,14 @@
     <ListInboxMax>10</ListInboxMax>
     <ListOrderBy>Desc</ListOrderBy>
   </Email>
+  <NetDrives>
+    <NetDrive>
+      <DriveLetter>R:</DriveLetter>
+      <IPAddress SecType="private">53cdf5ed-518c-4fdf-9fe2-ba32a758ed4c</IPAddress>
+      <Username SecType="private">cb6fb6ca-c51f-4d51-9f1b-b02f752ed48e</Username>
+      <Password SecType="private">71071159-1d3f-4013-8ec9-4a24efcdbb8f</Password>
+    </NetDrive>
+  </NetDrives>
   <!-- Modules -->
   <Modules>
     <Module>B:\Powershell\Modules\System.psm1</Module>

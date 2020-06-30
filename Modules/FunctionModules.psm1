@@ -5,7 +5,7 @@ using module .\..\Classes\List.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance, $null, $false, $false, $null, $false, $false); # This needs to be unique per config
+$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance); # This needs to be unique per config
 
 function MakeClass($XmlElement)
 {
@@ -104,7 +104,11 @@ function FindNodeInterval($value,[string]$Node,[ref]$start,[ref]$end)
 function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
 {
     # param([Switch]$IsGoto)
-    if($value.SecType -eq "private")
+    if([String]::IsNullOrEmpty($value))
+    {
+        return $null;
+    }
+    elseif($value.SecType -eq "private")
     {
         return $Sql.InputReturn($value.InnerText);
     }
@@ -247,7 +251,7 @@ function DoesFileExistInArchive($file)
 function LoadPrograms
 {
     Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    if($XMLReader.Machine.Programs.Program.Count -gt 0)
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.Programs))
     {
         [int]$Complete = 1;
         [int]$Total = $XMLReader.Machine.Programs.Program.Count;
@@ -266,7 +270,7 @@ function LoadPrograms
 function LoadModules
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if($XMLReader.Machine.Modules.Module.Count -gt 0)
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.Modules))
     {
         [int]$Complete = 1;
         [int]$Total = $XMLReader.Machine.Modules.Module.Count;
@@ -282,10 +286,11 @@ function LoadModules
         Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
     }
 }
+
 function LoadObjects
 {
     Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if($XMLReader.Machine.Objects.Object.Count -gt 0)
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.Objects))
     {
         [int]$Complete = 1;
         [int]$Total = $XMLReader.Machine.Objects.Object.Count;
@@ -303,11 +308,34 @@ function LoadObjects
                 "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
                 default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
             }
-            Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
         } 
+        Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
     }
 }
 
+function LoadDrives
+{
+    Param($XMLReader=$XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.NetDrives))
+    {
+        [int]$Complete = 1;
+        [int]$Total = $XMLReader.Machine.NetDrives.NetDrive.Count;
+        foreach($val in $XMLReader.Machine.NetDrives.NetDrive)
+        {
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            if(!(Test-Path $val.DriveLetter))
+            {
+                # net use $XMLReader.Machine.NetDrives.NetDrive.DriveLetter $XMLReader.Machine.NetDrives.NetDrive.IPAddress.InnerText
+                net use $val.DriveLetter $(Evaluate -value:$val.IPAddress) $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);
+            }
+        } 
+        Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;
+    }
+}
 
 
 function InsertFromCmd

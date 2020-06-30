@@ -33,7 +33,10 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         
     <### OBJECTS ###>
         LoadObjects -XMLReader:$XMLReader -Verbose:$Verbose
-    
+
+    <### NETWORK DRIVES ###>
+        LoadDrives -XMLReader:$XMLReader -Verbose:$Verbose
+        
     <### START ###>
         if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
         if(($XMLReader.Machine.StartScript.Enabled -eq "true") -and ($StartScript)) {Invoke-Expression $(Evaluate -value:$XMLReader.Machine.StartScript)}

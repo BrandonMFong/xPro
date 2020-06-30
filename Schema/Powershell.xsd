@@ -319,6 +319,52 @@
                     </xs:complexType>
                 </xs:element>
 
+                <xs:element name="NetDrives" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="NetDrive" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="DriveLetter" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                                        <xs:element name="IPAddress" minOccurs="1" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attributeGroup ref="SecurityType"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>   
+                                        <xs:element name="Username" minOccurs="0" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attributeGroup ref="SecurityType"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>   
+                                        <xs:element name="Password" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    If you do not provide then you will be prompted
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attributeGroup ref="SecurityType"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>   
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>                    
+                </xs:element>
+                
                 <xs:element name="Lists" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:sequence>

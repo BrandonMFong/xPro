@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06152020" Count="4" />
+  <UpdateStamp Value="06252020" Count="5" />
   <StartScript Enabled="True" ClearHost="False">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</StartScript>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -140,7 +140,6 @@
     <Program Alias="Get-Calendar" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
     <Program Alias="Greetings" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SCRIPTS\Greetings.ps1</Program>
-    <!-- <Program Alias="GOTO" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\GOTO.ps1</Program> -->
     <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Open.ps1</Program>
@@ -156,7 +155,6 @@
     <Program Alias="List" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Program>
     <Program Alias="cloud41" SecType="private">59ae4552-5595-400e-8460-95500174aa43</Program>
     <Program Alias="StrTemp" SecType="private">ade4adf8-7034-430a-a1c8-fb40d91974ce</Program>
-    <Program Alias="cloud40" SecType="private">a1b3b272-9295-4107-bbf5-6b4a16baa29b</Program>
     <Program Alias="cloud52" SecType="private">1bfecdc8-453f-4f80-9863-9a426a57d068</Program>
     <Program Alias="TimeOff" SecType="private">e15fa1e8-dd0d-4bb3-af44-7e7e3f1d01d0</Program>
     <Program Alias="cloud51" SecType="private">b5965d33-be87-48e2-89b5-1e6234ae59a6</Program>
@@ -179,7 +177,7 @@
           <ServerInstance>US-802262</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID LinkGuid</SQLConvertFlags>
+          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>False</CreateDatabase>
           <Tables>
@@ -280,7 +278,7 @@
             <Table Name="LinkInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
-              <Column Name="LinkGuid" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Link" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
@@ -291,76 +289,6 @@
           </Tables>
         </SQL>
       </Class>
-    </Object>
-    <!-- $MonList -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">MonList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Monday</Title>
-          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $TueList -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">TueList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Tuesday</Title>
-          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $WedList -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">WedList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Wednesday</Title>
-          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $ThuList -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">ThuList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Thursday</Title>
-          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $FriList -->
-    <Object Type="PowerShellClass">
-      <VarName SecType="public">FriList</VarName>
-      <Class ClassName="List" HasParams="true">
-        <List>
-          <Title>Friday</Title>
-          <DisplayCompleteWith>ColorCoded</DisplayCompleteWith>
-          <Redirect>C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Redirect>
-        </List>
-      </Class>
-    </Object>
-    <!-- $Todo -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Todo</VarName>
-      <!--Key and Value-->
-      <Key Lvl="0" SecType="public">Monday</Key>
-      <Value Lvl="0" SecType="public">$MonList</Value>
-      <Key Lvl="0" SecType="public">Tuesday</Key>
-      <Value Lvl="0" SecType="public">$TueList</Value>
-      <Key Lvl="0" SecType="public">Wednesday</Key>
-      <Value Lvl="0" SecType="public">$WedList</Value>
-      <Key Lvl="0" SecType="public">Thursday</Key>
-      <Value Lvl="0" SecType="public">$ThuList</Value>
-      <Key Lvl="0" SecType="public">Friday</Key>
-      <Value Lvl="0" SecType="public">$FriList</Value>
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">

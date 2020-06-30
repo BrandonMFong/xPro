@@ -8,7 +8,7 @@
 	$Calendar.Events();
 	Write-Host "`n[Emails]" -ForegroundColor Green;
 	Get-Email -BoundedList;
-	Week-List;
+	# Week-List;
 	ConnectNetDrive;
 	Write-Host "`n1. Start`n"
 	$start = Read-Host 

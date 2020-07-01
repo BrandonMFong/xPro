@@ -254,7 +254,7 @@ function LoadPrograms
     if(![String]::IsNullOrEmpty($XMLReader.Machine.Programs))
     {
         [int]$Complete = 1;
-        [int]$Total = $XMLReader.Machine.Programs.Program.Count;
+        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Programs.Program.Count);
         foreach($val in $XMLReader.Machine.Programs.Program)
         {
             if(!$Verbose)
@@ -273,7 +273,7 @@ function LoadModules
     if(![String]::IsNullOrEmpty($XMLReader.Machine.Modules))
     {
         [int]$Complete = 1;
-        [int]$Total = $XMLReader.Machine.Modules.Module.Count;
+        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Modules.Module.Count);
         foreach($val in $XMLReader.Machine.Modules.Module)
         {
             if(!$Verbose)
@@ -293,7 +293,7 @@ function LoadObjects
     if(![String]::IsNullOrEmpty($XMLReader.Machine.Objects))
     {
         [int]$Complete = 1;
-        [int]$Total = $XMLReader.Machine.Objects.Object.Count;
+        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Objects.Object.Count);
         foreach($val in $XMLReader.Machine.Objects.Object)
         {
             if(!$Verbose)
@@ -319,7 +319,7 @@ function LoadDrives
     if(![String]::IsNullOrEmpty($XMLReader.Machine.NetDrives))
     {
         [int]$Complete = 1;
-        [int]$Total = $XMLReader.Machine.NetDrives.NetDrive.Count;
+        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.NetDrives.NetDrive.Count);
         foreach($val in $XMLReader.Machine.NetDrives.NetDrive)
         {
             if(!$Verbose)
@@ -336,6 +336,14 @@ function LoadDrives
         Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;
     }
 }
+
+function CheckCount # I guess in Powershell v5 the count on an xml with one node returns node
+{
+    Param([int]$Count)
+    if(!$Count){return 1;}
+    else{return $Count;}
+}
+
 
 
 function InsertFromCmd

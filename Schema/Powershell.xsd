@@ -612,17 +612,6 @@
         </xs:sequence>
     </xs:group>
 
-    <!-- Objects -->
-    <xs:attributeGroup name="HashTableObjectAttributes">
-        <xs:attributeGroup ref="SecurityType"/>
-        <xs:attribute name="Lvl" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    Level of the node or hash table (still determining the name)
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <xs:attributeGroup name="Enable">
         <xs:attribute name="Enabled" use="required">
@@ -675,6 +664,7 @@
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
+                            <xs:attributeGroup ref="HashTableObjectAttributes"/>
                             <xs:attribute name="Node" type="xs:string" use="optional">
                                 <xs:annotation>
                                     <xs:documentation>
@@ -689,13 +679,24 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:attribute>
-                            <xs:attributeGroup ref="HashTableObjectAttributes"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:group>
+    
+    <!-- Objects -->
+    <xs:attributeGroup name="HashTableObjectAttributes">
+        <xs:attribute name="Lvl" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Level of the node or hash table (still determining the name)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attributeGroup ref="SecurityType"/>
+    </xs:attributeGroup>
 
     <xs:group name="XMLElement">
         <xs:sequence>

@@ -466,6 +466,15 @@
       <Value Lvl="2" Node="951a" SecType="private">84542346-87e7-45e4-8a33-bb8f77f1a18a</Value>
       <Key Lvl="2" Node="951a" SecType="public">RouteNum</Key>
       <Value Lvl="2" Node="951a" SecType="private">9298d1f8-268a-480d-ae49-3214d66b95cc</Value>
+      <!-- Alliant -->
+      <Key Lvl="0" SecType="public">Alliant</Key>
+      <Value Lvl="0" SecType="public" NodePointer="45e4"/>
+      <Key Lvl="1" Node="45e4" SecType="public">AccountNubmer</Key>
+      <Value Lvl="1" Node="45e4" SecType="private">A6CABDC4-F6F7-4DB0-9714-8C4A52211284</Value>
+      <Key Lvl="1" Node="45e4" SecType="public">Username</Key>
+      <Value Lvl="1" Node="45e4" SecType="private">f5505e52-71fe-4f89-bcb2-3775e1593a6d</Value>
+      <Key Lvl="1" Node="45e4" SecType="public">Password</Key>
+      <Value Lvl="1" Node="45e4" SecType="private">4F1C0B1F-53D4-40F4-972E-6202ACCECD43</Value>
     </Object>
     <!-- $User -->
     <Object Type="HashTable">

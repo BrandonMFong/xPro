@@ -1,6 +1,6 @@
 /*Bounds*/
-/*declare @MinDate datetime2(7) = '5/1/2020 00:00:00.0000000'*/
-/*declare @MaxDate datetime2(7) = '5/30/2020 00:00:00.0000000'*/
+/*declare @MinDate datetime2(7) = '6/28/2020 00:00:00.0000000'*/
+/*declare @MaxDate datetime2(7) = '7/5/2020 00:00:00.0000000'*/
 declare @MinDate datetime2(7) = @MinDateExt
 declare @MaxDate datetime2(7) = @MaxDateExt
 
@@ -43,4 +43,4 @@ if (@s >= 60) begin set @m = @s/60; set @s = @s%60; end
 else begin set @m = 0; end
 
 /*Get Time*/
-select CONVERT(varchar,cast(concat(convert(varchar(10),@h),':',convert(varchar(10),@m),':',convert(varchar(10),@s)) as time), 8) [Time]
+select concat(RIGHT('00' + cast(@h as varchar(2)),2),':',RIGHT('00' + cast(@m as varchar(2)),2),':',RIGHT('00' + cast(@s as varchar(2)),2)) as Time

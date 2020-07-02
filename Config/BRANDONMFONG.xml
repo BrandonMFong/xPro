@@ -775,6 +775,8 @@
       <Value Lvl="1" Node="475b" SecType="private">ad91c031-123c-4803-a69b-5b78fff8e87c</Value>
       <Key Lvl="1" Node="475b" SecType="public">Email</Key>
       <Value Lvl="1" Node="475b" SecType="private">298b6bcb-e1db-4884-8e0e-2ea960818ad8</Value>
+      <Key Lvl="1" Node="475b" SecType="public">Slack</Key>
+      <Value Lvl="1" Node="475b" SecType="private">5e743483-3a0c-445a-8fc4-88f7b9251f5d</Value>
       <!--FAFSA-->
       <Key Lvl="0" SecType="public">FAFSA</Key>
       <Value Lvl="0" SecType="public" NodePointer="0435" />

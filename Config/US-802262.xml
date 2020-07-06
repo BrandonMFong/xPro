@@ -46,14 +46,14 @@
     <ListInboxMax>10</ListInboxMax>
     <ListOrderBy>Asc</ListOrderBy>
   </Email>
-  <NetDrives>
+  <!-- <NetDrives>
     <NetDrive>
       <DriveLetter>R:</DriveLetter>
       <IPAddress SecType="private">4e531269-0528-4a45-8784-89e1022eb252</IPAddress>
       <Username SecType="private">66f046c1-2806-492d-96fd-e3981edc8397</Username>
       <Password SecType="private">1821F1C9-88A2-428C-AB1C-AC414B98F397</Password>
     </NetDrive>
-  </NetDrives>
+  </NetDrives> -->
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
@@ -151,7 +151,7 @@
     <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Open.ps1</Program>
-    <Program Alias="Aopend" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
+    <Program Alias="Append" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
     <Program Alias="Archive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
     <Program Alias="Get-Email" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
     <Program Alias="Search" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>

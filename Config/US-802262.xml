@@ -118,7 +118,7 @@
   <Programs>
     <Program Alias="Outlook" SecType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="VS" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="VS" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe</Program>
     <Program Alias="Excel" SecType="public">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Program>
     <Program Alias="Sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\Ssms.exe</Program>
     <Program Alias="Gitbash" SecType="public">C:\Program Files\Git\git-bash.exe</Program>
@@ -173,6 +173,7 @@
     <Program Alias="teams" SecType="public">C:\Users\brandon.fong\AppData\Local\Microsoft\Teams\current\Teams.exe</Program>
     <Program Alias="VC-Implementation" SecType="private">103f1b00-7d47-4ddf-ac4e-32dfb95b7d4c</Program>
     <Program Alias="VC-Notebook" SecType="public">C:\Users\brandon.fong\Brandon.Fong\NOTEBOOK\VC-Notebook.code-workspace</Program>
+    <Program Alias="IE" SecType="public">C:\Program Files\Internet Explorer\iexplore.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">
@@ -977,6 +978,8 @@
       <Value Lvl="0" SecType="private">05F1259B-814A-43E1-BBAD-A57C43C2B57C</Value>
       <Key Lvl="0" SecType="private">8ED8F528-0EFD-47A8-A7D2-661EAF114EE8</Key>
       <Value Lvl="0" SecType="private">0A4612E8-4C62-46CF-97B8-3C822D1C8B6D</Value>
+      <Key Lvl="0" SecType="public">Okta</Key>
+      <Value Lvl="0" SecType="private">eaa446dd-fc8f-4e1e-a322-4b1f8eb32e6d</Value>
       <!--78AB3994-CE13-41E3-9D61-C7B7993648EA-->
       <Key Lvl="0" SecType="private">78AB3994-CE13-41E3-9D61-C7B7993648EA</Key>
       <Value Lvl="0" SecType="public" NodePointer="e2fb" />
@@ -984,11 +987,7 @@
       <Value Lvl="1" Node="e2fb" SecType="private">3B27ABE6-8A04-4496-A4FC-A8D40E2B5CF3</Value>
       <!--CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2-->
       <Key Lvl="0" SecType="private">CC54DB6C-B40E-4E92-8971-2F9C2CEB32F2</Key>
-      <Value Lvl="0" SecType="public" NodePointer="8309" />
-      <Key Lvl="1" Node="8309" SecType="public">ContactNumbers</Key>
-      <Value Lvl="1" Node="8309" SecType="private">A8D5667C-7C2D-4CB6-8A5A-FB5CA799163A</Value>
-      <Key Lvl="1" Node="8309" SecType="public">TicketSystem</Key>
-      <Value Lvl="1" Node="8309" SecType="private">B8A2FCB6-C4EB-46CB-B7DD-ED7E7AF3B6C8</Value>
+      <Value Lvl="0" SecType="public">cb375510-5430-46b9-9ae8-028d0cb8efa1</Value>
       <!--Sharepoint-->
       <Key Lvl="0" SecType="public">Sharepoint</Key>
       <Value Lvl="0" SecType="public" NodePointer="528B" />
@@ -1042,13 +1041,13 @@
       <Key Lvl="0" SecType="public">Default</Key>
       <Value Lvl="0" SecType="private">FF2EEEE1-E2EF-4BFD-8CAD-C6D5EE3F4708</Value>
       <Key Lvl="0" SecType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
-      <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Value Lvl="0" SecType="private">642ECDAB-8EC9-42BD-9F24-398AA5AAED62</Value>
       <Key Lvl="0" SecType="public">GlobalProtect</Key>
-      <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Value Lvl="0" SecType="private">642ECDAB-8EC9-42BD-9F24-398AA5AAED62</Value>
       <Key Lvl="0" SecType="public">Okta</Key>
       <Value Lvl="0" SecType="private">642ECDAB-8EC9-42BD-9F24-398AA5AAED62</Value>
       <Key Lvl="0" SecType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
-      <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
+      <Value Lvl="0" SecType="private">642ECDAB-8EC9-42BD-9F24-398AA5AAED62</Value>
       <Key Lvl="0" SecType="private">C20E458A-5F13-4CB6-959B-C4349894851C</Key>
       <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <Key Lvl="0" SecType="private">1719EB95-FC38-4623-AD70-59AA0EE4DCB8</Key>

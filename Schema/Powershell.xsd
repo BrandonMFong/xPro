@@ -467,7 +467,7 @@
                                 <xs:complexType>
                                     <xs:simpleContent>
                                         <xs:extension base="xs:anyURI">
-                                            <xs:attribute name="Alias" type="xs:string"/>
+                                            <xs:attribute name="Alias" use="required" type="xs:string"/>
                                             <xs:attributeGroup ref="SecurityType"/>
                                         </xs:extension>
                                     </xs:simpleContent>

@@ -264,7 +264,7 @@ function LoadPrograms
             }
             Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
         }
-        Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;
+        if(!$Verbose){Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;}
     }
 }
 function LoadModules
@@ -283,7 +283,7 @@ function LoadModules
             }
             Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
         }
-        Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;
+        if(!$Verbose){Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;}
     }
 }
 
@@ -309,7 +309,7 @@ function LoadObjects
                 default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
             }
         } 
-        Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;
+        if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;}
     }
 }
 
@@ -333,7 +333,7 @@ function LoadDrives
                 net use $val.DriveLetter $(Evaluate -value:$val.IPAddress) $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);
             }
         } 
-        Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;
+        if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
 }
 

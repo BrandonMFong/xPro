@@ -14,7 +14,7 @@
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
-      <String Color="Default">[KAMANTA] @currdir@greaterthan_</String>
+      <String Color="Cyan">[KAMANTA] @currdir@greaterthan_</String>
     </Prompt>
     <ShellColors>
       <ForegroundColor>White</ForegroundColor>
@@ -44,6 +44,7 @@
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="main" SecType="public">B:\</Directory>
+    <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

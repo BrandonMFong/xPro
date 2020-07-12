@@ -55,14 +55,207 @@
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
     <Program Alias="VC-Powershell" SecType="public">B:\XmlPSProfile\VC-Powershell.code-workspace</Program>
+    <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code Insiders\Code - Insiders.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects>
+  <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
+    <!-- $Query -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Query</VarName>
+      <Class ClassName="SQL" HasParams="true">
+        <SQL>
+          <!-- <Database>TestDB</Database> -->
+          <Database>BrandonMFong</Database>
+          <ServerInstance>KAMANTA\KAMANTA</ServerInstance>
+          <SyncConfiguration>True</SyncConfiguration>
+          <UpdateVerbose>True</UpdateVerbose>
+          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
+          <RunUpdates>True</RunUpdates>
+          <CreateDatabase>True</CreateDatabase>
+          <Tables>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(1000)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Rows>
+                <Row>
+                  <Value ColumnName="Description">ID</Value>
+                  <Value ColumnName="ExternalID">ID</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Username</Value>
+                  <Value ColumnName="ExternalID">Username</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Password</Value>
+                  <Value ColumnName="ExternalID">Password</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Email</Value>
+                  <Value ColumnName="ExternalID">Email</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">IP Address</Value>
+                  <Value ColumnName="ExternalID">IPAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">PIN</Value>
+                  <Value ColumnName="ExternalID">PIN</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">URL</Value>
+                  <Value ColumnName="ExternalID">URL</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Name</Value>
+                  <Value ColumnName="ExternalID">PrivateName</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Directory</Value>
+                  <Value ColumnName="ExternalID">PrivateDirectory</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Program</Value>
+                  <Value ColumnName="ExternalID">PrivateProgram</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Event</Value>
+                  <Value ColumnName="ExternalID">Event</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp In</Value>
+                  <Value ColumnName="ExternalID">TimeStampIn</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp Out</Value>
+                  <Value ColumnName="ExternalID">TimeStampOut</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Security Question And Answer</Value>
+                  <Value ColumnName="ExternalID">SecurityQA</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Update Scripts</Value>
+                  <Value ColumnName="ExternalID">UpdateScript</Value>
+                </Row>
+              </Rows>
+            </Table>
+            <Table Name="Calendar">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
+              <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="UpdateLog">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Topic" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+            </Table>
+            <Table Name="LinkInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Link" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
+                <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
+              </Column>
+            </Table>
+          </Tables>
+        </SQL>
+      </Class>
+    </Object>
+    <!-- $Math -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Math</VarName>
+      <Class ClassName="Calculations" HasParams="true">
+        <Math>
+          <QuantizedStepSize>6</QuantizedStepSize>
+          <PathToGradeImport>B:\Powershell\Resources\MathImports\GradeImport.csv</PathToGradeImport>
+          <GradeColors>
+            <GradeColor MinimumThreshold="90">Green</GradeColor>
+            <GradeColor MinimumThreshold="80">Cyan</GradeColor>
+            <GradeColor MinimumThreshold="60">Yellow</GradeColor>
+            <GradeColor MinimumThreshold="0">Red</GradeColor>
+          </GradeColors>
+        </Math>
+      </Class>
+    </Object>
+    <!-- $Calendar -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Calendar</VarName>
+      <Class ClassName="Calendar" HasParams="true">
+        <Calendar>
+          <PathToEventImport>B:\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
+          <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
+        </Calendar>
+      </Class>
+    </Object>
     <!-- $User -->
-    <Object Type="XmlElement">
+    <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
+      <Key Lvl="0" SecType="public">Netflix</Key>
+      <Value Lvl="0" SecType="public">https://Netflix.com</Value>
+      <Key Lvl="0" SecType="public">Youtube</Key>
+      <Value Lvl="0" SecType="public">https://Youtube.com</Value>
       <Key Lvl="0" SecType="public">Facebook</Key>
-      <Value Lvl="0" SecType="public">https://facebook.com/</Value>
+      <Value Lvl="0" SecType="public">https://facebook.com</Value>
+      <Key Lvl="0" SecType="public">DisneyPlus</Key>
+      <Value Lvl="0" SecType="public">https://www.disneyplus.com</Value>
+      <Key Lvl="0" SecType="public">Hulu</Key>
+      <Value Lvl="0" SecType="public">https://www.hulu.com</Value>
+      <Key Lvl="0" SecType="public">Slack</Key>
+      <Value Lvl="0" SecType="public">https://dualpowergeneration.slack.com</Value>
+      <Key Lvl="0" SecType="public">YES</Key>
+      <Value Lvl="0" SecType="public">https://dualpowergeneration.sdsu.edu</Value>
+      <Key Lvl="0" SecType="public">iCloud</Key>
+      <Value Lvl="0" SecType="public">https://www.icloud.com/</Value>
+      <Key Lvl="0" SecType="public">VNC</Key>
+      <Value Lvl="0" SecType="public">https://www.realvnc.com/en/</Value>
+      <Key Lvl="0" SecType="public">IPChicken</Key>
+      <Value Lvl="0" SecType="public">https://ipchicken.com/</Value>
+      <Key Lvl="0" SecType="public">Darkroom</Key>
+      <Value Lvl="0" SecType="public">https://thedarkroom.com/</Value>
+      <Key Lvl="0" SecType="public">Amazon</Key>
+      <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
+      <Key Lvl="0" SecType="public">Site</Key>
+      <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
+      <Key Lvl="0" SecType="public">devSite</Key>
+      <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
+      <!-- Google -->
+      <Key Lvl="0" SecType="public">Google</Key>
+      <Value Lvl="0" SecType="public" NodePointer="google" />
+      <Key Lvl="1" Node="google" SecType="public">URL</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://google.com</Value>
+      <Key Lvl="1" Node="google" SecType="public">Gmail</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://mail.google.com/mail</Value>
+      <Key Lvl="1" Node="google" SecType="public">Drive</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://drive.google.com/drive/u/0/my-drive</Value>
+      <Key Lvl="1" Node="google" SecType="public">Cloud</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://cloud.google.com</Value>
+      <Key Lvl="1" Node="google" SecType="public">Calendar</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://calendar.google.com/calendar</Value>
+      <Key Lvl="1" Node="google" SecType="public">Hangout</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://hangouts.google.com/</Value>
     </Object>
   </Objects>
 </Machine>

@@ -225,10 +225,6 @@
       <Value Lvl="0" SecType="public">https://www.disneyplus.com</Value>
       <Key Lvl="0" SecType="public">Hulu</Key>
       <Value Lvl="0" SecType="public">https://www.hulu.com</Value>
-      <Key Lvl="0" SecType="public">Slack</Key>
-      <Value Lvl="0" SecType="public">https://dualpowergeneration.slack.com</Value>
-      <Key Lvl="0" SecType="public">YES</Key>
-      <Value Lvl="0" SecType="public">https://dualpowergeneration.sdsu.edu</Value>
       <Key Lvl="0" SecType="public">iCloud</Key>
       <Value Lvl="0" SecType="public">https://www.icloud.com/</Value>
       <Key Lvl="0" SecType="public">VNC</Key>
@@ -243,6 +239,8 @@
       <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
       <Key Lvl="0" SecType="public">devSite</Key>
       <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
+      <Key Lvl="0" SecType="public">Github</Key>
+      <Value Lvl="0" SecType="public">https://github.com/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />

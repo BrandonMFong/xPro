@@ -74,7 +74,7 @@
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
-          <CreateDatabase>True</CreateDatabase>
+          <CreateDatabase>False</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />

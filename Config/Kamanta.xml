@@ -57,6 +57,8 @@
     <Program Alias="VC-Powershell" SecType="public">B:\XmlPSProfile\VC-Powershell.code-workspace</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code Insiders\Code - Insiders.exe</Program>
+    <Program Alias="putty" SecType="public">C:\Program Files\PuTTY\putty.exe</Program>
+    <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -256,6 +258,16 @@
       <Value Lvl="1" Node="google" SecType="public">https://calendar.google.com/calendar</Value>
       <Key Lvl="1" Node="google" SecType="public">Hangout</Key>
       <Value Lvl="1" Node="google" SecType="public">https://hangouts.google.com/</Value>
+    </Object>
+    <!-- $Passwords -->
+    <Object Type="HashTable">
+      <VarName SecType="public">Passwords</VarName>
+      <Key Lvl="0" SecType="public">Microsoft</Key>
+      <Value Lvl="0" SecType="private">321d242c-65a8-4c16-8c23-81719836d323</Value>
+      <Key Lvl="0" SecType="public">Kojami</Key>
+      <Value Lvl="0" SecType="private">30944096-496e-485a-bd78-6d8f479b84e0</Value>
+      <Key Lvl="0" SecType="public">Gmail_fong.m.brandon97</Key>
+      <Value Lvl="0" SecType="private">f0f6a5bb-9bfc-45a6-96ca-7fe6d2e14eca</Value>
     </Object>
   </Objects>
 </Machine>

@@ -45,6 +45,7 @@
   <Directories>
     <Directory Alias="main" SecType="public">B:\</Directory>
     <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
+    <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -270,6 +271,28 @@
       <Value Lvl="0" SecType="private">30944096-496e-485a-bd78-6d8f479b84e0</Value>
       <Key Lvl="0" SecType="public">Gmail_fong.m.brandon97</Key>
       <Value Lvl="0" SecType="private">f0f6a5bb-9bfc-45a6-96ca-7fe6d2e14eca</Value>
+      <Key Lvl="0" SecType="public">Default</Key>
+      <Value Lvl="0" SecType="private">6ead82ca-7390-4568-af75-63549d55308d</Value>
+    </Object>
+    <!-- $College -->
+    <Object Type="HashTable">
+      <VarName SecType="public">College</VarName>
+      <!-- FAFSA -->
+      <Key Lvl="0" SecType="public">Fafsa</Key>
+      <Value Lvl="0" SecType="public" NodePointer="7390"/>
+      <Key Lvl="0" Node="7390" SecType="public">URL</Key>
+      <Value Lvl="0" Node="7390" SecType="public">https://fafsa.gov/</Value>
+      <Key Lvl="0" Node="7390" SecType="public">Password</Key>
+      <Value Lvl="0" Node="7390" SecType="private">c9208c70-3056-4936-8aa7-02b26b57b8f1</Value>
+      <Key Lvl="0" Node="7390" SecType="public">SaveKey</Key>
+      <Value Lvl="0" Node="7390" SecType="private">53200b91-69ec-44e2-89f2-f3e0ab8a0e26</Value>
+      <Key Lvl="0" Node="7390" SecType="public">Email</Key>
+      <Value Lvl="0" Node="7390" SecType="private">b59a3935-8585-475a-86dc-ebeab35f81f5</Value>
+      <!-- Sonoma -->
+      <Key Lvl="0" SecType="public">SONOMA</Key>
+      <Value Lvl="0" SecType="public" NodePointer="bd78"/>
+      <Key Lvl="1" Node="bd78" SecType="public">URL</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
     </Object>
   </Objects>
 </Machine>

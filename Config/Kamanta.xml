@@ -273,6 +273,10 @@
       <Value Lvl="0" SecType="private">f0f6a5bb-9bfc-45a6-96ca-7fe6d2e14eca</Value>
       <Key Lvl="0" SecType="public">Default</Key>
       <Value Lvl="0" SecType="private">6ead82ca-7390-4568-af75-63549d55308d</Value>
+      <Key Lvl="0" SecType="public">Fafsa</Key>
+      <Value Lvl="0" SecType="private">c9208c70-3056-4936-8aa7-02b26b57b8f1</Value>
+      <Key Lvl="0" SecType="public">MySSU</Key>
+      <Value Lvl="0" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">
@@ -293,6 +297,10 @@
       <Value Lvl="0" SecType="public" NodePointer="bd78"/>
       <Key Lvl="1" Node="bd78" SecType="public">URL</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Username</Key>
+      <Value Lvl="1" Node="bd78" SecType="private">df336efa-5d62-46c8-abb1-3b7b8f1e887f</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Password</Key>
+      <Value Lvl="1" Node="bd78" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
     </Object>
   </Objects>
 </Machine>

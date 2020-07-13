@@ -54,11 +54,15 @@
     <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
+    <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program>
+    <Program Alias="umount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
+    <Program Alias="Query" SecType="public">$PSScriptRoot\..\Functions\Query.ps1</Program>
     <Program Alias="VC-Powershell" SecType="public">B:\XmlPSProfile\VC-Powershell.code-workspace</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
-    <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code Insiders\Code - Insiders.exe</Program>
     <Program Alias="putty" SecType="public">C:\Program Files\PuTTY\putty.exe</Program>
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
+    <Program Alias="zoom" SecType="public">C:\Users\fongm\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
+    <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

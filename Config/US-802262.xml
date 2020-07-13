@@ -174,6 +174,7 @@
     <Program Alias="VC-Implementation" SecType="private">103f1b00-7d47-4ddf-ac4e-32dfb95b7d4c</Program>
     <Program Alias="VC-Notebook" SecType="public">C:\Users\brandon.fong\Brandon.Fong\NOTEBOOK\VC-Notebook.code-workspace</Program>
     <Program Alias="IE" SecType="public">C:\Program Files\Internet Explorer\iexplore.exe</Program>
+    <Program Alias="umount" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\DismountDrive.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

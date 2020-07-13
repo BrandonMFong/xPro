@@ -261,6 +261,13 @@
       <Value Lvl="1" Node="google" SecType="public">https://calendar.google.com/calendar</Value>
       <Key Lvl="1" Node="google" SecType="public">Hangout</Key>
       <Value Lvl="1" Node="google" SecType="public">https://hangouts.google.com/</Value>
+      <!-- Emails -->
+      <Key Lvl="0" SecType="public">Emails</Key>
+      <Value Lvl="0" SecType="public" NodePointer="96ca"/>
+      <Key Lvl="1" Node="96ca" SecType="public">Mom</Key>
+      <Value Lvl="1" Node="96ca" SecType="private">a731b25d-78a7-4fa5-bae1-c3743a18f5e2</Value>
+      <Key Lvl="1" Node="96ca" SecType="public">Main</Key>
+      <Value Lvl="1" Node="96ca" SecType="public">47056fd7-be46-4402-870b-6dd283a9ef5b</Value>
     </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">

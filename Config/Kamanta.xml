@@ -32,6 +32,14 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
+  <!-- <NetDrives>
+    <NetDrive>
+      <DriveLetter>K:</DriveLetter>
+      <IPAddress SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</IPAddress>
+      <Username SecType="public"></Username>
+      <Password SecType="public"></Password>
+    </NetDrive>
+  </NetDrives> -->
   <!-- Modules -->
   <Modules>
     <Module>B:\XmlPSProfile\Modules\ConfigHandler.psm1</Module>
@@ -246,6 +254,8 @@
       <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
       <Key Lvl="0" SecType="public">Github</Key>
       <Value Lvl="0" SecType="public">https://github.com/</Value>
+      <Key Lvl="0" SecType="public">Kojami</Key>
+      <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />

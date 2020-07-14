@@ -55,6 +55,7 @@
     <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
     <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
     <Directory Alias="col" SecType="public">B:\COLLEGE</Directory>
+    <Directory Alias="fpga" SecType="public">B:\SOURCE\Repo\FPGAClock</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

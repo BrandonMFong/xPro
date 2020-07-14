@@ -54,6 +54,7 @@
     <Directory Alias="main" SecType="public">B:\</Directory>
     <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
     <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
+    <Directory Alias="col" SecType="public">B:\COLLEGE</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -273,11 +274,11 @@
       <Value Lvl="1" Node="google" SecType="public">https://hangouts.google.com/</Value>
       <!-- Emails -->
       <Key Lvl="0" SecType="public">Emails</Key>
-      <Value Lvl="0" SecType="public" NodePointer="96ca"/>
+      <Value Lvl="0" SecType="public" NodePointer="96ca" />
       <Key Lvl="1" Node="96ca" SecType="public">Mom</Key>
       <Value Lvl="1" Node="96ca" SecType="private">a731b25d-78a7-4fa5-bae1-c3743a18f5e2</Value>
       <Key Lvl="1" Node="96ca" SecType="public">Main</Key>
-      <Value Lvl="1" Node="96ca" SecType="public">47056fd7-be46-4402-870b-6dd283a9ef5b</Value>
+      <Value Lvl="1" Node="96ca" SecType="private">47056fd7-be46-4402-870b-6dd283a9ef5b</Value>
     </Object>
     <!-- $Passwords -->
     <Object Type="HashTable">
@@ -300,7 +301,7 @@
       <VarName SecType="public">College</VarName>
       <!-- FAFSA -->
       <Key Lvl="0" SecType="public">Fafsa</Key>
-      <Value Lvl="0" SecType="public" NodePointer="7390"/>
+      <Value Lvl="0" SecType="public" NodePointer="7390" />
       <Key Lvl="1" Node="7390" SecType="public">URL</Key>
       <Value Lvl="1" Node="7390" SecType="public">https://fafsa.gov/</Value>
       <Key Lvl="1" Node="7390" SecType="public">Password</Key>
@@ -311,13 +312,15 @@
       <Value Lvl="1" Node="7390" SecType="private">b59a3935-8585-475a-86dc-ebeab35f81f5</Value>
       <!-- Sonoma -->
       <Key Lvl="0" SecType="public">SONOMA</Key>
-      <Value Lvl="0" SecType="public" NodePointer="bd78"/>
+      <Value Lvl="0" SecType="public" NodePointer="bd78" />
       <Key Lvl="1" Node="bd78" SecType="public">URL</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Username</Key>
       <Value Lvl="1" Node="bd78" SecType="private">df336efa-5d62-46c8-abb1-3b7b8f1e887f</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Password</Key>
       <Value Lvl="1" Node="bd78" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Scholarship</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
     </Object>
   </Objects>
 </Machine>

@@ -73,6 +73,7 @@
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
     <Program Alias="zoom" SecType="public">C:\Users\fongm\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
+    <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

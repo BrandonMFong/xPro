@@ -1,22 +1,18 @@
 class Calculations
 {
-    [int]$QuantizedStepSize;
-    [string]$PathToGradeImport = $null;
-    [System.Object[]]$GradeColors = $null;
+    [int]$QuantizedStepSize=0;
+    hidden [string]$PathToGradeImport = $null;
+    hidden [System.Object[]]$GradeColors = $null;
     hidden [string]$ImportDir = $($PSScriptRoot + "\..\Resources\MathImports");  
 
     Calculations() 
-    {
-        $this.QuantizedStepSize = 1; # basically not event quantizing
-        $this.MakeNecessaryDirectories();
-    }
+    {$this.MakeNecessaryDirectories();}
 
     Calculations([int]$QuantizedStepSize=$null,[string]$PathToGradeImport,[System.Object[]]$GradeColors)
     {
         if($null -ne $QuantizedStepSize){$this.QuantizedStepSize = $QuantizedStepSize;}
-        else{$this.QuantizedStepSize = 5;}
-        $this.PathToGradeImport = $PathToGradeImport;
-        $this.GradeColors = $GradeColors;
+        if([string]::IsNullOrEmpty($PathToGradeImport)){$this.PathToGradeImport = $PathToGradeImport;}
+        if([string]::IsNullOrEmpty($GradeColors)){$this.GradeColors = $GradeColors;}
         $this.MakeNecessaryDirectories();
     }
 

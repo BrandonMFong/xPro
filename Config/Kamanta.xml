@@ -32,14 +32,14 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
-  <!-- <NetDrives>
+  <NetDrives>
     <NetDrive>
       <DriveLetter>K:</DriveLetter>
-      <IPAddress SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</IPAddress>
-      <Username SecType="public"></Username>
-      <Password SecType="public"></Password>
+      <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
+      <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
+      <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
     </NetDrive>
-  </NetDrives> -->
+  </NetDrives>
   <!-- Modules -->
   <Modules>
     <Module>B:\XmlPSProfile\Modules\ConfigHandler.psm1</Module>

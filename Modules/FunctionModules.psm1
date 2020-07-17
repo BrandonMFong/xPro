@@ -328,10 +328,56 @@ function LoadDrives
                 Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
+
+            # This statement checks to see if the network drive was set
             if(!(Test-Path $val.DriveLetter))
             {
-                # net use $XMLReader.Machine.NetDrives.NetDrive.DriveLetter $XMLReader.Machine.NetDrives.NetDrive.IPAddress.InnerText
-                net use $val.DriveLetter $(Evaluate -value:$val.IPAddress) $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);
+                # Get Subnet and default gateway for the current network
+                [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
+                [String[]]$NetInfo = [string[]]::new($null);
+                for([int]$i=0;$i -lt $ip.Count;$i++)
+                {
+                    # Assuming it is always Wireless LAN adapter Wi-Fi 
+                    if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
+                    {
+                        [int16]$j = 1;
+                        [byte]$l = 0;
+
+                        # Gets the segment in the ipconfig
+                        while($true)
+                        {
+                            $l = $($ip[$i + $j].Length -gt 0).ToByte($null);
+                            if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
+                            $j++;
+                        }
+                        $NetInfo = $ip[$i..($i+$j-1)]; 
+                        break;
+                    }
+                }
+                if([string]::IsNullOrEmpty($NetInfo)){throw "Something bad happened."} # TODO throw=>break
+                
+                # Look through the net info
+                [String]$DefaultGateway = $null; # Get Gateway IP
+                [String]$SubnetMask = $null; # Get subnet ip
+                [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
+                for([int]$i=0;$i -lt $NetInfo.Count;$i++)
+                {
+                    if($NetInfo[$i].Contains('Default Gateway'))
+                    {
+                        # checks if IPv6 since it has letters
+                        if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
+                        {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
+                        else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+                    }
+                    if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+                }
+                if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){throw "They are still null!";} # TODO throw=>break;
+
+                [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
+
+                [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
+                [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
+                if($IpAddr -eq $DefaultGate){net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
             }
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
@@ -356,6 +402,58 @@ function LoadFunctions
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
+
+# Function to get the root host name from a network file path
+# mainly used for file share
+function GetHostName
+{
+    Param([String]$Path)
+    return $Path -split "\\" | Where-Object {  $_ -ne ""  } | Select-Object -first 1;
+}
+
+# Retrieves it from subnet mask
+# Ipv4
+function GetBaseIP 
+{
+    Param([string]$SubnetMask,[String]$IpAddress)
+
+    [int16]$maxbytes = 4;
+
+    # Manually split the string 
+    # Pretty similar to the List.psm1 module
+    [String[]]$SubnetArray = $(SplitString -originalstring:$(GetHostName -Path:$SubnetMask) -Delimiter:$("."));
+    [String[]]$IpArray = $(SplitString -originalstring:$(GetHostName -Path:$IpAddress) -Delimiter:$("."));
+
+    if(($SubnetArray.Count -gt $maxbytes) -or ($IpArray.Count -gt $maxbytes)){throw "Something bad happened";} # populated the array incorrectly, should not be more than 4 bytes
+
+    # Get the base Ip strings
+    [String]$BaseIp = $null;
+    [Calculations]$Math = [Calculations]::new();
+    for([int16]$i = 0;$i -lt $maxbytes;$i++)
+    {
+        $BaseIp += $Math.BinaryToInt($Math.And($SubnetArray[$i].ToInt16($null),$IpArray[$i].ToInt16($null))).ToString() + "."; # There is an issue here
+    }
+
+    # Returns a string
+    return $BaseIp.Substring(0,$BaseIp.Length-1); # -1 removes the . in the end
+}
+
+# splits string by delimiter
+# There is already a function but wanted to try this myself
+function SplitString
+{
+    Param([String]$originalstring,[String]$Delimiter,[int]$i=0,[string]$currentstring=$null,[string[]]$finalarray=[string[]]::new($null))
+    
+    if($i -lt $originalstring.Length)
+    {
+        $currentstring += $originalstring[$i]; # Concat the char
+        [Byte]$IsAtSplit = $(($originalstring[$i+1] -eq $Delimiter) -or [String]::IsNullOrEmpty($originalstring[$i+1])).ToByte($null); # If the next index is the delimiter value, true; else false
+        if($IsAtSplit){$finalarray += $currentstring; $currentstring = $null} # Add to the array
+        SplitString -originalstring:$originalstring -Delimiter:$Delimiter -i:$($i+1+$IsAtSplit) -currentstring:$currentstring -finalarray:$finalarray;
+    }
+
+    # should return an array with a length of 4
+    else{return $finalarray;} # return the array
 }
 
 function CheckCount # I guess in Powershell v5 the count on an xml with one node returns node
@@ -365,45 +463,43 @@ function CheckCount # I guess in Powershell v5 the count on an xml with one node
     else{return $Count;}
 }
 
-
-
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-        # [XML]$x = Get-Content $($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
-        [XML]$x = _GetXMLContent;
-        $add = $x.CreateElement($Tag); 
+    [XML]$x = _GetXMLContent;
+    $add = $x.CreateElement($Tag); 
 
-        $Alias = Read-Host -Prompt "Set Alias";
-        $add.SetAttribute("Alias", $Alias);
+    $Alias = Read-Host -Prompt "Set Alias";
+    $add.SetAttribute("Alias", $Alias);
 
-        $Security = Read-Host -Prompt "Is this private? (y/n)?";
-        if($Security -eq "y")
-        {
-            $add.SetAttribute("SecType", "private");
-            
-            $insert = GetObjectByClass('SQL');
-            [int]$MaxID = $insert.GetMax('PersonalInfo');
-            [string]$GuidString = $insert.GetGuidString();
-            [string]$subject = Read-Host -Prompt "Subject?";
-            [int]$TypeContentID = ($insert.Query("select id as ID from typecontent where externalid = '$(GetTCExtID($Tag))'")).ID; # id must exist
-            $querystring = "insert into PersonalInfo values ($($MaxID), $($GuidString),'$($PathToAdd)', '$($subject)', $($TypeContentID), GETDATE(), GETDATE())";
-
-            Write-Host "`nQuery: " -NoNewline;Write-Host "$($querystring)`n" -foregroundcolor Cyan;
-            $insert.Query($querystring);
-
-            $Var = ($insert.Query("select guid as Guid from personalinfo where id = $($MaxID)")).Guid;
-            $add.InnerXml = $Var.Guid; # Adding guid
-        }
-        else
-        {
-            $add.SetAttribute("SecType", "public")
-            $add.InnerXml = $PathToAdd; # Adding literally path
-        }
+    $Security = Read-Host -Prompt "Is this private? (y/n)?";
+    if($Security -eq "y")
+    {
+        $add.SetAttribute("SecType", "private");
         
-        AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
-        $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+        $insert = GetObjectByClass('SQL');
+        [int]$MaxID = $insert.GetMax('PersonalInfo');
+        [string]$GuidString = $insert.GetGuidString();
+        [string]$subject = Read-Host -Prompt "Subject?";
+        [int]$TypeContentID = ($insert.Query("select id as ID from typecontent where externalid = '$(GetTCExtID($Tag))'")).ID; # id must exist
+        $querystring = "insert into PersonalInfo values ($($MaxID), $($GuidString),'$($PathToAdd)', '$($subject)', $($TypeContentID), GETDATE(), GETDATE())";
+
+        Write-Host "`nQuery: " -NoNewline;Write-Host "$($querystring)`n" -foregroundcolor Cyan;
+        $insert.Query($querystring);
+
+        $Var = ($insert.Query("select guid as Guid from personalinfo where id = $($MaxID)")).Guid;
+        $add.InnerXml = $Var.Guid; # Adding guid
+    }
+    else
+    {
+        $add.SetAttribute("SecType", "public")
+        $add.InnerXml = $PathToAdd; # Adding literally path
+    }
+    
+    AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
+    $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
 }
+
 function GetFullFilePath([string]$File)
 {
     return (Get-ChildItem $File).FullName
@@ -496,6 +592,7 @@ function CheckCredentials
                 Write-Error "WRONG CREDENTIALS";
                 Start-Sleep 1;
                 Pop-Location;
+                $XMLReader = $null;$AppPointer = $null;
                 if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
                 else{exit;}
             }
@@ -550,8 +647,15 @@ function GenerateEncryption
 function CreateCredentials
 {
     [System.Object[]]$user = @{"Username"="";"Password"="";"Decode"=""};
-    [string]$CredPath = ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
-    New-Item $CredPath -Force;
-    $user | ConvertTo-Json | Out-File $CredPath;
-    Write-Host "Created credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;
+    if(Test-Path $($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString())
+    {
+        Write-Warning "Credential file already exists!";
+    }
+    else 
+    {
+        [string]$CredPath = ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
+        New-Item $CredPath -Force;
+        $user | ConvertTo-Json | Out-File $CredPath;
+        Write-Warning "`nCreated credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;
+    }
 }

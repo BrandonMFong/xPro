@@ -48,7 +48,7 @@ public class Audio
     }
 }
 '@ -IgnoreWarnings;
-function Set-Volume
+function Set-Sound
 {
     # https://stackoverflow.com/questions/21355891/change-audio-level-from-powershell
     Param([double]$Adjust=0,[switch]$Up,[switch]$Down,[switch]$Mute,[switch]$Unmute)

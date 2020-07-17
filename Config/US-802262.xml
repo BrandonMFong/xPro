@@ -46,14 +46,14 @@
     <ListInboxMax>10</ListInboxMax>
     <ListOrderBy>Asc</ListOrderBy>
   </Email>
-  <!-- <NetDrives>
+  <NetDrives>
     <NetDrive>
-      <DriveLetter>R:</DriveLetter>
-      <IPAddress SecType="private">4e531269-0528-4a45-8784-89e1022eb252</IPAddress>
-      <Username SecType="private">66f046c1-2806-492d-96fd-e3981edc8397</Username>
-      <Password SecType="private">1821F1C9-88A2-428C-AB1C-AC414B98F397</Password>
+      <DriveLetter>K:</DriveLetter>
+      <IPAddress SecType="private">e9ba5288-1569-4c17-8190-57548cad4327</IPAddress>
+      <Username SecType="private">7cfc4785-086c-486b-9d51-e8c0f8f3d560</Username>
+      <Password SecType="private">a47f0ecb-89e6-4ce7-8338-70d8e55f8a7c</Password>
     </NetDrive>
-  </NetDrives> -->
+  </NetDrives>
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>

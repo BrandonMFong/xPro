@@ -338,6 +338,26 @@ function LoadDrives
     }
 }
 
+function LoadFunctions
+{
+    Param($XMLReader=$XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($XMLReader.Machine.Functions))
+    {
+        [int]$Complete = 1;
+        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Functions.Function.Count);
+        foreach($val in $XMLReader.Machine.Functions.Function)
+        {
+            if(!$Verbose)
+            {
+                Write-Progress -Activity "Loading Functions" -Status "Function: $($val.'#cdata-section')" -PercentComplete (($Complete / $Total)*100);
+                $Complete++;
+            }
+            Invoke-Expression $val.'#cdata-section';
+        } 
+        if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
+    }
+}
+
 function CheckCount # I guess in Powershell v5 the count on an xml with one node returns node
 {
     Param([int]$Count)

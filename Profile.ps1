@@ -37,6 +37,9 @@ Push-Location $AppPointer.Machine.GitRepoDir;
 
     <### NETWORK DRIVES ###>
         LoadDrives -XMLReader:$XMLReader -Verbose:$Verbose
+
+    <### FUNCTIONS ###>
+        LoadFunctions -XMLReader:$XMLReader -Verbose:$Verbose
         
     <### START ###>
         if(($XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript)) 

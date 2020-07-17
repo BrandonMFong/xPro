@@ -41,6 +41,9 @@
       <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
     </NetDrive>
   </NetDrives>
+  <Functions>
+    <Function><![CDATA[function VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
+  </Functions>
   <!-- Modules -->
   <Modules>
     <Module>B:\XmlPSProfile\Modules\ConfigHandler.psm1</Module>
@@ -69,7 +72,7 @@
     <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program>
     <Program Alias="umount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
     <Program Alias="Query" SecType="public">$PSScriptRoot\..\Functions\Query.ps1</Program>
-    <Program Alias="VC-Powershell" SecType="public">B:\XmlPSProfile\VC-Powershell.code-workspace</Program>
+    <!-- <Program Alias="VC-Powershell" SecType="public">B:\XmlPSProfile\VC-Powershell.code-workspace</Program> -->
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="putty" SecType="public">C:\Program Files\PuTTY\putty.exe</Program>
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>

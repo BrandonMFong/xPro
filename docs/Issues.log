@@ -1,4 +1,29 @@
 
+Issue: Greetings on Beta test
+    Fix Commit:   
+    Branch:  
+    Status: Open
+    Notes: 
+        - Error:
+            Greetings.ps1: C:\Users\brandon.fong\Documents\PowerShell\Microsoft.PowerShell_profile.ps1:59
+            Line |
+            59 |              & $GreetingsPath @arg;
+                |                               ~~~~
+                | Cannot bind argument to parameter 'string' because it is an empty string.
+
+            InvalidOperation: C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\FunctionModules.psm1:120
+            Line |
+            120 |      elseif($value.InnerText.Contains('$')) # if powershell object
+                |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                | You cannot call a method on a null-valued expression.
+
+            Invoke-Expression: C:\Users\brandon.fong\Documents\PowerShell\Microsoft.PowerShell_profile.ps1:62
+            Line |
+            62 |  … -Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);} # Ex …
+                |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                | Cannot bind argument to parameter 'Command' because it is null.
+    Post:
+
 Issue: Reload Profile brings me back to repo
     Fix Commit:  b58fb8ee879ef14248c959c59a519699c14c4cf5 
     Branch:  

@@ -24,23 +24,25 @@ Push-Location $PSScriptRoot
         else{Pop-location;return 0;}
     }
 
-    $ForPrompt = [System.Collections.ArrayList]::new(); 
-    $ForConfig = [System.Collections.ArrayList]::new(); 
-    $i = 1;
-    Write-Host "Loading present config files on machine"
-    Get-ChildItem .\Config\ |
-        Foreach-Object{$ForPrompt.Add([string]$("$i - $($_.BaseName)"));$ForConfig.Add($_.Name);$i++}     
-    clear-host;
+    # Load files
+    [String[]]$ForPrompt = [String[]]::new($null); 
+    [String[]]$ForConfig = [String[]]::new($null); 
+    $ForPrompt = $(Get-ChildItem .\Config\ | Where-Object{$_.Mode -eq "-a---"}).BaseName;
+    for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
+    {
+        $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
+    }
+    $ForConfig = $(Get-ChildItem .\Config\ | Where-Object{$_.Mode -eq "-a---"}).Name;
+
     Write-Host "Config files to choose from:"
     $ForPrompt;
     $ConfigIndex = Read-Host -Prompt "Number";
-    write-host  "Current Config => $($ForConfig[$ConfigIndex-1])";
+    Write-Host  "`nCurrent Config => $($ForConfig[$ConfigIndex-1])`n" -ForegroundColor Cyan;
 
-    # .\setup-env.ps1 -ConfigName $ForConfig[$ConfigIndex-1] -XmlOverride $true;
     Push-Location $($PROFILE |Split-Path -Parent);
-        [XML]$XmlEditor = Get-Content .\Profile.xml;
-        $Path = $null;
-        Get-ChildItem .\Profile.xml |ForEach-Object {$Path = $_.FullName;}
+        [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml;
+        [String]$Path = $(Get-ChildItem .\Profile.xml).FullName;
+        # Get-ChildItem .\Profile.xml |ForEach-Object {$Path = $_.FullName;}
         $XmlEditor.Machine.ConfigFile = $ForConfig[$ConfigIndex-1];
         $XmlEditor.Save($Path);
     Pop-Location

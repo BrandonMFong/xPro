@@ -204,9 +204,9 @@ function Run-Update
 
     [String]$ParseString="MMddyyyy"
     [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
-    $args = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
+    $arg = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
     $command = $(Get-ChildItem $($PSScriptRoot + "\..\Functions\Sort-Object.ps1")).FullName;
-    [string[]]$InOrderScripts = $(& $command @args); # WOAH
+    [string[]]$InOrderScripts = $(& $command @arg); # WOAH
 
     [System.Xml.XmlDocument]$xml = _GetXMLContent;
     if([string]::IsNullOrEmpty($xml.Machine.UpdateStamp.Value)){[string]$val = "01012020";} # start of 2020

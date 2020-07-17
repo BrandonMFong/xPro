@@ -20,31 +20,56 @@
                     </xs:complexType>
                 </xs:element>
                 <!-- Start Script -->
-                <xs:element name="StartScript" minOccurs="1" maxOccurs="1">
+                <xs:element name="Start" minOccurs="1" maxOccurs="1">
                     <xs:annotation>
                         <xs:documentation>
                             Full path to the powershell script.  This will execute after profile is loaded
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="xs:string">
-                                <xs:attribute name="ClearHost" use="required">
-                                    <xs:annotation>
-                                        <xs:documentation>
-                                            Default is false.  Suggest to keep it false for debug.
-                                        </xs:documentation>
-                                    </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="xs:string">
-                                                <xs:enumeration value="True"/>
-                                                <xs:enumeration value="False"/>
-                                            </xs:restriction>
-                                        </xs:simpleType>
-                                </xs:attribute>
-                                <xs:attributeGroup ref="Enable"/>
-                            </xs:extension>
-                        </xs:simpleContent>
+                        <xs:sequence>
+                            <xs:element name="Script" minOccurs="0" maxOccurs="1" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        This script will be run after the load procedures finish
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Greetings" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The string that will passed with the link.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="Type" use="optional">
+                                                <xs:annotation>
+                                                    <xs:documentation>
+                                                        Default is 'Graffiti'. Visit http://patorjk.com/software/taag/ for more information on the different type
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ClearHost" use="required">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Default is false.  Suggest to keep it false for debug.
+                                </xs:documentation>
+                            </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="True"/>
+                                        <xs:enumeration value="False"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attributeGroup ref="Enable"/>
                     </xs:complexType>
                 </xs:element>
 

@@ -1,6 +1,6 @@
 <#
 .Synopsis
-   Adding Enabled to Git settings
+   TODO describe
 #>
 $error.Clear()
 try 
@@ -21,4 +21,9 @@ try
    $xml.Save($FilePath);
    return [int]0;
 }
-catch{Write-Host "$($_)`n$($stacktrace)`n" -ForegroundColor Red; return [int]1;}
+catch
+{
+   Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
+   Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
+   return [int]1;
+}

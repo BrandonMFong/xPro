@@ -1,4 +1,5 @@
 # Engineer: Brandon Fong
+# TODO change the parameter startscript to start and find other instances
 Param([bool]$StartDir=$true,[Bool]$StartScript=$true,[Bool]$DebugFlag=$false)
 
 <### CONFIG ###>
@@ -38,8 +39,25 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         LoadDrives -XMLReader:$XMLReader -Verbose:$Verbose
         
     <### START ###>
-        if($XMLReader.Machine.StartScript.ClearHost -eq "true"){Clear-Host;}
-        if(($XMLReader.Machine.StartScript.Enabled -eq "true") -and ($StartScript)) {Invoke-Expression $(Evaluate -value:$XMLReader.Machine.StartScript)}
+        if(($XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript)) 
+        {
+            if($XMLReader.Machine.Start.ClearHost -eq "true"){Clear-Host;} # clears host from the progess text
+
+            # Some output methods that should be defined
+            # Greetings, calendar
+
+            # Greetings
+            $arg = 
+            @{
+                string=$XMLReader.Machine.Start.Greetings.InnerXml; # String 
+                Type=$XMLReader.Machine.Start.Greetings.Type # Type of font
+            };
+            [String]$GreetingsPath = (Get-ChildItem $(".\Functions\Greetings.ps1")).FullName; # Gets the full file path to the greetings script
+            & $GreetingsPath @arg;
+
+            # If the script is defined, run it
+            if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Script)){Invoke-Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);} # Executes the file that the user defines
+        }
     
     try 
     {
@@ -57,9 +75,12 @@ Push-Location $AppPointer.Machine.GitRepoDir;
 
 Pop-Location;
 
+# Method for start directory 
 if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
 {Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}
 
+# For debug mode
+# It will run the debug script after profile is loaded
 if($DebugFlag)
 {
     $DebugScript = $($AppPointer.Machine.GitRepoDir + "\Resources\Debug.ps1");

@@ -53,6 +53,7 @@ function MakeClass($XmlElement)
     }
 }
 
+# Just gets the content, must convert at reference
 function _GetXMLContent
 {
     return Get-Content $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);

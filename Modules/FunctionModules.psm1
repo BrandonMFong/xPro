@@ -402,6 +402,7 @@ function LoadFunctions
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
+}
 
 # Function to get the root host name from a network file path
 # mainly used for file share

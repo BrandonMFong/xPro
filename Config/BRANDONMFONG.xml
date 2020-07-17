@@ -156,7 +156,7 @@
     <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
     <Program Alias="Dismount" SecType="public">B:\Powershell\Functions\DismountDrive.ps1</Program>
     <Program Alias="Vivado-Batch" SecType="public">C:\Xilinx\Vivado\2020.1\bin\vivado.bat</Program>
-    <Program Alias="Notebook" SecType="public">B:\NOTEBOOK\VC-Notes.code-workspace</Program>
+    <Program Alias="VC-Notebook" SecType="public">B:\NOTEBOOK\VC-Notes.code-workspace</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">

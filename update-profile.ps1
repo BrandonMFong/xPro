@@ -6,7 +6,7 @@ Push-Location $PSScriptRoot
     Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
 
     Push-Location $($PROFILE |Split-Path -Parent);
-        Get-ChildItem .\Microsoft.PowerShell_profile.ps1|
+        Get-ChildItem $($PROFILE | Split-Path -Leaf) |
             ForEach-Object {[datetime]$PSProfile = $_.LastWriteTime}   
     Pop-Location;
 
@@ -24,8 +24,8 @@ Push-Location $PSScriptRoot
         }
         if(($update -eq "y") -or ($ForceUpdate))
         {
-            Push-Location $($PROFILE |Split-Path -Parent);
-                Remove-Item .\Microsoft.PowerShell_profile.ps1 -Verbose; 
+            Push-Location $($PROFILE | Split-Path -Parent);
+                Remove-Item $($PROFILE | Split-Path -Leaf) -Verbose; 
                 Copy-Item $ProfPath . -Verbose;
                 Rename-Item .\Profile.ps1 $($PROFILE|Split-Path -Leaf) -Verbose;
             Pop-Location;

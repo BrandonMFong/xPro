@@ -28,7 +28,7 @@
       <Commits>True</Commits>
     </GitSettings>
     <Security>
-      <Secure>True</Secure>
+      <Secure>False</Secure>
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>

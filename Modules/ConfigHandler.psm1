@@ -221,7 +221,7 @@ function Run-Update
         {
             $script = $(Get-ChildItem $($PSScriptRoot + "\..\Config\UpdateConfig\$($InOrderScripts[$i]).ps1")).FullName;
             & $script; # WOAH
-            Write-Host "Executed $($script)" -ForegroundColor Gray;
+            Write-Host "Executing: $(Get-Help $script -Examples)" -ForegroundColor Gray;
         }
     }
     Write-Host "`n";

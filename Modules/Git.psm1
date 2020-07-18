@@ -13,7 +13,7 @@ function Push-With-Tag
 
 function Set-Tag
 {
-    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch)
+    Param([string]$CommitID=$null,[Switch]$Major,[Switch]$Minor,[Switch]$BugPatch)
     [String]$tag = "$(git describe --tags)";
     $tag = $tag.Substring(0,$tag.IndexOf("-"));
     [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
@@ -40,5 +40,5 @@ function Set-Tag
     }
     
     # Tag
-    git tag $TagString;
+    git tag $TagString $CommitID;
 }

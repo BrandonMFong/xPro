@@ -1,8 +1,8 @@
 
 Issue: Greetings on Beta test
-    Fix Commit:   
+    Fix Commit:   f92255472da4284cbc7a65cba6133baa10e42e6b
     Branch:  
-    Status: Open
+    Status: Closed
     Notes: 
         - Error:
             Greetings.ps1: C:\Users\brandon.fong\Documents\PowerShell\Microsoft.PowerShell_profile.ps1:59
@@ -23,6 +23,7 @@ Issue: Greetings on Beta test
                 |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 | Cannot bind argument to parameter 'Command' because it is null.
     Post:
+        - Did not check if the user had greetings configured
 
 Issue: Reload Profile brings me back to repo
     Fix Commit:  b58fb8ee879ef14248c959c59a519699c14c4cf5 

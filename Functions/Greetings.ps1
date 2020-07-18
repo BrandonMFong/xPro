@@ -3,13 +3,14 @@
     Retrieves the javascript results from the http://patorjk.com/software/taag/ site using Internet Explorer
 .Notes
     This is not dependent on other files so this can be a gist
-
+    This script will check if the file exists by default to display content
+    But it will by default call the URL to get the html content
 #>
 Param
 (
     [Parameter(Mandatory)][String]$string,
-    [Parameter(Mandatory)][String]$Type
-    # [switch]$SaveToFile=$false
+    [Parameter(Mandatory)][String]$Type,
+    [switch]$SaveToFile=$false
 )
 
 [string]$DirectoryPath = $PSScriptRoot + "\..\Resources\Greetings\"; # Folder to save
@@ -30,8 +31,13 @@ else
     # should change if user wants
     if(!(Test-Path $($DirectoryPath))){mkdir $($DirectoryPath);} # Make the directory 
 
-    # Save to file 
-    $ie.document.getElementById('taag_output_text').OuterText | Out-File $FilePath -Force;
-    Get-Content $FilePath; # Get the content
+    # By default the file will not save to the file
+    if($SaveToFile)
+    {
+        # Save to file 
+        $ie.document.getElementById('taag_output_text').OuterText | Out-File $FilePath -Force;
+        Get-Content $FilePath; # Get the content
+    }
+    else{$ie.document.getElementById('taag_output_text').OuterText;}
     return;
 }

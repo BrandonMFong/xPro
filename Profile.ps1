@@ -50,13 +50,16 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             # Greetings, calendar
 
             # Greetings
-            $arg = 
-            @{
-                string=$XMLReader.Machine.Start.Greetings.InnerXml; # String 
-                Type=$XMLReader.Machine.Start.Greetings.Type # Type of font
-            };
-            [String]$GreetingsPath = (Get-ChildItem $(".\Functions\Greetings.ps1")).FullName; # Gets the full file path to the greetings script
-            & $GreetingsPath @arg;
+            if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings))
+            {
+                $arg = 
+                @{
+                    string=$XMLReader.Machine.Start.Greetings.InnerXml; # String 
+                    Type=$XMLReader.Machine.Start.Greetings.Type # Type of font
+                };
+                [String]$GreetingsPath = (Get-ChildItem $(".\Functions\Greetings.ps1")).FullName; # Gets the full file path to the greetings script
+                & $GreetingsPath @arg;
+            }
 
             # If the script is defined, run it
             if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Script)){Invoke-Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);} # Executes the file that the user defines

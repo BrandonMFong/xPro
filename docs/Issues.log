@@ -24,6 +24,8 @@ Issue: Profile load error
         
         
         Version: 3.8.1
+
+        - hmmmm, might just be the fact that I did not restart the session.  XmlReader still must have had the StartScript node
     Post:
 
 Issue: Greetings on Beta test

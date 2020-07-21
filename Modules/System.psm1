@@ -30,8 +30,8 @@ function CL {Clear-Host;Get-ChildItem;}
 
 function Restart-Session
 {
-    if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;exit;}
-    else{Start-Process pwsh;exit;}
+    if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
+    else{Start-Process pwsh;Stop-Process -Id $PID;}
 }
 function Start-Admin{Start-Process powershell -Verb Runas;}
 

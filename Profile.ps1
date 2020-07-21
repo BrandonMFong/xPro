@@ -16,8 +16,15 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
     <### CHECK UPDATES ###>
-        if(.\update-profile.ps1){throw "Profile was updated, please rerun Profile load.";}
-        if(.\update-config.ps1 -CheckUpdate){throw "Config was updated, please rerun Profile load.";}
+        if((.\update-profile.ps1) -or (.\update-config.ps1 -CheckUpdate))
+        {
+            if("y" -eq $(Read-Host -Prompt "Do you want to restart powershell?"))
+            {
+                if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
+                else{Start-Process pwsh;Stop-Process -Id $PID;}
+            }
+            else{exit;}
+        }
 
     <### GET CREDENTIALS ###>
         CheckCredentials;

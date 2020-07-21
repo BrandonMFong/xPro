@@ -18,8 +18,12 @@ Push-Location $PSScriptRoot
             {
                 Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local -DisableNameChecking;
                 Run-Update; # Updates configuration file
-                Pop-location; return 1; # Exiting code
+                Pop-location; 
+                
+                Write-Warning "Config was updated";
+                return 1; # Exiting code
             }
+            else{Pop-Location; return 0;}
         }
         else{Pop-location;return 0;}
     }

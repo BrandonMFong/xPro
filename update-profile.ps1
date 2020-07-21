@@ -40,5 +40,9 @@ Push-Location $PSScriptRoot
     }
 Pop-Location
 
-if($Updated){return 1;}
+if($Updated)
+{
+    Write-Warning "Profile was updated";
+    return 1;
+}
 else{return 0;}

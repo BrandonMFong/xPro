@@ -71,6 +71,7 @@
     <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
     <Directory Alias="col" SecType="public">B:\COLLEGE</Directory>
     <Directory Alias="fpga" SecType="public">B:\SOURCE\Repo\FPGAClock</Directory>
+    <Directory Alias="docs" SecType="public">B:\DOCUMENTS</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -327,6 +328,8 @@
       <Value Lvl="1" Node="bd78" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Scholarship</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">SSUid</Key>
+      <Value Lvl="1" Node="bd78" SecType="private">7501eb91-2412-4902-a9c2-70336ee3502f</Value>
     </Object>
   </Objects>
 </Machine>

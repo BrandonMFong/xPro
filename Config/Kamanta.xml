@@ -33,6 +33,17 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
+  <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
+    <IncludeFields>
+      <To>True</To>
+      <CC>True</CC>
+      <From>True</From>
+      <Subject>True</Subject>
+      <Body>True</Body>
+    </IncludeFields>
+    <ListInboxMax>10</ListInboxMax>
+    <ListOrderBy>Desc</ListOrderBy>
+  </Email>
   <NetDrives>
     <NetDrive>
       <DriveLetter>K:</DriveLetter>
@@ -288,6 +299,8 @@
       <Value Lvl="0" SecType="private">c9208c70-3056-4936-8aa7-02b26b57b8f1</Value>
       <Key Lvl="0" SecType="public">MySSU</Key>
       <Value Lvl="0" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
+      <Key Lvl="0" SecType="public">Ebay</Key>
+      <Value Lvl="0" SecType="private">145204d1-62c3-4452-ad92-97b9fb2cc328</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">

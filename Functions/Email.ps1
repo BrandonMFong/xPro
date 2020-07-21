@@ -9,7 +9,7 @@
 #>
 
 Param([Switch]$Count, [Switch]$ListMessages,[Switch]$GetObject,[Switch]$GetBody,[int]$index=0,[switch]$BoundedList)
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\OutlookType.psm1") -Scope Local;
 [XML]$xml = _GetXMLContent;
 $x = $xml.Machine.Email;
 $inbox = InboxObject;

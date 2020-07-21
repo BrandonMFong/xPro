@@ -1,7 +1,7 @@
 # Script after profile loads
  	Param([switch]$ClearScreen)
 	if($ClearScreen){Clear-Host;}
-	Greetings;
+	# Greetings;
 	Write-Host "`n";
 	Get-Calendar;
 	Write-Host "`n[Special Days]" -ForegroundColor Green;

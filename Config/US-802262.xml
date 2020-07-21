@@ -3,6 +3,7 @@
   <UpdateStamp Value="07202020" Count="8" />
   <Start Enabled="True" ClearHost="False">
     <Script>C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Script>
+    <Greetings Save="True">Kiran Analytics</Greetings>
   </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -190,7 +191,7 @@
           <ServerInstance>US-802262</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>EventDate|ScriptPersonalInfoLink|TypeContentID|PersonalInfoID</SQLConvertFlags>
+          <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>False</CreateDatabase>
           <Tables>

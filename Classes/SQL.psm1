@@ -211,7 +211,8 @@ class SQL
         # 'TypeContentID' is causing 'ID' to go here
         if($this.SQLConvertFlags.Contains($val.COLUMN_NAME))
         {
-            if($val.DATA_TYPE -eq "uniqueidentifier"){$string = "'$($val.Value)'";} # for the case the value is a guid and I didn't provide quotes
+            # guids and datetimes need quotes
+            if(($val.DATA_TYPE -eq "uniqueidentifier") -or ($val.DATA_TYPE -eq "datetime")){$string = "'$($val.Value)'";}
             else{$string = "$($val.Value)";}
         }
         else 

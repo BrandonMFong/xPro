@@ -2,7 +2,7 @@
 Issue: time Stamp error
     Fix Commit:   
     Branch:  
-    Status: Open
+    Status: Closed
     Notes: 
         Invoke-Sqlcmd: C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\SQL.psm1:55
         Line |
@@ -10,7 +10,9 @@ Issue: time Stamp error
             |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             | Incorrect syntax near '08'. Incorrect syntax near '08'.   Msg 102, Level 15,
             | State 1, Procedure , Line 1.
+        - the eventdate did not have quotes in the query
     Post:
+        - Put a check on the sqlconvert for convertflags that are datetime
 
 Issue: Profile load error
     Fix Commit:   

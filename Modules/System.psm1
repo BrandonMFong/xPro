@@ -48,6 +48,9 @@ function Get-BatteryLife
 
 function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}
 
+# https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html
+function Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}
+
 function Set-Brightness
 {
     param([int]$Percentage)

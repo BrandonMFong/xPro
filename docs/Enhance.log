@@ -1,4 +1,9 @@
 
+Topic: Config runtime vs load time
+    Notes:
+        - Functions should be able to dynamically read config files
+        - Modules should not
+
 Topic: Private Alias
     Notes:
         - Don't want the applications I call to be public

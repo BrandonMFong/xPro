@@ -204,12 +204,6 @@ function Run-Update
 
     Write-Host "`nRunning upgrade scripts`n" -ForegroundColor Cyan;
 
-    # TODO delete
-    # [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\..\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
-    # $arg = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
-    # $command = $(Get-ChildItem $($PSScriptRoot + "\..\Functions\Sort-Object.ps1")).FullName;
-    # [string[]]$InOrderScripts = $(& $command @arg); # WOAH
-    
     [String]$ParseString="MMddyyyy"
 
     [System.Xml.XmlDocument]$xml = _GetXMLContent;
@@ -246,4 +240,5 @@ function GetText
         }
         if(($Content[$i].Substring(0,$Content[$i].Length) -eq ".Synopsis") -and !$FoundSynopsis){$FoundSynopsis = $true;}
     }
+    Write-Host "`n";
 }

@@ -422,9 +422,6 @@ class SQL
                 # ohhh, I'm loading the Value variable so the query constructor has something to check against
                 foreach($val in $values)
                 {
-                    # if column is ID or a datetime type, the value will be handled by SQLConvert
-                    # if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime") -and ($val.COLUMN_NAME -ne "GUID"))
-
                     # If it is of the ignored types or if the column is flagged for user to provide
                     if(!$this.IsIgnoredTypes($val) -or $this.IsFlagged($val.COLUMN_NAME))
                     {$val.Value = $this.GetSQLBaseValue($Row,$null,$val.COLUMN_NAME);}

@@ -2,7 +2,7 @@
 .Synopsis
    Setting Secure to FALSE
    Must redo the credentials
-   Removing Count attribute from updatestamp nodew
+   Removing Count attribute from updatestamp node
 #>
 $error.Clear()
 try 

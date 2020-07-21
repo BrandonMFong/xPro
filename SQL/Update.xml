@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Update.xsd">
+  <ScriptBlock Topic="Extending PersonalInfo''s ExternalID varchar length" ScriptID="862329DB-3C7F-49D9-A9AC-5A2DE4986567" IsFunction="False">
+    <![CDATA[
+      IF exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'PersonalInfo')
+      BEGIN
+          IF exists (select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'PersonalInfo' and COLUMN_NAME = 'ExternalID')
+          BEGIN
+              ALTER TABLE PersonalInfo
+              ALTER COLUMN ExternalID varchar(200)
+          END
+      END
+    ]]>
+  </ScriptBlock>
   <ScriptBlock Topic="Dropping LinkGuid column" ScriptID="F1BDE7B2-5B1D-47F4-BDDE-FF8C64B5F066" IsFunction="False">
     <![CDATA[
       /*** Dropping LinkGuid column ***/
       if exists (select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'LinkInfo') 
       begin 
-        alter table LinkInfo 
-        drop column LinkGuid /* This is assuming the linkinfo table was not initialized already */
+        if exists (select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'LinkInfo' and COLUMN_NAME = 'LinkGuid')
+        begin
+          alter table LinkInfo 
+          drop column LinkGuid /* This is assuming the linkinfo table was not initialized already */
+        end
       end
     ]]>
   </ScriptBlock>

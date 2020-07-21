@@ -109,6 +109,11 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
     {
         return $null;
     }
+
+    # I am assuming that the link info method is the only method that does not use xmlelements
+    # That is why I am checking if the value variable has the InnerText property because only an xmlelement would have that
+    elseif([string]::IsNullOrEmpty($value.InnerText)){return $value;} # for the case of the link table 
+    
     elseif($value.SecType -eq "private")
     {
         return $Sql.InputReturn($value.InnerText);
@@ -192,7 +197,8 @@ function SortHash([ref]$t,[ref]$n,[int]$index,[System.Xml.XmlElement]$Key)
     else{SorHash -t ([ref]$t) -n ([ref]$n) -index:$($index+1) -Key:$Key;}
 }
 
-function MakeHash($value,[int]$lvl,[string]$Node)
+# Making this function multi purpose for the link info method
+function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
 {
     [Hashtable]$t = @{}; # Init hash object 
     # $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
@@ -307,11 +313,24 @@ function LoadObjects
                 "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
                 "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
                 "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
+                "LinkedObject"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(GetLinkedInfo -Link:$val.Link) -Force -Verbose:$Verbose -Scope Global; break;}
                 default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
             }
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;}
     }
+}
+
+# This function can be the same as the Make Hash method
+# first let's just produce one node level
+function GetLinkedInfo
+{
+    Param([string]$Link)
+    [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\LinkInfo.sql)";
+    $querystring = $querystring.Replace("@Link","'$($Link)'");
+    [System.Object[]]$results = $Sql.Query($querystring);
+
+    return $(MakeHash -value:$results -lvl 0 -Node $null);
 }
 
 function LoadDrives

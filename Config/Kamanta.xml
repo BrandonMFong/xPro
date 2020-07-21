@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="07202020" Count="7" />
+  <UpdateStamp Value="07202020" Count="8" />
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big">Welcome Brandon</Greetings>
   </Start>
@@ -103,9 +103,10 @@
           <ServerInstance>KAMANTA\KAMANTA</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
+          <!-- TODO put in upgrade script -->
+          <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
-          <CreateDatabase>False</CreateDatabase>
+          <CreateDatabase>True</CreateDatabase>
           <Tables>
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -115,6 +116,7 @@
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
             <Table Name="TypeContent">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -183,6 +185,14 @@
                   <Value ColumnName="Description">Update Scripts</Value>
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="Description">Linked Object Name</Value>
+                  <Value ColumnName="ExternalID">LinkedObjectName</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Linked Object Value</Value>
+                  <Value ColumnName="ExternalID">LinkedObjectValue</Value>
+                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">
@@ -211,10 +221,59 @@
               <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
                 <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
               </Column>
+              <Rows>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Microsoft</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">50e1f650-d981-4f8d-8ae9-32d68e0e0384</Value>
+                  <Value ColumnName="PersonalInfoID">1</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Kojami</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">fe178141-3ae2-4092-8fd5-1d3b0e2a2f1b</Value>
+                  <Value ColumnName="PersonalInfoID">2</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Gmail</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">a94612fa-923b-40ad-a6d1-a4ae2d7b4486</Value>
+                  <Value ColumnName="PersonalInfoID">3</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Default</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">3e39a7c2-bbb0-474e-9a88-1802fa6a515f</Value>
+                  <Value ColumnName="PersonalInfoID">4</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Fafsa</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">8e1a3572-a188-432a-bc88-5adeaaa757a1</Value>
+                  <Value ColumnName="PersonalInfoID">5</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_MySSU</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">236e2a38-5549-41fe-810c-54d02bf62d77</Value>
+                  <Value ColumnName="PersonalInfoID">9</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Ebay</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">9ffba5f0-6bf9-48f0-9239-bbeceb38a704</Value>
+                  <Value ColumnName="PersonalInfoID">23</Value>
+                </Row>
+              </Rows>
             </Table>
           </Tables>
         </SQL>
       </Class>
+    </Object>
+    <!-- $Passwords -->
+    <Object Type="LinkedObject">
+      <VarName SecType="public">Passwords</VarName>
+      <Link>34060702-dcb5-4603-9a25-69953240c008</Link>
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
@@ -284,24 +343,6 @@
       <Value Lvl="1" Node="96ca" SecType="private">a731b25d-78a7-4fa5-bae1-c3743a18f5e2</Value>
       <Key Lvl="1" Node="96ca" SecType="public">Main</Key>
       <Value Lvl="1" Node="96ca" SecType="private">47056fd7-be46-4402-870b-6dd283a9ef5b</Value>
-    </Object>
-    <!-- $Passwords -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Passwords</VarName>
-      <Key Lvl="0" SecType="public">Microsoft</Key>
-      <Value Lvl="0" SecType="private">321d242c-65a8-4c16-8c23-81719836d323</Value>
-      <Key Lvl="0" SecType="public">Kojami</Key>
-      <Value Lvl="0" SecType="private">30944096-496e-485a-bd78-6d8f479b84e0</Value>
-      <Key Lvl="0" SecType="public">Gmail_fong.m.brandon97</Key>
-      <Value Lvl="0" SecType="private">f0f6a5bb-9bfc-45a6-96ca-7fe6d2e14eca</Value>
-      <Key Lvl="0" SecType="public">Default</Key>
-      <Value Lvl="0" SecType="private">6ead82ca-7390-4568-af75-63549d55308d</Value>
-      <Key Lvl="0" SecType="public">Fafsa</Key>
-      <Value Lvl="0" SecType="private">c9208c70-3056-4936-8aa7-02b26b57b8f1</Value>
-      <Key Lvl="0" SecType="public">MySSU</Key>
-      <Value Lvl="0" SecType="private">df16e639-4ee1-4b30-8cd2-9576597000c5</Value>
-      <Key Lvl="0" SecType="public">Ebay</Key>
-      <Value Lvl="0" SecType="private">145204d1-62c3-4452-ad92-97b9fb2cc328</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">

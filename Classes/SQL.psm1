@@ -8,7 +8,7 @@ class SQL
     hidden [System.Object[]]$results;
     [System.Object[]]$tables;
     hidden [Boolean]$UpdateVerbose;
-    hidden [string]$SQLConvertFlags;
+    hidden [string[]]$SQLConvertFlags;
     hidden [Boolean]$RunUpdates;
     hidden [Boolean]$CreateDatabase;
 
@@ -20,7 +20,7 @@ class SQL
         $this.serverinstance = $serverinstance;
         $this.tables = $null;
         $this.UpdateVerbose = $false;
-        $this.SQLConvertFlags = $null;
+        $this.SQLConvertFlags = [string[]]::new($null);
         $this.RunUpdates = $false;
         $this.CreateDatabase = $false;
     }
@@ -34,7 +34,7 @@ class SQL
         $this.serverinstance = $serverinstance;
         $this.tables = $tables
         $this.UpdateVerbose = $UpdateVerbose;
-        $this.SQLConvertFlags = $SQLConvertFlags;
+        $this.SQLConvertFlags = $(SplitString -originalstring:$SQLConvertFlags -Delimiter:$("|")); # Assuming this function is global
         $this.RunUpdates = $RunUpdates;
         $this.CreateDatabase = $CreateDatabase;
         if($SyncConfiguration){$this.SyncConfig();}
@@ -50,7 +50,15 @@ class SQL
 
     hidden [void] QueryNoReturn([string]$querystring) # TODO replace all lines with this method
     {
-        Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        try 
+        {
+            Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
+        }
+        catch
+        {
+           Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
+           Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
+        }
     }
 
     [system.object[]]ShowTables()
@@ -139,58 +147,52 @@ class SQL
         $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value); # add another column, this makes sure that columns/data is in order
         return $values;
     }
-
-    # Correction, this is just the type of ignored types that the code will generate
-    hidden [boolean] IsIgnoredTypes($val)
-    {
-        return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
-    }
     
     [int]GetMax([string]$Table)
     {
         return ($this.Query("select isnull(max(id)+1, 1) as Max from $($Table)")).Max;
     }
 
+    # TODO delete
+    # [System.Object[]]Select()
+    # {
+    #     $querystring = $null;
 
-    [System.Object[]]Select()
-    {
-        $querystring = $null;
+    #     [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
 
-        [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
+    #     Write-Host "`nWhich Table are you selecting from?" -ForegroundColor Red -BackgroundColor Yellow;
+    #     $i = 1;
+    #     foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
+    #     $index = Read-Host -Prompt "So?";
 
-        Write-Host "`nWhich Table are you selecting from?" -ForegroundColor Red -BackgroundColor Yellow;
-        $i = 1;
-        foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
-        $index = Read-Host -Prompt "So?";
+    #     $table = $tablestochoosefrom[$index - 1].ItemArray;
 
-        $table = $tablestochoosefrom[$index - 1].ItemArray;
+    #     # Can I use GetTableSchema on this?
+    #     $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
+    #     $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value, WantToSee); # add another column
 
-        # Can I use GetTableSchema on this?
-        $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
-        $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value, WantToSee); # add another column
+    #     # Prompt user what values they want to insert per column
+    #     foreach($val in $values)
+    #     {
+    #         Write-Warning "Do you want to see $($val.COLUMN_NAME)";
+    #         $val.WantToSee = Read-Host -Prompt "(y/n)?";
+    #         $val.Value = $val.COLUMN_NAME;
+    #     }
 
-        # Prompt user what values they want to insert per column
-        foreach($val in $values)
-        {
-            Write-Warning "Do you want to see $($val.COLUMN_NAME)";
-            $val.WantToSee = Read-Host -Prompt "(y/n)?";
-            $val.Value = $val.COLUMN_NAME;
-        }
+    #     $this.QueryConstructor("Select", [ref]$querystring, $table, $values);
 
-        $this.QueryConstructor("Select", [ref]$querystring, $table, $values);
+    #     Write-Host "Query: $($querystring)"
 
-        Write-Host "Query: $($querystring)"
+    #     try{$this.Query($querystring);}
+    #     catch
+    #     {
+    #         Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
+    #         Write-Warning "$($_)";
+    #         break;
+    #     }
 
-        try{$this.Query($querystring);}
-        catch
-        {
-            Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-            Write-Warning "$($_)";
-            break;
-        }
-
-        return $this.results; # display
-    }
+    #     return $this.results; # display
+    # }
 
     StartServer()# Run as Admin
     {
@@ -205,30 +207,49 @@ class SQL
     hidden [string]SQLConvert($val,$table)
     {
         [string]$string = $null;
-        switch($val.DATA_TYPE)
+
+        # 'TypeContentID' is causing 'ID' to go here
+        if($this.SQLConvertFlags.Contains($val.COLUMN_NAME))
         {
-            "int"
+            if($val.DATA_TYPE -eq "uniqueidentifier"){$string = "'$($val.Value)'";} # for the case the value is a guid and I didn't provide quotes
+            else{$string = "$($val.Value)";}
+        }
+        else 
+        {
+            switch($val.DATA_TYPE)
             {
-                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){ $string = "$($this.GetMax($table))";} # if it is ID, get max id inc
-                else{$string = "$($val.Value)";}
-                break;
+                # Hard coding ID because I don't want this to be configurable
+                # If ID wasn't present in the old config, then it would grab the value which is null
+                # if it is ID, get max id inc
+                "int"{$string = "$($this.GetMax($table))";break;}
+                "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
+                "varchar"{$string = "'$($val.Value)'";break;}
+                "datetime"{$string = "GETDATE()"; break;}
+                default{$string = "$($val.Value)";break;}
             }
-            "uniqueidentifier"
-            {
-                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){$string = "'$($val.Value)'"; } # Guid from user, so no auto guid applied
-                else{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";}
-                break;
-            }
-            "varchar"{$string = "'$($val.Value)'";break;}
-            "datetime"
-            {
-                if($this.SQLConvertFlags.Contains($val.COLUMN_NAME)){$string = "'$($val.Value)'"; } # for EventDate, use what is provided
-                else{$string = "GETDATE()";}
-                break;
-            }
-            default{$string = "$($val.Value)";break;}
         }
         return $string;
+    }
+
+    <# 
+        The IsFlagged and IsIgnoredTypes do the same thing but have certain things different.  
+        TODO find the intersection between the two
+    #>
+
+    hidden [Boolean] IsFlagged([string]$COLUMN_NAME)
+    {
+        [Boolean]$IsFlagged = $false;
+        for([int16]$i=0;$i -lt $this.SQLConvertFlags.Length;$i++)
+        {
+            if($this.SQLConvertFlags[$i] -eq $COLUMN_NAME){$IsFlagged = $true;break;}
+        }
+        return $IsFlagged;
+    }
+
+    # Correction, this is just the type of ignored types that the code will generate
+    hidden [boolean] IsIgnoredTypes($val)
+    {
+        return (($val.DATA_TYPE -eq 'uniqueidentifier') -or ($val.DATA_TYPE -eq 'datetime') -or ($val.COLUMN_NAME -eq 'ID'));
     }
 
     [string]GetGuidString()
@@ -241,7 +262,6 @@ class SQL
     # Just for one insert value
     QueryConstructor([string]$TypeQuery, [ref]$querystring, [string]$table, [system.object[]]$values)# Table should be string type
     {
-
         switch($TypeQuery)
         {
             "Insert"
@@ -290,7 +310,6 @@ class SQL
 
     InputCopy([string]$value) # Decodes guid in personalinfo table
     {
-        # $this.results = $null # reset
         $querystring = "select Value from [PersonalInfo] where Guid = '" + $Value + "'";
         $result = Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         Set-Clipboard $result.Item("Value");
@@ -399,11 +418,16 @@ class SQL
 
                 # Adds the actual values to use for the insert query
                 # There are also checks for other types of 
+                # Why am I doing this? Don't I do this in the query constructor?
+                # ohhh, I'm loading the Value variable so the query constructor has something to check against
                 foreach($val in $values)
                 {
-                    # if column in ID or a datetime, the value will be handled by SQLConvert
-                    if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime"))
-                    {$val.Value = $this.GetSQLBaseValue($Row,$val.COLUMN_NAME,'Attribute');}
+                    # if column is ID or a datetime type, the value will be handled by SQLConvert
+                    # if(($val.COLUMN_NAME -ne "ID") -and ($val.DATA_TYPE -ne "datetime") -and ($val.COLUMN_NAME -ne "GUID"))
+
+                    # If it is of the ignored types or if the column is flagged for user to provide
+                    if(!$this.IsIgnoredTypes($val) -or $this.IsFlagged($val.COLUMN_NAME))
+                    {$val.Value = $this.GetSQLBaseValue($Row,$null,$val.COLUMN_NAME);}
                 }
                 $this.QueryConstructor("Insert",[ref]$querystring,$tablename,$values);
                 $this.QueryNoReturn($querystring);
@@ -413,30 +437,18 @@ class SQL
             # will put this as an else
             # I.e. if the row does exist, update the lastaccess column
             # else, leave it to the above algorithm to do the job
-            else{$this.UpdateLastAccessByExternalID($this.GetSQLBaseValue($Row,$null,'ExternalID'));}
+            else{$this.UpdateLastAccessByExternalID($tablename,$this.GetSQLBaseValue($Row,$null,'ExternalID'));}
         }
         if($RowsInserted) {Write-Host "$($tablename)'s rows are up to date!" -ForegroundColor Yellow -BackgroundColor Black;}
     }
 
     # Runs the the config of the row and gets the innerxml if it is for the right column
+    # TODO remove Attribute param
     hidden [string] GetSQLBaseValue($Row,[string]$Attribute,[String]$Context)
     {
         [string]$res = "";[boolean]$found = $false;
-        foreach($Value in $Row.Value)
-        {
-            switch($Context)
-            {
-                "Attribute"
-                {
-                    if($Value.ColumnName -eq $Attribute){$res = $Value.InnerXML;$found = $true;break;}
-                }
-                "ExternalID"
-                {
-                    if($Value.ColumnName -eq "ExternalID"){$res = $Value.InnerXML;$found = $true;break;}
-                }
-            }
-        }
-        if(!$found){Throw "Something bad happened";}
+        foreach($Value in $Row.Value){if($Value.ColumnName -eq $Context){$res = $Value.InnerXML;$found = $true;break;}}
+        if(!$found){Throw "Something bad happened. '$($Context)' column was not configured in rows";}
         else{return $res;}
     }
 
@@ -537,9 +549,9 @@ class SQL
     # Keeps track of the last time this externalid was referenced by the config
     # Helps auditing so I know when to remove it
     # To remove use Alter.xml (name might change [4/23/2020])
-    hidden [void] UpdateLastAccessByExternalID([string]$ExternalID) # Type Content
+    hidden [void] UpdateLastAccessByExternalID([string]$tablename,[string]$ExternalID) # Type Content
     {
-        [string]$querystring = "update TypeContent set LastAccessDate = GETDATE() where ExternalID = '$($ExternalID)'";
+        [string]$querystring = "update $($tablename) set LastAccessDate = GETDATE() where ExternalID = '$($ExternalID)'";
         $this.QueryNoReturn($querystring);
     }
 }

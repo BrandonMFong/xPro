@@ -2,6 +2,7 @@
 .Synopsis
    Setting Secure to FALSE
    Must redo the credentials
+   Removing Count attribute from updatestamp nodew
 #>
 $error.Clear()
 try 
@@ -15,6 +16,11 @@ try
    if(![string]::IsNullOrEmpty($xml.Machine.ShellSettings.Security.Secure))
    {
       $xml.Machine.ShellSettings.Security.Secure = "False";
+   }
+
+   if(![string]::IsNullOrEmpty($xml.Machine.UpdateStamp.Count))
+   {
+      $xml.Machine.UpdateStamp.RemoveAttribute($xml.Machine.UpdateStamp.Count);
    }
 
    <# UPDATE END #>

@@ -3,6 +3,7 @@
     Sorts datetime variables
 .Notes
     Made for the update scripts
+    Right now this is sorting in ascending order
 #>
 Param
 (
@@ -29,6 +30,7 @@ if($Method.Equals('SelectionSort'))
             {
                 switch($DateType)
                 {
+                    # TODO put time stamp in the name
                     "DateTime"
                     {
                         # If second is less than first, put it first

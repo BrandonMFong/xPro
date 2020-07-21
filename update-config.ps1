@@ -10,14 +10,23 @@ Push-Location $PSScriptRoot
     if($CheckUpdate)
     {
         [string[]]$Scripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).Name;
-        if($Scripts.Count -gt [int]$XMLReader.Machine.UpdateStamp.Count)
+
+        [String]$ParseString="MMddyyyy"
+        [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
+        $arg = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
+        $command = $(Get-ChildItem $($PSScriptRoot + "\Functions\Sort-Object.ps1")).FullName;
+        [string[]]$InOrderScripts = $(& $command @arg);
+
+        # There has to be a better way at checking if there is an update needed
+        # if($Scripts.Count -gt [int]$XMLReader.Machine.UpdateStamp.Count) # TODO delete
+        if([DateTime]::ParseExact($Scripts[$Scripts.Count-1].Replace(".ps1",$null),$ParseString,$null) -gt [DateTime]::ParseExact($XMLReader.Machine.UpdateStamp.Value,$ParseString,$null))
         {
             Write-Host  "`nThere is an update to GlobalScripts Config." -ForegroundColor Red
             [string]$update = Read-Host -Prompt "Want to update? (y/n)";
             if($update -eq "y")
             {
                 Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local -DisableNameChecking;
-                Run-Update; # Updates configuration file
+                Run-Update -InOrderScripts:$InOrderScripts; # Updates configuration file
                 Pop-location; 
                 
                 Write-Warning "Config was updated";

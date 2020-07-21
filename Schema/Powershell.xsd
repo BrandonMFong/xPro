@@ -550,9 +550,10 @@
                                             <xs:group ref="HashTableObjectElement"/>
                                             <xs:group ref="XMLElement"/>
                                             <xs:group ref="ClassElement"/>
+                                            <xs:group ref="LinkedObject"/>
                                         </xs:choice>
                                     </xs:sequence>
-                                    <xs:attribute name="Type" type="xs:string" use="required">
+                                    <xs:attribute name="Type" use="required">
                                         <xs:annotation>
                                             <xs:documentation>
                                                 Values: PowerShellClass (if there is a class in the Classes folder the object is building from),  
@@ -561,6 +562,38 @@
                                                 Default is XmlElement.
                                             </xs:documentation>
                                         </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="PowerShellClass">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            A PowerShell Class object is an object whose datatype is defined by a class in this repository
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="XmlElement">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            An XmlElement is an object that is the XmlElement defined in the configuration
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="HashTable">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            A hash table object is a hash object whose keys and values are defined by the xml configuration
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="LinkedObject">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            A linked object is constructed with data defined in the database
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                            </xs:restriction>
+                                        </xs:simpleType>
                                     </xs:attribute>
                                     <xs:attribute name="ID" type="xs:int" use="optional">
                                         <xs:annotation>
@@ -787,6 +820,18 @@
         </xs:sequence>
     </xs:group>
     
+    <xs:group name="LinkedObject">
+        <xs:sequence>
+            <xs:element name="Link" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This is the guid in the link table that pulls all the required data from the database to make the object
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    
     <xs:group name="ListClass">
         <xs:sequence>
             <xs:element name="List" maxOccurs="1">
@@ -861,7 +906,7 @@
                         <xs:element name="SQLConvertFlags" type="xs:string" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Include the name of the row that should be excluded by default data
+                                    Names here are the columns you will need to provide in the Rows config
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:element>
@@ -922,46 +967,68 @@
                                                                 </xs:documentation>
                                                             </xs:annotation>
                                                         </xs:attribute>
-                                                        <xs:attribute name="IsPrimaryKey" type="xs:boolean" use="required">
+                                                        <xs:attribute name="IsPrimaryKey" use="required">
                                                             <xs:annotation>
                                                                 <xs:documentation>
                                                                     If this column is the primary key
                                                                 </xs:documentation>
                                                             </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:enumeration value="false"/>
+                                                                    <xs:enumeration value="true"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
                                                         </xs:attribute>
-                                                        <xs:attribute name="IsForeignKey" type="xs:boolean" use="required">
+                                                        <xs:attribute name="IsForeignKey" use="required">
                                                             <xs:annotation>
                                                                 <xs:documentation>
                                                                     If this column is the foreign key
                                                                 </xs:documentation>
                                                             </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:enumeration value="false"/>
+                                                                    <xs:enumeration value="true"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
                                                         </xs:attribute>
-                                                        <xs:attribute name="IsNull" type="xs:boolean" use="required">
+                                                        <xs:attribute name="IsNull" use="required">
                                                             <xs:annotation>
                                                                 <xs:documentation>
                                                                     If this row can be null.  
                                                                     If table is already made, cannot make column that is not null
                                                                 </xs:documentation>
                                                             </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:enumeration value="true"/>
+                                                                    <xs:enumeration value="false"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
                                                         </xs:attribute>
                                                     </xs:complexType>
                                                 </xs:element>
                                                 <xs:element name="Rows" minOccurs="0" maxOccurs="1">
                                                     <xs:annotation>
                                                         <xs:documentation>
-                                                            List out the rows you want to insert into the Database at start up.  
-                                                            Only thing you do not need to provide are values for ID, Date, and Guids 
+                                                            Values you must include in this config: &lt;SQLConvertFlags&gt; config values and any varchars
                                                         </xs:documentation>
                                                     </xs:annotation>
                                                     <xs:complexType>
                                                         <xs:sequence>
                                                             <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>
+                                                                        For this row to be inserted, the table must have an ExternalID and LastAccessDate
+                                                                    </xs:documentation>
+                                                                </xs:annotation>
                                                                 <xs:complexType>
                                                                     <xs:sequence>
                                                                         <xs:element name="Value" minOccurs="1" maxOccurs="unbounded">
                                                                             <xs:annotation>
                                                                                 <xs:documentation>
-                                                                                    The value you are inserting for the specified column
+                                                                                    The value you are inserting for the specified column.  
                                                                                 </xs:documentation>
                                                                             </xs:annotation>
                                                                             <xs:complexType>

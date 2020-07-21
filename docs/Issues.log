@@ -1,8 +1,21 @@
 
-Issue: Profile load error
+Issue: time Stamp error
     Fix Commit:   
     Branch:  
     Status: Open
+    Notes: 
+        Invoke-Sqlcmd: C:\Users\brandon.fong\Brandon.Fong\Powershell\Classes\SQL.psm1:55
+        Line |
+        55 |              Invoke-Sqlcmd -Query $querystring -ServerInstance $this.s …
+            |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            | Incorrect syntax near '08'. Incorrect syntax near '08'.   Msg 102, Level 15,
+            | State 1, Procedure , Line 1.
+    Post:
+
+Issue: Profile load error
+    Fix Commit:   
+    Branch:  
+    Status: Closed
     Notes: 
         PS C:\Users\brandon.fong\Brandon.Fong\Powershell> .$PROFILE
 

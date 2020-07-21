@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="07152020" Count="6" />
+  <UpdateStamp Value="07202020" Count="8" />
   <Start Enabled="True" ClearHost="False">
     <Script>B:\Powershell\StartScripts\BRANDONMFONG.ps1</Script>
+    <Greetings Type="Electronic" Save="True">Test Mode</Greetings>
   </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -30,7 +31,7 @@
       <Commits>False</Commits>
     </GitSettings>
     <Security>
-      <Secure>True</Secure>
+      <Secure>False</Secure>
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
@@ -52,21 +53,21 @@
   </Email>
   <NetDrives>
     <NetDrive>
-      <DriveLetter>R:</DriveLetter>
-      <IPAddress SecType="private">53cdf5ed-518c-4fdf-9fe2-ba32a758ed4c</IPAddress>
-      <Username SecType="private">cb6fb6ca-c51f-4d51-9f1b-b02f752ed48e</Username>
-      <Password SecType="private">71071159-1d3f-4013-8ec9-4a24efcdbb8f</Password>
+      <DriveLetter>K:</DriveLetter>
+      <IPAddress SecType="private">669703ea-52e6-425c-95c1-d65c3efde130</IPAddress>
+      <Username SecType="private">a16443f3-bf9f-4454-bb25-251dc6dedd29</Username>
+      <Password SecType="private">f1e4015e-a0c4-4dc5-806f-bb06573c78fe</Password>
     </NetDrive>
   </NetDrives>
   <!-- Modules -->
   <Modules>
-    <Module>B:\Powershell\Modules\System.psm1</Module>
-    <Module>B:\Powershell\Modules\Terminal.psm1</Module>
-    <Module>B:\Powershell\Modules\MinTerminal.psm1</Module>
-    <Module>B:\Powershell\Modules\Sound.psm1</Module>
-    <Module>B:\Powershell\Modules\Git.psm1</Module>
-    <Module>B:\Powershell\Modules\ConfigHandler.psm1</Module>
-    <Module>B:\Powershell\Modules\OutlookType.psm1</Module>
+    <Module>.\Modules\System.psm1</Module>
+    <Module>.\Modules\Terminal.psm1</Module>
+    <Module>.\Modules\MinTerminal.psm1</Module>
+    <Module>.\Modules\Sound.psm1</Module>
+    <Module>.\Modules\Git.psm1</Module>
+    <Module>.\Modules\ConfigHandler.psm1</Module>
+    <Module>.\Modules\OutlookType.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -159,18 +160,17 @@
     <Program Alias="VC-Notebook" SecType="public">B:\NOTEBOOK\VC-Notes.code-workspace</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects Database="BrandonMFong" ServerInstance="BRANDONMFONG\SQLEXPRESS">
+  <Objects Database="BrandonMFong_Old" ServerInstance="KAMANTA\KAMANTA">
     <!-- $Query -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
-          <!-- <Database>TestDB</Database> -->
-          <Database>BrandonMFong</Database>
-          <ServerInstance>BRANDONMFONG\SQLEXPRESS</ServerInstance>
+          <Database>BrandonMFong_Old</Database>
+          <ServerInstance>KAMANTA\KAMANTA</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <SQLConvertFlags>ID EventDate ScriptID PersonalInfoID Link</SQLConvertFlags>
+          <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>False</CreateDatabase>
           <Tables>
@@ -182,6 +182,7 @@
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
             <Table Name="TypeContent">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -271,13 +272,9 @@
             <Table Name="LinkInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
-              <!-- Link Guid is the guid that ties all the data together -->
               <Column Name="Link" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
-              <Column Name="Level" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false"/>
-              <Column Name="Node" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true"/>
-              <Column Name="NodePointer" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true"/>
               <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
                 <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
@@ -323,7 +320,7 @@
       </Class>
     </Object>
     <!-- $GithubRoadMap -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">GithubRoadMap</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -332,9 +329,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $MonList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">MonList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -343,9 +340,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $TueList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">TueList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -354,9 +351,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $WedList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">WedList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -365,9 +362,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $ThuList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">ThuList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -376,9 +373,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $FriList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">FriList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -387,9 +384,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $SatList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">SatList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -398,9 +395,9 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $SunList -->
-    <Object Type="PowerShellClass">
+    <!-- <Object Type="PowerShellClass">
       <VarName SecType="public">SunList</VarName>
       <Class ClassName="List" HasParams="true">
         <List>
@@ -409,12 +406,12 @@
           <Redirect>B:\Powershell\Config\User\List.xml</Redirect>
         </List>
       </Class>
-    </Object>
+    </Object> -->
     <!-- $Todo -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Todo</VarName>
-      <!-- Key and Value -->
-      <Key Lvl="0" SecType="public">Monday</Key>
+    <!-- <Object Type="HashTable">
+      <VarName SecType="public">Todo</VarName> -->
+    <!-- Key and Value -->
+    <!-- <Key Lvl="0" SecType="public">Monday</Key>
       <Value Lvl="0" SecType="public">$MonList</Value>
       <Key Lvl="0" SecType="public">Tuesday</Key>
       <Value Lvl="0" SecType="public">$TueList</Value>
@@ -428,7 +425,7 @@
       <Value Lvl="0" SecType="public">$SatList</Value>
       <Key Lvl="0" SecType="public">Sunday</Key>
       <Value Lvl="0" SecType="public">$SunList</Value>
-    </Object>
+    </Object> -->
     <!-- $SeniorDesignYes -->
     <Object Type="XmlElement">
       <VarName SecType="public">SeniorDesignYes</VarName>
@@ -446,49 +443,6 @@
         <CircuitPython xsi:type="XMLAny">https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-sensors-and-devices</CircuitPython>
         <FTPServerWinSetp xsi:type="XMLAny">https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10</FTPServerWinSetp>
       </Values>
-    </Object>
-    <!-- $Bank -->
-    <Object Type="HashTable">
-      <VarName SecType="public">Bank</VarName>
-      <!--Key and Value-->
-      <!-- Chase -->
-      <Key Lvl="0" SecType="public">Chase</Key>
-      <Value Lvl="0" SecType="public" NodePointer="f675" />
-      <!-- Freedom -->
-      <Key Lvl="1" Node="f675" SecType="public">Freedom</Key>
-      <Value Lvl="1" Node="f675" SecType="public" NodePointer="8A95" />
-      <Key Lvl="2" Node="8A95" SecType="public">Number</Key>
-      <Value Lvl="2" Node="8A95" SecType="private">d9b37661-b609-49de-805b-99b0015b7abf</Value>
-      <Key Lvl="2" Node="8A95" SecType="public">Pin</Key>
-      <Value Lvl="2" Node="8A95" SecType="private">80b0f318-9d3d-4a31-be69-ad76cade626a</Value>
-      <Key Lvl="2" Node="8A95" SecType="public">Expiration</Key>
-      <Value Lvl="2" Node="8A95" SecType="private">593cc690-85b3-4b1b-84cc-192879244113</Value>
-      <Key Lvl="2" Node="8A95" SecType="public">CVV</Key>
-      <Value Lvl="2" Node="8A95" SecType="private">948d840d-0fcb-47ce-951a-7565f18dedd7</Value>
-      <!-- Disney -->
-      <Key Lvl="1" Node="f675" SecType="public">Disney</Key>
-      <Value Lvl="1" Node="f675" SecType="public" NodePointer="951a" />
-      <Key Lvl="2" Node="951a" SecType="public">Number</Key>
-      <Value Lvl="2" Node="951a" SecType="private">4ac88623-a1af-465f-aff5-daac23cc732f</Value>
-      <Key Lvl="2" Node="951a" SecType="public">Pin</Key>
-      <Value Lvl="2" Node="951a" SecType="private">9cd0e80b-e049-420c-b938-91b949b8f549</Value>
-      <Key Lvl="2" Node="951a" SecType="public">Expiration</Key>
-      <Value Lvl="2" Node="951a" SecType="private">3529af62-e170-4ce8-ac10-5bb7c831f3c7</Value>
-      <Key Lvl="2" Node="951a" SecType="public">CVC</Key>
-      <Value Lvl="2" Node="951a" SecType="private">0a633b4a-079f-4edc-abf6-56174a48e019</Value>
-      <Key Lvl="2" Node="951a" SecType="public">ActNum</Key>
-      <Value Lvl="2" Node="951a" SecType="private">84542346-87e7-45e4-8a33-bb8f77f1a18a</Value>
-      <Key Lvl="2" Node="951a" SecType="public">RouteNum</Key>
-      <Value Lvl="2" Node="951a" SecType="private">9298d1f8-268a-480d-ae49-3214d66b95cc</Value>
-      <!-- Alliant -->
-      <Key Lvl="0" SecType="public">Alliant</Key>
-      <Value Lvl="0" SecType="public" NodePointer="45e4" />
-      <Key Lvl="1" Node="45e4" SecType="public">AccountNubmer</Key>
-      <Value Lvl="1" Node="45e4" SecType="private">A6CABDC4-F6F7-4DB0-9714-8C4A52211284</Value>
-      <Key Lvl="1" Node="45e4" SecType="public">Username</Key>
-      <Value Lvl="1" Node="45e4" SecType="private">f5505e52-71fe-4f89-bcb2-3775e1593a6d</Value>
-      <Key Lvl="1" Node="45e4" SecType="public">Password</Key>
-      <Value Lvl="1" Node="45e4" SecType="private">4F1C0B1F-53D4-40F4-972E-6202ACCECD43</Value>
     </Object>
     <!-- $User -->
     <Object Type="HashTable">

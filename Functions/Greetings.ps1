@@ -9,7 +9,7 @@
 Param
 (
     [Parameter(Mandatory)][String]$string,
-    [Parameter(Mandatory)][String]$Type,
+    [String]$Type=$null,
     [switch]$SaveToFile=$false
 )
 

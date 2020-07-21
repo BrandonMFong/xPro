@@ -288,7 +288,7 @@ function LoadModules
                 Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;
+            if(Test-Path $val){Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;}
         }
         if(!$Verbose){Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;}
     }

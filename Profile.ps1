@@ -59,17 +59,24 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             # Greetings
             if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings))
             {
+                if([string]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings.Type)){[String]$Type = "Big";}
+                else{[String]$Type = $XMLReader.Machine.Start.Greetings.Type;}
+                [Boolean]$Save = [Boolean]$XMLReader.Machine.Start.Greetings.Save;
                 $arg = 
                 @{
                     string=$XMLReader.Machine.Start.Greetings.InnerXml; # String 
-                    Type=$XMLReader.Machine.Start.Greetings.Type # Type of font
+                    Type=$Type; # Type of font
+                    SaveToFile=$Save;
                 };
                 [String]$GreetingsPath = (Get-ChildItem $(".\Functions\Greetings.ps1")).FullName; # Gets the full file path to the greetings script
                 & $GreetingsPath @arg;
             }
 
             # If the script is defined, run it
-            if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Script)){Invoke-Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);} # Executes the file that the user defines
+            if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Script) -and $(Test-Path $XMLReader.Machine.Start.Script))
+            {
+                Invoke-Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);# Executes the file that the user defines
+            } 
         }
     
     try 

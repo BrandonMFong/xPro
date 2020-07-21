@@ -44,12 +44,25 @@
                                 <xs:complexType>
                                     <xs:simpleContent>
                                         <xs:extension base="xs:string">
-                                            <xs:attribute name="Type" use="optional">
+                                            <xs:attribute name="Type" use="optional" type="xs:string">
                                                 <xs:annotation>
                                                     <xs:documentation>
                                                         Default is 'Graffiti'. Visit http://patorjk.com/software/taag/ for more information on the different type
                                                     </xs:documentation>
                                                 </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="Save" use="optional">
+                                                <xs:annotation>
+                                                    <xs:documentation>
+                                                        If you want to save to a file.  Good if you do not have internet connection
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:enumeration value="True"/>
+                                                        <xs:enumeration value="False"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
                                             </xs:attribute>
                                         </xs:extension>
                                     </xs:simpleContent>

@@ -42,7 +42,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
         LoadFunctions -XMLReader:$XMLReader -Verbose:$Verbose
         
     <### START ###>
-        if(($XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript)) 
+        if(($XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript) -and ![string]::IsNullOrEmpty($XMLReader.Machine.Start)) 
         {
             if($XMLReader.Machine.Start.ClearHost -eq "true"){Clear-Host;} # clears host from the progess text
 

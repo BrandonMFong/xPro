@@ -14,7 +14,7 @@ try
 
    if(![string]::IsNullOrEmpty($xml.Machine.ShellSettings.Security.Secure))
    {
-      $xml.Machine.ShellSettings.Security.Secure.InnerXml = "False";
+      $xml.Machine.ShellSettings.Security.Secure = "False";
    }
 
    <# UPDATE END #>

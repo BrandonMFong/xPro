@@ -110,9 +110,6 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
         return $null;
     }
 
-    # I am assuming that the link info method is the only method that does not use xmlelements
-    # That is why I am checking if the value variable has the InnerText property because only an xmlelement would have that
-    elseif([string]::IsNullOrEmpty($value.InnerText)){return $value;} # for the case of the link table 
     
     elseif($value.SecType -eq "private")
     {
@@ -122,6 +119,10 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
     {
         return $( MakeHash -value $value.ParentNode -lvl $([int]$value.Lvl + 1) -Node $value.NodePointer);# The attributes lvl and nodepointer are not passing
     }
+    # I am assuming that the link info method is the only method that does not use xmlelements
+    # That is why I am checking if the value variable has the InnerText property because only an xmlelement would have that
+    elseif([string]::IsNullOrEmpty($value.InnerText)){return $value;} # for the case of the link table 
+    
     elseif($value.InnerText.Contains('$')) # if powershell object
     {
         # If user is using PSScriptRoot, must use it in the context that this file will return the script root

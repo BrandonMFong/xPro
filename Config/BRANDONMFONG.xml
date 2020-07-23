@@ -52,8 +52,8 @@
     <ListOrderBy>Desc</ListOrderBy>
   </Email>
   <NetDrives>
-    <NetDrive>
-      <Connection Type="NetworkShare" HostName="">
+    <NetDrive HostName="">
+      <Connection Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
         <IPAddress SecType="private">669703ea-52e6-425c-95c1-d65c3efde130</IPAddress>
         <Username SecType="private">a16443f3-bf9f-4454-bb25-251dc6dedd29</Username>

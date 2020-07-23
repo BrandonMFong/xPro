@@ -35,7 +35,7 @@ try
             $Connection.InnerXml = $NetDrive.InnerXml;
             
             [System.Xml.XmlElement]$NewNetDrive = $xml.CreateElement("NetDrive");
-            $Connection.SetAttribute("HostName","");
+            $NewNetDrive.SetAttribute("HostName","");
             $NewNetDrive.AppendChild($Connection);
             $xml.Machine.NetDrives.RemoveChild($NetDrive);
          }

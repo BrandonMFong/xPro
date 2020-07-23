@@ -100,6 +100,7 @@
     <Program Alias="Query" SecType="public">$PSScriptRoot\..\Functions\Query.ps1</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="putty" SecType="public">C:\Program Files\PuTTY\putty.exe</Program>
+    <Program Alias="Open-Ssh" SecType="public">$PSScriptRoot\..\Functions\Open-Putty.ps1</Program>
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
     <Program Alias="zoom" SecType="public">C:\Users\fongm\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>

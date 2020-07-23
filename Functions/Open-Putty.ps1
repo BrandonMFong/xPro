@@ -1,41 +1,27 @@
 <#
 .Synopsis
     Opens putty from the script
-.Description
-    
-.Example
-    ssh.json sample:
-    {
-    "Servers": [{
-            "Server": {
-                "Name": "Server Name",
-                "Username": "",
-                "Password": "",
-                "sshkeyPath": "Path\\to\\file.ppk",
-                "IP": "",
-                "Port": "22",
-                "HostKey": ""
-            }
-        }
-    ]
-}
-
-.Notes
-    Must have ssh.json configured
 #>
 param
 (
-    [Parameter(Mandatory)]
-    [ValidateSet('Hostinger','kojami','nokita')]
-    [string]$Server
+    [string]$Hostname=$null
 )
-$JSONReader = Get-Content $PSScriptRoot\..\config\ssh.json|Out-String|ConvertFrom-Json
-[boolean]$Found = $false;
+if([string]::IsNullOrEmpty($Hostname)){$Hostname = $(Read-Host -Prompt "Please provide NetDrive hostname from configuration");}
+Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+[System.Xml.XmlDocument]$xml = _GetXMLContent;
+# [boolean]$Found = $false;
 [PSCustomObject]$creds;
-foreach($j in $JSONReader.Servers.Server)
+foreach($NetDrive in $xml.Machine.NetDrives.NetDrive)
 {
-    if($j.Name -eq $Server){$creds = $j;$Found = $true;break;}
+    if($NetDrive.HostName -eq $Hostname)
+    {
+        foreach($Connection in $NetDrive.Connection)
+        {
+            if($Connection.Type -eq "Putty")
+            {
+                Set-Alias -Name "Putty" -Value $Connection.PuttyPath
+                Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" $(Evaluate -value:$Connection.Port) -pw $(Evaluate -value:$Connection.Password);
+            }
+        }
+    }
 }
-if(!$Found){throw "Server Not configured!";}
-if($creds.name -eq 'Hostinger'){putty -ssh "$($creds.Username)@$($creds.IP)" $creds.Port -i $creds.sshkeyPath -pw $creds.Password;}
-if(($creds.name -eq 'kojami') -or ($creds.name -eq 'nokita')){putty -ssh "$($creds.Username)@$($creds.IP)" $creds.Port -pw $creds.Password;}

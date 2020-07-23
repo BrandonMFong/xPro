@@ -218,9 +218,17 @@ function Run-Update
         if($UpdateStamp -lt $CurrentStamp) # Only run the scripts that have not been run yet
         {
             $script = $(Get-ChildItem $($PSScriptRoot + "\..\Config\UpdateConfig\$($InOrderScripts[$i]).ps1")).FullName;
-            & $script; # WOAH
-            Write-Host "Executing: $($script)`n" -ForegroundColor Gray;
-            GetText -script:$script;
+            [Boolean]$Executed = $false;
+            $arg = 
+            @{
+                Executed=[ref]$Executed;
+            };
+            & $script @arg;
+            if($Executed)
+            {
+                Write-Host "Executing: $($script)`n" -ForegroundColor Gray;
+                GetText -script:$script;
+            }
         }
     }
     Write-Host "`n";
@@ -240,5 +248,5 @@ function GetText
         }
         if(($Content[$i].Substring(0,$Content[$i].Length) -eq ".Synopsis") -and !$FoundSynopsis){$FoundSynopsis = $true;}
     }
-    Write-Host "`n";
+    # Write-Host "`n";
 }

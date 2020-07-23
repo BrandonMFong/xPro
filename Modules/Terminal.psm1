@@ -130,7 +130,7 @@ function _SetBackgroundColor
 
 # Prompt output
 [Xml]$x = _GetXMLContent;
-if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String -ne "Default"))
+if(($x.Machine.ShellSettings.Enabled.ToBoolean($null)) -and (![string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String)) -and ($x.Machine.ShellSettings.Prompt.String.InnerText -ne "Default"))
 {
     function prompt
     {

@@ -1,0 +1,12 @@
+feature-dev-OpenPuttyConfig:
+[
+    Things to change in config:
+    {
+        - Connection node
+    }
+    
+    Notes:
+    {
+        - How to make different types for schema
+    }
+]

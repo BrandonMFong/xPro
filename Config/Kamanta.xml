@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="07202020" Count="8" />
+  <UpdateStamp Value="07212020" />
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
   </Start>
@@ -47,11 +47,20 @@
   </Email>
   <!-- Network Drives -->
   <NetDrives>
-    <NetDrive>
-      <DriveLetter>K:</DriveLetter>
-      <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
-      <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
-      <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
+    <NetDrive HostName="Kojami">
+      <Connection Type="NetworkShare">
+        <DriveLetter>K:</DriveLetter>
+        <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
+        <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
+        <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
+      </Connection>
+      <Connection Type="Putty">
+        <PuttyPath>C:\Program Files\PuTTY\putty.exe</PuttyPath>
+        <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>
+        <Port>22</Port>
+        <Username SecType="private">3954b150-5b49-4f5b-aaa0-c1937895b65b</Username>
+        <Password SecType="private">959965b7-3f78-4a04-8761-5084e0754d81</Password>
+      </Connection>
     </NetDrive>
   </NetDrives>
   <!-- Functions -->

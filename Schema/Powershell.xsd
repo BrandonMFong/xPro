@@ -13,8 +13,6 @@
                         <xs:simpleContent>
                             <xs:extension base="xs:string">
                                 <xs:attribute name="Value" type="xs:string" use="required"/>
-                                <!-- Count attribute does not have to be here, it's temp.  I can just check latest update script and compare it to value -->
-                                <xs:attribute name="Count" type="xs:int" use="required"/>
                             </xs:extension>
                         </xs:simpleContent>
                     </xs:complexType>
@@ -360,43 +358,81 @@
                 <xs:element name="NetDrives" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="NetDrive" minOccurs="1" maxOccurs="unbounded">
+                            <xs:element name="NetDrive" minOccurs="0" maxOccurs="unbounded">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="DriveLetter" minOccurs="1" maxOccurs="1" type="xs:string"/>
-                                        <xs:element name="IPAddress" minOccurs="1" maxOccurs="1">
+                                        <xs:element name="Connection" minOccurs="0" maxOccurs="unbounded">
                                             <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attributeGroup ref="SecurityType"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
+                                                <xs:sequence>
+                                                    <xs:element name="DriveLetter" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                                                    <xs:element name="PuttyPath" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                                                    <xs:element name="IPAddress" minOccurs="0" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attributeGroup ref="SecurityType"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>   
+                                                    <xs:element name="Port" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                                                    <xs:element name="Username" minOccurs="0" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attributeGroup ref="SecurityType"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>   
+                                                    <xs:element name="Password" minOccurs="0" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                If you do not provide then you will be prompted
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attributeGroup ref="SecurityType"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element> 
+                                                    <xs:element name="SSH" minOccurs="0" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attributeGroup ref="SecurityType"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>   
+                                                </xs:sequence>
+                                                <xs:attribute name="Type" use="required">
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:enumeration value="NetworkShare">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>
+                                                                        For network shared folders
+                                                                    </xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:enumeration>
+                                                            <xs:enumeration value="Putty">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>
+                                                                        For ssh putty
+                                                                    </xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:enumeration>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
                                             </xs:complexType>
-                                        </xs:element>   
-                                        <xs:element name="Username" minOccurs="0" maxOccurs="1">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attributeGroup ref="SecurityType"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>   
-                                        <xs:element name="Password" minOccurs="0" maxOccurs="1">
-                                            <xs:annotation>
-                                                <xs:documentation>
-                                                    If you do not provide then you will be prompted
-                                                </xs:documentation>
-                                            </xs:annotation>
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attributeGroup ref="SecurityType"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>   
+                                        </xs:element>
                                     </xs:sequence>
+                                    <xs:attribute name="HostName" use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

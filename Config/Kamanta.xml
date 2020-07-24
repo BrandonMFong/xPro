@@ -105,6 +105,7 @@
     <Program Alias="zoom" SecType="public">C:\Users\fongm\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="outlook" SecType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
+    <Program Alias="fpga-proj" SecType="public">B:\SOURCE\Repo\FPGAClock\FPGAClock.xpr</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

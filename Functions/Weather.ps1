@@ -14,7 +14,7 @@
 
 param
 (
-    [string]$Area=$(Get-Variable "XMLReader").Value.Machine.Weather.Area,
+    [string]$Area=$null,
     [switch]$RightNow,
     [switch]$Today,
     [switch]$Tomorrow,
@@ -22,7 +22,9 @@ param
     [switch]$All
 )
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-$weather = (Invoke-WebRequest "http://wttr.in/$Area").Content;
+[System.Xml.XmlDocument]$xml = _GetXMLContent;
+[string]$Area = $xml.Machine.Weather.Area;
+$weather = (Invoke-WebRequest "http://wttr.in/$($Area)").Content;
 # Write-Host "`n$($Area)" -ForegroundColor Green;
 
 try 

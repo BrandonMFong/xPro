@@ -103,7 +103,6 @@
     <Program Alias="Open-Ssh" SecType="public">$PSScriptRoot\..\Functions\Open-Putty.ps1</Program>
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
     <Program Alias="zoom" SecType="public">C:\Users\fongm\AppData\Roaming\Zoom\bin\Zoom.exe</Program>
-    <Program Alias="vc" SecType="public">C:\Users\fongm\AppData\Local\Programs\Microsoft VS Code\Code.exe</Program>
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="outlook" SecType="public">C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE</Program>
   </Programs>
@@ -337,6 +336,8 @@
       <Value Lvl="0" SecType="public">https://github.com/</Value>
       <Key Lvl="0" SecType="public">Kojami</Key>
       <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
+      <Key Lvl="0" SecType="public">SDWater</Key>
+      <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />

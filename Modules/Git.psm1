@@ -55,3 +55,99 @@ function Set-Tag
 
     if($Push){Push-With-Tag;}
 }
+
+function Set-Commit
+{
+    Param([String]$Message,[Switch]$NotAll)
+
+    if(!$NotAll)
+    {
+        git add -A; # By default, it will stage all changes
+    }
+
+    [String]$commitmessage = $null;
+
+    # Run through the commit types if they are configured
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.GitSettings.CommitTypes.CommitType))
+    {
+        Write-Host "`nChoose from Commit types:";
+        for([int16]$i = 0;$i -lt $XMLReader.Machine.GitSettings.CommitTypes.CommitType.Count;$i++)
+        {
+            Write-Host "    $($i+1) - $($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$i])";
+        }
+
+        [Int16]$index = Read-Host -Prompt "So?"; # choose
+        $commitmessage += "[$($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$index-1])] "; # Set the type in the string
+    }
+    
+    [string]$msg = Read-Host -Prompt "Commit message";
+    $commitmessage += $msg;
+
+    git commit -m $commitmessage; # Set the commit
+}
+
+function Set-CommitTag
+{
+    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch, [Switch]$Push)
+    Set-Commit;
+
+    # Default is bugpatch tag
+    # Not using the commitid switch because since I am assuming the user is tagging the commit that was set before this
+    if($Major)
+    {
+        Set-Tag -Major -Push:$Push;
+    }
+    elseif($Minor)
+    {
+        Set-Tag -Minor -Push:$Push;
+    }
+    elseif($BugPatch)
+    {
+        Set-Tag -BugPatch -Push:$Push;
+    }
+    else
+    {
+        Set-Tag -BugPatch -Push:$Push;
+    }
+}
+
+function Squash-Branch
+{
+    Param([Switch]$Force)
+    [string[]]$branches = $(git branch);
+    if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
+    [string]$CurrentBranch = $null;
+
+    # Get current branch
+    for([int16]$i=0;$i -lt $branches.Count;$i++)
+    {
+        if($branches[$i].Substring(0,1) -eq "*"){$CurrentBranch = $branches[$i].Substring(2,$branches[$i].Length-2);}
+        $branches[$i] = $branches[$i].Substring(2,$branches[$i].Length-2);
+    }
+
+    # Get target branch
+    Write-Host "`nChoose from Branches to squash to current branch:";
+    for([int16]$i=0;$i -lt $branches.Count;$i++)
+    {
+        Write-Host "    $($i+1) - $($branches[$i])";
+    }
+    [Int16]$index = Read-Host -Prompt "So?"; # choose
+    [String]$TargetBranch = $branches[$index-1]; # Set the type in the string
+
+    [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)";
+
+    # Confirming with user
+    if(!$Force)
+    {
+        if($(Read-Host -Prompt "Message: $($squashmessage) | Confirm(y/n)") -ne "y")
+        {
+            Write-Host "Cancelling merge." -ForegroundColor Gray;break;
+        }
+    }
+
+    git merge $TargetBranch --squash;
+
+    git commit -m $squashmessage;
+}
+
+# Test2

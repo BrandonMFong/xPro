@@ -382,7 +382,7 @@ function IsWithinNetwork
             # Gets the segment in the ipconfig
             while($true)
             {
-                $l = $($ip[$i + $j].Length -gt 0).ToByte($null);
+                $l = $($ip[$i + $j].Length -gt 0).ToByte($null); # If not a blank row
                 if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
                 $j++;
             }

@@ -223,7 +223,29 @@
                 </xs:element>
 
                 <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
-                    
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="CommitTypes" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        This is optional, the commit type will be appended to the begining fo the string to 
+                                        describe the type of change
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="CommitType" minOccurs="1" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Will begin the commit string with this describing the type
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
                 </xs:element>
 
                 <xs:element name="Weather" minOccurs="0" maxOccurs="1">

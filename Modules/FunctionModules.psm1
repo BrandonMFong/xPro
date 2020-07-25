@@ -384,8 +384,10 @@ function LoadDrives
                         [String]$DefaultGateway = $null; # Get Gateway IP
                         [String]$SubnetMask = $null; # Get subnet ip
                         [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
+                        [System.Boolean]$IsConnected = $true; # Assuming that we are connected
                         for([int]$i=0;$i -lt $NetInfo.Count;$i++)
                         {
+                            if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
                             if($NetInfo[$i].Contains('Default Gateway'))
                             {
                                 # checks if IPv6 since it has letters
@@ -395,7 +397,8 @@ function LoadDrives
                             }
                             if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
                         }
-                        if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){throw "They are still null!";} # TODO throw=>break;
+                        if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){break;} # TODO make logs
+                        if(!$IsConnected){break;} # You are not connected
         
                         [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
         

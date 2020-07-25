@@ -6,10 +6,8 @@ function _Replace
 {
     Param([ref]$OutString)
     [Tag]$tag = [Tag]::new();
-    # [Xml]$x = (Get-Content($PSScriptRoot + '\..\Config\' + (Get-Variable 'AppPointer').Value.Machine.ConfigFile));
-    [Xml]$x = _GetXMLContent;
-    [System.Object[]]$GitDisplay = $x.Machine.ShellSettings.GitDisplay;
-    $format = $x.Machine.ShellSettings.Format;
+    # [Xml]$x = _GetXMLContent;
+    $format = $XMLReader.Machine.ShellSettings.Format;
     # @ tag replacements
 
     # Username
@@ -62,11 +60,12 @@ function _Replace
     if($OutString.Value.Contains($tag.greaterthan)){$OutString.Value = $OutString.Value.Replace($tag.greaterthan,"`>");}
 
     # Git Branch
+    [System.Object[]]$GitDisplay = $x.Machine.ShellSettings.GitDisplay;
     if($OutString.Value.Contains($tag.gitbranch))
     {
         [string]$BranchString = $null;
         $BranchString = "$(git rev-parse --abbrev-ref HEAD)"; # This checks if we are in a branch
-        if(![string]::IsNullOrEmpty($BranchString))
+        if(![string]::IsNullOrEmpty($BranchString) -and $GitDisplay.Enabled.ToBoolean($null))
         {
             # If user wants
             # Having it all enabled can reduce performance

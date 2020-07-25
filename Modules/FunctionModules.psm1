@@ -354,62 +354,69 @@ function LoadDrives
                 # This statement checks to see if the network drive was set
                 if(!(Test-Path $val.DriveLetter))
                 {
-                    # Get Subnet and default gateway for the current network
-                    [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
-                    [String[]]$NetInfo = [string[]]::new($null);
-                    for([int]$i=0;$i -lt $ip.Count;$i++)
-                    {
-                        # Assuming it is always Wireless LAN adapter Wi-Fi 
-                        if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
-                        {
-                            [int16]$j = 1;
-                            [byte]$l = 0;
-    
-                            # Gets the segment in the ipconfig
-                            while($true)
-                            {
-                                $l = $($ip[$i + $j].Length -gt 0).ToByte($null);
-                                if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
-                                $j++;
-                            }
-                            $NetInfo = $ip[$i..($i+$j-1)]; 
-                            break;
-                        }
-                    }
-                    if([string]::IsNullOrEmpty($NetInfo)){throw "Something bad happened."} # TODO throw=>break
-                    
-                    # Look through the net info
-                    [String]$DefaultGateway = $null; # Get Gateway IP
-                    [String]$SubnetMask = $null; # Get subnet ip
-                    [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
-                    [System.Boolean]$IsConnected = $true; # Assuming that we are connected
-                    for([int]$i=0;$i -lt $NetInfo.Count;$i++)
-                    {
-                        # This is for the case when we are not connected to wifi
-                        if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
-                        if($NetInfo[$i].Contains('Default Gateway'))
-                        {
-                            # checks if IPv6 since it has letters
-                            if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
-                            {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
-                            else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-                        }
-                        if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-                    }
-                    if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){break;} # TODO make logs
-                    if(!$IsConnected){break;} # You are not connected
-    
                     [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
     
-                    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
-                    [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
-                    if($IpAddr -eq $DefaultGate){net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
+                    if($(IsWithinNetwork -IpAddress:$IpAddress))
+                    {net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
                 }
             }
         }
-        
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
+}
+
+function IsWithinNetwork
+{
+    Param([String]$IpAddress)
+    # Get Subnet and default gateway for the current network
+    [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
+    [String[]]$NetInfo = [string[]]::new($null);
+    for([int]$i=0;$i -lt $ip.Count;$i++)
+    {
+        # Assuming it is always Wireless LAN adapter Wi-Fi 
+        if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
+        {
+            [int16]$j = 1;
+            [byte]$l = 0;
+
+            # Gets the segment in the ipconfig
+            while($true)
+            {
+                $l = $($ip[$i + $j].Length -gt 0).ToByte($null);
+                if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
+                $j++;
+            }
+            $NetInfo = $ip[$i..($i+$j-1)]; 
+            break;
+        }
+    }
+    if([string]::IsNullOrEmpty($NetInfo)){return $false;} # TODO make logs
+    
+    # Look through the net info
+    [String]$DefaultGateway = $null; # Get Gateway IP
+    [String]$SubnetMask = $null; # Get subnet ip
+    [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
+    [System.Boolean]$IsConnected = $true; # Assuming that we are connected
+    for([int]$i=0;$i -lt $NetInfo.Count;$i++)
+    {
+        # This is for the case when we are not connected to wifi
+        if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
+        if($NetInfo[$i].Contains('Default Gateway'))
+        {
+            # checks if IPv6 since it has letters
+            if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
+            {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
+            else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+        }
+        if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+    }
+    if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){return $false;} # TODO make logs
+    if(!$IsConnected){return $false;} # You are not connected TODO make logs
+
+    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
+    [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
+
+    return $IpAddr -eq $DefaultGate;
 }
 
 function LoadFunctions

@@ -205,7 +205,11 @@ class Binary : Calculations
     Binary([String]$in)
     {
         # $in must be in binary
-        if(!$in.Contains('1') -and !$in.Contains('0')){throw "Not a binary value!"}
+        if(!$in.Contains('1') -and !$in.Contains('0'))
+        {
+            $global:LogHandler.Write("`$in variable is not a binary value. `$in = $($in)");
+            throw "Not a binary value!";
+        }
         else
         {
             $this.Value = $in;
@@ -222,7 +226,11 @@ class Binary : Calculations
             $this.Value = $this.IntToB($in);
             $this.Length = $this.Value.Length;
         }
-        else{throw "Not an integer!"}
+        else
+        {
+            $global:LogHandler.Write("`$in variable is not an integer. `$in = $($in)");
+            throw "Not an integer!";
+        }
     }
 
     hidden [String]IntToB([int16]$int)

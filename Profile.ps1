@@ -1,19 +1,22 @@
 # Engineer: Brandon Fong
-# TODO change the parameter startscript to start and find other instances
-Param([bool]$StartDir=$true,[Bool]$StartScript=$true,[Bool]$DebugFlag=$false)
+# Important Global Variables: XmlReader, AppPointer, LogHandler
+Param([System.Boolean]$StartDir=$true,[System.Boolean]$StartScript=$true,[System.Boolean]$DebugFlag=$false)
 
 <### CONFIG ###>
 Push-Location $($PROFILE |Split-Path -Parent);
-    [XML]$AppPointer = Get-Content Profile.xml;
+    [System.Xml.XmlDocument]$AppPointer = Get-Content Profile.xml;
 Pop-Location
-[XML]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
+[System.Xml.XmlDocument]$XMLReader = Get-Content $($AppPointer.Machine.GitRepoDir + "\Config\" + $AppPointer.Machine.ConfigFile);
 
 if(!$XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
-if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[bool]$Verbose = $true} # Helps debugging if on
-else{[bool]$Verbose = $false}
+if($XMLReader.Machine.LoadProcedure -eq "Verbose"){[System.Boolean]$Verbose = $true} # Helps debugging if on
+else{[System.Boolean]$Verbose = $false}
 
 Push-Location $AppPointer.Machine.GitRepoDir; 
     Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+
+    <### LOGS ###>
+        $global:LogHandler = Get-LogObject;
 
     <### CHECK UPDATES ###>
         if((.\update-profile.ps1) -or (.\update-config.ps1 -CheckUpdate))
@@ -59,9 +62,9 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             # Greetings
             if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings))
             {
-                if([string]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings.Type)){[String]$Type = "Big";}
+                if([String]::IsNullOrEmpty($XMLReader.Machine.Start.Greetings.Type)){[String]$Type = "Big";}
                 else{[String]$Type = $XMLReader.Machine.Start.Greetings.Type;}
-                [Boolean]$Save = [Boolean]$XMLReader.Machine.Start.Greetings.Save;
+                [System.Boolean]$Save = [System.Boolean]$XMLReader.Machine.Start.Greetings.Save;
                 $arg = 
                 @{
                     string=$XMLReader.Machine.Start.Greetings.InnerXml; # String 
@@ -73,7 +76,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
             }
 
             # If the script is defined, run it
-            if(![string]::IsNullOrEmpty($XMLReader.Machine.Start.Script) -and $(Test-Path $XMLReader.Machine.Start.Script))
+            if(![String]::IsNullOrEmpty($XMLReader.Machine.Start.Script) -and $(Test-Path $XMLReader.Machine.Start.Script))
             {
                 Invoke-Expression $(Evaluate -value:$XMLReader.Machine.Start.Script);# Executes the file that the user defines
             } 
@@ -83,20 +86,20 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     {
         if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.GitDisplay) -and ($XMLReader.Machine.ShellSettings.Enabled.ToBoolean($null)))
         {
-            [string]$gitstring = "Version: $(git describe --tags)"
+            [String]$gitstring = "Version: $(git describe --tags)"
             if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
             else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
         }
     }
     catch 
     {
-        Write-Warning "You may not have posh-git installed in powershell"
+        $LogHandler.Write("You may not have git bash installed.")
     }
 
 Pop-Location;
 
 # Method for start directory 
-if($StartDir -and (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
+if($StartDir -and (![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.StartDirectory)))
 {Set-Location $XMLReader.Machine.ShellSettings.StartDirectory;}
 
 # For debug mode
@@ -107,3 +110,5 @@ if($DebugFlag)
     if(!(Test-Path $DebugScript)){New-Item $DebugScript;}
     & $DebugScript;
 }
+
+$global:LogHandler.Write("Successfully loaded profile");

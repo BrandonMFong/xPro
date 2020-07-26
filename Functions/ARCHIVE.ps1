@@ -31,8 +31,7 @@ if($Zip)
     }
     else
     {
-        throw "Not enough files to compress.";
-        exit;
+        $global:LogHandler.Write("Not enough files to compress.");
     }
 }
 elseif(![string]::IsNullOrEmpty($Filename))

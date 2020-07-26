@@ -2,11 +2,18 @@ using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\List.psm1;
+using module .\..\Classes\Logs.psm1;
 
 # These are functions used inside other functions
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance); # This needs to be unique per config
 
+function Get-LogObject
+{
+    [String]$DateStamp = Get-Date -Format "MMddyyyy"; # Only doing logs for one day
+    [Logs]$x = [Logs]::new($($AppPointer.Machine.GitRepoDir + "\Logs\Users\" + $AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
+    return $x;
+}
 function MakeClass($XmlElement)
 {
     try 
@@ -68,14 +75,17 @@ function _GetXMLFilePath
 function GetObjectByClass([string]$Class)
 {
     [xml]$xml = _GetXMLContent;
+    [System.Boolean]$Found = $false;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
         {
-            return $(Get-Variable $Object.VarName.InnerXml).Value;
+            $Found = $true;break;
         }
     }
-    throw "Object not found!";
+    $Global:LogHandler.Write("Returning variable `$$($Object.VarName.InnerXml)");
+    if($Found){return $(Get-Variable $Object.VarName.InnerXml).Value;}
+    else{$Global:LogHandler.Write("Object not found for class $($class)");}
 }
 
 function IsNotPass($x){return ($x -ne "pass");}
@@ -204,7 +214,11 @@ function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
     [Hashtable]$t = @{}; # Init hash object 
     # $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
     
-    if($value.Key.Count -ne $value.Value.Count){throw "Objects must have equal key and values in config."}
+    if($value.Key.Count -ne $value.Value.Count)
+    {
+        $Global:LogHandler.Write("Objects must have equal key and values in config.");
+        throw;
+    }
 
     # When there is a node pointer
     elseif(![string]::IsNullOrEmpty($Node))
@@ -459,8 +473,13 @@ function GetBaseIP
     # Pretty similar to the List.psm1 module
     [String[]]$SubnetArray = $(SplitString -originalstring:$(GetHostName -Path:$SubnetMask) -Delimiter:$("."));
     [String[]]$IpArray = $(SplitString -originalstring:$(GetHostName -Path:$IpAddress) -Delimiter:$("."));
-
-    if(($SubnetArray.Count -gt $maxbytes) -or ($IpArray.Count -gt $maxbytes)){throw "Something bad happened";} # populated the array incorrectly, should not be more than 4 bytes
+    
+    # populated the array incorrectly, should not be more than 4 bytes
+    if(($SubnetArray.Count -gt $maxbytes) -or ($IpArray.Count -gt $maxbytes))
+    {
+        $Global:LogHandler.Write("Subnet array or Ip array were split more than 4 times. May not be an IP address for ipv4");
+        break;
+    } 
 
     # Get the base Ip strings
     [String]$BaseIp = $null;
@@ -547,7 +566,7 @@ function AppendCorrectChild([string]$Tag,$add,[ref]$x)
     {
         "Directory"{$x.Value.Machine.Directories.AppendChild($add);}
         "Program"{$x.Value.Machine.Programs.AppendChild($add);}
-        default{throw "Something Bad Happened"}
+        default{$Global:LogHandler.Write("$($Tag) was passed but isn't a choice. TODO combine with GetTCExtID");}
     }
 }
 
@@ -558,7 +577,7 @@ function GetTCExtID([string]$Type)
     {
         "Directory"{$str = "PrivateDirectory"}
         "Program"{$str = "PrivateProgram"}
-        default{throw "Something Bad Happened"}
+        default{$Global:LogHandler.Write("$($Type) was passed but isn't a choice. TODO combine with AppendCorrectChild");}
     }
     return $str;
 }

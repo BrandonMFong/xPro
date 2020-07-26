@@ -28,9 +28,7 @@ function Set-Tag
         try{$tag = $tag.Substring(0,$tag.IndexOf("-"));}
         catch
         {
-           Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
-           Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
-           # TODO add logs
+           $Global:LogHandler.Write("`n$($_.Exception)`n");
         }
         [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
         $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
@@ -53,10 +51,11 @@ function Set-Tag
     }
     else
     {
-        throw "Please choose type of tag increment you want!";
+        Write-Warning "Please pass a switch";
+        break;
     }
     
-    if($TagString -eq $tag){throw "Tag $($TagString) was already set!";}
+    if($TagString -eq $tag){Write-Warning "Tag $($TagString) was already set!"; break;}
 
     # Tag
     git tag $TagString $CommitID;
@@ -117,7 +116,8 @@ function Set-CommitTag
     }
     else
     {
-        throw "Please pass in a tag switch"
+        Write-Warning "Please pass a switch";
+        break;
     }
 }
 

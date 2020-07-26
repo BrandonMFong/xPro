@@ -20,11 +20,14 @@ foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 {
 	if($Directory.alias -eq $Destination)
 	{
-		move-item $File $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;
+		[String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
+		Move-Item $File $result; $ProcessExecuted = $true;break;
 	}
 	
 }
 if(!($ProcessExecuted))
 {
-	throw "Parameter '$($Destination)' does match any aliases in the configuration.  Please check spelling.";
+	$global:LogHandler.Write("Parameter '$($Destination)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");
+	Write-Warning "Parameter '$($Destination)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
 }
+else{$global:LogHandler.Write("Put $($File) $($result)");}

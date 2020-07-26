@@ -30,3 +30,6 @@ Resources/Debug.ps1
 
 # Greetings
 Resources/Greetings/*
+
+# Logs
+logs/Users/*

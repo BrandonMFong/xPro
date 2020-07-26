@@ -421,7 +421,9 @@ class Calendar
         }
         catch [System.Management.Automation.ParameterBindingException]
         {
-            throw "You might have not timed out.  Run Fix Time Stamp query, but please check!";
+            [string]$e = "You might have not timed out.  Run Fix Time Stamp query, but please check!";
+            $global:LogHandler.Write($e);
+            throw $e;
         }
     }
 

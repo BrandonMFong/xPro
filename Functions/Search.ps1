@@ -37,4 +37,4 @@ elseif($Facebook)
     $Search = "https://www.facebook.com/search/top/?q=$Value&epa=SEARCH_BOX";
     Start-Process $Search;
 }
-else{throw "Nothing searched";}
+else{$Global:LogHandler.Write("Nothing searched");}

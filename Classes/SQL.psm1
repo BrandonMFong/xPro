@@ -77,7 +77,12 @@ class SQL
         $i = 0;
         foreach ($t in $tablestochoosefrom){$i++;Write-host "$($i) - $($t.ItemArray)";} 
         $index = Read-Host -Prompt "So?";
-        if($index -gt $i){throw "Index out of range";break;}
+        if($index -gt $i)
+        {
+            $global:LogHandler.Write("`$index = $($index), which is greater than $($i)");
+            Write-Warning "Not a valid input";
+            break;
+        }
         
         # If you are inserting into personalinfo then print type content table
         if([string]($tablestochoosefrom[$index-1].ItemArray) -eq "PersonalInfo")
@@ -152,47 +157,6 @@ class SQL
     {
         return ($this.Query("select isnull(max(id)+1, 1) as Max from $($Table)")).Max;
     }
-
-    # TODO delete
-    # [System.Object[]]Select()
-    # {
-    #     $querystring = $null;
-
-    #     [system.object[]]$tablestochoosefrom = $this.Query('select table_name from Information_schema.tables');
-
-    #     Write-Host "`nWhich Table are you selecting from?" -ForegroundColor Red -BackgroundColor Yellow;
-    #     $i = 1;
-    #     foreach ($t in $tablestochoosefrom){Write-host "$($i) - $($t.ItemArray)";$i++;} 
-    #     $index = Read-Host -Prompt "So?";
-
-    #     $table = $tablestochoosefrom[$index - 1].ItemArray;
-
-    #     # Can I use GetTableSchema on this?
-    #     $values = $this.Query("select COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$($table)'");
-    #     $values = $($values|Select-Object COLUMN_NAME, DATA_TYPE, Value, WantToSee); # add another column
-
-    #     # Prompt user what values they want to insert per column
-    #     foreach($val in $values)
-    #     {
-    #         Write-Warning "Do you want to see $($val.COLUMN_NAME)";
-    #         $val.WantToSee = Read-Host -Prompt "(y/n)?";
-    #         $val.Value = $val.COLUMN_NAME;
-    #     }
-
-    #     $this.QueryConstructor("Select", [ref]$querystring, $table, $values);
-
-    #     Write-Host "Query: $($querystring)"
-
-    #     try{$this.Query($querystring);}
-    #     catch
-    #     {
-    #         Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-    #         Write-Warning "$($_)";
-    #         break;
-    #     }
-
-    #     return $this.results; # display
-    # }
 
     StartServer()# Run as Admin
     {
@@ -283,29 +247,33 @@ class SQL
                 $querystring.Value = $querystring.Value.Replace("(,", "(");
                 break;
             }
-            "Select" # TODO finish
+            # "Select" # TODO finish
+            # {
+            #     $rep = "|||";
+
+            #     # Start query string
+            #     $querystring.Value = "select ";
+
+            #     # add to query string
+            #     foreach($val in $values)
+            #     {
+            #         if($val.WantToSee -eq "y")
+            #         {
+            #             $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
+            #             $querystring.Value += $val.COLUMN_NAME + "$($rep)";
+            #         }
+            #     }
+
+            #     $querystring.Value = $querystring.Value.Replace("$($rep)", "  ");
+            #     $querystring.Value = $querystring.Value.Replace("select ,", "select ");
+            #     $querystring.Value += " from $($table)";
+            #     break;
+            # }
+            default 
             {
-                $rep = "|||";
-
-                # Start query string
-                $querystring.Value = "select ";
-
-                # add to query string
-                foreach($val in $values)
-                {
-                    if($val.WantToSee -eq "y")
-                    {
-                        $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
-                        $querystring.Value += $val.COLUMN_NAME + "$($rep)";
-                    }
-                }
-
-                $querystring.Value = $querystring.Value.Replace("$($rep)", "  ");
-                $querystring.Value = $querystring.Value.Replace("select ,", "select ");
-                $querystring.Value += " from $($table)";
-                break;
+                $global:LogHandler.Write("`$TypeQuery = $($TypeQuery)");
+                throw "Not a valid query type."
             }
-            default {throw "Not a valid query type."}
         }
     } 
 
@@ -370,10 +338,9 @@ class SQL
             }
             catch 
             {
-                Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-                $StackTrace;
-                $_;
-                throw "Something bad happened!";
+                $global:LogHandler.Write("`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)");
+                $global:LogHandler.Write("`n$($_.Exception)`n");
+                throw;
             }
         }
     }
@@ -446,7 +413,11 @@ class SQL
     {
         [string]$res = "";[boolean]$found = $false;
         foreach($Value in $Row.Value){if($Value.ColumnName -eq $Context){$res = $Value.InnerXML;$found = $true;break;}}
-        if(!$found){Throw "Something bad happened. '$($Context)' column was not configured in rows";}
+        if(!$found)
+        {
+            $global:LogHandler.Write("'$($Context)' column was not configured in rows");
+            Throw;
+        }
         else{return $res;}
     }
 

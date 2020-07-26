@@ -65,7 +65,7 @@ function Set-Tag
 
 function Set-Commit
 {
-    Param([String]$Message,[Switch]$NotAll,[Switch]$NoType)
+    Param([String]$Message,[Switch]$NotAll,[Switch]$NoType,[Switch]$Push)
 
     if(!$NotAll)
     {
@@ -93,6 +93,9 @@ function Set-Commit
     $commitmessage += $msg;
 
     git commit -m $commitmessage; # Set the commit
+
+    # Always rebase before you push
+    if($Push){git pull --rebase; git push;}
 }
 
 function Set-CommitTag

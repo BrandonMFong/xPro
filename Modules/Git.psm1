@@ -56,6 +56,8 @@ function Set-Tag
         throw "Please choose type of tag increment you want!";
     }
     
+    if($TagString -eq $tag){throw "Tag $($TagString) was already set!";}
+
     # Tag
     git tag $TagString $CommitID;
 

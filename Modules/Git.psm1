@@ -25,7 +25,13 @@ function Set-Tag
     }
     else 
     {
-        $tag = $tag.Substring(0,$tag.IndexOf("-"));
+        try{$tag = $tag.Substring(0,$tag.IndexOf("-"));}
+        catch
+        {
+           Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
+           Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
+           # TODO add logs
+        }
         [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
         $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
         [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));

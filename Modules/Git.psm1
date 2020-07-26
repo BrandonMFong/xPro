@@ -58,7 +58,7 @@ function Set-Tag
 
 function Set-Commit
 {
-    Param([String]$Message,[Switch]$NotAll)
+    Param([String]$Message,[Switch]$NotAll,[Switch]$NoType)
 
     if(!$NotAll)
     {
@@ -68,16 +68,18 @@ function Set-Commit
     [String]$commitmessage = $null;
 
     # Run through the commit types if they are configured
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.GitSettings.CommitTypes.CommitType))
+    if(![string]::IsNullOrEmpty($XMLReader.Machine.GitSettings.CommitTypes.CommitType) -and !$NoType)
     {
         Write-Host "`nChoose from Commit types:";
         for([int16]$i = 0;$i -lt $XMLReader.Machine.GitSettings.CommitTypes.CommitType.Count;$i++)
         {
             Write-Host "    $($i+1) - $($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$i])";
         }
+        [int16]$NoneIndex = $i+2;
+        Write-Host "    $($NoneIndex) - None";
 
         [Int16]$index = Read-Host -Prompt "So?"; # choose
-        $commitmessage += "[$($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$index-1])] "; # Set the type in the string
+        if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$index-1])] ";} # Set the type in the string
     }
     
     [string]$msg = Read-Host -Prompt "Commit message";

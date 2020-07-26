@@ -109,7 +109,7 @@ function Set-CommitTag
     }
     else
     {
-        Set-Tag -BugPatch -Push:$Push;
+        throw "Please pass in a tag switch"
     }
 }
 

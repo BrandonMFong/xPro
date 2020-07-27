@@ -10,6 +10,16 @@ Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local
 	
 foreach ($Directory in $XMLReader.Machine.Directories.Directory)
 {
-	if($Directory.alias -eq $Destination){Start-Process $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;}
+	[String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
+	if($Directory.alias -eq $Destination)
+	{
+		[String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
+		Start-Process $result; $ProcessExecuted = $true;break;
+	}
 }
-if(!($ProcessExecuted)){throw "Parameter '$($Destination)' does match any aliases in the configuration.  Please check spelling.";}
+if(!($ProcessExecuted))
+{
+	$global:LogHandler.Write("Parameter '$($Destination)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");
+	Write-Warning "Parameter '$($Destination)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
+}
+else{$global:LogHandler.Write("Opened $($Destination)");}

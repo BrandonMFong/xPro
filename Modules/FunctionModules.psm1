@@ -2,11 +2,18 @@ using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
 using module .\..\Classes\List.psm1;
+using module .\..\Classes\Logs.psm1;
 
 # These are functions used inside other functions
 
 $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance); # This needs to be unique per config
 
+function Get-LogObject
+{
+    [String]$DateStamp = Get-Date -Format "MMddyyyy"; # Only doing logs for one day
+    [Logs]$x = [Logs]::new($($AppPointer.Machine.GitRepoDir + "\Logs\Users\" + $AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
+    return $x;
+}
 function MakeClass($XmlElement)
 {
     try 
@@ -68,14 +75,17 @@ function _GetXMLFilePath
 function GetObjectByClass([string]$Class)
 {
     [xml]$xml = _GetXMLContent;
+    [System.Boolean]$Found = $false;
     foreach($Object in $xml.Machine.Objects.Object)
     {
         if(($Object.Type -eq 'PowerShellClass') -and ($Object.Class.Classname -eq $Class))
         {
-            return $(Get-Variable $Object.VarName.InnerXml).Value;
+            $Found = $true;break;
         }
     }
-    throw "Object not found!";
+    $Global:LogHandler.Write("Returning variable `$$($Object.VarName.InnerXml)");
+    if($Found){return $(Get-Variable $Object.VarName.InnerXml).Value;}
+    else{$Global:LogHandler.Write("Object not found for class $($class)");}
 }
 
 function IsNotPass($x){return ($x -ne "pass");}
@@ -204,7 +214,11 @@ function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
     [Hashtable]$t = @{}; # Init hash object 
     # $IntervalHolder = GetAllIntervals($value.Key);# Only using key because there always has to be a value
     
-    if($value.Key.Count -ne $value.Value.Count){throw "Objects must have equal key and values in config."}
+    if($value.Key.Count -ne $value.Value.Count)
+    {
+        $Global:LogHandler.Write("Objects must have equal key and values in config.");
+        throw;
+    }
 
     # When there is a node pointer
     elseif(![string]::IsNullOrEmpty($Node))
@@ -345,70 +359,78 @@ function LoadDrives
         {
             if($val.Type -eq "NetworkShare")
             {
-                # foreach($val in $XMLReader.Machine.NetDrives.NetDrive)
-                # {
-                    if(!$Verbose)
-                    {
-                        Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-                        $Complete++;
-                    }
-        
-                    # This statement checks to see if the network drive was set
-                    if(!(Test-Path $val.DriveLetter))
-                    {
-                        # Get Subnet and default gateway for the current network
-                        [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
-                        [String[]]$NetInfo = [string[]]::new($null);
-                        for([int]$i=0;$i -lt $ip.Count;$i++)
-                        {
-                            # Assuming it is always Wireless LAN adapter Wi-Fi 
-                            if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
-                            {
-                                [int16]$j = 1;
-                                [byte]$l = 0;
-        
-                                # Gets the segment in the ipconfig
-                                while($true)
-                                {
-                                    $l = $($ip[$i + $j].Length -gt 0).ToByte($null);
-                                    if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
-                                    $j++;
-                                }
-                                $NetInfo = $ip[$i..($i+$j-1)]; 
-                                break;
-                            }
-                        }
-                        if([string]::IsNullOrEmpty($NetInfo)){throw "Something bad happened."} # TODO throw=>break
-                        
-                        # Look through the net info
-                        [String]$DefaultGateway = $null; # Get Gateway IP
-                        [String]$SubnetMask = $null; # Get subnet ip
-                        [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
-                        for([int]$i=0;$i -lt $NetInfo.Count;$i++)
-                        {
-                            if($NetInfo[$i].Contains('Default Gateway'))
-                            {
-                                # checks if IPv6 since it has letters
-                                if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
-                                {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
-                                else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-                            }
-                            if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-                        }
-                        if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){throw "They are still null!";} # TODO throw=>break;
-        
-                        [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
-        
-                        [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
-                        [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
-                        if($IpAddr -eq $DefaultGate){net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
-                    }
-                # } 
+                if(!$Verbose)
+                {
+                    Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -PercentComplete (($Complete / $Total)*100);
+                    $Complete++;
+                }
+    
+                # This statement checks to see if the network drive was set
+                if(!(Test-Path $val.DriveLetter))
+                {
+                    [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
+    
+                    if($(IsWithinNetwork -IpAddress:$IpAddress))
+                    {net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
+                }
             }
         }
-        
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
+}
+
+function IsWithinNetwork
+{
+    Param([String]$IpAddress)
+    # Get Subnet and default gateway for the current network
+    [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
+    [String[]]$NetInfo = [string[]]::new($null);
+    for([int]$i=0;$i -lt $ip.Count;$i++)
+    {
+        # Assuming it is always Wireless LAN adapter Wi-Fi 
+        if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
+        {
+            [int16]$j = 1;
+            [byte]$l = 0;
+
+            # Gets the segment in the ipconfig
+            while($true)
+            {
+                $l = $($ip[$i + $j].Length -gt 0).ToByte($null); # If not a blank row
+                if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
+                $j++;
+            }
+            $NetInfo = $ip[$i..($i+$j-1)]; 
+            break;
+        }
+    }
+    if([string]::IsNullOrEmpty($NetInfo)){return $false;} # TODO make logs
+    
+    # Look through the net info
+    [String]$DefaultGateway = $null; # Get Gateway IP
+    [String]$SubnetMask = $null; # Get subnet ip
+    [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
+    [System.Boolean]$IsConnected = $true; # Assuming that we are connected
+    for([int]$i=0;$i -lt $NetInfo.Count;$i++)
+    {
+        # This is for the case when we are not connected to wifi
+        if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
+        if($NetInfo[$i].Contains('Default Gateway'))
+        {
+            # checks if IPv6 since it has letters
+            if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
+            {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
+            else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+        }
+        if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+    }
+    if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){return $false;} # TODO make logs
+    if(!$IsConnected){return $false;} # You are not connected TODO make logs
+
+    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
+    [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
+
+    return $IpAddr -eq $DefaultGate;
 }
 
 function LoadFunctions
@@ -451,8 +473,13 @@ function GetBaseIP
     # Pretty similar to the List.psm1 module
     [String[]]$SubnetArray = $(SplitString -originalstring:$(GetHostName -Path:$SubnetMask) -Delimiter:$("."));
     [String[]]$IpArray = $(SplitString -originalstring:$(GetHostName -Path:$IpAddress) -Delimiter:$("."));
-
-    if(($SubnetArray.Count -gt $maxbytes) -or ($IpArray.Count -gt $maxbytes)){throw "Something bad happened";} # populated the array incorrectly, should not be more than 4 bytes
+    
+    # populated the array incorrectly, should not be more than 4 bytes
+    if(($SubnetArray.Count -gt $maxbytes) -or ($IpArray.Count -gt $maxbytes))
+    {
+        $Global:LogHandler.Write("Subnet array or Ip array were split more than 4 times. May not be an IP address for ipv4");
+        break;
+    } 
 
     # Get the base Ip strings
     [String]$BaseIp = $null;
@@ -539,7 +566,7 @@ function AppendCorrectChild([string]$Tag,$add,[ref]$x)
     {
         "Directory"{$x.Value.Machine.Directories.AppendChild($add);}
         "Program"{$x.Value.Machine.Programs.AppendChild($add);}
-        default{throw "Something Bad Happened"}
+        default{$Global:LogHandler.Write("$($Tag) was passed but isn't a choice. TODO combine with GetTCExtID");}
     }
 }
 
@@ -550,7 +577,7 @@ function GetTCExtID([string]$Type)
     {
         "Directory"{$str = "PrivateDirectory"}
         "Program"{$str = "PrivateProgram"}
-        default{throw "Something Bad Happened"}
+        default{$Global:LogHandler.Write("$($Type) was passed but isn't a choice. TODO combine with AppendCorrectChild");}
     }
     return $str;
 }

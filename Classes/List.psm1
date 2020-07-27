@@ -83,11 +83,15 @@ class List
 
     hidden [System.Xml.XmlElement] GetList()
     {
+        [System.Boolean]$Found = $false;
+        [System.Xml.XmlElement]$Out = $null;
         foreach($List in $this.xml.Machine.Lists.List)
         {
-            if($List.Title -eq $this.Title){return $List;}
+            if($List.Title -eq $this.Title){[System.Xml.XmlElement]$Out = $List; $Found = $true;}
         }
-        throw "Couldn't find list"
+        # throw "Couldn't find list"
+        if($Found){return $Out;}
+        else{$global:LogHandler.Write("Couldn't find list");return $null;}
     }
 
     hidden GetItems($List)
@@ -138,7 +142,9 @@ class List
                     if(($Item.ID -eq $ID) -and ($Item.HasChildNodes)){$this.SweepItems($string,$i+2,$Item,$string[$i+1],$Method,$ItemName);}
                 }
                 if($this.ExitLoop){break;}
-                throw "Something Bad Happened";
+                [string]$e = "Something Bad Happened";
+                $global:LogHandler.Write($e);
+                throw $e;
             }
             elseif([string]::IsNullOrEmpty($string[$i+1])) # this notifies that this is the end
             {
@@ -198,7 +204,7 @@ class List
                                 $List.RemoveChild($Item);
                                 $this.FoundNode = $true;
                             }
-                            Default {throw "Something bad happened!";}
+                            Default {$global:LogHandler.Write("$($Method) was not set to anything")}
                         }
                     }
                 }

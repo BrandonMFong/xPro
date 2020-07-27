@@ -17,12 +17,15 @@ Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local
 	{
 		if($Directory.alias -eq $dir)
 		{
-			if($push){Push-Location $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;}
-			else{Set-Location $(Evaluate -value:$Directory -IsDirectory:$true); $ProcessExecuted = $true;break;}
+			[String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
+			if($push){Push-Location $result; $ProcessExecuted = $true;break;}
+			else{Set-Location $result; $ProcessExecuted = $true;break;}
 		}
 		
 	}
 	if(!($ProcessExecuted))
 	{
-		throw "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
+		$global:LogHandler.Write("Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");
+		Write-Warning "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
 	}
+	else{$global:LogHandler.Write("Jumped to $($result)");}

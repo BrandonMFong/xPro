@@ -35,6 +35,15 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
+  <!-- Git Settings -->
+  <GitSettings>
+    <CommitTypes>
+      <CommitType>Log</CommitType>
+      <CommitType>Code</CommitType>
+      <CommitType>Config</CommitType>
+      <CommitType>Schema</CommitType>
+    </CommitTypes>
+  </GitSettings>
   <Weather>
     <Area>Santa Rosa</Area>
   </Weather>

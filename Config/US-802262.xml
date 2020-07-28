@@ -68,6 +68,9 @@
       </Connection>
     </NetDrive>
   </NetDrives>
+  <Functions>
+    <Function><![CDATA[ function global:TFS {Chrome $user.TFS;$Passwords.TFS|scb}]]></Function>
+  </Functions>
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
@@ -190,6 +193,7 @@
     <Program Alias="VC-Notebook" SecType="public">C:\Users\brandon.fong\Brandon.Fong\NOTEBOOK\VC-Notebook.code-workspace</Program>
     <Program Alias="IE" SecType="public">C:\Program Files\Internet Explorer\iexplore.exe</Program>
     <Program Alias="umount" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\DismountDrive.ps1</Program>
+    <Program Alias="RS" SecType="public">Restart-Session</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

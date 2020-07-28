@@ -26,9 +26,7 @@ function Set-Tag
     else 
     {
         try{$tag = $tag.Substring(0,$tag.IndexOf("-"));}
-        catch
-        {
-           $Global:LogHandler.Write("`n$($_.Exception)`n");
+        catch{$Global:LogHandler.WriteError($_);
         }
         $Global:LogHandler.Write("tag before MajorString $($tag)");
         [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));

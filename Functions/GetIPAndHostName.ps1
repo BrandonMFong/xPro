@@ -33,8 +33,7 @@ for($i = 3;$i -lt $Table.Length;$i++)
     }
     catch 
     {
-        $global:LogHandler.Write("`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)");
-        $global:LogHandler.Write("`n$($_.Exception)`n");
+        $Global:LogHandler.WriteError($_);
         break;
     }
     $key = Test-KeyPress -Key Q; # test key

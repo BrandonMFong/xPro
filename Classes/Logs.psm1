@@ -24,4 +24,23 @@ class Logs
 
         Add-Content $this.LogFile $contentstring;
     }
+
+    # Going to put it in the same logs
+    [Void] WriteError([string]$logstring)
+    {
+        Write-Warning "Error. Check logs";
+
+        [String]$contentstring = $null;
+        [String]$datestring = Get-Date -Format "yyyy-MM-dd HH:mm:ss"; # Get the date
+        $callstack = Get-PSCallStack;
+        [String]$SourceFile = $null;
+        if(![string]::IsNullOrEmpty($callstack[1].ScriptName)){$SourceFile = $callstack[1].Location | Split-Path -Leaf;} # Get the script that called this method
+
+        # Writing the content into the log
+        $contentstring = "[$($datestring) - $($SourceFile)]";
+        $contentstring += "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)";
+        $contentstring += "`n$($_.Exception)`n";
+
+        Add-Content $this.LogFile $contentstring;
+    }
 }

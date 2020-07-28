@@ -11,7 +11,7 @@ $Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects
 function Get-LogObject
 {
     [String]$DateStamp = Get-Date -Format "MMddyyyy"; # Only doing logs for one day
-    [Logs]$x = [Logs]::new($($AppPointer.Machine.GitRepoDir + "\Logs\Users\" + $AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
+    [Logs]$x = [Logs]::new($($AppPointer.Machine.GitRepoDir + "\Logs\User\" + $AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
     return $x;
 }
 function MakeClass($XmlElement)
@@ -52,12 +52,7 @@ function MakeClass($XmlElement)
             }
         }
     }
-    catch
-    {
-        Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-        Write-Warning "$($_)";
-        Write-Warning "$($_.ScriptStackTrace)";
-    }
+    catch{$Global:LogHandler.WriteError($_);}
 }
 
 # Just gets the content, must convert at reference
@@ -83,7 +78,7 @@ function GetObjectByClass([string]$Class)
             $Found = $true;break;
         }
     }
-    $Global:LogHandler.Write("Returning variable `$$($Object.VarName.InnerXml)");
+    $Global:LogHandler.Write("Returning variable `$$($Object.VarName.InnerXml) for $($(Get-PSCallStack)[1].Location | Split-Path -Leaf;)");
     if($Found){return $(Get-Variable $Object.VarName.InnerXml).Value;}
     else{$Global:LogHandler.Write("Object not found for class $($class)");}
 }
@@ -284,7 +279,9 @@ function LoadPrograms
                 Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            Set-Alias $val.Alias "$(Evaluate -value $val)" -Verbose:$Verbose -Scope Global;
+            [string]$program = $(Evaluate -value $val);
+            try{Set-Alias $val.Alias $program -Verbose:$Verbose -Scope Global; $Global:LogHandler.Write("Set-Alias: $($val.Alias) => $($program)");}
+            catch{$Global:LogHandler.WriteError($_);}
         }
         if(!$Verbose){Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;}
     }
@@ -303,7 +300,11 @@ function LoadModules
                 Write-Progress -Activity "Loading Modules" -Status "Module: $($val)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            if(Test-Path $val){Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking;}
+            if(Test-Path $val)
+            {
+                try{Import-Module $($val) -Verbose:$Verbose -Scope Global -DisableNameChecking; $Global:LogHandler.Write("Import-Module: $($val)");}
+                catch{$Global:LogHandler.WriteError($_);}
+            }
         }
         if(!$Verbose){Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;}
     }
@@ -323,14 +324,20 @@ function LoadObjects
                 Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            switch ($val.Type)
+            [String]$VarName = Evaluate -value $val.VarName;
+            try
             {
-                "PowerShellClass"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
-                "XmlElement"{New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
-                "HashTable"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
-                "LinkedObject"{New-Variable -Name "$(Evaluate -value $val.VarName)" -Value $(GetLinkedInfo -Link:$val.Link) -Force -Verbose:$Verbose -Scope Global; break;}
-                default {New-Variable -Name "$($val.VarName.InnerXml)" -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                switch ($val.Type)
+                {
+                    "PowerShellClass"{New-Variable -Name $VarName -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
+                    "XmlElement"{New-Variable -Name $VarName -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                    "HashTable"{New-Variable -Name $VarName -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
+                    "LinkedObject"{New-Variable -Name $VarName -Value $(GetLinkedInfo -Link:$val.Link) -Force -Verbose:$Verbose -Scope Global; break;}
+                    default {New-Variable -Name $VarName -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                }
+                $Global:LogHandler.Write("New-Variable: $($VarName)");
             }
+            catch{$Global:LogHandler.WriteError($_);}
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;}
     }
@@ -371,7 +378,14 @@ function LoadDrives
                     [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
     
                     if($(IsWithinNetwork -IpAddress:$IpAddress))
-                    {net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);}
+                    {
+                        try
+                        {
+                            net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);
+                            $Global:LogHandler.Write("net use on $($IpAddress)");
+                        }
+                        catch{$Global:LogHandler.WriteError($_);}
+                    }
                 }
             }
         }
@@ -447,7 +461,8 @@ function LoadFunctions
                 Write-Progress -Activity "Loading Functions" -Status "Function: $($val.'#cdata-section')" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            Invoke-Expression $val.'#cdata-section';
+            try{Invoke-Expression $val.'#cdata-section';$Global:LogHandler.Write("Successfully loaded $($val.'#cdata-section')");}
+            catch{$Global:LogHandler.WriteError($_);}
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }

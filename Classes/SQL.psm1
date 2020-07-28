@@ -54,11 +54,7 @@ class SQL
         {
             Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         }
-        catch
-        {
-           Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
-           Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
-        }
+        catch{$Global:LogHandler.WriteError($_);}
     }
 
     [system.object[]]ShowTables()
@@ -135,8 +131,7 @@ class SQL
         try{Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;}
         catch
         {
-            Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-            Write-Warning "$($_)";
+            $Global:LogHandler.WriteError($_);
             break;
         }
 
@@ -338,8 +333,7 @@ class SQL
             }
             catch 
             {
-                $global:LogHandler.Write("`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)");
-                $global:LogHandler.Write("`n$($_.Exception)`n");
+                $Global:LogHandler.WriteError($_);
                 throw;
             }
         }

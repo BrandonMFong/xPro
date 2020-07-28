@@ -288,14 +288,10 @@ class Calendar
                 }
                 catch [System.Management.Automation.RuntimeException]
                 {
-                    Write-Warning "[CALENDAR] You may have the PathToImportFile configured but not a database"
+                    Write-Warning "[CALENDAR] You may have the PathToImportFile configured but not a database";
+                    $Global:LogHandler.Write("[CALENDAR] You may have the PathToImportFile configured but not a database");
                 }
-                catch
-                {
-                    Write-Host "Uncaught: $($_.Exception.GetType().FullName)";
-                    Write-Warning "$($_)";
-                    Write-Warning "$($_.ScriptStackTrace)";
-                }
+                catch{$Global:LogHandler.WriteError($_);}
             }
         }
     }
@@ -423,6 +419,7 @@ class Calendar
         {
             [string]$e = "You might have not timed out.  Run Fix Time Stamp query, but please check!";
             $global:LogHandler.Write($e);
+            $global:LogHandler.WriteError($_);
             throw $e;
         }
     }

@@ -44,9 +44,11 @@
       <CommitType>Schema</CommitType>
     </CommitTypes>
   </GitSettings>
+  <!-- Weather -->
   <Weather>
     <Area>Santa Rosa</Area>
   </Weather>
+  <!-- Email -->
   <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Outlook.dll">
     <IncludeFields>
       <To>True</To>
@@ -58,8 +60,9 @@
     <ListInboxMax>10</ListInboxMax>
     <ListOrderBy>Desc</ListOrderBy>
   </Email>
+  <!-- Network drives -->
   <NetDrives>
-    <NetDrive HostName="">
+    <NetDrive HostName="Kojami">
       <Connection Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
         <IPAddress SecType="private">e9ba5288-1569-4c17-8190-57548cad4327</IPAddress>
@@ -68,9 +71,11 @@
       </Connection>
     </NetDrive>
   </NetDrives>
+  <!-- Functions -->
   <Functions>
     <Function><![CDATA[ function global:TFS {Chrome $user.TFS;$Passwords.TFS|scb}]]></Function>
   </Functions>
+  <!-- Modules -->
   <Modules>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
     <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>

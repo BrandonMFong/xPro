@@ -26,16 +26,25 @@ function Set-Tag
     else 
     {
         try{$tag = $tag.Substring(0,$tag.IndexOf("-"));}
-        catch{$Global:LogHandler.WriteError($_);
+        catch{$Global:LogHandler.WriteError($_);}
+
+        try
+        {
+            $Global:LogHandler.Write("tag before MajorString $($tag)");
+            [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
+            $Global:LogHandler.Write("MajorString = $($MajorString)");
+            $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+    
+            $Global:LogHandler.Write("tag before MinorString $($tag)");
+            [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
+            $Global:LogHandler.Write("MinorString = $($MinorString)");
+            $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+    
+            $Global:LogHandler.Write("tag before BugPatchString $($tag)");
+            [int]$BugPatchString = $tag; # At this point we are at the end
+            $Global:LogHandler.Write("BugPatchString = $($BugPatchString)");
         }
-        $Global:LogHandler.Write("tag before MajorString $($tag)");
-        [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
-        $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
-        $Global:LogHandler.Write("tag before MinorString $($tag)");
-        [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
-        $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
-        $Global:LogHandler.Write("tag before BugPatchString $($tag)");
-        [int]$BugPatchString = $tag; # At this point we are at the end
+        catch{$Global:LogHandler.WriteError($_);}
     }
 
     if($Major)
@@ -102,7 +111,7 @@ function Set-Commit
 
 function Set-CommitTag
 {
-    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch, [Switch]$Push)
+    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch,[Switch]$Push)
     Set-Commit;
 
     # Default is bugpatch tag

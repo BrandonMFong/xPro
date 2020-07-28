@@ -26,7 +26,7 @@ class Logs
     }
 
     # Going to put it in the same logs
-    [Void] WriteError([string]$logstring)
+    [Void] WriteError($logstring)
     {
         Write-Warning "Error. Check logs";
 
@@ -38,8 +38,9 @@ class Logs
 
         # Writing the content into the log
         $contentstring = "[$($datestring) - $($SourceFile)]";
-        $contentstring += "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)";
-        $contentstring += "`n$($_.Exception)`n";
+        $contentstring += "`nError in $($SourceFile)";
+        $contentstring += "`n$($logstring)`n";
+        for([int16]$i=1;$i -lt $callstack.Count-1;$i++){$contentstring += "`n$($callstack[$i])";}
 
         Add-Content $this.LogFile $contentstring;
     }

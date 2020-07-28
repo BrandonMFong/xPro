@@ -1,7 +1,7 @@
 
 function Get-Tag
 {
-    [string]$gitstring = "Version: $(git describe --tags)"
+    [string]$gitstring = "Version: $(git describe --tags)";
     if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}
     else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
@@ -30,10 +30,13 @@ function Set-Tag
         {
            $Global:LogHandler.Write("`n$($_.Exception)`n");
         }
+        $Global:LogHandler.Write("tag before MajorString $($tag)");
         [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
         $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+        $Global:LogHandler.Write("tag before MinorString $($tag)");
         [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
         $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+        $Global:LogHandler.Write("tag before BugPatchString $($tag)");
         [int]$BugPatchString = $tag; # At this point we are at the end
     }
 
@@ -51,13 +54,14 @@ function Set-Tag
     }
     else
     {
-        Write-Warning "Please pass a switch";
+        $Global:LogHandler.Write("Switch was not passed");
         break;
     }
     
-    if($TagString -eq $tag){Write-Warning "Tag $($TagString) was already set!"; break;}
+    if($TagString -eq $tag){$Global:LogHandler.Write("Tag $($TagString) was already set!"); break;}
 
     # Tag
+    $Global:LogHandler.Write("Applying tag: $($TagString)");
     git tag $TagString $CommitID;
 
     if($Push){Push-With-Tag;}

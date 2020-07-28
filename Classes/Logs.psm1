@@ -40,7 +40,7 @@ class Logs
         $contentstring = "[$($datestring) - $($SourceFile)]";
         $contentstring += "`nError in $($SourceFile)";
         $contentstring += "`n$($logstring)`n";
-        for([int16]$i=1;$i -lt $callstack.Count-1;$i++){$contentstring += "`n$($callstack[$i])";}
+        for([int16]$i=0;$i -lt $callstack.Count;$i++){$contentstring += "$($callstack[$i])`n";}
 
         Add-Content $this.LogFile $contentstring;
     }

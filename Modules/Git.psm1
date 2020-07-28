@@ -11,6 +11,8 @@ function Push-With-Tag
     git push;git push --tags;
 }
 
+
+# TODO how to make this configurable
 function Set-Tag
 {
     Param([string]$CommitID=$null,[Switch]$Major,[Switch]$Minor,[Switch]$BugPatch, [Switch]$Push)
@@ -33,12 +35,12 @@ function Set-Tag
             $Global:LogHandler.Write("tag before MajorString $($tag)");
             [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
             $Global:LogHandler.Write("MajorString = $($MajorString)");
-            $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+            DisectTag([ref]$tag);
     
             $Global:LogHandler.Write("tag before MinorString $($tag)");
             [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
             $Global:LogHandler.Write("MinorString = $($MinorString)");
-            $tag = $tag.Replace($tag.Substring(0,$tag.IndexOf(".")+1),"");
+            DisectTag([ref]$tag);
     
             $Global:LogHandler.Write("tag before BugPatchString $($tag)");
             [int]$BugPatchString = $tag; # At this point we are at the end
@@ -72,6 +74,13 @@ function Set-Tag
     git tag $TagString $CommitID;
 
     if($Push){Push-With-Tag;}
+}
+
+
+function DisectTag([ref]$tag)
+{
+    [Regex]$regex = $tag.Value.Substring(0,$tag.Value.IndexOf(".")+1);
+    $tag.Value = $regex.Replace($tag.Value,"",1);
 }
 
 function Set-Commit

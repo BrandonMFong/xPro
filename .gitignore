@@ -33,3 +33,6 @@ Resources/Greetings/*
 
 # Logs
 logs/Users/*
+
+# Cache
+Cache/*

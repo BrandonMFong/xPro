@@ -145,6 +145,44 @@
               <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Rows>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_FastWeb</Value>
+                  <Value ColumnName="Value">Fastweb</Value>
+                  <Value ColumnName="Subject">Fastweb</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_Niche</Value>
+                  <Value ColumnName="Value">Niche</Value>
+                  <Value ColumnName="Subject">Niche</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_csac</Value>
+                  <Value ColumnName="Value">csac</Value>
+                  <Value ColumnName="Subject">csac</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_BrandonMFongShare</Value>
+                  <Value ColumnName="Value">BrandonMFongShare</Value>
+                  <Value ColumnName="Subject">BrandonMFongShare</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_ADP</Value>
+                  <Value ColumnName="Value">ADP</Value>
+                  <Value ColumnName="Subject">ADP</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">LinkName_KojamiPutty</Value>
+                  <Value ColumnName="Value">KojamiPutty</Value>
+                  <Value ColumnName="Subject">KojamiPutty</Value>
+                  <Value ColumnName="TypeContentID">8</Value>
+                </Row>
+              </Rows>
             </Table>
             <Table Name="TypeContent">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
@@ -213,6 +251,7 @@
                   <Value ColumnName="Description">Update Scripts</Value>
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
+                <!-- TODO delete the below types -->
                 <Row>
                   <Value ColumnName="Description">Linked Object Name</Value>
                   <Value ColumnName="ExternalID">LinkedObjectName</Value>
@@ -239,6 +278,7 @@
               <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
               <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
             </Table>
+            <!-- Remember the hash column is like the key.  Will be privatename type in pi table -->
             <Table Name="LinkInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
@@ -291,6 +331,42 @@
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
                   <Value ColumnName="Hash">9ffba5f0-6bf9-48f0-9239-bbeceb38a704</Value>
                   <Value ColumnName="PersonalInfoID">23</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_FastWeb</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">4AB5A700-AA8F-4966-9523-7E553CFD34D3</Value>
+                  <Value ColumnName="PersonalInfoID">13</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Niche</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">3A9AAFB9-45AD-4E0A-8C30-C990EE677B5D</Value>
+                  <Value ColumnName="PersonalInfoID">14</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_csac</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">46CE5C15-FA70-4FA7-833A-A04012BDBC9B</Value>
+                  <Value ColumnName="PersonalInfoID">15</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_BrandonMFongShare</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">96D46A15-F0A3-47C3-AFDC-27BB2CCE033E</Value>
+                  <Value ColumnName="PersonalInfoID">19</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_ADP</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">4783B85A-6877-4AF6-A76E-9AD5772A2AC2</Value>
+                  <Value ColumnName="PersonalInfoID">34</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_KojamiPutty</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">63E0A4D0-7A16-463C-BCE0-5D05A1F3C6D2</Value>
+                  <Value ColumnName="PersonalInfoID">32</Value>
                 </Row>
               </Rows>
             </Table>

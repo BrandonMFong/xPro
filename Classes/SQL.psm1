@@ -52,6 +52,7 @@ class SQL
     {
         try 
         {
+            $Global:LogHandler.Write("Query: $($querystring)");
             Invoke-Sqlcmd -Query $querystring -ServerInstance $this.serverinstance -database $this.database;
         }
         catch{$Global:LogHandler.WriteError($_);}

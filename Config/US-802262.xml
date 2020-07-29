@@ -199,6 +199,7 @@
     <Program Alias="IE" SecType="public">C:\Program Files\Internet Explorer\iexplore.exe</Program>
     <Program Alias="umount" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\DismountDrive.ps1</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
+    <Program Alias="snip" SecType="public">C:\Windows\WinSxS\amd64_microsoft-windows-snippingtool-app_31bf3856ad364e35_10.0.18362.1_none_6c21722b06db62c2\SnippingTool.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Kiran" ServerInstance="US-802262">

@@ -45,6 +45,8 @@
   </GitSettings>
   <!-- Email settings -->
   <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
+    <EmailAddress SecType="private">AB0654C3-E939-4135-8EB2-BDB450DEA6BC</EmailAddress>
+    <DefaultFolder>\Inbox</DefaultFolder>
     <IncludeFields>
       <To>True</To>
       <CC>True</CC>
@@ -369,16 +371,17 @@
                   <Value ColumnName="Hash">63E0A4D0-7A16-463C-BCE0-5D05A1F3C6D2</Value>
                   <Value ColumnName="PersonalInfoID">32</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Tello</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">b857523e-78de-4e7c-95ad-8bfbef8f1c5c</Value>
+                  <Value ColumnName="PersonalInfoID">45</Value>
+                </Row>
               </Rows>
             </Table>
           </Tables>
         </SQL>
       </Class>
-    </Object>
-    <!-- $Passwords -->
-    <Object Type="LinkedObject">
-      <VarName SecType="public">Passwords</VarName>
-      <Link>34060702-dcb5-4603-9a25-69953240c008</Link>
     </Object>
     <!-- $Math -->
     <Object Type="PowerShellClass">
@@ -394,6 +397,11 @@
           <FirstDayOfWeek>Sunday</FirstDayOfWeek>
         </Calendar>
       </Class>
+    </Object>
+    <!-- $Passwords -->
+    <Object Type="LinkedObject">
+      <VarName SecType="public">Passwords</VarName>
+      <Link>34060702-dcb5-4603-9a25-69953240c008</Link>
     </Object>
     <!-- $User -->
     <Object Type="HashTable">
@@ -478,6 +486,25 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">SSUid</Key>
       <Value Lvl="1" Node="bd78" SecType="private">7501eb91-2412-4902-a9c2-70336ee3502f</Value>
+    </Object>
+    <!-- Phone -->
+    <Object Type="HashTable">
+      <VarName SecType="public">Phone</VarName>
+      <!-- Tello -->
+      <Key Lvl="0" SecType="public">Tello</Key>
+      <Value Lvl="0" SecType="public" NodePointer="8cd2"/>
+      <Key Lvl="1" Node="8cd2" SecType="public">URL</Key>
+      <Value Lvl="1" Node="8cd2" SecType="public">https://tello.com/</Value>
+      <Key Lvl="1" Node="8cd2" SecType="public">Email</Key>
+      <Value Lvl="1" Node="8cd2" SecType="private">5665617a-4154-43b9-a74d-f5fab46a876f</Value>
+      <Key Lvl="1" Node="8cd2" SecType="public">Password</Key>
+      <Value Lvl="1" Node="8cd2" SecType="private">d3050402-09ce-448a-9db7-8572662dd25e</Value>
+      <!-- Cricket -->
+      <!-- <Key Lvl="0" SecType="public">Tello</Key>
+      <Value Lvl="0" SecType="public" NodePointer="abb1"/> -->
+      <!-- Mint -->
+      <!-- <Key Lvl="0" SecType="public">Tello</Key>
+      <Value Lvl="0" SecType="public" NodePointer="46c8"/> -->
     </Object>
   </Objects>
 </Machine>

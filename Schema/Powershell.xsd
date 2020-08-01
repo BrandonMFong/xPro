@@ -273,7 +273,7 @@
                             <xs:element name="EmailAddress" minOccurs="0" maxOccurs="1">
                                 <xs:annotation>
                                     <xs:documentation>
-                                        The Email address you want to read your emails from 
+                                        The Email address you want to read your emails from. Format: \\\\{Email}
                                     </xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>

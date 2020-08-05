@@ -15,7 +15,7 @@
       <String>{@batteryperc%, Clock in Time: @stamp} [@time, @date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
-      <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
+      <BaterryLifeThreshold Enabled="True">20</BaterryLifeThreshold>
       <String Color="Cyan">[Kiran Analytics] @currdir@gitbranch@greaterthan_</String>
     </Prompt>
     <ShellColors>

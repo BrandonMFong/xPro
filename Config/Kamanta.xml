@@ -98,6 +98,7 @@
     <Directory Alias="fpga" SecType="public">B:\SOURCE\Repo\FPGAClock</Directory>
     <Directory Alias="docs" SecType="public">B:\DOCUMENTS</Directory>
     <Directory Alias="nb" SecType="public">B:\NOTEBOOK</Directory>
+    <Directory Alias="repo" SecType="public">B:\SOURCE\Repo</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -153,36 +154,6 @@
                   <Value ColumnName="ExternalID">LinkName_FastWeb</Value>
                   <Value ColumnName="Value">Fastweb</Value>
                   <Value ColumnName="Subject">Fastweb</Value>
-                  <Value ColumnName="TypeContentID">8</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">LinkName_Niche</Value>
-                  <Value ColumnName="Value">Niche</Value>
-                  <Value ColumnName="Subject">Niche</Value>
-                  <Value ColumnName="TypeContentID">8</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">LinkName_csac</Value>
-                  <Value ColumnName="Value">csac</Value>
-                  <Value ColumnName="Subject">csac</Value>
-                  <Value ColumnName="TypeContentID">8</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">LinkName_BrandonMFongShare</Value>
-                  <Value ColumnName="Value">BrandonMFongShare</Value>
-                  <Value ColumnName="Subject">BrandonMFongShare</Value>
-                  <Value ColumnName="TypeContentID">8</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">LinkName_ADP</Value>
-                  <Value ColumnName="Value">ADP</Value>
-                  <Value ColumnName="Subject">ADP</Value>
-                  <Value ColumnName="TypeContentID">8</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">LinkName_KojamiPutty</Value>
-                  <Value ColumnName="Value">KojamiPutty</Value>
-                  <Value ColumnName="Subject">KojamiPutty</Value>
                   <Value ColumnName="TypeContentID">8</Value>
                 </Row>
               </Rows>
@@ -300,82 +271,10 @@
                   <Value ColumnName="PersonalInfoID">1</Value>
                 </Row>
                 <Row>
-                  <Value ColumnName="ExternalID">Pw_Kojami</Value>
+                  <Value ColumnName="ExternalID">Pw_Alliant</Value>
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">fe178141-3ae2-4092-8fd5-1d3b0e2a2f1b</Value>
-                  <Value ColumnName="PersonalInfoID">2</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Gmail</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">a94612fa-923b-40ad-a6d1-a4ae2d7b4486</Value>
-                  <Value ColumnName="PersonalInfoID">3</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Default</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">3e39a7c2-bbb0-474e-9a88-1802fa6a515f</Value>
-                  <Value ColumnName="PersonalInfoID">4</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Fafsa</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">8e1a3572-a188-432a-bc88-5adeaaa757a1</Value>
-                  <Value ColumnName="PersonalInfoID">5</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_MySSU</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">236e2a38-5549-41fe-810c-54d02bf62d77</Value>
-                  <Value ColumnName="PersonalInfoID">9</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Ebay</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">9ffba5f0-6bf9-48f0-9239-bbeceb38a704</Value>
-                  <Value ColumnName="PersonalInfoID">23</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_FastWeb</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">4AB5A700-AA8F-4966-9523-7E553CFD34D3</Value>
-                  <Value ColumnName="PersonalInfoID">13</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Niche</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">3A9AAFB9-45AD-4E0A-8C30-C990EE677B5D</Value>
-                  <Value ColumnName="PersonalInfoID">14</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_csac</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">46CE5C15-FA70-4FA7-833A-A04012BDBC9B</Value>
-                  <Value ColumnName="PersonalInfoID">15</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_BrandonMFongShare</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">96D46A15-F0A3-47C3-AFDC-27BB2CCE033E</Value>
-                  <Value ColumnName="PersonalInfoID">19</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_ADP</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">4783B85A-6877-4AF6-A76E-9AD5772A2AC2</Value>
-                  <Value ColumnName="PersonalInfoID">34</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_KojamiPutty</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">63E0A4D0-7A16-463C-BCE0-5D05A1F3C6D2</Value>
-                  <Value ColumnName="PersonalInfoID">32</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Tello</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">b857523e-78de-4e7c-95ad-8bfbef8f1c5c</Value>
-                  <Value ColumnName="PersonalInfoID">45</Value>
+                  <Value ColumnName="Hash">9c0d770e-9344-475e-afc7-1fa1d26cd62d</Value>
+                  <Value ColumnName="PersonalInfoID">52</Value>
                 </Row>
               </Rows>
             </Table>
@@ -436,6 +335,8 @@
       <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
       <Key Lvl="0" SecType="public">SDWater</Key>
       <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
+      <Key Lvl="0" SecType="public">LinkedIn</Key>
+      <Value Lvl="0" SecType="public">https://www.linkedin.com/nhome/</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />
@@ -492,7 +393,7 @@
       <VarName SecType="public">Phone</VarName>
       <!-- Tello -->
       <Key Lvl="0" SecType="public">Tello</Key>
-      <Value Lvl="0" SecType="public" NodePointer="8cd2"/>
+      <Value Lvl="0" SecType="public" NodePointer="8cd2" />
       <Key Lvl="1" Node="8cd2" SecType="public">URL</Key>
       <Value Lvl="1" Node="8cd2" SecType="public">https://tello.com/</Value>
       <Key Lvl="1" Node="8cd2" SecType="public">Email</Key>
@@ -505,6 +406,28 @@
       <!-- Mint -->
       <!-- <Key Lvl="0" SecType="public">Tello</Key>
       <Value Lvl="0" SecType="public" NodePointer="46c8"/> -->
+    </Object>
+    <!-- Bank -->
+    <Object Type="HashTable">
+      <VarName SecType="public">Bank</VarName>
+      <!-- Chase -->
+      <Key Lvl="0" SecType="public">Chase</Key>
+      <Value Lvl="0" SecType="public" NodePointer="8cd2" />
+      <Key Lvl="1" Node="8cd2" SecType="public">URL</Key>
+      <Value Lvl="1" Node="8cd2" SecType="public">https://Chase.com/</Value>
+      <Key Lvl="1" Node="8cd2" SecType="public">Username</Key>
+      <Value Lvl="1" Node="8cd2" SecType="private">44D33986-4AF9-42E2-9057-797FF8FD5124</Value>
+      <Key Lvl="1" Node="8cd2" SecType="public">Password</Key>
+      <Value Lvl="1" Node="8cd2" SecType="private">0BCB2799-E499-4A60-9D7A-063221EF3619</Value>
+      <!-- Alliant -->
+      <Key Lvl="0" SecType="public">Alliant</Key>
+      <Value Lvl="0" SecType="public" NodePointer="9057" />
+      <Key Lvl="1" Node="9057" SecType="public">URL</Key>
+      <Value Lvl="1" Node="9057" SecType="public">https://www.alliantcreditunion.org/</Value>
+      <Key Lvl="1" Node="9057" SecType="public">Username</Key>
+      <Value Lvl="1" Node="9057" SecType="private">33800A14-1A9C-4D24-A64D-F560BDDB558A</Value>
+      <Key Lvl="1" Node="9057" SecType="public">Password</Key>
+      <Value Lvl="1" Node="9057" SecType="private">759EC4C0-43D9-4A47-BDD1-007533A96425</Value>
     </Object>
   </Objects>
 </Machine>

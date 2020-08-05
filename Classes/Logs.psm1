@@ -2,12 +2,31 @@
 class Logs
 {
     [string]$LogFile;
+    [int16]$DayThreshold = -2; # Two days
     Logs($LogFile)
     {
+
         $this.LogFile = $LogFile;
         if(!$(Test-Path $this.LogFile))
         {
             New-Item $this.LogFile -Force | Out-Null;
+            $this.ClearOldLogs($($this.LogFile | Split-Path -Parent));
+        }
+    }
+
+    # Clears the old log files
+    hidden ClearOldLogs([string]$Directory)
+    {
+        [System.Array]$o = Get-ChildItem $Directory; # Get all the files in the log directory
+        
+        for([int16]$i = 0;$i -lt $o.Length;$i++)
+        {
+            # If the file more than 2 days old, delete
+            if($o[$i].LastWriteTime -lt $(Get-Date).AddDays($this.DayThreshold))
+            {
+                Remove-Item $o[$i].FullName -Force;
+                $this.Write("Removing $($o[$i].FullName)");
+            }
         }
     }
 

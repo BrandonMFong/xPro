@@ -337,7 +337,7 @@ function LoadObjects
                 }
                 $Global:LogHandler.Write("New-Variable: $($VarName)");
             }
-            catch{$Global:LogHandler.WriteError($_);}
+            catch{$Global:LogHandler.WriteError($_.ToString() + " creating object => `$$($VarName)");}
         } 
         if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;}
     }

@@ -51,6 +51,8 @@ function Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb
 # https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html
 function Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}
 
+function Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}
+
 function Set-Brightness
 {
     param([int]$Percentage)

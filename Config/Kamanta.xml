@@ -276,6 +276,18 @@
                   <Value ColumnName="Hash">9c0d770e-9344-475e-afc7-1fa1d26cd62d</Value>
                   <Value ColumnName="PersonalInfoID">52</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Mint</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">7B8B7C70-7D08-43D1-8D79-E88D9922F433</Value>
+                  <Value ColumnName="PersonalInfoID">48</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Venmo</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <Value ColumnName="Hash">9071686d-9054-4c06-9017-e1df8943b3a9</Value>
+                  <Value ColumnName="PersonalInfoID">56</Value>
+                </Row>
               </Rows>
             </Table>
           </Tables>
@@ -391,21 +403,15 @@
     <!-- Phone -->
     <Object Type="HashTable">
       <VarName SecType="public">Phone</VarName>
-      <!-- Tello -->
-      <Key Lvl="0" SecType="public">Tello</Key>
+      <!-- Mint -->
+      <Key Lvl="0" SecType="public">Mint</Key>
       <Value Lvl="0" SecType="public" NodePointer="8cd2" />
       <Key Lvl="1" Node="8cd2" SecType="public">URL</Key>
-      <Value Lvl="1" Node="8cd2" SecType="public">https://tello.com/</Value>
+      <Value Lvl="1" Node="8cd2" SecType="public">https://www.mintmobile.com/</Value>
       <Key Lvl="1" Node="8cd2" SecType="public">Email</Key>
       <Value Lvl="1" Node="8cd2" SecType="private">5665617a-4154-43b9-a74d-f5fab46a876f</Value>
       <Key Lvl="1" Node="8cd2" SecType="public">Password</Key>
-      <Value Lvl="1" Node="8cd2" SecType="private">d3050402-09ce-448a-9db7-8572662dd25e</Value>
-      <!-- Cricket -->
-      <!-- <Key Lvl="0" SecType="public">Tello</Key>
-      <Value Lvl="0" SecType="public" NodePointer="abb1"/> -->
-      <!-- Mint -->
-      <!-- <Key Lvl="0" SecType="public">Tello</Key>
-      <Value Lvl="0" SecType="public" NodePointer="46c8"/> -->
+      <Value Lvl="1" Node="8cd2" SecType="private">27B325F0-4919-431B-B891-F4EF22CDCD15</Value>
     </Object>
     <!-- Bank -->
     <Object Type="HashTable">
@@ -428,6 +434,15 @@
       <Value Lvl="1" Node="9057" SecType="private">33800A14-1A9C-4D24-A64D-F560BDDB558A</Value>
       <Key Lvl="1" Node="9057" SecType="public">Password</Key>
       <Value Lvl="1" Node="9057" SecType="private">759EC4C0-43D9-4A47-BDD1-007533A96425</Value>
+      <!-- Venmo -->
+      <Key Lvl="0" SecType="public">Venmo</Key>
+      <Value Lvl="0" SecType="public" NodePointer="43D9" />
+      <Key Lvl="1" Node="43D9" SecType="public">URL</Key>
+      <Value Lvl="1" Node="43D9" SecType="public">https://venmo.com/</Value>
+      <Key Lvl="1" Node="43D9" SecType="public">Email</Key>
+      <Value Lvl="1" Node="43D9" SecType="private">A3D4138D-F8E4-4BF5-9AC5-2DF53109A05C</Value>
+      <Key Lvl="1" Node="43D9" SecType="public">Password</Key>
+      <Value Lvl="1" Node="43D9" SecType="private">16642211-E7A2-4C26-8C1D-171EAEA0F967</Value>
     </Object>
   </Objects>
 </Machine>

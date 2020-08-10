@@ -400,6 +400,16 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">SSUid</Key>
       <Value Lvl="1" Node="bd78" SecType="private">7501eb91-2412-4902-a9c2-70336ee3502f</Value>
+      <!-- Classes -->
+      <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2"/>
+      <!-- CES400 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES400</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="4902"/>
+      <Key Lvl="3" Node="4902" SecType="public">URL</Key>
+      <Value Lvl="3" Node="4902" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
+      <Key Lvl="3" Node="4902" SecType="public">Zoom</Key>
+      <Value Lvl="3" Node="4902" SecType="public">https://SonomaState.zoom.us/j/4739559175</Value>
     </Object>
     <!-- Phone -->
     <Object Type="HashTable">

@@ -122,6 +122,7 @@
     <Program Alias="rufus" SecType="public">C:\Program Files\Rufus\rufus-3.11.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="Get-Email" SecType="public">B:\XmlPSProfile\Functions\Email.ps1</Program>
+    <Program Alias="WhatsApp" SecType="public">C:\Users\fongm\AppData\Local\WhatsApp\WhatsApp.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

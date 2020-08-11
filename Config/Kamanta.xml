@@ -266,34 +266,10 @@
               </Column>
               <Rows>
                 <Row>
-                  <Value ColumnName="ExternalID">Pw_Microsoft</Value>
+                  <Value ColumnName="ExternalID">Pw_Kaiser</Value>
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">50e1f650-d981-4f8d-8ae9-32d68e0e0384</Value>
-                  <Value ColumnName="PersonalInfoID">1</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Alliant</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">9c0d770e-9344-475e-afc7-1fa1d26cd62d</Value>
-                  <Value ColumnName="PersonalInfoID">52</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Mint</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">7B8B7C70-7D08-43D1-8D79-E88D9922F433</Value>
-                  <Value ColumnName="PersonalInfoID">48</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Venmo</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">9071686d-9054-4c06-9017-e1df8943b3a9</Value>
-                  <Value ColumnName="PersonalInfoID">56</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Slack</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">337D039F-C885-4340-9507-01A06157E254</Value>
-                  <Value ColumnName="PersonalInfoID">64</Value>
+                  <Value ColumnName="Hash">e3d4d89f-4643-4f3e-b6ec-a7e28d6b9bb9</Value>
+                  <Value ColumnName="PersonalInfoID">68</Value>
                 </Row>
               </Rows>
             </Table>
@@ -356,6 +332,15 @@
       <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
       <Key Lvl="0" SecType="public">LinkedIn</Key>
       <Value Lvl="0" SecType="public">https://www.linkedin.com/nhome/</Value>
+      <!-- Kaiser -->
+      <Key Lvl="0" SecType="public">Kaiser</Key>
+      <Value Lvl="0" SecType="public" NodePointer="kp" />
+      <Key Lvl="1" Node="kp" SecType="public">URL</Key>
+      <Value Lvl="1" Node="kp" SecType="public">https://kp.org</Value>
+      <Key Lvl="1" Node="kp" SecType="public">ID</Key>
+      <Value Lvl="1" Node="kp" SecType="private">8B79FD85-D580-4481-BE18-D15F46CAF734</Value>
+      <Key Lvl="1" Node="kp" SecType="public">Password</Key>
+      <Value Lvl="1" Node="kp" SecType="private">D3D27443-E3F2-4107-8CDA-96C70BEDE121</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />

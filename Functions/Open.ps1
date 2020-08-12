@@ -6,9 +6,10 @@
 #>
 Param([Alias ('Dest')][String]$Destination)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+[System.Xml.XmlDocument]$x = _GetXMLContent;
 [bool]$ProcessExecuted = $false;
 	
-foreach ($Directory in $XMLReader.Machine.Directories.Directory)
+foreach ($Directory in $x.Machine.Directories.Directory)
 {
 	[String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
 	if($Directory.alias -eq $Destination)

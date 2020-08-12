@@ -186,6 +186,14 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
+                                        <xs:element name="CacheCount" type="xs:int" minOccurs="1" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Defines the cache count for when you are in a git repo.  The @gitbranch tag will not check for any updates 
+                                                    until after this count is reached
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
                                     </xs:sequence>
                                     <xs:attributeGroup ref="Enable"/>
                                 </xs:complexType>
@@ -750,14 +758,6 @@
                 <xs:annotation>
                     <xs:documentation>
                         Default is hh:mm:ss.  Uses powershell datetime formatting
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="GitString" minOccurs="0" maxOccurs="1" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>
-                        Default is (@gitbranch).  Git string format if included in the string tag.  Must include the @gitbranch tag if it is how you want it to look. 
-                        Example: [@gitbranch] = [dev] or {@gitbranch} = {dev}
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>

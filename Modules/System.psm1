@@ -106,3 +106,16 @@ function Get-Info
         }
     }
 }
+
+# This clears ALL cache
+function Clear-Cache
+{
+    Param([ValidateSet("git","Greetings")][String]$CacheType)
+    switch($CacheType)
+    {
+        "git"{Remove-Item $($PSScriptRoot + "\..\Cache\git") -Recurse -Force;}
+        "Greetings"{Remove-Item $($PSScriptRoot + "\..\Cache\Greetings") -Recurse -Force;}
+        default{Remove-Item $($PSScriptRoot + "\..\Cache\") -Recurse -Force;}
+    }
+    
+}

@@ -15,7 +15,11 @@ Param
 
 # [string]$DirectoryPath = $PSScriptRoot + "\..\Resources\Greetings\"; # Folder to save
 [string]$DirectoryPath = $PSScriptRoot + "\..\Cache\Greetings\"; # Folder to save
-[String]$FilePath = $DirectoryPath + $string + ".txt"; # Make path to save
+
+# Used as a flag to make sure we are updating the cached value if type has changed
+if([string]::IsNullOrEmpty($Type)){[string]$TypeString = ".Big"}
+else{[string]$TypeString = ".$Type";}
+[String]$FilePath = $DirectoryPath + $string + $TypeString + ".txt"; # Make path to save
 
 
 # How do I create the file regardless and still output the data

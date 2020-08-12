@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="06152020" Count="4" />
-  <StartScript Enabled="True" ClearHost="False">$PSScriptRoot\..\StartScripts\Hakashi.ps1</StartScript>
+  <UpdateStamp Value="08112020" />
+  <Start Enabled="True" ClearHost="False">
+    <Greetings Type="Slant" Save="True">Welcome Brandon</Greetings>
+  </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Format>
@@ -21,13 +23,14 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>~\</StartDirectory>
-    <GitSettings Enabled="False">
+    <GitDisplay Enabled="False">
       <Unstaged>False</Unstaged>
       <Staged>False</Staged>
       <Commits>False</Commits>
-    </GitSettings>
+      <CacheCount>10</CacheCount>
+    </GitDisplay>
     <Security>
-      <Secure>True</Secure>
+      <Secure>False</Secure>
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>

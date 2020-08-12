@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="07252020" />
+  <UpdateStamp Value="08112020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
@@ -28,6 +28,7 @@
       <Unstaged>True</Unstaged>
       <Staged>True</Staged>
       <Commits>False</Commits>
+      <CacheCount>10</CacheCount>
     </GitDisplay>
     <Security>
       <Secure>False</Secure>
@@ -123,6 +124,7 @@
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="Get-Email" SecType="public">B:\XmlPSProfile\Functions\Email.ps1</Program>
     <Program Alias="WhatsApp" SecType="public">C:\Users\fongm\AppData\Local\WhatsApp\WhatsApp.exe</Program>
+    <Program Alias="Slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -266,28 +268,10 @@
               </Column>
               <Rows>
                 <Row>
-                  <Value ColumnName="ExternalID">Pw_Microsoft</Value>
+                  <Value ColumnName="ExternalID">Pw_Kaiser</Value>
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">50e1f650-d981-4f8d-8ae9-32d68e0e0384</Value>
-                  <Value ColumnName="PersonalInfoID">1</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Alliant</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">9c0d770e-9344-475e-afc7-1fa1d26cd62d</Value>
-                  <Value ColumnName="PersonalInfoID">52</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Mint</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">7B8B7C70-7D08-43D1-8D79-E88D9922F433</Value>
-                  <Value ColumnName="PersonalInfoID">48</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Venmo</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <Value ColumnName="Hash">9071686d-9054-4c06-9017-e1df8943b3a9</Value>
-                  <Value ColumnName="PersonalInfoID">56</Value>
+                  <Value ColumnName="Hash">e3d4d89f-4643-4f3e-b6ec-a7e28d6b9bb9</Value>
+                  <Value ColumnName="PersonalInfoID">68</Value>
                 </Row>
               </Rows>
             </Table>
@@ -350,6 +334,15 @@
       <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
       <Key Lvl="0" SecType="public">LinkedIn</Key>
       <Value Lvl="0" SecType="public">https://www.linkedin.com/nhome/</Value>
+      <!-- Kaiser -->
+      <Key Lvl="0" SecType="public">Kaiser</Key>
+      <Value Lvl="0" SecType="public" NodePointer="kp" />
+      <Key Lvl="1" Node="kp" SecType="public">URL</Key>
+      <Value Lvl="1" Node="kp" SecType="public">https://kp.org</Value>
+      <Key Lvl="1" Node="kp" SecType="public">ID</Key>
+      <Value Lvl="1" Node="kp" SecType="private">8B79FD85-D580-4481-BE18-D15F46CAF734</Value>
+      <Key Lvl="1" Node="kp" SecType="public">Password</Key>
+      <Value Lvl="1" Node="kp" SecType="private">D3D27443-E3F2-4107-8CDA-96C70BEDE121</Value>
       <!-- Google -->
       <Key Lvl="0" SecType="public">Google</Key>
       <Value Lvl="0" SecType="public" NodePointer="google" />
@@ -400,12 +393,19 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">SSUid</Key>
       <Value Lvl="1" Node="bd78" SecType="private">7501eb91-2412-4902-a9c2-70336ee3502f</Value>
+      <!-- Slack -->
+      <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />
+      <Key Lvl="2" Node="a9c2" SecType="public">Email</Key>
+      <Value Lvl="2" Node="a9c2" SecType="private">260DD322-2BF8-457B-A360-CAB3706B6F9E</Value>
+      <Key Lvl="2" Node="a9c2" SecType="public">Password</Key>
+      <Value Lvl="2" Node="a9c2" SecType="private">9B0A24AA-DCAF-4A51-8F34-272C2B20D759</Value>
       <!-- Classes -->
       <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
-      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2"/>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />
       <!-- CES440 -->
       <Key Lvl="2" Node="8cd2" SecType="public">CES440</Key>
-      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="4902"/>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="4902" />
       <Key Lvl="3" Node="4902" SecType="public">URL</Key>
       <Value Lvl="3" Node="4902" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
       <Key Lvl="3" Node="4902" SecType="public">Zoom</Key>

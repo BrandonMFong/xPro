@@ -16,20 +16,11 @@ Config/Server.xml
 # Test files
 test*.*
 
-# Misc Code
-Playground/*
-
-# Log Files
-bin/debug.log
-
 # User Config 
 Config/User/*
 
 # Debug
 Resources/Debug.ps1
-
-# Greetings
-Resources/Greetings/*
 
 # Logs
 logs/User/*

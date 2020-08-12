@@ -56,10 +56,10 @@ class Logs
         if(![string]::IsNullOrEmpty($callstack[1].ScriptName)){$SourceFile = $callstack[1].Location | Split-Path -Leaf;} # Get the script that called this method
 
         # Writing the content into the log
-        $contentstring = "[$($datestring) - $($SourceFile)]";
-        $contentstring += "`nError in $($SourceFile)";
-        $contentstring += "`n$($logstring)`n";
-        for([int16]$i=0;$i -lt $callstack.Count;$i++){$contentstring += "$($callstack[$i])`n";}
+        $contentstring = "[$($datestring) - $($SourceFile)] - ERROR";
+        $contentstring += "`n   Error in $($SourceFile)";
+        $contentstring += "`n   $($logstring)";
+        for([int16]$i=0;$i -lt $callstack.Count;$i++){$contentstring += "`n   $($callstack[$i])";}
 
         Add-Content $this.LogFile $contentstring;
     }

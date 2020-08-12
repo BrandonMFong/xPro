@@ -106,3 +106,9 @@ function Get-Info
         }
     }
 }
+
+# This clears ALL cache
+function Clear-Cache
+{
+    Remove-Item $($PSScriptRoot + "\..\Cache\") -Recurse -Force;
+}

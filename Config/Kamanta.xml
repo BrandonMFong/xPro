@@ -28,6 +28,7 @@
       <Unstaged>True</Unstaged>
       <Staged>True</Staged>
       <Commits>False</Commits>
+      <CacheCount>10</CacheCount>
     </GitDisplay>
     <Security>
       <Secure>False</Secure>

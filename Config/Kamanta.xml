@@ -123,6 +123,7 @@
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="Get-Email" SecType="public">B:\XmlPSProfile\Functions\Email.ps1</Program>
     <Program Alias="WhatsApp" SecType="public">C:\Users\fongm\AppData\Local\WhatsApp\WhatsApp.exe</Program>
+    <Program Alias="Slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -393,17 +394,17 @@
       <Value Lvl="1" Node="bd78" SecType="private">7501eb91-2412-4902-a9c2-70336ee3502f</Value>
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
-      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2"/>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />
       <Key Lvl="2" Node="a9c2" SecType="public">Email</Key>
       <Value Lvl="2" Node="a9c2" SecType="private">260DD322-2BF8-457B-A360-CAB3706B6F9E</Value>
       <Key Lvl="2" Node="a9c2" SecType="public">Password</Key>
       <Value Lvl="2" Node="a9c2" SecType="private">9B0A24AA-DCAF-4A51-8F34-272C2B20D759</Value>
       <!-- Classes -->
       <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
-      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2"/>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />
       <!-- CES440 -->
       <Key Lvl="2" Node="8cd2" SecType="public">CES440</Key>
-      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="4902"/>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="4902" />
       <Key Lvl="3" Node="4902" SecType="public">URL</Key>
       <Value Lvl="3" Node="4902" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
       <Key Lvl="3" Node="4902" SecType="public">Zoom</Key>

@@ -95,8 +95,6 @@ function _Replace
         if($OutString.Value.Contains($tag.gitbranch))
         {
             [string]$BranchString = $null;
-            # [string]$gitchangesUnstaged = $null;
-            # [string]$gitchangesStaged = $null;
     
             if($GitDisplay.Enabled.ToBoolean($null))
             {

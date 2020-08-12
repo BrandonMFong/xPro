@@ -85,7 +85,10 @@ function DisectTag([ref]$tag)
 
 function Set-Commit
 {
-    Param([String]$Message,[Switch]$NotAll,[Switch]$NoType,[Switch]$Push)
+    Param([String]$Message,[Switch]$NotAll,
+        [Switch]$NoType,[Switch]$Push,
+        [ValidateSet("Major","Minor","BugPatch")][String]$Tag=$null
+    )
 
     if(!$NotAll)
     {
@@ -114,35 +117,43 @@ function Set-Commit
 
     git commit -m $commitmessage; # Set the commit
 
+    # Tag option
+    switch($Tag)
+    {
+        "Major"{Set-Tag -Major -Push:$Push;}
+        "Minor"{Set-Tag -Minor -Push:$Push;}
+        "BugPatch"{Set-Tag -BugPatch -Push:$Push;}
+    }
+
     # Always rebase before you push
     if($Push){git pull --rebase; git push;}
 }
 
-function Set-CommitTag
-{
-    Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch,[Switch]$Push)
-    Set-Commit;
+# function Set-CommitTag
+# {
+#     Param([Switch]$Major,[Switch]$Minor,[Switch]$BugPatch,[Switch]$Push)
+#     Set-Commit;
 
-    # Default is bugpatch tag
-    # Not using the commitid switch because since I am assuming the user is tagging the commit that was set before this
-    if($Major)
-    {
-        Set-Tag -Major -Push:$Push;
-    }
-    elseif($Minor)
-    {
-        Set-Tag -Minor -Push:$Push;
-    }
-    elseif($BugPatch)
-    {
-        Set-Tag -BugPatch -Push:$Push;
-    }
-    else
-    {
-        Write-Warning "Please pass a switch";
-        break;
-    }
-}
+#     # Default is bugpatch tag
+#     # Not using the commitid switch because since I am assuming the user is tagging the commit that was set before this
+#     if($Major)
+#     {
+#         Set-Tag -Major -Push:$Push;
+#     }
+#     elseif($Minor)
+#     {
+#         Set-Tag -Minor -Push:$Push;
+#     }
+#     elseif($BugPatch)
+#     {
+#         Set-Tag -BugPatch -Push:$Push;
+#     }
+#     else
+#     {
+#         Write-Warning "Please pass a switch";
+#         break;
+#     }
+# }
 
 function Squash-Branch
 {

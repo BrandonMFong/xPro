@@ -3,7 +3,7 @@
   <UpdateStamp Value="08112020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
-    <Greetings Type="Slant" Save="True">Welcome Brandon</Greetings>
+    <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
   </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">

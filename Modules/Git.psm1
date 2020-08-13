@@ -1,3 +1,4 @@
+Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
 function Get-Tag
 {
@@ -11,11 +12,39 @@ function Push-With-Tag
     git push;git push --tags;
 }
 
+function GetSettings
+{
+    Param([string]$FilePath)
+    [Boolean]$Found = $false;
+    foreach($o in $global:XMLReader.Machine.GitSettings.Repository)
+    {
+        if($o.FilePath -eq $FilePath){$Found = $true;break;}
+    }
+    if($Found){return $o;}
+    else{return $null;}
+}
 
 # TODO how to make this configurable
 function Set-Tag
 {
     Param([string]$CommitID=$null,[Switch]$Major,[Switch]$Minor,[Switch]$BugPatch, [Switch]$Push)
+
+    # Make sure this is the right order to do things
+    [System.Object[]]$GitSettings = $(GetSettings -FilePath:$(Get-Location).path);
+
+    # Will not tag if it is not allowed 
+    # But if this node is not arround then it will tag
+    if(![string]::IsNullOrEmpty($GitSettings.BranchesAllowedForTagging))
+    {
+        [string]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
+        [String[]]$AllowedBranches = $(SplitString -originalstring:$GitSettings.BranchesAllowedForTagging.Branches -Delimiter:$("|"));
+        [System.Boolean]$IsAllowed = $false;
+        for([int16]$i = 0;$i -lt $AllowedBranches.Count;$i++)
+        {
+            if($AllowedBranches[$i] -eq $CurrentBranch){$IsAllowed = $true;break;}
+        }
+        if(!$IsAllowed){break;}
+    }
 
     [String]$tag = "$(git describe --tags)";
     if([string]::IsNullOrEmpty($tag))
@@ -83,6 +112,7 @@ function DisectTag([ref]$tag)
     $tag.Value = $regex.Replace($tag.Value,"",1);
 }
 
+
 function Set-Commit
 {
     Param([String]$Message,[Switch]$NotAll,
@@ -96,20 +126,21 @@ function Set-Commit
     }
 
     [String]$commitmessage = $null;
+    [System.Object[]]$GitSettings = $(GetSettings -FilePath:$(Get-Location).path);
 
     # Run through the commit types if they are configured
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.GitSettings.CommitTypes.CommitType) -and !$NoType)
+    if(![string]::IsNullOrEmpty($GitSettings.CommitTypes.CommitType) -and !$NoType)
     {
         Write-Host "`nChoose from Commit types:";
-        for([int16]$i = 0;$i -lt $XMLReader.Machine.GitSettings.CommitTypes.CommitType.Count;$i++)
+        for([int16]$i = 0;$i -lt $GitSettings.CommitTypes.CommitType.Count;$i++)
         {
-            Write-Host "    $($i+1) - $($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$i])";
+            Write-Host "    $($i+1) - $($GitSettings.CommitTypes.CommitType[$i])";
         }
         [int16]$NoneIndex = $i+2;
         Write-Host "    $($NoneIndex) - None";
 
         [Int16]$index = Read-Host -Prompt "So?"; # choose
-        if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($XMLReader.Machine.GitSettings.CommitTypes.CommitType[$index-1])] ";} # Set the type in the string
+        if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($GitSettings.CommitTypes.CommitType[$index-1])] ";} # Set the type in the string
     }
     
     [string]$msg = Read-Host -Prompt "Commit message";
@@ -120,9 +151,9 @@ function Set-Commit
     # Tag option
     switch($Tag)
     {
-        "Major"{Set-Tag -Major -Push:$Push;}
-        "Minor"{Set-Tag -Minor -Push:$Push;}
-        "BugPatch"{Set-Tag -BugPatch -Push:$Push;}
+        "Major"{Set-Tag -Major;}
+        "Minor"{Set-Tag -Minor;}
+        "BugPatch"{Set-Tag -BugPatch;}
     }
 
     # Always rebase before you push

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08112020" />
+  <UpdateStamp Value="08122020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
@@ -37,12 +37,15 @@
   </ShellSettings>
   <!-- Git Settings -->
   <GitSettings>
-    <CommitTypes>
-      <CommitType>Code</CommitType>
-      <CommitType>Config</CommitType>
-      <CommitType>Log</CommitType>
-      <CommitType>Schema</CommitType>
-    </CommitTypes>
+    <Repository FilePath="B:\XmlPSProfile">
+      <CommitTypes>
+        <CommitType>Code</CommitType>
+        <CommitType>Config</CommitType>
+        <CommitType>Log</CommitType>
+        <CommitType>Schema</CommitType>
+      </CommitTypes>
+      <BranchesAllowedForTagging Branches="dev|beta|master" />
+    </Repository>
   </GitSettings>
   <!-- Email settings -->
   <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">

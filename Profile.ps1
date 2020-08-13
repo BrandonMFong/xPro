@@ -21,7 +21,7 @@ Push-Location $AppPointer.Machine.GitRepoDir;
     <### CHECK UPDATES ###>
         if((.\update-profile.ps1) -or (.\update-config.ps1 -CheckUpdate))
         {
-            if("y" -eq $(Read-Host -Prompt "Do you want to restart powershell?"))
+            if("y" -eq $(Read-Host -Prompt "Do you want to restart powershell? (y/n)"))
             {
                 if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
                 else{Start-Process pwsh;Stop-Process -Id $PID;}

@@ -468,5 +468,16 @@
       <Key Lvl="1" Node="43D9" SecType="public">Password</Key>
       <Value Lvl="1" Node="43D9" SecType="private">16642211-E7A2-4C26-8C1D-171EAEA0F967</Value>
     </Object>
+    <!-- $Test -->
+    <Object Type="XmlElement">
+      <VarName SecType="public">Test</VarName>
+      <Values>
+        <Facebook xsi:type="XMLAny">https://facebook.com</Facebook>
+        <Youtube xsi:type="XMLAny">https://Youtube.com</Youtube>
+        <Site xsi:type="XMLAny">http://www.BrandonMFong.com/</Site>
+        <IPChicken xsi:type="XMLAny">https://ipchicken.com/</IPChicken>
+        <GitHub xsi:type="XMLAny">https://github.com/</GitHub>
+      </Values>
+    </Object>
   </Objects>
 </Machine>

@@ -334,6 +334,19 @@
       <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
       <Key Lvl="0" SecType="public">LinkedIn</Key>
       <Value Lvl="0" SecType="public">https://www.linkedin.com/nhome/</Value>
+      <Key Lvl="0" SecType="public">WhatsApp</Key>
+      <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
+      <Key Lvl="0" SecType="public">Lyft</Key>
+      <Value Lvl="0" SecType="public">https://www.lyft.com/</Value>
+      <!-- Misc -->
+      <Key Lvl="0" SecType="public">Misc</Key>
+      <Value Lvl="0" SecType="public" NodePointer="Misc" />
+      <Key Lvl="1" Node="Misc" SecType="public">Udemy</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.udemy.com/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">SDWater</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://customerportal.sandiego.gov/portal/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">SDHouse</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">http://www.sbmigroup.com/</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

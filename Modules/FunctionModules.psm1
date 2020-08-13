@@ -330,7 +330,19 @@ function LoadObjects
                 switch ($val.Type)
                 {
                     "PowerShellClass"{New-Variable -Name $VarName -Value $(MakeClass -XmlElement $val) -Force -Verbose:$Verbose -Scope Global;break;}
-                    "XmlElement"{New-Variable -Name $VarName -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}
+                    "XmlElement"
+                    {
+                        New-Variable -Name $VarName -Value $val.Values -Force -Verbose:$Verbose -Scope Global;
+
+                        # Remove xsi:type attribute
+                        [System.Xml.XmlElement]$_o = $(Get-Variable -Name $VarName).Value;
+                        foreach($_n in $_o.ChildNodes)
+                        {
+                            $_n.RemoveAttribute("xsi:type");
+                        }
+
+                        break;
+                    }
                     "HashTable"{New-Variable -Name $VarName -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}
                     "LinkedObject"{New-Variable -Name $VarName -Value $(GetLinkedInfo -Link:$val.Link) -Force -Verbose:$Verbose -Scope Global; break;}
                     default {New-Variable -Name $VarName -Value $val.Values -Force -Verbose:$Verbose -Scope Global;break;}

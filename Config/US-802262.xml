@@ -182,7 +182,7 @@
     <Program Alias="Query" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
     <Program Alias="Week-List" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Week-List.ps1</Program>
     <Program Alias="cloud50" SecType="private">4a5852e8-3015-4485-84b7-fe946fbfd195</Program>
-    <Program Alias="her" SecType="public">r:\PHOTOS\camdon\2142020\Smile.jpg</Program>
+    <Program Alias="her" SecType="public">K:\PHOTOS\camdon\2142020\Smile.jpg</Program>
     <Program Alias="Dashboard" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Program>
     <Program Alias="List" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\XML\List\List.xml</Program>
     <Program Alias="cloud41" SecType="private">59ae4552-5595-400e-8460-95500174aa43</Program>
@@ -1008,6 +1008,8 @@
       <Value Lvl="0" SecType="private">0A4612E8-4C62-46CF-97B8-3C822D1C8B6D</Value>
       <Key Lvl="0" SecType="public">Okta</Key>
       <Value Lvl="0" SecType="private">eaa446dd-fc8f-4e1e-a322-4b1f8eb32e6d</Value>
+      <Key Lvl="0" SecType="public">WhatsApp</Key>
+      <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
       <!--78AB3994-CE13-41E3-9D61-C7B7993648EA-->
       <Key Lvl="0" SecType="private">78AB3994-CE13-41E3-9D61-C7B7993648EA</Key>
       <Value Lvl="0" SecType="public" NodePointer="e2fb" />

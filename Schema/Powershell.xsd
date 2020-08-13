@@ -233,23 +233,57 @@
                 <xs:element name="GitSettings" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="CommitTypes" minOccurs="0" maxOccurs="1">
+                            <xs:element name="Repository" minOccurs="1" maxOccurs="unbounded">
                                 <xs:annotation>
                                     <xs:documentation>
-                                        This is optional, the commit type will be appended to the begining fo the string to 
-                                        describe the type of change
+                                        You can have as many settings for as many repositories
                                     </xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="CommitType" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:element name="CommitTypes" minOccurs="0" maxOccurs="1">
                                             <xs:annotation>
                                                 <xs:documentation>
-                                                    Will begin the commit string with this describing the type
+                                                    This is optional, the commit type will be appended to the begining fo the string to 
+                                                    describe the type of change
                                                 </xs:documentation>
                                             </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="CommitType" minOccurs="1" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Will begin the commit string with this describing the type
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="BranchesAllowedForTagging" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Branches that the user is allowing to get automatically tagged by Set-Tag method 
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Branches" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            Delimiter is a pipe
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
+                                    <xs:attribute name="FilePath" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                File path to git repository
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

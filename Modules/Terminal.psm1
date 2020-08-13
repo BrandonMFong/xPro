@@ -2,8 +2,7 @@ using module .\..\Classes\Tag.psm1;
 
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
-# Git info 
-# [HashTable]$_GitInfo = @{"Path"=""};
+[string]$Global:NotGitRepo = "###NOTGITREPO###";
 
 # Prompt output
 [Xml]$x = $Global:XMLReader;
@@ -108,7 +107,7 @@ function _Replace
                 if(Test-Path $GitCachePath)
                 {
                     [string[]]$GitCacheReader = Get-Content $GitCachePath;
-                    if($GitCacheReader[0].ToInt16($null) -lt $GitDisplay.CacheCount.ToInt16($null))
+                    if(($GitCacheReader[0].ToInt16($null) -lt $GitDisplay.CacheCount.ToInt16($null)) -and ($GitCacheReader[1] -ne $Global:NotGitRepo))
                     {
                         $BranchString = $GitCacheReader[1]; # Branch
         
@@ -149,7 +148,6 @@ function _Replace
     }
 }
 
-
 function GetGitValues
 {
     Param([ref]$BranchString,[String]$GitCachePath,[System.Object[]]$GitDisplay)
@@ -180,6 +178,7 @@ function GetGitValues
         # No item will be made if it is inside this if statement and we are not in a git repo
         New-Item $GitCachePath -Force -Value "0`n$($BranchString.Value)"|Out-Null; 
     }
+    else{New-Item $GitCachePath -Force -Value "0`n$Global:NotGitRepo"|Out-Null;}
 }
 
 function _SetHeader

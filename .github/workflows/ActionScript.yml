@@ -23,5 +23,7 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Running powershell profile
-      run: .\Profile.ps1
-      shell: powershell
+      run: |
+        echo Hello World!
+        echo Hello Dude!
+      

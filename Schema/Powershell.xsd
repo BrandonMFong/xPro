@@ -743,7 +743,7 @@
             <xs:attribute name="LoadProfile">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:enumeration value="True"/>
+                        <xs:enumeration value="True" />
                         <xs:enumeration value="False"/>
                     </xs:restriction>
                 </xs:simpleType>

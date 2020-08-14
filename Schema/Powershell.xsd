@@ -740,13 +740,26 @@
                 </xs:element>
             </xs:sequence>
             <xs:attribute name="MachineName"/>
-            <xs:attribute name="LoadProfile"/>
+            <xs:attribute name="LoadProfile">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="True"/>
+                        <xs:enumeration value="False"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute name="LoadProcedure">
                 <xs:annotation>
                     <xs:documentation>
                         Put "Verbose" to see verbose text.  Without it you will see progress bar
                     </xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Verbose"/>
+                        <xs:enumeration value="Progress"/>
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>

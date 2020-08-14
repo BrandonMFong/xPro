@@ -10,6 +10,14 @@ on:
       - dev
       - beta
       - master
+    paths-ignore:
+      - '*.md'
+      - '*.log'
+      - '*.xsd'
+      - '*.sql' # If the VM does not have a sql db then it will not execute .sql queries
+      - '.gitignore'
+      - '.txt'
+      - '.csv'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

@@ -2,7 +2,7 @@ Import-Module $($PSScriptRoot + "\FunctionModules.psm1");
 
 
 if($PSVersionTable.PSVersion.Major -lt 7){Add-Type -assembly "Microsoft.Office.Interop.Outlook";}
-else{Add-Type -AssemblyName $XMLReader.Machine.Email.AssemblyPath;}
+else{Add-Type -AssemblyName $Global:XMLReader.Machine.Email.AssemblyPath;}
 
 function InboxObject
 {

@@ -18,8 +18,8 @@ Push-Location $PSScriptRoot
         [string[]]$InOrderScripts = $(& $command @arg);
 
         # There has to be a better way at checking if there is an update needed
-        # if($Scripts.Count -gt [int]$XMLReader.Machine.UpdateStamp.Count) # TODO delete
-        if([DateTime]::ParseExact($Scripts[$Scripts.Count-1].Replace(".ps1",$null),$ParseString,$null) -gt [DateTime]::ParseExact($XMLReader.Machine.UpdateStamp.Value,$ParseString,$null))
+        # if($Scripts.Count -gt [int]$Global:XMLReader.Machine.UpdateStamp.Count) # TODO delete
+        if([DateTime]::ParseExact($Scripts[$Scripts.Count-1].Replace(".ps1",$null),$ParseString,$null) -gt [DateTime]::ParseExact($Global:XMLReader.Machine.UpdateStamp.Value,$ParseString,$null))
         {
             Write-Host  "`nThere is an update to GlobalScripts Config." -ForegroundColor Red
             [string]$update = Read-Host -Prompt "Want to update? (y/n)";

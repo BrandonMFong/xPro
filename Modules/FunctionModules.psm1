@@ -6,12 +6,12 @@ using module .\..\Classes\Logs.psm1;
 
 # These are functions used inside other functions
 
-$Sql = [SQL]::new($XMLReader.Machine.Objects.Database,$XMLReader.Machine.Objects.ServerInstance); # This needs to be unique per config
+$Sql = [SQL]::new($Global:XMLReader.Machine.Objects.Database,$Global:XMLReader.Machine.Objects.ServerInstance); # This needs to be unique per config
 
 function Get-LogObject
 {
     [String]$DateStamp = Get-Date -Format "MMddyyyy"; # Only doing logs for one day
-    [Logs]$x = [Logs]::new($($AppPointer.Machine.GitRepoDir + "\Logs\User\" + $AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
+    [Logs]$x = [Logs]::new($($Global:AppPointer.Machine.GitRepoDir + "\Logs\User\" + $Global:AppPointer.Machine.ConfigFile + ".$($DateStamp).log"));
     return $x;
 }
 function MakeClass($XmlElement)
@@ -267,12 +267,12 @@ function DoesFileExistInArchive($file)
 
 function LoadPrograms
 {
-    Param($XMLReader=$XMLReader,$AppPointer=$AppPointer,[switch]$Verbose)
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.Programs))
+    Param($Global:XMLReader=$Global:XMLReader,$Global:AppPointer=$Global:AppPointer,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Programs))
     {
         [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Programs.Program.Count);
-        foreach($val in $XMLReader.Machine.Programs.Program)
+        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Programs.Program.Count);
+        foreach($val in $Global:XMLReader.Machine.Programs.Program)
         {
             if(!$Verbose)
             {
@@ -288,12 +288,12 @@ function LoadPrograms
 }
 function LoadModules
 {
-    Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.Modules))
+    Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Modules))
     {
         [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Modules.Module.Count);
-        foreach($val in $XMLReader.Machine.Modules.Module)
+        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Modules.Module.Count);
+        foreach($val in $Global:XMLReader.Machine.Modules.Module)
         {
             if(!$Verbose)
             {
@@ -312,12 +312,12 @@ function LoadModules
 
 function LoadObjects
 {
-    Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.Objects))
+    Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Objects))
     {
         [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Objects.Object.Count);
-        foreach($val in $XMLReader.Machine.Objects.Object)
+        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Objects.Object.Count);
+        foreach($val in $Global:XMLReader.Machine.Objects.Object)
         {
             if(!$Verbose)
             {
@@ -369,12 +369,12 @@ function GetLinkedInfo
 
 function LoadDrives
 {
-    Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.NetDrives))
+    Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.NetDrives))
     {
         [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.NetDrives.NetDrive.Count);
-        foreach($val in $XMLReader.Machine.NetDrives.NetDrive.Connection)
+        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.NetDrives.NetDrive.Count);
+        foreach($val in $Global:XMLReader.Machine.NetDrives.NetDrive.Connection)
         {
             if($val.Type -eq "NetworkShare")
             {
@@ -461,12 +461,12 @@ function IsWithinNetwork
 
 function LoadFunctions
 {
-    Param($XMLReader=$XMLReader,[switch]$Verbose)
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.Functions))
+    Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Functions))
     {
         [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$XMLReader.Machine.Functions.Function.Count);
-        foreach($val in $XMLReader.Machine.Functions.Function)
+        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Functions.Function.Count);
+        foreach($val in $Global:XMLReader.Machine.Functions.Function)
         {
             if(!$Verbose)
             {
@@ -656,12 +656,12 @@ function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 function CheckCredentials
 {
     # If the security elements are configured
-    if(![String]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Security.Secure))
+    if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.Security.Secure))
     {
-        if($XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
+        if($Global:XMLReader.Machine.ShellSettings.Security.Secure.ToBoolean($null) -and !$LoggedIn)
         {
-            Write-Host "CONFIG: $($AppPointer.Machine.ConfigFile)`n" -foregroundcolor Gray;
-            $cred = Get-Content ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
+            Write-Host "CONFIG: $($Global:AppPointer.Machine.ConfigFile)`n" -foregroundcolor Gray;
+            $cred = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON") | ConvertFrom-Json  
             [string]$user = Read-Host -prompt "Username"; 
 
             # Get Secure string and then convert it back to plain text
@@ -674,8 +674,8 @@ function CheckCredentials
                 Write-Error "WRONG CREDENTIALS";
                 Start-Sleep 1;
                 Pop-Location;
-                $XMLReader = $null;$AppPointer = $null;
-                if($XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
+                $Global:XMLReader = $null;$Global:AppPointer = $null;
+                if($Global:XMLReader.Machine.ShellSettings.Security.CloseSessionIfIncorrect.ToBoolean($null)){Stop-Process -Id $PID;}
                 else{exit;}
             }
             else{[Boolean]$x = $true; New-Variable -Name LoggedIn -Value $x -Scope Global;}
@@ -729,13 +729,13 @@ function GenerateEncryption
 function CreateCredentials
 {
     [System.Object[]]$user = @{"Username"="";"Password"="";"Decode"=""};
-    if(Test-Path $($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString())
+    if(Test-Path $($Global:AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString())
     {
         Write-Warning "Credential file already exists!";
     }
     else 
     {
-        [string]$CredPath = ($AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
+        [string]$CredPath = ($Global:AppPointer.Machine.GitRepoDir + "\bin\credentials\user.JSON").ToString();
         New-Item $CredPath -Force;
         $user | ConvertTo-Json | Out-File $CredPath;
         Write-Warning "`nCreated credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;

@@ -5,6 +5,7 @@ Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 [string]$Global:NotGitRepo = "###NOTGITREPO###";
 
 # Prompt output
+Write-Host "$($Global:XMLReader.MachineName)";
 [Xml]$x = $Global:XMLReader;
 [System.Boolean]$ShellSettingsEnabled = $x.Machine.ShellSettings.Enabled.ToBoolean($null);
 [System.Boolean]$ShellSettingsPrompt = [string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String);
@@ -13,13 +14,13 @@ if($ShellSettingsEnabled -and !$ShellSettingsPrompt -and $PromptText)
 {
     function prompt
     {
-        [System.Xml.XmlElement]$prompt = $XMLReader.Machine.ShellSettings.Prompt;
+        [System.Xml.XmlElement]$prompt = $Global:XMLReader.Machine.ShellSettings.Prompt;
         _SetHeader; # Sets Header
         # _SetBackgroundColor; # Sets BG color
 
         if($prompt.Enabled.ToBoolean($null) -and (![string]::IsNullOrEmpty($prompt)))
         {
-            [string]$OutString = $XMLReader.Machine.ShellSettings.Prompt.String.InnerXml;
+            [string]$OutString = $Global:XMLReader.Machine.ShellSettings.Prompt.String.InnerXml;
             
             _Replace([ref]$OutString); # Form the prompt string
     
@@ -37,7 +38,7 @@ function _Replace
     try 
     {
         [Tag]$tag = [Tag]::new();
-        $format = $XMLReader.Machine.ShellSettings.Format;
+        $format = $Global:XMLReader.Machine.ShellSettings.Format;
         
         # @ tag replacements
         # Username
@@ -183,25 +184,25 @@ function GetGitValues
 
 function _SetHeader
 {
-    [string]$OutString = $XMLReader.Machine.ShellSettings.Header.String;
+    [string]$OutString = $Global:XMLReader.Machine.ShellSettings.Header.String;
     _Replace([ref]$OutString);
-    if(($XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.Header)) -and ($XMLReader.Machine.ShellSettings.Header.String -ne "Default"))
+    if(($Global:XMLReader.Machine.ShellSettings.Header.Enabled.ToBoolean($null)) -or (![string]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.Header)) -and ($Global:XMLReader.Machine.ShellSettings.Header.String -ne "Default"))
     {$Host.UI.RawUI.WindowTitle = $OutString}
 }
 function _SetBackgroundColor
 {
     # BackgroundColor
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor))
-    {$Host.UI.RawUI.BackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor;}
+    if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor))
+    {$Host.UI.RawUI.BackgroundColor = $Global:XMLReader.Machine.ShellSettings.ShellColors.BackgroundColor;}
     # ForegroundColor
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor))
-    {$Host.UI.RawUI.ForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor;}
+    if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor))
+    {$Host.UI.RawUI.ForegroundColor = $Global:XMLReader.Machine.ShellSettings.ShellColors.ForegroundColor;}
     # ProgressForegroundColor
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor) -and ![string]::IsNullOrEmpty($Host.PrivateData.ProgressForegroundColor))
-    {$Host.PrivateData.ProgressForegroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor;}
+    if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor) -and ![string]::IsNullOrEmpty($Host.PrivateData.ProgressForegroundColor))
+    {$Host.PrivateData.ProgressForegroundColor = $Global:XMLReader.Machine.ShellSettings.ShellColors.ProgressForegroundColor;}
     # ProgressBackgroundColor
-    if(![string]::IsNullOrEmpty($XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor) -and ![string]::IsNullOrEmpty($Host.PrivateData.ProgressBackgroundColor))
-    {$Host.PrivateData.ProgressBackgroundColor = $XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
+    if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor) -and ![string]::IsNullOrEmpty($Host.PrivateData.ProgressBackgroundColor))
+    {$Host.PrivateData.ProgressBackgroundColor = $Global:XMLReader.Machine.ShellSettings.ShellColors.ProgressBackgroundColor;}
 }
 
 function _EvalColor([string]$Color)

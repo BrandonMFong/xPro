@@ -26,4 +26,5 @@ jobs:
       run: |
         echo Hello World!
         echo Hello Dude!
+        shell: C:\Program Files\PowerShell\7\pwsh.EXE -command "Write-Host "Test""
       

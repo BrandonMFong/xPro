@@ -83,6 +83,12 @@
   <Functions>
     <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
     <Function><![CDATA[function global:VC-Notebook{code B:\NOTEBOOK\VC-Notebook.code-workspace}]]></Function>
+    <!-- https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html -->
+    <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
+    <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
+    <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>
+    <Function><![CDATA[function global:Open-People {explorer.exe shell:appsFolder\Microsoft.People_8wekyb3d8bbwe!x4c7a3b7dy2188y46d4ya362y19ac5a5805e5x}]]></Function>
+    <Function><![CDATA[function global:Open-Maps {explorer.exe shell:appsFolder\Microsoft.WindowsMaps_8wekyb3d8bbwe!App}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>

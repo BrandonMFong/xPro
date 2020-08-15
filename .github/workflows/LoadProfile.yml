@@ -20,6 +20,7 @@ on:
       - '**.csv'
 
 jobs:
+  # Powershell on Windows
   Powershell-Run-Test:
     runs-on: windows-latest # On windows VM
 
@@ -33,8 +34,25 @@ jobs:
         .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
         Write-Host "`nRunning Test Scripts";
         D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+
+  # Powershell 7 on Windows
   Powershell7-Run-Test:
     runs-on: windows-latest # On windows VM
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests
+      shell: pwsh
+      run: |
+        Write-Host "`nLoading Profile";
+        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
+        Write-Host "`nRunning Test Scripts";
+        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+
+  # Powershell 7 on Ubuntu
+  Powershell7-Run-Test:
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2

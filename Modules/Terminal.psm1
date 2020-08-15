@@ -108,14 +108,22 @@ function _Replace
                 if(Test-Path $GitCachePath)
                 {
                     [string[]]$GitCacheReader = Get-Content $GitCachePath;
-                    if(($GitCacheReader[0].ToInt16($null) -lt $GitDisplay.CacheCount.ToInt16($null)) -and ($GitCacheReader[1] -ne $Global:NotGitRepo))
+                    
+                    # If it is a git repo
+                    if($GitCacheReader[1] -ne $Global:NotGitRepo)
                     {
-                        $BranchString = $GitCacheReader[1]; # Branch
-        
-                        # update cache values
-                        New-Item $GitCachePath -Force -Value "$($GitCacheReader[0].ToInt16($null)+1)`n$BranchString"|Out-Null;
+                        # If it is still below cache count
+                        # else reset cache file
+                        if(($GitCacheReader[0].ToInt16($null) -lt $GitDisplay.CacheCount.ToInt16($null)))
+                        {
+                            $BranchString = $GitCacheReader[1]; # Branch
+            
+                            # update cache values
+                            if($Global:NotGitRepo){}
+                            New-Item $GitCachePath -Force -Value "$($GitCacheReader[0].ToInt16($null)+1)`n$BranchString"|Out-Null;
+                        }
+                        else{GetGitValues -BranchString:$([ref]$BranchString) -GitCachePath:$GitCachePath -GitDisplay:$GitDisplay;}
                     }
-                    else {GetGitValues -BranchString:$([ref]$BranchString) -GitCachePath:$GitCachePath -GitDisplay:$GitDisplay}
                 }
                 else {GetGitValues -BranchString:$([ref]$BranchString) -GitCachePath:$GitCachePath -GitDisplay:$GitDisplay}
     

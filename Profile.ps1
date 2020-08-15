@@ -1,18 +1,25 @@
 # Engineer: Brandon Fong
 # Important Global Variables: XmlReader, AppPointer, LogHandler
-Param([System.Boolean]$StartDir=$true,[System.Boolean]$StartScript=$true,[System.Boolean]$DebugFlag=$false,[System.Boolean]$IsBuild=$false)
+Param(
+    [System.Boolean]$StartDir=$true,
+    [System.Boolean]$StartScript=$true,
+    [System.Boolean]$DebugFlag=$false,
+    [String]$BuildPath=$null,
+    [System.Boolean]$Silent=$false # There is Verbose/Progress. Using Progress in github workflow looks silent
+)
 
 <### CONFIG ###>
-if($IsBuild){Set-Location .\Build;}
+if(![string]::IsNullOrEmpty($BuildPath)){Push-Location $($BuildPath|Split-Path -Parent);}
 else{Push-Location $($PROFILE |Split-Path -Parent);}
-    [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml;
-Pop-Location
+    [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml; # Will always be Profile.xml
+Pop-Location;
 [System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\" + $Global:AppPointer.Machine.ConfigFile);
 
 if(!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
-if($Global:XMLReader.Machine.LoadProcedure -eq "Verbose"){[System.Boolean]$Verbose = $true} # Helps debugging if on
+if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on
 else{[System.Boolean]$Verbose = $false}
 
+<### LOAD ###>
 Push-Location $Global:AppPointer.Machine.GitRepoDir; 
     Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
@@ -20,7 +27,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
         $Global:LogHandler = Get-LogObject;
 
     <### CHECK UPDATES ###>
-        if(!$IsBuild)
+        if([string]::IsNullOrEmpty($BuildPath))
         {
             if((.\update-profile.ps1) -or (.\update-config.ps1 -CheckUpdate))
             {
@@ -36,7 +43,8 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
     <### GET CREDENTIALS ###>
         CheckCredentials;
     
-    # Background setting for write-progress
+    <# BACKGROUND SETTINGS #>
+        # Doing this early so if Verbose:$false then progress color will be set
         Import-Module .\Modules\Terminal.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
         _SetBackgroundColor;
         
@@ -88,7 +96,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
     
     try 
     {
-        if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.GitDisplay) -and ($Global:XMLReader.Machine.ShellSettings.Enabled.ToBoolean($null)) -and !$IsBuild)
+        if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.GitDisplay) -and ($Global:XMLReader.Machine.ShellSettings.Enabled.ToBoolean($null)) -and [string]::IsNullOrEmpty($BuildPath))
         {
             [String]$gitstring = "Version: $(git describe --tags)";
             if($gitstring.Contains("-")){Write-Host "`n$($gitstring.Substring(0,$gitstring.IndexOf("-")))`n" -ForegroundColor Gray;}

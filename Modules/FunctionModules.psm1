@@ -741,3 +741,19 @@ function CreateCredentials
         Write-Warning "`nCreated credential file.  Must manually ecrypt and apply." -ForegroundColor Gray;
     }
 }
+
+function GetSynopsisText
+{
+    Param([string]$script)
+    [Boolean]$FoundSynopsis = $false;
+    [string[]]$Content = Get-Content $script;
+    for([int16]$i=0;$i -lt $script.Length;$i++)
+    {
+        if($Content[$i].Substring(0,2) -eq "#>"){break;}
+        if($FoundSynopsis)
+        {
+            Write-Host "$($Content[$i])" -ForegroundColor Gray;
+        }
+        if(($Content[$i].Substring(0,$Content[$i].Length) -eq ".Synopsis") -and !$FoundSynopsis){$FoundSynopsis = $true;}
+    }
+}

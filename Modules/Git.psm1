@@ -18,7 +18,7 @@ function GetSettings
     [Boolean]$Found = $false;
     foreach($o in $global:XMLReader.Machine.GitSettings.Repository)
     {
-        if($o.FilePath -eq $FilePath){$Found = $true;break;}
+        if($FilePath.Contains($o.FilePath)){$Found = $true;break;}
     }
     if($Found){return $o;}
     else{return $null;}

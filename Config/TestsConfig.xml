@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="GitHubVirtualMachine" LoadProcedure="Verbose" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08112020" />
+  <UpdateStamp Value="08122020" />
   <Start Enabled="True" ClearHost="False">
-    <Greetings Type="Big" Save="True">Build Config</Greetings>
+    <Greetings Type="Big" Save="True">Tests Config</Greetings>
   </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -11,18 +11,17 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>@admin{@batteryperc%} [@time, @date] @fulldir</String>
+      <String>@fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
-      <String Color="Cyan">[Hakashi] @currdir@greaterthan_</String>
+      <String Color="Cyan">[Test Config] @currdir@greaterthan_</String>
     </Prompt>
     <ShellColors>
       <ForegroundColor>White</ForegroundColor>
       <ProgressForegroundColor>White</ProgressForegroundColor>
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
-    <StartDirectory>~\</StartDirectory>
     <GitDisplay Enabled="False">
       <Unstaged>False</Unstaged>
       <Staged>False</Staged>
@@ -34,22 +33,32 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
+  <!-- Functions -->
+  <Functions>
+    <Function><![CDATA[function global:GetNumber1{return 1;}]]></Function>
+    <Function><![CDATA[function global:GetNumber2{return 2;}]]></Function>
+  </Functions>
   <!-- Modules -->
   <Modules>
     <Module>.\Modules\System.psm1</Module>
-    <!-- <Module>.\Modules\Terminal.psm1</Module> -->
+    <Module>.\Modules\Terminal.psm1</Module>
     <!-- <Module>.\Modules\MinTerminal.psm1</Module> -->
     <!-- <Module>.\Modules\Sound.psm1</Module> -->
     <Module>.\Modules\ConfigHandler.psm1</Module>
+    <Module>.\Modules\Git.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="main" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\</Directory>
+    <Directory Alias="ConfigDir1" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Config</Directory>
+    <Directory Alias="ConfigDir2" SecType="public">B:\XmlPSProfile\Config</Directory>
+    <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="Goto" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto1" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto2" SecType="public">B:\XmlPSProfile\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Open.ps1</Program>
     <Program Alias="Archive" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Archive.ps1</Program>
@@ -99,6 +108,33 @@
         <Lyft xsi:type="XMLAny">https://www.lyft.com/</Lyft>
         <Sonoma xsi:type="XMLAny">http://www.sonoma.edu/</Sonoma>
       </Values>
+    </Object>
+    <!-- $College -->
+    <Object Type="HashTable">
+      <VarName SecType="public">College</VarName>
+      <Key Lvl="0" SecType="public">Netflix</Key>
+      <Value Lvl="0" SecType="public">https://Netflix.com</Value>
+      <!-- FAFSA -->
+      <Key Lvl="0" SecType="public">Fafsa</Key>
+      <Value Lvl="0" SecType="public" NodePointer="7390" />
+      <Key Lvl="1" Node="7390" SecType="public">URL</Key>
+      <Value Lvl="1" Node="7390" SecType="public">https://fafsa.gov/</Value>
+      <!-- Sonoma -->
+      <Key Lvl="0" SecType="public">SONOMA</Key>
+      <Value Lvl="0" SecType="public" NodePointer="bd78" />
+      <!-- Slack -->
+      <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />
+      <Key Lvl="2" Node="a9c2" SecType="public">Email</Key>
+      <Value Lvl="2" Node="a9c2" SecType="public">TestEmail@Fake.com</Value>
+      <!-- Classes -->
+      <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />
+      <!-- CES440 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES440</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES440" />
+      <Key Lvl="3" Node="CES440" SecType="public">URL</Key>
+      <Value Lvl="3" Node="CES440" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
     </Object>
   </Objects>
 </Machine>

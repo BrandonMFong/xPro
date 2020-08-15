@@ -14,7 +14,7 @@ Functions/BANKURL.ps1
 Config/Server.xml
 
 # Test files
-test*.*
+*.test.*
 
 # User Config 
 Config/User/*

@@ -147,7 +147,7 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="StartDirectory" type="xs:string" maxOccurs="1">
+                            <xs:element name="StartDirectory" type="xs:string" minOccurs="0" maxOccurs="1">
                                 <xs:annotation>
                                     <xs:documentation>
                                         Default is whatever is configured in the app settings
@@ -739,12 +739,12 @@
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="MachineName"/>
+            <xs:attribute name="MachineName" />
             <xs:attribute name="LoadProfile">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="True" />
-                        <xs:enumeration value="False"/>
+                        <xs:enumeration value="False" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>

@@ -1,15 +1,15 @@
-# This is a basic workflow to help you get started with Actions
+# XmlPSProfile Workflow
+name: Test Runs
 
-name: Loading Profile
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
+    # Allowed branches
     branches: 
       - dev
       - beta
       - master
+      - update-dev-YamlWorkflowWork # Test
+    # Ignored Files and paths
     paths-ignore:
       - '**.md'
       - '**.log'
@@ -19,20 +19,18 @@ on:
       - '**.txt'
       - '**.csv'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
+  Run-Test:
+    runs-on: windows-latest # On windows VM
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a set of commands using the runners shell
-    - name: Running powershell profile
+    - name: Run tests
+      shell: pwsh
       run: |
-        .\Profile.ps1 -IsBuild:$true;
-      
+        Write-Host "`nLoading Profile";
+        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
+        Write-Host "`nRunning Test Scripts";
+        .\Tests\InitTestScripts.ps1;
+

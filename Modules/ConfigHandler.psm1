@@ -1,3 +1,5 @@
+Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+
 function _MachineNode([ref]$File)
 {
     # <Machine>
@@ -227,26 +229,9 @@ function Run-Update
             if($Executed)
             {
                 Write-Host "Executing: $($script)`n" -ForegroundColor Gray;
-                GetText -script:$script;
+                GetSynopsisText -script:$script;
             }
         }
     }
     Write-Host "`n";
-}
-
-function GetText
-{
-    Param([string]$script)
-    [Boolean]$FoundSynopsis = $false;
-    [string[]]$Content = Get-Content $script;
-    for([int16]$i=0;$i -lt $script.Length;$i++)
-    {
-        if($Content[$i].Substring(0,2) -eq "#>"){break;}
-        if($FoundSynopsis)
-        {
-            Write-Host "$($Content[$i])" -ForegroundColor Gray;
-        }
-        if(($Content[$i].Substring(0,$Content[$i].Length) -eq ".Synopsis") -and !$FoundSynopsis){$FoundSynopsis = $true;}
-    }
-    # Write-Host "`n";
 }

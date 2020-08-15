@@ -22,8 +22,6 @@ try
 }
 catch
 {
-   # Write-Host "`nError in $($PSScriptRoot)\$($MyInvocation.MyCommand.Name) at line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red;
-   # Write-Host "`n$($_.Exception)`n" -ForegroundColor Red;
    $Global:LogHandler.WriteError($_);
    $Executed.Value = $false;
 }

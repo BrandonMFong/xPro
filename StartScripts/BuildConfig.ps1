@@ -1,0 +1,1 @@
+Write-Host "Successfully ran start script!";

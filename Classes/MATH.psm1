@@ -20,28 +20,28 @@ class Calculations
 
 
     # Object method
-    [double]KgToPounds($x) #0.453592kg per 1 lb
+    [System.Decimal]KgToPounds($x) #0.453592kg per 1 lb
     {
         return ($x / 0.453592)
     }
-    [double]PoundsToKg($x) #0.453592kg per 1 lb
+    [System.Decimal]PoundsToKg($x) #0.453592kg per 1 lb
     {
         return (0.453592 * $x)
     }
     
-    [double]CtoF($x)
+    [System.Decimal]CtoF($x)
     {
         return ($x*(9/5)) + 32;
     }
     
-    [double]FtoC($x)
+    [System.Decimal]FtoC($x)
     {
         return ($x - 32)*(5/9);
     }
 
-    [void]SwapTwoVariables($x, $y)
+    [void]SwapTwoVariables([ref]$x, [ref]$y) # Can be any variable type
     {
-        $temp = $x;$x = $y;$y = $temp;
+        $temp = $x.value;$x.value = $y.value;$y.value = $temp;
     }
 
     [void]SwapTwoVariablesWithoutTempVarAS([ref]$x, [ref]$y)
@@ -61,24 +61,24 @@ class Calculations
         $x.value = $stack.Pop();$y.value = $stack.Pop();
     }
 
-    [Double]Log2([Int16]$x)
+    [System.Decimal]Log2([Int16]$x)
     {
         if($x -eq 0){return 0;}
         else{return [Math]::Log($x)/[Math]::Log(2);}
     }
 
-    [void]WaterBillSplit([Double]$TotalPayment, [int]$TotalHousemates=10)
+    [void]WaterBillSplit([System.Decimal]$TotalPayment, [int]$TotalHousemates=10)
     {
         #[int]$TotalHousemates = 10;
-        [Double]$EveryonePays = $TotalPayment/$TotalHousemates;
-        [Double]$TotalPaymentExcludingUser = $TotalPayment - $EveryonePays;
+        [System.Decimal]$EveryonePays = $TotalPayment/$TotalHousemates;
+        [System.Decimal]$TotalPaymentExcludingUser = $TotalPayment - $EveryonePays;
 
         Write-Host "Total Payment for WaterBill: $($TotalPayment)";
         Write-Host "Everyone pays: $($EveryonePays)";
         Write-Host "Your venmo total charge (excluding you) will look like: $($TotalPaymentExcludingUser)";
     }
 
-    [void]IsPrime([int]$num)
+    [System.Boolean]IsPrime([int]$num)
     {
         $composite_flag = $False;
         for($i = 2; $i -lt $num; $i++)
@@ -86,20 +86,22 @@ class Calculations
             if(($num % $i) -eq 0){$composite_flag = $True}
         }
 
-        if($composite_flag){Write-Host "$i is composite"}
-        else {Write-Host "$i is prime"}
+        if($composite_flag){return $False;}
+        # if($composite_flag){Write-Host "$i is composite"}
+        # else {Write-Host "$i is prime"}
+        else {return $True;}
     }
     
     # Self Entropy
-    [double]I([double]$x)
+    [System.Decimal]I([System.Decimal]$x)
     {
         return -$this.Log2($x);
     }
 
     # Message Entropy
-    [double]H($Codewords)
+    [System.Decimal]H($Codewords)
     {
-        [double]$ans = 0;
+        [System.Decimal]$ans = 0;
         for($i = 0;$i -lt $Codewords.Count;$i++)
         {
             $ans = $ans + ( $Codewords[$i] * $this.Log2($Codewords[$i]));
@@ -107,6 +109,7 @@ class Calculations
         return -$ans;
     }
 
+    # I think this is hex, not dec
     [BYTE]AsciiToDec([string]$string)
     {
         return [BYTE][CHAR]$string;
@@ -128,14 +131,14 @@ class Calculations
 
         Write-Host "`n";
         [System.Object[]]$CSVReader = Import-Csv $this.PathToGradeImport;
-        [double]$TotalGrade = 0;
+        [System.Decimal]$TotalGrade = 0;
         for([int]$i=0;$i -lt $CSVReader.Length;$i++)
         {
-            [double]$Grade = ($CSVReader[$i].ActualGrade/$CSVReader[$i].TotalGrade);
+            [System.Decimal]$Grade = ($CSVReader[$i].ActualGrade/$CSVReader[$i].TotalGrade);
 
             # Default weight is 1
-            if($CSVReader[$i].Weight -eq 0){[double]$WeightedGrade = $Grade*1;}
-            else{[double]$WeightedGrade = $Grade*$CSVReader[$i].Weight;}
+            if($CSVReader[$i].Weight -eq 0){[System.Decimal]$WeightedGrade = $Grade*1;}
+            else{[System.Decimal]$WeightedGrade = $Grade*$CSVReader[$i].Weight;}
 
             $TotalGrade += $WeightedGrade; # Total Grade
 
@@ -148,7 +151,7 @@ class Calculations
 
     # Gets color from configuration
     # Default is White
-    hidden [string]GetGradeColor([double]$Grade)
+    hidden [string]GetGradeColor([System.Decimal]$Grade)
     {
         [string]$Color = "White";
 
@@ -163,8 +166,8 @@ class Calculations
     # Lists colors from configured
     [void]ListGradeColors()
     {
-        [double]$MaxValue = 100;
-        [double]$MinValue = 0;
+        [System.Decimal]$MaxValue = 100;
+        [System.Decimal]$MinValue = 0;
         foreach($GradeColor in $this.GradeColors.GradeColor)
         {
             $MinValue = $GradeColor.MinimumThreshold.ToDouble($null);
@@ -245,7 +248,7 @@ class Binary : Calculations
         {
             $rem = $int % 2;
             $Binary = ($rem).ToString() + $Binary;
-            [double]$d = ([double]$int / 2);
+            [System.Decimal]$d = ([System.Decimal]$int / 2);
             # this always rounding down.  I need it to round up now from 0.5
             # $int = $($d - 0.5); # Getting the floor, might want to make a whole function on this 
             if($rem -eq 0){$int = $d;}

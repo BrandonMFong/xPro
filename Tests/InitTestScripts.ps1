@@ -2,6 +2,7 @@
 .Notes
     Must realize that we are running tests inside the repo
 #>
+if($Global:AppPointer.Machine.ConfigFile -ne "TestsConfig.xml"){Write-Warning "Not using Test Config.  Please update config to point to => TestsConfig.xml";break;}
 Push-Location $PSScriptRoot;
     Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
 

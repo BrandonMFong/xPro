@@ -11,7 +11,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>@fulldir</String>
+      <String>[@date] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
@@ -23,11 +23,11 @@
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
     <StartDirectory>~\</StartDirectory>
-    <GitDisplay Enabled="False">
+    <GitDisplay Enabled="True">
       <Unstaged>False</Unstaged>
       <Staged>False</Staged>
       <Commits>False</Commits>
-      <CacheCount>10</CacheCount>
+      <CacheCount>3</CacheCount>
     </GitDisplay>
     <Security>
       <Secure>False</Secure>
@@ -71,7 +71,6 @@
     <Program Alias="Dismount" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DismountDrive.ps1</Program>
     <Program Alias="Unplug" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Unplug.ps1</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
-    <Program Alias="RS" SecType="public">B:\XmlPSProfile</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

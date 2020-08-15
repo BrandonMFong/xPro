@@ -20,7 +20,7 @@ Config/Server.xml
 Config/User/*
 
 # Debug
-Resources/Debug.ps1
+Tests/Debug.ps1
 
 # Logs
 logs/User/*

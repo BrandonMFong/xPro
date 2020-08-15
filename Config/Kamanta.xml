@@ -280,7 +280,9 @@
                 <Row>
                   <Value ColumnName="ExternalID">Pw_Kaiser</Value>
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <!-- Private name -->
                   <Value ColumnName="Hash">e3d4d89f-4643-4f3e-b6ec-a7e28d6b9bb9</Value>
+                  <!-- PI value -->
                   <Value ColumnName="PersonalInfoID">68</Value>
                 </Row>
               </Rows>

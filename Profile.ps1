@@ -120,8 +120,8 @@ if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSetti
 # It will run the debug script after profile is loaded
 if($DebugFlag)
 {
-    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + "\Resources\Debug.ps1");
-    if(!(Test-Path $DebugScript)){New-Item $DebugScript;}
+    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + "\Tests\Debug.ps1");
+    if(!(Test-Path $DebugScript)){New-Item $DebugScript -Force;}
     & $DebugScript;
 }
 

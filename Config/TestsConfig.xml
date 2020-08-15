@@ -7,7 +7,7 @@
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Format>
-      <Date>dddd MM/dd/yyyy</Date>
+      <Date>MM/dd/yyyy</Date>
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
@@ -22,6 +22,7 @@
       <ProgressForegroundColor>White</ProgressForegroundColor>
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
+    <StartDirectory>~\</StartDirectory>
     <GitDisplay Enabled="False">
       <Unstaged>False</Unstaged>
       <Staged>False</Staged>
@@ -37,6 +38,7 @@
   <Functions>
     <Function><![CDATA[function global:GetNumber1{return 1;}]]></Function>
     <Function><![CDATA[function global:GetNumber2{return 2;}]]></Function>
+    <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -59,6 +61,7 @@
     <!-- Third Party Programs -->
     <Program Alias="Goto1" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\GOTO.ps1</Program>
     <Program Alias="Goto2" SecType="public">B:\XmlPSProfile\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto" SecType="public">B:\XmlPSProfile\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Open.ps1</Program>
     <Program Alias="Archive" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Archive.ps1</Program>
@@ -67,6 +70,8 @@
     <Program Alias="Search" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Search.ps1</Program>
     <Program Alias="Dismount" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DismountDrive.ps1</Program>
     <Program Alias="Unplug" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Unplug.ps1</Program>
+    <Program Alias="RS" SecType="public">Restart-Session</Program>
+    <Program Alias="RS" SecType="public">B:\XmlPSProfile</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

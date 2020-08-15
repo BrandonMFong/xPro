@@ -13,7 +13,6 @@ Param
     [switch]$SaveToFile=$false
 )
 
-# [string]$DirectoryPath = $PSScriptRoot + "\..\Resources\Greetings\"; # Folder to save
 [string]$DirectoryPath = $PSScriptRoot + "\..\Cache\Greetings\"; # Folder to save
 
 # Used as a flag to make sure we are updating the cached value if type has changed

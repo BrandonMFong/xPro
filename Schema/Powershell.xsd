@@ -758,6 +758,7 @@
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="Verbose" />
                         <xs:enumeration value="Progress" />
+                        <xs:enumeration value="" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>

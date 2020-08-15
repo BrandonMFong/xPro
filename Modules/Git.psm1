@@ -7,10 +7,10 @@ function Get-Tag
     else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
 
-function Push-With-Tag
-{
-    git push;git push --tags;
-}
+# function Push-With-Tag
+# {
+#     git push;git push --tags;
+# }
 
 function GetSettings
 {
@@ -102,7 +102,7 @@ function Set-Tag
     $Global:LogHandler.Write("Applying tag: $($TagString)");
     git tag $TagString $CommitID;
 
-    if($Push){Push-With-Tag;}
+    if($Push){GitRebasePush -Tags;}
 }
 
 
@@ -157,9 +157,30 @@ function Set-Commit
     }
 
     # Always rebase before you push
-    if($Push){git pull --rebase; git push;}
+    if($Push){GitRebasePush}
 }
 
+function GitRebasePush
+{
+    Param([Switch]$Tags)
+    # git push --set-upstream origin update-dev-DeleteLocalBranchAfterSquash
+
+    [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
+    [system.Boolean]$IsRemoteBranch = $false;
+    # checks if branch is on remote
+    for([int16]$i=0;$i -lt $b.Length;$i++)
+    {
+        if([string]$($b[$i].Substring(2,$b[$i].Length-2)).Contains("origin/"+$CurrentBranch)){$IsRemoteBranch = $true;break;}
+    }
+    if(!$IsRemoteBranch){git push --set-upstream origin $CurrentBranch;}
+    else 
+    {
+        git pull --rebase;
+        git push;
+    }
+
+    if($Tags){git push --tags;}
+}
 function Squash-Branch
 {
     Param([Switch]$Force)
@@ -188,15 +209,20 @@ function Squash-Branch
     # Confirming with user
     if(!$Force)
     {
-        if($(Read-Host -Prompt "Message: $($squashmessage) | Confirm(y/n)") -ne "y")
+        if($(Read-Host -Prompt "Message: $($squashmessage) | Confirm (y/n)") -ne "y")
         {
             Write-Host "Cancelling merge." -ForegroundColor Gray;break;
         }
     }
 
-    git merge $TargetBranch --squash;
+    git merge $TargetBranch --squash; # Merge
 
-    git commit -m $squashmessage;
+    git commit -m $squashmessage; # Commit
+
+    if($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -ne "y")
+    {
+        git branch -D $TargetBranch;
+    }
 }
 
 # Test2

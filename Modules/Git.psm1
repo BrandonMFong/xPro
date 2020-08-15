@@ -219,7 +219,7 @@ function Squash-Branch
 
     git commit -m $squashmessage; # Commit
 
-    if($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -ne "y")
+    if($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -eq "y")
     {
         git branch -D $TargetBranch;
     }

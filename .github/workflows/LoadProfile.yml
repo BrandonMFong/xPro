@@ -50,33 +50,33 @@ jobs:
         Write-Host "`nRunning Test Scripts";
         D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
 
-  # Powershell 7 on Ubuntu
-  Powershell7-Run-Test-Ubuntu:
-    runs-on: ubuntu-latest
+  # # Powershell 7 on Ubuntu
+  # Powershell7-Run-Test-Ubuntu:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+  #   steps:
+  #   - uses: actions/checkout@v2
 
-    - name: Run tests
-      shell: pwsh
-      run: |
-        Write-Host "`nLoading Profile";
-        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
-        Write-Host "`nRunning Test Scripts";
-        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+  #   - name: Run tests
+  #     shell: pwsh
+  #     run: |
+  #       Write-Host "`nLoading Profile";
+  #       .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
+  #       Write-Host "`nRunning Test Scripts";
+  #       D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
 
-  # Powershell 7 on Ubuntu
-  Powershell7-Run-Test-Mac:
-    runs-on: macos-latest
+  # # Powershell 7 on Ubuntu
+  # Powershell7-Run-Test-Mac:
+  #   runs-on: macos-latest
 
-    steps:
-    - uses: actions/checkout@v2
+  #   steps:
+  #   - uses: actions/checkout@v2
 
-    - name: Run tests
-      shell: pwsh
-      run: |
-        Write-Host "`nLoading Profile";
-        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
-        Write-Host "`nRunning Test Scripts";
-        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+  #   - name: Run tests
+  #     shell: pwsh
+  #     run: |
+  #       Write-Host "`nLoading Profile";
+  #       .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
+  #       Write-Host "`nRunning Test Scripts";
+  #       D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
 

@@ -165,12 +165,13 @@ function GitRebasePush
     Param([Switch]$Tags)
     # git push --set-upstream origin update-dev-DeleteLocalBranchAfterSquash
 
+    [string[]]$b = git branch -r; # Get all remote branches
     [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
     [system.Boolean]$IsRemoteBranch = $false;
     # checks if branch is on remote
     for([int16]$i=0;$i -lt $b.Length;$i++)
     {
-        if([string]$($b[$i].Substring(2,$b[$i].Length-2)).Contains("origin/"+$CurrentBranch)){$IsRemoteBranch = $true;break;}
+        if([string]$($b[$i].Substring(2,$b[$i].Length-2)) -eq $("origin/"+$CurrentBranch)){$IsRemoteBranch = $true;break;}
     }
     if(!$IsRemoteBranch){git push --set-upstream origin $CurrentBranch;}
     else 

@@ -21,7 +21,7 @@ on:
 
 jobs:
   # Powershell on Windows
-  Powershell-Run-Test:
+  Powershell-Run-Test-Windows:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -36,7 +36,7 @@ jobs:
         D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
 
   # Powershell 7 on Windows
-  Powershell7-Run-Test:
+  Powershell7-Run-Test-Windows:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -51,7 +51,7 @@ jobs:
         D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
 
   # Powershell 7 on Ubuntu
-  Powershell7-Run-Test:
+  Powershell7-Run-Test-Ubuntu:
     runs-on: ubuntu-latest
 
     steps:

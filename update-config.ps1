@@ -40,12 +40,12 @@ Push-Location $PSScriptRoot
     # Load files
     [String[]]$ForPrompt = [String[]]::new($null); 
     [String[]]$ForConfig = [String[]]::new($null); 
-    $ForPrompt = $(Get-ChildItem .\Config\ | Where-Object{$_.Mode -eq "-a---"}).BaseName;
+    $ForPrompt = $(Get-ChildItem .\Config\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
     for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
     {
         $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
     }
-    $ForConfig = $(Get-ChildItem .\Config\ | Where-Object{$_.Mode -eq "-a---"}).Name;
+    $ForConfig = $(Get-ChildItem .\Config\ | Where-Object{$_.Extension -eq ".xml"}).Name;
 
     Write-Host "Config files to choose from:"
     $ForPrompt;
@@ -55,7 +55,6 @@ Push-Location $PSScriptRoot
     Push-Location $($PROFILE |Split-Path -Parent);
         [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml;
         [String]$Path = $(Get-ChildItem .\Profile.xml).FullName;
-        # Get-ChildItem .\Profile.xml |ForEach-Object {$Path = $_.FullName;}
         $XmlEditor.Machine.ConfigFile = $ForConfig[$ConfigIndex-1];
         $XmlEditor.Save($Path);
     Pop-Location

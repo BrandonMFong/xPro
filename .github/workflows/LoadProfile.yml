@@ -20,7 +20,20 @@ on:
       - '**.csv'
 
 jobs:
-  Run-Test:
+  Powershell-Run-Test:
+    runs-on: windows-latest # On windows VM
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests
+      shell: powershell
+      run: |
+        Write-Host "`nLoading Profile";
+        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
+        Write-Host "`nRunning Test Scripts";
+        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+  Powershell7-Run-Test:
     runs-on: windows-latest # On windows VM
 
     steps:

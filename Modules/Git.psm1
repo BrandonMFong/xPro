@@ -7,11 +7,6 @@ function Get-Tag
     else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
 
-# function Push-With-Tag
-# {
-#     git push;git push --tags;
-# }
-
 function GetSettings
 {
     Param([string]$FilePath)

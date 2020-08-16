@@ -389,6 +389,9 @@ function LoadDrives
                 {
                     [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
     
+                    # Problem: What if the address is within the network but the device is not on?
+                    # I think it is the IsWithinNetwork function's job to determine if the device is on
+                    # If it is off, then it isn't within network
                     if($(IsWithinNetwork -IpAddress:$IpAddress))
                     {
                         try
@@ -405,6 +408,13 @@ function LoadDrives
     }
 }
 
+# If it is off, then it isn't within network
+# Uses the idea of subnets
+# Only valid for drives on LAN
+<#
+    Hmm side note: can't I just use the IsReachable method to check if the IpAddress is also within the network?
+    I think I could because I think it also goes through its own process to check if IP is valid
+#>
 function IsWithinNetwork
 {
     Param([String]$IpAddress)
@@ -453,10 +463,28 @@ function IsWithinNetwork
     if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){return $false;} # TODO make logs
     if(!$IsConnected){return $false;} # You are not connected TODO make logs
 
-    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$IpAddress);
+    [String]$hostnamestring = GetHostName -Path:$IpAddress; # getting the host name just in case it is a shared folder path
+    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$hostnamestring);
     [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
 
-    return $IpAddr -eq $DefaultGate;
+    # If we made it this far then we have extract the base ip to check if it is within the sub net
+    # Only check if device is on if the ip is within the network
+    if($IpAddr -eq $DefaultGate){return $(IsReachable -IpAddress:$hostnamestring);} # Passes original IP 
+    else{return $false;}
+}
+
+# If it reachable we will receive a package quickly when pinged
+# If it is not reachable then it will take a while for the ping to realize
+# but it significantly saves time from us initiating the net use cmd
+function IsReachable # If the pinged then the device is on
+{
+    Param([String]$IpAddress)
+    [string[]]$o = (PING.EXE $IpAddress /n 1);
+    if([string]::IsNullOrEmpty($o)){$Global:LogHandler.Warning("PING.EXE did not return anything for IP - $($IpAddress)");}
+
+    # As of 8/16/2020, ping will output this "Destination host unreachable."
+    if($o[2].Contains("Destination host unreachable.")){return $false;}
+    else{return $true;}
 }
 
 function LoadFunctions

@@ -63,6 +63,7 @@
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="npad" SecType="public">$PSScriptRoot\..\..\Notepad++\notepad++.exe</Program>
     <Program Alias="Greetings" SecType="public">$PSScriptRoot\..\..\Scripts\Greetings.ps1</Program>
+    <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Functions\GetPCInfo.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

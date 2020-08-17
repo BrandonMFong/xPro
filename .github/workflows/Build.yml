@@ -1,27 +1,34 @@
 # XmlPSProfile Workflow
-name: Testing
+# If I want to create a release: https://github.com/actions/create-release
+
+# Will tag if all tests pass in both powershell and pwsh
+name: Build
 
 on:
   push:
     # Allowed branches
     branches: 
       - dev
-      - beta
-      - master
-      - 'tests-*'
     # Ignored Files and paths
+    # Only files that will trigger a tag are app powershell scripts
+    # powershell scripts in the StartScipts are considered config
     paths-ignore:
       - '**.md'
-      - '**.log'
+      - '**.yml'
+      - '**.json'
+      - '**.xml'
+      - '**.sql'
       - '**.xsd'
-      - '**.sql' # If the VM does not have a sql db then it will not execute .sql queries
-      - '.gitignore'
       - '**.txt'
-      - '**.csv'
+      - '**.log'
+      - '.gitignore'
+      - 'StartScripts/**'
+      - 'Cache/**'
+      - 'Tests/Scripts/**' # Do not tag any changes from the test scripts
 
 jobs:
   # Powershell on Windows
-  Powershell-Run-Test-Windows:
+  TEST-Windows-Powershell:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -33,10 +40,10 @@ jobs:
         Write-Host "`nLoading Profile";
         .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
         Write-Host "`nRunning Test Scripts";
-        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+        Run-Tests;
 
   # Powershell 7 on Windows
-  Powershell7-Run-Test-Windows:
+  TEST-Windows-pwsh:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -48,7 +55,28 @@ jobs:
         Write-Host "`nLoading Profile";
         .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
         Write-Host "`nRunning Test Scripts";
-        D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
+        Run-Tests;
+
+  Tag-Commit:
+    needs: [TEST-Windows-Powershell, TEST-Windows-pwsh]
+    runs-on: windows-latest # On windows VM
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Retrieve all branches and tags
+      shell: pwsh
+      run: |
+        git fetch --prune --unshallow --tags
+
+    - name: Set new tag
+      shell: pwsh
+      run: |
+        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml") -Silent:$true;
+        $env:GIT_REDIRECT_STDERR = '2>&1';
+        Run-Tag -Push:$true;
+
+# TODO figure out later
 
   # # Powershell 7 on Ubuntu
   # Powershell7-Run-Test-Ubuntu:

@@ -70,9 +70,10 @@
     <Program Alias="Search" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Search.ps1</Program>
     <Program Alias="Dismount" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DismountDrive.ps1</Program>
     <Program Alias="Unplug" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Unplug.ps1</Program>
-    <!-- For remote tagging -->
     <Program Alias="git" SecType="public">C:\Program Files\Git\bin\git.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
+    <Program Alias="Run-Tests" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1</Program>
+    <Program Alias="Run-Tag" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DetermineTagType.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

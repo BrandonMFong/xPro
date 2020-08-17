@@ -3,12 +3,6 @@
     Auto Tagging
     This script determines what gets tagged
 .Notes
-    I am going to need a system
-    I am determining tag types on the commit messages
-    This is very specific to the squash commits because I put the branches' names that I am squashing 
-    *****If the name does not have those squash standard names and they are powershell scripts, they will get bugpatch tagged *****
-    Standard squash names <TagType>-<OriginalBranch>-<BranchDescription> or is dev branch (which Tag.yml determines)
-
     This script does not care what branch we are on.  That is .yml's job
 
     What do I do when I merge a bug from master or beta and I want to tag it?

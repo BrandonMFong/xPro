@@ -2,6 +2,7 @@
     "BranchNameDelimiter":"-",
     "Branches":[
         {"Branch":{"Type":"bug","Version":"BugPatch"}},
+        {"Branch":{"Type":"tests","Version":"BugPatch"}},
         {"Branch":{"Type":"feature","Version":"Minor"}},
         {"Branch":{"Type":"update","Version":"Minor"}},
         {"Branch":{"Type":"upgrade","Version":"Major"}}

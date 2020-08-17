@@ -152,7 +152,7 @@ function Set-Commit
     }
 
     # Always rebase before you push
-    if($Push){GitRebasePush}
+    if($Push){GitRebasePush -Tags:$([string]::IsNullOrEmpty($Tag));}
 }
 
 function GitRebasePush

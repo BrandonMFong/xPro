@@ -34,7 +34,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
             # Set-Tag -Tag:$VersionReader.Branches.Branch[$i].Version.ToString() -Push:$Push;break;
         }
     }
-    if($Tagged){Write-Host "Going to tag ($VersionReader.Branches.Branch[$i].Version)"; Set-Tag -Tag:$TagType -Push:$Push;}
+    if($GoingToTag){Write-Host "Going to tag ($VersionReader.Branches.Branch[$i].Version)"; Set-Tag -Tag:$TagType -Push:$Push;}
     # Default is always the last type of tags
     # Can be configured if this is the standard
     else{Write-Host "Going to tag BugPatch"; Set-Tag -Tag:$("BugPatch") -Push:$Push;}

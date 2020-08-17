@@ -111,6 +111,8 @@
     <Directory Alias="nb" SecType="public">B:\NOTEBOOK</Directory>
     <Directory Alias="repo" SecType="public">B:\SOURCE\Repo</Directory>
     <Directory Alias="ces400" SecType="public">B:\COLLEGE\20_21\Fall20\CES400</Directory>
+    <Directory Alias="ces543" SecType="public">B:\COLLEGE\20_21\Fall20\CES543</Directory>
+    <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

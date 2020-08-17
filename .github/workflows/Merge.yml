@@ -1,0 +1,35 @@
+# XmlPSProfile Workflow
+# If I want to create a release: https://github.com/actions/create-release
+
+# Will tag if all tests pass in both powershell and pwsh
+name: Merge
+
+on:
+  schedule:
+    # Every Monday at 1PM UTC (9AM EST)
+    - cron: 0 16 * * 1
+jobs:
+  # Powershell on Windows
+  TEST-Windows-Powershell:
+    runs-on: windows-latest # On windows VM
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Retrieve all branches and tags
+      shell: pwsh
+      run: |
+        git fetch --prune --unshallow --tags
+
+      # TODO rename master to main
+    - name: Checkout master
+      shell: powershell
+      run: |
+        git checkout master
+
+      # TODO rename master to main
+    - name: merge beta => Main
+      shell: powershell
+      run: |
+        git merge beta
+

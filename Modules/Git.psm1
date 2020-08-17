@@ -152,6 +152,7 @@ function Set-Commit
     }
 
     # Always rebase before you push
+    # Tests if a Tag was passed
     if($Push){GitRebasePush -Tags:$([string]::IsNullOrEmpty($Tag));}
 }
 

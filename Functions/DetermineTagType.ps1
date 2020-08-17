@@ -31,7 +31,6 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
             $GoingToTag=$true;
             $TagType = $VersionReader.Branches.Branch[$i].Version.ToString();
             break;
-            # Set-Tag -Tag:$VersionReader.Branches.Branch[$i].Version.ToString() -Push:$Push;break;
         }
     }
     if($GoingToTag){Write-Host "Going to tag ($VersionReader.Branches.Branch[$i].Version)"; Set-Tag -Tag:$TagType -Push:$Push;}

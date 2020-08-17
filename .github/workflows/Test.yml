@@ -1,5 +1,5 @@
 # XmlPSProfile Workflow
-name: Test Runs
+name: Testing
 
 on:
   push:

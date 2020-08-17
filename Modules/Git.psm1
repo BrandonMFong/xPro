@@ -153,9 +153,6 @@ function Set-Commit
     # Tag option
     switch($Tag)
     {
-        # "Major"{Set-Tag -Major;}
-        # "Minor"{Set-Tag -Minor;}
-        # "BugPatch"{Set-Tag -BugPatch;}
         "Major"{Set-Tag -Tag "Major";}
         "Minor"{Set-Tag -Tag "Minor";}
         "BugPatch"{Set-Tag -Tag "BugPatch";}
@@ -169,7 +166,6 @@ function Set-Commit
 function GitRebasePush
 {
     Param([Switch]$Tags)
-    # git push --set-upstream origin update-dev-DeleteLocalBranchAfterSquash
 
     [string[]]$b = git branch -r; # Get all remote branches
     [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
@@ -194,7 +190,6 @@ function Squash-Branch
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
     [string]$CurrentBranch = $null;
-    # [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
 
     # Doing this because I am getting the other branches too
     # Get current branch

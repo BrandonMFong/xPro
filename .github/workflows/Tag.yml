@@ -22,6 +22,7 @@ on:
       - '.gitignore'
       - 'StartScripts/**'
       - 'Cache/**'
+      - 'Tests/Scripts/**' # Do not tag any changes from the test scripts
 
 jobs:
   Tag-Commit:

@@ -14,6 +14,7 @@ else{Push-Location $($PROFILE |Split-Path -Parent);}
     [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml; # Will always be Profile.xml
 Pop-Location;
 # pwsh
+# Todo test different environments
 if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
 else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
 

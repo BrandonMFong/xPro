@@ -14,8 +14,8 @@ else{Push-Location $($PROFILE |Split-Path -Parent);}
     [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml; # Will always be Profile.xml
 Pop-Location;
 # pwsh
-if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\" + $Global:AppPointer.Machine.ConfigFile);}
-else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\" + $Global:AppPointer.Machine.ConfigFile);}
+if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
+else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
 
 if(!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
 if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on
@@ -113,7 +113,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
 Pop-Location;
 
 # Method for start directory 
-if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.StartDirectory)))
+if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.StartDirectory)) -and [string]::IsNullOrEmpty($BuildPath))
 {Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
 
 # For debug mode

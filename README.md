@@ -293,7 +293,11 @@ XmlPSProfile also offers its own set of libraries and scripts that are developed
 
 ## Versioning
 
-MAJOR.MINOR.PATCH
+* MAJOR.MINOR.PATCH
+    * Branch names per tag types
+        * MAJOR: 'upgrade-*'
+        * MINOR: 'update-*', 'feature-*'
+        * PATCH: 'bug-*'
 
 ## Authors
 

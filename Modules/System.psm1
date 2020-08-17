@@ -64,7 +64,7 @@ function Toggle-Load
 {
     param([Switch]$Restart)
     $Global:XMLReader.Machine.LoadProfile = (!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)).ToString();
-    $Global:XMLReader.Save($($Global:AppPointer.Machine.GitRepoDir + "\Config\" + $Global:AppPointer.Machine.ConfigFile));
+    $Global:XMLReader.Save($($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile));
     if($Restart){Restart-Session;}
 }
 

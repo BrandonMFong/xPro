@@ -43,8 +43,9 @@
         <CommitType>Config</CommitType>
         <CommitType>Log</CommitType>
         <CommitType>Schema</CommitType>
+        <CommitType>Tests Scripts</CommitType>
       </CommitTypes>
-      <BranchesAllowedForTagging Branches="dev|beta|master" />
+      <!-- <BranchesAllowedForTagging Branches="dev|beta|master" /> -->
     </Repository>
   </GitSettings>
   <!-- Email settings -->
@@ -135,6 +136,7 @@
     <Program Alias="Get-Email" SecType="public">B:\XmlPSProfile\Functions\Email.ps1</Program>
     <Program Alias="WhatsApp" SecType="public">C:\Users\fongm\AppData\Local\WhatsApp\WhatsApp.exe</Program>
     <Program Alias="Slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
+    <Program Alias="git" SecType="public">C:\Program Files\Git\cmd\git.exe</Program>
     <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Functions\GetPCInfo.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->

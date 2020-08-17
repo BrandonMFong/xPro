@@ -17,6 +17,7 @@ function _GetFullContent
 }
 function _InitConfig
 {
+    Write-Host "Creating AppPointer";
     [XML]$NewXml = [XML]::new();
     $Node_Machine = $NewXml.CreateElement("Machine");
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
@@ -26,6 +27,10 @@ function _InitConfig
     $NewXml.Machine.AppendChild($Node_GitRepoDir)
     $NewXml.Machine.AppendChild($Node_ConfigFile)
     $NewXml.Machine.GitRepoDir = $($PSScriptRoot | Split-Path -Parent).ToString();
+    [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
+    $NewXml.Save($FileName);
+    [String] $FullContent = _GetFullContent($FileName);
+    $FullContent | Out-File $FileName;
 
     $x = Read-Host -Prompt "What do you want to do?`nCreate New Config[1]`nUse Existing Confg[2]`nSo"
 
@@ -36,23 +41,24 @@ function _InitConfig
         $NewXml.Machine.ConfigFile = $($ConfigurationName + ".xml");
         Write-Host "`nPlease review:" -Foregroundcolor Cyan;
         _GetContents($NewXml);
-        if($(Read-Host -Prompt "Approve? (y/n)") -eq "y")
-        {
-            [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-            $NewXml.Save($FileName);
-            [String] $FullContent = _GetFullContent($FileName);
-            $FullContent | Out-File $FileName;
-        }
-        else {throw "Please restart setup then."} # maybe call this function again
+        if($(Read-Host -Prompt "Approve? (y/n)") -ne "y")
+        # {
+            # [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
+            # $NewXml.Save($FileName);
+            # [String] $FullContent = _GetFullContent($FileName);
+            # $FullContent | Out-File $FileName;
+        # }
+        # else {throw "Please restart setup then."} # maybe call this function again
+        {throw "Please restart setup then."} # maybe call this function again
 
         _MakeConfig;
     }
     elseif($x -eq 2) 
     {
-        [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-        $NewXml.Save($FileName);
-        [String] $FullContent = _GetFullContent($FileName);
-        $FullContent | Out-File $FileName;
+        # [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
+        # $NewXml.Save($FileName);
+        # [String] $FullContent = _GetFullContent($FileName);
+        # $FullContent | Out-File $FileName;
         .\.\update-config.ps1;
     }
     else{Throw "Please Specify an option"}
@@ -99,5 +105,5 @@ function _MakeConfig
 
 
 
-    $File.Save($($PSScriptRoot + '\..\Config\' + $ConfigurationName + '.xml'));
+    $File.Save($($PSScriptRoot + '\..\Config\Users\' + $ConfigurationName + '.xml'));
 }

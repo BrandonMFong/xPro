@@ -15,8 +15,8 @@ class List
         $this.DisplayFormat = $DisplayFormat
         if([string]::IsNullOrEmpty($XMLRedirectPath)) # if using user config
         {
-            [string]$File = (Get-Variable 'AppPointer').Value.Machine.ConfigFile; 
-            $this.FilePath = ($PSScriptRoot + '\..\Config\' + $File);
+            [string]$File = $global:AppPointer.Machine.ConfigFile; 
+            $this.FilePath = ($PSScriptRoot + '\..\Config\Users\' + $File);
         }
         else # if you're using another config
         {

@@ -1,3 +1,7 @@
+<#
+.Notes
+    Assumes you have git as an env path or you have set it in the programs config
+#>
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
 function Get-Tag
@@ -7,6 +11,8 @@ function Get-Tag
     else {Write-Host "`n$($gitstring)`n" -ForegroundColor Gray;}
 }
 
+# Not using in Set-Tag
+# See if this affects config
 function GetSettings
 {
     Param([string]$FilePath)
@@ -22,10 +28,16 @@ function GetSettings
 # TODO how to make this configurable
 function Set-Tag
 {
-    Param([string]$CommitID=$null,[Switch]$Major,[Switch]$Minor,[Switch]$BugPatch, [Switch]$Push)
+    Param([string]$CommitID=$null,
+        [Parameter(Mandatory=$true)][ValidateSet("Major","Minor","BugPatch")][string]$Tag,
+        [Switch]$Major,
+        [Switch]$Minor,
+        [Switch]$BugPatch, 
+        [Switch]$Push
+    )
 
+    Write-Host "Tagging for $($Tag)";
     # Make sure this is the right order to do things
-    [System.Object[]]$GitSettings = $(GetSettings -FilePath:$(Get-Location).path);
 
     # Will not tag if it is not allowed 
     # But if this node is not arround then it will tag
@@ -41,8 +53,9 @@ function Set-Tag
         if(!$IsAllowed){break;}
     }
 
-    [String]$tag = "$(git describe --tags)";
-    if([string]::IsNullOrEmpty($tag))
+    [String]$currenttag = "$(git describe --tags)";
+    Write-Host "Current tag for $($currenttag)";
+    if([string]::IsNullOrEmpty($currenttag))
     {
         Write-Host "Set first tag" -ForegroundColor Gray;
         [int16]$MajorString = 0;
@@ -51,50 +64,44 @@ function Set-Tag
     }
     else 
     {
-        try{$tag = $tag.Substring(0,$tag.IndexOf("-"));}
+        try{$currenttag = $currenttag.Substring(0,$currenttag.IndexOf("-"));}
         catch{$Global:LogHandler.WriteError($_);}
 
         try
         {
-            $Global:LogHandler.Write("tag before MajorString $($tag)");
-            [int]$MajorString = $tag.Substring(0,$tag.IndexOf("."));
-            $Global:LogHandler.Write("MajorString = $($MajorString)");
-            DisectTag([ref]$tag);
+            Write-Host "tag before MajorString $($currenttag)";
+            [int]$MajorString = $currenttag.Substring(0,$currenttag.IndexOf("."));
+            Write-Host "MajorString = $($MajorString)";
+            DisectTag([ref]$currenttag);
     
-            $Global:LogHandler.Write("tag before MinorString $($tag)");
-            [int]$MinorString = $tag.Substring(0,$tag.IndexOf("."));
-            $Global:LogHandler.Write("MinorString = $($MinorString)");
-            DisectTag([ref]$tag);
+            Write-Host "tag before MinorString $($currenttag)";
+            [int]$MinorString = $currenttag.Substring(0,$currenttag.IndexOf("."));
+            Write-Host "MinorString = $($MinorString)";
+            DisectTag([ref]$currenttag);
     
-            $Global:LogHandler.Write("tag before BugPatchString $($tag)");
-            [int]$BugPatchString = $tag; # At this point we are at the end
-            $Global:LogHandler.Write("BugPatchString = $($BugPatchString)");
+            Write-Host "tag before BugPatchString $($currenttag)";
+            [int]$BugPatchString = $currenttag; # At this point we are at the end
+            Write-Host "BugPatchString = $($BugPatchString)";
         }
         catch{$Global:LogHandler.WriteError($_);}
     }
 
-    if($Major)
+    # Tag option
+    switch($Tag)
     {
-        [String]$TagString = "$($MajorString+1).0.0";
+        "Major"{[String]$TagString = "$($MajorString+1).0.0";}
+        "Minor"{[String]$TagString = "$($MajorString).$($MinorString+1).0";}
+        "BugPatch"{[String]$TagString = "$($MajorString).$($MinorString).$($BugPatchString+1)";}
+        default
+        {
+            # Not writing logs because this will happen on the runner
+            "Something bad happened";
+        }
     }
-    elseif($Minor)
-    {
-        [String]$TagString = "$($MajorString).$($MinorString+1).0";
-    }
-    elseif($BugPatch)
-    {
-        [String]$TagString = "$($MajorString).$($MinorString).$($BugPatchString+1)";
-    }
-    else
-    {
-        $Global:LogHandler.Write("Switch was not passed");
-        break;
-    }
-    
-    if($TagString -eq $tag){$Global:LogHandler.Write("Tag $($TagString) was already set!"); break;}
+    if($TagString -eq $currenttag){Write-Host "Tag $($TagString) was already set!"; break;}
 
     # Tag
-    $Global:LogHandler.Write("Applying tag: $($TagString)");
+    Write-Host "***Applying tag: $($TagString)***";
     git tag $TagString $CommitID;
 
     if($Push){GitRebasePush -Tags;}
@@ -146,9 +153,12 @@ function Set-Commit
     # Tag option
     switch($Tag)
     {
-        "Major"{Set-Tag -Major;}
-        "Minor"{Set-Tag -Minor;}
-        "BugPatch"{Set-Tag -BugPatch;}
+        # "Major"{Set-Tag -Major;}
+        # "Minor"{Set-Tag -Minor;}
+        # "BugPatch"{Set-Tag -BugPatch;}
+        "Major"{Set-Tag -Tag "Major";}
+        "Minor"{Set-Tag -Tag "Minor";}
+        "BugPatch"{Set-Tag -Tag "BugPatch";}
     }
 
     # Always rebase before you push
@@ -184,7 +194,9 @@ function Squash-Branch
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
     [string]$CurrentBranch = $null;
+    # [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
 
+    # Doing this because I am getting the other branches too
     # Get current branch
     for([int16]$i=0;$i -lt $branches.Count;$i++)
     {
@@ -200,6 +212,11 @@ function Squash-Branch
     }
     [Int16]$index = Read-Host -Prompt "So?"; # choose
     [String]$TargetBranch = $branches[$index-1]; # Set the type in the string
+
+    # In order for this to be squashed, I have to initially rule it to be
+    # This is an intitiative for autotag
+    # I need a system to make things automatic
+    if(!$TargetBranch.Contains($CurrentBranch)){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch)";}
 
     [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)";
 
@@ -222,4 +239,21 @@ function Squash-Branch
     }
 }
 
-# Test2
+function CreateNewBranch
+{
+    [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\Config\Versioning\Version.JSON") | ConvertFrom-Json;
+
+    [string]$BranchNameDelimiter = $VersionReader.BranchNameDelimiter; # Doing this because I might change to / 
+    [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
+
+    Write-Host "Choose Type";
+    for([int16]$i = 0;$i -lt $VersionReader.Branches.Count;$i++)
+    {
+        Write-Host "$($i+1) - $($VersionReader.Branches.Branch.Type[$i])";
+    }
+    [String]$BranchName = $VersionReader.Branches.Branch.Type[$(Read-Host -Prompt "Which type?")-1] + $BranchNameDelimiter + $CurrentBranch + $BranchNameDelimiter;
+
+    $BranchName += $(Read-Host -Prompt "Branch Description").Replace(" ", "");
+
+    git checkout -b $BranchName; # Create branch
+}

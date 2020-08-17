@@ -1,6 +1,7 @@
 <#
 .Notes
     Must realize that we are running tests inside the repo
+    Anything in the Scripts directory will be run
 #>
 if($Global:AppPointer.Machine.ConfigFile -ne "TestsConfig.xml"){Write-Warning "Not using Test Config.  Please update config to point to => TestsConfig.xml";break;}
 Push-Location $PSScriptRoot;

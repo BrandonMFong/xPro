@@ -56,13 +56,14 @@ function MakeClass($XmlElement)
 }
 
 # Just gets the content, must convert at reference
+# TODO consolidate these two files
 function _GetXMLContent
 {
-    return Get-Content $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile);
+    return Get-Content $($global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $global:AppPointer.Machine.ConfigFile);
 }
 function _GetXMLFilePath
 {
-    return $($(Get-Variable -Name 'AppPointer').Value.Machine.GitRepoDir + "\Config\" + $(Get-Variable -Name 'AppPointer').Value.Machine.ConfigFile).ToString();
+    return $($global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $global:AppPointer.Machine.ConfigFile);
 }
 
 # If an object is found that has methods we want to use, return that object
@@ -607,7 +608,8 @@ function InsertFromCmd
     }
     
     AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
-    $x.Save($(Get-Variable 'AppPointer').Value.Machine.GitRepoDir + '\Config\' + $(Get-Variable 'AppPointer').Value.Machine.ConfigFile);
+    # $x.Save($global:AppPointer.Machine.GitRepoDir + '\Config\User' + $global:AppPointer.Machine.ConfigFile);
+    $x.Save($(_GetXMLFilePath));
 }
 
 function GetFullFilePath([string]$File)

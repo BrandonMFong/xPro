@@ -40,12 +40,12 @@ Push-Location $PSScriptRoot
     # Load files
     [String[]]$ForPrompt = [String[]]::new($null); 
     [String[]]$ForConfig = [String[]]::new($null); 
-    $ForPrompt = $(Get-ChildItem .\Config\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
+    $ForPrompt = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
     for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
     {
         $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
     }
-    $ForConfig = $(Get-ChildItem .\Config\ | Where-Object{$_.Extension -eq ".xml"}).Name;
+    $ForConfig = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).Name;
 
     Write-Host "Config files to choose from:"
     $ForPrompt;

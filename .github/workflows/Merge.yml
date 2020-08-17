@@ -7,7 +7,7 @@ name: Merge
 on:
   schedule:
     # Every Monday at 1PM UTC (9AM EST)
-    - cron: 0 16 * * 1
+    - cron: 3 23 * * 1
 jobs:
   # Powershell on Windows
   TEST-Windows-Powershell:

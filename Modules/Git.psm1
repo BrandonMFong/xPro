@@ -64,8 +64,8 @@ function Set-Tag
     }
     else 
     {
-        try{$currenttag = $currenttag.Substring(0,$currenttag.IndexOf("-"));}
-        catch{$Global:LogHandler.WriteError($_);}
+        try{if($currenttag.Contains("-")){$currenttag = $currenttag.Substring(0,$currenttag.IndexOf("-"));}}
+        catch{Write-Host "Something bad happened";}
 
         try
         {

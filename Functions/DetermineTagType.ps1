@@ -35,7 +35,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
             }
         }
         # If the standard names are in the commit then 
-        if($GoingToTag){Write-Host "Going to tag ($VersionReader.Branches.Branch[$i].Version)"; Set-Tag -Tag:$TagType -Push:$Push;}
+        if($GoingToTag){Write-Host "Going to tag $($VersionReader.Branches.Branch[$i].Version)"; Set-Tag -Tag:$TagType -Push:$Push;}
         # Default is always the last type of tags
         # Can be configured if this is the standard
         else{Write-Host "Going to tag BugPatch"; Set-Tag -Tag:$("BugPatch") -Push:$Push;}

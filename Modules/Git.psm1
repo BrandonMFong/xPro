@@ -244,7 +244,7 @@ function CreateNewBranch
     Write-Host "Choose Type";
     for([int16]$i = 0;$i -lt $VersionReader.Branches.Count;$i++)
     {
-        Write-Host "$($i+1) - $($VersionReader.Branches.Branch.Type[$i])";
+        Write-Host "$($i+1) - $($VersionReader.Branches.Branch.Type[$i]) [$($VersionReader.Branches.Branch.Version[$i])]";
     }
     [String]$BranchName = $VersionReader.Branches.Branch.Type[$(Read-Host -Prompt "Which type?")-1] + $BranchNameDelimiter + $CurrentBranch + $BranchNameDelimiter;
 

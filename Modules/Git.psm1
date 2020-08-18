@@ -24,8 +24,6 @@ function GetSettings
     if($Found){return $o;}
     else{return $null;}
 }
-
-# TODO how to make this configurable
 function Set-Tag
 {
     Param([string]$CommitID=$null,
@@ -213,20 +211,32 @@ function Squash-Branch
     # I need a system to make things automatic
     if(!$TargetBranch.Contains($CurrentBranch)){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch)";}
 
-    [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)";
+    [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)`n`n";
 
     # Confirming with user
     if(!$Force)
     {
-        if($(Read-Host -Prompt "Message: $($squashmessage) | Confirm (y/n)") -ne "y")
+        if($(Read-Host -Prompt "Message: $($squashmessage)Confirm? (y/n)") -ne "y")
         {
             Write-Host "Cancelling merge." -ForegroundColor Gray;break;
         }
     }
 
+    # Get commit differences
+    [string]$gitfiletemp = "$($Global:AppPointer.Machine.GitRepoDir)\Cache\git\commits\SQUASH_$($CurrentBranch).temp.txt"; # Create temp file
+    [string]$gitfile = "$($Global:AppPointer.Machine.GitRepoDir)\Cache\git\commits\SQUASH_$($CurrentBranch).txt"; # Create real file
+    New-Item $gitfiletemp -Force | Out-Null; # Create the real file
+    New-Item $gitfile -Force | Out-Null; # Create the real file
+
+    # Get all commits from branch you are squashing
+    [string]$gitcommand = "git log $($CurrentBranch)..$($TargetBranch)  --graph --pretty=format:`"[%h - %ad] %B`"  > $($gitfiletemp)"; # writing the git command
+    Invoke-Expression $gitcommand; # Output commits to file 
+    Add-Content $gitfile -Value $squashmessage; # Add squash message ontop of the commits stored in temp file
+    Add-Content $gitfile -Value $(Get-Content $gitfiletemp);
+
     git merge $TargetBranch --squash; # Merge
 
-    git commit -m $squashmessage; # Commit
+    git commit -F $($gitfile); # Commit
 
     if($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -eq "y")
     {

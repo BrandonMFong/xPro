@@ -295,10 +295,14 @@ XmlPSProfile also offers its own set of libraries and scripts that are developed
 
 * MAJOR.MINOR.PATCH
     * Branch names per tag types
-        * MAJOR: 'upgrade-*'
-        * MINOR: 'update-*', 'feature-*'
-        * PATCH: 'bug-*'
-
+        * MAJOR: 'upgrade-'
+        * MINOR: 'update-', 'feature-'
+        * PATCH: 'bug-','patch-'
+    * Merge workflow
+        * dev => beta => main => dev ...
+    * Get started
+        * In powershell, import git.psm1 module and run: CreateNewBranch
+        
 ## Authors
 
 **Brandon Fong** - [Github](https://github.com/BrandonMFong)

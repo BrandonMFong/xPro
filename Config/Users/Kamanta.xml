@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08172020" />
+  <UpdateStamp Value="08182020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
@@ -90,16 +90,14 @@
     <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-People {explorer.exe shell:appsFolder\Microsoft.People_8wekyb3d8bbwe!x4c7a3b7dy2188y46d4ya362y19ac5a5805e5x}]]></Function>
     <Function><![CDATA[function global:Open-Maps {explorer.exe shell:appsFolder\Microsoft.WindowsMaps_8wekyb3d8bbwe!App}]]></Function>
-    <Function>
-      <![CDATA[
+    <Function><![CDATA[
         function global:Sonoma 
         {
           chrome $College.Sonoma.Url;
           $College.sonoma.Password|Scb;
           Write-Host "Username: $($College.sonoma.Username)";
         }
-      ]]>
-    </Function>
+      ]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -254,14 +252,6 @@
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
                 <!-- TODO delete the below types -->
-                <Row>
-                  <Value ColumnName="Description">Linked Object Name</Value>
-                  <Value ColumnName="ExternalID">LinkedObjectName</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="Description">Linked Object Value</Value>
-                  <Value ColumnName="ExternalID">LinkedObjectValue</Value>
-                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">

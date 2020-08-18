@@ -1,6 +1,7 @@
 <#
 .Synopsis
-   TODO describe
+   Removing LinkedObjectName & LinkedObjectValue from typecontent config
+   Adding Phone Number to Typecontent config
 #>
 Param([ref]$Executed)
 $error.Clear();
@@ -21,6 +22,7 @@ try
          {
             if($Table.Name -eq "TypeContent")
             {
+               # Delete type content
                foreach($Row in $Table.Rows.Row)
                {
                   for([int16]$i = 0;$i -lt $Row.Value.Count;$i++)
@@ -31,6 +33,18 @@ try
                      }
                   }
                }
+
+               # Adding Phone Number
+               [System.Xml.XmlElement]$NewRow = $xml.CreateElement("Row");
+               [System.Xml.XmlElement]$ValueDescription = $xml.CreateElement("Value");
+               $ValueDescription.SetAttribute("ColumnName","Description");
+               $ValueDescription.InnerText = "Phone Number";
+               [System.Xml.XmlElement]$ValueExternalID = $xml.CreateElement("Value");
+               $ValueExternalID.SetAttribute("ColumnName","ExternalID");
+               $ValueExternalID.InnerText = "PhoneNumber";
+               $NewRow.AppendChild($ValueDescription);
+               $NewRow.AppendChild($ValueExternalID);
+               $Table.Rows.AppendChild($NewRow); # Adding new row to config
             }
          }
       }

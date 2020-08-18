@@ -251,7 +251,10 @@
                   <Value ColumnName="Description">Update Scripts</Value>
                   <Value ColumnName="ExternalID">UpdateScript</Value>
                 </Row>
-                <!-- TODO delete the below types -->
+                <Row>
+                  <Value ColumnName="Description">Phone Number</Value>
+                  <Value ColumnName="ExternalID">PhoneNumber</Value>
+                </Row>
               </Rows>
             </Table>
             <Table Name="Calendar">

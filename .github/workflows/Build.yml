@@ -18,8 +18,7 @@ on:
       - '**.md'
       - '**.yml'
       - '**.json'
-      - '**.xml'
-      - '**.sql'
+      - 'Config/**.xml' # Because there is an .xml in the SQL directory 
       - '**.xsd'
       - '**.txt'
       - '**.log'

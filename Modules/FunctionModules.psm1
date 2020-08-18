@@ -119,7 +119,9 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
     
     elseif($value.SecType -eq "private")
     {
-        return $Sql.InputReturn($value.InnerText);
+        [String]$o = $Sql.InputReturn($value.InnerText);
+        if([string]::IsNullOrEmpty($o)){$Global:LogHandler.Warning("$($value.InnerText) did not returning anything from database");}
+        return $o;
     }
     elseif($null -ne $value.NodePointer)
     {
@@ -227,7 +229,8 @@ function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
             {
                 if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
                 {
-                    $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                    try{$t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));}
+                    catch{$Global:LogHandler.WriteError("[Could not complete, remove this key and val] Key:$($value.Key[$i].InnerText), Value:$($value.Value[$i].InnerText)");}
                 }
             }
         }
@@ -244,13 +247,15 @@ function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
             {
                 if(!(($value.Key[$i].Lvl -ne $value.Value[$i].Lvl) -or ([int]$value.Key[$i].Lvl -ne $lvl)))
                 {
-                    $t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));
+                    try{$t.Add($(Evaluate($value.Key[$i])),$(Evaluate($value.Value[$i])));}
+                    catch{$Global:LogHandler.WriteError("[Could not complete, remove this key and val] Key:$($value.Key[$i].InnerText), Value:$($value.Value[$i].InnerText)");}
                 }
             }
         }
     }
     return $t;
 }
+
 
 function Test {if(!(Test-Path .\archive\)){ mkdir archive;}}
 
@@ -339,9 +344,12 @@ function LoadObjects
                         [System.Xml.XmlElement]$_o = $(Get-Variable -Name $VarName).Value;
                         foreach($_n in $_o.ChildNodes)
                         {
-                            $_n.RemoveAttribute("xsi:type");
+                            if($_n.Name -ne "#comment")
+                            {
+                                $Global:LogHandler.Write("Adding $($_n.Name) to object `$$($VarName)");
+                                $_n.RemoveAttribute("xsi:type");
+                            }
                         }
-
                         break;
                     }
                     "HashTable"{New-Variable -Name $VarName -Value $(MakeHash -value $val -lvl 0 -Node $null) -Force -Verbose:$Verbose -Scope Global; break;}

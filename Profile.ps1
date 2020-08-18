@@ -115,7 +115,10 @@ Pop-Location;
 
 # Method for start directory 
 if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.StartDirectory)) -and [string]::IsNullOrEmpty($BuildPath))
-{Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
+{
+    if(Test-Path $Global:XMLReader.Machine.ShellSettings.StartDirectory){Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
+    else{$Global:LogHandler.Warning("Configured Start directory does not exist.  Please check.")}
+}
 
 # For debug mode
 # It will run the debug script after profile is loaded

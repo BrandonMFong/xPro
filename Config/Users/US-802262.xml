@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08122020" />
+<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+  <UpdateStamp Value="08172020" />
   <Start Enabled="True" ClearHost="False">
     <Script>C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Script>
-    <Greetings Save="True">Kiran Analytics</Greetings>
+    <Greetings Type="Electronic" Save="True">Test Mode</Greetings>
   </Start>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
@@ -80,11 +80,11 @@
   </Functions>
   <!-- Modules -->
   <Modules>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\System.psm1</Module>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Terminal.psm1</Module>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\ConfigHandler.psm1</Module>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Outlooktype.psm1</Module>
-    <Module>C:\Users\brandon.fong\Brandon.Fong\Powershell\Modules\Git.psm1</Module>
+    <Module>.\Modules\System.psm1</Module>
+    <Module>.\Modules\Terminal.psm1</Module>
+    <Module>.\Modules\ConfigHandler.psm1</Module>
+    <Module>.\Modules\Outlooktype.psm1</Module>
+    <Module>.\Modules\Git.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -205,7 +205,7 @@
     <Program Alias="snip" SecType="public">C:\Windows\WinSxS\amd64_microsoft-windows-snippingtool-app_31bf3856ad364e35_10.0.18362.1_none_6c21722b06db62c2\SnippingTool.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects Database="Kiran" ServerInstance="US-802262">
+  <Objects Database="Kiran" ServerInstance="KAMANTA\KAMANTA">
     <!-- $Query -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Query</VarName>
@@ -213,7 +213,7 @@
         <SQL>
           <Database>Kiran</Database>
           <!-- <Database>TestDB</Database> -->
-          <ServerInstance>US-802262</ServerInstance>
+          <ServerInstance>KAMANTA\KAMANTA</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
           <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
@@ -1072,14 +1072,6 @@
       <VarName SecType="public">Passwords</VarName>
       <Key Lvl="0" SecType="public">Default</Key>
       <Value Lvl="0" SecType="private">FF2EEEE1-E2EF-4BFD-8CAD-C6D5EE3F4708</Value>
-      <Key Lvl="0" SecType="private">71F97ADC-7350-4E16-8E67-5EFBA9C6A72E</Key>
-      <Value Lvl="0" SecType="private">7863e849-2177-4bef-9d96-59cbce74e4ff</Value>
-      <Key Lvl="0" SecType="public">GlobalProtect</Key>
-      <Value Lvl="0" SecType="private">7863e849-2177-4bef-9d96-59cbce74e4ff</Value>
-      <Key Lvl="0" SecType="public">Okta</Key>
-      <Value Lvl="0" SecType="private">7863e849-2177-4bef-9d96-59cbce74e4ff</Value>
-      <Key Lvl="0" SecType="private">AE06BA6A-6AC3-4A5B-A684-80FAE888DC09</Key>
-      <Value Lvl="0" SecType="private">7863e849-2177-4bef-9d96-59cbce74e4ff</Value>
       <Key Lvl="0" SecType="private">C20E458A-5F13-4CB6-959B-C4349894851C</Key>
       <Value Lvl="0" SecType="private">431861a8-ec3b-4929-9df4-8f884350a4fc</Value>
       <Key Lvl="0" SecType="private">1719EB95-FC38-4623-AD70-59AA0EE4DCB8</Key>

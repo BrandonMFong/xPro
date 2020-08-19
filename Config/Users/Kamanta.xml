@@ -372,6 +372,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/forums/viewtopic.php?t=8226</Value>
       <Key Lvl="1" Node="Misc" SecType="public">FlashRaspbian</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/installation/installing-images/windows.md</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">HeadlessWifiRpiSetup</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

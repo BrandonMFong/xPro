@@ -320,6 +320,11 @@
       <VarName SecType="public">Passwords</VarName>
       <Link>34060702-dcb5-4603-9a25-69953240c008</Link>
     </Object>
+    <!-- $NetGear -->
+    <Object Type="LinkedObject">
+      <VarName SecType="public">NetGear</VarName>
+      <Link>93966A26-7F75-4B48-9612-E8FD2354CA4B</Link>
+    </Object>
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
@@ -405,6 +410,9 @@
       <Value Lvl="1" Node="96ca" SecType="private">a731b25d-78a7-4fa5-bae1-c3743a18f5e2</Value>
       <Key Lvl="1" Node="96ca" SecType="public">Main</Key>
       <Value Lvl="1" Node="96ca" SecType="private">47056fd7-be46-4402-870b-6dd283a9ef5b</Value>
+      <!-- Emails -->
+      <Key Lvl="0" SecType="public">NetGear</Key>
+      <Value Lvl="0" SecType="public">$NetGear</Value>
     </Object>
     <!-- $College -->
     <Object Type="HashTable">

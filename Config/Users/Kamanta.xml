@@ -369,6 +369,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">http://www.sbmigroup.com/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">RPi</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/forums/viewtopic.php?t=8226</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">FlashRaspbian</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/installation/installing-images/windows.md</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

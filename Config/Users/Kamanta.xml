@@ -98,6 +98,22 @@
           Write-Host "Username: $($College.sonoma.Username)";
         }
       ]]></Function>
+    <Function><![CDATA[
+        function global:Kaiser 
+        {
+          chrome $user.Kaiser.URL
+          $user.Kaiser.Password|Scb;
+          Write-Host "ID: $($user.Kaiser.ID)";
+        }
+      ]]></Function>
+    <Function><![CDATA[
+        function global:Chase 
+        {
+          chrome $Bank.Chase.URL;
+          $Bank.Chase.Password|Scb;
+          Write-Host "Username: $($Bank.Chase.Username)";
+        }
+      ]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>

@@ -462,10 +462,20 @@
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />
-      <Key Lvl="2" Node="a9c2" SecType="public">Email</Key>
-      <Value Lvl="2" Node="a9c2" SecType="private">260DD322-2BF8-457B-A360-CAB3706B6F9E</Value>
-      <Key Lvl="2" Node="a9c2" SecType="public">Password</Key>
-      <Value Lvl="2" Node="a9c2" SecType="private">9B0A24AA-DCAF-4A51-8F34-272C2B20D759</Value>
+      <!-- MsCes -->
+      <Key Lvl="2" Node="a9c2" SecType="public">MsCes</Key>
+      <Value Lvl="2" Node="a9c2" SecType="public" NodePointer="MsCes" />
+      <Key Lvl="3" Node="MsCes" SecType="public">Email</Key>
+      <Value Lvl="3" Node="MsCes" SecType="private">260DD322-2BF8-457B-A360-CAB3706B6F9E</Value>
+      <Key Lvl="3" Node="MsCes" SecType="public">Password</Key>
+      <Value Lvl="3" Node="MsCes" SecType="private">9B0A24AA-DCAF-4A51-8F34-272C2B20D759</Value>
+      <!-- MsCes -->
+      <Key Lvl="2" Node="a9c2" SecType="public">SSUEE</Key>
+      <Value Lvl="2" Node="a9c2" SecType="public" NodePointer="SSUEE" />
+      <Key Lvl="3" Node="SSUEE" SecType="public">Email</Key>
+      <Value Lvl="3" Node="SSUEE" SecType="private">120affaa-3429-43c1-af4d-458bce1eff11</Value>
+      <Key Lvl="3" Node="SSUEE" SecType="public">Password</Key>
+      <Value Lvl="3" Node="SSUEE" SecType="private">85393f6e-fc7e-4ce2-9f71-13e47e6eb47e</Value>
       <!-- Classes -->
       <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />

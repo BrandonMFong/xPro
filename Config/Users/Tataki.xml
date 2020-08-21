@@ -11,7 +11,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>{@batteryperc%} [@date, @time] @fulldir</String>
+      <String>@admin{@batteryperc%} [@date, @time] @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
@@ -59,6 +59,8 @@
     <Program Alias="vc-powershell" SecType="public">D:\XmlPSProfile\VC-Powershell.code-workspace</Program>
     <Program Alias="vc-notebook" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong\vc-notebook.code-workspace</Program>
     <Program Alias="rs" SecType="public">Restart-Session</Program>
+    <Program Alias="search" SecType="public">D:\XmlPSProfile\Functions\Search.ps1</Program>
+    <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

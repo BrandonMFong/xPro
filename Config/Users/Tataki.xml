@@ -22,7 +22,7 @@
       <ProgressForegroundColor>White</ProgressForegroundColor>
       <ProgressBackgroundColor>DarkBlue</ProgressBackgroundColor>
     </ShellColors>
-    <StartDirectory>B:\</StartDirectory>
+    <StartDirectory>D:\</StartDirectory>
     <GitDisplay Enabled="False">
       <Unstaged>True</Unstaged>
       <Staged>True</Staged>
@@ -46,6 +46,7 @@
   <Directories>
     <Directory Alias="main" SecType="public">D:\</Directory>
     <Directory Alias="pow" SecType="public">D:\XmlPSProfile</Directory>
+    <Directory Alias="nb" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -56,6 +57,8 @@
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
     <Program Alias="vc-powershell" SecType="public">D:\XmlPSProfile\VC-Powershell.code-workspace</Program>
+    <Program Alias="vc-notebook" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong\vc-notebook.code-workspace</Program>
+    <Program Alias="rs" SecType="public">Restart-Session</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

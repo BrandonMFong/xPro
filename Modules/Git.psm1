@@ -139,7 +139,8 @@ function Set-Commit
         [int16]$NoneIndex = $i+2;
         Write-Host "    $($NoneIndex) - None";
 
-        [Int16]$index = Read-Host -Prompt "So?"; # choose
+        try{[Int16]$index = Read-Host -Prompt "So?";} # choose
+        catch{$Global:LogHandler.Warning("Probably did not put the correct formatted input");break;}
         if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($GitSettings.CommitTypes.CommitType[$index-1])] ";} # Set the type in the string
     }
     

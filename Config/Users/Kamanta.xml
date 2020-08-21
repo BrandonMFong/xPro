@@ -401,6 +401,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/configuration/external-storage.md</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Samba</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://pimylifeup.com/raspberry-pi-samba/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Wifi</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.windowscentral.com/how-connect-wi-fi-network-windows-10</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

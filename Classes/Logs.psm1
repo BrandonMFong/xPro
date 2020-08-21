@@ -43,7 +43,11 @@ class Logs
 
         Add-Content $this.LogFile $contentstring;
     }
-    [Void] Warning([String]$logstring){$this.Write(" [WARNING] " + $logstring);}
+    [Void] Warning([String]$logstring)
+    {
+        $this.Write(" [WARNING] " + $logstring);
+        Write-Warning $logstring;
+    }
 
     # Going to put it in the same logs
     # TODO change WriteError to Error

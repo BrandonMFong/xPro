@@ -12,7 +12,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>@admin[@date @time, batteryperc%] {Study: @stamp} @gitbranch @fulldir</String>
+      <String>@admin[@date @time, @batteryperc%] {Study: @stamp} @gitbranch @fulldir</String>
       <!-- <String>@admin{@batteryperc%} [@time, @date]@gitbranch @fulldir</String> -->
     </Header>
     <Prompt Enabled="True">
@@ -165,6 +165,7 @@
     <Program Alias="Slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
     <Program Alias="git" SecType="public">C:\Program Files\Git\cmd\git.exe</Program>
     <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Functions\GetPCInfo.ps1</Program>
+    <Program Alias="Time" SecType="public">$PSScriptRoot\..\Functions\TIME.ps1</Program>
     <Program Alias="balenaEtcher" SecType="public">C:\Users\fongm\AppData\Local\Programs\balena-etcher\balenaEtcher.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->

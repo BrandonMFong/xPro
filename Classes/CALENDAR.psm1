@@ -334,24 +334,32 @@ class Calendar
 
     [String]GetTimeStampDuration()
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetTimeStampDuration.sql)";
-        $querystring = $querystring.Replace("@MinDateExt","CONVERT(VARCHAR(10), GETDATE(), 101)"); # Default range is today
-        $querystring = $querystring.Replace("@MaxDateExt","CONVERT(VARCHAR(10), DATEADD(DAY,1,GETDATE()), 101)");
-        return $this.TimeDurationExecute($querystring);
+        return $this.GetTimeStampDuration("CONVERT(VARCHAR(10), GETDATE(), 101)","CONVERT(VARCHAR(10), DATEADD(DAY,1,GETDATE()), 101)");
     }
 
     [String]GetTimeStampDuration([string]$MinDate,[string]$MaxDate)
     {
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\GetTimeStampDuration.sql)";
-        $querystring = $querystring.Replace("@MinDateExt","'$($MinDate)'");
-        $querystring = $querystring.Replace("@MaxDateExt","'$($MaxDate)'");
+        # Test to see if a sql function was passed 
+        if($MinDate.Contains("CONVERT(") -and $MaxDate.Contains("CONVERT("))
+        {
+            [string]$min = "$($MinDate)";
+            [string]$max = "$($MaxDate)";
+        }
+        else
+        {
+            [string]$min = "'$($MinDate)'";
+            [string]$max = "'$($MaxDate)'";
+        }
+        $querystring = $querystring.Replace("@MinDateExt",$min);
+        $querystring = $querystring.Replace("@MaxDateExt",$max);
         return $this.TimeDurationExecute($querystring);
     }
 
     hidden [String]TimeDurationExecute([string]$querystring)
     {
         [string]$time = $($this.SQL.Query($querystring)).Time;
-        if($time -eq "0:0:"){return $null;} # when you haven't timed in yet
+        if($time -eq "00:00:"){return $null;} # when you haven't timed in yet
         else{return $time;}
     }
 
@@ -365,10 +373,11 @@ class Calendar
 
     hidden [Void]GetTime([string]$Method)
     {
-        [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FullTimeStampReport.sql)";
-        $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
-        $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
-        $this.FinalStep($Method,$querystring);
+        # [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FullTimeStampReport.sql)";
+        # $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
+        # $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
+        # $this.FinalStep($Method,$querystring);
+        $this.GetTime($Method,"1/1/2000 00:00:00.0000000","12/31/9999 00:00:00.0000000");
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
     {

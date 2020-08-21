@@ -81,7 +81,7 @@ function _InitProfile
 
 function _MakeConfig
 {
-    [XML]$File = Get-Content $($PSScriptRoot + "\..\Config\Template.xml");
+    [XML]$File = Get-Content $($PSScriptRoot + "\..\Config\Users\Template.xml");
 
     # Not creating config by code but by template
 

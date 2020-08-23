@@ -6,7 +6,8 @@
         {"Branch":{"Type":"patch","Version":"BugPatch"}},
         {"Branch":{"Type":"feature","Version":"Minor"}},
         {"Branch":{"Type":"update","Version":"Minor"}},
-        {"Branch":{"Type":"upgrade","Version":"Major"}}
+        {"Branch":{"Type":"upgrade","Version":"Minor"}},
+        {"Branch":{"Type":"release","Version":"Major"}}
     ]
 }
   

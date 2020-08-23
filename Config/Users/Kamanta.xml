@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08182020" />
+  <UpdateStamp Value="08202020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
@@ -64,23 +64,27 @@
     <ListOrderBy>Desc</ListOrderBy>
   </Email>
   <!-- Network Drives -->
-  <NetDrives>
-    <NetDrive HostName="Kojami">
+  <Networks>
+    <Network IsDefault="True">
       <Connection Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
         <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
         <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
         <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
       </Connection>
-      <Connection Type="Putty">
-        <PuttyPath>C:\Program Files\PuTTY\putty.exe</PuttyPath>
+      <Connection Type="SSH">
         <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>
         <Port>22</Port>
         <Username SecType="private">3954b150-5b49-4f5b-aaa0-c1937895b65b</Username>
         <Password SecType="private">959965b7-3f78-4a04-8761-5084e0754d81</Password>
+        <SSHClientPath>C:\Program Files\PuTTY\putty.exe</SSHClientPath>
       </Connection>
-    </NetDrive>
-  </NetDrives>
+      <LANConfig>9492B561-29D6-45F6-B1E4-1936D325CEB7</LANConfig>
+    </Network>
+    <Network IsDefault="False">
+      <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
+    </Network>
+  </Networks>
   <!-- Functions -->
   <Functions>
     <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
@@ -124,6 +128,7 @@
     <Module>B:\XmlPSProfile\Modules\Sound.psm1</Module>
     <Module>B:\XmlPSProfile\Modules\System.psm1</Module>
     <Module>B:\XmlPSProfile\Modules\Terminal.psm1</Module>
+    <Module>B:\XmlPSProfile\Modules\Network.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

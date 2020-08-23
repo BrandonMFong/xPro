@@ -60,8 +60,8 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
     <### OBJECTS ###>
         LoadObjects -XMLReader:$Global:XMLReader -Verbose:$Verbose
 
-    <### NETWORK DRIVES ###>
-        LoadDrives -XMLReader:$Global:XMLReader -Verbose:$Verbose
+    # <### NETWORK DRIVES ###>
+    #     LoadDrives -XMLReader:$Global:XMLReader -Verbose:$Verbose
 
     <### FUNCTIONS ###>
         LoadFunctions -XMLReader:$Global:XMLReader -Verbose:$Verbose

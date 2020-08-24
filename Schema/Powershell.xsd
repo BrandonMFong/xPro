@@ -502,7 +502,7 @@
                                         <xs:element name="LANConfig" minOccurs="1" maxOccurs="1">
                                             <xs:annotation>
                                                 <xs:documentation>
-                                                    netsh config file path
+                                                    NETSH config file base name.  Used as a flag for the connection nodes in this config.
                                                 </xs:documentation>
                                             </xs:annotation>
                                         </xs:element>

@@ -65,7 +65,7 @@
   </Email>
   <!-- Network Drives -->
   <Networks>
-    <Network IsDefault="True">
+    <Network>
       <Connection Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
         <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
@@ -80,9 +80,6 @@
         <SSHClientPath>C:\Program Files\PuTTY\putty.exe</SSHClientPath>
       </Connection>
       <LANConfig>9492B561-29D6-45F6-B1E4-1936D325CEB7</LANConfig>
-    </Network>
-    <Network IsDefault="False">
-      <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
     </Network>
   </Networks>
   <!-- Functions -->

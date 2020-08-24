@@ -34,6 +34,23 @@
       <CloseSessionIfIncorrect>False</CloseSessionIfIncorrect>
     </Security>
   </ShellSettings>
+  <GitSettings>
+    <Repository FilePath="D:\XmlPSProfile">
+      <CommitTypes>
+        <CommitType>Config</CommitType>
+      </CommitTypes>
+    </Repository>
+  </GitSettings>
+  <!-- <NetDrives>
+    <NetDrive HostName="KAMANTA">
+      <Connection Type="NetworkShare">
+        <DriveLetter>Z:</DriveLetter>
+        <IPAddress SecType="public"></IPAddress>
+        <Username SecType="public"></Username>
+        <Password SecType="public"></Password> 
+      </Connection>
+    </NetDrive>
+  </NetDrives> -->
   <!-- Modules -->
   <Modules>
     <Module>.\Modules\System.psm1</Module>

@@ -226,6 +226,7 @@ function Set-Wifi
         [string]$SSIDName = "$($d.WLANProfile.SSIDConfig.SSID.name)";
     }
 
-    netsh wlan add profile filename=$FilePath;
-    netsh wlan connect name=$($SSIDName);
+    netsh wlan disconnect; # Disconnect 
+    netsh wlan add profile filename=$FilePath; # Add profie
+    netsh wlan connect name=$($SSIDName); # Connect 
 }

@@ -116,6 +116,12 @@
           Write-Host "Username: $($Bank.Chase.Username)";
         }
       ]]></Function>
+    <Function><![CDATA[
+        function global:Start-Study 
+        {
+          Open-Todo;Open-Mail;Time -In;
+        }
+      ]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -405,6 +411,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://pimylifeup.com/raspberry-pi-samba/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Wifi</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.windowscentral.com/how-connect-wi-fi-network-windows-10</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">jb</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

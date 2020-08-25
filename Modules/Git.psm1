@@ -137,7 +137,7 @@ function Set-Commit
         {
             Write-Host "    $($i+1) - $($Types[$i])";
         }
-        [int16]$NoneIndex = $i+2;
+        [int16]$NoneIndex = $i+1;
         Write-Host "    $($NoneIndex) - None";
 
         try{[Int16]$index = Read-Host -Prompt "So?";} # choose

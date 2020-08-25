@@ -132,16 +132,17 @@ function Set-Commit
     if(![string]::IsNullOrEmpty($GitSettings.CommitTypes.CommitType) -and !$NoType)
     {
         Write-Host "`nChoose from Commit types:";
-        for([int16]$i = 0;$i -lt $GitSettings.CommitTypes.CommitType.Count;$i++)
+        [string[]]$Types = $GitSettings.CommitTypes.CommitType;
+        for([int16]$i = 0;$i -lt $Types.Count;$i++)
         {
-            Write-Host "    $($i+1) - $($GitSettings.CommitTypes.CommitType[$i])";
+            Write-Host "    $($i+1) - $($Types[$i])";
         }
         [int16]$NoneIndex = $i+2;
         Write-Host "    $($NoneIndex) - None";
 
         try{[Int16]$index = Read-Host -Prompt "So?";} # choose
         catch{$Global:LogHandler.Warning("Probably did not put the correct formatted input");break;}
-        if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($GitSettings.CommitTypes.CommitType[$index-1])] ";} # Set the type in the string
+        if(($index -ne 0) -and ($index -ne $NoneIndex)){$commitmessage += "[$($Types[$index-1])] ";} # Set the type in the string
     }
     
     [string]$msg = Read-Host -Prompt "Commit message";

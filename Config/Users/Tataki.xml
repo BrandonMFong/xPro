@@ -38,21 +38,17 @@
     <Repository FilePath="D:\XmlPSProfile">
       <CommitTypes>
         <CommitType>Config</CommitType>
+        <CommitType>Code</CommitType>
       </CommitTypes>
     </Repository>
   </GitSettings>
   <Networks>
     <Network>
-      <Connection Type="NetworkShare">
+      <!-- <Connection Type="NetworkShare">
         <DriveLetter>Z:</DriveLetter>
-        <IPAddress SecType="public">
-        </IPAddress>
-        <Username SecType="public">
-        </Username>
-        <Password SecType="public">
-        </Password>
-      </Connection>
-      <LANConfig />
+        <IPAddress SecType="public">\\192.168.1.25\college</IPAddress>
+      </Connection> -->
+      <LANConfig>C55CF0A8-6990-425B-8461-8B6798F92BD3</LANConfig>
     </Network>
   </Networks>
   <!-- Modules -->
@@ -62,6 +58,7 @@
     <Module>.\Modules\ConfigHandler.psm1</Module>
     <Module>.\Modules\Git.psm1</Module>
     <Module>.\Modules\Sound.psm1</Module>
+    <Module>.\Modules\Network.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
@@ -82,14 +79,19 @@
     <Program Alias="rs" SecType="public">Restart-Session</Program>
     <Program Alias="search" SecType="public">D:\XmlPSProfile\Functions\Search.ps1</Program>
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
+    <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>
     <!-- $User -->
-    <Object Type="XmlElement">
+    <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
       <Key Lvl="0" SecType="public">Facebook</Key>
       <Value Lvl="0" SecType="public">https://facebook.com/</Value>
+      <Key Lvl="0" SecType="public">Netflix</Key>
+      <Value Lvl="0" SecType="public">https://Netflix.com/</Value>
+      <Key Lvl="0" SecType="public">Youtube</Key>
+      <Value Lvl="0" SecType="public">https://youtube.com/</Value>
     </Object>
   </Objects>
 </Machine>

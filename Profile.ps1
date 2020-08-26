@@ -8,22 +8,24 @@ Param(
     [System.Boolean]$Silent=$false # There is Verbose/Progress. Using Progress in github workflow looks silent
 )
 
-<### CONFIG ###>
+<### GET AppPointer ###>
 if(![string]::IsNullOrEmpty($BuildPath)){Push-Location $($BuildPath|Split-Path -Parent);}
 else{Push-Location $($PROFILE |Split-Path -Parent);}
     [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml; # Will always be Profile.xml
 Pop-Location;
-# pwsh
-# Todo test different environments
-if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
-else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $Global:AppPointer.Machine.ConfigFile);}
-
-if(!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
-if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on
-else{[System.Boolean]$Verbose = $false}
-
 <### LOAD ###>
 Push-Location $Global:AppPointer.Machine.GitRepoDir; 
+    <# GET App Json, think of a better name for this #>
+    [System.Object[]]$AppJson = Get-Content .\Config\app.json|ConvertFrom-Json;
+    # pwsh
+    # Todo test different environments
+    if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);}
+    else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);}
+
+    if(!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
+    if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on
+    else{[System.Boolean]$Verbose = $false}
+
     Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
     <### LOGS ###>
@@ -86,7 +88,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
                     Type=$Type; # Type of font
                     SaveToFile=$Save;
                 };
-                [String]$GreetingsPath = (Get-ChildItem $(".\Functions\Greetings.ps1")).FullName; # Gets the full file path to the greetings script
+                [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Scripts.Greetings)).FullName; # Gets the full file path to the greetings script
                 & $GreetingsPath @arg;
             }
 
@@ -124,7 +126,7 @@ if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSetti
 # It will run the debug script after profile is loaded
 if($DebugFlag)
 {
-    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + "\Tests\Debug.ps1");
+    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Scripts.Debug);
     if(!(Test-Path $DebugScript)){New-Item $DebugScript -Force;}
     & $DebugScript;
 }

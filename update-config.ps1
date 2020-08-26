@@ -55,7 +55,7 @@ Push-Location $PSScriptRoot
     Push-Location $($PROFILE |Split-Path -Parent);
         [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml;
         [String]$Path = $(Get-ChildItem .\Profile.xml).FullName;
-        $XmlEditor.Machine.ConfigFile = $ForConfig[$ConfigIndex-1];
+        $XmlEditor.Machine.ConfigFile = "\" + $ForConfig[$ConfigIndex-1];
         $XmlEditor.Save($Path);
     Pop-Location
 Pop-Location

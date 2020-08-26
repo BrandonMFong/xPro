@@ -1,0 +1,11 @@
+{
+    "RepoName":"XmlPSProfile",
+    "BaseConfig":"Kamanta.xml",
+    "Directories":{
+        "UserConfig":"\\Config\\Users"
+    },
+    "Scripts":{
+        "Debug":"\\Tests\\Debug.ps1",
+        "Greetings":".\\Functions\\Greetings.ps1"
+    }
+}

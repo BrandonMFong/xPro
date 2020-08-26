@@ -65,6 +65,7 @@
     <Directory Alias="main" SecType="public">D:\</Directory>
     <Directory Alias="pow" SecType="public">D:\XmlPSProfile</Directory>
     <Directory Alias="nb" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong</Directory>
+    <Directory Alias="dl" SecType="public">C:\Users\fongm\Downloads</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

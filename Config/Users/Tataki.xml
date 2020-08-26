@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="TATAKI" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08202020" />
+  <UpdateStamp Value="08252020" />
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
   </Start>
@@ -44,11 +44,13 @@
   </GitSettings>
   <Networks>
     <Network>
-      <!-- <Connection Type="NetworkShare">
+      <Connection Type="NetworkShare">
         <DriveLetter>Z:</DriveLetter>
-        <IPAddress SecType="public">\\192.168.1.25\college</IPAddress>
-      </Connection> -->
-      <LANConfig>C55CF0A8-6990-425B-8461-8B6798F92BD3</LANConfig>
+        <IPAddress SecType="private">ee662e28-e560-4fcb-abd7-db783aee28d6</IPAddress>
+        <Username SecType="private">707e16c6-5a3b-4d23-b1a0-6f4bf89a0262</Username>
+        <Password SecType="private">b25073b0-7801-43a6-9155-ec98d4d3f7c6</Password>
+      </Connection>
+      <LANConfig>848F4650-3132-4780-B1D4-D99107E70953</LANConfig>
     </Network>
   </Networks>
   <!-- Modules -->
@@ -65,6 +67,7 @@
     <Directory Alias="main" SecType="public">D:\</Directory>
     <Directory Alias="pow" SecType="public">D:\XmlPSProfile</Directory>
     <Directory Alias="nb" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong</Directory>
+    <Directory Alias="dl" SecType="public">C:\Users\fongm\Downloads</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -82,7 +85,137 @@
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
-  <Objects>
+  <Objects Database="Tataki" ServerInstance="TATAKI\SQLEXPRESS">
+    <!-- $Query -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Query</VarName>
+      <Class ClassName="SQL" HasParams="true">
+        <SQL>
+          <!-- <Database>TestDB</Database> -->
+          <Database>Tataki</Database>
+          <ServerInstance>TATAKI\SQLEXPRESS</ServerInstance>
+          <SyncConfiguration>True</SyncConfiguration>
+          <UpdateVerbose>True</UpdateVerbose>
+          <!-- TODO put in upgrade script -->
+          <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
+          <RunUpdates>True</RunUpdates>
+          <CreateDatabase>True</CreateDatabase>
+          <Tables>
+            <Table Name="PersonalInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Value" Type="varchar(1000)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="TypeContent">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ExternalID" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Rows>
+                <Row>
+                  <Value ColumnName="Description">ID</Value>
+                  <Value ColumnName="ExternalID">ID</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Username</Value>
+                  <Value ColumnName="ExternalID">Username</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Password</Value>
+                  <Value ColumnName="ExternalID">Password</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Email</Value>
+                  <Value ColumnName="ExternalID">Email</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">IP Address</Value>
+                  <Value ColumnName="ExternalID">IPAddress</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">PIN</Value>
+                  <Value ColumnName="ExternalID">PIN</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">URL</Value>
+                  <Value ColumnName="ExternalID">URL</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Name</Value>
+                  <Value ColumnName="ExternalID">PrivateName</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Directory</Value>
+                  <Value ColumnName="ExternalID">PrivateDirectory</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Private Program</Value>
+                  <Value ColumnName="ExternalID">PrivateProgram</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Event</Value>
+                  <Value ColumnName="ExternalID">Event</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp In</Value>
+                  <Value ColumnName="ExternalID">TimeStampIn</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Time Stamp Out</Value>
+                  <Value ColumnName="ExternalID">TimeStampOut</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Security Question And Answer</Value>
+                  <Value ColumnName="ExternalID">SecurityQA</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Update Scripts</Value>
+                  <Value ColumnName="ExternalID">UpdateScript</Value>
+                </Row>
+                <Row>
+                  <Value ColumnName="Description">Phone Number</Value>
+                  <Value ColumnName="ExternalID">PhoneNumber</Value>
+                </Row>
+              </Rows>
+            </Table>
+            <Table Name="Calendar">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <!-- format: MMddyyyy -->
+              <Column Name="ExternalID" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Subject" Type="varchar(100)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+            </Table>
+            <Table Name="UpdateLog">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="Topic" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="ScriptID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="DateExecuted" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+            </Table>
+            <!-- Remember the hash column is like the key.  Will be privatename type in pi table -->
+            <Table Name="LinkInfo">
+              <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
+              <Column Name="ExternalID" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Link" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
+              <Column Name="StartDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="LastAccessDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="Hash" Type="varchar(200)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
+              <Column Name="PersonalInfoID" Type="int" IsPrimaryKey="false" IsForeignKey="true" IsNull="false">
+                <ForeignKeyRef><![CDATA[{"ForeignTable": "PersonalInfo","ForeignColumn": "ID"}]]></ForeignKeyRef>
+              </Column>
+            </Table>
+          </Tables>
+        </SQL>
+      </Class>
+    </Object>
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>

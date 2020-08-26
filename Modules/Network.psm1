@@ -230,3 +230,24 @@ function Set-Wifi
     netsh wlan add profile filename=$FilePath; # Add profie
     netsh wlan connect name=$($SSIDName); # Connect 
 }
+
+function Open-Ssh
+{
+    param
+    (
+        [string]$ID=$null
+    )
+    if([string]::IsNullOrEmpty($ID)){$ID = $(Read-Host -Prompt "Please provide Network Connection ID for this connection");}
+    [System.Xml.XmlElement]$Network = _GetCurrentNetConfig;
+    [System.Boolean]$est = $false;
+    foreach($Connection in $Network.Connection)
+    {
+        if(($Connection.Type -eq "SSH") -and ($ID -eq $Connection.ID))
+        {
+            $est = $true;
+            Set-Alias -Name "Putty" -Value $Connection.SSHClientPath;
+            Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" $(Evaluate -value:$Connection.Port) -pw $(Evaluate -value:$Connection.Password);
+        }
+    }
+    if(!$est){$Global:LogHandler.Warning("Connection not found for ID: $($ID)");}
+}

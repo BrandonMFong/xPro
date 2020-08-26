@@ -87,7 +87,6 @@
   <Functions>
     <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
     <Function><![CDATA[function global:VC-Notebook{code B:\NOTEBOOK\VC-Notebook.code-workspace}]]></Function>
-    <!-- https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html -->
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
     <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>
@@ -123,6 +122,7 @@
           Open-Todo;Open-Mail;Time -In;
         }
       ]]></Function>
+      <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -414,6 +414,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.windowscentral.com/how-connect-wi-fi-network-windows-10</Value>
       <Key Lvl="1" Node="Misc" SecType="public">jb</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">WindowsXApps</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

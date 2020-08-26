@@ -83,6 +83,7 @@
     <Program Alias="search" SecType="public">D:\XmlPSProfile\Functions\Search.ps1</Program>
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
+    <Program Alias="Get-Info" SecType="public">D:\XmlPSProfile\Functions\GetPCInfo.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Tataki" ServerInstance="TATAKI\SQLEXPRESS">

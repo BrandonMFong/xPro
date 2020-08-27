@@ -36,31 +36,18 @@ function _InitConfig
 
     if ($x -eq 1)
     {
-        [string]$name = Read-Host "Name the configuration file";
-        New-Variable -Name "ConfigurationName" -Value $name -Scope Global -Force; # needs to be global for the other function
+        # [string]$name = Read-Host "Name the configuration file";
+        # New-Variable -Name "ConfigurationName" -Value $name -Scope Global -Force; # needs to be global for the other function
+        [String]$ConfigurationName = Read-Host -Prompt "Name the configuration file";
         $NewXml.Machine.ConfigFile = $("\" + $ConfigurationName + ".xml");
         Write-Host "`nPlease review:" -Foregroundcolor Cyan;
         _GetContents($NewXml);
         if($(Read-Host -Prompt "Approve? (y/n)") -ne "y")
-        # {
-            # [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-            # $NewXml.Save($FileName);
-            # [String] $FullContent = _GetFullContent($FileName);
-            # $FullContent | Out-File $FileName;
-        # }
-        # else {throw "Please restart setup then."} # maybe call this function again
         {throw "Please restart setup then."} # maybe call this function again
 
-        _MakeConfig;
+        _MakeConfig -ConfigurationName:$ConfigurationName;
     }
-    elseif($x -eq 2) 
-    {
-        # [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-        # $NewXml.Save($FileName);
-        # [String] $FullContent = _GetFullContent($FileName);
-        # $FullContent | Out-File $FileName;
-        .\.\update-config.ps1;
-    }
+    elseif($x -eq 2) {.\.\update-config.ps1;}
     else{Throw "Please Specify an option"}
 }
 
@@ -81,29 +68,7 @@ function _InitProfile
 
 function _MakeConfig
 {
-    [XML]$File = Get-Content $($PSScriptRoot + "\..\Config\Users\Template.xml");
-
-    # Not creating config by code but by template
-
-    # Import-Module $($PSScriptRoot + "\ConfigHandler.psm1");
-    
-    # _MachineNode([ref]$File);
-
-    # _StartScriptNode([ref]$File);
-
-    # _ShellSettingsNode([ref]$File);
-    
-    # _DirectoryNode([ref]$File);
-
-    # _ObjectsNode([ref]$File);
-
-    # _ProgramNode([ref]$File);
-
-    # _ModulesNode([ref]$File);
-
-    # _CalendarNode([ref]$File);
-
-
-
+    Param([Parameter(Mandatory=$true)][string]$ConfigurationName)
+    [XML]$File = Get-Content $($PSScriptRoot + "\.." + $Global:AppJson.Directories.UserConfig + $Global:AppJson.BaseConfig); # Using a base config rather than a template.  Should be the working dev config
     $File.Save($($PSScriptRoot + '\..\Config\Users\' + $ConfigurationName + '.xml'));
 }

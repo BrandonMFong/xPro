@@ -45,10 +45,18 @@
   <Networks>
     <Network>
       <Connection xsi:type="NetworkShare">
-        <DriveLetter>Z:</DriveLetter>
+        <!-- Kamanta\college -->
+        <DriveLetter>M:</DriveLetter>
         <IPAddress SecType="private">ee662e28-e560-4fcb-abd7-db783aee28d6</IPAddress>
         <Username SecType="private">707e16c6-5a3b-4d23-b1a0-6f4bf89a0262</Username>
         <Password SecType="private">b25073b0-7801-43a6-9155-ec98d4d3f7c6</Password>
+      </Connection>
+      <Connection xsi:type="NetworkShare">
+        <!-- Kojami\BrandonMFong -->
+        <DriveLetter>K:</DriveLetter>
+        <IPAddress SecType="private">e097f664-131c-4228-b97c-ce7bf5d63778</IPAddress>
+        <Username SecType="private">bfd7ec0a-cced-4a62-bd1c-df66e31c99b7</Username>
+        <Password SecType="private">cf68d455-8429-42f8-b0c6-1e2d28f9e8ad</Password>
       </Connection>
       <Connection xsi:type="SSH">
         <ID>Kojami</ID>
@@ -93,6 +101,7 @@
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="Get-Info" SecType="public">D:\XmlPSProfile\Functions\GetPCInfo.ps1</Program>
     <Program Alias="sql" SecType="public">C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe</Program>
+    <Program Alias="query" SecType="public">D:\XmlPSProfile\Functions\Query.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Tataki" ServerInstance="TATAKI\SQLEXPRESS">

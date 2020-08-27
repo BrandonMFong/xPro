@@ -38,17 +38,20 @@ Write-Host "RAM: $($sum/1gb) GB";
 
 # Device disk
 [system.object[]]$o = $(Get-CimInstance -ClassName CIM_DiskDrive);
-Write-Host "Disk:";
-Write-Host "    $($o.Partitions) Partitions";
-Write-Host "    Device ID: $($o.DeviceID)";
-Write-Host "    Model: $($o.Model)";
-Write-Host "    Total Disk Capacity: $($o.Size/1gb) GB";
+for([int16]$i=0;$i -lt $o.Count;$i++)
+{
+    Write-Host "Disk:";
+    Write-Host "    $($o[$i].Partitions) Partitions";
+    Write-Host "    Device ID: $($o[$i].DeviceID)";
+    Write-Host "    Model: $($o[$i].Model)";
+    Write-Host "    Total Disk Capacity: $($o[$i].Size/1gb) GB";
+}
 for([int]$i = 0;$i -lt ($(Get-CimInstance CIM_LogicalDisk).Length);$i++)
 {
     if(![string]::IsNullOrEmpty($(Get-CimInstance CIM_LogicalDisk)[$i].FreeSpace))
     {
-        Write-Host "        Drive $($(Get-CimInstance CIM_LogicalDisk)[$i].DeviceID) => " -NoNewLine;
-        Write-Host "        $($(Get-CimInstance CIM_LogicalDisk)[$i].FreeSpace/1gb) GB free";
+        Write-Host "Drive $($(Get-CimInstance CIM_LogicalDisk)[$i].DeviceID) => " -NoNewLine;
+        Write-Host "$($(Get-CimInstance CIM_LogicalDisk)[$i].FreeSpace/1gb) GB free";
     }
 }
 

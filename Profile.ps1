@@ -88,7 +88,7 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
                     Type=$Type; # Type of font
                     SaveToFile=$Save;
                 };
-                [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Scripts.Greetings)).FullName; # Gets the full file path to the greetings script
+                [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Files.Greetings)).FullName; # Gets the full file path to the greetings script
                 & $GreetingsPath @arg;
             }
 
@@ -118,7 +118,12 @@ Pop-Location;
 # Method for start directory 
 if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.StartDirectory)) -and [string]::IsNullOrEmpty($BuildPath))
 {
-    if(Test-Path $Global:XMLReader.Machine.ShellSettings.StartDirectory){Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
+    if((Test-Path $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache)))
+    {[String]$SeshDir = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache);}# Seeing if other session saved a directory to start with 
+    else{[String]$SeshDir = $null;}
+
+    if(![string]::IsNullOrEmpty($SeshDir)){Set-Location $SeshDir;}
+    elseif(Test-Path $Global:XMLReader.Machine.ShellSettings.StartDirectory){Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
     else{$Global:LogHandler.Warning("Configured Start directory does not exist.  Please check.")}
 }
 
@@ -126,7 +131,7 @@ if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSetti
 # It will run the debug script after profile is loaded
 if($DebugFlag)
 {
-    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Scripts.Debug);
+    $DebugScript = $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.Debug);
     if(!(Test-Path $DebugScript)){New-Item $DebugScript -Force;}
     & $DebugScript;
 }

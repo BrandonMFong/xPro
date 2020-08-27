@@ -1,6 +1,6 @@
 {
     "RepoName":"XmlPSProfile",
-    "BaseConfig":"Kamanta.xml",
+    "BaseConfig":"\\Kamanta.xml",
     "Directories":{
         "UserConfig":"\\Config\\Users"
     },
@@ -9,5 +9,4 @@
         "Greetings":".\\Functions\\Greetings.ps1",
         "SessionCache":"\\Cache\\Session\\CachedDir.txt"
     }
-
 }

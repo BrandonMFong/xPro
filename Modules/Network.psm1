@@ -196,6 +196,17 @@ function _GetCurrentNetConfig
     }    
 }
 
+function List-Wifi
+{
+    
+    [string[]]$o = $(Get-ChildItem $PSScriptRoot\..\Config\Wifi\*.xml); # Get all wifi config files
+
+    for([int16]$i=0;$i -lt $o.Count;$i++)
+    {
+        [System.Xml.XmlDocument]$d = Get-Content $o[$i]; # Get config content
+        Write-Host "$($d.WLANProfile.SSIDConfig.SSID.name)";
+    }
+}
 
 # This reads the directory
 # Regardless of what is configed, whatever is in the wifi config dir you can set the wifi to that 

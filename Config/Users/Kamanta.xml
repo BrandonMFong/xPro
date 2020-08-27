@@ -72,6 +72,12 @@
         <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
         <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
       </Connection>
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
+      </Connection>
       <Connection xsi:type="SSH">
         <ID>Kojami</ID>
         <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>

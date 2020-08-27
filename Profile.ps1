@@ -16,7 +16,7 @@ Pop-Location;
 <### LOAD ###>
 Push-Location $Global:AppPointer.Machine.GitRepoDir; 
     <# GET App Json, think of a better name for this #>
-    [System.Object[]]$AppJson = Get-Content .\Config\app.json|ConvertFrom-Json;
+    [System.Object[]]$Global:AppJson = Get-Content .\Config\app.json|ConvertFrom-Json;
     # pwsh
     # Todo test different environments
     if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);}
@@ -61,9 +61,6 @@ Push-Location $Global:AppPointer.Machine.GitRepoDir;
         
     <### OBJECTS ###>
         LoadObjects -XMLReader:$Global:XMLReader -Verbose:$Verbose
-
-    # <### NETWORK DRIVES ###>
-    #     LoadDrives -XMLReader:$Global:XMLReader -Verbose:$Verbose
 
     <### FUNCTIONS ###>
         LoadFunctions -XMLReader:$Global:XMLReader -Verbose:$Verbose

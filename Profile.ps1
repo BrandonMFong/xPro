@@ -119,7 +119,11 @@ Pop-Location;
 if($StartDir -and (![String]::IsNullOrEmpty($Global:XMLReader.Machine.ShellSettings.StartDirectory)) -and [string]::IsNullOrEmpty($BuildPath))
 {
     if((Test-Path $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache)))
-    {[String]$SeshDir = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache);}# Seeing if other session saved a directory to start with 
+    {
+        # Seeing if other session saved a directory to start with 
+        [String]$SeshDir = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache);
+        Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache) -Force; # Delete the trace 
+    }
     else{[String]$SeshDir = $null;}
 
     if(![string]::IsNullOrEmpty($SeshDir)){Set-Location $SeshDir;}

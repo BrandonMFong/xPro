@@ -1,29 +1,25 @@
 
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
-
-function Load-Drives
+# connection to a remote shared folder
+# Has no implementation of an ssh key yet 
+# had no need 
+function Load-Drive
 {
-    Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
+    # The ID param can have an option for loading all network drives configured  using '*'
+    Param([Parameter(Mandatory=$true)][string]$ID,$Global:XMLReader=$Global:XMLReader)
     if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Networks))
     {
-        [int]$Complete = 1;
         [System.Xml.XmlElement]$Network = _GetCurrentNetConfig;
-        [int]$Total = $(CheckCount -Count:$Network.Connection.Count);
         foreach($val in $Network.Connection)
         {
             if($val.Type -eq "NetworkShare")
             {
-                if(!$Verbose)
-                {
-                    Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -PercentComplete (($Complete / $Total)*100);
-                    $Complete++;
-                }
-    
                 # This statement checks to see if the network drive was set
-                if(!(Test-Path $val.DriveLetter))
+                if(!(Test-Path $val.DriveLetter) -and (($ID -eq $val.ID) -or ($ID -eq "*")))
                 {
                     [String]$IpAddress = $(Evaluate -value:$val.IPAddress); # Get configured Ip
+                    Write-Host "Connecting to $($IpAddress) on => $($val.DriveLetter)" -ForegroundColor Gray;
     
                     # Problem: What if the address is within the network but the device is not on?
                     # I think it is the IsWithinNetwork function's job to determine if the device is on
@@ -40,7 +36,6 @@ function Load-Drives
                 }
             }
         }
-        if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
     }
 }
 

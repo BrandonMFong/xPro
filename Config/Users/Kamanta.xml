@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="KAMANTA" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08252020" />
+  <UpdateStamp Value="08272020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Welcome Brandon</Greetings>
@@ -13,7 +13,6 @@
     </Format>
     <Header Enabled="True">
       <String>@admin[@date @time, @batteryperc%] {Study: @stamp} @gitbranch @fulldir</String>
-      <!-- <String>@admin{@batteryperc%} [@time, @date]@gitbranch @fulldir</String> -->
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
@@ -46,7 +45,6 @@
         <CommitType>Schema</CommitType>
         <CommitType>Tests Scripts</CommitType>
       </CommitTypes>
-      <!-- <BranchesAllowedForTagging Branches="dev|beta|master" /> -->
     </Repository>
   </GitSettings>
   <!-- Email settings -->
@@ -68,9 +66,17 @@
     <Network>
       <Connection xsi:Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
+        <ID>Kojami</ID>
         <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
         <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
         <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
+      </Connection>
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <ID>notebook</ID>
+        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
       </Connection>
       <Connection xsi:type="SSH">
         <ID>Kojami</ID>
@@ -122,7 +128,7 @@
           Open-Todo;Open-Mail;Time -In;
         }
       ]]></Function>
-      <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
+    <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -184,16 +190,15 @@
       <VarName SecType="public">Query</VarName>
       <Class ClassName="SQL" HasParams="true">
         <SQL>
-          <!-- <Database>TestDB</Database> -->
           <Database>BrandonMFong</Database>
           <ServerInstance>KAMANTA\KAMANTA</ServerInstance>
           <SyncConfiguration>True</SyncConfiguration>
           <UpdateVerbose>True</UpdateVerbose>
-          <!-- TODO put in upgrade script -->
           <SQLConvertFlags>EventDate|ScriptID|PersonalInfoID|TypeContentID|Link</SQLConvertFlags>
           <RunUpdates>True</RunUpdates>
           <CreateDatabase>True</CreateDatabase>
           <Tables>
+            <!-- Each row has a unique value to the user -->
             <Table Name="PersonalInfo">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="GUID" Type="uniqueidentifier" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
@@ -212,6 +217,7 @@
                 </Row>
               </Rows>
             </Table>
+            <!-- Important table, do not delete any of the row submissions -->
             <Table Name="TypeContent">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="Description" Type="varchar(50)" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
@@ -285,6 +291,7 @@
                 </Row>
               </Rows>
             </Table>
+            <!-- Stores: Timestamps and events -->
             <Table Name="Calendar">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
@@ -294,6 +301,7 @@
               <Column Name="EventDate" Type="datetime" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />
               <Column Name="IsAnnual" Type="BIT" IsPrimaryKey="false" IsForeignKey="false" IsNull="true" />
             </Table>
+            <!-- Log table that records all updates made on user's database -->
             <Table Name="UpdateLog">
               <Column Name="ID" Type="int" IsPrimaryKey="true" IsForeignKey="false" IsNull="false" />
               <Column Name="TypeContentID" Type="int" IsPrimaryKey="false" IsForeignKey="false" IsNull="false" />

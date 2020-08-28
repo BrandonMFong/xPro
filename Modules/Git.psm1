@@ -246,7 +246,7 @@ function Squash-Branch
     }
 }
 
-function CreateNewBranch
+function Create-Branch
 {
     [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\Config\Versioning\Version.JSON") | ConvertFrom-Json;
 
@@ -263,4 +263,5 @@ function CreateNewBranch
     $BranchName += $(Read-Host -Prompt "Branch Description").Replace(" ", "");
 
     git checkout -b $BranchName; # Create branch
+    git push --set-upstream origin $BranchName; # push to origin 
 }

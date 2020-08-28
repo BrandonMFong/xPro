@@ -35,9 +35,12 @@ try
       {
          [System.Xml.XmlElement]$Cal = $Object.SelectSingleNode("//Calendar");
          [System.Xml.XmlElement]$EventsFile = $xml.CreateElement("EventsFile");
-         $EventsFile.InnerText = $($Cal.PathToEventImport| Split-Path -Leaf);
-         $Cal.AppendChild($EventsFile); # Add to the end 
-         $Cal.RemoveChild($Cal.SelectSingleNode("//PathToEventImport")); # Remove
+         if(![string]::IsNullOrEmpty($Cal.PathToEventImport))
+         {
+            $EventsFile.InnerText = $($Cal.PathToEventImport| Split-Path -Leaf);
+            $Cal.AppendChild($EventsFile); # Add to the end 
+            $Cal.RemoveChild($Cal.SelectSingleNode("//PathToEventImport")); # Remove
+         }
       }
    }
 

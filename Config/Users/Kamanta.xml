@@ -182,6 +182,7 @@
     <Program Alias="Time" SecType="public">$PSScriptRoot\..\Functions\TIME.ps1</Program>
     <Program Alias="balenaEtcher" SecType="public">C:\Users\fongm\AppData\Local\Programs\balena-etcher\balenaEtcher.exe</Program>
     <Program Alias="vs" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
+    <Program Alias="edge" SecType="public">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

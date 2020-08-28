@@ -1,6 +1,6 @@
 <#
 .Synopsis
-   TODO describe
+   Adding type to ssh client path config
 #>
 Param([ref]$Executed)
 $error.Clear();

@@ -429,78 +429,7 @@
                             <xsd:element name="Network" minOccurs="0" maxOccurs="unbounded">
                                 <xsd:complexType>
                                     <xsd:sequence>
-                                        <!-- <xsd:element name="Connection" minOccurs="0" maxOccurs="unbounded"> -->
-                                            <!-- <xsd:complexType>
-                                                <xsd:sequence>
-                                                    <xsd:element name="DriveLetter" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-                                                    <xsd:element name="ID" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-                                                    <xsd:element name="IPAddress" minOccurs="0" maxOccurs="1">
-                                                        <xsd:complexType>
-                                                            <xsd:simpleContent>
-                                                                <xsd:extension base="xsd:string">
-                                                                    <xsd:attributeGroup ref="SecurityType"/>
-                                                                </xsd:extension>
-                                                            </xsd:simpleContent>
-                                                        </xsd:complexType>
-                                                    </xsd:element>   
-                                                    <xsd:element name="Port" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-                                                    <xsd:element name="Username" minOccurs="0" maxOccurs="1">
-                                                        <xsd:complexType>
-                                                            <xsd:simpleContent>
-                                                                <xsd:extension base="xsd:string">
-                                                                    <xsd:attributeGroup ref="SecurityType"/>
-                                                                </xsd:extension>
-                                                            </xsd:simpleContent>
-                                                        </xsd:complexType>
-                                                    </xsd:element>   
-                                                    <xsd:element name="Password" minOccurs="0" maxOccurs="1">
-                                                        <xsd:annotation>
-                                                            <xsd:documentation>
-                                                                If you do not provide then you will be prompted
-                                                            </xsd:documentation>
-                                                        </xsd:annotation>
-                                                        <xsd:complexType>
-                                                            <xsd:simpleContent>
-                                                                <xsd:extension base="xsd:string">
-                                                                    <xsd:attributeGroup ref="SecurityType"/>
-                                                                </xsd:extension>
-                                                            </xsd:simpleContent>
-                                                        </xsd:complexType>
-                                                    </xsd:element> 
-                                                    <xsd:element name="SSH" minOccurs="0" maxOccurs="1">
-                                                        <xsd:complexType>
-                                                            <xsd:simpleContent>
-                                                                <xsd:extension base="xsd:string">
-                                                                    <xsd:attributeGroup ref="SecurityType"/>
-                                                                </xsd:extension>
-                                                            </xsd:simpleContent>
-                                                        </xsd:complexType>
-                                                    </xsd:element>   
-                                                    <xsd:element name="SSHClientPath" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-                                                </xsd:sequence>
-                                                <xsd:attribute name="Type" use="required">
-                                                    <xsd:simpleType>
-                                                        <xsd:restriction base="xsd:string">
-                                                            <xsd:enumeration value="NetworkShare">
-                                                                <xsd:annotation>
-                                                                    <xsd:documentation>
-                                                                        For network shared folders
-                                                                    </xsd:documentation>
-                                                                </xsd:annotation>
-                                                            </xsd:enumeration>
-                                                            <xsd:enumeration value="SSH">
-                                                                <xsd:annotation>
-                                                                    <xsd:documentation>
-                                                                        SSH config
-                                                                    </xsd:documentation>
-                                                                </xsd:annotation>
-                                                            </xsd:enumeration>
-                                                        </xsd:restriction>
-                                                    </xsd:simpleType>
-                                                </xsd:attribute>
-                                            </xsd:complexType> -->
-                                        <!-- </xsd:element> -->
-                                        <xsd:element name="Connection" maxOccurs="unbounded"/>
+                                        <xsd:element name="Connection" minOccurs="0" maxOccurs="unbounded"/>
                                         <xsd:element name="LANConfig" minOccurs="1" maxOccurs="1">
                                             <xsd:annotation>
                                                 <xsd:documentation>
@@ -1380,7 +1309,28 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element> 
-            <xsd:element name="SSHClientPath" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="SSHClientPath" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="Type" use="required">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        Type of SSH Client
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:string">
+                                        <xsd:enumeration value="Putty"/>
+                                        <xsd:enumeration value="Cmd"/>
+                                        <xsd:enumeration value="Powershell"/>
+                                    </xsd:restriction>
+                                </xsd:simpleType>
+                            </xsd:attribute>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
 

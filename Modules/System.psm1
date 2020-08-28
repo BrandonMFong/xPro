@@ -37,7 +37,12 @@ function Restart-Session
     if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
     else{Start-Process pwsh;Stop-Process -Id $PID;}
 }
-function Start-Admin{Start-Process powershell -Verb Runas;}
+function Start-Admin
+{
+    if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell -Verb Runas;}
+    else{Start-Process pwsh -Verb Runas;}
+    
+}
 
 function List-Color{[Enum]::GetValues([System.ConsoleColor])}
 function Open-Settings{start ms-settings:;}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
-  <UpdateStamp Value="08202020" />
+  <UpdateStamp Value="08282020" />
   <Start Enabled="True" ClearHost="False">
     <Script>B:\Powershell\StartScripts\BRANDONMFONG.ps1</Script>
     <Greetings Type="Electronic" Save="True">Test Mode</Greetings>
@@ -56,6 +56,7 @@
     <Network>
       <Connection Type="NetworkShare">
         <DriveLetter>K:</DriveLetter>
+        <ID />
         <IPAddress SecType="private">669703ea-52e6-425c-95c1-d65c3efde130</IPAddress>
         <Username SecType="private">a16443f3-bf9f-4454-bb25-251dc6dedd29</Username>
         <Password SecType="private">f1e4015e-a0c4-4dc5-806f-bb06573c78fe</Password>
@@ -321,9 +322,9 @@
       <VarName SecType="public">Calendar</VarName>
       <Class ClassName="Calendar" HasParams="true">
         <Calendar>
-          <PathToEventImport>B:\Powershell\Resources\Calendar\ImportEvents.csv</PathToEventImport>
           <EventConfig>Database</EventConfig>
           <FirstDayOfWeek>Sunday</FirstDayOfWeek>
+          <EventsFile>ImportEvents.csv</EventsFile>
         </Calendar>
       </Class>
     </Object>

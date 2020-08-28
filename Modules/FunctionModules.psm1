@@ -22,11 +22,11 @@ function MakeClass($XmlElement)
         {
             "Calendar" 
             {
-                [string]$PathToEventImport = $XmlElement.Class.Calendar.PathToEventImport;
+                [string]$EventsFile = $XmlElement.Class.Calendar.EventsFile;
                 [string]$EventConfig = $XmlElement.Class.Calendar.EventConfig;
                 [string]$TimeStampFilePath = $XmlElement.Class.Calendar.TimeStampFilePath;
                 [string]$FirstDayOfWeek = $XmlElement.Class.Calendar.FirstDayOfWeek;
-                $x = [Calendar]::new($PathToEventImport,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
+                $x = [Calendar]::new($EventsFile,$EventConfig,$TimeStampFilePath,$FirstDayOfWeek);
                 return $x;
             }
             "Web" {$x = [Web]::new();return $x;}

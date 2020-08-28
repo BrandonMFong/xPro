@@ -4,17 +4,17 @@ class Calendar
     hidden [Week[]]$Weeks;
     hidden [boolean]$WeeksLoaded = $false;
     hidden $SQL;
-    # hidden $SQL = [SQL]::new('TestDB','BRANDONMFONG\SQLEXPRESS', $null, $false, $false, 'ID EventDate'); # This needs to be unique per config
     hidden [string]$PathToImportFile;
     hidden [string]$EventConfig = "XML";
     [string]$TimeStampFilePath; # this is for timestamp.csv, if I do not have database
     hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
     [Week]$ThisWeek;
     [string]$FirstDayString = "Sunday";
+    [string]$CacheDir = $global:AppJson.Directories.CalendarCache;
 
-    Calendar([String]$PathToImportFile,[string]$EventConfig,[string]$TimeStampFilePath,[string]$FirstDayOfWeek)
+    Calendar([String]$EventsFile,[string]$EventConfig,[string]$TimeStampFilePath,[string]$FirstDayOfWeek)
     {
-        $this.PathToImportFile = $PathToImportFile;
+        $this.PathToImportFile = $Global:AppJson.Directories.CalendarFileEventImport + $EventsFile;
         if(![string]::IsNullOrEmpty($FirstDayOfWeek)){$this.FirstDayString = $FirstDayOfWeek;}
         if(![string]::IsNullOrEmpty($EventConfig))
         {
@@ -61,18 +61,68 @@ class Calendar
     [void] GetCalendarMonth() 
     {
         $this.GetNow();
-        if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        $this.GetHeaderString();
-        foreach($w in $this.Weeks){$w.ToString();}
+        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
+        # $this.GetHeaderString();
+        # foreach($w in $this.Weeks)
+        # {
+        #     $w.ToString();
+        # }
+        $this.WriteMonth();
     }
 
     [void] GetCalendarMonth([string]$MonthString) 
     {
         $this.GetNow($this.GetMonthNum($MonthString));
-        if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        $this.GetHeaderString();
-        foreach($w in $this.Weeks){$w.ToString();}
+        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
+        # $this.GetHeaderString();
+        # foreach($w in $this.Weeks)
+        # {
+        #     $w.ToString();
+        # }
+        $this.WriteMonth();
     }
+
+    hidden [Void] WriteMonth()
+    {
+        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
+        [String]$BaseName = $this.Today.DateString; # TODO add to this string to show the number of events
+        [String]$CalFilePath = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName).txt";
+        if(!$(Test-Path $CalFilePath))
+        {
+            New-Item $CalFilePath -Force | Out-Null;
+            Add-Content $CalFilePath $this.GetHeaderString();
+            $this.Weeks = $this.WriteWeeks();
+            foreach($w in $this.Weeks)
+            {
+                Add-Content $CalFilePath $w.ToString();
+            }
+        }
+        # right now there is no way of catting this file
+        [string[]]$o = Get-Content $CalFilePath; # Get the contents of the file and write them out 
+        for([int16]$i = 0;$i -lt $o.Count;$i++)
+        {
+            Write-Host $o[$i];
+        }
+    }
+
+    hidden [String]GetHeaderString()
+    {   
+        [String]$MonthYearDisplay = "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
+        [String]$Header = $this.ThisWeek.ToHeader();
+        [String]$Dashes = "--  --  --  --  --  --  --";
+        # Not writing into file.  Let's let the GetCalendarMonth method do that
+        return "$($MonthYearDisplay)`n$($Header)`n$($Dashes)";
+    }
+
+    hidden GetNow(){$this.UpdateDay();}
+
+    hidden GetNow([byte]$m)
+    {
+        if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
+        $this.Today = [Day]::new($(Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString())),$null);
+    }
+
+    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
 
     [int]GetMaxDayOfMonth([string]$Month) #Of the current year
     {
@@ -159,24 +209,6 @@ class Calendar
 
     hidden [string]MonthToString([int]$MonthNum){return (Get-UICulture).DateTimeFormat.GetMonthName($MonthNum);}
 
-    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
-
-    hidden GetNow(){$this.UpdateDay();}
-
-    hidden GetNow([byte]$m)
-    {
-        if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
-        $this.Today = [Day]::new($(Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString())),$null);
-    }
-
-    hidden GetHeaderString()
-    {   
-        Write-Host "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
-        # Write-Host "su  mo  tu  we  th  fr  sa";
-        $this.ThisWeek.ToHeader();
-        Write-Host "--  --  --  --  --  --  --";
-    }
-
     hidden [Week[]]WriteWeeks()
     {
         [Day]$su=[Day]::new(0,$this.EventConfig);
@@ -254,6 +286,7 @@ class Calendar
     }
     
     # I can probably consolodate Insert & TimeStamp
+    # FORMAT: ExternalID,Subject,EventDate,IsAnnual
     [void]InsertEvents()
     {
         if(![String]::IsNullOrEmpty($this.PathToImportFile))
@@ -373,10 +406,6 @@ class Calendar
 
     hidden [Void]GetTime([string]$Method)
     {
-        # [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FullTimeStampReport.sql)";
-        # $querystring = $querystring.Replace("@MinDateExt","'1/1/2000 00:00:00.0000000'"); # Default range for full report
-        # $querystring = $querystring.Replace("@MaxDateExt","'12/31/9999 00:00:00.0000000'");
-        # $this.FinalStep($Method,$querystring);
         $this.GetTime($Method,"1/1/2000 00:00:00.0000000","12/31/9999 00:00:00.0000000");
     }
     hidden [Void]GetTime([string]$Method,[string]$MinDate,[string]$MaxDate)
@@ -480,12 +509,13 @@ class Week
         $this.FirstDayIndex = $FirstDayIndex;
     }
 
-    [void]ToHeader()
+    [String]ToHeader()
     {
         $this.IndexCheck = 0;
         [string]$header = "";
         $this.InOrderHeader($this.FirstDayIndex,[ref]$header);
-        Write-Host "$($header)"
+        # Write-Host "$($header)";
+        return $header;
     }
     
     hidden InOrderHeader([int]$index,[ref]$header)
@@ -505,12 +535,13 @@ class Week
         }
     }
 
-    [void]ToString()
+    [String]ToString()
     {
         $this.IndexCheck = 0;
         [string]$week = "";
         $this.InOrderWeek($this.FirstDayIndex,[ref]$week);
-        Write-Host "$($week)"
+        # Write-Host "$($week)";
+        return $week;
     }
 
     hidden [void]InOrderWeek([int]$index,[ref]$week)

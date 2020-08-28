@@ -186,7 +186,7 @@ function GitRebasePush
 }
 function Squash-Branch
 {
-    Param([Switch]$Force)
+    Param([Switch]$Force,[Switch]$Push)
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
     [string]$CurrentBranch = $null;
@@ -244,6 +244,7 @@ function Squash-Branch
     {
         git branch -D $TargetBranch;
     }
+    if($Push){GitRebasePush -Tags:$([string]::IsNullOrEmpty($Tag));}
 }
 
 function Create-Branch

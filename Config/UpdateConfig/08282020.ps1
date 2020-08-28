@@ -1,6 +1,7 @@
 <#
 .Synopsis
    Adding type to ssh client path config
+   Changing PathToEventImport to EventsFile
 #>
 Param([ref]$Executed)
 $error.Clear();
@@ -18,12 +19,25 @@ try
       {
          foreach($Connection in $Network.Connection)
          {
-            if($Connection.Type -eq "SSH")
+            # if Type is not filled then create it
+            if($Connection.Type -eq "SSH" -and [string]::IsNullOrEmpty($Connection.SSHClientPath.Type))
             {
                [system.xml.XMLElement]$SSHConfig = $Connection.SelectSingleNode("//SSHClientPath");
                $SSHConfig.SetAttribute("Type","Putty"); # From now and before it has always been putty 
             }
          }
+      }
+   }
+
+   foreach($Object in $xml.Machine.Objects.Object)
+   {
+      if(($Object.Type -eq "PowerShellClass") -and ($Object.Class.ClassName -eq "Calendar"))
+      {
+         [System.Xml.XmlElement]$Cal = $Object.SelectSingleNode("//Calendar");
+         [System.Xml.XmlElement]$EventsFile = $xml.CreateElement("EventsFile");
+         $EventsFile.InnerText = $($Cal.PathToEventImport| Split-Path -Leaf);
+         $Cal.AppendChild($EventsFile); # Add to the end 
+         $Cal.RemoveChild($Cal.SelectSingleNode("//PathToEventImport")); # Remove
       }
    }
 

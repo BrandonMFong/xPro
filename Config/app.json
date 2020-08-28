@@ -2,7 +2,12 @@
     "RepoName":"XmlPSProfile",
     "BaseConfig":"\\Kamanta.xml",
     "Directories":{
-        "UserConfig":"\\Config\\Users"
+        "UserConfig":"\\Config\\Users",
+        "UserCache":"\\Cache",
+        "CalendarCache":"\\Cache\\Calendar",
+        "gitCache":"\\Cache\\git",
+        "GreetingsCache":"\\Cache\\Greetings",
+        "CalendarFileEventImport":"\\Resources\\Calendar"
     },
     "Files":{
         "Debug":"\\Tests\\Debug.ps1",

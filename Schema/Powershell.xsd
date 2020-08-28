@@ -1194,14 +1194,6 @@
             <xsd:element name="Calendar">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="PathToEventImport" type="xsd:string" minOccurs="0" maxOccurs="1">
-                            <xsd:annotation>
-                                <xsd:documentation>
-                                    File path to the import file.  
-                                    Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
-                                </xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
                         <xsd:element name="EventConfig" type="xsd:string" minOccurs="0" maxOccurs="1">
                             <xsd:annotation>
                                 <xsd:documentation>
@@ -1220,6 +1212,14 @@
                             <xsd:annotation>
                                 <xsd:documentation>
                                     First Day of the week
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="EventsFile" type="xsd:string" minOccurs="0" maxOccurs="1">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    File path to the import file.  
+                                    Columns: ExternalID(Format MMddyyyy),Subject,EventDate,IsAnnual
                                 </xsd:documentation>
                             </xsd:annotation>
                         </xsd:element>

@@ -7,10 +7,9 @@ name: Build
 on:
   push:
     # Allowed branches
+    # Only dev should be run for tagging 
     branches: 
       - dev
-      - beta
-      - master
     # Ignored Files and paths
     # Only files that will trigger a tag are app powershell scripts
     # powershell scripts in the StartScipts are considered config

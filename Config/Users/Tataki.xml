@@ -242,12 +242,117 @@
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
-      <Key Lvl="0" SecType="public">Facebook</Key>
-      <Value Lvl="0" SecType="public">https://facebook.com/</Value>
       <Key Lvl="0" SecType="public">Netflix</Key>
-      <Value Lvl="0" SecType="public">https://Netflix.com/</Value>
+      <Value Lvl="0" SecType="public">https://Netflix.com</Value>
       <Key Lvl="0" SecType="public">Youtube</Key>
-      <Value Lvl="0" SecType="public">https://youtube.com/</Value>
+      <Value Lvl="0" SecType="public">https://Youtube.com</Value>
+      <Key Lvl="0" SecType="public">Facebook</Key>
+      <Value Lvl="0" SecType="public">https://facebook.com</Value>
+      <Key Lvl="0" SecType="public">DisneyPlus</Key>
+      <Value Lvl="0" SecType="public">https://www.disneyplus.com</Value>
+      <Key Lvl="0" SecType="public">Hulu</Key>
+      <Value Lvl="0" SecType="public">https://www.hulu.com</Value>
+      <Key Lvl="0" SecType="public">iCloud</Key>
+      <Value Lvl="0" SecType="public">https://www.icloud.com/</Value>
+      <Key Lvl="0" SecType="public">VNC</Key>
+      <Value Lvl="0" SecType="public">https://www.realvnc.com/en/</Value>
+      <Key Lvl="0" SecType="public">IPChicken</Key>
+      <Value Lvl="0" SecType="public">https://ipchicken.com/</Value>
+      <Key Lvl="0" SecType="public">Darkroom</Key>
+      <Value Lvl="0" SecType="public">https://thedarkroom.com/</Value>
+      <Key Lvl="0" SecType="public">Amazon</Key>
+      <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
+      <Key Lvl="0" SecType="public">Site</Key>
+      <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
+      <Key Lvl="0" SecType="public">devSite</Key>
+      <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
+      <Key Lvl="0" SecType="public">Github</Key>
+      <Value Lvl="0" SecType="public">https://github.com/</Value>
+      <Key Lvl="0" SecType="public">Kojami</Key>
+      <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
+      <Key Lvl="0" SecType="public">SDWater</Key>
+      <Value Lvl="0" SecType="private">133f5ece-4951-4297-b3bb-6fa10da4b9c6</Value>
+      <Key Lvl="0" SecType="public">LinkedIn</Key>
+      <Value Lvl="0" SecType="public">https://www.linkedin.com/nhome/</Value>
+      <Key Lvl="0" SecType="public">WhatsApp</Key>
+      <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
+      <Key Lvl="0" SecType="public">Lyft</Key>
+      <Value Lvl="0" SecType="public">https://www.lyft.com/</Value>
+      <!-- Bookmarks -->
+      <Key Lvl="0" SecType="public">Bookmarks</Key>
+      <Value Lvl="0" SecType="public" NodePointer="Misc" />
+      <Key Lvl="1" Node="Misc" SecType="public">Udemy</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.udemy.com/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">SDWater</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://customerportal.sandiego.gov/portal/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">SDHouse</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">http://www.sbmigroup.com/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">RPi</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/forums/viewtopic.php?t=8226</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">FlashRaspbian</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/installation/installing-images/windows.md</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">HeadlessWifiRpiSetup</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">MountExternalDrive</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/configuration/external-storage.md</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Samba</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://pimylifeup.com/raspberry-pi-samba/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Wifi</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.windowscentral.com/how-connect-wi-fi-network-windows-10</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">jb</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">WindowsXApps</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">GetGPEdit</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.itechtics.com/enable-gpedit-windows-10-home/</Value>
+      <!-- Kaiser -->
+      <Key Lvl="0" SecType="public">Kaiser</Key>
+      <Value Lvl="0" SecType="public" NodePointer="kp" />
+      <Key Lvl="1" Node="kp" SecType="public">URL</Key>
+      <Value Lvl="1" Node="kp" SecType="public">https://kp.org</Value>
+      <!-- Google -->
+      <Key Lvl="0" SecType="public">Google</Key>
+      <Value Lvl="0" SecType="public" NodePointer="google" />
+      <Key Lvl="1" Node="google" SecType="public">URL</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://google.com</Value>
+      <Key Lvl="1" Node="google" SecType="public">Gmail</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://mail.google.com/mail</Value>
+      <Key Lvl="1" Node="google" SecType="public">Drive</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://drive.google.com/drive/u/0/my-drive</Value>
+      <Key Lvl="1" Node="google" SecType="public">Cloud</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://cloud.google.com</Value>
+      <Key Lvl="1" Node="google" SecType="public">Calendar</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://calendar.google.com/calendar</Value>
+      <Key Lvl="1" Node="google" SecType="public">Hangout</Key>
+      <Value Lvl="1" Node="google" SecType="public">https://hangouts.google.com/</Value>
+    </Object>
+    <!-- $College -->
+    <Object Type="HashTable">
+      <VarName SecType="public">College</VarName>
+      <!-- FAFSA -->
+      <Key Lvl="0" SecType="public">Fafsa</Key>
+      <Value Lvl="0" SecType="public" NodePointer="7390" />
+      <Key Lvl="1" Node="7390" SecType="public">URL</Key>
+      <Value Lvl="1" Node="7390" SecType="public">https://fafsa.gov/</Value>
+      <!-- Sonoma -->
+      <Key Lvl="0" SecType="public">SONOMA</Key>
+      <Value Lvl="0" SecType="public" NodePointer="bd78" />
+      <Key Lvl="1" Node="bd78" SecType="public">URL</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Scholarship</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/scholarships/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Seminars</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/lecture_series/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Farid</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/users/f/farahman/</Value>
+      <!-- Classes -->
+      <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />
+      <!-- CES440 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES440</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES440" />
+      <Key Lvl="3" Node="CES440" SecType="public">URL</Key>
+      <Value Lvl="3" Node="CES440" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
     </Object>
   </Objects>
 </Machine>

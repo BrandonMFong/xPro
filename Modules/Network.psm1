@@ -250,11 +250,15 @@ function Open-Ssh
     {
         if(($Connection.Type -eq "SSH") -and ($ID -eq $Connection.ID))
         {
+            $est = $true;
             if($Connection.SSHClientPath.Type -eq "Putty")
             {
-                $est = $true;
                 Set-Alias -Name "Putty" -Value $Connection.SSHClientPath.InnerText;
-                Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" $(Evaluate -value:$Connection.Port) -pw $(Evaluate -value:$Connection.Password);
+                Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" $(Evaluate -value:$Connection.Port) -pw $(Evaluate -value:$Connection.Password) -i $(Evaluate -value:$Connection.SSHKey);
+            }
+            elseif($Connection.SSHClientPath.Type -eq "Powershell")
+            {
+                ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);
             }
         }
     }

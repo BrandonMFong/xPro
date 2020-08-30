@@ -1309,6 +1309,20 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element> 
+            <xsd:element name="SSHKey" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        SSH public key.  Recall that if you are using putty, you must have the .ppk file in the correct format that putty can read.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attributeGroup ref="SecurityType"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element> 
             <xsd:element name="SSHClientPath" minOccurs="0" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:simpleContent>
@@ -1321,9 +1335,27 @@
                                 </xsd:annotation>
                                 <xsd:simpleType>
                                     <xsd:restriction base="xsd:string">
-                                        <xsd:enumeration value="Putty"/>
-                                        <xsd:enumeration value="Cmd"/>
-                                        <xsd:enumeration value="Powershell"/>
+                                        <xsd:enumeration value="Putty">
+                                            <xsd:annotation>
+                                                <xsd:documentation>
+                                                    Must provide .exe path
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:enumeration>
+                                        <xsd:enumeration value="Cmd">
+                                            <xsd:annotation>
+                                                <xsd:documentation>
+                                                    Do not need to provide .exe path
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:enumeration>
+                                        <xsd:enumeration value="Powershell">
+                                            <xsd:annotation>
+                                                <xsd:documentation>
+                                                    Do not need to provide .exe path
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:enumeration>
                                     </xsd:restriction>
                                 </xsd:simpleType>
                             </xsd:attribute>

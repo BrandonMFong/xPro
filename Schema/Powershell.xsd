@@ -1285,7 +1285,15 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element>   
-            <xsd:element name="Port" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="Port" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attributeGroup ref="SecurityType"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
             <xsd:element name="Username" minOccurs="0" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:simpleContent>
@@ -1383,7 +1391,6 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element>   
-            <xsd:element name="Port" minOccurs="0" maxOccurs="1" type="xsd:string"/>
             <xsd:element name="Username" minOccurs="0" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:simpleContent>

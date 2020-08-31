@@ -1271,7 +1271,7 @@
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="IPAddress" minOccurs="0" maxOccurs="1">
+            <xsd:element name="IPAddress" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                     <xsd:documentation>
                         IP address for the SSH connection 
@@ -1285,7 +1285,7 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element>   
-            <xsd:element name="Port" minOccurs="0" maxOccurs="1">
+            <xsd:element name="Port" minOccurs="1" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:simpleContent>
                         <xsd:extension base="xsd:string">
@@ -1294,7 +1294,7 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="Username" minOccurs="0" maxOccurs="1">
+            <xsd:element name="Username" minOccurs="1" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:simpleContent>
                         <xsd:extension base="xsd:string">
@@ -1306,7 +1306,7 @@
             <xsd:element name="Password" minOccurs="0" maxOccurs="1">
                 <xsd:annotation>
                     <xsd:documentation>
-                        If you do not provide then you will be prompted
+                        [DEPRECATED] no longer passing to command line to keep consistency with cmd and powershell 
                     </xsd:documentation>
                 </xsd:annotation>
                 <xsd:complexType>
@@ -1317,7 +1317,7 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element> 
-            <xsd:element name="SSHKey" minOccurs="0" maxOccurs="1">
+            <xsd:element name="SSHKey" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                     <xsd:documentation>
                         SSH public key.  Recall that if you are using putty, you must have the .ppk file in the correct format that putty can read.

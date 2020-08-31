@@ -62,6 +62,7 @@
     <ListOrderBy>Desc</ListOrderBy>
   </Email>
   <!-- Network Drives -->
+  <!-- Global access connections should be associated with a local config  -->
   <Networks>
     <Network>
       <!-- \\Kojami\BrandonMFong -->
@@ -80,6 +81,8 @@
         <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
         <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
       </Connection>
+      <!-- SSH -->
+      <!-- Via PuTTy -->
       <Connection xsi:type="SSH">
         <ID>Kojami.Putty</ID>
         <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>
@@ -90,11 +93,28 @@
         <SSHClientPath Type="Putty">C:\Program Files\PuTTY\putty.exe</SSHClientPath>
       </Connection>
       <Connection xsi:type="SSH">
+        <ID>Kojami.Putty.Global</ID>
+        <IPAddress SecType="private">84db7758-d53c-4e7f-a56c-41fd19f10928</IPAddress>
+        <Port SecType="private">aac6ef2a-8b92-4c5c-b216-8d9d1a5358a8</Port>
+        <Username SecType="private">37c1d335-a04c-418c-bc21-af048fb001cf</Username>
+        <SSHKey SecType="private">e9bd76e0-caaf-49bb-b712-4ef9c1572053</SSHKey>
+        <SSHClientPath Type="Putty">C:\Program Files\PuTTY\putty.exe</SSHClientPath>
+      </Connection>
+      <!-- Via powershell -->
+      <Connection xsi:type="SSH">
         <ID>Kojami.Powershell</ID>
         <IPAddress SecType="private">715C5B19-05F4-4D3F-8079-054C492FDBBD</IPAddress>
         <Port SecType="public">22</Port>
         <Username SecType="private">89344957-b631-41a0-a891-3d5f2def1ff7</Username>
         <SSHKey SecType="private">DCF90880-1EBD-4B83-9661-A19CBCB06F10</SSHKey>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Kojami.Powershell.Global</ID>
+        <IPAddress SecType="private">6019413d-9714-4ed8-9fd2-8703c8673e16</IPAddress>
+        <Port SecType="private">723c552e-77d9-4500-afa9-73c52b5a618c</Port>
+        <Username SecType="private">f76e202b-d1cd-4326-ba13-aa3a30bf37cf</Username>
+        <SSHKey SecType="private">7c9ad8de-33a5-4f01-9826-29297c4cf838</SSHKey>
         <SSHClientPath Type="Powershell" />
       </Connection>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
@@ -300,6 +320,11 @@
                 <Row>
                   <Value ColumnName="Description">Phone Number</Value>
                   <Value ColumnName="ExternalID">PhoneNumber</Value>
+                </Row>
+                <!-- TODO make an update script to add this  -->
+                <Row>
+                  <Value ColumnName="Description">Port</Value>
+                  <Value ColumnName="ExternalID">Port</Value>
                 </Row>
               </Rows>
             </Table>

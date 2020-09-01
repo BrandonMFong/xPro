@@ -241,6 +241,16 @@
         </SQL>
       </Class>
     </Object>
+    <!-- $Calendar -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Calendar</VarName>
+      <Class ClassName="Calendar" HasParams="true">
+        <Calendar>
+          <EventConfig>Database</EventConfig>
+          <FirstDayOfWeek>Sunday</FirstDayOfWeek>
+        </Calendar>
+      </Class>
+    </Object>
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>

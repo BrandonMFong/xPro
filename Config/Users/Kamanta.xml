@@ -468,8 +468,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">WindowsXApps</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">GetGPEdit</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.itechtics.com/enable-gpedit-windows-10-home/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">HostingerDomainTransfer</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.hostinger.com/how-to/how-to-request-epp-auth-code-for-domain-transfers</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

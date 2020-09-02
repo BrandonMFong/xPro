@@ -37,7 +37,7 @@
   </ShellSettings>
   <!-- Git Settings -->
   <GitSettings>
-    <Repository FilePath="B:\XmlPSProfile">
+    <Repository FilePath="B:\SOURCE\Repo\XmlPSProfile">
       <CommitTypes>
         <CommitType>Code</CommitType>
         <CommitType>Config</CommitType>
@@ -128,7 +128,7 @@
   </Networks>
   <!-- Functions -->
   <Functions>
-    <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
+    <Function><![CDATA[function global:VC-Powershell{code B:\SOURCE\Repo\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
     <Function><![CDATA[function global:VC-Notebook{code N:\BOOKS\BrandonMFong\vc-notebook.code-workspace}]]></Function>
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
@@ -169,18 +169,18 @@
   </Functions>
   <!-- Modules -->
   <Modules>
-    <Module>B:\XmlPSProfile\Modules\ConfigHandler.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\Git.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\MinTerminal.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\Sound.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\System.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\Terminal.psm1</Module>
-    <Module>B:\XmlPSProfile\Modules\Network.psm1</Module>
+    <Module>.\Modules\ConfigHandler.psm1</Module>
+    <Module>.\Modules\Git.psm1</Module>
+    <Module>.\Modules\MinTerminal.psm1</Module>
+    <Module>.\Modules\Sound.psm1</Module>
+    <Module>.\Modules\System.psm1</Module>
+    <Module>.\Modules\Terminal.psm1</Module>
+    <Module>.\Modules\Network.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="main" SecType="public">B:\</Directory>
-    <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
+    <Directory Alias="pow" SecType="public">B:\SOURCE\Repo\XmlPSProfile</Directory>
     <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
     <Directory Alias="col" SecType="public">B:\COLLEGE</Directory>
     <Directory Alias="fpga" SecType="public">B:\SOURCE\Repo\FPGAClock</Directory>
@@ -211,7 +211,7 @@
     <Program Alias="fpga-proj" SecType="public">B:\SOURCE\Repo\FPGAClock\FPGAClock.xpr</Program>
     <Program Alias="rufus" SecType="public">C:\Program Files\Rufus\rufus-3.11.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
-    <Program Alias="Get-Email" SecType="public">B:\XmlPSProfile\Functions\Email.ps1</Program>
+    <Program Alias="Get-Email" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Functions\Email.ps1</Program>
     <Program Alias="WhatsApp" SecType="public">C:\Users\fongm\AppData\Local\WhatsApp\WhatsApp.exe</Program>
     <Program Alias="Slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
     <Program Alias="git" SecType="public">C:\Program Files\Git\cmd\git.exe</Program>
@@ -438,8 +438,8 @@
       <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
       <Key Lvl="0" SecType="public">devSite</Key>
       <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
-      <Key Lvl="0" SecType="public">Github</Key>
-      <Value Lvl="0" SecType="public">https://github.com/</Value>
+      <!-- <Key Lvl="0" SecType="public">Github</Key>
+      <Value Lvl="0" SecType="public">https://github.com/</Value> -->
       <Key Lvl="0" SecType="public">Kojami</Key>
       <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
       <Key Lvl="0" SecType="public">SDWater</Key>
@@ -450,6 +450,15 @@
       <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
       <Key Lvl="0" SecType="public">Lyft</Key>
       <Value Lvl="0" SecType="public">https://www.lyft.com/</Value>
+      <!-- Github -->
+      <Key Lvl="0" SecType="public">Github</Key>
+      <Value Lvl="0" SecType="public" NodePointer="Github" />
+      <Key Lvl="1" Node="Github" SecType="public">URL</Key>
+      <Value Lvl="1" Node="Github" SecType="public">https://github.com/</Value>
+      <Key Lvl="1" Node="Github" SecType="public">Username</Key>
+      <Value Lvl="1" Node="Github" SecType="private">EE364910-9924-48DC-9673-685591B6EEC1</Value>
+      <Key Lvl="1" Node="Github" SecType="public">Password</Key>
+      <Value Lvl="1" Node="Github" SecType="private">DA9A8A29-F04E-48FD-808B-BCB3E1B5E7C3</Value>
       <!-- Bookmarks -->
       <Key Lvl="0" SecType="public">Bookmarks</Key>
       <Value Lvl="0" SecType="public" NodePointer="Misc" />

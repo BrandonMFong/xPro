@@ -1,6 +1,19 @@
 
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
+function List-Connections
+{
+    foreach($Network in $Global:XMLReader.Machine.Networks.Network)
+    {
+        [System.Xml.XmlDocument]$LanConfigReader = Get-Content $(Get-ChildItem $PSScriptRoot\..\Config\Wifi\$($Network.LANConfig).xml);
+        Write-Host "Current LAN: $($LanConfigReader.WLANProfile.SSIDConfig.SSID.name)";
+        foreach($val in $Network.Connection)
+        {
+            Write-Host "    [$($val.Type)] $($val.ID)";
+        }
+    }  
+}
+
 # connection to a remote shared folder
 # Has no implementation of an ssh key yet 
 # had no need 

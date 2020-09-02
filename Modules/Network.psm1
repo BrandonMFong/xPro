@@ -1,6 +1,19 @@
 
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
+function List-Connections
+{
+    foreach($Network in $Global:XMLReader.Machine.Networks.Network)
+    {
+        [System.Xml.XmlDocument]$LanConfigReader = Get-Content $(Get-ChildItem $PSScriptRoot\..\Config\Wifi\$($Network.LANConfig).xml);
+        Write-Host "Current LAN: $($LanConfigReader.WLANProfile.SSIDConfig.SSID.name)";
+        foreach($val in $Network.Connection)
+        {
+            Write-Host "    [$($val.Type)] $($val.ID)";
+        }
+    }  
+}
+
 # connection to a remote shared folder
 # Has no implementation of an ssh key yet 
 # had no need 
@@ -248,17 +261,27 @@ function Open-Ssh
     [System.Boolean]$est = $false;
     foreach($Connection in $Network.Connection)
     {
+        # Must always provide SSH public key for authentication 
         if(($Connection.Type -eq "SSH") -and ($ID -eq $Connection.ID))
         {
             $est = $true;
             if($Connection.SSHClientPath.Type -eq "Putty")
             {
                 Set-Alias -Name "Putty" -Value $Connection.SSHClientPath.InnerText;
-                Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" $(Evaluate -value:$Connection.Port) -pw $(Evaluate -value:$Connection.Password) -i $(Evaluate -value:$Connection.SSHKey);
+
+                # For reasons of security, will no longer pass passwords to the command line
+                # It was brought to my attention that it issues less security. ref: https://www.ssh.com/ssh/putty/putty-manuals/0.68/Chapter3.html#using-general-opts 3.8.3.8
+                # Will deprecate the password config
+                if([string]::IsNullOrEmpty($Connection.SSHKey))
+                {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port)}
+                else{Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -P $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);}
             }
             elseif($Connection.SSHClientPath.Type -eq "Powershell")
             {
-                ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);
+                if([string]::IsNullOrEmpty($Connection.SSHKey))
+                {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port)}
+                else {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);}
+                
             }
         }
     }

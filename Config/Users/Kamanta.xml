@@ -88,7 +88,6 @@
         <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>
         <Port SecType="public">22</Port>
         <Username SecType="private">3954b150-5b49-4f5b-aaa0-c1937895b65b</Username>
-        <Password SecType="private">959965b7-3f78-4a04-8761-5084e0754d81</Password>
         <SSHKey SecType="private">02453323-7715-4ad6-a0c2-0ccad05fd535</SSHKey>
         <SSHClientPath Type="Putty">C:\Program Files\PuTTY\putty.exe</SSHClientPath>
       </Connection>
@@ -117,13 +116,20 @@
         <SSHKey SecType="private">7c9ad8de-33a5-4f01-9826-29297c4cf838</SSHKey>
         <SSHClientPath Type="Powershell" />
       </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Sonoma</ID>
+        <IPAddress SecType="private">d7ef18e8-d2e4-4c1e-8ba8-df22b15ff8c6</IPAddress>
+        <Port SecType="public">22</Port>
+        <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
     </Network>
   </Networks>
   <!-- Functions -->
   <Functions>
     <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
-    <Function><![CDATA[function global:VC-Notebook{code B:\NOTEBOOK\VC-Notebook.code-workspace}]]></Function>
+    <Function><![CDATA[function global:VC-Notebook{code N:\BOOKS\BrandonMFong\vc-notebook.code-workspace}]]></Function>
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
     <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>
@@ -469,8 +475,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">WindowsXApps</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">GetGPEdit</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.itechtics.com/enable-gpedit-windows-10-home/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">HostingerDomainTransfer</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.hostinger.com/how-to/how-to-request-epp-auth-code-for-domain-transfers</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

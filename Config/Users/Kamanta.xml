@@ -190,6 +190,7 @@
     <Directory Alias="ces400" SecType="public">B:\COLLEGE\20_21\Fall20\CES400</Directory>
     <Directory Alias="ces543" SecType="public">B:\COLLEGE\20_21\Fall20\CES543</Directory>
     <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
+    <Directory Alias="life" SecType="public">B:\LIFE</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -486,6 +487,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
       <Key Lvl="1" Node="Misc" SecType="public">HostingerDomainTransfer</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.hostinger.com/how-to/how-to-request-epp-auth-code-for-domain-transfers</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">RunningSiteOnPi</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

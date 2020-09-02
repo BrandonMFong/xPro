@@ -116,13 +116,20 @@
         <SSHKey SecType="private">7c9ad8de-33a5-4f01-9826-29297c4cf838</SSHKey>
         <SSHClientPath Type="Powershell" />
       </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Sonoma</ID>
+        <IPAddress SecType="private">d7ef18e8-d2e4-4c1e-8ba8-df22b15ff8c6</IPAddress>
+        <Port SecType="public">22</Port>
+        <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
     </Network>
   </Networks>
   <!-- Functions -->
   <Functions>
     <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
-    <Function><![CDATA[function global:VC-Notebook{code B:\NOTEBOOK\VC-Notebook.code-workspace}]]></Function>
+    <Function><![CDATA[function global:VC-Notebook{code N:\BOOKS\BrandonMFong\vc-notebook.code-workspace}]]></Function>
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
     <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>

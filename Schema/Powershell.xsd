@@ -1317,7 +1317,7 @@
                     </xsd:simpleContent>
                 </xsd:complexType>
             </xsd:element> 
-            <xsd:element name="SSHKey" minOccurs="1" maxOccurs="1">
+            <xsd:element name="SSHKey" minOccurs="0" maxOccurs="1">
                 <xsd:annotation>
                     <xsd:documentation>
                         SSH public key.  Recall that if you are using putty, you must have the .ppk file in the correct format that putty can read.

@@ -259,11 +259,16 @@ function Open-Ssh
                 # For reasons of security, will no longer pass passwords to the command line
                 # It was brought to my attention that it issues less security. ref: https://www.ssh.com/ssh/putty/putty-manuals/0.68/Chapter3.html#using-general-opts 3.8.3.8
                 # Will deprecate the password config
-                Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -P $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);
+                if([string]::IsNullOrEmpty($Connection.SSHKey))
+                {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port)}
+                else{Putty -ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -P $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);}
             }
             elseif($Connection.SSHClientPath.Type -eq "Powershell")
             {
-                ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);
+                if([string]::IsNullOrEmpty($Connection.SSHKey))
+                {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port)}
+                else {ssh "$(Evaluate -value:$Connection.Username)@$(Evaluate -value:$Connection.IPAddress)" -p $(Evaluate -value:$Connection.Port) -i $(Evaluate -value:$Connection.SSHKey);}
+                
             }
         }
     }

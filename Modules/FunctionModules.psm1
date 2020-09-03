@@ -289,7 +289,7 @@ function LoadPrograms
             try{Set-Alias $val.Alias $program -Verbose:$Verbose -Scope Global; $Global:LogHandler.Write("Set-Alias: $($val.Alias) => $($program)");}
             catch{$Global:LogHandler.WriteError($_);}
         }
-        if(!$Verbose){Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -Completed;}
+        if(!$Verbose){Write-Progress -Activity "Loading Programs" -Status "Program: Finished" -Completed;}
     }
 }
 function LoadModules
@@ -312,7 +312,7 @@ function LoadModules
                 catch{$Global:LogHandler.WriteError($_);}
             }
         }
-        if(!$Verbose){Write-Progress -Activity "Loading Modules" -Status "Module: $($val.InnerXML)" -Completed;}
+        if(!$Verbose){Write-Progress -Activity "Loading Modules" -Status "Module: Finished" -Completed;}
     }
 }
 
@@ -360,7 +360,7 @@ function LoadObjects
             }
             catch{$Global:LogHandler.WriteError($_.ToString() + " creating object => `$$($VarName)");}
         } 
-        if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: $($val.VarName.InnerXML)" -Completed;}
+        if(!$Verbose){Write-Progress -Activity "Loading Objects" -Status "Object: Finished" -Completed;}
     }
 }
 
@@ -381,19 +381,22 @@ function LoadFunctions
     Param($Global:XMLReader=$Global:XMLReader,[switch]$Verbose)
     if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Functions))
     {
-        [int]$Complete = 1;
-        [int]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Functions.Function.Count);
+        [int16]$Complete = 1;
+        [int16]$Total = $(CheckCount -Count:$Global:XMLReader.Machine.Functions.Function.Count);
         foreach($val in $Global:XMLReader.Machine.Functions.Function)
         {
             if(!$Verbose)
             {
-                Write-Progress -Activity "Loading Functions" -Status "Function: $($val.'#cdata-section')" -PercentComplete (($Complete / $Total)*100);
+                [string]$FunctionName = $null;
+                [int16]$i = [int16]$([string]$($val.'#cdata-section').IndexOf(":"))+1;
+                while($true){$FunctionName += [string]$($val.'#cdata-section')[$i];$i++; if([string]$($val.'#cdata-section')[$i] -eq "{"){break;}}
+                Write-Progress -Activity "Loading Functions" -Status "Function: $($FunctionName)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
             try{Invoke-Expression $val.'#cdata-section';$Global:LogHandler.Write("Successfully loaded $($val.'#cdata-section')");}
             catch{$Global:LogHandler.WriteError($_);}
         } 
-        if(!$Verbose){Write-Progress -Activity "Loading Drives" -Status "Drive: $($val.IPAddress.InnerXML)" -Completed;}
+        if(!$Verbose){Write-Progress -Activity "Loading Functions" -Status "Function: Finished" -Completed;}
     }
 }
 

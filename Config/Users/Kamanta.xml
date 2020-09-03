@@ -489,6 +489,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.hostinger.com/how-to/how-to-request-epp-auth-code-for-domain-transfers</Value>
       <Key Lvl="1" Node="Misc" SecType="public">RunningSiteOnPi</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">ApacheHttps</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.ssls.com/knowledgebase/how-to-install-an-ssl-certificate-on-apache/</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

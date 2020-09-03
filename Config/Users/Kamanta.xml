@@ -159,12 +159,7 @@
           Write-Host "Username: $($Bank.Chase.Username)";
         }
       ]]></Function>
-    <Function><![CDATA[
-        function global:Start-Study 
-        {
-          Open-Todo;Open-Mail;Time -In;
-        }
-      ]]></Function>
+    <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
   </Functions>
   <!-- Modules -->

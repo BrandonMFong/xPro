@@ -64,6 +64,7 @@
   <!-- Network Drives -->
   <!-- Global access connections should be associated with a local config  -->
   <Networks>
+    <!-- 2.4 GHz -->
     <Network>
       <!-- \\Kojami\BrandonMFong -->
       <Connection xsi:Type="NetworkShare">
@@ -124,6 +125,68 @@
         <SSHClientPath Type="Powershell" />
       </Connection>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
+    </Network>
+    <!-- 5.0 GHz -->
+    <Network>
+      <!-- \\Kojami\BrandonMFong -->
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>K:</DriveLetter>
+        <ID>Kojami</ID>
+        <IPAddress SecType="private">b4fc3943-8c9d-4202-a6c3-4f642cb02c5a</IPAddress>
+        <Username SecType="private">8c1d7756-3a0b-4201-b069-23396b1c32cf</Username>
+        <Password SecType="private">eac8f792-012e-454d-8421-7518fd90d5a6</Password>
+      </Connection>
+      <!-- \\Tataki\notebook -->
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <ID>notebook</ID>
+        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
+      </Connection>
+      <!-- SSH -->
+      <!-- Via PuTTy -->
+      <Connection xsi:type="SSH">
+        <ID>Kojami.Putty</ID>
+        <IPAddress SecType="private">c1e54110-a7cf-43dd-a02b-45ef17086bc1</IPAddress>
+        <Port SecType="public">22</Port>
+        <Username SecType="private">3954b150-5b49-4f5b-aaa0-c1937895b65b</Username>
+        <SSHKey SecType="private">02453323-7715-4ad6-a0c2-0ccad05fd535</SSHKey>
+        <SSHClientPath Type="Putty">C:\Program Files\PuTTY\putty.exe</SSHClientPath>
+      </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Kojami.Putty.Global</ID>
+        <IPAddress SecType="private">84db7758-d53c-4e7f-a56c-41fd19f10928</IPAddress>
+        <Port SecType="private">aac6ef2a-8b92-4c5c-b216-8d9d1a5358a8</Port>
+        <Username SecType="private">37c1d335-a04c-418c-bc21-af048fb001cf</Username>
+        <SSHKey SecType="private">e9bd76e0-caaf-49bb-b712-4ef9c1572053</SSHKey>
+        <SSHClientPath Type="Putty">C:\Program Files\PuTTY\putty.exe</SSHClientPath>
+      </Connection>
+      <!-- Via powershell -->
+      <Connection xsi:type="SSH">
+        <ID>Kojami.Powershell</ID>
+        <IPAddress SecType="private">715C5B19-05F4-4D3F-8079-054C492FDBBD</IPAddress>
+        <Port SecType="public">22</Port>
+        <Username SecType="private">89344957-b631-41a0-a891-3d5f2def1ff7</Username>
+        <SSHKey SecType="private">DCF90880-1EBD-4B83-9661-A19CBCB06F10</SSHKey>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Kojami.Powershell.Global</ID>
+        <IPAddress SecType="private">6019413d-9714-4ed8-9fd2-8703c8673e16</IPAddress>
+        <Port SecType="private">723c552e-77d9-4500-afa9-73c52b5a618c</Port>
+        <Username SecType="private">f76e202b-d1cd-4326-ba13-aa3a30bf37cf</Username>
+        <SSHKey SecType="private">7c9ad8de-33a5-4f01-9826-29297c4cf838</SSHKey>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
+      <Connection xsi:type="SSH">
+        <ID>Sonoma</ID>
+        <IPAddress SecType="private">d7ef18e8-d2e4-4c1e-8ba8-df22b15ff8c6</IPAddress>
+        <Port SecType="public">22</Port>
+        <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
+        <SSHClientPath Type="Powershell" />
+      </Connection>
+      <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
   </Networks>
   <!-- Functions -->

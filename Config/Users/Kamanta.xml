@@ -486,6 +486,12 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">ApacheHttps</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.ssls.com/knowledgebase/how-to-install-an-ssl-certificate-on-apache/</Value>
+      <!-- where i left off -->
+      <Key Lvl="1" Node="Misc" SecType="public">Fail2ban-ThisFirst</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Fail2BanAndApacheConfig-StartFrom-ufw</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04</Value>
+
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

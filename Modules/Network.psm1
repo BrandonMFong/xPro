@@ -24,6 +24,7 @@ function Load-Drive
     if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Networks))
     {
         [System.Xml.XmlElement]$Network = _GetCurrentNetConfig;
+        if([string]::IsNullOrEmpty($Network)){$Global:LogHandler.Warning("Check network LAN config");}
         foreach($val in $Network.Connection)
         {
             if($val.Type -eq "NetworkShare")

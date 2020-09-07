@@ -12,6 +12,7 @@
     "Files":{
         "Debug":"\\Tests\\Debug.ps1",
         "Greetings":".\\Functions\\Greetings.ps1",
-        "SessionCache":"\\Cache\\Session\\CachedDir.txt"
+        "SessionCache":"\\Cache\\Session\\CachedDir.txt",
+        "plistConfig":"\\Config\\iTunes\\plistBaseConfig.json"
     }
 }

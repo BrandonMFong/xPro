@@ -23,50 +23,21 @@ Param
 
 # Setting header START
 
-# Name
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "Name"; $o.AppendChild($j);
-# string
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("string");
-$j.InnerText = $($PlaylistFolder |Split-Path -Leaf); $o.AppendChild($j);
+# Using .json to create the base plist config 
 
-# Description
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "Description"; $o.AppendChild($j);
-# string
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("string");
-$o.AppendChild($j);
+[System.Object[]]$plistReader = Get-Content $($global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.plistConfig)|ConvertFrom-Json;# Assuming you are using this with this repo
 
-# Playlist ID
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "Playlist ID"; $o.AppendChild($j);
-# integer
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("integer");
-$j.InnerText = $(Get-Random -Minimum 0000 -Maximum 9999); $o.AppendChild($j);
-
-# Playlist Persistent ID
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "Playlist Persistent ID"; $o.AppendChild($j);
-# string
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("string");
-$j.InnerText = $(New-Guid).ToString().ToUpper().Replace("-","").Substring(0,16); $o.AppendChild($j);
-
-# All Items
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "All Items"; $o.AppendChild($j);
-# integer
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("true");
-$o.AppendChild($j);
-
-# Playlist Items
-# key
-[System.Xml.XmlElement]$j = $LibXmlReader.CreateElement("key");
-$j.InnerText = "Playlist Items"; $o.AppendChild($j);
+for([int16]$i = 0;$i -lt $plistReader.Nodes.Node.count;$i++)
+{
+    [System.Xml.XmlElement]$j = $LibXmlReader.CreateElement($plistReader.Nodes.Node[$i].Key);
+    if(![string]::IsNullOrEmpty($plistReader.Nodes.Node[$i].Value))
+    {
+        if($plistReader.Nodes.Node[$i].ValIsCmd)
+        {$j.InnerText = $(Invoke-Expression $plistReader.Nodes.Node[$i].Value);}
+        else{$j.InnerText = $plistReader.Nodes.Node[$i].Value;}
+    }
+    $o.AppendChild($j);
+}
 
 # Setting header END
 
@@ -103,6 +74,7 @@ $LibXmlReader.plist.dict.array.innerxml = $null # clear
 [System.Xml.XmlElement]$array = $LibXmlReader.SelectSingleNode("//array");
 $array.AppendChild($o); # set new playlist data
 
+# Only using a standard name because I don't think you would need to keep it automatically
 [string]$SavePath = $($PlaylistFolder | Split-Path -Parent) + "\Exports\Export.xml";
 New-Item $SavePath -Force | Out-Null;
 $LibXmlReader.Save($SavePath);

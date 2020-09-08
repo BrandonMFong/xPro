@@ -24,7 +24,7 @@ if($NumberOfFiles -eq 0){throw "No files!";}
 
 # Init definition
 # Defines the interval of the how the files will go into a directory 
-[DateTime]$mindate = $YoungestFile.LastWriteTime.ToDateTime($null);
+[DateTime]$mindate = Get-Date $("$($YoungestFile.LastWriteTime.ToDateTime($null).Month) " +"$($YoungestFile.LastWriteTime.ToDateTime($null).Year)")
 [DateTime]$maxdate= $YoungestFile.LastWriteTime.ToDateTime($null).AddMonths(1);
 try 
 {
@@ -58,4 +58,4 @@ catch
 [int16]$MinutesForThisScript = <#Minutes#>(<#Seconds#>(($EndTime.Ticks - $StartTime.Ticks) / 10000000) / 60);
 
 # Evaluate results
-Write-Host "`nTook $($MinutesForThisScript) to move all $($NumberOfFiles) files to destination";
+Write-Host "`nTook $($MinutesForThisScript) minutes to move all $($NumberOfFiles) files to destination";

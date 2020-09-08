@@ -25,7 +25,7 @@ Param
 
 # Using .json to create the base plist config 
 
-[System.Object[]]$plistReader = Get-Content $($global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.plistConfig)|ConvertFrom-Json;# Assuming you are using this with this repo
+[System.Object[]]$plistReader = Get-Content $($global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.plistConfig) -Force|ConvertFrom-Json;# Assuming you are using this with this repo
 
 for([int16]$i = 0;$i -lt $plistReader.Nodes.Node.count;$i++)
 {
@@ -63,6 +63,7 @@ for([int16]$i = 0;$i -lt $SongNames.Count;$i++)
             $Track.AppendChild($key);$Track.AppendChild($integer);
 
             $TrackArray.AppendChild($Track); # Add to the Playlist Items
+            Write-Host "Added $($SongNames[$i]) to playlist"
         }
     }
 }

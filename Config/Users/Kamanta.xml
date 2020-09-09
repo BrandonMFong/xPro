@@ -234,6 +234,7 @@
     <Module>.\Modules\System.psm1</Module>
     <Module>.\Modules\Terminal.psm1</Module>
     <Module>.\Modules\Network.psm1</Module>
+    <Module>C:\Users\fongm\Documents\PowerShell\Modules\AudioDeviceCmdlets</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

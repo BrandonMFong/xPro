@@ -496,10 +496,6 @@
       <Value Lvl="0" SecType="public">https://www.amazon.com/</Value>
       <Key Lvl="0" SecType="public">Site</Key>
       <Value Lvl="0" SecType="public">http://www.BrandonMFong.com/</Value>
-      <Key Lvl="0" SecType="public">devSite</Key>
-      <Value Lvl="0" SecType="public">http://dev.BrandonMFong.com/</Value>
-      <!-- <Key Lvl="0" SecType="public">Github</Key>
-      <Value Lvl="0" SecType="public">https://github.com/</Value> -->
       <Key Lvl="0" SecType="public">Kojami</Key>
       <Value Lvl="0" SecType="private">a6616a21-ec9c-4d45-baca-cb45506b6fa2</Value>
       <Key Lvl="0" SecType="public">SDWater</Key>
@@ -510,6 +506,8 @@
       <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
       <Key Lvl="0" SecType="public">Lyft</Key>
       <Value Lvl="0" SecType="public">https://www.lyft.com/</Value>
+      <Key Lvl="0" SecType="public">Office</Key>
+      <Value Lvl="0" SecType="public">https://www.office.com/</Value>
       <!-- Github -->
       <Key Lvl="0" SecType="public">Github</Key>
       <Value Lvl="0" SecType="public" NodePointer="Github" />

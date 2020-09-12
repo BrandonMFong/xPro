@@ -79,9 +79,12 @@ class Calendar
             New-Item $CalFilePath -Force | Out-Null;
             Add-Content $CalFilePath $this.GetHeaderString();
             $this.Weeks = $this.WriteWeeks();
+            [int16]$i = 0;
             foreach($w in $this.Weeks)
             {
+                Write-Progress -Activity "Calculating months" -PercentComplete (($($i+1)/$this.Weeks.Count)*100);
                 Add-Content $CalFilePath $w.ToString();
+                $i++;
             }
         }
         # right now there is no way of catting this file

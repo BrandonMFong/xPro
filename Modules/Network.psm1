@@ -236,6 +236,7 @@ function Set-Wifi
         }
         try{[int16]$i = Read-Host -Prompt "So? ";}
         catch{$Global:LogHandler.Warning("Probably did not put the correct formatted input");break;}
+        if($i -eq 0){Write-Host "No input"; break;}
         [string]$FilePath = $($o[$i-1]);
         [string]$SSIDName = $($SSIDNames[$i-1]);
     }

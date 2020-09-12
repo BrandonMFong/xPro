@@ -61,30 +61,17 @@ class Calendar
     [void] GetCalendarMonth() 
     {
         $this.GetNow();
-        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        # $this.GetHeaderString();
-        # foreach($w in $this.Weeks)
-        # {
-        #     $w.ToString();
-        # }
         $this.WriteMonth();
     }
 
     [void] GetCalendarMonth([string]$MonthString) 
     {
         $this.GetNow($this.GetMonthNum($MonthString));
-        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
-        # $this.GetHeaderString();
-        # foreach($w in $this.Weeks)
-        # {
-        #     $w.ToString();
-        # }
         $this.WriteMonth();
     }
 
     hidden [Void] WriteMonth()
     {
-        # if(!$this.WeeksLoaded){$this.Weeks = $this.WriteWeeks();}
         [String]$BaseName = $this.Today.DateString; # TODO add to this string to show the number of events
         [String]$CalFilePath = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName).txt";
         if(!$(Test-Path $CalFilePath))

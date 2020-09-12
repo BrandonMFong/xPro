@@ -61,7 +61,7 @@ class Calculations
         $x.value = $stack.Pop();$y.value = $stack.Pop();
     }
 
-    [System.Decimal]Log2([Int16]$x)
+    [System.Decimal]Log2([Int32]$x)
     {
         if($x -eq 0){return 0;}
         else{return [Math]::Log($x)/[Math]::Log(2);}

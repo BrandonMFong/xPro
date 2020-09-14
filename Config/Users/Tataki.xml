@@ -118,6 +118,7 @@
     <Program Alias="query" SecType="public">D:\XmlPSProfile\Functions\Query.ps1</Program>
     <Program Alias="slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
     <Program Alias="putty" SecType="public">D:\PROGRAMFILES\putty.exe</Program>
+    <Program Alias="append" SecType="public">D:\XmlPSProfile\Functions\AppendDate.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Tataki" ServerInstance="TATAKI\SQLEXPRESS">

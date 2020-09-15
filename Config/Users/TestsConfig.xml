@@ -51,29 +51,29 @@
   </Modules>
   <!-- Directory paths -->
   <Directories>
-    <Directory Alias="main" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\</Directory>
-    <Directory Alias="ConfigDir1" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Config</Directory>
+    <Directory Alias="main" SecType="public">D:\a\xPro\xPro\</Directory>
+    <Directory Alias="ConfigDir1" SecType="public">D:\a\xPro\xPro\Config</Directory>
     <Directory Alias="ConfigDir2" SecType="public">B:\XmlPSProfile\Config</Directory>
     <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="Goto1" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Functions\GOTO.ps1</Program>
     <Program Alias="Goto2" SecType="public">B:\XmlPSProfile\Functions\GOTO.ps1</Program>
     <Program Alias="Goto" SecType="public">B:\XmlPSProfile\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Open.ps1</Program>
-    <Program Alias="Archive" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Weather.ps1</Program>
-    <Program Alias="Search" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Search.ps1</Program>
-    <Program Alias="Dismount" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DismountDrive.ps1</Program>
-    <Program Alias="Unplug" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\Unplug.ps1</Program>
+    <Program Alias="Put" SecType="public">D:\a\xPro\xPro\Functions\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">D:\a\xPro\xPro\Functions\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">D:\a\xPro\xPro\Functions\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">D:\a\xPro\xPro\Functions\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">D:\a\xPro\xPro\Functions\Weather.ps1</Program>
+    <Program Alias="Search" SecType="public">D:\a\xPro\xPro\Functions\Search.ps1</Program>
+    <Program Alias="Dismount" SecType="public">D:\a\xPro\xPro\Functions\DismountDrive.ps1</Program>
+    <Program Alias="Unplug" SecType="public">D:\a\xPro\xPro\Functions\Unplug.ps1</Program>
     <Program Alias="git" SecType="public">C:\Program Files\Git\bin\git.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
-    <Program Alias="Run-Tests" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1</Program>
-    <Program Alias="Run-Tag" SecType="public">D:\a\XmlPSProfile\XmlPSProfile\Functions\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tests" SecType="public">D:\a\xPro\xPro\Tests\InitTestScripts.ps1</Program>
+    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Functions\DetermineTagType.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

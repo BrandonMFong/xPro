@@ -72,8 +72,11 @@ class Calendar
 
     hidden [Void] WriteMonth()
     {
-        [String]$BaseName = $this.Today.DateString; # TODO add to this string to show the number of events
-        [String]$CalFilePath = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName).txt";
+        [String]$BaseName = $this.Today.DateString; 
+        [string]$mindate = $this.Today.Month.ToString() + "/" + 1 + "/" + $this.Today.Year.ToString();
+        [string]$maxdate = $this.Today.Month.ToString() + "/" + $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month)).ToString() + "/" + $this.Today.Year.ToString();
+        [int16]$NumEvents = $this.GetNumberOfEvents($mindate, $maxdate);
+        [String]$CalFilePath = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName)_$($NumEvents).txt";
         if(!$(Test-Path $CalFilePath))
         {
             New-Item $CalFilePath -Force | Out-Null;
@@ -93,6 +96,14 @@ class Calendar
         {
             Write-Host $o[$i];
         }
+    }
+
+    hidden [int16] GetNumberOfEvents([string]$mindate, [string]$maxdate)
+    {
+        [string]$querystring = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\SQL\NumberOfEventsWithinMonth.sql");
+        $querystring = $querystring.Replace("@mindate","'$($mindate)'");
+        $querystring = $querystring.Replace("@maxdate","'$($maxdate)'");
+        return $($this.SQL.Query($querystring)).COUNT;
     }
 
     hidden [String]GetHeaderString()

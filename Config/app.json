@@ -1,5 +1,5 @@
 {
-    "RepoName":"XmlPSProfile",
+    "RepoName":"xPro",
     "BaseConfig":"\\Kamanta.xml",
     "Directories":{
         "UserConfig":"\\Config\\Users",

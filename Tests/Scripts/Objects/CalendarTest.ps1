@@ -46,7 +46,7 @@ if($o.Today.Year -ne $(Get-Date).Year)
 }
 else{Write-Host " [PASSED]" -ForegroundColor Green;}
 
-
+# TESTING PRINT
 Write-Host " - Print Calendar`n";
 try 
 {
@@ -56,11 +56,14 @@ try
 }
 catch # FAILURE
 {
+   
    Write-Host "`n   - Print result" -NoNewline;
    Write-Host " [FAILED]" -ForegroundColor Green;
+   $Global:LogHandler.WriteError($_);
    $RETURNVALUE = 1;
 }
 
+# Is the cache file created
 Write-Host " - Is Calendar cached" -NoNewline;
 
 [string]$FileName = $o.Today.DateString + "_0";

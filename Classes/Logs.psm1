@@ -53,7 +53,6 @@ class Logs
     # TODO change WriteError to Error
     [Void] WriteError($logstring)
     {
-        Write-Warning "Error. Check logs";
 
         [String]$contentstring = $null;
         [String]$datestring = Get-Date -Format "yyyy-MM-dd HH:mm:ss"; # Get the date
@@ -66,6 +65,8 @@ class Logs
         $contentstring += "`n   Error in $($SourceFile)";
         $contentstring += "`n   $($logstring)";
         for([int16]$i=0;$i -lt $callstack.Count;$i++){$contentstring += "`n   $($callstack[$i])";}
+
+        Write-Host $contentstring;
 
         Add-Content $this.LogFile $contentstring;
     }

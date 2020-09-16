@@ -8,7 +8,7 @@ Write-Host `n -NoNewline;
 
 Write-Host " - Testing Aliases (Programs)";
 Write-Host "   - Testing Alias 'Archive'" -NoNewline;
-if((Get-Alias Archive).Definition -ne "D:\a\XmlPSProfile\XmlPSProfile\Functions\Archive.ps1")
+if((Get-Alias Archive).Definition -ne "D:\a\xPro\xPro\Functions\Archive.ps1")
 {
    Write-Host " [FAILED]" -ForegroundColor Red;
    $RETURNVALUE = 1;
@@ -16,7 +16,7 @@ if((Get-Alias Archive).Definition -ne "D:\a\XmlPSProfile\XmlPSProfile\Functions\
 else{Write-Host " [PASSED]" -ForegroundColor Green;}
 
 Write-Host "   - Testing Alias 'Get-Calendar'" -NoNewline;
-if((Get-Alias Get-Calendar).Definition -ne "D:\a\XmlPSProfile\XmlPSProfile\Functions\Calendar.ps1")
+if((Get-Alias Get-Calendar).Definition -ne "D:\a\xPro\xPro\Functions\Calendar.ps1")
 {
    Write-Host " [FAILED]" -ForegroundColor Red;
    $RETURNVALUE = 1;

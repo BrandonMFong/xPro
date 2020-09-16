@@ -10,7 +10,7 @@ Write-Host `n -NoNewline;
 Write-Host " - Goto test on ConfigDir config" -NoNewline;
 
 # If we are on github's VM
-if($PSScriptRoot -eq "D:\a\XmlPSProfile\XmlPSProfile\Tests\Scripts\Functions")
+if($PSScriptRoot -eq "D:\a\xPro\xPro\Tests\Scripts\Functions")
 {
    try{Goto1 ConfigDir1 -push;}
    catch
@@ -18,7 +18,7 @@ if($PSScriptRoot -eq "D:\a\XmlPSProfile\XmlPSProfile\Tests\Scripts\Functions")
       Write-Host " [FAILED]" -ForegroundColor Red;
       $RETURNVALUE = 1;
    }
-   if((Get-Location).Path -eq 'D:\a\XmlPSProfile\XmlPSProfile\Config')
+   if((Get-Location).Path -eq 'D:\a\xPro\xPro\Config')
    {
        Write-Host " [PASSED]" -ForegroundColor Green;
        Pop-Location;
@@ -32,7 +32,7 @@ else
       Write-Host " [FAILED]" -ForegroundColor Red;
       $RETURNVALUE = 1;
    }
-   if((Get-Location).Path -eq 'B:\XmlPSProfile\Config')
+   if((Get-Location).Path -eq 'B:\SOURCE\Repo\XmlPSProfile\Config') # Good to be this way because it is local 
    {
        Write-Host " [PASSED]" -ForegroundColor Green;
        Pop-Location;

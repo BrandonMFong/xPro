@@ -684,7 +684,7 @@ class Day
         else
         {
             Push-Location $PSScriptRoot;
-                [xml]$xml = Get-Content $("..\Config\" + $env:COMPUTERNAME.ToString() + ".xml");
+                [xml]$xml = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);
             Pop-Location;
             foreach($x in $xml.Machine.Calendar.SpecialDays.SpecialDay)
             {

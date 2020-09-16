@@ -7,12 +7,15 @@
         "CalendarCache":"\\Cache\\Calendar",
         "gitCache":"\\Cache\\git",
         "GreetingsCache":"\\Cache\\Greetings",
-        "CalendarFileEventImport":"\\Resources\\Calendar"
+        "CalendarFileEventImport":"\\Resources\\Calendar",
+        "Classes":"\\Classes"
     },
     "Files":{
         "Debug":"\\Tests\\Debug.ps1",
         "Greetings":".\\Functions\\Greetings.ps1",
         "SessionCache":"\\Cache\\Session\\CachedDir.txt",
-        "plistConfig":"\\Config\\iTunes\\plistBaseConfig.json"
+        "plistConfig":"\\Config\\iTunes\\plistBaseConfig.json",
+        "CalendarClassMod":"\\Classes\\CALENDAR.psm1"
+        
     }
 }

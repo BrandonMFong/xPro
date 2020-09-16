@@ -188,6 +188,19 @@
       </Connection>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
+    <!-- 5.0 GHz -->
+    <Network>
+      <!-- \\Tataki\notebook -->
+      <!-- TODO configure on Tataki -->
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <ID>notebook</ID>
+        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
+      </Connection>
+      <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
+    </Network>
   </Networks>
   <!-- Functions -->
   <Functions>

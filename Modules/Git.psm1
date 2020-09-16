@@ -186,7 +186,7 @@ function GitRebasePush
 }
 function Squash-Branch
 {
-    Param([Switch]$Force,[Switch]$Push)
+    Param([Switch]$Force,[Switch]$Push,[Switch]$Allow)
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
     [string]$CurrentBranch = $null;
@@ -211,7 +211,7 @@ function Squash-Branch
     # In order for this to be squashed, I have to initially rule it to be
     # This is an intitiative for autotag
     # I need a system to make things automatic
-    if(!$TargetBranch.Contains($CurrentBranch)){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch)";}
+    if(!$TargetBranch.Contains($CurrentBranch) -and !$Allow){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch)";}
 
     [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)`n`n";
 

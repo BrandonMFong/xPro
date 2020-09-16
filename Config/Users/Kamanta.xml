@@ -440,6 +440,14 @@
                   <!-- PI value -->
                   <Value ColumnName="PersonalInfoID">135</Value>
                 </Row>
+                <Row>
+                  <Value ColumnName="ExternalID">Pw_Ieee</Value>
+                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
+                  <!-- Private name -->
+                  <Value ColumnName="Hash">386406f4-75d6-4ab0-b97b-ca19ac602573</Value>
+                  <!-- PI value -->
+                  <Value ColumnName="PersonalInfoID">116</Value>
+                </Row>
               </Rows>
             </Table>
           </Tables>

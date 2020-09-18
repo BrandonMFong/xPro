@@ -293,6 +293,7 @@
     <Program Alias="balenaEtcher" SecType="public">C:\Users\fongm\AppData\Local\Programs\balena-etcher\balenaEtcher.exe</Program>
     <Program Alias="vs" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
     <Program Alias="edge" SecType="public">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Program>
+    <Program Alias="moba" SecType="public">B:\PROGRAMFILES\MobaXterm_Portable_v20.3\MobaXterm_Personal_20.3.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -576,7 +577,6 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Fail2BanAndApacheConfig-StartFrom-ufw</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04</Value>
-
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

@@ -52,6 +52,7 @@
         <CommitType>Problem 2</CommitType>
         <CommitType>Problem 3</CommitType>
         <CommitType>Problem 4</CommitType>
+        <CommitType>Problem 5</CommitType>
       </CommitTypes>
     </Repository>
   </GitSettings>

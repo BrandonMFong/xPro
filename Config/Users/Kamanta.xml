@@ -653,6 +653,8 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/lecture_series/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Farid</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/users/f/farahman/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">FaridZoom</Key>
+      <Value Lvl="1" Node="bd78" SecType="private">7b00c34b-495c-43f6-8995-696305749662</Value>
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />

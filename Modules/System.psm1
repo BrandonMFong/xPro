@@ -93,10 +93,20 @@ function Get-Size
 # This clears ALL cache
 function Clear-Cache
 {
-    Param([ValidateSet("git","Greetings","Calendar")][String]$CacheType)
+    Param([ValidateSet("git","Greetings","Calendar")][String]$CacheType,[switch]$CurrentDir)
     switch($CacheType)
     {
-        "git"{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.gitCache) -Recurse -Force;}
+        "git"
+        {
+            # Use if you want to refresh current directory cache
+            # Purpose is to refresh the directory if the directory became a git from a regular dir
+            if($CurrentDir)
+            {
+                [string]$ParsedDirectory = (Get-Location).Path.ToString().Replace("\",".").Replace(":","");
+                Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.gitCache + "\" + $ParsedDirectory) -Recurse -Force;
+            }
+            else{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.gitCache) -Recurse -Force;}
+        }
         "Greetings"{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.GreetingsCache) -Recurse -Force;}
         "Calendar"{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache) -Recurse -Force;}
         default{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserCache + "\*") -Recurse -Force;}

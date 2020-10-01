@@ -46,6 +46,15 @@
         <CommitType>Tests Scripts</CommitType>
       </CommitTypes>
     </Repository>
+    <Repository FilePath="B:\COLLEGE\20_21\Fall20\CES400\Projects\Project1">
+      <CommitTypes>
+        <CommitType>Problem 1</CommitType>
+        <CommitType>Problem 2</CommitType>
+        <CommitType>Problem 3</CommitType>
+        <CommitType>Problem 4</CommitType>
+        <CommitType>Problem 5</CommitType>
+      </CommitTypes>
+    </Repository>
   </GitSettings>
   <!-- Email settings -->
   <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
@@ -188,6 +197,19 @@
       </Connection>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
+    <!-- 5.0 GHz -->
+    <Network>
+      <!-- \\Tataki\notebook -->
+      <!-- TODO configure on Tataki -->
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <ID>notebook</ID>
+        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
+      </Connection>
+      <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
+    </Network>
   </Networks>
   <!-- Functions -->
   <Functions>
@@ -224,6 +246,9 @@
       ]]></Function>
     <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
+    <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function> 
+    <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function> 
+    <Function><![CDATA[ function global:Zoom-CES400{chrome $College.SONOMA.Classes.CES400.Zoom}]]></Function> 
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -280,6 +305,8 @@
     <Program Alias="balenaEtcher" SecType="public">C:\Users\fongm\AppData\Local\Programs\balena-etcher\balenaEtcher.exe</Program>
     <Program Alias="vs" SecType="public">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Program>
     <Program Alias="edge" SecType="public">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Program>
+    <Program Alias="moba" SecType="public">B:\PROGRAMFILES\MobaXterm_Portable_v20.3\MobaXterm_Personal_20.3.exe</Program>
+    <Program Alias="matlab" SecType="public">C:\Program Files\MATLAB\R2020b\bin\matlab.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -563,7 +590,6 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Fail2BanAndApacheConfig-StartFrom-ufw</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04</Value>
-
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />
@@ -630,6 +656,8 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/lecture_series/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Farid</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/users/f/farahman/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">FaridZoom</Key>
+      <Value Lvl="1" Node="bd78" SecType="private">7b00c34b-495c-43f6-8995-696305749662</Value>
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />

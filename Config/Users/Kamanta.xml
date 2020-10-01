@@ -246,6 +246,9 @@
       ]]></Function>
     <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
+    <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function> 
+    <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function> 
+    <Function><![CDATA[ function global:Zoom-CES400{chrome $College.SONOMA.Classes.CES400.Zoom}]]></Function> 
   </Functions>
   <!-- Modules -->
   <Modules>

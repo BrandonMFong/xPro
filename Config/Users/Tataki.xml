@@ -252,6 +252,11 @@
         </SQL>
       </Class>
     </Object>
+    <!-- $Math -->
+    <Object Type="PowerShellClass">
+      <VarName SecType="public">Math</VarName>
+      <Class ClassName="Calculations" HasParams="true" />
+    </Object>
     <!-- $Calendar -->
     <Object Type="PowerShellClass">
       <VarName SecType="public">Calendar</VarName>

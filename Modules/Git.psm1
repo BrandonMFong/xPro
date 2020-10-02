@@ -186,7 +186,7 @@ function GitRebasePush
 }
 function Squash-Branch
 {
-    Param([Switch]$Force,[Switch]$Push,[Switch]$Allow)
+    Param([Switch]$Force,[Switch]$Push,[Switch]$Allow,[Alias('D')][Switch]$Delete)
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}
     [string]$CurrentBranch = $null;
@@ -240,10 +240,9 @@ function Squash-Branch
 
     git commit -F $($gitfile); # Commit
 
-    if($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -eq "y")
-    {
-        git branch -D $TargetBranch;
-    }
+    if(($(Read-Host -Prompt "Delete $($TargetBranch)? (y/n)") -eq "y") -or $D){git branch -D $TargetBranch;}
+    if(($(Read-Host -Prompt "Delete remote $($TargetBranch)? (y/n)") -eq "y") -or $D){git push origin --delete $TargetBranch;}
+
     if($Push){GitRebasePush -Tags:$([string]::IsNullOrEmpty($Tag));}
 }
 

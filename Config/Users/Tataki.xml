@@ -80,6 +80,14 @@
       <LANConfig>848F4650-3132-4780-B1D4-D99107E70953</LANConfig>
     </Network>
   </Networks>
+  <!-- Search links for command line web site calls -->
+  <Searches>
+    <Search Type="Google" Placeholder="||s||">https://google.com/search?q=||s||</Search>
+    <Search Type="Dictionary" Placeholder="||s||">https://www.dictionary.com/browse/||s||</Search>
+    <Search Type="Youtube" Placeholder="||s||">https://youtube.com/results?search_query=||s||</Search>
+    <Search Type="Facebook" Placeholder="||s||">https://www.facebook.com/search/top/?q=||s||&amp;epa=SEARCH_BOX</Search>
+    <Search Type="Maps" Placeholder="||s||">https://www.google.com/maps/search/||s||</Search>
+  </Searches>
   <Functions>
     <Function><![CDATA[ function global:Open-Mail{explorer.exe shell:AppsFolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
   </Functions>
@@ -91,6 +99,7 @@
     <Module>.\Modules\Git.psm1</Module>
     <Module>.\Modules\Sound.psm1</Module>
     <Module>.\Modules\Network.psm1</Module>
+    <Module>.\Modules\Search.psm1</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

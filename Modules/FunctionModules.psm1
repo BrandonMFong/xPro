@@ -143,7 +143,12 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
                 Pop-Location;
                 return $path;
             }
-            else{return $(Get-ChildItem $value.InnerText).Fullname;}
+            else
+            {
+                # TODO figure out how to fix this 
+                # What if the file does not exist? 
+                return $(Get-ChildItem $value.InnerText).Fullname;
+            }
         }
         else{return $(Get-Variable $value.InnerText.Replace('$','')).Value;} # Else return the variable
     }

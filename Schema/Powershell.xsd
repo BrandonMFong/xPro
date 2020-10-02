@@ -451,6 +451,28 @@
                         </xsd:sequence>
                     </xsd:complexType>                    
                 </xsd:element>
+
+                <xsd:element name="Searches" minOccurs="0" maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Search" minOccurs="1" maxOccurs="unbounded">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        Must be a valid URL link.  Be sure to input the placeholder and note it down on the attribute
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:extension base="xsd:string">
+                                            <xsd:attribute name="Type" type="xsd:string"/>
+                                            <xsd:attribute name="Placeholder" type="xsd:string"/>
+                                        </xsd:extension>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
                 
                 <xsd:element name="Lists" minOccurs="0" maxOccurs="1">
                     <xsd:complexType>

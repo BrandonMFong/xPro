@@ -66,7 +66,7 @@ catch # FAILURE
 # Is the cache file created
 Write-Host " - Is Calendar cached" -NoNewline;
 
-[string]$FileName = $o.Today.DateString + "_0";
+[string]$FileName = $o.Today.DateString + "_0.IsToday_True";
 if(!(Test-Path $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\" + $FileName + ".txt")))
 {
    Write-Host " [FAILED]" -ForegroundColor Red;

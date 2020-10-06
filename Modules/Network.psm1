@@ -174,6 +174,7 @@ function GetBaseIP
 }
 
 
+# Is this something I need to cache? 
 function Get-Wifi
 {
     [string[]]$o = $(Netsh WLAN show interfaces); # Get wifi info

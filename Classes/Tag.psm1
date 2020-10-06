@@ -12,4 +12,5 @@ class Tag
     [string]$gitbranch = "@gitbranch";
     [string]$admin = "@admin";
     [string]$stamp = "@stamp";
+    [string]$wlan = "@wlan";
 }

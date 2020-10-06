@@ -150,6 +150,14 @@ function _Replace
             if(![string]::IsNullOrEmpty($time)){$OutString.Value = $OutString.Value.Replace($tag.stamp,$time);}
             else{$OutString.Value = $OutString.Value.Replace($tag.stamp,"");}
         }
+    
+        # Wlan Connection
+        if($OutString.Value.Contains($tag.wlan))
+        {
+            Import-Module $PSScriptRoot\Network.psm1 -DisableNameChecking; # Just in case the user didn't import this
+            [string]$SSIDName = Get-Wifi; # Returns the name of the network
+            $OutString.Value = $OutString.Value.Replace($tag.wlan,$SSIDName);
+        }
     }
     catch 
     {

@@ -12,7 +12,7 @@
       <Time>hh:mm:ss tt</Time>
     </Format>
     <Header Enabled="True">
-      <String>@admin[@date @time, @batteryperc%] {Study: @stamp} @gitbranch @fulldir</String>
+      <String>@admin[@date @time, @batteryperc% NET=@wlan] {Study: @stamp} @gitbranch @fulldir</String>
     </Header>
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>

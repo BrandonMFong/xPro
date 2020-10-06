@@ -180,7 +180,7 @@ function Get-Wifi
 
     [string]$SSIDRow = $null;
     for([int16]$i = 0;$i -lt $o.Count;$i++){if($o[$i].Contains("  SSID")){$SSIDRow = $o[$i];}} # find the row 
-    if([string]::IsNullOrEmpty($SSIDRow)){throw "Something went wrong";}
+    if([string]::IsNullOrEmpty($SSIDRow)){return $null;} # No wifi connection 
 
     [string]$SSIDName = $null;
     for([int16]$i = 0;$i -lt $SSIDRow.Length;$i++)

@@ -119,7 +119,7 @@
     <Program Alias="vc-powershell" SecType="public">D:\XmlPSProfile\VC-Powershell.code-workspace</Program>
     <Program Alias="vc-notebook" SecType="public">D:\NOTEBOOK\BOOKS\BrandonMFong\vc-notebook.code-workspace</Program>
     <Program Alias="rs" SecType="public">Restart-Session</Program>
-    <Program Alias="search" SecType="public">D:\XmlPSProfile\Functions\Search.ps1</Program>
+    <!-- <Program Alias="search" SecType="public">D:\XmlPSProfile\Functions\Search.ps1</Program> -->
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="Get-Info" SecType="public">D:\XmlPSProfile\Functions\GetPCInfo.ps1</Program>

@@ -13,6 +13,7 @@ class Calendar
     hidden [string]$EventConfig = "XML";
     hidden [string]$ResourceDir = $($PSScriptRoot + "\..\Resources\Calendar\");  
 
+    # Today's date is already initialized outside of the constructor
     Calendar([String]$EventsFile,[string]$EventConfig,[string]$TimeStampFilePath,[string]$FirstDayOfWeek)
     {
         $this.PathToImportFile = $Global:AppJson.Directories.CalendarFileEventImport + $EventsFile;
@@ -27,8 +28,10 @@ class Calendar
         $this.MakeNecessaryDirectories();
         $this.LoadThisWeek();
         $this.InsertEvents();
+        $this.WriteMonth(); # Write the cache when new object is created
     }
 
+    # using this to define the structure of the week 
     hidden [void]LoadThisWeek()
     {
         # This can potential better the WriteWeek algorithm
@@ -59,29 +62,22 @@ class Calendar
 
     hidden [void] Reset(){$this.WeeksLoaded = $false;}
 
-    [void] GetCalendarMonth() 
+    [void] GetMonth(){$this.GetMonth($null);}
+
+    [void] GetMonth([string]$MonthString) 
     {
-        $this.GetNow();
-        $this.WriteMonth();
+        if([string]::IsNullOrEmpty($MonthString)){$this.GetNow();}
+        else{$this.GetNow($this.GetMonthNum($MonthString));}
+        
+        $this.WriteMonth(); # Writes into cache file
+        $this.PrintMonth(); # Prints it out to host terminal
     }
 
-    [void] GetCalendarMonth([string]$MonthString) 
-    {
-        $this.GetNow($this.GetMonthNum($MonthString));
-        $this.WriteMonth();
-    }
-
+    # This already checks if the cache fiel exists
     hidden [Void] WriteMonth()
     {
-        [String]$BaseName = $this.Today.DateString; 
-
-        # Get parameters for query 
-        [string]$mindate = $this.Today.Month.ToString() + "/" + 1 + "/" + $this.Today.Year.ToString();
-        [string]$maxdate = $this.Today.Month.ToString() + "/" + $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month)).ToString() + "/" + $this.Today.Year.ToString();
-        [int16]$NumEvents = $this.GetNumberOfEvents($mindate, $maxdate); # execute query 
-        
-        [String]$CalFilePath = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName)_$($NumEvents).txt"; # make cache file name 
-        if(!$(Test-Path $CalFilePath))
+        [String]$CalFilePath = $this.GetCacheFileName(); # make cache file name 
+        if(!$(Test-Path $CalFilePath)) # if file exists and it isn't empty 
         {
             New-Item $CalFilePath -Force | Out-Null;
             Add-Content $CalFilePath $this.GetHeaderString();
@@ -94,13 +90,31 @@ class Calendar
                 $i++;
             }
         }
-        # right now there is no way of catting this file
-        [string[]]$o = Get-Content $CalFilePath; # Get the contents of the file and write them out 
-        for([int16]$i = 0;$i -lt $o.Count;$i++)
-        {
-            Write-Host $o[$i];
-        }
     }
+
+    hidden [Void] PrintMonth()
+    {
+        [string[]]$o = Get-Content $this.GetCacheFileName(); # Get the contents of the file and write them out 
+        for([int16]$i = 0;$i -lt $o.Count;$i++){Write-Host $o[$i];}
+    }
+    
+    hidden [String] GetCacheFileName()
+    {
+        [String]$BaseName = $null;
+        [String]$NumEvents = $null;
+        $BaseName = $this.Today.DateString; 
+        # Get parameters for query 
+        [string]$mindate = $this.Today.Month.ToString() + "/" + 1 + "/" + $this.Today.Year.ToString();
+        [string]$maxdate = $this.Today.Month.ToString() + "/" + $this.GetMaxDayOfMonth($this.MonthToString($this.Today.Month)).ToString() + "/" + $this.Today.Year.ToString();
+        $NumEvents = $this.GetNumberOfEvents($mindate, $maxdate); # execute query 
+
+        # Consider the case where I called a calendar in the previous month
+        # I need to make sure that when I am actually in that month in time, I load the cached file with the asterisks pointing at the current day
+        [string]$IsToday = $this.Today.IsToday().ToString(); 
+
+        return $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.CalendarCache + "\$($BaseName)_$($NumEvents).IsToday_$($IsToday).txt");
+    }
+
 
     # This is assuming that a Database is configured
     # Since I am mainly runing this on the runner from github, it will never have a db configured 
@@ -121,19 +135,17 @@ class Calendar
         [String]$MonthYearDisplay = "$($this.MonthToString($this.Today.Month)) $($this.Today.Year)";
         [String]$Header = $this.ThisWeek.ToHeader();
         [String]$Dashes = "--  --  --  --  --  --  --";
-        # Not writing into file.  Let's let the GetCalendarMonth method do that
+        # Not writing into file.  Let's let the GetMonth method do that
         return "$($MonthYearDisplay)`n$($Header)`n$($Dashes)";
     }
 
-    hidden GetNow(){$this.UpdateDay();}
+    hidden GetNow(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
 
     hidden GetNow([byte]$m)
     {
         if($(Get-Date).Month -ne $m){$this.WeeksLoaded = $false;} # for the case m is for a different month
         $this.Today = [Day]::new($(Get-Date $($m.ToString() + "/1/" + (Get-Date).Year.ToString())),$null);
     }
-
-    hidden [Void]UpdateDay(){$this.Today = [Day]::new($(Get-Date),$this.EventConfig)}
 
     [int]GetMaxDayOfMonth([string]$Month) #Of the current year
     {
@@ -644,7 +656,7 @@ class Day
     [string]$DayOfWeek
     [string]$DateString;
     hidden $SQL;
-    [string]$EventConfig;
+    [string]$EventConfig = $null; # Determines how to see if date is special day
 
     Day([DateTime]$Date,$EventConfig)
     {
@@ -661,6 +673,8 @@ class Day
             else{$this.SQL = $null;}
         }
     }
+
+    [boolean]IsToday(){return $this.IsEqual([Day]::new($(Get-Date),$null));} # returns true if this day object is actually holding today's datetime data
 
     [string]GetAbbreviation(){return "$($this.DayOfWeek.ToLower().SubString(0,2))  ";}
 

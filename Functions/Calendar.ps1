@@ -47,19 +47,19 @@ else
     Write-Host "`n";
     switch ($month)
     {
-        "January"{$var.GetCalendarMonth("January");break;}
-        "February"{$var.GetCalendarMonth("February");break;}
-        "March"{$var.GetCalendarMonth("March");break;}
-        "April"{$var.GetCalendarMonth("April");break;}
-        "May"{$var.GetCalendarMonth("May");break;}
-        "June"{$var.GetCalendarMonth("June");break;}
-        "July"{$var.GetCalendarMonth("July");break;}
-        "August"{$var.GetCalendarMonth("August");break;}
-        "September"{$var.GetCalendarMonth("September");break;}
-        "October"{$var.GetCalendarMonth("October");break;}
-        "November"{$var.GetCalendarMonth("November");break;}
-        "December"{$var.GetCalendarMonth("December");break;}
-        default{$var.GetCalendarMonth();break;}
+        "January"{$var.GetMonth("January");break;}
+        "February"{$var.GetMonth("February");break;}
+        "March"{$var.GetMonth("March");break;}
+        "April"{$var.GetMonth("April");break;}
+        "May"{$var.GetMonth("May");break;}
+        "June"{$var.GetMonth("June");break;}
+        "July"{$var.GetMonth("July");break;}
+        "August"{$var.GetMonth("August");break;}
+        "September"{$var.GetMonth("September");break;}
+        "October"{$var.GetMonth("October");break;}
+        "November"{$var.GetMonth("November");break;}
+        "December"{$var.GetMonth("December");break;}
+        default{$var.GetMonth();break;}
     }
     Write-Host "`n";
 }

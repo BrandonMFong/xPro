@@ -50,7 +50,7 @@ else{Write-Host " [PASSED]" -ForegroundColor Green;}
 Write-Host " - Print Calendar`n";
 try 
 {
-   $o.GetCalendarMonth();
+   $o.GetMonth();
    Write-Host "`n   - Print result" -NoNewline;
    Write-Host " [PASSED]" -ForegroundColor Green;
 }

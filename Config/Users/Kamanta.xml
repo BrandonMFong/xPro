@@ -254,9 +254,9 @@
       ]]></Function>
     <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
-    <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function> 
-    <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function> 
-    <Function><![CDATA[ function global:Zoom-CES400{chrome $College.SONOMA.Classes.CES400.Zoom}]]></Function> 
+    <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function>
+    <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function>
+    <Function><![CDATA[ function global:Zoom-CES400{chrome $College.SONOMA.Classes.CES400.Zoom}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -284,6 +284,7 @@
     <Directory Alias="ces543" SecType="public">B:\COLLEGE\20_21\Fall20\CES543</Directory>
     <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
     <Directory Alias="life" SecType="public">B:\LIFE</Directory>
+    <Directory Alias="Code" SecType="public">B:\CODE</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -293,7 +294,8 @@
     <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
     <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
-    <!-- <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program> --> <!-- ERROR HERE, WRITE BUG FIX -->
+    <!-- <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program> -->
+    <!-- ERROR HERE, WRITE BUG FIX -->
     <Program Alias="umount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
     <Program Alias="Query" SecType="public">$PSScriptRoot\..\Functions\Query.ps1</Program>
     <Program Alias="chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
@@ -594,11 +596,6 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.ssls.com/knowledgebase/how-to-install-an-ssl-certificate-on-apache/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">RPiTeleIP</Key>
       <Value Lvl="1" Node="Misc" SecType="public">http://www.littlebytesofpi.com/raspberrypihomephone/</Value>
-      <!-- where i left off -->
-      <Key Lvl="1" Node="Misc" SecType="public">Fail2ban-ThisFirst</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">Fail2BanAndApacheConfig-StartFrom-ufw</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

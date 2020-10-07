@@ -285,6 +285,7 @@
     <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
     <Directory Alias="life" SecType="public">B:\LIFE</Directory>
     <Directory Alias="Code" SecType="public">B:\CODE</Directory>
+    <Directory Alias="job" SecType="public">B:\JOB</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

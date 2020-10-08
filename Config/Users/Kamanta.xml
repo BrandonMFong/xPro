@@ -55,6 +55,16 @@
         <CommitType>Problem 5</CommitType>
       </CommitTypes>
     </Repository>
+    <Repository FilePath="B:\SOURCE\Repo\Site">
+      <CommitTypes>
+        <CommitType>PHP</CommitType>
+        <CommitType>JS</CommitType>
+        <CommitType>CSS</CommitType>
+        <CommitType>XML</CommitType>
+        <CommitType>Schema</CommitType>
+        <CommitType>Script</CommitType>
+      </CommitTypes>
+    </Repository>
   </GitSettings>
   <!-- Email settings -->
   <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
@@ -197,7 +207,7 @@
       </Connection>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
-    <!-- 5.0 GHz -->
+    <!-- Maki -->
     <Network>
       <!-- \\Tataki\notebook -->
       <!-- TODO configure on Tataki -->
@@ -208,7 +218,7 @@
         <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
         <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
       </Connection>
-      <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
+      <LANConfig>2276A6AA-CFC3-489F-A607-737823526C7D</LANConfig>
     </Network>
   </Networks>
   <!-- Search links for command line web site calls -->
@@ -319,6 +329,7 @@
     <Program Alias="edge" SecType="public">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Program>
     <Program Alias="moba" SecType="public">B:\PROGRAMFILES\MobaXterm_Portable_v20.3\MobaXterm_Personal_20.3.exe</Program>
     <Program Alias="matlab" SecType="public">C:\Program Files\MATLAB\R2020b\bin\matlab.exe</Program>
+    <Program Alias="xampp" SecType="public">C:\xampp\xampp-control.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -651,6 +662,8 @@
       <Value Lvl="0" SecType="public" NodePointer="bd78" />
       <Key Lvl="1" Node="bd78" SecType="public">URL</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">MSCES</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/msces/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Username</Key>
       <Value Lvl="1" Node="bd78" SecType="private">df336efa-5d62-46c8-abb1-3b7b8f1e887f</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Password</Key>

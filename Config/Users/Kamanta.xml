@@ -664,6 +664,8 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">MSCES</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/msces/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">Database</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">https://libguides.sonoma.edu/c.php?g=202705&amp;p=1336729</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Username</Key>
       <Value Lvl="1" Node="bd78" SecType="private">df336efa-5d62-46c8-abb1-3b7b8f1e887f</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Password</Key>

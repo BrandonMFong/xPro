@@ -231,7 +231,7 @@
   </Searches>
   <!-- Functions -->
   <Functions>
-    <Function><![CDATA[function global:VC-Powershell{code B:\SOURCE\Repo\xPro\VC-Powershell.code-workspace}]]></Function>
+    <!-- <Function><![CDATA[function global:VC-Powershell{code B:\SOURCE\Repo\xPro\VC-Powershell.code-workspace}]]></Function> -->
     <Function><![CDATA[function global:VC-Notebook{code N:\BOOKS\BrandonMFong\vc-notebook.code-workspace}]]></Function>
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
@@ -332,6 +332,7 @@
     <Program Alias="xampp" SecType="public">C:\xampp\xampp-control.exe</Program>
     <Program Alias="WinSCP" SecType="public">C:\Program Files (x86)\WinSCP\WinSCP.exe</Program>
     <Program Alias="Soffice" SecType="public">C:\Program Files (x86)\OpenOffice 4\program\soffice.exe</Program>
+    <Program Alias="vc-powershell" SecType="public">B:\SOURCE\Repo\xPro\VC-Powershell.code-workspace</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

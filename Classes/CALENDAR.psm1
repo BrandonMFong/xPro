@@ -352,6 +352,14 @@ class Calendar
         }
     }
 
+
+    # I need to check if there was a time stamp Login that wasn't logged out
+    # Choices:
+        # 1 I can apply a time out time stamp that closes that time stamp duration
+        # 2 I can not apply a time in if there is already existing time in that was not timed out
+    # Reasoning: I prefer 1 because there is almost never a time where I am recording my study/work time for more than 24 hours and over a course of two days
+        # how do I account for an open ended time stamp that was inputted n days ago?
+            # Instead of counting for timestamps in a day, I can do it in total 
     hidden [void]TimeStamp([string]$TypeContentExternalID,[string]$TypeString)
     {
         [string]$insertquery = $null;
@@ -379,12 +387,15 @@ class Calendar
         # I can handle this in the query
         $this.SQL.QueryConstructor("Insert",[ref]$insertquery,$tablename,$values); # constucts
         [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\TimeStamp.sql)";
+        [string]$AutoTimeOutquerystring = "$(Get-Content $PSScriptRoot\..\SQL\AutoTimeOut.sql)";
         $querystring = $querystring.Replace("@insertquery",$insertquery);
-        $querystring = $querystring.Replace("@CalendarExtID",$CalendarExtID);
+        $querystring = $querystring.Replace("@AutoTimeOutQuery",$AutoTimeOutquerystring); # closes open ended time in stamps from days before 
         $querystring = $querystring.Replace("@TCExterID",$TypeContentExternalID);
         $this.SQL.QueryNoReturn($querystring);
     }
 
+    # Powershell should only worry about creating the query to input the individual time stamp
+    # SQL can be responsible for maintaining valid data, possible making this robust
     [void]TimeIn(){$this.TimeStamp('TimeStampIn','TIME IN')}
     [void]TimeOut(){$this.TimeStamp('TimeStampOut','TIME OUT')}
 
@@ -483,18 +494,6 @@ class Calendar
             $global:LogHandler.WriteError($_);
             throw $e;
         }
-    }
-
-    [void]FixTimeStamp()
-    {
-        Write-Warning "This will insert a time out stamp based on the last null pair.";
-        if('y' -eq $(Read-Host -Prompt 'Do you want to continue?'))
-        {
-            [string]$querystring = "$(Get-Content $PSScriptRoot\..\SQL\FixTimeStamp.sql)";
-            $this.SQL.QueryNoReturn($querystring);
-            Write-Host "Query executed.";
-        }
-        else{Write-Host "Not executing.";}
     }
 
     # I can implement the calendar to adjust first day of week using these indexes

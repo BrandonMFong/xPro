@@ -223,9 +223,9 @@
   </Networks>
   <!-- Search links for command line web site calls -->
   <Searches>
-    <Search Type="Google" Placeholder="||s||">https://google.com/search?q=||s||</Search>
+    <Search Type="g" Placeholder="||s||">https://google.com/search?q=||s||</Search>
     <Search Type="Dictionary" Placeholder="||s||">https://www.dictionary.com/browse/||s||</Search>
-    <Search Type="Youtube" Placeholder="||s||">https://youtube.com/results?search_query=||s||</Search>
+    <Search Type="y" Placeholder="||s||">https://youtube.com/results?search_query=||s||</Search>
     <Search Type="Facebook" Placeholder="||s||">https://www.facebook.com/search/top/?q=||s||&amp;epa=SEARCH_BOX</Search>
     <Search Type="Maps" Placeholder="||s||">https://www.google.com/maps/search/||s||</Search>
   </Searches>

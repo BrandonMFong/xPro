@@ -37,7 +37,7 @@
   </ShellSettings>
   <!-- Git Settings -->
   <GitSettings>
-    <Repository FilePath="B:\SOURCE\Repo\XmlPSProfile">
+    <Repository FilePath="B:\SOURCE\Repo\xPro">
       <CommitTypes>
         <CommitType>Code</CommitType>
         <CommitType>Config</CommitType>
@@ -231,7 +231,7 @@
   </Searches>
   <!-- Functions -->
   <Functions>
-    <Function><![CDATA[function global:VC-Powershell{code B:\SOURCE\Repo\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
+    <Function><![CDATA[function global:VC-Powershell{code B:\SOURCE\Repo\xPro\VC-Powershell.code-workspace}]]></Function>
     <Function><![CDATA[function global:VC-Notebook{code N:\BOOKS\BrandonMFong\vc-notebook.code-workspace}]]></Function>
     <Function><![CDATA[function global:Open-Clock{explorer.exe shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-Mail {explorer.exe shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail}]]></Function>
@@ -283,7 +283,7 @@
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="main" SecType="public">B:\</Directory>
-    <Directory Alias="pow" SecType="public">B:\SOURCE\Repo\XmlPSProfile</Directory>
+    <Directory Alias="pow" SecType="public">B:\SOURCE\Repo\xPro</Directory>
     <Directory Alias="dl" SecType="public">B:\DOWNLOADS</Directory>
     <Directory Alias="col" SecType="public">B:\COLLEGE</Directory>
     <Directory Alias="fpga" SecType="public">B:\SOURCE\Repo\FPGAClock</Directory>

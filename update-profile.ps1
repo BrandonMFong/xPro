@@ -3,23 +3,21 @@ Param([bool]$ForceUpdate=$false)
 [boolean]$Updated = $false;
 
 Push-Location $PSScriptRoot
-    Get-ChildItem .\Profile.ps1 | ForEach-Object{[String]$ProfPath = $_.FullName;}
+    [String]$ProfPath = $(Get-ChildItem .\Profile.ps1).FullName; # Get full file path to profile script in repo
 
     Push-Location $($PROFILE |Split-Path -Parent);
-        Get-ChildItem $($PROFILE | Split-Path -Leaf) |
-            ForEach-Object {[datetime]$PSProfile = $_.LastWriteTime}   
+        [datetime]$PSProfile = $(Get-ChildItem $($PROFILE | Split-Path -Leaf)).LastWriteTime; # Timestamp for msprofile script
     Pop-Location;
 
     Push-Location $x.Machine.GitRepoDir;
-        Get-ChildItem .\Profile.ps1|
-            foreach-Object {[datetime]$GitProfile = $_.LastWriteTime}   
+        [datetime]$GitProfile = $(Get-ChildItem .\Profile.ps1).LastWriteTime; # Timestamp for repo profile script
     Pop-Location;
 
     if(($GitProfile -gt $PSProfile) -or ($ForceUpdate))
     {
         if(!$ForceUpdate)
         {
-            Write-Host  "`nThere is an update to GlobalScripts profile." -ForegroundColor Red
+            Write-Host  "`nThere is an update to $($Global:AppJson.RepoName) profile." -ForegroundColor Red
             $update = Read-Host -Prompt "Want to update? (y/n)";
         }
         if(($update -eq "y") -or ($ForceUpdate))

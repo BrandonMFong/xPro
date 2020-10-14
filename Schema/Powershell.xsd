@@ -453,6 +453,11 @@
                 </xsd:element>
 
                 <xsd:element name="Searches" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Must have the Modules\Search.psm1 imported
+                        </xsd:documentation>
+                    </xsd:annotation>
                     <xsd:complexType>
                         <xsd:sequence>
                             <xsd:element name="Search" minOccurs="1" maxOccurs="unbounded">

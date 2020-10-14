@@ -331,6 +331,7 @@
     <Program Alias="matlab" SecType="public">C:\Program Files\MATLAB\R2020b\bin\matlab.exe</Program>
     <Program Alias="xampp" SecType="public">C:\xampp\xampp-control.exe</Program>
     <Program Alias="WinSCP" SecType="public">C:\Program Files (x86)\WinSCP\WinSCP.exe</Program>
+    <Program Alias="Soffice" SecType="public">C:\Program Files (x86)\OpenOffice 4\program\soffice.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

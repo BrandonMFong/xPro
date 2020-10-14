@@ -16,3 +16,4 @@ Tests/Debug.ps1
 logs/User/*
 Cache/*
 Config/Wifi/*.xml
+debug.log

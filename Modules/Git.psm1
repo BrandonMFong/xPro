@@ -186,6 +186,16 @@ function GitRebasePush
 }
 function Squash-Branch
 {
+    <#
+    .PARAMETER Force
+        Bypass confirmation to squash 
+    .PARAMETER Push
+        Automatically push to remote after process is completed
+    .PARAMETER Allow
+        Allow other repos that are not following versioning process to use this function
+    .PARAMETER Delete
+        Delete branch and remote branch 
+    #>
     Param([Switch]$Force,[Switch]$Push,[Switch]$Allow,[Alias('D')][Switch]$Delete)
     [string[]]$branches = $(git branch);
     if([string]::IsNullOrEmpty($branches)){Write-Host "Not git tree." -ForegroundColor Gray; break;}

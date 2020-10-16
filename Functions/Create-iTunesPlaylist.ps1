@@ -79,4 +79,5 @@ $array.AppendChild($o); # set new playlist data
 [string]$SavePath = $($PlaylistFolder | Split-Path -Parent) + "\Exports\Export.xml";
 New-Item $SavePath -Force | Out-Null;
 $LibXmlReader.Save($SavePath);
+Write-Host "Saved in $($SavePath)" -ForegroundColor Gray;
 

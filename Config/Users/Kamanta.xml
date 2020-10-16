@@ -333,6 +333,8 @@
     <Program Alias="WinSCP" SecType="public">C:\Program Files (x86)\WinSCP\WinSCP.exe</Program>
     <Program Alias="Soffice" SecType="public">C:\Program Files (x86)\OpenOffice 4\program\soffice.exe</Program>
     <Program Alias="vc-powershell" SecType="public">B:\SOURCE\Repo\xPro\VC-Powershell.code-workspace</Program>
+    <Program Alias="grep" SecType="public">findstr</Program>
+    <Program Alias="ifconfig" SecType="public">ipconfig</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

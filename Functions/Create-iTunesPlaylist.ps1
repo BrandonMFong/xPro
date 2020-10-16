@@ -11,7 +11,7 @@
 Param
 (
     [Parameter(Mandatory)][String]$BaseXml, # Export the library from iTunes 
-    [Parameter(Mandatory)][String]$PlaylistFolder # The folder the playlist is already organized in
+    [Parameter(Mandatory)][String]$PlaylistFolder # The full path to the folder the playlist is already organized in (must already be imported into itunes)
 )
 
 [System.Xml.XmlDocument]$LibXmlReader = Get-Content $BaseXml; # Read the library playlist 

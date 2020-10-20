@@ -263,6 +263,13 @@
           Write-Host "Username: $($Bank.Chase.Username)";
         }
       ]]></Function>
+    <Function><![CDATA[
+        function global:Discord 
+        {
+          chrome $User.Discord;
+          $Bank.Chase.$Passwords.Discord|Scb;
+        }
+      ]]></Function>
     <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
     <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function>
@@ -482,28 +489,12 @@
               </Column>
               <Rows>
                 <Row>
-                  <Value ColumnName="ExternalID">Pw_Kaiser</Value>
+                  <Value ColumnName="ExternalID">PW_discord</Value>
                   <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
                   <!-- Private name -->
-                  <Value ColumnName="Hash">e3d4d89f-4643-4f3e-b6ec-a7e28d6b9bb9</Value>
+                  <Value ColumnName="Hash">d9952605-3ce6-417f-a6d8-05418792c978</Value>
                   <!-- PI value -->
-                  <Value ColumnName="PersonalInfoID">68</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Netgear_ip</Value>
-                  <Value ColumnName="Link">93966A26-7F75-4B48-9612-E8FD2354CA4B</Value>
-                  <!-- Private name -->
-                  <Value ColumnName="Hash">0b681f1e-8c03-47a5-a547-bb137bd546c3</Value>
-                  <!-- PI value -->
-                  <Value ColumnName="PersonalInfoID">135</Value>
-                </Row>
-                <Row>
-                  <Value ColumnName="ExternalID">Pw_Ieee</Value>
-                  <Value ColumnName="Link">34060702-DCB5-4603-9A25-69953240C008</Value>
-                  <!-- Private name -->
-                  <Value ColumnName="Hash">386406f4-75d6-4ab0-b97b-ca19ac602573</Value>
-                  <!-- PI value -->
-                  <Value ColumnName="PersonalInfoID">116</Value>
+                  <Value ColumnName="PersonalInfoID">164</Value>
                 </Row>
               </Rows>
             </Table>

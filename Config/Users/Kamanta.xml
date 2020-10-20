@@ -680,8 +680,15 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/users/f/farahman/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">FaridZoom</Key>
       <Value Lvl="1" Node="bd78" SecType="private">7b00c34b-495c-43f6-8995-696305749662</Value>
+      <!-- Hackathon -->
       <Key Lvl="1" Node="bd78" SecType="public">Hackathon</Key>
-      <Value Lvl="1" Node="bd78" SecType="public">https://docs.google.com/document/u/1/d/e/2PACX-1vSoZdG2YSPsEtawXJnYKJOsn27L2ftez70Ca6tAhft8WLVZHQE_9DzEIeb2izOIFvzIDDjxzc-AuOFa/pub</Value>
+      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="Hackathon" />
+      <Key Lvl="2" Node="Hackathon" SecType="public">Board</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://nodemcu.readthedocs.io/en/release/</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">AQI</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.airnow.gov/?city=Santa%20Rosa&amp;state=CA&amp;country=USA</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">googledocs</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://docs.google.com/document/u/1/d/e/2PACX-1vSoZdG2YSPsEtawXJnYKJOsn27L2ftez70Ca6tAhft8WLVZHQE_9DzEIeb2izOIFvzIDDjxzc-AuOFa/pub</Value>
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />

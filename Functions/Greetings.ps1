@@ -10,15 +10,17 @@ Param
 (
     [Parameter(Mandatory)][String]$string,
     [String]$Type=$null,
-    [switch]$SaveToFile=$false
+    [switch]$SaveToFile=$false,
+    [String]$CachePath=$($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.GreetingsCache)
 )
 
-[string]$DirectoryPath = $PSScriptRoot + "\..\Cache\Greetings\"; # Folder to save
+# [string]$CachePath = $PSScriptRoot + "\..\Cache\Greetings\"; # Folder to save
+# [string]$CachePath = $PSScriptRoot + "\..\Cache\Greetings\"; # Folder to save
 
 # Used as a flag to make sure we are updating the cached value if type has changed
 if([string]::IsNullOrEmpty($Type)){[string]$TypeString = ".Big"}
 else{[string]$TypeString = ".$Type";}
-[String]$FilePath = $DirectoryPath + $string + $TypeString + ".txt"; # Make path to save
+[String]$FilePath = $CachePath + "\" + $string + $TypeString + ".txt"; # Make path to save
 
 
 # How do I create the file regardless and still output the data
@@ -33,7 +35,7 @@ else
 
     # This directory is unique for XmlPsProfile repo
     # should change if user wants
-    if(!(Test-Path $($DirectoryPath))){mkdir $($DirectoryPath) | Out-Null;} # Make the directory 
+    if(!(Test-Path $($CachePath))){mkdir $($CachePath) | Out-Null;} # Make the directory 
 
     # By default the file will not save to the file
     if($SaveToFile)

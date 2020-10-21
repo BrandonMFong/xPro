@@ -344,6 +344,7 @@
     <Program Alias="grep" SecType="public">findstr</Program>
     <Program Alias="ifconfig" SecType="public">ipconfig</Program>
     <Program Alias="ltspice" SecType="public">C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe</Program>
+    <Program Alias="Get-Definition" SecType="public">B:\SOURCE\Repo\xPro\Functions\GetDefinition.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

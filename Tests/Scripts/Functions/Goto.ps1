@@ -32,7 +32,7 @@ else
       Write-Host " [FAILED]" -ForegroundColor Red;
       $RETURNVALUE = 1;
    }
-   if((Get-Location).Path -eq 'B:\SOURCE\Repo\XmlPSProfile\Config') # Good to be this way because it is local 
+   if((Get-Location).Path -eq 'B:\SOURCE\Repo\xPro\Config') # Good to be this way because it is local 
    {
        Write-Host " [PASSED]" -ForegroundColor Green;
        Pop-Location;

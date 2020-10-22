@@ -15,5 +15,6 @@ Invoke-WebRequest $Url -OutFile $CachePath;
 [string]$UniqueID1 = 'data-share-description';
 $(Get-Content $CachePath) -replace "$($UniqueID1)","`r`n$($UniqueID1)" | Set-Content $CachePath;
 [string]$string = (findstr.exe "data-share-description" $CachePath);
-$string = $string.Substring($string.IndexOf($UniqueID1),$string.IndexOf(">")-$string.IndexOf($UniqueID1)).Replace("$($UniqueID1+'="')","").Replace("ΓÇª See the full definition`"","");
+$string = $string.Substring($string.IndexOf($UniqueID1),$string.IndexOf(">")-$string.IndexOf($UniqueID1)).Replace("$($UniqueID1+'="')","").Replace("See the full definition`"","");
+$string = $string.Substring(0,$string.Length - 4);
 Write-Host "`n$($Word) : $($string)`n";

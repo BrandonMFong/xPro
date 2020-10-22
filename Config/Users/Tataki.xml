@@ -128,6 +128,7 @@
     <Program Alias="slack" SecType="public">C:\Users\fongm\AppData\Local\slack\slack.exe</Program>
     <Program Alias="putty" SecType="public">D:\PROGRAMFILES\putty.exe</Program>
     <Program Alias="append" SecType="public">D:\XmlPSProfile\Functions\AppendDate.ps1</Program>
+    <Program Alias="Get-Definition" SecType="public">D:\XmlPSProfile\Functions\GetDefinition.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="Tataki" ServerInstance="TATAKI\SQLEXPRESS">
@@ -311,6 +312,8 @@
       <Value Lvl="0" SecType="public">https://web.whatsapp.com/</Value>
       <Key Lvl="0" SecType="public">Lyft</Key>
       <Value Lvl="0" SecType="public">https://www.lyft.com/</Value>
+      <Key Lvl="0" SecType="public">Discord</Key>
+      <Value Lvl="0" SecType="public">https://www.Discord.com/app</Value>
       <!-- Bookmarks -->
       <Key Lvl="0" SecType="public">Bookmarks</Key>
       <Value Lvl="0" SecType="public" NodePointer="Misc" />

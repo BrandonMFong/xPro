@@ -47,7 +47,7 @@
   <Functions>
     <Function><![CDATA[function global:GetNumber1{return 1;}]]></Function>
     <Function><![CDATA[function global:GetNumber2{return 2;}]]></Function>
-    <Function><![CDATA[function global:VC-Powershell{code B:\XmlPSProfile\VC-Powershell.code-workspace}]]></Function>
+    <Function><![CDATA[function global:VC-Powershell{code B:\xPro\VC-Powershell.code-workspace}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -62,15 +62,15 @@
   <Directories>
     <Directory Alias="main" SecType="public">D:\a\xPro\xPro\</Directory>
     <Directory Alias="ConfigDir1" SecType="public">D:\a\xPro\xPro\Config</Directory>
-    <Directory Alias="ConfigDir2" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Config</Directory>
-    <Directory Alias="pow" SecType="public">B:\XmlPSProfile</Directory>
+    <Directory Alias="ConfigDir2" SecType="public">B:\SOURCE\Repo\xPro\Config</Directory>
+    <Directory Alias="pow" SecType="public">B:\xPro</Directory>
   </Directories>
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
     <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Functions\GOTO.ps1</Program>
-    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Functions\GOTO.ps1</Program>
-    <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\xPro\Functions\GOTO.ps1</Program>
+    <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\xPro\Functions\GOTO.ps1</Program>
     <Program Alias="Put" SecType="public">D:\a\xPro\xPro\Functions\Put.ps1</Program>
     <Program Alias="Open" SecType="public">D:\a\xPro\xPro\Functions\Open.ps1</Program>
     <Program Alias="Archive" SecType="public">D:\a\xPro\xPro\Functions\Archive.ps1</Program>
@@ -82,6 +82,7 @@
     <Program Alias="git" SecType="public">C:\Program Files\Git\bin\git.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="Run-Tests" SecType="public">D:\a\xPro\xPro\Tests\InitTestScripts.ps1</Program>
+    <Program Alias="Init-Tests" SecType="public">B:\SOURCE\Repo\xPro\Tests\InitTestScripts.ps1</Program>
     <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Functions\DetermineTagType.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->

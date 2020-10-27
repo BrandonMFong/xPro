@@ -688,6 +688,12 @@
       <Value Lvl="2" Node="Hackathon" SecType="public">https://nodemcu.readthedocs.io/en/release/</Value>
       <Key Lvl="2" Node="Hackathon" SecType="public">AQI</Key>
       <Value Lvl="2" Node="Hackathon" SecType="public">https://www.airnow.gov/?city=Santa%20Rosa&amp;state=CA&amp;country=USA</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted2</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.instructables.com/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">Devkit</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://github.com/nodemcu/nodemcu-devkit-v1.0</Value>
       <Key Lvl="2" Node="Hackathon" SecType="public">googledocs</Key>
       <Value Lvl="2" Node="Hackathon" SecType="public">https://docs.google.com/document/u/1/d/e/2PACX-1vSoZdG2YSPsEtawXJnYKJOsn27L2ftez70Ca6tAhft8WLVZHQE_9DzEIeb2izOIFvzIDDjxzc-AuOFa/pub</Value>
       <!-- Slack -->

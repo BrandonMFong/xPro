@@ -182,7 +182,8 @@ class SQL
                 # Hard coding ID because I don't want this to be configurable
                 # If ID wasn't present in the old config, then it would grab the value which is null
                 # if it is ID, get max id inc
-                "int"{$string = "$($this.GetMax($table))";break;}
+                # "int"{$string = "$($this.GetMax($table))";break;}
+                "int"{$string = "(select MAX(ID)+1 from $(($table)))";break;} # I am assuming int is ID, is that good? 
                 "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
                 "varchar"{$string = "'$($val.Value)'";break;}
                 "datetime"{$string = "GETDATE()"; break;}
@@ -243,28 +244,6 @@ class SQL
                 $querystring.Value = $querystring.Value.Replace("(,", "(");
                 break;
             }
-            # "Select" # TODO finish
-            # {
-            #     $rep = "|||";
-
-            #     # Start query string
-            #     $querystring.Value = "select ";
-
-            #     # add to query string
-            #     foreach($val in $values)
-            #     {
-            #         if($val.WantToSee -eq "y")
-            #         {
-            #             $querystring.Value = $querystring.Value.Replace("$($rep)", ", ");
-            #             $querystring.Value += $val.COLUMN_NAME + "$($rep)";
-            #         }
-            #     }
-
-            #     $querystring.Value = $querystring.Value.Replace("$($rep)", "  ");
-            #     $querystring.Value = $querystring.Value.Replace("select ,", "select ");
-            #     $querystring.Value += " from $($table)";
-            #     break;
-            # }
             default 
             {
                 $global:LogHandler.Write("`$TypeQuery = $($TypeQuery)");

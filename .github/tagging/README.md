@@ -21,21 +21,14 @@ To include auto tag, add the following to your job:
         if(Test-Path .\.github\tagging)
         {
           git clone https://github.com/BrandonMFong/xPro.git
-          cd xPro; # TODO delete
-          git branch -a; # TODO delete
-          git checkout --track origin/release-dev-Version4 # TODO delete
-          ls .; # TODO delete
-          cd .. # TODO delete
 
           [string]$repodir = $(pwd).path;
-          [string]$ProfileScript = $repodir + "\xPro\Profile.ps1";
           [string]$SetTagPath = $repodir + "\xPro\Functions\DetermineTagType.ps1";
-          [string]$PathToAutoGit = $repodir + ".\xPro\.github\tagging\Profile.xml";
 
-          & $ProfileScript -BuildPath:$PathToAutoGit -Silent:$true;
           $env:GIT_REDIRECT_STDERR = '2>&1';
           & $SetTagPath -Push:$true -PathToVersionConfig:$("$($repodir)\.github\tagging\Version.json") -PathToTag:$($repodir);
         }
+
 ```
 ##To configure the tagging to your needs, please do the following:
 

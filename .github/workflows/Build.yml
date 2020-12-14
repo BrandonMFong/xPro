@@ -28,7 +28,7 @@ on:
 
 jobs:
   # Powershell on Windows
-  TEST-Windows-Powershell:
+  TEST-Powershell:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -43,7 +43,7 @@ jobs:
         Run-Tests;
 
   # Powershell 7 on Windows
-  TEST-Windows-pwsh:
+  TEST-pwsh:
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -58,7 +58,7 @@ jobs:
         Run-Tests;
 
   Tag-Commit:
-    needs: [TEST-Windows-Powershell, TEST-Windows-pwsh]
+    needs: [TEST-Powershell, TEST-pwsh]
     runs-on: windows-latest # On windows VM
 
     steps:
@@ -72,39 +72,23 @@ jobs:
     - name: Set new tag
       shell: pwsh
       run: |
-        .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml") -Silent:$true;
-        $env:GIT_REDIRECT_STDERR = '2>&1';
-        Run-Tag -Push:$true;
+        if(Test-Path .\.github\tagging)
+        {
+          git clone https://github.com/BrandonMFong/xPro.git
+          cd xPro; # TODO delete
+          git branch -a; # TODO delete
+          git checkout --track origin/release-dev-Version4 # TODO delete
+          ls .; # TODO delete
+          cd .. # TODO delete
 
-# TODO figure out later
+          [string]$repodir = $(pwd).path;
+          [string]$ProfileScript = $repodir + "\xPro\Profile.ps1";
+          [string]$SetTagPath = $repodir + "\xPro\Functions\DetermineTagType.ps1";
+          [string]$PathToAutoGit = $repodir + ".\xPro\.github\tagging\Profile.xml";
 
-  # # Powershell 7 on Ubuntu
-  # Powershell7-Run-Test-Ubuntu:
-  #   runs-on: ubuntu-latest
+          & $ProfileScript -BuildPath:$PathToAutoGit -Silent:$true;
+          $env:GIT_REDIRECT_STDERR = '2>&1';
+          & $SetTagPath -Push:$true -PathToVersionConfig:$("$($repodir)\.github\tagging\Version.json") -PathToTag:$($repodir);
+        }
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-
-  #   - name: Run tests
-  #     shell: pwsh
-  #     run: |
-  #       Write-Host "`nLoading Profile";
-  #       .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
-  #       Write-Host "`nRunning Test Scripts";
-  #       D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
-
-  # # Powershell 7 on Ubuntu
-  # Powershell7-Run-Test-Mac:
-  #   runs-on: macos-latest
-
-  #   steps:
-  #   - uses: actions/checkout@v2
-
-  #   - name: Run tests
-  #     shell: pwsh
-  #     run: |
-  #       Write-Host "`nLoading Profile";
-  #       .\Profile.ps1 -BuildPath:$(".\Tests\Profile.xml");
-  #       Write-Host "`nRunning Test Scripts";
-  #       D:\a\XmlPSProfile\XmlPSProfile\Tests\InitTestScripts.ps1;
-
+# TODO: make ubuntu and mac workflow

@@ -208,7 +208,7 @@ function Run-Update
 
     [String]$ParseString="MMddyyyy"
 
-    [System.Xml.XmlDocument]$xml = _GetXMLContent;
+    [System.Xml.XmlDocument]$xml = $(_GetUserConfig -Content);
     if([string]::IsNullOrEmpty($xml.Machine.UpdateStamp.Value)){[string]$val = "01012020";} # start of 2020
     else{[string]$val = $xml.Machine.UpdateStamp.Value;}
     [DateTime]$UpdateStamp = [DateTime]::ParseExact($val,$ParseString,$null); # Get update stamp from configuration

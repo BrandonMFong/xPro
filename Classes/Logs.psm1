@@ -66,8 +66,8 @@ class Logs
         $contentstring += "`n   $($logstring)";
         for([int16]$i=0;$i -lt $callstack.Count;$i++){$contentstring += "`n   $($callstack[$i])";}
 
-        Write-Host $contentstring;
-
         Add-Content $this.LogFile $contentstring;
+        Write-Error $contentstring;
+        throw "End";
     }
 }

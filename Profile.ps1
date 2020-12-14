@@ -86,6 +86,7 @@ try
                         string=$Global:XMLReader.Machine.Start.Greetings.InnerXml; # String 
                         Type=$Type; # Type of font
                         SaveToFile=$Save;
+                        UniqueExtension=$("." + $($Global:AppPointer.Machine.ConfigFile | Split-Path -Leaf));
                     };
                     [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Files.Greetings)).FullName; # Gets the full file path to the greetings script
                     & $GreetingsPath @arg;
@@ -129,6 +130,7 @@ try
         elseif(Test-Path $Global:XMLReader.Machine.ShellSettings.StartDirectory){Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
         else{$Global:LogHandler.Warning("Configured Start directory does not exist.  Please check.")}
     }
+    else{Set-Location ~;} # Main dir for OS user
     
     # For debug mode
     # It will run the debug script after profile is loaded
@@ -144,6 +146,6 @@ try
 catch 
 {
     Write-Host "Something bad happened at profile load";
-    # Set-Location ~; # Just go back to home dir
+    Write-Host $_ -ForegroundColor Red;
     # above line does not work 
 }

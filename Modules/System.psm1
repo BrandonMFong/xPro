@@ -31,17 +31,25 @@ function CL {Clear-Host;Get-ChildItem;}
 function Restart-Session
 {
     Param([Alias('s')][Switch]$DontSaveDir)
-    # this creates the file regardless, so I can delete the file in the profile script 
-    if(!$DontSaveDir){New-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache) -Force -Value $(Get-Location).Path | Out-Null;}
+    _CacheDir -DontSaveDir:$DontSaveDir;
 
     if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
     else{Start-Process pwsh;Stop-Process -Id $PID;}
 }
 function Start-Admin
 {
+    Param([Alias('s')][Switch]$DontSaveDir)
+    _CacheDir -DontSaveDir:$DontSaveDir;
+
     if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell -Verb Runas;}
     else{Start-Process pwsh -Verb Runas;}
-    
+}
+
+function _CacheDir
+{
+    Param([Alias('s')][Switch]$DontSaveDir)
+    # this creates the file regardless, so I can delete the file in the profile script 
+    if(!$DontSaveDir){New-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.SessionCache) -Force -Value $(Get-Location).Path | Out-Null;}
 }
 
 function List-Color{[Enum]::GetValues([System.ConsoleColor])}

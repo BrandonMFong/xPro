@@ -42,6 +42,14 @@ function Load-Drive
                     {
                         try
                         {
+                            [string[]]$o = $(net use);
+                            for([int]$i = 0; $i -lt $o.Length;$i++)
+                            {
+                                if($o[$i].Contains("Microsoft Windows Network") -and $o[$i].Contains($val.DriveLetter))
+                                {
+                                    net use /delete $val.DriveLetter; # Delete previous drive letter 
+                                }
+                            }
                             net use $val.DriveLetter $IpAddress $(Evaluate -value:$val.Password) /user:$(Evaluate -value:$val.Username);
                             $Global:LogHandler.Write("net use on $($IpAddress)");
                         }

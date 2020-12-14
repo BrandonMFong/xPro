@@ -182,8 +182,9 @@ class SQL
                 # Hard coding ID because I don't want this to be configurable
                 # If ID wasn't present in the old config, then it would grab the value which is null
                 # if it is ID, get max id inc
+                # need to consider the first insert
                 # "int"{$string = "$($this.GetMax($table))";break;}
-                "int"{$string = "(select MAX(ID)+1 from $(($table)))";break;} # I am assuming int is ID, is that good? 
+                "int"{$string = "(select case when MAX(ID) is null then 1 else MAX(ID)+1 end from $(($table)))";break;} # I am assuming int is ID, is that good? 
                 "uniqueidentifier"{$string = "(select convert(uniqueidentifier, '$((New-Guid).ToString().ToUpper())'))";break;}
                 "varchar"{$string = "'$($val.Value)'";break;}
                 "datetime"{$string = "GETDATE()"; break;}

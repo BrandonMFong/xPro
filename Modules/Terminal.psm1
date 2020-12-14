@@ -7,7 +7,9 @@ Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 # Prompt output
 Write-Host "$($Global:XMLReader.MachineName)";
 [Xml]$x = $Global:XMLReader;
-[System.Boolean]$ShellSettingsEnabled = $x.Machine.ShellSettings.Enabled.ToBoolean($null);
+# [System.Boolean]$ShellSettingsEnabled = $x.Machine.ShellSettings.Enabled.ToBoolean($null);
+if(![string]::IsNullOrEmpty($x.Machine.ShellSettings)){[System.Boolean]$ShellSettingsEnabled = $x.Machine.ShellSettings.Enabled.ToBoolean($null);}
+else {[System.Boolean]$ShellSettingsEnabled = $false;}
 [System.Boolean]$ShellSettingsPrompt = [string]::IsNullOrEmpty($x.Machine.ShellSettings.Prompt.String);
 [System.Boolean]$PromptText = ($x.Machine.ShellSettings.Prompt.String.InnerText -ne "Default");
 if($ShellSettingsEnabled -and !$ShellSettingsPrompt -and $PromptText)
@@ -16,7 +18,6 @@ if($ShellSettingsEnabled -and !$ShellSettingsPrompt -and $PromptText)
     {
         [System.Xml.XmlElement]$prompt = $Global:XMLReader.Machine.ShellSettings.Prompt;
         _SetHeader; # Sets Header
-        # _SetBackgroundColor; # Sets BG color
 
         if($prompt.Enabled.ToBoolean($null) -and (![string]::IsNullOrEmpty($prompt)))
         {

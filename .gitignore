@@ -10,7 +10,6 @@ ssh.json
 Functions/KiranTickets.ps1
 Functions/BANKURL.ps1
 Config/Server.xml
-*.test.*
 Config/User/*
 Tests/Debug.ps1
 logs/User/*

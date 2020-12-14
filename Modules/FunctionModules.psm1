@@ -18,7 +18,7 @@ function MakeClass($XmlElement)
 {
     try 
     {
-        switch($XmlElement.Class.ClassName) # TODO unique tag for classes under tag if have params
+        switch($XmlElement.Class.ClassName) 
         {
             "Calendar" 
             {
@@ -55,22 +55,26 @@ function MakeClass($XmlElement)
     catch{$Global:LogHandler.WriteError($_);}
 }
 
-# Just gets the content, must convert at reference
-# TODO consolidate these two files
-function _GetXMLContent
+function _GetUserConfig 
 {
-    return Get-Content $($global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $global:AppPointer.Machine.ConfigFile);
-}
-function _GetXMLFilePath
-{
-    return $($global:AppPointer.Machine.GitRepoDir + "\Config\Users\" + $global:AppPointer.Machine.ConfigFile);
+    <#
+    .Synopsis 
+        returns either the path or content of the config file 
+    #>
+    Param([switch]$Content, [switch]$Path)
+    
+    if($Content){return Get-Content $($global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $global:AppPointer.Machine.ConfigFile);}
+    if($Path){return $($global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $global:AppPointer.Machine.ConfigFile);}
 }
 
-# If an object is found that has methods we want to use, return that object
-# Object must be configured
 function GetObjectByClass([string]$Class)
 {
-    [xml]$xml = _GetXMLContent;
+    <#
+    .Synopsis 
+        If an object is found that has methods we want to use, return that object
+        Object must be configured
+    #>
+    [xml]$xml = $(_GetUserConfig -Content);
     [System.Boolean]$Found = $false;
     foreach($Object in $xml.Machine.Objects.Object)
     {
@@ -262,7 +266,6 @@ function MakeHash([System.Object[]]$value,[int]$lvl,[string]$Node)
 }
 
 
-function Test {if(!(Test-Path .\archive\)){ mkdir archive;}}
 
 function DoesFileExistInArchive($file)
 {
@@ -434,7 +437,7 @@ function CheckCount # I guess in Powershell v5 the count on an xml with one node
 function InsertFromCmd
 {
     Param([string]$Tag,[string]$PathToAdd)
-    [XML]$x = _GetXMLContent;
+    [XML]$x = $(_GetUserConfig -Content);
     $add = $x.CreateElement($Tag); 
 
     $Alias = Read-Host -Prompt "Set Alias";
@@ -465,8 +468,7 @@ function InsertFromCmd
     }
     
     AppendCorrectChild -Tag $Tag -add $add -x $([ref]$x);
-    # $x.Save($global:AppPointer.Machine.GitRepoDir + '\Config\User' + $global:AppPointer.Machine.ConfigFile);
-    $x.Save($(_GetXMLFilePath));
+    $x.Save($(_GetUserConfig -Path));
 }
 
 function GetFullFilePath([string]$File)
@@ -525,7 +527,7 @@ function Test-KeyPress
 
 function EmailOrder([int]$i,[int]$Max,[int]$OrderFactor)
 {
-    [System.Xml.XmlDocument]$xml = _GetXMLContent;
+    [System.Xml.XmlDocument]$xml = $(_GetUserConfig -Content);
     if($xml.Machine.Email.ListOrderBy -eq "Asc")
     {
         return ($i -lt ($Max - $OrderFactor));

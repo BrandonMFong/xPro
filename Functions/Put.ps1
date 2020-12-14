@@ -14,7 +14,7 @@
 #>
 Param([String]$File, [Alias ('Dest')][String[]] $Destination)
 Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
-[System.Xml.XmlDocument]$x = _GetXMLContent;
+[System.Xml.XmlDocument]$x = $(_GetUserConfig -Content);
 [bool]$ProcessExecuted = $false;
 	
 foreach ($Directory in $x.Machine.Directories.Directory)

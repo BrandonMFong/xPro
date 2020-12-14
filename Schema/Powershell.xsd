@@ -85,10 +85,10 @@
                 </xsd:element>
 
                 <!-- Terminal Settings -->
-                <xsd:element name="ShellSettings" minOccurs="1" maxOccurs="1">
+                <xsd:element name="ShellSettings" minOccurs="0" maxOccurs="1">
                     <xsd:complexType>
                         <xsd:sequence>
-                            <xsd:element name="Format" minOccurs="1" maxOccurs="1">
+                            <xsd:element name="Format" minOccurs="0" >
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         This format applies to all under ShellSettings
@@ -100,7 +100,7 @@
                                     </xsd:sequence>
                                 </xsd:complexType>
                             </xsd:element>
-                            <xsd:element name="Header" minOccurs="1" maxOccurs="1">
+                            <xsd:element name="Header" minOccurs="0" >
                                 <xsd:complexType>
                                     <xsd:sequence>
                                         <xsd:group ref="String"/>
@@ -109,7 +109,7 @@
                                     <xsd:attributeGroup ref="Enable"/>
                                 </xsd:complexType>
                             </xsd:element>
-                            <xsd:element name="Prompt" minOccurs="1" maxOccurs="1">
+                            <xsd:element name="Prompt" minOccurs="0" >
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Change the prompt function in the string tag.  
@@ -137,7 +137,7 @@
                                     <xsd:attributeGroup ref="Enable"/>
                                 </xsd:complexType>
                             </xsd:element>
-                            <xsd:element name="ShellColors" maxOccurs="1">
+                            <xsd:element name="ShellColors" minOccurs="0">
                                 <xsd:complexType>
                                     <xsd:sequence>
                                         <xsd:element name="BackgroundColor" minOccurs="0" maxOccurs="1"/>
@@ -147,7 +147,7 @@
                                     </xsd:sequence>
                                 </xsd:complexType>
                             </xsd:element>
-                            <xsd:element name="StartDirectory" type="xsd:string" minOccurs="0" maxOccurs="1">
+                            <xsd:element name="StartDirectory" type="xsd:string" minOccurs="0" >
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Default is whatever is configured in the app settings
@@ -556,10 +556,10 @@
                     </xsd:complexType>
                 </xsd:element>
 
-                <xsd:element name="Directories" maxOccurs="1">
+                <xsd:element name="Directories" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>
-                            Parameters that are used in Goto.ps1 nad put.ps1 function
+                            Parameters that are used in Goto.ps1, open.ps1 and put.ps1 function
                         </xsd:documentation>
                     </xsd:annotation>
                     <xsd:complexType>
@@ -610,7 +610,7 @@
                     </xsd:complexType>
                 </xsd:element>
 
-                <xsd:element name="Objects" maxOccurs="1">
+                <xsd:element name="Objects" minOccurs="0" maxOccurs="1">
                     <xsd:complexType>
                         <xsd:sequence>
                             <xsd:element name="Object" minOccurs="0" maxOccurs="unbounded">

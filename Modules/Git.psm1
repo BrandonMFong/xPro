@@ -24,92 +24,107 @@ function GetSettings
     if($Found){return $o;}
     else{return $null;}
 }
+
+
 function Set-Tag
 {
     Param([string]$CommitID=$null,
-        [Parameter(Mandatory=$true)][ValidateSet("Major","Minor","BugPatch")][string]$Tag,
-        [Switch]$Major,
-        [Switch]$Minor,
-        [Switch]$BugPatch, 
-        [Switch]$Push
+        [string]$Tag=$null,# Case sensitive
+        [Switch]$Push,
+        [Switch]$Whatif,
+        [System.Object[]]$VersionReader=[System.Object[]]::new($null)
     )
 
-    Write-Host "Tagging for $($Tag)";
-    # Make sure this is the right order to do things
-
-    # Will not tag if it is not allowed 
-    # But if this node is not arround then it will tag
-    if(![string]::IsNullOrEmpty($GitSettings.BranchesAllowedForTagging))
+    # Do I need this?  I would need to reorganize how I call this if I assume the user will always use the repo
+    # [string]$VersionFile = "\Config\Versioning\Version.JSON"; # TODO need to decide a general location through repos
+    if([string]::IsNullOrEmpty($VersionReader.BranchNameDelimiter))
     {
-        [string]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";
-        [String[]]$AllowedBranches = $(SplitString -originalstring:$GitSettings.BranchesAllowedForTagging.Branches -Delimiter:$("|"));
-        [System.Boolean]$IsAllowed = $false;
-        for([int16]$i = 0;$i -lt $AllowedBranches.Count;$i++)
-        {
-            if($AllowedBranches[$i] -eq $CurrentBranch){$IsAllowed = $true;break;}
-        }
-        if(!$IsAllowed){break;}
+        # [string]$VersionFile = $Global:AppJson.Files.Config.Versioning;
+        [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.Config.Versioning) | ConvertFrom-Json;
     }
+    [string]$VersionDelimiter = "."; # setting up for future config
+
+    Write-Host "`n"; # start new line 
+    
+    if(![string]::IsNullOrEmpty($Tag)){Write-Host "Tagging for $($Tag)";}
 
     [String]$currenttag = "$(git describe --tags)";
-    Write-Host "Current tag for $($currenttag)";
+
+    [Hashtable]$TagArray = @{};
     if([string]::IsNullOrEmpty($currenttag))
     {
-        Write-Host "Set first tag" -ForegroundColor Gray;
-        [int16]$MajorString = 0;
-        [int16]$MinorString = 0;
-        [int16]$BugPatchString = 0;
+        for([int]$i = 0;$i -lt $VersionReader.Versions.Version.count;$i++)
+        {
+            $TagArray.Add($VersionReader.Versions.Version[$i],0);
+        }
     }
     else 
-    {
-        try{if($currenttag.Contains("-")){$currenttag = $currenttag.Substring(0,$currenttag.IndexOf("-"));}}
+    { 
+        try{if($currenttag.Contains("-")){$currenttag = $currenttag.Substring(0,$currenttag.IndexOf("-"));}} # get all the left side of - if applicable 
         catch{Write-Host "Something bad happened";}
 
         try
         {
-            Write-Host "tag before MajorString $($currenttag)";
-            [int]$MajorString = $currenttag.Substring(0,$currenttag.IndexOf("."));
-            Write-Host "MajorString = $($MajorString)";
-            DisectTag([ref]$currenttag);
-    
-            Write-Host "tag before MinorString $($currenttag)";
-            [int]$MinorString = $currenttag.Substring(0,$currenttag.IndexOf("."));
-            Write-Host "MinorString = $($MinorString)";
-            DisectTag([ref]$currenttag);
-    
-            Write-Host "tag before BugPatchString $($currenttag)";
-            [int]$BugPatchString = $currenttag; # At this point we are at the end
-            Write-Host "BugPatchString = $($BugPatchString)";
+            Write-Host "Current tag: $($currenttag)";
+            for([int]$i = 0;$i -lt $VersionReader.Versions.Version.count;$i++) # go through the config
+            {
+                if($currenttag.Contains($VersionDelimiter)) # if the currenttag has the delimiter
+                { 
+                    $TagArray.Add($VersionReader.Versions.Version[$i],$currenttag.Substring(0,$currenttag.IndexOf($VersionDelimiter))); # put the tag in a hash table
+                    
+                    # disect the tag
+                    # +1 to include the '.' so that we can take it out
+                    [Regex]$regex = $currenttag.Substring(0,$currenttag.IndexOf($VersionDelimiter)+1); 
+                    $currenttag = $regex.Replace($currenttag,"",1);
+                }
+                else 
+                {
+                    $TagArray.Add($VersionReader.Versions.Version[$i],$currenttag); # if it doesn't have the delimiter then just use the tag right now
+                    $currenttag = "0"; # in case this loop goes on again, need to null tag string
+                }  
+
+                Write-Host "$($VersionReader.Versions.Version[$i]) = $($TagArray.Item($VersionReader.Versions.Version[$i]))";
+            }
         }
         catch{$Global:LogHandler.WriteError($_);}
     }
 
-    # Tag option
-    switch($Tag)
+
+    # Applying the new tag
+    [string]$dot = "";
+    [string]$TagString = "";
+    [boolean]$TagTypeIdentified = $false;
+    for([int]$i = 0;$i -lt $VersionReader.Versions.Version.count;$i++) # go through the config
     {
-        "Major"{[String]$TagString = "$($MajorString+1).0.0";}
-        "Minor"{[String]$TagString = "$($MajorString).$($MinorString+1).0";}
-        "BugPatch"{[String]$TagString = "$($MajorString).$($MinorString).$($BugPatchString+1)";}
-        default
+        if(!$TagTypeIdentified -and $Tag.Equals($VersionReader.Versions.Version[$i]))
         {
-            # Not writing logs because this will happen on the runner
-            "Something bad happened";
+            $TagTypeIdentified = $true;
+            $TagString += $dot + "$($TagArray.Item($VersionReader.Versions.Version[$i]).ToInt32($null)+1)";
         }
+        elseif($TagTypeIdentified){$TagString += $dot + "0";}
+        else{$TagString += $dot + "$($TagArray.Item($VersionReader.Versions.Version[$i]))";}
+        $dot = $VersionDelimiter;
     }
     if($TagString -eq $currenttag){Write-Host "Tag $($TagString) was already set!"; break;}
 
     # Tag
-    Write-Host "***Applying tag: $($TagString)***";
-    git tag $TagString $CommitID;
+    Write-Host "***Post-Process Tag: $($TagString)***`n";
+    if($Whatif)
+    {
+        Write-Host "`nEnd of whatif" -ForegroundColor Gray;
+        return;
+    }
+    if(![string]::IsNullOrEmpty($tag))
+    {
+        git tag $TagString $CommitID;
 
-    if($Push){GitRebasePush -Tags;}
-}
+        if($Push) # we check if we are pushing because we tagged
+        {
+            git fetch;
+            git push --tags;
+        }
+    }
 
-
-function DisectTag([ref]$tag)
-{
-    [Regex]$regex = $tag.Value.Substring(0,$tag.Value.IndexOf(".")+1);
-    $tag.Value = $regex.Replace($tag.Value,"",1);
 }
 
 
@@ -117,7 +132,7 @@ function Set-Commit
 {
     Param([String]$Message,[Switch]$NotAll,
         [Switch]$NoType,[Switch]$Push,
-        [ValidateSet("Major","Minor","BugPatch")][String]$Tag=$null
+        [String]$Tag=$null
     )
 
     if(!$NotAll)
@@ -149,18 +164,8 @@ function Set-Commit
     $commitmessage += $msg;
 
     git commit -m $commitmessage; # Set the commit
-
-    # Tag option
-    switch($Tag)
-    {
-        "Major"{Set-Tag -Tag "Major";}
-        "Minor"{Set-Tag -Tag "Minor";}
-        "BugPatch"{Set-Tag -Tag "BugPatch";}
-    }
-
-    # Always rebase before you push
-    # Tests if a Tag was passed
-    if($Push){GitRebasePush -Tags:$([string]::IsNullOrEmpty($Tag));}
+    Set-Tag -Tag:$Tag -Push:$Push; # push tags
+    GitRebasePush; # push changes
 }
 
 function GitRebasePush
@@ -182,7 +187,7 @@ function GitRebasePush
         git push;
     }
 
-    if($Tags){git push --tags;}
+    # if($Tags){git push --tags;}
 }
 function Squash-Branch
 {
@@ -221,7 +226,7 @@ function Squash-Branch
     # In order for this to be squashed, I have to initially rule it to be
     # This is an intitiative for autotag
     # I need a system to make things automatic
-    if(!$TargetBranch.Contains($CurrentBranch) -and !$Allow){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch)";}
+    if(!$TargetBranch.Contains($CurrentBranch) -and !$Allow){throw "Target Branch is not ruled to squash in this branch. $($TargetBranch) !=> $($CurrentBranch).  If you want to use this function, use -Allow switch";}
 
     [String]$squashmessage = "[SQUASH] $($TargetBranch) => $($CurrentBranch)`n`n";
 
@@ -258,7 +263,8 @@ function Squash-Branch
 
 function Create-Branch
 {
-    [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\Config\Versioning\Version.JSON") | ConvertFrom-Json;
+    # [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + "\Config\Versioning\Version.JSON") | ConvertFrom-Json;
+    [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.Config.Versioning) | ConvertFrom-Json;
 
     [string]$BranchNameDelimiter = $VersionReader.BranchNameDelimiter; # Doing this because I might change to / 
     [String]$CurrentBranch = "$(git rev-parse --abbrev-ref HEAD)";

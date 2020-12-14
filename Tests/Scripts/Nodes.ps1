@@ -8,9 +8,10 @@ Write-Host `n -NoNewline;
 
 # Testing if the profile was loaded
 Write-Host " - MachineName Attribute test" -NoNewline;
-if($Global:XMLReader.Machine.MachineName -ne "GitHubVirtualMachine")
+if($Global:XMLReader.Machine.MachineName -ne $Global:TestReader.NodeTest.Outcome)
+# if($Global:XMLReader.Machine.MachineName -ne "GitHubVirtualMachine")
 {
-   Write-Host " [FAILED]" -ForegroundColor Red;
+   Write-Host " [ERROR]" -ForegroundColor Red;
    $RETURNVALUE = 1;
 }
 else{Write-Host " [PASSED]" -ForegroundColor Green;}

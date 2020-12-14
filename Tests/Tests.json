@@ -1,0 +1,69 @@
+{
+    "GitTest":[
+        {"Outcome": "\\Cache\\git\\"}
+    ],
+    "GreetingsTest":[
+        {"Outcome": "\\Cache\\WebRequests\\Greetings\\"}
+    ],
+    "FunctionDecTest":[
+        {"Outcome": 1},
+        {"Outcome": 2}
+    ],
+    "GotoTest":[
+        {"Outcome": "D:\\a\\xPro\\xPro\\Tests\\Scripts\\Functions"},
+        {"Outcome": "D:\\a\\xPro\\xPro\\Config"},
+        {"Outcome": "B:\\SOURCE\\Repo\\xPro\\Config"}
+    ],
+    "CalculationsTest":[
+        {"Outcome": 26.4554930422053},
+        {"Outcome": 5.443104},
+        {"Outcome": 37.7777777777778},
+        {"Outcome": 212},
+        {"Outcome": 8},
+        {"Outcome": 9},
+        {"Outcome": 11},
+        {"Outcome": "0x42"},
+        {"Outcome": "E"},
+        {"Outcome": 9},
+        {"Outcome": 182},
+        {"Outcome": "0101"},
+        {"Outcome": "0100"},
+        {"Outcome": "0001"},
+        {"Outcome": "1000"}
+    ],
+    "CalendarTest":[
+        {"Outcome": "_0.IsToday_True"}
+    ],
+    "DoesObjExistTest":[
+        {"Outcome": "XMLReader"},
+        {"Outcome": "AppPointer"},
+        {"Outcome": "AppJson"}
+    ],
+    "GeneralObjectTest":[
+        {"Outcome": "https://facebook.com"},
+        {"Outcome": "https://Youtube.com"},
+        {"Outcome": "https://web.whatsapp.com/"},
+        {"Outcome": "https://Netflix.com"},
+        {"Outcome": "https://fafsa.gov/"},
+        {"Outcome": "TestEmail@Fake.com"},
+        {"Outcome": "http://web.sonoma.edu/users/k/kujoory/"},
+        {"Outcome": "Calendar"},
+        {"Outcome": "Math"}
+    ],
+    "ProgramsTest":[
+        {"Outcome": "D:\\a\\xPro\\xPro\\Functions\\Archive.ps1"},
+        {"Outcome": "D:\\a\\xPro\\xPro\\Functions\\Calendar.ps1"}
+    ],
+    "ReplacementsTests":[
+        {"Outcome": "@fulldir"},
+        {"Outcome": "D:\\a\\XmlPSProfile\\XmlPSProfile\\Tests\\Scripts\\Terminal"},
+        {"Outcome": "D:\\a\\XmlPSProfile\\XmlPSProfile\\Tests"},
+        {"Outcome": "@currdir"},
+        {"Outcome": "D:\\a\\XmlPSProfile\\XmlPSProfile\\Tests\\Scripts\\Terminal"},
+        {"Outcome": "Tests"},
+        {"Outcome": "@date"}
+    ],
+    "NodeTest":[
+        {"Outcome": "GitHubVirtualMachine"}
+    ]
+}

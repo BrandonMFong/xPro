@@ -67,20 +67,6 @@
       </CommitTypes>
     </Repository>
   </GitSettings>
-  <!-- Email settings -->
-  <Email AssemblyPath="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Outlook\15.0.0.0__71E9BCE111E9429C\Microsoft.Office.Interop.Outlook.dll">
-    <EmailAddress SecType="private">AB0654C3-E939-4135-8EB2-BDB450DEA6BC</EmailAddress>
-    <DefaultFolder>\Inbox</DefaultFolder>
-    <IncludeFields>
-      <To>True</To>
-      <CC>True</CC>
-      <From>True</From>
-      <Subject>True</Subject>
-      <Body>True</Body>
-    </IncludeFields>
-    <ListInboxMax>10</ListInboxMax>
-    <ListOrderBy>Desc</ListOrderBy>
-  </Email>
   <!-- Network Drives -->
   <!-- Global access connections should be associated with a local config  -->
   <Networks>
@@ -221,12 +207,24 @@
       </Connection>
       <LANConfig>2276A6AA-CFC3-489F-A607-737823526C7D</LANConfig>
     </Network>
+    <!-- QW -->
+    <Network>
+      <!-- \\Tataki\notebook -->
+      <Connection xsi:Type="NetworkShare">
+        <DriveLetter>N:</DriveLetter>
+        <ID>notebook</ID>
+        <IPAddress SecType="public">\\10.1.10.181\notebook</IPAddress>
+        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
+        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
+      </Connection>
+      <LANConfig>22f4733b-7957-47ed-aa2a-81de12465d07</LANConfig>
+    </Network>
   </Networks>
   <!-- Search links for command line web site calls -->
   <Searches>
-    <Search Type="g" Placeholder="||s||">https://google.com/search?q=||s||</Search>
+    <Search Type="Google" Placeholder="||s||">https://google.com/search?q=||s||</Search>
     <Search Type="Dictionary" Placeholder="||s||">https://www.dictionary.com/browse/||s||</Search>
-    <Search Type="y" Placeholder="||s||">https://youtube.com/results?search_query=||s||</Search>
+    <Search Type="Youtube" Placeholder="||s||">https://youtube.com/results?search_query=||s||</Search>
     <Search Type="Facebook" Placeholder="||s||">https://www.facebook.com/search/top/?q=||s||&amp;epa=SEARCH_BOX</Search>
     <Search Type="Maps" Placeholder="||s||">https://www.google.com/maps/search/||s||</Search>
   </Searches>
@@ -239,6 +237,7 @@
     <Function><![CDATA[function global:Open-Todo {explorer.exe shell:appsFolder\Microsoft.Todos_8wekyb3d8bbwe!App}]]></Function>
     <Function><![CDATA[function global:Open-People {explorer.exe shell:appsFolder\Microsoft.People_8wekyb3d8bbwe!x4c7a3b7dy2188y46d4ya362y19ac5a5805e5x}]]></Function>
     <Function><![CDATA[function global:Open-Maps {explorer.exe shell:appsFolder\Microsoft.WindowsMaps_8wekyb3d8bbwe!App}]]></Function>
+    <Function><![CDATA[function global:Open-Trello {explorer.exe shell:appsFolder\45273LiamForsyth.PawsforTrello_7pb5ddty8z1pa!trello}]]></Function>
     <Function><![CDATA[
         function global:Sonoma 
         {
@@ -270,7 +269,46 @@
           $Bank.Chase.$Passwords.Discord|Scb;
         }
       ]]></Function>
-    <Function><![CDATA[function global:Start-Study {Open-Todo;Open-Mail;Open-Clock;Time -In;}]]></Function>
+    <Function><![CDATA[
+        function global:PutResume 
+        {
+          Copy-Item B:\DOWNLOADS\MAIN_RESUME*.pdf B:\SOURCE\Repo\Site\docs -Force -Verbose # For my website
+          Move-Item B:\DOWNLOADS\MAIN_RESUME*.pdf B:\JOB -Force -Verbose # Permanently store it here
+        }
+      ]]></Function>
+    <Function><![CDATA[
+      function global:goo
+      {
+        Param([Switch]$personal,[Switch]$school)
+
+        # Personal 
+        if($personal)
+        {
+          chrome $user.google.gmail --profile-directory="Default";
+          chrome $user.google.calendar --profile-directory="Default";
+        }
+        # School 
+        if($school)
+        {
+          chrome $user.google.gmail --profile-directory="Profile 1";
+          chrome $user.google.calendar --profile-directory="Profile 1";
+        }
+      }
+    ]]></Function>
+    <Function><![CDATA[
+      function global:Start-Study 
+      {
+        Open-Trello;
+        Open-Clock;
+        Time -In;
+
+        # Personal 
+        goo -personal;
+
+        # School
+        goo -school;
+      }
+    ]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
     <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function>
     <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function>
@@ -304,6 +342,9 @@
     <Directory Alias="life" SecType="public">B:\LIFE</Directory>
     <Directory Alias="Code" SecType="public">B:\CODE</Directory>
     <Directory Alias="job" SecType="public">B:\JOB</Directory>
+    <Directory Alias="thesis" SecType="public">B:\COLLEGE\Thesis</Directory>
+    <Directory Alias="arduino" SecType="public">C:\Program Files (x86)\Arduino</Directory>
+    <Directory Alias="site" SecType="public">B:\SOURCE\Repo\Site</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -312,7 +353,7 @@
     <Program Alias="Open" SecType="public">$PSScriptRoot\..\Functions\Open.ps1</Program>
     <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
     <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\HTTP\Weather.ps1</Program>
     <!-- <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program> -->
     <!-- ERROR HERE, WRITE BUG FIX -->
     <Program Alias="umount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
@@ -344,7 +385,13 @@
     <Program Alias="grep" SecType="public">findstr</Program>
     <Program Alias="ifconfig" SecType="public">ipconfig</Program>
     <Program Alias="ltspice" SecType="public">C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe</Program>
-    <Program Alias="Get-Definition" SecType="public">B:\SOURCE\Repo\xPro\Functions\GetDefinition.ps1</Program>
+    <Program Alias="Get-Definition" SecType="public">B:\SOURCE\Repo\xPro\Functions\HTTP\GetDefinition.ps1</Program>
+    <Program Alias="ard" SecType="public">C:\Program Files (x86)\Arduino\arduino.exe</Program>
+    <Program Alias="launch4j" SecType="public">C:\Program Files (x86)\Launch4j\launch4j.exe</Program>
+    <Program Alias="geany" SecType="public">C:\Program Files (x86)\Geany\bin\geany.exe</Program>
+    <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
+    <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
+    <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -528,6 +575,16 @@
       <VarName SecType="public">NetGear</VarName>
       <Link>93966A26-7F75-4B48-9612-E8FD2354CA4B</Link>
     </Object>
+    <!-- $Work -->
+    <Object Type="HashTable">
+      <VarName SecType="public">Work</VarName>
+      <Key Lvl="0" SecType="public">tsheets</Key>
+      <Value Lvl="0" SecType="public">https://www.tsheets.com/</Value>
+      <Key Lvl="0" SecType="public">ADP</Key>
+      <Value Lvl="0" SecType="public">www.myAccess.ADP.com</Value>
+      <Key Lvl="0" SecType="public">BareMetal</Key>
+      <Value Lvl="0" SecType="public">https://vivonomicon.com/2018/04/02/bare-metal-stm32-programming-part-1-hello-arm/</Value>
+    </Object>
     <!-- $User -->
     <Object Type="HashTable">
       <VarName SecType="public">User</VarName>
@@ -567,6 +624,10 @@
       <Value Lvl="0" SecType="public">https://www.office.com/</Value>
       <Key Lvl="0" SecType="public">Discord</Key>
       <Value Lvl="0" SecType="public">https://discord.com/app</Value>
+      <Key Lvl="0" SecType="public">BandLab</Key>
+      <Value Lvl="0" SecType="public">https://www.bandlab.com/</Value>
+      <Key Lvl="0" SecType="public">ClipChamp</Key>
+      <Value Lvl="0" SecType="public">https://clipchamp.com/en/</Value>
       <!-- Github -->
       <Key Lvl="0" SecType="public">Github</Key>
       <Value Lvl="0" SecType="public" NodePointer="Github" />
@@ -585,30 +646,18 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://customerportal.sandiego.gov/portal/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">SDHouse</Key>
       <Value Lvl="1" Node="Misc" SecType="public">http://www.sbmigroup.com/</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">RPi</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/forums/viewtopic.php?t=8226</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">FlashRaspbian</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/installation/installing-images/windows.md</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">HeadlessWifiRpiSetup</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">MountExternalDrive</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.raspberrypi.org/documentation/configuration/external-storage.md</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">Samba</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://pimylifeup.com/raspberry-pi-samba/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Wifi</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.windowscentral.com/how-connect-wi-fi-network-windows-10</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">jb</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://www.idownloadblog.com/2009/07/07/tutorial-jailbreak-iphone-3gs-redsn0w/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">WindowsXApps</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.tenforums.com/software-apps/57000-method-open-any-windows-10-apps-command-line.html</Value>
       <Key Lvl="1" Node="Misc" SecType="public">HostingerDomainTransfer</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.hostinger.com/how-to/how-to-request-epp-auth-code-for-domain-transfers</Value>
-      <Key Lvl="1" Node="Misc" SecType="public">RunningSiteOnPi</Key>
-      <Value Lvl="1" Node="Misc" SecType="public">https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">RPiTeleIP</Key>
       <Value Lvl="1" Node="Misc" SecType="public">http://www.littlebytesofpi.com/raspberrypihomephone/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Glasses</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://www.eyebuydirect.com/eyeglasses/frames/courser-gunmetal-l-18353</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Vbox</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://learnappmaking.com/xcode-for-windows-how-to/</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />
@@ -665,6 +714,8 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://www.sonoma.edu/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">MSCES</Key>
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/engineering/msces/</Value>
+      <Key Lvl="1" Node="bd78" SecType="public">ThesisReview</Key>
+      <Value Lvl="1" Node="bd78" SecType="public">https://academicaffairs.sonoma.edu/student-success/graduate-programs/thesis-review</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Database</Key>
       <Value Lvl="1" Node="bd78" SecType="public">https://libguides.sonoma.edu/c.php?g=202705&amp;p=1336729</Value>
       <Key Lvl="1" Node="bd78" SecType="public">Username</Key>
@@ -686,8 +737,12 @@
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="Hackathon" />
       <Key Lvl="2" Node="Hackathon" SecType="public">Board</Key>
       <Value Lvl="2" Node="Hackathon" SecType="public">https://nodemcu.readthedocs.io/en/release/</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">PinLayout</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://lastminuteengineers.com/esp8266-nodemcu-arduino-tutorial/</Value>
       <Key Lvl="2" Node="Hackathon" SecType="public">AQI</Key>
       <Value Lvl="2" Node="Hackathon" SecType="public">https://www.airnow.gov/?city=Santa%20Rosa&amp;state=CA&amp;country=USA</Value>
+      <Key Lvl="2" Node="Hackathon" SecType="public">Board2</Key>
+      <Value Lvl="2" Node="Hackathon" SecType="public">https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/</Value>
       <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted</Key>
       <Value Lvl="2" Node="Hackathon" SecType="public">https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/</Value>
       <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted2</Key>

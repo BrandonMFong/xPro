@@ -9,8 +9,8 @@ $error.Clear()
 try 
 {
    Import-Module $($PSScriptRoot + "\..\..\Modules\FunctionModules.psm1") -Scope Local;
-   [System.Xml.XmlDocument]$xml = _GetXMLContent;
-   [String]$FilePath = _GetXMLFilePath;
+   [System.Xml.XmlDocument]$xml = $(_GetUserConfig -Content);
+   [String]$FilePath = $(_GetUserConfig -Path);
    
    <# UPDATE START #>
    foreach($Object in $xml.Machine.Objects.Object)

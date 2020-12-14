@@ -1,4 +1,3 @@
-
 function _GetContents # static
 {
     Param([xml]$x)
@@ -36,8 +35,6 @@ function _InitConfig
 
     if ($x -eq 1)
     {
-        # [string]$name = Read-Host "Name the configuration file";
-        # New-Variable -Name "ConfigurationName" -Value $name -Scope Global -Force; # needs to be global for the other function
         [String]$ConfigurationName = Read-Host -Prompt "Name the configuration file";
         $NewXml.Machine.ConfigFile = $("\" + $ConfigurationName + ".xml");
         Write-Host "`nPlease review:" -Foregroundcolor Cyan;

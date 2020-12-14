@@ -1,0 +1,19 @@
+<#
+.Synopsis
+   Testing Window title 
+#>
+Write-Host `n -NoNewline;
+[Byte]$RETURNVALUE = 0;
+<# TEST START #>
+
+Write-Host "$($Host.UI.RawUI.WindowTitle)";
+Write-Host " - Checking Window Title" -NoNewline;
+if($Host.UI.RawUI.WindowTitle -ne 'D:\a\XmlPSProfile\XmlPSProfile')
+{
+    Write-Host " [FAILED]" -ForegroundColor Red;
+    $RETURNVALUE = 1;
+}
+else{Write-Host " [PASSED]" -ForegroundColor Green;}
+
+<# TEST END #>
+return $RETURNVALUE;

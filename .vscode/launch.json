@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "XmlPSProfile Debug",
+            "name": "(Powershell) xPro Debug",
             "type": "PowerShell",
             "request": "launch",
             "script": ".\\Profile.ps1",

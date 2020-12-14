@@ -23,6 +23,14 @@ Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local
 		}
 		
 	}
+
+	# Test to see if this is a directory
+	if(Test-Path $dir)
+	{
+		if($push){Push-Location $dir; $ProcessExecuted = $true;break;}
+		else{Set-Location $dir; $ProcessExecuted = $true;break;}
+	}
+
 	if(!($ProcessExecuted))
 	{
 		$global:LogHandler.Write("Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");

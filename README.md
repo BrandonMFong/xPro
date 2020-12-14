@@ -7,12 +7,6 @@ This repository allows an .XML file to be the Microsoft Powershell Profile (i.e.
 - Putting private information in your PROFILE.ps1 may not be ideal.  xPro connects to local SQL Server and with a GUID you can reference your password or email at Profile LOAD and store it in a HashTable configured under \<Objects\>
 - OpenSSH integration
 
-## Before xPro
-![Before](https://github.com/BrandonMFong/xPro/blob/release-dev-Version4/docs/B4xPro.PNG)
-
-## After xPro
-![After](https://github.com/BrandonMFong/xPro/blob/release-dev-Version4/docs/AfterxPro.PNG)
-
 ## Developed With
 
 * [Visual Studio Code](https://code.visualstudio.com/)

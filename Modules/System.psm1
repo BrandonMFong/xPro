@@ -73,8 +73,8 @@ function Set-Brightness
     }
     catch 
     {
-        if($PSVersionTable.PSVersion.Major -lt 7){Write-Error "Something bad happened";}
-        else{Write-Warning "This will not work in pwsh";}
+        if($PSVersionTable.PSVersion.Major -lt 7){$Global:LogHandler.WriteError("Something bad happened");}
+        else{$Global:LogHandler.Warning("This will not work in pwsh");}
     }
 }
 

@@ -37,10 +37,7 @@ class Net
         else
         {
             # Look through the net info
-            # [String]$DefaultGateway = $null; # Get Gateway IP
-            # [String]$SubnetMask = $null; # Get subnet ip
             [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
-            # [System.Boolean]$IsConnected = $true; # Assuming that we are connected
             for([int]$i=0;$i -lt $NetInfo.Count;$i++)
             {
                 # This is for the case when we are not connected to wifi
@@ -57,7 +54,6 @@ class Net
             }
             # this is the only place where isconnected turns true
             if(![String]::IsNullOrEmpty($this.DefaultGateway) -and ![String]::IsNullOrEmpty($this.SubnetMask)){$this.IsConnected = $true;} 
-            # if(!$this.IsConnected){return $false;} # You are not connected TODO make logs
         }
 
     }

@@ -173,6 +173,7 @@ function _GetCurrentNetConfig
     }    
 }
 
+# TODO DELETE
 function List-Wifi
 {
     
@@ -185,6 +186,7 @@ function List-Wifi
     }
 }
 
+# TODO DELETE
 # This reads the directory
 # Regardless of what is configed, whatever is in the wifi config dir you can set the wifi to that 
 function Set-Wifi
@@ -259,13 +261,7 @@ function Open-Ssh
 }
 
 
-# I am thinking if I should create a class?
-# A class would hold the ipaddress, subnetmask, and defaultgateway of the machine
-# If I create a class, I am assuming I am connected when I load the shell
-# I personally don't do that so I would create the class whenever I call any of these functions
-# I can create a class and have the constructor deal with the network stuff? 
-# I would need to edit the rest of these functions? 
-# first let's figure out the static ip 
+# this could have a better name
 function Set-StaticIP
 {
     param([string]$IpAddress=$null)

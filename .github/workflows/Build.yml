@@ -25,6 +25,26 @@ on:
       - 'StartScripts/**'
       - 'Cache/**'
       - 'Tests/Scripts/**' # Do not tag any changes from the test scripts
+  pull_request:
+    # Allowed branches
+    # Only dev should be run for tagging 
+    branches: 
+      - dev
+    # Ignored Files and paths
+    # Only files that will trigger a tag are app powershell scripts
+    # powershell scripts in the StartScipts are considered config
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
+      - '**.json'
+      - 'Config/**.xml' # Because there is an .xml in the SQL directory 
+      - '**.xsd'
+      - '**.txt'
+      - '**.log'
+      - '.gitignore'
+      - 'StartScripts/**'
+      - 'Cache/**'
+      - 'Tests/Scripts/**' # Do not tag any changes from the test scripts
 
 jobs:
   # Powershell on Windows

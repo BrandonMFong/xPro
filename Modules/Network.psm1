@@ -268,12 +268,21 @@ function Open-Ssh
 # first let's figure out the static ip 
 function Set-StaticIP
 {
+    param([string]$IpAddress=$null)
+
+    # if no address was passed then use the configured value
+    # but if the config value is empty then don't do anything 
+    if([string]::IsNullOrEmpty($IpAddress))
+    {
+        # use config
+        [System.Xml.XmlElement]$Network = _GetCurrentNetConfig;
+        $IpAddress = $Network.IpAddress; 
+        if([string]::IsNullOrEmpty($IpAddress)){$Global:LogHandler.Warning("Config is empty"); return;}
+    }
+
     # I like netsh
-    [string[]]$NetInfo = $(ipconfig.exe);
-
-
-    $IpAddress = ""
-    $SubnetMask = ""
-    $DefaultGateway = "";
-    netsh interface ip set address name= “Network Interface Name” static [IP address] [Subnet Mask] [Gateway]
+    [Net]$Net = [Net]::new();
+    $InterfaceAlias = "Wi-Fi"; # Going to statically assign this, assuming it's same on each person's machine 
+    
+    netsh interface ip set address name=$InterfaceAlias static $IpAddress $Net.SubnetMask $Net.DefaultGateway;
 }

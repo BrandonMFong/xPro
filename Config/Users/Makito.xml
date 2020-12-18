@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Machine MachineName="Makito" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+  <UpdateStamp Value="08302020" />
+  <!-- Terminal Settings -->
+  <ShellSettings Enabled="True">
+    <Prompt Enabled="True">
+      <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
+      <String Color="Cyan">[KAMANTA] @currdir@greaterthan_</String>
+    </Prompt>
+  </ShellSettings>
+  <!-- Functions -->
+  <Functions>
+    <Function><![CDATA[
+        function global:Sonoma 
+        {
+          chrome $College.Sonoma.Url;
+          $College.sonoma.Password|Scb;
+          Write-Host "Username: $($College.sonoma.Username)";
+        }
+      ]]></Function>
+  </Functions>
+  <!-- Directory paths -->
+  <Directories>
+    <Directory Alias="repo" SecType="public">/home/brandonmfong/source/repo</Directory>
+  </Directories>
+  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
+  <Programs>
+    <Program Alias="cls" SecType="public">cls</Program>
+  </Programs>
+</Machine>

@@ -1,4 +1,4 @@
-
+using module .\..\Classes\Net.psm1;
 Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
 
 function List-Connections
@@ -71,54 +71,56 @@ function Load-Drive
 function IsWithinNetwork
 {
     Param([String]$IpAddress)
-    # Get Subnet and default gateway for the current network
-    [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
-    [String[]]$NetInfo = [string[]]::new($null);
-    for([int]$i=0;$i -lt $ip.Count;$i++)
-    {
-        # Assuming it is always Wireless LAN adapter Wi-Fi 
-        if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
-        {
-            [int16]$j = 1;
-            [byte]$l = 0;
-
-            # Gets the segment in the ipconfig
-            while($true)
-            {
-                $l = $($ip[$i + $j].Length -gt 0).ToByte($null); # If not a blank row
-                if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
-                $j++;
-            }
-            $NetInfo = $ip[$i..($i+$j-1)]; 
-            break;
-        }
-    }
-    if([string]::IsNullOrEmpty($NetInfo)){return $false;} # TODO make logs
     
-    # Look through the net info
-    [String]$DefaultGateway = $null; # Get Gateway IP
-    [String]$SubnetMask = $null; # Get subnet ip
-    [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
-    [System.Boolean]$IsConnected = $true; # Assuming that we are connected
-    for([int]$i=0;$i -lt $NetInfo.Count;$i++)
-    {
-        # This is for the case when we are not connected to wifi
-        if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
-        if($NetInfo[$i].Contains('Default Gateway'))
-        {
-            # checks if IPv6 since it has letters
-            if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
-            {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
-            else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-        }
-        if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
-    }
-    if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){return $false;} # TODO make logs
-    if(!$IsConnected){return $false;} # You are not connected TODO make logs
+    [Net]$Net = [Net]::new();
+    # # Get Subnet and default gateway for the current network
+    # [String[]]$ip = ipconfig.exe; # Windows' binary ipconfig
+    # [String[]]$NetInfo = [string[]]::new($null);
+    # for([int]$i=0;$i -lt $ip.Count;$i++)
+    # {
+    #     # Assuming it is always Wireless LAN adapter Wi-Fi 
+    #     if($ip[$i].Contains('Wireless LAN adapter Wi-Fi'))
+    #     {
+    #         [int16]$j = 1;
+    #         [byte]$l = 0;
 
+    #         # Gets the segment in the ipconfig
+    #         while($true)
+    #         {
+    #             $l = $($ip[$i + $j].Length -gt 0).ToByte($null); # If not a blank row
+    #             if(![string]::IsNullOrEmpty($ip[$i + $j].Substring(0,$l)) -and ($ip[$i + $j].Substring(0,$l) -ne ' ')){break;}
+    #             $j++;
+    #         }
+    #         $NetInfo = $ip[$i..($i+$j-1)]; 
+    #         break;
+    #     }
+    # }
+    # if([string]::IsNullOrEmpty($NetInfo)){return $false;} # TODO make logs
+    
+    # # Look through the net info
+    # [String]$DefaultGateway = $null; # Get Gateway IP
+    # [String]$SubnetMask = $null; # Get subnet ip
+    # [int16]$IpStartIndex = 39; # I am going to assume that the addresses start in the same place everytime
+    # [System.Boolean]$IsConnected = $true; # Assuming that we are connected
+    # for([int]$i=0;$i -lt $NetInfo.Count;$i++)
+    # {
+    #     # This is for the case when we are not connected to wifi
+    #     if($NetInfo[$i].Contains('Media State') -and $NetInfo[$i].Contains('Media disconnected')){$IsConnected = $false;break;}
+    #     if($NetInfo[$i].Contains('Default Gateway'))
+    #     {
+    #         # checks if IPv6 since it has letters
+    #         if($NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex) -match "[a-zA-Z]+")
+    #         {$DefaultGateway = $NetInfo[$i+1].Substring($IpStartIndex,$NetInfo[$i+1].Length-$IpStartIndex);}
+    #         else{$DefaultGateway = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+    #     }
+    #     if($NetInfo[$i].Contains('Subnet Mask')){$SubnetMask = $NetInfo[$i].Substring($IpStartIndex,$NetInfo[$i].Length-$IpStartIndex);}
+    # }
+    # if([String]::IsNullOrEmpty($DefaultGateway) -and [String]::IsNullOrEmpty($SubnetMask)){return $false;} # TODO make logs
+    if(!$Net.IsConnected){return $false;} # You are not connected TODO make logs
+    
     [String]$hostnamestring = GetHostName -Path:$IpAddress; # getting the host name just in case it is a shared folder path
-    [String]$IpAddr = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$hostnamestring);
-    [String]$DefaultGate = $(GetBaseIP -SubnetMask:$SubnetMask -IpAddress:$DefaultGateway);
+    [String]$IpAddr = $(GetBaseIP -SubnetMask:$Net.SubnetMask -IpAddress:$hostnamestring);
+    [String]$DefaultGate = $(GetBaseIP -SubnetMask:$Net.SubnetMask -IpAddress:$Net.DefaultGateway);
 
     # If we made it this far then we have extract the base ip to check if it is within the sub net
     # Only check if device is on if the ip is within the network
@@ -300,30 +302,21 @@ function Open-Ssh
 }
 
 
+# I am thinking if I should create a class?
+# A class would hold the ipaddress, subnetmask, and defaultgateway of the machine
+# If I create a class, I am assuming I am connected when I load the shell
+# I personally don't do that so I would create the class whenever I call any of these functions
+# I can create a class and have the constructor deal with the network stuff? 
+# I would need to edit the rest of these functions? 
+# first let's figure out the static ip 
 function Set-StaticIP
 {
-    New-NetIPAddress -IPAddress 192.168.1.7 -PrefixLength 24 -DefaultGateway 192.168.1.1 -InterfaceAlias (Get-NetAdapter).InterfaceAlias[1]
-    Set-DNSClientServerAddress –InterfaceIndex (Get-NetAdapter).InterfaceIndex[1] –ServerAddresses 192.168.1.1
-    $IP = "192.168.1.7" # using 7 since it isn't taken in my network 
-    $MaskBits = 24 # This means subnet mask = 255.255.255.0
-    $Gateway = "192.168.1.1"
-    $Dns = "10.10.10.100"
-    $IPType = "IPv4"
-    # Retrieve the network adapter that you want to configure
-    $adapter = Get-NetAdapter | ? {$_.Status -eq "up"}
-    # Remove any existing IP, gateway from our ipv4 adapter
-    If (($adapter | Get-NetIPConfiguration).IPv4Address.IPAddress) {
-    $adapter | Remove-NetIPAddress -AddressFamily $IPType -Confirm:$false
-    }
-    If (($adapter | Get-NetIPConfiguration).Ipv4DefaultGateway) {
-    $adapter | Remove-NetRoute -AddressFamily $IPType -Confirm:$false
-    }
-    # Configure the IP address and default gateway
-    $adapter | New-NetIPAddress `
-    -AddressFamily $IPType `
-    -IPAddress $IP `
-    -PrefixLength $MaskBits `
-    -DefaultGateway $Gateway
-    # Configure the DNS client server IP addresses
-    $adapter | Set-DnsClientServerAddress -ServerAddresses $DNS
+    # I like netsh
+    [string[]]$NetInfo = $(ipconfig.exe);
+
+
+    $IpAddress = ""
+    $SubnetMask = ""
+    $DefaultGateway = "";
+    netsh interface ip set address name= “Network Interface Name” static [IP address] [Subnet Mask] [Gateway]
 }

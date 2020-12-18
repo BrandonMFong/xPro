@@ -66,8 +66,16 @@ function Get-BatteryLife
 function Set-Brightness
 {
     param([int]$Percentage)
-    $monitor = Get-WmiObject -ns root/wmi -class wmiMonitorBrightNessMethods
-    $monitor.WmiSetBrightness(0,$Percentage)
+    try
+    {
+        $monitor = Get-WmiObject -ns root/wmi -class wmiMonitorBrightNessMethods
+        $monitor.WmiSetBrightness(0,$Percentage)
+    }
+    catch 
+    {
+        if($PSVersionTable.PSVersion.Major -lt 7){Write-Error "Something bad happened";}
+        else{Write-Warning "This will not work in pwsh";}
+    }
 }
 
 function Reload-Profile 

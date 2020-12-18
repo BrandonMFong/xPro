@@ -298,3 +298,32 @@ function Open-Ssh
     }
     if(!$est){$Global:LogHandler.Warning("Connection not found for ID: $($ID)");}
 }
+
+
+function Set-StaticIP
+{
+    New-NetIPAddress -IPAddress 192.168.1.7 -PrefixLength 24 -DefaultGateway 192.168.1.1 -InterfaceAlias (Get-NetAdapter).InterfaceAlias[1]
+    Set-DNSClientServerAddress –InterfaceIndex (Get-NetAdapter).InterfaceIndex[1] –ServerAddresses 192.168.1.1
+    $IP = "192.168.1.7" # using 7 since it isn't taken in my network 
+    $MaskBits = 24 # This means subnet mask = 255.255.255.0
+    $Gateway = "192.168.1.1"
+    $Dns = "10.10.10.100"
+    $IPType = "IPv4"
+    # Retrieve the network adapter that you want to configure
+    $adapter = Get-NetAdapter | ? {$_.Status -eq "up"}
+    # Remove any existing IP, gateway from our ipv4 adapter
+    If (($adapter | Get-NetIPConfiguration).IPv4Address.IPAddress) {
+    $adapter | Remove-NetIPAddress -AddressFamily $IPType -Confirm:$false
+    }
+    If (($adapter | Get-NetIPConfiguration).Ipv4DefaultGateway) {
+    $adapter | Remove-NetRoute -AddressFamily $IPType -Confirm:$false
+    }
+    # Configure the IP address and default gateway
+    $adapter | New-NetIPAddress `
+    -AddressFamily $IPType `
+    -IPAddress $IP `
+    -PrefixLength $MaskBits `
+    -DefaultGateway $Gateway
+    # Configure the DNS client server IP addresses
+    $adapter | Set-DnsClientServerAddress -ServerAddresses $DNS
+}

@@ -45,6 +45,7 @@
     <Program Alias="open-settings" SecType="public">open -a 'System Preferences'</Program>
     <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
     <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
+    <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Functions/ARCHIVE.zsh</Program>
   </Programs>
 </Machine>
 
@@ -63,3 +64,4 @@ office="https://office.com"
 youtube="https://youtube.com"
 confluence="https://confluence.macsales.com/"
 git="https://stash.macsales.com/dashboard" -->
+<!-- https://stackoverflow.com/questions/36771080/creating-classes-and-objects-using-bash-scripting -->

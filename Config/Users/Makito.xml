@@ -8,23 +8,19 @@
       <String Color="Cyan">[KAMANTA] @currdir@greaterthan_</String>
     </Prompt>
   </ShellSettings>
-  <!-- Functions -->
-  <Functions>
-    <Function><![CDATA[
-        function global:Sonoma 
-        {
-          chrome $College.Sonoma.Url;
-          $College.sonoma.Password|Scb;
-          Write-Host "Username: $($College.sonoma.Username)";
-        }
-      ]]></Function>
-  </Functions>
+  <!-- Modules -->
+  <Modules>
+    <Module>/home/brandonmfong/source/repo/xPro/Modules/System.zsh</Module>
+  </Modules>
   <!-- Directory paths -->
   <Directories>
     <Directory Alias="repo" SecType="public">/home/brandonmfong/source/repo</Directory>
+    <Directory Alias="dl" SecType="public">/home/brandonmfong/downloads</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <Program Alias="cls" SecType="public">cls</Program>
+    <Program Alias="cls" SecType="public">clear</Program>
+    <Program Alias="cl" SecType="public">clear;ls -al;</Program>
+    <Program Alias="pow" SecType="public">/home/brandonmfong/source/repo/xPro</Program>
   </Programs>
 </Machine>

@@ -5,12 +5,14 @@
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
-      <String Color="Cyan">%F{cyan}[%n] %. \>_%f </String>
+      <String Color="cyan">[%n] %.\>_ </String>
     </Prompt>
+    <StartDirectory>/Users/BrandonMFong/brando/</StartDirectory>
   </ShellSettings>
   <!-- Modules -->
   <Modules>
     <Module>/Users/BrandonMFong/brando/sources/repos/xPro/Modules/System.zsh</Module>
+    <Module>/Users/BrandonMFong/brando/sources/repos/xPro/Modules/Network.zsh</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>

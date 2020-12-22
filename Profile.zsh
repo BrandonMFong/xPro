@@ -27,4 +27,9 @@ do
     source $ModuleString;
 done 
 
-PROMPT=$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})
+# Prompt
+color=$(echo $(xmllint --xpath "(//ShellSettings/Prompt/String/@Color)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}) | awk -F'[="]' '!/>/{print $(NF-1)}')
+PROMPT="%F{$color}$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})%f"
+
+# Start directory
+cd $(xmllint --xpath "string(//ShellSettings/StartDirectory)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})

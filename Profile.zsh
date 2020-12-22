@@ -26,3 +26,5 @@ do
     ModuleString=$(xmllint --xpath "(//Module)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
     source $ModuleString;
 done 
+
+PROMPT=$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})

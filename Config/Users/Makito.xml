@@ -5,22 +5,54 @@
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
-      <String Color="Cyan">[KAMANTA] @currdir@greaterthan_</String>
+      <String Color="Cyan">%F{cyan}[%n] %. \>_%f </String>
     </Prompt>
   </ShellSettings>
   <!-- Modules -->
   <Modules>
-    <Module>/home/brandonmfong/source/repo/xPro/Modules/System.zsh</Module>
+    <Module>/Users/BrandonMFong/brando/sources/repos/xPro/Modules/System.zsh</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
-    <Directory Alias="repo" SecType="public">/home/brandonmfong/source/repo</Directory>
-    <Directory Alias="dl" SecType="public">/home/brandonmfong/downloads</Directory>
+    <Directory Alias="repo" SecType="public">//Users/BrandonMFong/brando/sources/repos</Directory>
+    <Directory Alias="pow" SecType="public">//Users/BrandonMFong/brando/sources/repos/xPro</Directory>
+    <Directory Alias="dl" SecType="public">/Users/BrandonMFong/brando/downloads</Directory>
+    <Directory Alias="main" SecType="public">/Users/BrandonMFong/brando</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <Program Alias="cls" SecType="public">clear</Program>
     <Program Alias="cl" SecType="public">clear;ls -al;</Program>
     <Program Alias="pow" SecType="public">/home/brandonmfong/source/repo/xPro</Program>
+    <Program Alias="code" SecType="public">open -a /Users/BrandonMFong/brando/programs/vscode/Visual\ Studio\ Code.app</Program>
+    <Program Alias="xc" SecType="public">open -a Xcode</Program>
+    <Program Alias="chrome" SecType="public">open -a 'Google Chrome'</Program>
+    <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
+    <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
+    <Program Alias="outlook" SecType="public">open -a 'Microsoft Outlook'</Program>
+    <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong/brando/books/workbook/vc-notebook.code-workspace'</Program>
+    <Program Alias="screenshot" SecType="public">open -a screenshot</Program>
+    <Program Alias="cisco" SecType="public">open -a 'cisco AnyConnect Secure Mobility Client'</Program>
+    <Program Alias="eject" SecType="public">diskutil eject</Program>
+    <Program Alias="umount" SecType="public">diskutil unmountDisk</Program>
+    <Program Alias="blkid" SecType="public">diskutil list</Program>
+    <Program Alias="open-settings" SecType="public">open -a 'System Preferences'</Program>
+    <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
   </Programs>
 </Machine>
+
+<!-- # Variables
+onelogin="http://owc.onelogin.com"
+main="/Users/BrandonMFong/brando"
+jira="https://otherworldcomputing.atlassian.net/"
+stackoverflow="https://stackoverflow.com/"
+sharepoint="https://macsales.sharepoint.com/sites/SoftwareDevelopment"
+bitbucket="https://stash.macsales.com/dashboard"
+helpdesk="https://otherworldcomputing.atlassian.net/servicedesk/customer/portals"
+appledev="https://developer.apple.com"
+repo="/Users/BrandonMFong/brando/sources/repos/"
+packages="/Users/BrandonMFong/brando/sources/repos/packages"
+office="https://office.com"
+youtube="https://youtube.com"
+confluence="https://confluence.macsales.com/"
+git="https://stash.macsales.com/dashboard" -->

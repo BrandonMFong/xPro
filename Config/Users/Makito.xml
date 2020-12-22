@@ -20,6 +20,10 @@
     <Directory Alias="pow" SecType="public">//Users/BrandonMFong/brando/sources/repos/xPro</Directory>
     <Directory Alias="dl" SecType="public">/Users/BrandonMFong/brando/downloads</Directory>
     <Directory Alias="main" SecType="public">/Users/BrandonMFong/brando</Directory>
+    <Directory Alias="apps" SecType="public">/Applications</Directory>
+    <Directory Alias="vol" SecType="public">/Volumes</Directory>
+    <Directory Alias="dg" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguide</Directory>
+    <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -40,6 +44,7 @@
     <Program Alias="blkid" SecType="public">diskutil list</Program>
     <Program Alias="open-settings" SecType="public">open -a 'System Preferences'</Program>
     <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
+    <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
   </Programs>
 </Machine>
 

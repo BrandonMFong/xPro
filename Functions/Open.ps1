@@ -18,6 +18,9 @@ foreach ($Directory in $x.Machine.Directories.Directory)
 		Start-Process $result; $ProcessExecuted = $true;break;
 	}
 }
+# Test to see if this is a directory
+if(Test-Path $dir){Start-Process $Destination; $ProcessExecuted = $true;}
+
 if(!($ProcessExecuted))
 {
 	$global:LogHandler.Write("Parameter '$($Destination)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");

@@ -27,8 +27,8 @@ Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local
 	# Test to see if this is a directory
 	if(Test-Path $dir)
 	{
-		if($push){Push-Location $dir; $ProcessExecuted = $true;break;}
-		else{Set-Location $dir; $ProcessExecuted = $true;break;}
+		if($push){Push-Location $dir; $ProcessExecuted = $true;}
+		else{Set-Location $dir; $ProcessExecuted = $true;}
 	}
 
 	if(!($ProcessExecuted))

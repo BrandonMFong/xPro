@@ -27,6 +27,15 @@ do
     source $ModuleString;
 done 
 
+# Define objects
+ObjectCount=$(xmllint --xpath "count(//Object)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+for (( i=1; i<=$ModuleCount; i++ ))
+do 
+    VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+    SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+    ${VarName}="${SimpleValue}";
+done 
+
 # Prompt
 color=$(echo $(xmllint --xpath "(//ShellSettings/Prompt/String/@Color)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}) | awk -F'[="]' '!/>/{print $(NF-1)}')
 PROMPT="%F{$color}$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})%f"

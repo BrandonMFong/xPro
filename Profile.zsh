@@ -28,12 +28,13 @@ do
 done 
 
 # Define objects
+declare -A magic_variable=()
 ObjectCount=$(xmllint --xpath "count(//Object)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
 for (( i=1; i<=$ModuleCount; i++ ))
 do 
     VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
     SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
-    ${VarName}="${SimpleValue}";
+    declare "$VarName=${SimpleValue}";
 done 
 
 # Prompt

@@ -70,7 +70,7 @@
   <!-- Network Drives -->
   <!-- Global access connections should be associated with a local config  -->
   <Networks>
-    <!-- 2.4 GHz -->
+    <!-- ELEMENTS 2.4 GHz -->
     <Network>
       <!-- \\Kojami\BrandonMFong -->
       <Connection xsi:Type="NetworkShare">
@@ -133,7 +133,7 @@
       <IpAddress>192.168.1.5</IpAddress>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
     </Network>
-    <!-- 5.0 GHz -->
+    <!-- ELEMENTS-5G 5.0 GHz -->
     <Network>
       <!-- \\Kojami\BrandonMFong -->
       <Connection xsi:Type="NetworkShare">
@@ -193,6 +193,7 @@
         <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
         <SSHClientPath Type="Powershell" />
       </Connection>
+      <IpAddress>192.168.1.5</IpAddress>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
     <!-- Maki -->

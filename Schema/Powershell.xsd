@@ -430,7 +430,7 @@
                                 <xsd:complexType>
                                     <xsd:sequence>
                                         <xsd:element name="Connection" minOccurs="0" maxOccurs="unbounded"/>
-                                        <xsd:element name="IpAddress" minOccurs="1" maxOccurs="1">
+                                        <xsd:element name="IpAddress" minOccurs="0" maxOccurs="1">
                                             <xsd:annotation>
                                                 <xsd:documentation>
                                                     Include this in your config you want to use the Set-StaticIP (In Network.psm1) to set static IP 

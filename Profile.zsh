@@ -1,13 +1,12 @@
 # z shell profile
 # xml parsing: sudo apt-get install libxml2-utils
 # sudo apt install apt
-
-# declare -A XMLReader=( [GitRepoDir]="/home/brandonmfong/source/repo/xPro/Config/Users/Makito.xml" )
-# ${XMLReader[GitRepoDir]}
+# Known issues: if object count is one, that object will not load 
 
 declare -A AppPointer=( [GitRepoDir]=$(xmllint --xpath "string(//GitRepoDir)" ~/.profile.xml) [ConfigFile]=$(xmllint --xpath "string(//ConfigFile)" ~/.profile.xml))
 # ${AppPointer[GitRepoDir]}
-
+ConfigPath="${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}";
+echo $ConfigPath
 
 # Define alias
 ProgramCount=$(xmllint --xpath "count(//Program)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
@@ -34,7 +33,7 @@ for (( i=1; i<=$ModuleCount; i++ ))
 do 
     VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
     SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
-    declare "$VarName=${SimpleValue}";
+    declare "$(echo $VarName)=$(echo $SimpleValue)";
 done 
 
 # Prompt

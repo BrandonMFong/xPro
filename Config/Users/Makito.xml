@@ -54,6 +54,10 @@
       <VarName SecType="public">jira</VarName>
       <SimpleValue SecType="public">https://otherworldcomputing.atlassian.net/</SimpleValue>
     </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">oneLogin</VarName>
+      <SimpleValue SecType="public">onelogin="http://owc.onelogin.com"</SimpleValue>
+    </Object>
   </Objects>
 </Machine>
 

@@ -49,12 +49,21 @@
     <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
     <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Functions/ARCHIVE.zsh</Program>
   </Programs>
+  <Objects>
+    <Object Type="Simple">
+      <VarName SecType="public">jira</VarName>
+      <SimpleValue SecType="public">https://otherworldcomputing.atlassian.net/</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">oneLogin</VarName>
+      <SimpleValue SecType="public">onelogin="http://owc.onelogin.com"</SimpleValue>
+    </Object>
+  </Objects>
 </Machine>
 
 <!-- # Variables
 onelogin="http://owc.onelogin.com"
 main="/Users/BrandonMFong/brando"
-jira="https://otherworldcomputing.atlassian.net/"
 stackoverflow="https://stackoverflow.com/"
 sharepoint="https://macsales.sharepoint.com/sites/SoftwareDevelopment"
 bitbucket="https://stash.macsales.com/dashboard"

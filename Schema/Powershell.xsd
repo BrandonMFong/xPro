@@ -18,7 +18,7 @@
                     </xsd:complexType>
                 </xsd:element>
                 <!-- Start Script -->
-                <xsd:element name="Start" minOccurs="1" maxOccurs="1">
+                <xsd:element name="Start" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>
                             Full path to the powershell script.  This will execute after profile is loaded
@@ -647,6 +647,7 @@
                                             <xsd:group ref="XMLElement"/>
                                             <xsd:group ref="ClassElement"/>
                                             <xsd:group ref="LinkedObject"/>
+                                            <xsd:group ref="SimpleVariable"/>
                                         </xsd:choice>
                                     </xsd:sequence>
                                     <xsd:attribute name="Type" use="required">
@@ -685,6 +686,13 @@
                                                     <xsd:annotation>
                                                         <xsd:documentation>
                                                             A linked object is constructed with data defined in the database
+                                                        </xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:enumeration>
+                                                <xsd:enumeration value="Simple">
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>
+                                                            Simple variable
                                                         </xsd:documentation>
                                                     </xsd:annotation>
                                                 </xsd:enumeration>
@@ -930,6 +938,25 @@
                         This is the guid in the link table that pulls all the required data from the database to make the object
                     </xsd:documentation>
                 </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+    
+    <xsd:group name="SimpleVariable">
+        <xsd:sequence>
+            <xsd:element name="SimpleValue" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This is the guid in the link table that pulls all the required data from the database to make the object
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attributeGroup ref="SecurityType"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
     </xsd:group>

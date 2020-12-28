@@ -38,6 +38,8 @@
     <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
     <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
     <Program Alias="outlook" SecType="public">open -a 'Microsoft Outlook'</Program>
+    <Program Alias="whatsapp" SecType="public">open -a 'Whatsapp'</Program>
+    <Program Alias="trello" SecType="public">open -a 'Trello'</Program>
     <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong/brando/books/workbook/vc-notebook.code-workspace'</Program>
     <Program Alias="screenshot" SecType="public">open -a screenshot</Program>
     <Program Alias="cisco" SecType="public">open -a 'cisco AnyConnect Secure Mobility Client'</Program>
@@ -48,6 +50,7 @@
     <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
     <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
     <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Functions/ARCHIVE.zsh</Program>
+    <Program Alias="get-calendar" SecType="public">cal</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">
@@ -56,23 +59,35 @@
     </Object>
     <Object Type="Simple">
       <VarName SecType="public">oneLogin</VarName>
-      <SimpleValue SecType="public">onelogin="http://owc.onelogin.com"</SimpleValue>
+      <SimpleValue SecType="public">http://owc.onelogin.com</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">stackoverflow</VarName>
+      <SimpleValue SecType="public">https://stackoverflow.com/</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">sharepoint</VarName>
+      <SimpleValue SecType="public">https://macsales.sharepoint.com/sites/SoftwareDevelopment</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">helpdesk</VarName>
+      <SimpleValue SecType="public">https://otherworldcomputing.atlassian.net/servicedesk/customer/portals</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">appledev</VarName>
+      <SimpleValue SecType="public">https://developer.apple.com</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">office</VarName>
+      <SimpleValue SecType="public">https://office.com</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">confluence</VarName>
+      <SimpleValue SecType="public">https://confluence.macsales.com/</SimpleValue>
+    </Object>
+    <Object Type="Simple">
+      <VarName SecType="public">git</VarName>
+      <SimpleValue SecType="public">https://stash.macsales.com/dashboard</SimpleValue>
     </Object>
   </Objects>
 </Machine>
-
-<!-- # Variables
-onelogin="http://owc.onelogin.com"
-main="/Users/BrandonMFong/brando"
-stackoverflow="https://stackoverflow.com/"
-sharepoint="https://macsales.sharepoint.com/sites/SoftwareDevelopment"
-bitbucket="https://stash.macsales.com/dashboard"
-helpdesk="https://otherworldcomputing.atlassian.net/servicedesk/customer/portals"
-appledev="https://developer.apple.com"
-repo="/Users/BrandonMFong/brando/sources/repos/"
-packages="/Users/BrandonMFong/brando/sources/repos/packages"
-office="https://office.com"
-youtube="https://youtube.com"
-confluence="https://confluence.macsales.com/"
-git="https://stash.macsales.com/dashboard" -->
-<!-- https://stackoverflow.com/questions/36771080/creating-classes-and-objects-using-bash-scripting -->

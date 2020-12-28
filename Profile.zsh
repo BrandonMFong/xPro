@@ -4,41 +4,39 @@
 # Known issues: if object count is one, that object will not load 
 
 declare -A AppPointer=( [GitRepoDir]=$(xmllint --xpath "string(//GitRepoDir)" ~/.profile.xml) [ConfigFile]=$(xmllint --xpath "string(//ConfigFile)" ~/.profile.xml))
-# ${AppPointer[GitRepoDir]}
 ConfigPath="${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}";
-echo $ConfigPath
 
 # Define alias
-ProgramCount=$(xmllint --xpath "count(//Program)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+ProgramCount=$(xmllint --xpath "count(//Program)" ${ConfigPath});
 for (( i=1; i<=$ProgramCount; i++ ))
 do 
-    ProgramString=$(xmllint --xpath "(//Program)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
-    alias=$(echo $(xmllint --xpath "(//Programs/Program/@Alias)[${i}]" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}) | awk -F'[="]' '!/>/{print $(NF-1)}')
+    ProgramString=$(xmllint --xpath "(//Program)[${i}]/text()" ${ConfigPath});
+    alias=$(echo $(xmllint --xpath "(//Programs/Program/@Alias)[${i}]" ${ConfigPath}) | awk -F'[="]' '!/>/{print $(NF-1)}')
     alias ${alias}="$ProgramString";
 done 
 
 
 # Define modules
-ModuleCount=$(xmllint --xpath "count(//Module)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+ModuleCount=$(xmllint --xpath "count(//Module)" ${ConfigPath});
 for (( i=1; i<=$ModuleCount; i++ ))
 do 
-    ModuleString=$(xmllint --xpath "(//Module)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+    ModuleString=$(xmllint --xpath "(//Module)[${i}]/text()" ${ConfigPath});
     source $ModuleString;
 done 
 
 # Define objects
 declare -A magic_variable=()
-ObjectCount=$(xmllint --xpath "count(//Object)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+ObjectCount=$(xmllint --xpath "count(//Object)" ${ConfigPath});
 for (( i=1; i<=$ModuleCount; i++ ))
 do 
-    VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
-    SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]});
+    VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${ConfigPath});
+    SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${ConfigPath});
     declare "$(echo $VarName)=$(echo $SimpleValue)";
 done 
 
 # Prompt
-color=$(echo $(xmllint --xpath "(//ShellSettings/Prompt/String/@Color)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}) | awk -F'[="]' '!/>/{print $(NF-1)}')
-PROMPT="%F{$color}$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})%f"
+color=$(echo $(xmllint --xpath "(//ShellSettings/Prompt/String/@Color)" ${ConfigPath}) | awk -F'[="]' '!/>/{print $(NF-1)}')
+PROMPT="%F{$color}$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${ConfigPath})%f"
 
 # Start directory
-cd $(xmllint --xpath "string(//ShellSettings/StartDirectory)" ${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]})
+cd $(xmllint --xpath "string(//ShellSettings/StartDirectory)" ${ConfigPath})

@@ -48,6 +48,7 @@
     <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
     <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
     <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Functions/ARCHIVE.zsh</Program>
+    <Program Alias="scb" SecType="public">pbcopy</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

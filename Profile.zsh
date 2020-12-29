@@ -27,7 +27,7 @@ done
 # Define objects
 declare -A magic_variable=()
 ObjectCount=$(xmllint --xpath "count(//Object)" ${ConfigPath});
-for (( i=1; i<=$ModuleCount; i++ ))
+for (( i=1; i<=$ObjectCount; i++ ))
 do 
     VarName=$(xmllint --xpath "(//Object/VarName)[${i}]/text()" ${ConfigPath});
     SimpleValue=$(xmllint --xpath "(//Object/SimpleValue)[${i}]/text()" ${ConfigPath});

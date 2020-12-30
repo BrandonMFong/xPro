@@ -5,7 +5,6 @@
 
     Test1: Failed on dependency
     Test2: Passed
-    Test3:
 #>
 if($Global:AppPointer.Machine.ConfigFile -ne "\TestsConfig.xml"){Write-Warning "Not using Test Config.  Please update config to point to => TestsConfig.xml";return;}
 Push-Location $PSScriptRoot;

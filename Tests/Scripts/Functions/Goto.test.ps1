@@ -13,7 +13,7 @@ Write-Host " - Goto test on ConfigDir config" -NoNewline;
 # if($PSScriptRoot -eq "D:\a\xPro\xPro\Tests\Scripts\Scripts")
 if($PSScriptRoot -eq $Global:TestReader.GotoTest.Outcome[0])
 {
-   try{Goto1 ConfigDir1 -push;}
+   try{Goto ConfigDir1 -push;}
    catch
    {
       Write-Host " [ERROR]" -ForegroundColor Red;
@@ -28,7 +28,7 @@ if($PSScriptRoot -eq $Global:TestReader.GotoTest.Outcome[0])
 }
 else
 {
-   try{Goto2 ConfigDir2 -push;}
+   try{Goto ConfigDir2 -push;}
    catch
    {
       Write-Host " [ERROR]" -ForegroundColor Red;

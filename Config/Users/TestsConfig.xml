@@ -68,9 +68,9 @@
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Scripts\GOTO.ps1</Program>
-    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program>
-    <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program>
+    <!-- <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Scripts\GOTO.ps1</Program>
+    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program> -->
+    <!-- <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program> -->
     <Program Alias="Put" SecType="public">D:\a\xPro\xPro\Scripts\Put.ps1</Program>
     <Program Alias="Open" SecType="public">D:\a\xPro\xPro\Scripts\Open.ps1</Program>
     <Program Alias="Archive" SecType="public">D:\a\xPro\xPro\Scripts\Archive.ps1</Program>

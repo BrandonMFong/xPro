@@ -2,7 +2,7 @@
 .Notes
     Assumes you have git as an env path or you have set it in the programs config
 #>
-Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+Import-Module $PSScriptRoot\xProUtilities.psm1 -Scope Local;
 
 function Get-Tag
 {
@@ -165,7 +165,7 @@ function Set-Commit
 
     git commit -m $commitmessage; # Set the commit
     Set-Tag -Tag:$Tag -Push:$Push; # push tags
-    GitRebasePush; # push changes
+    # GitRebasePush; # push changes
 }
 
 function GitRebasePush

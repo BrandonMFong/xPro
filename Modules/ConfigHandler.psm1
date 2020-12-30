@@ -1,4 +1,4 @@
-Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+Import-Module $PSScriptRoot\xProUtilities.psm1 -Scope Local;
 
 function _MachineNode([ref]$File)
 {
@@ -6,7 +6,7 @@ function _MachineNode([ref]$File)
     $Node_Machine = $File.Value.CreateElement("Machine");
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
     $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
-    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
+    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\xPro.xsd");
     $File.Value.AppendChild($Node_Machine);#Node
 }
 
@@ -194,7 +194,7 @@ function List-Programs
 }
 
 
-Import-Module $($PSScriptRoot + "\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\xProUtilities.psm1") -Scope Local;
 
 # Runs Upgrade scripts on the config files that is currently pointed
 # Not going to be in the profile load since this is a module

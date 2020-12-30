@@ -6,13 +6,13 @@ Param([ref]$Executed)
 $error.Clear();
 try 
 {
-   Import-Module $($PSScriptRoot + "\..\..\Modules\FunctionModules.psm1") -Scope Local;
+   Import-Module $($PSScriptRoot + "\..\..\Modules\xProUtilities.psm1") -Scope Local;
    [System.Xml.XmlDocument]$xml = $(_GetUserConfig -Content);
    [String]$FilePath = $(_GetUserConfig -Path);
    
    <# UPDATE START #>
 
-   $xml.Machine.noNamespaceSchemaLocation = "..\..\Schema\Powershell.xsd";
+   $xml.Machine.noNamespaceSchemaLocation = "..\..\Schema\xPro.xsd";
 
    <# UPDATE END #>
    

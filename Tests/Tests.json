@@ -10,7 +10,7 @@
         {"Outcome": 2}
     ],
     "GotoTest":[
-        {"Outcome": "D:\\a\\xPro\\xPro\\Tests\\Scripts\\Functions"},
+        {"Outcome": "D:\\a\\xPro\\xPro\\Tests\\Scripts\\Scripts"},
         {"Outcome": "D:\\a\\xPro\\xPro\\Config"},
         {"Outcome": "B:\\SOURCE\\Repo\\xPro\\Config"}
     ],
@@ -51,8 +51,8 @@
         {"Outcome": "Math"}
     ],
     "ProgramsTest":[
-        {"Outcome": "D:\\a\\xPro\\xPro\\Functions\\Archive.ps1"},
-        {"Outcome": "D:\\a\\xPro\\xPro\\Functions\\Calendar.ps1"}
+        {"Outcome": "D:\\a\\xPro\\xPro\\Scripts\\Archive.ps1"},
+        {"Outcome": "D:\\a\\xPro\\xPro\\Scripts\\Calendar.ps1"}
     ],
     "ReplacementsTests":[
         {"Outcome": "@fulldir"},

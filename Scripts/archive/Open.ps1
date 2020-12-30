@@ -5,7 +5,7 @@
 	Opens directory
 #>
 Param([Alias ('Dest')][String]$Destination)
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
 [System.Xml.XmlDocument]$x = $(_GetUserConfig -Content);
 [bool]$ProcessExecuted = $false;
 	

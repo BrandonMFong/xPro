@@ -1,4 +1,4 @@
-Import-Module $($PSScriptRoot +  '\FunctionModules.psm1') -DisableNameChecking;
+Import-Module $($PSScriptRoot +  '\xProUtilities.psm1') -DisableNameChecking;
 
 function Hop 
 {
@@ -125,4 +125,120 @@ function Clear-Cache
         default{Remove-Item $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserCache + "\*") -Recurse -Force;}
     }
     
+}
+
+function goto 
+{
+<#
+.Synopsis
+	This relates an alias to a directory and sets the directory location to alias/dir relationship
+.Description
+	Useful to easily jump to a directory without writing out the whole path
+.Parameter push
+	Push-Location instead of set-location
+.Example
+	Goto CDrive -p 
+.Notes
+
+#>
+    Param([String]$dir, [Alias('p')][Switch]$push)
+    # Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
+    [bool]$ProcessExecuted = $false;
+    
+    foreach ($Directory in $(Get-Variable 'XMLReader').Value.Machine.Directories.Directory)
+    {
+        if($Directory.alias -eq $dir)
+        {
+            [String]$result = $(Evaluate -value:$Directory -IsDirectory:$true);
+            if($push){Push-Location $result; $ProcessExecuted = $true;break;}
+            else{Set-Location $result; $ProcessExecuted = $true;break;}
+        }
+        
+    }
+
+    # Test to see if this is a directory
+    if(Test-Path $dir)
+    {
+        if($push){Push-Location $dir; $ProcessExecuted = $true;}
+        else{Set-Location $dir; $ProcessExecuted = $true;}
+    }
+
+    if(!($ProcessExecuted))
+    {
+        $global:LogHandler.Write("Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag");
+        Write-Warning "Parameter '$($dir)' does match any alias in the configuration.  Please check spelling or add another <Directory> tag";
+    }
+    else{$global:LogHandler.Write("Jumped to $($result)");}
+
+}
+
+function Get-Calendar
+{
+<#
+.Synopsis
+    Utilizes the Calendar class to display months
+    This requires that the user has a Calendar type object
+.Description
+    
+.Parameter <Name>
+
+.Example
+
+.Notes
+    
+#>
+    param
+    (
+        [ValidateSet(
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        )]
+        [string]$month,
+        [switch]$Current,
+        [switch]$Events,
+        [switch]$InsertEvents
+    )
+    Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1");
+    $var = $(GetObjectByClass('Calendar'));
+
+    if($Events)
+    {
+        Write-Host "`n";
+        $var.Events();
+        Write-Host "`n";
+        break;
+    }
+    if($InsertEvents){$var.InsertEvents();break;}
+    else 
+    {
+        Write-Host "`n";
+        switch ($month)
+        {
+            "January"{$var.GetMonth("January");break;}
+            "February"{$var.GetMonth("February");break;}
+            "March"{$var.GetMonth("March");break;}
+            "April"{$var.GetMonth("April");break;}
+            "May"{$var.GetMonth("May");break;}
+            "June"{$var.GetMonth("June");break;}
+            "July"{$var.GetMonth("July");break;}
+            "August"{$var.GetMonth("August");break;}
+            "September"{$var.GetMonth("September");break;}
+            "October"{$var.GetMonth("October");break;}
+            "November"{$var.GetMonth("November");break;}
+            "December"{$var.GetMonth("December");break;}
+            default{$var.GetMonth();break;}
+        }
+        Write-Host "`n";
+    }
+
 }

@@ -31,7 +31,7 @@ param
     [switch]$Events,
     [switch]$InsertEvents
 )
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1");
 $var = $(GetObjectByClass('Calendar'));
 
 if($Events)

@@ -6,7 +6,7 @@
 .Notes
     Takes a while to get address by hostname but successfully resolves it
 #>
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1");
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1");
 [Object[]]$Table = ARP.EXE -a;
 [bool]$key = $false;
 for($i = 3;$i -lt $Table.Length;$i++)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="GitHubVirtualMachine" LoadProcedure="Verbose" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+<Machine MachineName="GitHubVirtualMachine" LoadProcedure="Verbose" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
   <Start Enabled="True" ClearHost="False">
     <Greetings Type="Big" Save="True">Tests Config</Greetings>
@@ -68,22 +68,22 @@
   <!-- Programs to call exectuables, scripts, etc -->
   <Programs>
     <!-- Third Party Programs -->
-    <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Functions\GOTO.ps1</Program>
-    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\xPro\Functions\GOTO.ps1</Program>
-    <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\xPro\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">D:\a\xPro\xPro\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">D:\a\xPro\xPro\Functions\Open.ps1</Program>
-    <Program Alias="Archive" SecType="public">D:\a\xPro\xPro\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">D:\a\xPro\xPro\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">D:\a\xPro\xPro\Functions\Weather.ps1</Program>
-    <Program Alias="Search" SecType="public">D:\a\xPro\xPro\Functions\Search.ps1</Program>
-    <Program Alias="Dismount" SecType="public">D:\a\xPro\xPro\Functions\DismountDrive.ps1</Program>
-    <Program Alias="Unplug" SecType="public">D:\a\xPro\xPro\Functions\Unplug.ps1</Program>
+    <Program Alias="Goto1" SecType="public">D:\a\xPro\xPro\Scripts\GOTO.ps1</Program>
+    <Program Alias="Goto2" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program>
+    <Program Alias="Goto" SecType="public">B:\SOURCE\Repo\xPro\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">D:\a\xPro\xPro\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">D:\a\xPro\xPro\Scripts\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">D:\a\xPro\xPro\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">D:\a\xPro\xPro\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">D:\a\xPro\xPro\Scripts\Weather.ps1</Program>
+    <Program Alias="Search" SecType="public">D:\a\xPro\xPro\Scripts\Search.ps1</Program>
+    <Program Alias="Dismount" SecType="public">D:\a\xPro\xPro\Scripts\DismountDrive.ps1</Program>
+    <Program Alias="Unplug" SecType="public">D:\a\xPro\xPro\Scripts\Unplug.ps1</Program>
     <Program Alias="git" SecType="public">C:\Program Files\Git\bin\git.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="Run-Tests" SecType="public">D:\a\xPro\xPro\Tests\InitTestScripts.ps1</Program>
     <Program Alias="Init-Tests" SecType="public">B:\SOURCE\Repo\xPro\Tests\InitTestScripts.ps1</Program>
-    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Functions\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Scripts\DetermineTagType.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

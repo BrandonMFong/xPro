@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="" LoadProcedure="Verbose" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+<Machine MachineName="" LoadProcedure="Verbose" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
   <!-- Initial runs -->
   <Start Enabled="True" ClearHost="False">
@@ -11,7 +11,7 @@
   </Modules>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Functions\DetermineTagType.ps1</Program>
-    <Program Alias="Run-Tag-Local" SecType="public">B:\SOURCE\Repo\xPro\Functions\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Scripts\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tag-Local" SecType="public">B:\SOURCE\Repo\xPro\Scripts\DetermineTagType.ps1</Program>
   </Programs>
 </Machine>

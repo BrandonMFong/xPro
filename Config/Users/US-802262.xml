@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+<Machine MachineName="US-802262" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08202020" />
   <Start Enabled="True" ClearHost="False">
     <Script>C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Script>
@@ -166,24 +166,24 @@
     <Program Alias="WinSCP" SecType="public">C:\Users\brandon.fong\AppData\Local\Programs\WinSCP\WinSCP.exe</Program>
     <Program Alias="IIS" SecType="public">C:\Program Files\IIS Express\iisexpress.exe</Program>
     <Program Alias="Cisco" SecType="public">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe</Program>
-    <Program Alias="List-Bank" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\ListBank.ps1</Program>
-    <Program Alias="Time" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\TIME.ps1</Program>
-    <Program Alias="Ticket" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\KiranTickets.ps1</Program>
-    <Program Alias="BankUrl" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\BANKURL.ps1</Program>
+    <Program Alias="List-Bank" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\ListBank.ps1</Program>
+    <Program Alias="Time" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\TIME.ps1</Program>
+    <Program Alias="Ticket" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\KiranTickets.ps1</Program>
+    <Program Alias="BankUrl" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\BANKURL.ps1</Program>
     <Program Alias="upconfig" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-config.ps1</Program>
     <Program Alias="upprofile" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\update-profile.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Weather.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Weather.ps1</Program>
     <Program Alias="Greetings" SecType="public">C:\Users\brandon.fong\Brandon.Fong\CODE\SCRIPTS\Greetings.ps1</Program>
-    <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Open.ps1</Program>
-    <Program Alias="Append" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\AppendDate.ps1</Program>
-    <Program Alias="Archive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Email" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Email.ps1</Program>
-    <Program Alias="Search" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Search.ps1</Program>
-    <Program Alias="Query" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Query.ps1</Program>
-    <Program Alias="Week-List" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\Week-List.ps1</Program>
+    <Program Alias="GOTO" SecType="public">$PSScriptRoot\..\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Open.ps1</Program>
+    <Program Alias="Append" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\AppendDate.ps1</Program>
+    <Program Alias="Archive" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Email" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Email.ps1</Program>
+    <Program Alias="Search" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Search.ps1</Program>
+    <Program Alias="Query" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Query.ps1</Program>
+    <Program Alias="Week-List" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\Week-List.ps1</Program>
     <Program Alias="cloud50" SecType="private">4a5852e8-3015-4485-84b7-fe946fbfd195</Program>
     <Program Alias="her" SecType="public">K:\PHOTOS\camdon\2142020\Smile.jpg</Program>
     <Program Alias="Dashboard" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\StartScripts\US-802262.ps1</Program>
@@ -201,7 +201,7 @@
     <Program Alias="VC-Implementation" SecType="private">103f1b00-7d47-4ddf-ac4e-32dfb95b7d4c</Program>
     <Program Alias="VC-Notebook" SecType="public">C:\Users\brandon.fong\Brandon.Fong\NOTEBOOK\VC-Notebook.code-workspace</Program>
     <Program Alias="IE" SecType="public">C:\Program Files\Internet Explorer\iexplore.exe</Program>
-    <Program Alias="umount" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Functions\DismountDrive.ps1</Program>
+    <Program Alias="umount" SecType="public">C:\Users\brandon.fong\Brandon.Fong\Powershell\Scripts\DismountDrive.ps1</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
     <Program Alias="snip" SecType="public">C:\Windows\WinSxS\amd64_microsoft-windows-snippingtool-app_31bf3856ad364e35_10.0.18362.1_none_6c21722b06db62c2\SnippingTool.exe</Program>
   </Programs>

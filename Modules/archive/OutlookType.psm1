@@ -1,4 +1,4 @@
-Import-Module $($PSScriptRoot + "\FunctionModules.psm1");
+Import-Module $($PSScriptRoot + "\xProUtilities.psm1");
 
 
 if($PSVersionTable.PSVersion.Major -lt 7){Add-Type -assembly "Microsoft.Office.Interop.Outlook";}

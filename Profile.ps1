@@ -28,7 +28,7 @@ try
         if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on
         else{[System.Boolean]$Verbose = $false}
     
-        Import-Module .\Modules\FunctionModules.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+        Import-Module .\Modules\xProUtilities.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
     
         <### LOGS ###>
             $Global:LogHandler = Get-LogObject;

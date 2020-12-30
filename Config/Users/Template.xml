@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\Powershell.xsd">
+<Machine MachineName="BRANDONMFONG" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08282020" />
   <Start Enabled="True" ClearHost="False">
     <Script>B:\Powershell\StartScripts\BRANDONMFONG.ps1</Script>
@@ -47,12 +47,12 @@
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Functions\Open.ps1</Program>
-    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
+    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Scripts\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Scripts\Weather.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

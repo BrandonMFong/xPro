@@ -14,7 +14,7 @@
     TODO figure out how to create database from powershell
 #>
 param([alias('is')][switch]$inputstring,[string]$Decode="pass")
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
 $var = $(GetObjectByClass('SQL'));
 if(IsNotPass($Decode)){$var.InputCopy($Decode);}
 elseif($inputstring)

@@ -11,7 +11,7 @@
   </Modules>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Functions\DetermineTagType.ps1</Program>
-    <Program Alias="Run-Tag-Local" SecType="public">B:\SOURCE\Repo\xPro\Functions\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tag" SecType="public">D:\a\xPro\xPro\Scripts\DetermineTagType.ps1</Program>
+    <Program Alias="Run-Tag-Local" SecType="public">B:\SOURCE\Repo\xPro\Scripts\DetermineTagType.ps1</Program>
   </Programs>
 </Machine>

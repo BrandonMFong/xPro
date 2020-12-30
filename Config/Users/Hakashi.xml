@@ -50,20 +50,20 @@
   <Programs>
     <!-- Third Party Programs -->
     <Program Alias="VC-Hakashi" SecType="public">$PSScriptRoot\..\VC-Hakashi.code-workspace</Program>
-    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Functions\Open.ps1</Program>
-    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\Weather.ps1</Program>
-    <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program>
-    <Program Alias="Dismount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
-    <Program Alias="Unplug" SecType="public">$PSScriptRoot\..\Functions\Unplug.ps1</Program>
+    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Scripts\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Scripts\Weather.ps1</Program>
+    <Program Alias="Search" SecType="public">$PSScriptRoot\..\Scripts\Search.ps1</Program>
+    <Program Alias="Dismount" SecType="public">$PSScriptRoot\..\Scripts\DismountDrive.ps1</Program>
+    <Program Alias="Unplug" SecType="public">$PSScriptRoot\..\Scripts\Unplug.ps1</Program>
     <!-- Assuming every computer has it here -->
     <Program Alias="Chrome" SecType="public">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Program>
     <Program Alias="npad" SecType="public">$PSScriptRoot\..\..\Notepad++\notepad++.exe</Program>
     <Program Alias="Greetings" SecType="public">$PSScriptRoot\..\..\Scripts\Greetings.ps1</Program>
-    <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Functions\GetPCInfo.ps1</Program>
+    <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Scripts\GetPCInfo.ps1</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects>

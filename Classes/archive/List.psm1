@@ -1,4 +1,4 @@
-using module .\Math.psm1;
+using module .\..\Math.psm1;
 
 class List
 {

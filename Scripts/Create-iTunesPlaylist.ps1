@@ -6,7 +6,7 @@
         - Playlist must be externally organized into a folder outside of iTunes
         - The .mp3 files should already have been imported 
 .Example
-    B:\SOURCE\Repo\XmlPSProfile\Functions\Create-iTunesPlaylist.ps1 -BaseXml 'B:\CODE\Xml\iTunes Lib\Library.xml' -PlaylistFolder 'K:\MUSIC\Playlists\Welcome Back My Friend\'
+    B:\SOURCE\Repo\XmlPSProfile\Scripts\Create-iTunesPlaylist.ps1 -BaseXml 'B:\CODE\Xml\iTunes Lib\Library.xml' -PlaylistFolder 'K:\MUSIC\Playlists\Welcome Back My Friend\'
 #>
 Param
 (

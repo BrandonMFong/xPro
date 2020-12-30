@@ -10,7 +10,7 @@ Write-Host `n -NoNewline;
 Write-Host " - Goto test on ConfigDir config" -NoNewline;
 
 # If we are on github's VM
-# if($PSScriptRoot -eq "D:\a\xPro\xPro\Tests\Scripts\Functions")
+# if($PSScriptRoot -eq "D:\a\xPro\xPro\Tests\Scripts\Scripts")
 if($PSScriptRoot -eq $Global:TestReader.GotoTest.Outcome[0])
 {
    try{Goto1 ConfigDir1 -push;}

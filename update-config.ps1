@@ -14,7 +14,7 @@ Push-Location $PSScriptRoot
         [String]$ParseString="MMddyyyy"
         [String[]]$UpgradeScripts = (Get-ChildItem $PSScriptRoot\Config\UpdateConfig\*.*).BaseName; # Only using the base name to determine update stamp
         $arg = @{Object=$UpgradeScripts;Method="SelectionSort";ParseString=$ParseString};
-        $command = $(Get-ChildItem $($PSScriptRoot + "\Functions\Sort-Object.ps1")).FullName;
+        $command = $(Get-ChildItem $($PSScriptRoot + "\Scripts\Sort-Object.ps1")).FullName;
         [string[]]$InOrderScripts = $(& $command @arg);
 
         # There has to be a better way at checking if there is an update needed

@@ -139,24 +139,24 @@
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
-    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Functions\Open.ps1</Program>
-    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Functions\HTTP\Weather.ps1</Program>
-    <!-- <Program Alias="Search" SecType="public">$PSScriptRoot\..\Functions\Search.ps1</Program> -->
+    <Program Alias="Goto" SecType="public">$PSScriptRoot\..\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">$PSScriptRoot\..\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">$PSScriptRoot\..\Scripts\Open.ps1</Program>
+    <Program Alias="Archive" SecType="public">$PSScriptRoot\..\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">$PSScriptRoot\..\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">$PSScriptRoot\..\Scripts\HTTP\Weather.ps1</Program>
+    <!-- <Program Alias="Search" SecType="public">$PSScriptRoot\..\Scripts\Search.ps1</Program> -->
     <!-- ERROR HERE, WRITE BUG FIX -->
-    <Program Alias="umount" SecType="public">$PSScriptRoot\..\Functions\DismountDrive.ps1</Program>
-    <Program Alias="Query" SecType="public">$PSScriptRoot\..\Functions\Query.ps1</Program>
+    <Program Alias="umount" SecType="public">$PSScriptRoot\..\Scripts\DismountDrive.ps1</Program>
+    <Program Alias="Query" SecType="public">$PSScriptRoot\..\Scripts\Query.ps1</Program>
     <Program Alias="npad" SecType="public">C:\Program Files (x86)\Notepad++\notepad++.exe</Program>
     <Program Alias="RS" SecType="public">Restart-Session</Program>
-    <Program Alias="Get-Email" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Functions\Email.ps1</Program>
-    <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Functions\GetPCInfo.ps1</Program>
-    <Program Alias="Time" SecType="public">$PSScriptRoot\..\Functions\TIME.ps1</Program>
+    <Program Alias="Get-Email" SecType="public">B:\SOURCE\Repo\XmlPSProfile\Scripts\Email.ps1</Program>
+    <Program Alias="Get-Info" SecType="public">$PSScriptRoot\..\Scripts\GetPCInfo.ps1</Program>
+    <Program Alias="Time" SecType="public">$PSScriptRoot\..\Scripts\TIME.ps1</Program>
     <Program Alias="grep" SecType="public">findstr</Program>
     <Program Alias="ifconfig" SecType="public">ipconfig</Program>
-    <Program Alias="Get-Definition" SecType="public">B:\SOURCE\Repo\xPro\Functions\HTTP\GetDefinition.ps1</Program>
+    <Program Alias="Get-Definition" SecType="public">B:\SOURCE\Repo\xPro\Scripts\HTTP\GetDefinition.ps1</Program>
     <Program Alias="ard" SecType="public">C:\Program Files (x86)\Arduino\arduino.exe</Program>
     <Program Alias="st-util" SecType="public">C:\Users\bfong\Brando\PROGRAMFILES\stlink\bin\st-util.exe</Program>
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>

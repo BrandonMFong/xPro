@@ -139,28 +139,28 @@
     <Program Alias="Timer" SecType="public">B:\SOURCES\Repos\Timer\bin\Timer.exe</Program>
     <Program Alias="upconfig" SecType="public">B:\Powershell\update-config.ps1</Program>
     <Program Alias="upprofile" SecType="public">B:\Powershell\update-profile.ps1</Program>
-    <Program Alias="Get-Calendar" SecType="public">B:\Powershell\Functions\Calendar.ps1</Program>
-    <Program Alias="Get-Weather" SecType="public">B:\Powershell\Functions\Weather.ps1</Program>
-    <Program Alias="Copy-Folder" SecType="public">B:\Powershell\Functions\Copy-Folder.ps1</Program>
-    <Program Alias="Week-List" SecType="public">B:\Powershell\Functions\Week-List.ps1</Program>
-    <Program Alias="Append" SecType="public">B:\Powershell\Functions\AppendDate.ps1</Program>
-    <Program Alias="Archive" SecType="public">B:\Powershell\Functions\Archive.ps1</Program>
-    <Program Alias="Get-Email" SecType="public">B:\Powershell\Functions\Email.ps1</Program>
-    <Program Alias="Goto" SecType="public">B:\Powershell\Functions\GOTO.ps1</Program>
-    <Program Alias="Put" SecType="public">B:\Powershell\Functions\Put.ps1</Program>
-    <Program Alias="Open" SecType="public">B:\Powershell\Functions\Open.ps1</Program>
-    <Program Alias="Query" SecType="public">B:\Powershell\Functions\Query.ps1</Program>
-    <Program Alias="Search" SecType="public">B:\Powershell\Functions\Search.ps1</Program>
+    <Program Alias="Get-Calendar" SecType="public">B:\Powershell\Scripts\Calendar.ps1</Program>
+    <Program Alias="Get-Weather" SecType="public">B:\Powershell\Scripts\Weather.ps1</Program>
+    <Program Alias="Copy-Folder" SecType="public">B:\Powershell\Scripts\Copy-Folder.ps1</Program>
+    <Program Alias="Week-List" SecType="public">B:\Powershell\Scripts\Week-List.ps1</Program>
+    <Program Alias="Append" SecType="public">B:\Powershell\Scripts\AppendDate.ps1</Program>
+    <Program Alias="Archive" SecType="public">B:\Powershell\Scripts\Archive.ps1</Program>
+    <Program Alias="Get-Email" SecType="public">B:\Powershell\Scripts\Email.ps1</Program>
+    <Program Alias="Goto" SecType="public">B:\Powershell\Scripts\GOTO.ps1</Program>
+    <Program Alias="Put" SecType="public">B:\Powershell\Scripts\Put.ps1</Program>
+    <Program Alias="Open" SecType="public">B:\Powershell\Scripts\Open.ps1</Program>
+    <Program Alias="Query" SecType="public">B:\Powershell\Scripts\Query.ps1</Program>
+    <Program Alias="Search" SecType="public">B:\Powershell\Scripts\Search.ps1</Program>
     <Program Alias="Greetings" SecType="public">B:\CODE\Scripts\Greetings.ps1</Program>
-    <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Functions\GetIPAndHostName.ps1</Program>
+    <Program Alias="Get-IPAndHostName" SecType="public">B:\Powershell\Scripts\GetIPAndHostName.ps1</Program>
     <Program Alias="mobi" SecType="public">C:\Program Files (x86)\EaseUS\EaseUS MobiMover\bin\MobiMoverUILaunch.exe</Program>
     <Program Alias="sb" SecType="public">Set-Brightness</Program>
     <Program Alias="mysql" SecType="public">C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe</Program>
     <Program Alias="vc-site" SecType="public">B:\SOURCES\Repos\Site\VCODE_Site.code-workspace</Program>
     <Program Alias="SqlShell" SecType="public">C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysqlsh.exe</Program>
-    <Program Alias="Open-Putty" SecType="public">B:\Powershell\Functions\Open-Putty.ps1</Program>
-    <Program Alias="Time" SecType="public">B:\Powershell\Functions\TIME.ps1</Program>
-    <Program Alias="Dismount" SecType="public">B:\Powershell\Functions\DismountDrive.ps1</Program>
+    <Program Alias="Open-Putty" SecType="public">B:\Powershell\Scripts\Open-Putty.ps1</Program>
+    <Program Alias="Time" SecType="public">B:\Powershell\Scripts\TIME.ps1</Program>
+    <Program Alias="Dismount" SecType="public">B:\Powershell\Scripts\DismountDrive.ps1</Program>
     <Program Alias="Vivado-Batch" SecType="public">C:\Xilinx\Vivado\2020.1\bin\vivado.bat</Program>
     <Program Alias="VC-Notebook" SecType="public">B:\NOTEBOOK\VC-Notes.code-workspace</Program>
   </Programs>

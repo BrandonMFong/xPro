@@ -23,7 +23,7 @@ To include auto tag, add the following to your job:
           git clone https://github.com/BrandonMFong/xPro.git
 
           [string]$repodir = $(pwd).path;
-          [string]$SetTagPath = $repodir + "\xPro\Functions\DetermineTagType.ps1";
+          [string]$SetTagPath = $repodir + "\xPro\Scripts\DetermineTagType.ps1";
 
           $env:GIT_REDIRECT_STDERR = '2>&1';
           & $SetTagPath -Push:$true -PathToVersionConfig:$("$($repodir)\.github\tagging\Version.json") -PathToTag:$($repodir);

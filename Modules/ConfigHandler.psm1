@@ -6,7 +6,7 @@ function _MachineNode([ref]$File)
     $Node_Machine = $File.Value.CreateElement("Machine");
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
     $Node_Machine.SetAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
-    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\Powershell.xsd");
+    $Node_Machine.SetAttribute("xsi:noNamespaceSchemaLocation","..\Schema\xPro.xsd");
     $File.Value.AppendChild($Node_Machine);#Node
 }
 

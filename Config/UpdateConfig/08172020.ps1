@@ -12,7 +12,7 @@ try
    
    <# UPDATE START #>
 
-   $xml.Machine.noNamespaceSchemaLocation = "..\..\Schema\Powershell.xsd";
+   $xml.Machine.noNamespaceSchemaLocation = "..\..\Schema\xPro.xsd";
 
    <# UPDATE END #>
    

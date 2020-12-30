@@ -124,6 +124,15 @@ function Set-Tag
             git push --tags;
         }
     }
+    else 
+    {
+        # else just push whatever is queued for the remote branch
+        # may have been called by set-commit without tag applied 
+        if($Push)
+        {
+            git push;
+        }
+    }
 
 }
 

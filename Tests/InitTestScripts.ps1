@@ -9,7 +9,7 @@
 #>
 if($Global:AppPointer.Machine.ConfigFile -ne "\TestsConfig.xml"){Write-Warning "Not using Test Config.  Please update config to point to => TestsConfig.xml";return;}
 Push-Location $PSScriptRoot;
-    Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+    Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
     [System.object[]]$Global:TestReader = Get-Content "$($PSScriptRoot)\Tests.json" | ConvertFrom-Json;
 
     [String[]]$TestScripts = $(Get-ChildItem $($PSScriptRoot + "\Scripts\") -Recurse|Where-Object{$_.Extension -eq ".ps1"}).FullName;

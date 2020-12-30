@@ -9,7 +9,7 @@ function Search
     param(
         [Parameter(Mandatory=$true)][String]$Type
     )
-    Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+    Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
 
     [String]$UrlString = $null;
     foreach($Search in $Global:XMLReader.Machine.Searches.Search)

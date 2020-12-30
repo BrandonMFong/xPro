@@ -1,5 +1,5 @@
 using module .\..\Classes\Net.psm1;
-Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+Import-Module $PSScriptRoot\xProUtilities.psm1 -Scope Local;
 
 function List-Connections
 {

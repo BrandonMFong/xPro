@@ -7,7 +7,7 @@
     You must have the list class configured and it must be named 'Todo'
 #>
 Param([switch]$Tomorrow,[Switch]$All,[switch]$Mark,[switch]$Delete,[switch]$Add,[switch]$Yesterday)
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Global;
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Global;
 $x = $(Get-Variable "Todo").Value
 if($Tomorrow)
 {

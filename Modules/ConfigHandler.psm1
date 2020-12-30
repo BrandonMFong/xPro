@@ -1,4 +1,4 @@
-Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+Import-Module $PSScriptRoot\xProUtilities.psm1 -Scope Local;
 
 function _MachineNode([ref]$File)
 {
@@ -194,7 +194,7 @@ function List-Programs
 }
 
 
-Import-Module $($PSScriptRoot + "\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\xProUtilities.psm1") -Scope Local;
 
 # Runs Upgrade scripts on the config files that is currently pointed
 # Not going to be in the profile load since this is a module

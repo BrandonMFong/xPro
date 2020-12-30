@@ -19,7 +19,7 @@ Param
 	[Switch]$All, 
 	[Alias('E')][Switch]$Export
 )
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
 $var = GetObjectByClass('Calendar');
 
 if($Report) # Default is week view

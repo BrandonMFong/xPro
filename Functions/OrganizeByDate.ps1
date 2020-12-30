@@ -10,7 +10,7 @@ Param(
     [String]$DirectoryNameFormatter = "yyyy-MM"
 )
 
-Import-Module $($PSScriptRoot + "\..\Modules\FunctionModules.psm1") -Scope Local;
+Import-Module $($PSScriptRoot + "\..\Modules\xProUtilities.psm1") -Scope Local;
 
 [DateTime]$StartTime = Get-Date;
 # Set file paths

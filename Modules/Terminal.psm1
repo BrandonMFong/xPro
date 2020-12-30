@@ -1,6 +1,6 @@
 using module .\..\Classes\Tag.psm1;
 
-Import-Module $PSScriptRoot\FunctionModules.psm1 -Scope Local;
+Import-Module $PSScriptRoot\xProUtilities.psm1 -Scope Local;
 
 [string]$Global:NotGitRepo = "###NOTGITREPO###";
 

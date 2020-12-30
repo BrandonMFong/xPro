@@ -165,7 +165,7 @@ function Set-Commit
 
     git commit -m $commitmessage; # Set the commit
     Set-Tag -Tag:$Tag -Push:$Push; # push tags
-    GitRebasePush; # push changes
+    # GitRebasePush; # push changes
 }
 
 function GitRebasePush

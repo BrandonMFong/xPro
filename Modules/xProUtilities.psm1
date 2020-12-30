@@ -1,7 +1,7 @@
 using module .\..\Classes\Calendar.psm1;
 using module .\..\Classes\Math.psm1;
 using module .\..\Classes\SQL.psm1;
-using module .\..\Classes\List.psm1;
+# using module .\..\Classes\List.psm1;
 using module .\..\Classes\Logs.psm1;
 
 # These are functions used inside other functions
@@ -149,9 +149,16 @@ function Evaluate([System.Object[]]$value,[Switch]$IsDirectory=$false)
             }
             else
             {
-                # TODO figure out how to fix this 
-                # What if the file does not exist? 
-                return $(Get-ChildItem $value.InnerText).Fullname;
+                # Testing if the path exists
+                if(!(Test-Path $value.InnerText))
+                {
+                    $Global:LogHandler.Warning("$($value.InnerText) does not exist.  Please check spelling");
+                    return $null; # return nothing if it does not exist
+                }
+                else 
+                {
+                    return $(Get-ChildItem $value.InnerText).Fullname;
+                }
             }
         }
         else{return $(Get-Variable $value.InnerText.Replace('$','')).Value;} # Else return the variable
@@ -293,8 +300,17 @@ function LoadPrograms
                 Write-Progress -Activity "Loading Programs" -Status "Program: $($val.InnerXML)" -PercentComplete (($Complete / $Total)*100);
                 $Complete++;
             }
-            [string]$program = $(Evaluate -value $val);
-            try{Set-Alias $val.Alias $program -Verbose:$Verbose -Scope Global; $Global:LogHandler.Write("Set-Alias: $($val.Alias) => $($program)");}
+
+            # will return null if the program does not exist
+            [string]$program = $(Evaluate -value $val); 
+            try
+            {
+                # if the string is not null, then set the alias
+                if(![string]::IsNullOrEmpty($program))
+                {
+                    Set-Alias $val.Alias $program -Verbose:$Verbose -Scope Global; $Global:LogHandler.Write("Set-Alias: $($val.Alias) => $($program)");
+                }
+            }
             catch{$Global:LogHandler.WriteError($_);}
         }
         if(!$Verbose){Write-Progress -Activity "Loading Programs" -Status "Program: Finished" -Completed;}

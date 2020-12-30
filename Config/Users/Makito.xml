@@ -26,6 +26,8 @@
     <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
     <Directory Alias="docs" SecType="public">/Users/BrandonMFong/brando/docs</Directory>
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
+    <Directory Alias="vol" SecType="public">//Volumes</Directory>
+    <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

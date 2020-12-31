@@ -20,13 +20,15 @@ pushd "$(dirname "$0")"
     # going to use Makito.xml as basis 
     
     # Have user choose if they want to create or use an existing config
-    read -p "What do you want to do?\nCreate New Config[1]\nUse Existing Confg[2]\nSo" choice; # TODO read from app.json
-    if [ $choice != "1" || $choice != "2" ] # if not 1 or 2 exit script
+    printf "What do you want to do?\nCreate New Config[1]\nUse Existing Config[2]\nSo: ";
+    read choice; # TODO read from app.json
+    if [ $choice -ne 1 ] || [ $choice -ne 2 ] # if not 1 or 2 exit script
     then 
+        printf "Exiting";
         exit 1; # return 1 
     else 
         # create new config 
-        if [ $choice == "1" ]
+        if [ $choice -eq 1 ]
         then 
             # create config file name
             read -p "Config File Name: " ConfigFile;
@@ -38,7 +40,8 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            
+            list=$(bin/xpro.listdir $ConfigPath);
+            echo $list;
 
         fi 
 

@@ -1,9 +1,9 @@
+# misc
 archive/*
 .vs/*
 Profile/*
 *.code-workspace
 FTPFromVolta.ps1
-bin/credentials/
 Resources/Calendar/*
 Resources/MathImports/*
 ssh.json
@@ -19,3 +19,6 @@ debug.log
 
 # Lib files
 Library/**/xpro.*
+
+# bin files
+bin/*

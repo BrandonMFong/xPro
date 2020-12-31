@@ -38,7 +38,7 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            i=1; for n in ${ConfigPath}/*; do printf "[${i}] %s\n" "$n"; i=$i+1; done;
+            
 
         fi 
 

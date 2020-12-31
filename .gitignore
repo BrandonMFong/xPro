@@ -7,8 +7,6 @@ bin/credentials/
 Resources/Calendar/*
 Resources/MathImports/*
 ssh.json
-Functions/KiranTickets.ps1
-Functions/BANKURL.ps1
 Config/Server.xml
 Config/User/*
 Tests/Debug.ps1
@@ -18,4 +16,6 @@ Config/Wifi/*.xml
 debug.log
 .DS_Store
 *.hidden.xml
-xpro.*
+
+# Lib files
+Library/**/xpro.*

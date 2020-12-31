@@ -9,6 +9,8 @@
 #define PathSeparator '\\'
 #elif __linux__ 
 #define PathSeparator '/'
+#elif __APPLE__
+#define PathSeparator '/'
 #endif
 
 namespace fs = std::experimental::filesystem::v1;

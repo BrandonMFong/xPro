@@ -18,3 +18,4 @@ Config/Wifi/*.xml
 debug.log
 .DS_Store
 *.hidden.xml
+xpro.*

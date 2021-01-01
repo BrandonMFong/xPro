@@ -40,8 +40,9 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            list=$(./bin/xpro.enumdir $ConfigPath);
-            echo $list;
+            # list=$(./bin/xpro.enumdir $ConfigPath);
+            # echo $list;
+            ./bin/xpro.enumdir $ConfigPath
 
         fi 
 

@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
         if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
         
         // Print out items
-        std::cout << "[" << count << "] " << filename << "\n" << std::endl;
+        std::cout << "[" << count << "] " << filename << std::endl;
 
         count++;
     }

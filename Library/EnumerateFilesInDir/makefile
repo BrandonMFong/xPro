@@ -15,6 +15,6 @@ endif
 # macOS 
 ifeq ($(shell uname -s),Darwin) # Assuming this identifies macOS
 all: main.cpp
-	g++ main.cpp -std=c++14 -o $(tar)
+	g++ main.cpp -std=c++14 -c -Wall -Iinclude -o $(tar)
 endif
 

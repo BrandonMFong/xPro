@@ -3,17 +3,19 @@
 
 #include <iostream>
 #include <string>
-#include <experimental/filesystem>
 
 #ifdef _WIN32
+#include <experimental/filesystem>
 #define PathSeparator '\\'
 #elif __linux__ 
+#include <experimental/filesystem>
 #define PathSeparator '/'
 #elif __APPLE__
+#include <filesystem>
 #define PathSeparator '/'
 #endif
 
-namespace fs = std::experimental::filesystem::v1;
+namespace fs = std::__fs::filesystem;
 
 int main(int argc, char *argv[]) 
 {

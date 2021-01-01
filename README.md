@@ -2,12 +2,13 @@
 
 This repository allows an .XML file to be your shell Profile (i.e. PROFILE.ps1 or .zshrc), allowing adaptability of the profile on different machines. 
 
-## Applications
-- If you are like me and like using the terminal more than Window's File Explorer, using xPro enhances the terminal flow with quick cd (Set-Location) to directories configured under \<Directories\>
-- Putting private information in your PROFILE.ps1 may not be ideal.  xPro connects to local SQL Server and with a GUID you can reference your password or email at Profile LOAD and store it in a HashTable configured under \<Objects\>
-- OpenSSH integration
+xPro provides the ease of defining aliases, functions, and objects inside an .XML file.  Using the .XML format allows easy readibility and central location for your command line needs.  xPro also allows the user to customize their terminal such as terminal title or terminal prompt.
+
+Incorporating a SQL database to your shell profile can provide security to your sensitive information such as passwords or secure websites.  
 
 ## Setup
+
+Currently xPro supports Powershell and z shell. 
 
 ### Powershell
 
@@ -23,8 +24,9 @@ This repository allows an .XML file to be your shell Profile (i.e. PROFILE.ps1 o
 
 ### Prerequisites
 
-* [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7) - Powershell Version 5
-* [SQL](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15) - SQL Server
+* [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7)
+* [z Shell](https://ohmyz.sh/)
+* [SQL](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 
 ## Versioning
 

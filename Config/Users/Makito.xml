@@ -26,6 +26,9 @@
     <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
     <Directory Alias="docs" SecType="public">/Users/BrandonMFong/brando/docs</Directory>
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
+    <Directory Alias="vol" SecType="public">//Volumes</Directory>
+    <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
+    <Directory Alias="lib" SecType="public">//Library</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -49,7 +52,7 @@
     <Program Alias="open-settings" SecType="public">open -a 'System Preferences'</Program>
     <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
     <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
-    <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Functions/ARCHIVE.zsh</Program>
+    <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Scripts/ARCHIVE.zsh</Program>
     <Program Alias="scb" SecType="public">pbcopy</Program>
     <Program Alias="get-calendar" SecType="public">cal</Program>
   </Programs>

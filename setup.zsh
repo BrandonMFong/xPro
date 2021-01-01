@@ -22,7 +22,7 @@ pushd "$(dirname "$0")"
     # Have user choose if they want to create or use an existing config
     printf "What do you want to do?\nCreate New Config[1]\nUse Existing Config[2]\nSo: ";
     read choice; # TODO read from app.json
-    if [ $choice -ne 1 ] || [ $choice -ne 2 ] # if not 1 or 2 exit script
+    if [ $choice -ne 1 -a $choice -ne 2 ] # if not 1 or 2 exit script
     then 
         printf "Exiting";
         exit 1; # return 1 
@@ -40,7 +40,7 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            list=$(bin/xpro.listdir $ConfigPath);
+            list=$(./bin/xpro.enumdir $ConfigPath);
             echo $list;
 
         fi 

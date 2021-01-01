@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     int index = 1; // we are only accepting one argument here
     std::string path; // will hold the argument 
     std::string filepath; // will hold each file path in the directory pointed to by the argument 
+    std::string filename;
     char sep = PathSeparator; // defines how the file paths are separated
     int count = 1;
 
@@ -41,10 +42,10 @@ int main(int argc, char *argv[])
         size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
         
         // if no failure
-        if (i != std::string::npos)  filepath = filepath.substr(i+1, filepath.length() - i);
+        if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
         
         // Print out items
-        std::cout << "[" << count << "] " << filepath << std::endl;
+        std::cout << "[" << count << "] " << filename << "\n" << std::endl;
 
         count++;
     }

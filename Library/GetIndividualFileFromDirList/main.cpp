@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         return 1; // should be less than or equal to two 
     } 
 
-    // // Since there should only be two, this is the index to get the argument I want
+    // Since there should only be two, this is the index to get the argument I want
     // path = argv[index];
 
     // for (const auto & entry : fs::directory_iterator(path)) 
@@ -39,8 +39,6 @@ int main(int argc, char *argv[])
 
     //     count++;
     // }
-    myFunction();
-
 
     return 0;
 }

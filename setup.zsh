@@ -40,10 +40,11 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            # list=$(./bin/xpro.enumdir $ConfigPath);
-            # echo $list;
+            printf "Choose out of the following:"
             ./bin/xpro.enumdir $ConfigPath
+            read -p "So: " choice;
 
+            ChosenConfig=$();
         fi 
 
         # Keeping it in this if statement because I don't want to execute it if the user input something wrong 

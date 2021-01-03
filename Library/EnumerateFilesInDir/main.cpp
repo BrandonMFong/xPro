@@ -1,5 +1,4 @@
 // xPro
-// g++ main.cpp -lstdc++fs -
 
 #include "../xProLibrary.h"
 
@@ -25,7 +24,11 @@ int main(int argc, char *argv[])
 
     for (const auto & entry : fs::directory_iterator(path)) 
     {
+        #if defined(_WIN32) || defined(_WIN64)
+        filepath = entry.path().filename().string(); // apply to string 
+        #else 
         filepath = entry.path(); // apply to string 
+        #endif
         size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
         
         // if no failure

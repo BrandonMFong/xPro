@@ -5,7 +5,6 @@
 #include <string>
 #include "../xProLibrary.h"
 
-namespace fs = std::__fs::filesystem;
 
 int main(int argc, char *argv[]) 
 {

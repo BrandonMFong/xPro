@@ -6,13 +6,16 @@
 
 #ifdef _WIN32
 #include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 #define PathSeparator '\\'
 #elif __linux__ 
 #include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
 #elif __APPLE__
 #include <filesystem>
 #define PathSeparator '/'
+namespace fs = std::__fs::filesystem;
 #endif
 
 void myFunction()

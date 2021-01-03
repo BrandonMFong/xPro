@@ -25,14 +25,15 @@ int main(int argc, char *argv[])
     for (const auto & entry : fs::directory_iterator(path)) 
     {
         #if defined(_WIN32) || defined(_WIN64)
-        filepath = entry.path().filename().string(); // apply to string 
+        filename = entry.path().filename().string(); // apply to string 
+        // std::cout << filepath << std::endl;
         #else 
         filepath = entry.path(); // apply to string 
-        #endif
         size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
         
         // if no failure
         if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
+        #endif
         
         // Print out items
         std::cout << "[" << count << "] " << filename << std::endl;

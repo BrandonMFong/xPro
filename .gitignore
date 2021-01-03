@@ -20,5 +20,7 @@ debug.log
 # Lib files
 Library/**/xpro.*
 
-# bin files
+# binary files
 bin/*
+*.exe
+*.obj

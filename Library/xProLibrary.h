@@ -1,8 +1,5 @@
-#ifdef _XPROLIBRARY_
+#ifndef _XPROLIBRARY_
 #define _XPROLIBRARY_
-
-
-#include 
 
 #ifdef _WIN32
 #include <experimental/filesystem>

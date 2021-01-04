@@ -27,6 +27,7 @@ namespace fs = std::experimental::filesystem;
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include <sys/stat.h>
 #define PathSeparator '/'
 namespace fs = std::__fs::filesystem;
 #endif
@@ -60,6 +61,18 @@ void enumItemsInDir(std::string path)
 
         count++;
     }
+}
+
+// Does file exist
+// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
+bool exist(const std::string& name)
+{
+    bool result = true;
+    struct stat buffer;
+
+    result = (stat(name.c_str(), &buffer) == 0); // does file exist
+
+    return result;
 }
 
 #endif

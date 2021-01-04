@@ -10,11 +10,14 @@ OUTPUT_DIR = $(xPro_ROOT)\bin
 ENUMDIR_TARGET_DIR = $(LIB_ROOT)\EnumerateFilesInDir
 ENUMDIR_TAR = $(ENUMDIR_TARGET_DIR)\main.cpp
 ENUMDIR_STD_FLAG = c++latest 
-ENUMDIR_NAME = xpro.enumdir.exe
+ENUMDIR_EXE = xpro.enumdir.exe
+ENUMDIR_OBJ = main.obj
 # MACROS END
 
-$(ENUMDIR_NAME): 
-	cl $(ENUMDIR_TAR) /std:$(ENUMDIR_STD_FLAG) /Fe$(ENUMDIR_NAME) /EHsc	
-	copy $(ENUMDIR_NAME) $(OUTPUT_DIR)\$(ENUMDIR_NAME)
+$(ENUMDIR_EXE): 
+	cl $(ENUMDIR_TAR) /std:$(ENUMDIR_STD_FLAG) /Fe$(ENUMDIR_EXE) /EHsc	
+	copy $(ENUMDIR_EXE) $(OUTPUT_DIR)\$(ENUMDIR_EXE)
+	del $(ENUMDIR_EXE)
+	del $(ENUMDIR_OBJ)
 
-all: $(ENUMDIR_NAME)  
+all: $(ENUMDIR_EXE)  

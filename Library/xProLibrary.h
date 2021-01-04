@@ -1,13 +1,11 @@
 #ifndef _XPROLIBRARY_
 #define _XPROLIBRARY_
 
-// Libs
-#include <iostream>
-#include <string>
-
 /* WINDOWS */
 //cl main.cpp /std:c++latest
 #if defined(_WIN32) || defined(_WIN64)
+#include <iostream>
+#include <string>
 #include <filesystem>
 #include <fstream> 
 #include <istream> 
@@ -16,12 +14,18 @@ namespace fs = std::filesystem;
 
 /* LINUX */
 #elif __linux__ 
+#include <iostream>
+#include <string>
 #include <experimental/filesystem>
+#include <sstream> 
+#include <cstring>
 namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
 
 /* APPLE */
 #elif __APPLE__
+#include <iostream>
+#include <string>
 #include <filesystem>
 #define PathSeparator '/'
 namespace fs = std::__fs::filesystem;

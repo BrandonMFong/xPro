@@ -40,8 +40,9 @@ namespace fs = std::__fs::filesystem;
 // Prototypes
 void enumItemsInDir(std::string path);
 bool exist(const std::string& name);
-void getFileByIndex(std::string path, int index);
+std::string getFileByIndex(std::string path, int index);
 std::string char2str(char arr[],int size);
+std::vector<std::string> getDirItems(std::string path);
 
 // Functions 
 void enumItemsInDir(std::string path)
@@ -87,31 +88,21 @@ bool exist(const std::string& name)
 }
 
 // Select item in directory by index
-void getFileByIndex(std::string path, int index)
+// 0 index
+std::string getFileByIndex(std::string path, int index)
 {
-    std::string filename;
-
-    // If this isn't windows, define these variables for the operations of getting the file
-    #if !defined(_WIN32) || !defined(_WIN64)
-    std::string filepath; // will hold each file path in the directory pointed to by the argument 
-    char sep = PathSeparator; // defines how the file paths are separated
-    #endif
-
-    for (const auto & entry : fs::directory_iterator(path)) 
+    std::string result = "";
+    int count = 0; // zero index
+    std::vector<std::string> filepathvector = getDirItems(path);
+    
+    std::vector<std::string>::iterator itr;
+    for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
     {
-        #if defined(_WIN32) || defined(_WIN64)
-        filename = entry.path().filename().string(); // apply to string 
-        #else 
-        filepath = entry.path(); // apply to string 
-        size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
-        
-        // if no failure
-        if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
-        #endif
-        
-        // Print out items
-        std::cout << filename << std::endl;
+        if (index == count) result = *itr;
+        count++;
     }
+
+    return result;
 }
 
 std::vector<std::string> getDirItems(std::string path)

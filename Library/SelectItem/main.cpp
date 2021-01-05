@@ -1,5 +1,5 @@
 // xPro
-// g++ main.cpp -I./../
+// zero index
 
 #include "xProLibrary.h"
 
@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     std::stringstream strValue;
     std::vector<std::string> filepathvector;
     std::vector<std::string>::iterator itr;
+    std::string filepath = "";
 
     // Exit program if this is met
     if (argc != ArgsLimit)
@@ -44,15 +45,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    std::cout << "Index: " << args.index << std::endl;
-    std::cout << "Path: " << args.path << std::endl;
+    filepath = getFileByIndex(args.path,args.index);
 
-    filepathvector = getDirItems(args.path);
-    
-    for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
-    {
-        std::cout << *itr << std::endl;
-    }
+    std::cout << filepath << std::endl;
     
     return 0;
 }

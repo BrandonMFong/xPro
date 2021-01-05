@@ -1,5 +1,4 @@
 # makefile
-# https://www.bojankomazec.com/2011/10/how-to-use-nmake-and-makefile.html
 # https://docs.microsoft.com/en-us/cpp/build/reference/description-blocks?view=msvc-160
 
 # MACROS START
@@ -21,7 +20,9 @@ EXIST_EXE = xpro.exist.exe
 # MACROS end
 
 # nmake 
-all: $(ENUMDIR_EXE) $(EXIST_EXE)
+all:\
+	$(ENUMDIR_EXE) \
+	$(EXIST_EXE)
 
 $(ENUMDIR_EXE) : $(ENUMDIR_TARGET_DIR)\main.cpp
 	echo Building $(ENUMDIR_EXE)

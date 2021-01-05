@@ -29,6 +29,7 @@
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
     <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
     <Directory Alias="lib" SecType="public">//Library</Directory>
+    <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

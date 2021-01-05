@@ -9,8 +9,13 @@
 #include <filesystem>
 #include <fstream> 
 #include <istream> 
+#include <direct.h>
+#include <sstream> 
 namespace fs = std::filesystem;
 #define PathSeparator '\\'
+#define getcwd _getcwd
+#define PATH_MAX _MAX_PATH
+#define isWINDOWS
 
 /* LINUX */
 #elif __linux__ 
@@ -51,14 +56,14 @@ void enumItemsInDir(std::string path)
     int count = 1;
 
     // If this isn't windows, define these variables for the operations of getting the file
-    #if !defined(_WIN32) || !defined(_WIN64)
+    #if !defined(isWINDOWS)
     std::string filepath; // will hold each file path in the directory pointed to by the argument 
     char sep = PathSeparator; // defines how the file paths are separated
     #endif
 
     for (const auto & entry : fs::directory_iterator(path)) 
     {
-        #if defined(_WIN32) || defined(_WIN64)
+        #ifdef isWINDOWS
         filename = entry.path().filename().string(); // apply to string 
         #else 
         filepath = entry.path(); // apply to string 
@@ -112,11 +117,17 @@ std::vector<std::string> getDirItems(std::string path)
     char cwd[PATH_MAX];
 
     getcwd(cwd,sizeof(cwd));
+
     std::string currdir = cwd;
 
     for (const auto & entry : fs::directory_iterator(path)) 
     {
+        #ifdef isWINDOWS
+        // fs::path path(entry.path()); // converting to path
+        tmp = entry.path().filename().string();
+        #else
         tmp = entry.path();
+        #endif
         filepath = currdir + PathSeparator + tmp; 
         filepathvectors.push_back(filepath);
     }

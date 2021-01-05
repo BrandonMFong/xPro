@@ -47,7 +47,11 @@ int main(int argc, char *argv[])
 
     filepath = getFileByIndex(args.path,args.index);
     const auto & entry = fs::directory_entry(filepath);
+    #ifdef isWINDOWS
+    std::string filename = entry.path().filename().string();
+    #else
     std::string filename = entry.path();
+    #endif
     #if defined(_WIN32) || defined(_WIN64)
     filename = entry.path().filename().string(); // apply to string 
     #else 

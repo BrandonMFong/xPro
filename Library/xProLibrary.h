@@ -33,6 +33,11 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
+// Prototypes
+void enumItemsInDir(std::string path);
+bool exist(const std::string& name);
+void getFileByIndex(std::string path, int index);
+
 // Functions 
 void enumItemsInDir(std::string path)
 {
@@ -74,6 +79,19 @@ bool exist(const std::string& name)
     result = (stat(name.c_str(), &buffer) == 0); // does file exist
 
     return result;
+}
+
+// Select item in directory by index
+void getFileByIndex(std::string path, int index)
+{
+    std::string filepath; // will hold each file path in the directory pointed to by the argument 
+
+    for (const auto & entry : fs::directory_iterator(path)) 
+    {
+        filepath = entry.path(); // apply to string 
+        
+        std::cout << entry.path() << std::endl;
+    }
 }
 
 #endif

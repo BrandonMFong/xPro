@@ -44,6 +44,8 @@ int main(int argc, char *argv[])
 
     std::cout << "Index: " << args.index << std::endl;
     std::cout << "Path: " << args.path << std::endl;
+
+    getFileByIndex(args.path,args.index);
     
     return 0;
 }

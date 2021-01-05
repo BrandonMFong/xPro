@@ -24,3 +24,6 @@ Library/**/xpro.*
 bin/*
 *.exe
 *.obj
+
+# Visual Code files
+.vscode/settings.json

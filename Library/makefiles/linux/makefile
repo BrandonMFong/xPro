@@ -15,12 +15,17 @@ ENUMDIR_APP = xpro.enumdir
 EXIST_TARGET_DIR := $(LIB_ROOT)/DoesExist
 EXIST_STD_FLAG = c++14
 EXIST_APP = xpro.exist
+
+# selectitem
+SELECTITEM_TARGET_DIR := $(LIB_ROOT)/SelectItem
+SELECTITEM_STD_FLAG = c++14
+SELECTITEM_APP = xpro.selectitem
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
 # make
-all: $(ENUMDIR_APP) $(EXIST_APP)
+all: $(ENUMDIR_APP) $(EXIST_APP) $(SELECTITEM_APP)
 
 $(ENUMDIR_APP) : $(ENUMDIR_TARGET_DIR)/main.cpp
 	@echo Building $(ENUMDIR_APP)
@@ -29,3 +34,7 @@ $(ENUMDIR_APP) : $(ENUMDIR_TARGET_DIR)/main.cpp
 $(EXIST_APP) : $(EXIST_TARGET_DIR)/main.cpp
 	@echo Building $(EXIST_APP)
 	g++ $(EXIST_TARGET_DIR)/main.cpp  -lstdc++fs -std=$(EXIST_STD_FLAG) -o $(BIN_DIR)/$(EXIST_APP) $(INC)
+
+$(SELECTITEM_APP) : $(SELECTITEM_TARGET_DIR)/main.cpp
+	@echo Building $(SELECTITEM_APP)
+	g++ $(SELECTITEM_TARGET_DIR)/main.cpp  -lstdc++fs -std=$(SELECTITEM_STD_FLAG) -o $(BIN_DIR)/$(SELECTITEM_APP) $(INC)

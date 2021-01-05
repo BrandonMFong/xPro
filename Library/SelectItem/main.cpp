@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     // Exit program if this is met
     if (argc != ArgsLimit)
     {
-        std::cout << "Not all arguments were passed:" << std::endl;
+        std::cout << "Not all arguments were passed, must pass arguments with flags:" << std::endl;
         std::cout << " -path = Full/Relative path to directory" << std::endl;
         std::cout << " -index = nonzero index of the item in alphabetical order" << std::endl;
         return 1; // should be less than or equal to two 
@@ -32,15 +32,18 @@ int main(int argc, char *argv[])
     // extract arguments 
     for (int i = 0; i < argc; i++)
     {
-        if(strcmp(argv[i],pathFlag)) args.path = argv[i];
-        else if (strcmp(argv[i],indexFlag)) 
+        // If we find correct argument, get the one in the succeeding index 
+        if(strcmp(argv[i],pathFlag) == 0) args.path = argv[i+1];
+        else if (strcmp(argv[i],indexFlag) == 0) 
         {
             // convert char* to int 
-            strValue << argv[i];
+            strValue << argv[i+1];
             strValue >> args.index;
         }
     }
-    
 
+    std::cout << "Index: " << args.index << std::endl;
+    std::cout << "Path: " << args.path << std::endl;
+    
     return 0;
 }

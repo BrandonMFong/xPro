@@ -20,6 +20,10 @@ namespace fs = std::filesystem;
 #include <sstream> 
 #include <cstring>
 #include <sys/stat.h>
+#include <vector>
+#include <unistd.h>
+#include <stdio.h>
+#include <limits.h>
 namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
 
@@ -37,6 +41,7 @@ namespace fs = std::__fs::filesystem;
 void enumItemsInDir(std::string path);
 bool exist(const std::string& name);
 void getFileByIndex(std::string path, int index);
+std::string char2str(char arr[],int size);
 
 // Functions 
 void enumItemsInDir(std::string path)
@@ -84,14 +89,58 @@ bool exist(const std::string& name)
 // Select item in directory by index
 void getFileByIndex(std::string path, int index)
 {
+    std::string filename;
+
+    // If this isn't windows, define these variables for the operations of getting the file
+    #if !defined(_WIN32) || !defined(_WIN64)
     std::string filepath; // will hold each file path in the directory pointed to by the argument 
+    char sep = PathSeparator; // defines how the file paths are separated
+    #endif
 
     for (const auto & entry : fs::directory_iterator(path)) 
     {
+        #if defined(_WIN32) || defined(_WIN64)
+        filename = entry.path().filename().string(); // apply to string 
+        #else 
         filepath = entry.path(); // apply to string 
+        size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
         
-        std::cout << entry.path() << std::endl;
+        // if no failure
+        if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
+        #endif
+        
+        // Print out items
+        std::cout << filename << std::endl;
     }
+}
+
+std::vector<std::string> getDirItems(std::string path)
+{
+    std::vector<std::string> filepathvectors;
+    std::string filepath, tmp; 
+    char cwd[PATH_MAX];
+
+    getcwd(cwd,sizeof(cwd));
+    std::string currdir = char2str(cwd,sizeof(cwd));
+
+    for (const auto & entry : fs::directory_iterator(path)) 
+    {
+        tmp = entry.path();
+        filepath = currdir + tmp; 
+        filepathvectors.push_back(filepath);
+    }
+
+    return filepathvectors;
+}
+
+std::string char2str(char arr[],int size)
+{
+    std::string str = "";
+    for (int i = 0; i < size; i++)
+    {
+        str = str + arr[i];
+    }
+    return str;
 }
 
 #endif

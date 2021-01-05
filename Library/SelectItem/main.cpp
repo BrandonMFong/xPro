@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 {
     Arguments args;
     std::stringstream strValue;
+    std::vector<std::string> filepathvector;
 
     // Exit program if this is met
     if (argc != ArgsLimit)
@@ -45,7 +46,12 @@ int main(int argc, char *argv[])
     std::cout << "Index: " << args.index << std::endl;
     std::cout << "Path: " << args.path << std::endl;
 
-    getFileByIndex(args.path,args.index);
+    filepathvector = getDirItems(args.path);
+
+    for(std::string filepath : filepathvector)
+    {
+        std::cout << filepath << std::endl;
+    }
     
     return 0;
 }

@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     Arguments args;
     std::stringstream strValue;
     std::vector<std::string> filepathvector;
-    std::vector<std::string>::iterator itr;
+    // std::vector<std::string>::iterator itr;
     std::string filepath = "";
 
     // Exit program if this is met

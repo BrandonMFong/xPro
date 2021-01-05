@@ -38,6 +38,9 @@ namespace fs = std::experimental::filesystem;
 #include <string>
 #include <filesystem>
 #include <sys/stat.h>
+#include <vector>
+#include <unistd.h>
+#include <sstream> 
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif

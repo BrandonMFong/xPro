@@ -40,7 +40,7 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            printf "Choose out of the following:"
+            printf "Choose out of the following:\n"
             ./bin/xpro.enumdir $ConfigPath
             read -p "So: " choice;
             choice=$(($choice - 1));

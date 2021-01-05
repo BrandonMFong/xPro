@@ -40,19 +40,21 @@ pushd "$(dirname "$0")"
 
         # Use existing config
         else 
-            # list=$(./bin/xpro.enumdir $ConfigPath);
-            # echo $list;
+            printf "Choose out of the following:"
             ./bin/xpro.enumdir $ConfigPath
-
+            read -p "So: " choice;
+            choice=$(($choice - 1));
+            ConfigFile="/$(./bin/xpro.selectitem -path $ConfigPath -index $choice)";
+            echo $ConfigFile;
         fi 
 
         # Keeping it in this if statement because I don't want to execute it if the user input something wrong 
         # Write to apppointer 
-        # echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" | tee -a $out;
-        # echo "<Machine MachineName=\"KAMANTA\">" | tee -a $out;
-        # echo "  <GitRepoDir>${GitRepoDir}</GitRepoDir>" | tee -a $out;
-        # echo "  <ConfigFile>${ConfigFile}</ConfigFile>" | tee -a $out;
-        # echo "</Machine>" | tee -a $out;
+        echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" | tee -a $out;
+        echo "<Machine MachineName=\"KAMANTA\">" | tee -a $out;
+        echo "  <GitRepoDir>${GitRepoDir}</GitRepoDir>" | tee -a $out;
+        echo "  <ConfigFile>${ConfigFile}</ConfigFile>" | tee -a $out;
+        echo "</Machine>" | tee -a $out;
     fi
 
 popd 

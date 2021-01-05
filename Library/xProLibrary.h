@@ -121,26 +121,16 @@ std::vector<std::string> getDirItems(std::string path)
     char cwd[PATH_MAX];
 
     getcwd(cwd,sizeof(cwd));
-    std::string currdir = char2str(cwd,sizeof(cwd));
+    std::string currdir = cwd;
 
     for (const auto & entry : fs::directory_iterator(path)) 
     {
         tmp = entry.path();
-        filepath = currdir + tmp; 
+        filepath = currdir + PathSeparator + tmp; 
         filepathvectors.push_back(filepath);
     }
 
     return filepathvectors;
-}
-
-std::string char2str(char arr[],int size)
-{
-    std::string str = "";
-    for (int i = 0; i < size; i++)
-    {
-        str = str + arr[i];
-    }
-    return str;
 }
 
 #endif

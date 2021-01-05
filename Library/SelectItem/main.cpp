@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     Arguments args;
     std::stringstream strValue;
     std::vector<std::string> filepathvector;
+    std::vector<std::string>::iterator itr;
 
     // Exit program if this is met
     if (argc != ArgsLimit)
@@ -47,10 +48,10 @@ int main(int argc, char *argv[])
     std::cout << "Path: " << args.path << std::endl;
 
     filepathvector = getDirItems(args.path);
-
-    for(std::string filepath : filepathvector)
+    
+    for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
     {
-        std::cout << filepath << std::endl;
+        std::cout << *itr << std::endl;
     }
     
     return 0;

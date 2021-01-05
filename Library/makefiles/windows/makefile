@@ -3,23 +3,27 @@
 
 # MACROS START
 LIB_ROOT = ..\..
+SOURCE_DIR = $(LIB_ROOT)\Sources
 xPro_ROOT = $(LIB_ROOT)\..
 OUTPUT_DIR = $(xPro_ROOT)\bin
 
 # enumdir
-ENUMDIR_TARGET_DIR = $(LIB_ROOT)\EnumerateFilesInDir
+ENUMDIR_APPNAME = enumdir
+ENUMDIR_TARGET_DIR = $(SOURCE_DIR)\$(ENUMDIR_APPNAME)
 ENUMDIR_STD_FLAG = c++latest 
-ENUMDIR_EXE = xpro.enumdir.exe
+ENUMDIR_EXE = xpro.$(ENUMDIR_APPNAME).exe
 
 # exist
-EXIST_TARGET_DIR = $(LIB_ROOT)\DoesExist
+EXIST_APPNAME = exist
+EXIST_TARGET_DIR = $(SOURCE_DIR)\$(EXIST_APPNAME)
 EXIST_STD_FLAG = c++latest 
-EXIST_EXE = xpro.exist.exe
+EXIST_EXE = xpro.$(EXIST_APPNAME).exe
 
 # selectitem 
-SELECTITEM_TARGET_DIR = $(LIB_ROOT)\SelectItem
+SELECTITEM_APPNAME = selectitem
+SELECTITEM_TARGET_DIR = $(SOURCE_DIR)\$(SELECTITEM_APPNAME)
 SELECTITEM_STD_FLAG = c++latest 
-SELECTITEM_EXE = xpro.selectitem.exe
+SELECTITEM_EXE = xpro.$(SELECTITEM_APPNAME).exe
 # MACROS end
 
 # nmake 

@@ -46,8 +46,18 @@ int main(int argc, char *argv[])
     }
 
     filepath = getFileByIndex(args.path,args.index);
-
-    std::cout << filepath << std::endl;
+    const auto & entry = fs::directory_entry(filepath);
+    std::string filename = entry.path();
+    #if defined(_WIN32) || defined(_WIN64)
+    filename = entry.path().filename().string(); // apply to string 
+    #else 
+    filepath = entry.path(); // apply to string 
+    size_t i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
+    
+    // if no failure
+    if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
+    #endif
+    std::cout << filename << std::endl;
     
     return 0;
 }

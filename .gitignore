@@ -17,9 +17,6 @@ debug.log
 .DS_Store
 *.hidden.xml
 
-# Lib files
-Library/**/xpro.*
-
 # binary files
 bin/*
 *.exe

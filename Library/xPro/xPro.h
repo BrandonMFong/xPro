@@ -84,13 +84,18 @@ void enumItemsInDir(std::string path)
 }
 
 // Does file exist
+// This will take the argument by reference 
 // https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
-bool exist(std::string& name)
+bool exist(std::string& file)
 {
-    bool result = true;
+    bool result = false; // Will assume it does not exist
     struct stat buffer;
 
-    result = (stat(name.c_str(), &buffer) == 0); // does file exist
+    // for the case of Windows
+    // I am not sure if this will affect any file system directories in UNIX 
+    if(file[0] == '\\') file.erase(0,1); 
+
+    result = (stat(file.c_str(), &buffer) == 0); // does file exist
 
     return result;
 }

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     if(!exist(path)) 
     {
-        std::cout << "Path does not exist.  Please check spelling" << std::endl;
+        // std::cout << "Path does not exist.  Please check spelling" << std::endl;
         return 1;
     }
 

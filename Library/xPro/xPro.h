@@ -70,7 +70,6 @@ void enumItemsInDir(std::string path)
             std::cout << "[" << count << "] " << getLeafItem(*itr) << std::endl;
             count++;
         }
-
     }
 }
 
@@ -95,14 +94,19 @@ bool exist(std::string file)
 std::string getFileByIndex(std::string path, int index)
 {
     std::string result = "";
-    int count = 0; // zero index
-    std::vector<std::string> filepathvector = getDirItems(path);
-    
-    std::vector<std::string>::iterator itr;
-    for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
+
+    if(exist(path))
     {
-        if (index == count) result = *itr;
-        count++;
+        if(path[0] == '\\') path.erase(0,1); 
+        int count = 0; // zero index
+        std::vector<std::string> filepathvector = getDirItems(path);
+        
+        std::vector<std::string>::iterator itr;
+        for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
+        {
+            if (index == count) result = *itr;
+            count++;
+        }
     }
 
     return result;
@@ -111,34 +115,44 @@ std::string getFileByIndex(std::string path, int index)
 std::vector<std::string> getDirItems(std::string path)
 {
     std::vector<std::string> filepathvectors;
-    std::string filepath, tmp; 
-    char cwd[PATH_MAX];
 
-    getcwd(cwd,sizeof(cwd));
-
-    std::string currdir = cwd;
-
-    for (const auto & entry : fs::directory_iterator(path)) 
+    if(exist(path))
     {
-        #ifdef isWINDOWS
-        tmp = entry.path().filename().string();
-        #else
-        tmp = entry.path();
-        #endif
-        filepath = currdir + PathSeparator + tmp; 
-        filepathvectors.push_back(filepath);
+        if(path[0] == '\\') path.erase(0,1); 
+
+        std::string filepath, tmp; 
+        char cwd[PATH_MAX];
+
+        getcwd(cwd,sizeof(cwd));
+
+        std::string currdir = cwd;
+
+        for (const auto & entry : fs::directory_iterator(path)) 
+        {
+            #ifdef isWINDOWS
+            tmp = entry.path().filename().string();
+            #else
+            tmp = entry.path();
+            #endif
+            filepath = currdir + PathSeparator + tmp; 
+            filepathvectors.push_back(filepath);
+        }
     }
 
     return filepathvectors;
 }
 
+// This function is assuming the path already exists
 std::string getLeafItem(std::string path)
 {
+    std::string leaf = "";
+    if(path[0] == '\\') path.erase(0,1); 
+
     const auto & entry = fs::directory_entry(path);
     #ifdef isWINDOWS
-    std::string leaf = entry.path().filename().string();
+    leaf = entry.path().filename().string();
     #else
-    std::string leaf = entry.path();
+    leaf = entry.path();
     #endif
     #ifdef isWINDOWS
     leaf = entry.path().filename().string(); // apply to string 

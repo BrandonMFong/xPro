@@ -43,7 +43,11 @@ int main(int argc, char *argv[])
 
             // going to test if the path exists
             // if it does, then the exist() will string the leading dir separator
-            if(!exist(args.path)) return 1;
+            if(!exist(args.path))
+            {
+                // std::cout << "Path does not exist.  Please check spelling" << std::endl;
+                return 1;
+            }
         }
         else if (strcmp(argv[i],indexFlag) == 0) 
         {
@@ -54,22 +58,6 @@ int main(int argc, char *argv[])
     }
 
     filepath = getFileByIndex(args.path,args.index);
-    // const auto & entry = fs::directory_entry(filepath);
-    // #ifdef isWINDOWS
-    // std::string filename = entry.path().filename().string();
-    // #else
-    // std::string filename = entry.path();
-    // #endif
-    // #if defined(_WIN32) || defined(_WIN64)
-    // filename = entry.path().filename().string(); // apply to string 
-    // #else 
-    // filepath = entry.path(); // apply to string 
-    // size_t i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
-    
-    // // if no failure
-    // if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
-    // #endif
-    // std::cout << filename << std::endl;
     std::cout << getLeafItem(filepath) << std::endl;
     
     return 0;

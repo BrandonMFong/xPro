@@ -47,7 +47,7 @@ namespace fs = std::__fs::filesystem;
 
 // Prototypes
 void enumItemsInDir(std::string path);
-bool exist(const std::string& name);
+bool exist(std::string& name);
 std::string getFileByIndex(std::string path, int index);
 std::string char2str(char arr[],int size);
 std::vector<std::string> getDirItems(std::string path);
@@ -85,7 +85,7 @@ void enumItemsInDir(std::string path)
 
 // Does file exist
 // https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
-bool exist(const std::string& name)
+bool exist(std::string& name)
 {
     bool result = true;
     struct stat buffer;

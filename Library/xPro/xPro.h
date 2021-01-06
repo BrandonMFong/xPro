@@ -140,10 +140,10 @@ std::string getLeafItem(std::string path)
     #else
     std::string leaf = entry.path();
     #endif
-    #if defined(_WIN32) || defined(_WIN64)
+    #ifdef isWINDOWS
     leaf = entry.path().filename().string(); // apply to string 
     #else 
-    filepath = entry.path(); // apply to string 
+    std::string filepath = entry.path(); // apply to string 
     size_t i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
     
     // if no failure

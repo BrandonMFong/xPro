@@ -4,7 +4,8 @@
 #>
 Param([string]$ConfigName=$null,[Switch]$CheckUpdate)
 Push-Location $PSScriptRoot
-    
+    [System.Object[]]$AppJson = Get-Content .\Config\app.json|ConvertFrom-Json; # Get app config
+
     # This segment runs independtly.  I could have made another script but the context of this script is similar to this segment's goal
     # Can probably be arranged better
     if($CheckUpdate)
@@ -18,7 +19,6 @@ Push-Location $PSScriptRoot
         [string[]]$InOrderScripts = $(& $command @arg);
 
         # There has to be a better way at checking if there is an update needed
-        # if($Scripts.Count -gt [int]$Global:XMLReader.Machine.UpdateStamp.Count) # TODO delete
         if([DateTime]::ParseExact($Scripts[$Scripts.Count-1].Replace(".ps1",$null),$ParseString,$null) -gt [DateTime]::ParseExact($Global:XMLReader.Machine.UpdateStamp.Value,$ParseString,$null))
         {
             Write-Host  "`nThere is an update to GlobalScripts Config." -ForegroundColor Red
@@ -38,24 +38,30 @@ Push-Location $PSScriptRoot
     }
 
     # Load files
-    [String[]]$ForPrompt = [String[]]::new($null); 
-    [String[]]$ForConfig = [String[]]::new($null); 
-    $ForPrompt = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
-    for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
-    {
-        $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
-    }
-    $ForConfig = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).Name;
+    # [String[]]$ForPrompt = [String[]]::new($null); 
+    # [String[]]$ForConfig = [String[]]::new($null); 
+    # $ForPrompt = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
+    # for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
+    # {
+    #     $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
+    # }
+    # $ForConfig = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).Name;
 
     Write-Host "Config files to choose from:"
-    $ForPrompt;
-    $ConfigIndex = Read-Host -Prompt "Number";
-    Write-Host  "`nCurrent Config => $($ForConfig[$ConfigIndex-1])`n" -ForegroundColor Cyan;
+    # $ForPrompt;
+    
+    .\bin\xpro.enumdir.exe $AppJson.Directories.UserConfig; # Get items from the user config
 
+    $choice = Read-Host -Prompt "So";
+    [String]$ConfigFile = $(.\bin\xpro.selectitem.exe -path $AppJson.Directories.UserConfig -index $choice);
+
+    Write-Host  "`nConfig => $($ConfigFile)`n" -ForegroundColor Cyan;
+
+    # write into apppointer
     Push-Location $($PROFILE |Split-Path -Parent);
-        [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml;
-        [String]$Path = $(Get-ChildItem .\Profile.xml).FullName;
-        $XmlEditor.Machine.ConfigFile = "\" + $ForConfig[$ConfigIndex-1];
-        $XmlEditor.Save($Path);
+        [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml; # read profile.xml
+        [String]$Path = $(Get-ChildItem .\Profile.xml).FullName; # get the path to the profile.xml
+        $XmlEditor.Machine.ConfigFile = "\" + $ConfigFile; # write configfile to AppPointer
+        $XmlEditor.Save($Path); # save 
     Pop-Location
 Pop-Location

@@ -5,6 +5,13 @@ Push-Location $PSScriptRoot;
     $Answer = Read-Host -Prompt "Continue(y/n)?"
     if($Answer -ne "y"){Write-Warning "Exiting...";return;}
     Write-Host "`nInitializing setup`n";
-    _InitProfile;
+
+    # Profile
+    if(!(Test-Path $Profile)){ New-Item -Path $Profile -Type File -Force;}
+    .\update-profile.ps1 -ForceUpdate $true;
+    Write-Host "`nProfile established!`n" -BackgroundColor Black -ForegroundColor Yellow;
+
+    # Config
     _InitConfig;
+
 Pop-Location;

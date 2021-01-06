@@ -29,10 +29,10 @@ endif
 
 # MACROS START
 CC=g++
-LIB_ROOT=.$(SEP)..
-SOURCE_DIR=$(LIB_ROOT)$(SEP)Sources
-xPro_ROOT=$(LIB_ROOT)$(SEP)..
-BIN_DIR=$(xPro_ROOT)$(SEP)bin
+LIB_ROOT=./..
+SOURCE_DIR=$(LIB_ROOT)/Sources
+xPro_ROOT=$(LIB_ROOT)/..
+BIN_DIR=$(xPro_ROOT)/bin
 INC=-I$(LIB_ROOT)
 
 # Applications
@@ -49,4 +49,4 @@ all: $(OBJECTS)
 
 $(OBJECTS) :
 	@echo Building $@
-	$(CC) $(SOURCE_DIR)$(SEP)$@$(SEP)main.cpp $(LSTDC_FLAG) -std=$(CPP_VERSION) $(INC) $(CFLAG) -Wall -o $(BIN_DIR)$(SEP)xpro.$@$(EXT)
+	$(CC) $(SOURCE_DIR)/$@/main.cpp $(LSTDC_FLAG) -std=$(CPP_VERSION) $(INC) $(CFLAG) -Wall -o $(BIN_DIR)/xpro.$@$(EXT)

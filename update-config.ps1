@@ -37,23 +37,11 @@ Push-Location $PSScriptRoot
         else{Pop-location;return 0;}
     }
 
-    # Load files
-    # [String[]]$ForPrompt = [String[]]::new($null); 
-    # [String[]]$ForConfig = [String[]]::new($null); 
-    # $ForPrompt = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).BaseName;
-    # for([int16]$i=0;$i -lt $ForPrompt.Length;$i++)
-    # {
-    #     $ForPrompt[$i] = "$($i+1) - " + $ForPrompt[$i];
-    # }
-    # $ForConfig = $(Get-ChildItem .\Config\Users\ | Where-Object{$_.Extension -eq ".xml"}).Name;
-
+    # Create AppPointer
     Write-Host "Config files to choose from:"
-    # $ForPrompt;
-    
     .\bin\xpro.enumdir.exe $AppJson.Directories.UserConfig; # Get items from the user config
-
-    $choice = Read-Host -Prompt "So";
-    [String]$ConfigFile = $(.\bin\xpro.selectitem.exe -path $AppJson.Directories.UserConfig -index $choice);
+    $choice = Read-Host -Prompt "So"; # Get user's choice 
+    [String]$ConfigFile = $(.\bin\xpro.selectitem.exe -path $AppJson.Directories.UserConfig -index $($choice - 1)); # Get the index
 
     Write-Host  "`nConfig => $($ConfigFile)`n" -ForegroundColor Cyan;
 

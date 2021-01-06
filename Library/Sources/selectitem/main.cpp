@@ -37,7 +37,14 @@ int main(int argc, char *argv[])
     for (int i = 0; i < argc; i++)
     {
         // If we find correct argument, get the one in the succeeding index 
-        if(strcmp(argv[i],pathFlag) == 0) args.path = argv[i+1];
+        if(strcmp(argv[i],pathFlag) == 0) 
+        {
+            args.path = argv[i+1];
+
+            // going to test if the path exists
+            // if it does, then the exist() will string the leading dir separator
+            if(!exist(args.path)) return 1;
+        }
         else if (strcmp(argv[i],indexFlag) == 0) 
         {
             // convert char* to int 

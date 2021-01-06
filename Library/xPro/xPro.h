@@ -51,40 +51,30 @@ bool exist(std::string name);
 std::string getFileByIndex(std::string path, int index);
 std::string char2str(char arr[],int size);
 std::vector<std::string> getDirItems(std::string path);
+std::string getLeafItem(std::string path);
 
 // Functions 
 void enumItemsInDir(std::string path)
 {
-    std::string filename;
-    int count = 1;
-
-    // If this isn't windows, define these variables for the operations of getting the file
-    #if !defined(isWINDOWS)
-    std::string filepath; // will hold each file path in the directory pointed to by the argument 
-    char sep = PathSeparator; // defines how the file paths are separated
-    #endif
-
-    for (const auto & entry : fs::directory_iterator(path)) 
+    if(exist(path))
     {
-        #ifdef isWINDOWS
-        filename = entry.path().filename().string(); // apply to string 
-        #else 
-        filepath = entry.path(); // apply to string 
-        size_t i = filepath.rfind(sep, filepath.length()); // find the positions of the path delimiters
+        if(path[0] == '\\') path.erase(0,1); 
         
-        // if no failure
-        if (i != std::string::npos)  filename = filepath.substr(i+1, filepath.length() - i);
-        #endif
-        
-        // Print out items
-        std::cout << "[" << count << "] " << filename << std::endl;
+        std::vector<std::string> paths = getDirItems(path);
+        int count = 1;
+    
+        std::vector<std::string>::iterator itr;
+        for(itr = paths.begin(); itr < paths.end(); itr++)
+        {
+            // Print out items
+            std::cout << "[" << count << "] " << getLeafItem(*itr) << std::endl;
+            count++;
+        }
 
-        count++;
     }
 }
 
 // Does file exist
-// This will take the argument by reference 
 // https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
 bool exist(std::string file)
 {
@@ -131,7 +121,6 @@ std::vector<std::string> getDirItems(std::string path)
     for (const auto & entry : fs::directory_iterator(path)) 
     {
         #ifdef isWINDOWS
-        // fs::path path(entry.path()); // converting to path
         tmp = entry.path().filename().string();
         #else
         tmp = entry.path();
@@ -141,6 +130,26 @@ std::vector<std::string> getDirItems(std::string path)
     }
 
     return filepathvectors;
+}
+
+std::string getLeafItem(std::string path)
+{
+    const auto & entry = fs::directory_entry(path);
+    #ifdef isWINDOWS
+    std::string leaf = entry.path().filename().string();
+    #else
+    std::string leaf = entry.path();
+    #endif
+    #if defined(_WIN32) || defined(_WIN64)
+    leaf = entry.path().filename().string(); // apply to string 
+    #else 
+    filepath = entry.path(); // apply to string 
+    size_t i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
+    
+    // if no failure
+    if (i != std::string::npos)  leaf = filepath.substr(i+1, filepath.length() - i);
+    #endif
+    return leaf;
 }
 
 #endif

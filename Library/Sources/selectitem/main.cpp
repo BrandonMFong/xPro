@@ -1,8 +1,11 @@
-// xPro
-// zero index
-
+/**
+ * @file xpro.selectiem
+ * 
+ * @brief From the list given by enumdir, returns the item that is selected by the index
+ * 
+ * @author Brando (BrandonMFong.com)
+ */
 #include <xPro/xPro.h>
-// #include "xProLibrary.h"
 
 #define ArgsLimit 5
 
@@ -12,16 +15,14 @@
 
 struct Arguments 
 {
-    int index;
+    xInt index;
     xDirectory * path;
 };
 
 int main(int argc, char *argv[]) 
 {
     Arguments args;
-    std::stringstream strValue;
-    std::vector<std::string> filepathvector;
-    // std::vector<std::string>::iterator itr;
+    // std::stringstream strValue;
     std::string filepath = "";
 
     // Exit program if this is met
@@ -43,24 +44,21 @@ int main(int argc, char *argv[])
 
             // going to test if the path exists
             // if it does, then the IsExist() will string the leading dir separator
-            // if(!IsExist(args.path))
             if(!args.path->Exists())
             {
-                // std::cout << "Path does not exist.  Please check spelling" << std::endl;
                 return 1;
             }
         }
         else if (strcmp(argv[i],indexFlag) == 0) 
         {
             // convert char* to int 
-            strValue << argv[i+1];
-            strValue >> args.index;
+            // strValue << argv[i+1];
+            // strValue >> args.index;
         }
     }
 
-    // filepath = GetFileByIndex(args.path,args.index);
     filepath = args.path->ItemByIndex(args.index);
-    std::cout << GetLeafItem(filepath) << std::endl;
+    std::cout << LeafItemFromPath(filepath) << std::endl;
     
     return 0;
 }

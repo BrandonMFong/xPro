@@ -12,8 +12,8 @@
 #ifndef _XPRO_
 #define _XPRO_
 
+/** OPERATING SYSTEM SPECIFIC **/
 /* WINDOWS */
-//cl main.cpp /std:c++latest
 #if defined(_WIN32) || defined(_WIN64)
 #include <iostream>
 #include <string>
@@ -56,21 +56,24 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-#define True true
-#define False false
-#define xNull nullptr
-typedef int xInt;
-typedef std::string xString;
-typedef bool xBool;
-typedef std::vector<xString> xStringArray;
-
+/** APP SPECIFIC **/
+#include <xPro/xTypes.h>
 #include <xPro/xDirectory.h>
 
-// void EnumItemsInDir(std::string path);
-// bool IsExist(std::string name); 
-// std::string GetFileByIndex(std::string path, int index);
-// std::vector<std::string> GetDirItems(std::string path);
-xString GetLeafItem(xString path);
+/** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
+ * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64
+ * 
+ * @param path the filesyste path (can be a file or a directory)
+ * 
+ * @return xString
+ */
+xString LeafItemFromPath(xString path);
 
+/** Converts a character type to an integer type
+ * @param character the char variable
+ * 
+ * @return xInt
+ */
+xInt Char2xInt(xChar character);
 
 #endif

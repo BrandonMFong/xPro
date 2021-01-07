@@ -23,14 +23,10 @@ ALL = $(OBJECTS) $(SUBOBJECTS)
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: xPro xDirectory $(OBJECTS)
+all: $(SUBOBJECTS) $(OBJECTS)
 
-xPro : 
-	$(CC) $(LIB_ROOT)/xPro/xPro.cpp -c -o xPro.o $(FLAGS)
-
-xDirectory : 
-	$(CC) $(LIB_ROOT)/xPro/xDirectory.cpp -c -o xDirectory.o $(FLAGS)
-
+$(SUBOBJECTS) :
+	$(CC) $(LIB_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
 
 $(OBJECTS) :
 	@echo Building $@

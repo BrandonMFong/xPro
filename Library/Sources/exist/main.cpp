@@ -1,7 +1,12 @@
-// xPro
+/**
+ * @file xpro.exist
+ * 
+ * @brief Determines if item is true
+ * 
+ * @author Brando (BrandonMFong.com)
+ */
 
 #include <xPro/xPro.h>
-// #include "xProLibrary.h"
 
 int main(int argc, char *argv[]) 
 {
@@ -16,7 +21,6 @@ int main(int argc, char *argv[])
         return 1; // should be less than or equal to two 
     } 
 
-    // result = IsExist((std::string)argv[index]);
     item = new xDirectory(argv[index]);
 
     std::cout << "File " << (result ? "does exist" : "does not exist") << std::endl;

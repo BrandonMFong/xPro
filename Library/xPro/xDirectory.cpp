@@ -77,7 +77,7 @@ void xDirectory::PrintItems(xString flag)
         {
             // Print out items
             if (xEnumerateDirectoryItems == flag) std::cout << "[" << count << "] ";
-            std::cout << GetLeafItem(*itr) << std::endl;
+            std::cout << LeafItemFromPath(*itr) << std::endl;
             count++;
         }
     }

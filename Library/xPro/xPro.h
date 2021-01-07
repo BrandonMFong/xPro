@@ -62,6 +62,7 @@ namespace fs = std::__fs::filesystem;
 typedef int xInt;
 typedef std::string xString;
 typedef bool xBool;
+typedef std::vector<xString> xStringArray;
 
 #include <xPro/xDirectory.h>
 

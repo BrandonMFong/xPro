@@ -13,7 +13,7 @@
 struct Arguments 
 {
     int index;
-    std::string path;
+    xDirectory * path;
 };
 
 int main(int argc, char *argv[]) 
@@ -39,11 +39,12 @@ int main(int argc, char *argv[])
         // If we find correct argument, get the one in the succeeding index 
         if(strcmp(argv[i],pathFlag) == 0) 
         {
-            args.path = argv[i+1];
+            args.path = new xDirectory(argv[i+1]);
 
             // going to test if the path exists
             // if it does, then the IsExist() will string the leading dir separator
-            if(!IsExist(args.path))
+            // if(!IsExist(args.path))
+            if(!args.path->Exists())
             {
                 // std::cout << "Path does not exist.  Please check spelling" << std::endl;
                 return 1;
@@ -57,7 +58,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    filepath = GetFileByIndex(args.path,args.index);
+    // filepath = GetFileByIndex(args.path,args.index);
+    filepath = args.path->ItemByIndex(args.index);
     std::cout << GetLeafItem(filepath) << std::endl;
     
     return 0;

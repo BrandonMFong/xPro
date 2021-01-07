@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
             args.path = argv[i+1];
 
             // going to test if the path exists
-            // if it does, then the exist() will string the leading dir separator
-            if(!exist(args.path))
+            // if it does, then the IsExist() will string the leading dir separator
+            if(!IsExist(args.path))
             {
                 // std::cout << "Path does not exist.  Please check spelling" << std::endl;
                 return 1;
@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    filepath = getFileByIndex(args.path,args.index);
-    std::cout << getLeafItem(filepath) << std::endl;
+    filepath = GetFileByIndex(args.path,args.index);
+    std::cout << GetLeafItem(filepath) << std::endl;
     
     return 0;
 }

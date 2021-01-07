@@ -1,3 +1,11 @@
+// xPro
+// Engineer: Brando
+/* Notes:
+ * I want to improve my coding 
+ * To do this I want to follow coding standards
+ * Will consider derofim's: https://gist.github.com/derofim/df604f2bf65a506223464e3ffd96a78a 
+*/
+
 #ifndef _XPROLIBRARY_
 #define _XPROLIBRARY_
 
@@ -45,29 +53,28 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-// Prototypes
-void enumItemsInDir(std::string path);
-bool exist(std::string name);
-std::string getFileByIndex(std::string path, int index);
-std::string char2str(char arr[],int size);
-std::vector<std::string> getDirItems(std::string path);
-std::string getLeafItem(std::string path);
+void EnumItemsInDir(std::string path);
+bool IsExist(std::string name); 
+std::string GetFileByIndex(std::string path, int index);
+std::vector<std::string> GetDirItems(std::string path);
+std::string GetLeafItem(std::string path);
 
-// Functions 
-void enumItemsInDir(std::string path)
+void EnumItemsInDir(std::string path)
 {
-    if(exist(path))
+    int count = 1;
+    std::vector<std::string> paths;
+    std::vector<std::string>::iterator itr;
+
+    if(IsExist(path))
     {
         if(path[0] == '\\') path.erase(0,1); 
         
-        std::vector<std::string> paths = getDirItems(path);
-        int count = 1;
+        paths = GetDirItems(path);
     
-        std::vector<std::string>::iterator itr;
         for(itr = paths.begin(); itr < paths.end(); itr++)
         {
             // Print out items
-            std::cout << "[" << count << "] " << getLeafItem(*itr) << std::endl;
+            std::cout << "[" << count << "] " << GetLeafItem(*itr) << std::endl;
             count++;
         }
     }
@@ -75,7 +82,7 @@ void enumItemsInDir(std::string path)
 
 // Does file exist
 // https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
-bool exist(std::string file)
+bool IsExist(std::string file)
 {
     bool result = false; // Will assume it does not exist
     struct stat buffer;
@@ -91,17 +98,19 @@ bool exist(std::string file)
 
 // Select item in directory by index
 // 0 index
-std::string getFileByIndex(std::string path, int index)
+std::string GetFileByIndex(std::string path, int index)
 {
     std::string result = "";
+    int count = 0; // zero index
+    std::vector<std::string> filepathvector;
+    std::vector<std::string>::iterator itr;
 
-    if(exist(path))
+    if(IsExist(path))
     {
+        // remove leading \\ for the case of windows and Get the items from the directory 
         if(path[0] == '\\') path.erase(0,1); 
-        int count = 0; // zero index
-        std::vector<std::string> filepathvector = getDirItems(path);
+        filepathvector = GetDirItems(path);
         
-        std::vector<std::string>::iterator itr;
         for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
         {
             if (index == count) result = *itr;
@@ -112,20 +121,20 @@ std::string getFileByIndex(std::string path, int index)
     return result;
 }
 
-std::vector<std::string> getDirItems(std::string path)
+std::vector<std::string> GetDirItems(std::string path)
 {
     std::vector<std::string> filepathvectors;
+    std::string filepath, tmp; 
+    std::string currdir;
+    char cwd[PATH_MAX];
 
-    if(exist(path))
+    if(IsExist(path))
     {
-        if(path[0] == '\\') path.erase(0,1); 
-
-        std::string filepath, tmp; 
-        char cwd[PATH_MAX];
+        if(path[0] == '\\') path.erase(0,1); // For windows
 
         getcwd(cwd,sizeof(cwd));
 
-        std::string currdir = cwd;
+        currdir = cwd;
 
         for (const auto & entry : fs::directory_iterator(path)) 
         {
@@ -143,9 +152,11 @@ std::vector<std::string> getDirItems(std::string path)
 }
 
 // This function is assuming the path already exists
-std::string getLeafItem(std::string path)
+std::string GetLeafItem(std::string path)
 {
     std::string leaf = "";
+    size_t i;
+    std::string filepath; // apply to string 
     if(path[0] == '\\') path.erase(0,1); 
 
     const auto & entry = fs::directory_entry(path);
@@ -157,8 +168,8 @@ std::string getLeafItem(std::string path)
     #ifdef isWINDOWS
     leaf = entry.path().filename().string(); // apply to string 
     #else 
-    std::string filepath = entry.path(); // apply to string 
-    size_t i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
+    filepath = entry.path(); // apply to string 
+    i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
     
     // if no failure
     if (i != std::string::npos)  leaf = filepath.substr(i+1, filepath.length() - i);

@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
     // Since there should only be two, this is the index to get the argument I want
     path = argv[index];
 
-    if(!exist(path)) 
+    if(!IsExist(path)) 
     {
         // std::cout << "Path does not exist.  Please check spelling" << std::endl;
         return 1;
     }
 
-    enumItemsInDir(path);
+    EnumItemsInDir(path);
 
     return 0;
 }

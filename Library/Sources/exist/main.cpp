@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
         return 1; // should be less than or equal to two 
     } 
 
-    result = exist((std::string)argv[index]);
+    result = IsExist((std::string)argv[index]);
 
     std::cout << "File " << (result ? "does exist" : "does not exist") << std::endl;
 

@@ -14,9 +14,9 @@ Currently xPro supports Powershell and z shell.
 
 - Run Setup.ps1
 
-### Z shell
+### Z shell and Bash shell
 
-- Run Setup.zsh
+- Run Setup.sh
 
 ## Developed With
 

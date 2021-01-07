@@ -66,11 +66,11 @@ typedef std::vector<xString> xStringArray;
 
 #include <xPro/xDirectory.h>
 
-void EnumItemsInDir(std::string path);
+// void EnumItemsInDir(std::string path);
 // bool IsExist(std::string name); 
-std::string GetFileByIndex(std::string path, int index);
-std::vector<std::string> GetDirItems(std::string path);
-std::string GetLeafItem(std::string path);
+// std::string GetFileByIndex(std::string path, int index);
+// std::vector<std::string> GetDirItems(std::string path);
+xString GetLeafItem(xString path);
 
 
 #endif

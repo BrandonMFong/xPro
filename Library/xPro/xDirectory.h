@@ -21,7 +21,7 @@ public:
     void PrintItems();
     void PrintItems(xString flag);
     xStringArray GetItems();
-    xString xDirectory::ItemByIndex(xInt index);
+    xString ItemByIndex(xInt index);
 private:
     xString path,leafitem;
     xBool exists;

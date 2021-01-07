@@ -96,11 +96,12 @@
 // }
 
 // This function is assuming the path already exists
-std::string GetLeafItem(std::string path)
+// https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64
+xString GetLeafItem(xString path)
 {
-    std::string leaf = "";
+    xString leaf = "";
     size_t i;
-    std::string filepath; // apply to string 
+    xString filepath; // apply to string 
     if(path[0] == '\\') path.erase(0,1); 
 
     const auto & entry = fs::directory_entry(path);
@@ -116,7 +117,7 @@ std::string GetLeafItem(std::string path)
     i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
     
     // if no failure
-    if (i != std::string::npos)  leaf = filepath.substr(i+1, filepath.length() - i);
+    if (i != xString::npos)  leaf = filepath.substr(i+1, filepath.length() - i);
     #endif
     return leaf;
 }

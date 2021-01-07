@@ -67,16 +67,13 @@ void xDirectory::PrintItems()
 void xDirectory::PrintItems(xString flag)
 {
     int count = 1;
-    xStringArray paths;
     xStringArray::iterator itr;
 
     if(this->exists)
     {
         if(path[0] == '\\') path.erase(0,1); 
         
-        paths = GetDirItems(path);
-    
-        for(itr = paths.begin(); itr < paths.end(); itr++)
+        for(itr = this->items.begin(); itr < this->items.end(); itr++)
         {
             // Print out items
             if (xEnumerateDirectoryItems == flag) std::cout << "[" << count << "] ";
@@ -90,16 +87,14 @@ xString xDirectory::ItemByIndex(xInt index)
 {
     std::string result = "";
     int count = 0; // zero index
-    xStringArray filepathvector;
     xStringArray::iterator itr;
 
     if(this->exists)
     {
         // remove leading \\ for the case of windows and Get the items from the directory 
         if(path[0] == '\\') path.erase(0,1); 
-        filepathvector = GetDirItems(path);
         
-        for(itr = filepathvector.begin(); itr < filepathvector.end(); itr++)
+        for(itr = this->items.begin(); itr < this->items.end(); itr++)
         {
             if (index == count) result = *itr;
             count++;

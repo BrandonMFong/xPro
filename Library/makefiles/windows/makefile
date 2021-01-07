@@ -21,7 +21,7 @@ all: $(OBJECTS)
 
 $(OBJECTS): 
 	@echo Building 
-	@cl $(SOURCE_DIR)\$@\main.cpp /Fexpro.$@.exe $(FLAGS)
+	@cl $(SOURCE_DIR)\$@\main.cpp $(LIB_ROOT)\xPro\xPro.cpp /Fexpro.$@.exe $(FLAGS)
 	@copy xpro.$@.exe $(BIN_DIR)\$(ENUMDIR_EXE)
 	@del xpro.$@.exe
 	@del main.obj

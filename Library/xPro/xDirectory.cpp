@@ -21,9 +21,6 @@ xDirectory::xDirectory(xString path)
     std::string filepath, tmp; 
     std::string currdir;
     char cwd[PATH_MAX];
-    std::string leaf = "";
-    size_t i;
-    std::string filepath; // apply to string 
 
     this->path = path; 
 
@@ -64,7 +61,7 @@ xBool xDirectory::Exists()
 
 void xDirectory::PrintItems()
 {
-    this->PrintItems(xNull)
+    this->PrintItems(xNull);
 }
 
 void xDirectory::PrintItems(xString flag)

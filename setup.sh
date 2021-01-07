@@ -1,7 +1,13 @@
 pushd "$(dirname "$0")"
 
     # copy profile 
-    cp -f ./Profile.zsh ~/.zshrc;
+    if [ ! -z $ZSH_VERSION ]
+    then 
+        ShellProfile="~/.zshrc"
+    else 
+        ShellProfile="~/.bashrc"
+    fi 
+    cp -f ./Profile.zsh $ShellProfile;
 
     # Create Profile pointer 
     out=~/.profile.xml;

@@ -24,21 +24,21 @@ void EnumItemsInDir(std::string path)
     }
 }
 
-// Does file exist
-// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
-bool IsExist(std::string file)
-{
-    bool result = false; // Will assume it does not exist
-    struct stat buffer;
+// // Does file exist
+// // https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c 
+// bool IsExist(std::string file)
+// {
+//     bool result = false; // Will assume it does not exist
+//     struct stat buffer;
 
-    // for the case of Windows
-    // I am not sure if this will affect any file system directories in UNIX 
-    if(file[0] == '\\') file.erase(0,1); 
+//     // for the case of Windows
+//     // I am not sure if this will affect any file system directories in UNIX 
+//     if(file[0] == '\\') file.erase(0,1); 
 
-    result = (stat(file.c_str(), &buffer) == 0); // does file exist
+//     result = (stat(file.c_str(), &buffer) == 0); // does file exist
 
-    return result;
-}
+//     return result;
+// }
 
 // Select item in directory by index
 // 0 index

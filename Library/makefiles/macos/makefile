@@ -1,4 +1,6 @@
 # macos
+# https://stackoverflow.com/questions/43465483/makefile-with-c-classes
+
 # MACROS START
 CC=g++
 LIB_ROOT=./../..
@@ -13,12 +15,24 @@ OBJECTS = \
 	enumdir \
 	exist \
 	selectitem
+SUBOBJECTS = \
+	xDirectory \
+	xPro
+ALL = $(OBJECTS) $(SUBOBJECTS)
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: $(OBJECTS)
+all: $(SUBOBJECTS) $(OBJECTS) $(ALL) 
+
+$(SUBOBJECTS) : 
+	@echo Building $@
+	@$(CC) $(LIB_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
 
 $(OBJECTS) :
 	@echo Building $@
-	@$(CC) $(SOURCE_DIR)/$@/main.cpp -o $(BIN_DIR)/xpro.$@ $(FLAGS)
+	@$(CC) $(SOURCE_DIR)/$@/main.cpp -c -o $@.o $(FLAGS)
+
+$(ALL) :
+	@echo Building $@
+	@$(CC) $@.o -o $(BIN_DIR)/xpro.$@ $(FLAGS)

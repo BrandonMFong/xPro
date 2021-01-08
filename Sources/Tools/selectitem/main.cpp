@@ -22,7 +22,6 @@ struct Arguments
 int main(int argc, char *argv[]) 
 {
     Arguments args;
-    // std::stringstream strValue;
     std::string filepath = "";
 
     // Exit program if this is met
@@ -54,6 +53,7 @@ int main(int argc, char *argv[])
             // convert char* to int 
             // strValue << argv[i+1];
             // strValue >> args.index;
+            args.index = Char2xInt(argv[i+1]);
         }
     }
 

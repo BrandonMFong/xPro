@@ -11,7 +11,6 @@
 int main(int argc, char *argv[]) 
 {
     int index = 1; // we are only accepting one argument here
-    bool result = false;
     xDirectory * item;
 
     // Exit program if this is met
@@ -23,7 +22,7 @@ int main(int argc, char *argv[])
 
     item = new xDirectory(argv[index]);
 
-    std::cout << "File " << (result ? "does exist" : "does not exist") << std::endl;
+    std::cout << "File " << (item->Exists() ? "does exist" : "does not exist") << std::endl;
 
     return 0;
 }

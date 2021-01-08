@@ -33,7 +33,7 @@ xString LeafItemFromPath(xString path)
     return leaf;
 }
 
-xInt Char2xInt(xChar character)
+xInt Char2xInt(xString character)
 {
     xInt result = 0;
     xStringStream strValue;

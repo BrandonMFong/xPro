@@ -74,6 +74,6 @@ xString LeafItemFromPath(xString path);
  * 
  * @return xInt
  */
-xInt Char2xInt(xChar character);
+xInt Char2xInt(xString character);
 
 #endif

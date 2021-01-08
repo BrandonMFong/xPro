@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) 
 {
     xDirectory * pathObject;
-    if(argc != 1)
+    if(argc != 2)
     {
         std::cout   
             << "Usage: getpath <arg>"

@@ -64,7 +64,12 @@ void xDirectory::SetExists()
     {
         // Testing if the path exists
         result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
+
+        // If the path does not exist, do not waste the memory 
+        // TODO delete memory space 
+        this->path = result ? this->path : xEmptyString;
     }
+
     this->exists = result;
 }
 
@@ -123,16 +128,20 @@ void xDirectory::SetPath(xString path)
     xChar cwd[PATH_MAX];
     xString currdir;
 
-    this->path = path; 
+    // I don't think all cases are considered
+    // if this matches, i am assuming path is coming from root
+    // so will not proceed
+    if(std::to_string(path[0]).compare(std::to_string(PathSeparator)))
+    {
+        // Get Curent working directory
+        getcwd(cwd,sizeof(cwd));
+        currdir = cwd;
 
-    // I don't think all cases are considered 
-    // if(this->path[0] == '\\') this->path.erase(0,1); 
-    if(this->path[0] != PathSeparator)this->path = '/' + this->path; // if doesn't start with / and is unix file separator
-    else if (this->path[0] == '.') this->path.erase(0,1);
+        if(path[0] != PathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
+        else if (path[0] == '.') path.erase(0,1);
 
-    // Get Curent working directory
-    getcwd(cwd,sizeof(cwd));
-    currdir = cwd;
+        path = currdir + path;
+    }
 
-    this->path = currdir + this->path;
+    this->path = path; // concat base dir with relative path
 }

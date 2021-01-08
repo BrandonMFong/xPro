@@ -70,7 +70,7 @@ public:
     xString ItemByIndex(xInt index);
 
     /**
-     * @brief Returns full path
+     * @brief Returns full path.  If the path isn't a real path, return xEmptyString
      * 
      * @return xString 
      */

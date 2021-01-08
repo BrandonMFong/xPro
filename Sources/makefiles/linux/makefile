@@ -13,10 +13,12 @@ FLAGS = \
 OBJECTS = \
 	enumdir \
 	exist \
-	selectitem
+	selectitem \
+	getpath
 SUBOBJECTS = \
 	xDirectory \
-	xPro
+	xPro \
+	xFile
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 

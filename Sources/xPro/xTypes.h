@@ -14,6 +14,7 @@
 #define True true /* Boolean True */
 #define False false /* Boolean False */
 #define xNull nullptr /* Null Pointer */
+#define xEmptyString ""
 typedef int xInt; /** xPro-Type Integer */
 typedef std::string xString; /** xPro-Type String */
 typedef bool xBool; /** xPro-Type Boolean */

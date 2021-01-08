@@ -36,6 +36,12 @@ public:
     xBool Exists();
 
     /**
+     * @brief Set the object's existence
+     * 
+     */
+    void SetExists();
+
+    /**
      * @brief Prints items from objects path
      * 
      */
@@ -62,10 +68,24 @@ public:
      * @return xString 
      */
     xString ItemByIndex(xInt index);
-private:
-    xString path, /** The object's path */
-            leafitem; /** The object's leaf item from path */
+
+    /**
+     * @brief Returns full path
+     * 
+     * @return xString 
+     */
+    xString Path();
+
+    /**
+     * @brief Set the Path 
+     * 
+     */
+    void SetPath(xString path);
+protected:
+    xString path; /** The object's path */
     xBool exists; /** if the path exists */
+private:
+    xString leafitem; /** The object's leaf item from path */
     xStringArray items; /** List of items in path */
 };
 

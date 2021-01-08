@@ -51,8 +51,6 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[i],indexFlag) == 0) 
         {
             // convert char* to int 
-            // strValue << argv[i+1];
-            // strValue >> args.index;
             args.index = Char2xInt(argv[i+1]);
         }
     }

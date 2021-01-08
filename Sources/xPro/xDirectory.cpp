@@ -10,35 +10,30 @@
 
 xDirectory::xDirectory()
 {
-    this->path = xNull;
+    this->path = xEmptyString;
     this->exists = False;
 }
 
 xDirectory::xDirectory(xString path)
 {
-    bool result = false; // Will assume it does not exist
-    struct stat buffer;
-    std::string filepath, tmp; 
-    std::string currdir;
-    char cwd[PATH_MAX];
+    xString filepath, tmp; 
+    xString currdir;
+    xChar cwd[PATH_MAX];
 
-    this->path = path; 
+    this->SetPath(path);
 
-    // for the case of Windows
-    // I am not sure if this will affect any file system directories in UNIX 
-    if(this->path[0] == '\\') this->path.erase(0,1); 
-
-    // Testing if the path exists
-    result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
-    this->exists = result;
+    // // Testing if the path exists
+    // result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
+    // this->exists = result;
+    this->SetExists();
 
     // initialize items into Items vector
     if(this->exists)
     {
         if(path[0] == '\\') path.erase(0,1); // For windows
 
+        // Get Curent working directory
         getcwd(cwd,sizeof(cwd));
-
         currdir = cwd;
 
         for (const auto & entry : fs::directory_iterator(path)) 
@@ -57,6 +52,20 @@ xDirectory::xDirectory(xString path)
 xBool xDirectory::Exists()
 {
     return this->exists;
+}
+
+void xDirectory::SetExists()
+{
+    xBool result = false; // Will assume it does not exist
+    struct stat buffer;
+
+    // will only check if path was set
+    if(!this->path.empty())
+    {
+        // Testing if the path exists
+        result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
+    }
+    this->exists = result;
 }
 
 void xDirectory::PrintItems()
@@ -102,4 +111,28 @@ xString xDirectory::ItemByIndex(xInt index)
     }
 
     return result;
+}
+
+xString xDirectory::Path()
+{
+    return this->path;
+}
+
+void xDirectory::SetPath(xString path)
+{
+    xChar cwd[PATH_MAX];
+    xString currdir;
+
+    this->path = path; 
+
+    // I don't think all cases are considered 
+    // if(this->path[0] == '\\') this->path.erase(0,1); 
+    if(this->path[0] != PathSeparator)this->path = '/' + this->path; // if doesn't start with / and is unix file separator
+    else if (this->path[0] == '.') this->path.erase(0,1);
+
+    // Get Curent working directory
+    getcwd(cwd,sizeof(cwd));
+    currdir = cwd;
+
+    this->path = currdir + this->path;
 }

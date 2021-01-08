@@ -1,14 +1,14 @@
 # Linux
 # MACROS START
 CC=g++
-LIB_ROOT=./../..
-TOOLS_DIR=$(LIB_ROOT)/Tools
-xPro_ROOT=$(LIB_ROOT)/..
+SOURCE_ROOT=./../..
+xPro_ROOT=$(SOURCE_ROOT)/..
+TOOLS_DIR=$(SOURCE_ROOT)/Tools
 BIN_DIR=$(xPro_ROOT)/bin
 FLAGS = \
 	-lstdc++fs \
 	-std=c++2a \
-	-I$(LIB_ROOT) \
+	-I$(SOURCE_ROOT) \
 	-Wall
 OBJECTS = \
 	enumdir \
@@ -17,7 +17,6 @@ OBJECTS = \
 SUBOBJECTS = \
 	xDirectory \
 	xPro
-ALL = $(OBJECTS) $(SUBOBJECTS)
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
@@ -26,7 +25,7 @@ all: $(SUBOBJECTS) $(OBJECTS) clean
 
 $(SUBOBJECTS) :
 	@echo Creating $@.o
-	@$(CC) $(LIB_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
+	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
 
 $(OBJECTS) :
 	@echo Building xpro.$@

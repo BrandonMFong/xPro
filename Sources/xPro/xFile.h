@@ -18,6 +18,7 @@ public:
     xFile(xString path);
     xBool Exist();
     xString GetContent();
+    xString Name();
 private:
     xString name;
     xBool exists;

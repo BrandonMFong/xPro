@@ -10,6 +10,7 @@
 
 int main(int argc, char *argv[]) 
 {
+    xDirectory * pathObject;
     if(argc != 1)
     {
         std::cout   
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
             << "    <arg>   Relative or real full path" 
             << 
         std::endl;
-    }
-    xDirectory * pathObject = new xDirectory(argv[1]);
+    } 
+    pathObject = new xDirectory(argv[1]);
     std::cout << pathObject->Path() << std::endl;
 }

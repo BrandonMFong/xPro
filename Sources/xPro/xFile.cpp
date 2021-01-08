@@ -22,3 +22,7 @@ xFile::xFile(xString path)
     this->name = LeafItemFromPath(this->path);
 }
 
+xString xFile::Name()
+{
+    return this->name;
+}

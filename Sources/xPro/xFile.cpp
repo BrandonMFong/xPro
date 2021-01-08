@@ -21,3 +21,4 @@ xFile::xFile(xString path)
     this->SetExists();
     this->name = LeafItemFromPath(this->path);
 }
+

@@ -6,6 +6,7 @@
  * @author Brando
  */
 
+#include <xPro/xFile.h>
 #include <xPro/xDirectory.h>
 
 xDirectory::xDirectory()

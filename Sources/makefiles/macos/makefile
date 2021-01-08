@@ -14,10 +14,13 @@ FLAGS = \
 OBJECTS = \
 	enumdir \
 	exist \
-	selectitem
+	selectitem \
+	getpath \
+	basename
 SUBOBJECTS = \
-	xDirectory \
-	xPro
+	xPro \
+	xFile \
+	xDirectory
 ALL = $(OBJECTS) $(SUBOBJECTS)
 # MACROS END
 

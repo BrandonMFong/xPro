@@ -7,7 +7,7 @@ CamelCased names
 ## Variables
 camelCased names
 
-## Directory names in Sources folder
+## Directory names in Tools folder
 The directory must be all lowercased 
 
 ## Headers

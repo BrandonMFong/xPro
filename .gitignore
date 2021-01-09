@@ -21,6 +21,7 @@ debug.log
 bin/*
 *.exe
 *.obj
+*.o
 
 # Visual Code files
 .vscode/settings.json

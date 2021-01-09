@@ -6,6 +6,7 @@
  * @author Brando
  */
 
+#include <xPro/xXml.h>
 #include <xPro/xFile.h>
 
 xFile::xFile()
@@ -23,9 +24,12 @@ xFile::xFile(xString path)
 
     result = IsFile(tempPath,ec);
     
-    if(result) this->SetPath(path); // Set's the private path member 
-    if(result) this->SetExists();
-    if(result) this->_name = LeafItemFromPath(this->_path);
+    if(result) 
+    {
+        this->SetPath(path); // Set's the private path member 
+        this->SetExists();
+        this->_name = LeafItemFromPath(this->_path);
+    }
     
     if(ec || !this->_exists || !result) 
     {
@@ -52,7 +56,3 @@ xString xFile::Name()
     return this->_name;
 }
 
-// xBool xFile::IsFile()
-// {
-//     return this->_isFile;
-// }

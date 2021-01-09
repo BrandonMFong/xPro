@@ -6,6 +6,7 @@
  * @author Brando
  */
 
+// #include <xPro/xXml.h>
 #include <xPro/xFile.h>
 #include <xPro/xDirectory.h>
 
@@ -129,6 +130,11 @@ xString xDirectory::Path()
     return this->_path;
 }
 
+xChar * xDirectory::CStringPath()
+{
+    return (xChar *)this->_path.c_str();
+}
+
 // In the previous methods, I don't think I need to check if the path starts with 
 // '/' because I create the full path here
 void xDirectory::SetPath(xString path)
@@ -153,9 +159,3 @@ void xDirectory::SetPath(xString path)
 
     this->_path = path; // concat base dir with relative path
 }
-
-// xBool xDirectory::IsDirectory()
-// {
-//     const xPath tempPath(path); // Constructing the path from a string is possible.
-//     std::error_code ec; // For using the non-throwing overloads of functions below.
-// }

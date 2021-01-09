@@ -18,8 +18,11 @@ OBJECTS = \
 	cat
 SUBOBJECTS = \
 	xPro \
+	xXml \
 	xFile \
 	xDirectory
+EXTERN = \
+	rapidxml
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 

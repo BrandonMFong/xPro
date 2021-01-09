@@ -76,6 +76,8 @@ public:
      */
     xString Path();
 
+    xChar * CStringPath();
+
     /**
      * @brief Set the Path 
      * 

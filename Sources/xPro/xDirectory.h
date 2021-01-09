@@ -81,12 +81,14 @@ public:
      * 
      */
     void SetPath(xString path);
+
+    // xBool IsDirectory();
 protected:
     xString _path; /** The object's path */
-    xBool exists; /** if the path exists */
+    xBool _exists; /** if the path exists */
 private:
-    xString leafitem; /** The object's leaf item from path */
-    xStringArray items; /** List of items in path */
+    xString _leafitem; /** The object's leaf item from path */
+    xStringArray _items; /** List of items in path */
 };
 
 #endif

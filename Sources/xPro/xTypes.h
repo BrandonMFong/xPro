@@ -15,7 +15,8 @@
 #define False false /* Boolean False */
 #define xNull nullptr /* Null Pointer */
 #define xEmptyString ""
-#define IsxFile(path,ic) fs::is_regular_file(path,ec)
+#define IsFile(path,ec) fs::is_regular_file(path,ec)
+#define IsDirectory(path,ec) fs::is_directory(path,ec)
 typedef int xInt; /** xPro-Type Integer */
 typedef std::string xString; /** xPro-Type String */
 typedef bool xBool; /** xPro-Type Boolean */

@@ -12,24 +12,29 @@
 xDirectory::xDirectory()
 {
     this->_path = xEmptyString;
-    this->exists = False;
+    this->_exists = False;
 }
 
 xDirectory::xDirectory(xString path)
 {
+    xBool result = True;
     xString filepath, tmp; 
     xString currdir;
     xChar cwd[PATH_MAX];
+    const xPath tempPath(path); // Constructing the path from a string is possible.
+    std::error_code ec; // For using the non-throwing overloads of functions below.
 
-    this->SetPath(path);
+    result = IsDirectory(path,ec);
 
-    // // Testing if the path exists
-    // result = (stat(this->_path.c_str(), &buffer) == 0); // does file exist
-    // this->exists = result;
-    this->SetExists();
+    if(result) this->SetPath(path);
+
+    if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
+
+    // Testing if the path exists
+    if(result) this->SetExists();
 
     // initialize items into Items vector
-    if(this->exists)
+    if(this->_exists && result)
     {
         if(path[0] == '\\') path.erase(0,1); // For windows
 
@@ -45,14 +50,14 @@ xDirectory::xDirectory(xString path)
             tmp = entry.path();
             #endif
             filepath = currdir + PathSeparator + tmp; 
-            this->items.push_back(filepath);
+            this->_items.push_back(filepath);
         }
     }
 }
 
 xBool xDirectory::Exists()
 {
-    return this->exists;
+    return this->_exists;
 }
 
 void xDirectory::SetExists()
@@ -71,7 +76,7 @@ void xDirectory::SetExists()
         this->_path = result ? this->_path : xEmptyString;
     }
 
-    this->exists = result;
+    this->_exists = result;
 }
 
 void xDirectory::PrintItems()
@@ -84,11 +89,11 @@ void xDirectory::PrintItems(xString flag)
     int count = 1;
     xStringArray::iterator itr;
 
-    if(this->exists)
+    if(this->_exists)
     {
         // if(this->_path[0] == '\\') path.erase(0,1);  // I don't think I need this
         
-        for(itr = this->items.begin(); itr < this->items.end(); itr++)
+        for(itr = this->_items.begin(); itr < this->_items.end(); itr++)
         {
             // Print out items
             if (xEnumerateDirectoryItems == flag) std::cout << "[" << count << "] ";
@@ -104,12 +109,12 @@ xString xDirectory::ItemByIndex(xInt index)
     int count = 0; // zero index
     xStringArray::iterator itr;
 
-    if(this->exists)
+    if(this->_exists)
     {
         // remove leading \\ for the case of windows and Get the items from the directory 
         // if(path[0] == '\\') path.erase(0,1); I don't think I need this
         
-        for(itr = this->items.begin(); itr < this->items.end(); itr++)
+        for(itr = this->_items.begin(); itr < this->_items.end(); itr++)
         {
             if (index == count) result = *itr;
             count++;
@@ -148,3 +153,9 @@ void xDirectory::SetPath(xString path)
 
     this->_path = path; // concat base dir with relative path
 }
+
+// xBool xDirectory::IsDirectory()
+// {
+//     const xPath tempPath(path); // Constructing the path from a string is possible.
+//     std::error_code ec; // For using the non-throwing overloads of functions below.
+// }

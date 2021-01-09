@@ -16,12 +16,13 @@ class xFile : public xDirectory
 public:
     xFile();
     xFile(xString path);
-    xBool Exist();
-    xString GetContent();
+    xString Content();
     xString Name();
+    xBool IsFile();
 private:
-    xString name;
-    xBool exists;
+    xString _name;
+    xBool   _exists,
+            _isFile;
 };
 
 #endif

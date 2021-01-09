@@ -82,7 +82,7 @@ public:
      */
     void SetPath(xString path);
 protected:
-    xString path; /** The object's path */
+    xString _path; /** The object's path */
     xBool exists; /** if the path exists */
 private:
     xString leafitem; /** The object's leaf item from path */

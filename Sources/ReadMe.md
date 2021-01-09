@@ -3,34 +3,33 @@
 
 ## Functions
 CamelCased names
+Boolean Types: 'Is{Function}'
 
 ## Variables
 camelCased names
+Boolean names: 'is{Variable Name}'
 
 ## Directory names in Tools folder
 The directory must be all lowercased 
 
-## Headers
+## define Heders
 Use #ifdef
 
 ## Global Variables
 append variable with g, i.e. int gMyVar;
 
-## Macros order 
-includes
-namespaces
-define 
-typedef
-includes for personal file
-
 ## Code
 Define and/or initialize all variables at the beginning of the function
 
 ## Classes
-User getters and setters 
+Use getters and setters 
+
 public, protected and private sections should be in said order 
-members are always private
+
+members are always private and start with '_' 
+
 Class names should start with x, i.e. xClassName
+
 Only inherity from one other class
 
 ## Return types

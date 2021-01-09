@@ -40,6 +40,7 @@ namespace fs = std::filesystem;
 #include <unistd.h>
 #include <stdio.h>
 #include <limits.h>
+#include <fstream>
 namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
 

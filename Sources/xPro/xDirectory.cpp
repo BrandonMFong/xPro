@@ -11,7 +11,7 @@
 
 xDirectory::xDirectory()
 {
-    this->path = xEmptyString;
+    this->_path = xEmptyString;
     this->exists = False;
 }
 
@@ -24,7 +24,7 @@ xDirectory::xDirectory(xString path)
     this->SetPath(path);
 
     // // Testing if the path exists
-    // result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
+    // result = (stat(this->_path.c_str(), &buffer) == 0); // does file exist
     // this->exists = result;
     this->SetExists();
 
@@ -61,14 +61,14 @@ void xDirectory::SetExists()
     struct stat buffer;
 
     // will only check if path was set
-    if(!this->path.empty())
+    if(!this->_path.empty())
     {
         // Testing if the path exists
-        result = (stat(this->path.c_str(), &buffer) == 0); // does file exist
+        result = (stat(this->_path.c_str(), &buffer) == 0); // does file exist
 
         // If the path does not exist, do not waste the memory 
         // TODO delete memory space 
-        this->path = result ? this->path : xEmptyString;
+        this->_path = result ? this->_path : xEmptyString;
     }
 
     this->exists = result;
@@ -86,7 +86,7 @@ void xDirectory::PrintItems(xString flag)
 
     if(this->exists)
     {
-        if(path[0] == '\\') path.erase(0,1); 
+        // if(this->_path[0] == '\\') path.erase(0,1);  // I don't think I need this
         
         for(itr = this->items.begin(); itr < this->items.end(); itr++)
         {
@@ -107,7 +107,7 @@ xString xDirectory::ItemByIndex(xInt index)
     if(this->exists)
     {
         // remove leading \\ for the case of windows and Get the items from the directory 
-        if(path[0] == '\\') path.erase(0,1); 
+        // if(path[0] == '\\') path.erase(0,1); I don't think I need this
         
         for(itr = this->items.begin(); itr < this->items.end(); itr++)
         {
@@ -121,9 +121,11 @@ xString xDirectory::ItemByIndex(xInt index)
 
 xString xDirectory::Path()
 {
-    return this->path;
+    return this->_path;
 }
 
+// In the previous methods, I don't think I need to check if the path starts with 
+// '/' because I create the full path here
 void xDirectory::SetPath(xString path)
 {
     xChar cwd[PATH_MAX];
@@ -144,5 +146,5 @@ void xDirectory::SetPath(xString path)
         path = currdir + path;
     }
 
-    this->path = path; // concat base dir with relative path
+    this->_path = path; // concat base dir with relative path
 }

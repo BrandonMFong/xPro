@@ -16,7 +16,7 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	xml
+	getrootchild
 SUBOBJECTS = \
 	xPro \
 	xXml \

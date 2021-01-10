@@ -20,7 +20,8 @@ public:
     xXml();
     xXml(xString file);
     xXml(xString rootNodeName, xString file);
-    xStringArray xXml::RootNodeChildren();
+    xStringArray RootChildNames();
+    xString RootNodeName();
 private: 
     rapidxml::file<> * _xmlFile; /** Rapidxml file object */
     rapidxml::xml_document<> _xmlDocument; /** xmldocument that holds parse xml data */ 

@@ -36,7 +36,7 @@ xXml::xXml(xString rootNodeName, xString file) : xFile(file)
     this->_rootNodeName = rootNodeName;
 }
 
-xStringArray xXml::RootNodeChildren()
+xStringArray xXml::RootChildNames()
 {
     xStringArray result;
     rapidxml::xml_node<> * root, * child;
@@ -47,7 +47,12 @@ xStringArray xXml::RootNodeChildren()
     while(child)
     {
         result.push_back(child->name());
-        // std::cout << "\t" << child->name() << std::endl;
         child = child->next_sibling();
     }
+    return result;
+}
+
+xString xXml::RootNodeName()
+{
+    return this->_rootNodeName;
 }

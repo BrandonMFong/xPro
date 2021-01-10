@@ -51,6 +51,8 @@ public:
      * @return xString 
      */
     xString RootNodeName();
+
+    // void LoadStructure(); // TODO accept any struct and load it with contents of xml file
 protected:
     rapidxml::file<> * _xmlFile; /** Rapidxml file object */
     rapidxml::xml_document<> _xmlDocument; /** xmldocument that holds parse xml data */ 

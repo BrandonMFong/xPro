@@ -7,7 +7,7 @@ TOOLS_DIR=$(SOURCE_ROOT)/Tools
 BIN_DIR=$(xPro_ROOT)/bin
 FLAGS = \
 	-lstdc++fs \
-	-std=c++2a \
+	-std=c++17 \
 	-I$(SOURCE_ROOT) \
 	-Wall
 OBJECTS = \
@@ -16,11 +16,13 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	getrootchild
+	getrootchild \
+	readxml
 
-# Go reverse order of an object hierarchy
+# Ascend object hierarchy
 SUBOBJECTS = \
 	xPro \
+	xConfigReader \
 	xXml \
 	xFile \
 	xDirectory

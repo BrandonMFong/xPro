@@ -77,7 +77,7 @@ typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
 
 /*** xClasses ***/
-// Order in ascending order of inheritance
+// Order in descending order of inheritance
 
 /**** File System Objects ****/
 #include <xPro/xDirectory.h>

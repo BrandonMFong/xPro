@@ -29,13 +29,10 @@ xDirectory::xDirectory(xString path)
 
     if(result) this->SetPath(path);
 
-    if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
-
-    // Testing if the path exists
     if(result) this->SetExists();
 
-    // initialize items into Items vector
-    if(this->_exists && result)
+    // if this is a directory, initialize items into Items vector
+    if(result && this->_exists)
     {
         if(path[0] == '\\') path.erase(0,1); // For windows
 
@@ -54,6 +51,8 @@ xDirectory::xDirectory(xString path)
             this->_items.push_back(filepath);
         }
     }
+
+    if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
 }
 
 xBool xDirectory::Exists()
@@ -76,6 +75,7 @@ void xDirectory::SetExists()
         // TODO delete memory space 
         this->_path = result ? this->_path : xEmptyString;
     }
+    else std::cout << "xDirectory: Path is empty" << std::endl;
 
     this->_exists = result;
 }

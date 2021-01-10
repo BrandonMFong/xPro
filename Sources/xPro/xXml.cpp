@@ -34,13 +34,5 @@ xXml::xXml(xString file) : xFile(file)
 
         std::cout << "\nDirectory Value =   " << student_node->value();
         std::cout << std::endl;
-           
-            // Interate over the Student Names
-        // for(xml_node<> * student_name_node = student_node->first_node("Name"); student_name_node; student_name_node = student_name_node->next_sibling())
-        // {
-        //     std::cout << "Student Name =   " << student_name_node->value();
-        //     std::cout << std::endl;
-        // }
-        // std::cout << std::endl;
     }
 }

@@ -49,8 +49,7 @@ public:
     // xBool IsFile();
 private:
     xString _name; /** Name of the xFile */
-    xBool   _exists, /** The existence of the file */ 
-            _isFile; /** Boolean flag that shows if file exists */
+    xBool _isFile; /** Boolean flag that shows if file exists */
 };
 
 #endif

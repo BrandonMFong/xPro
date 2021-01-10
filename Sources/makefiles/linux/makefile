@@ -17,6 +17,8 @@ OBJECTS = \
 	getpath \
 	cat \
 	getrootchild
+
+# Go reverse order of an object hierarchy
 SUBOBJECTS = \
 	xPro \
 	xXml \

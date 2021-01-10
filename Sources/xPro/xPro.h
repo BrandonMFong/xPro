@@ -58,10 +58,32 @@ namespace fs = std::__fs::filesystem;
 #endif
 
 /** APP SPECIFIC **/
-#include <xPro/xTypes.h>
-#include <xPro/xDirectory.h>
-#include <xPro/xFile.h>
+
+/*** xTypes ***/
+// #include <xPro/xTypes.h>
+#define True true /* Boolean True */
+#define False false /* Boolean False */
+#define xNull nullptr /* Null Pointer */
+#define xEmptyString ""
+#define IsFile(path,ec) fs::is_regular_file(path,ec)
+#define IsDirectory(path,ec) fs::is_directory(path,ec)
+typedef int xInt; /** xPro-Type Integer */
+typedef std::string xString; /** xPro-Type String */
+typedef bool xBool; /** xPro-Type Boolean */
+typedef std::vector<xString> xStringArray; /** xPro-Type String Array */
+typedef char xChar; /** xPro-Type String */
+typedef std::stringstream xStringStream; /** xPro-Type String Stream */
+typedef std::ifstream xInputFile; /** xPro-Type ifstream */
+typedef fs::path xPath; /** xPro-Type File System Path */
+
+/*** xClasses ***/
+// Order in ascending order of inheritance
+
+/**** File System Objects ****/
+#include <xPro/xConfigReader.h>
 #include <xPro/xXml.h>
+#include <xPro/xFile.h>
+#include <xPro/xDirectory.h>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

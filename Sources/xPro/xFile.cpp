@@ -6,7 +6,7 @@
  * @author Brando
  */
 
-#include <xPro/xXml.h>
+// #include <xPro/xXml.h>
 #include <xPro/xFile.h>
 
 xFile::xFile()

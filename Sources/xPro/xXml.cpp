@@ -16,7 +16,7 @@
 xXml::xXml()
 {}
 
-xXml::xXml(xString file) : xFile(file)
+xXml::xXml(xString filepath) : xFile(filepath)
 {
     // When file is passed to the base class
     // The path is initialized and we can receive the C String via CStringpath() method 
@@ -25,7 +25,7 @@ xXml::xXml(xString file) : xFile(file)
     this->_xmlDocument.parse<0>(this->_xmlFile->data());
 }
 
-xXml::xXml(xString rootNodeName, xString file) : xFile(file) 
+xXml::xXml(xString rootNodeName, xString filepath) : xFile(filepath) 
 {
     // When file is passed to the base class
     // The path is initialized and we can receive the C String via CStringpath() method 

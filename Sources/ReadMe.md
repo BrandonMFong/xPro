@@ -38,7 +38,8 @@ Structures is allowed to be public
 if function affects in class variables, use void
 
 ## Structures
-All CamelCased
+Struct name CamelCased
+member names camelCased
 
 ## References
 https://developer.lsst.io/v/DM-5063/docs/cpp_docs.html

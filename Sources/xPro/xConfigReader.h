@@ -50,9 +50,9 @@ void serialize(std::ostream& os, T&& value)
 struct Root
 {
     xString Name = "Machine"; 
-    // xString MachineName;
-    // xString LoadProcedure;
-    // xString LoadProfile;
+    xString MachineName;
+    xString LoadProcedure;
+    xString LoadProfile;
 
     // struct UpdateStamp
     // {
@@ -131,6 +131,7 @@ struct Root
 
 REFL_TYPE(Root, bases<>)
     REFL_FIELD(Name, serializable()) // here we use serializable only as a maker
+    REFL_FIELD(MachineName, serializable()) // here we use serializable only as a maker
 REFL_END
 
 class xConfigReader : public xXml

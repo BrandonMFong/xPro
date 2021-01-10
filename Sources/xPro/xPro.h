@@ -80,10 +80,10 @@ typedef fs::path xPath; /** xPro-Type File System Path */
 // Order in ascending order of inheritance
 
 /**** File System Objects ****/
-#include <xPro/xConfigReader.h>
-#include <xPro/xXml.h>
-#include <xPro/xFile.h>
 #include <xPro/xDirectory.h>
+#include <xPro/xFile.h>
+#include <xPro/xXml.h>
+#include <xPro/xConfigReader.h>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

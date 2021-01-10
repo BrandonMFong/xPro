@@ -11,6 +11,7 @@
  * I need to initialize with the root node 
  */
 
+#include <xPro/xConfigReader.h>
 #include <xPro/xXml.h>
 
 xXml::xXml()

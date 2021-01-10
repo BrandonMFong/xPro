@@ -14,18 +14,17 @@
 #include <xPro/xPro.h>
 // #define RAPIDXML_NO_EXCEPTIONS // read rapidxml
 
-// using namespace std;
-using namespace rapidxml;
-
 class xXml : public xFile
 {
 public:
     xXml();
     xXml(xString file);
+    xXml(xString rootNodeName, xString file);
+    xStringArray xXml::RootNodeChildren();
 private: 
-    xml_document<> _document;
-    // xInputFile * _xmlFile;
-    xml_node<> * root_node = NULL;      
+    rapidxml::file<> * _xmlFile; /** Rapidxml file object */
+    rapidxml::xml_document<> _xmlDocument; /** xmldocument that holds parse xml data */ 
+    xString _rootNodeName; /** String name of the root node of xml file */
 };
 
 #endif

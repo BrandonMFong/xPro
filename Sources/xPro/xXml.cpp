@@ -7,6 +7,8 @@
  * 
  * Using RapidXml lib https://linuxhint.com/parse_xml_in_c__/
  * https://linuxhint.com/parse_xml_in_c__/
+ * 
+ * I need to initialize with the root node 
  */
 
 #include <xPro/xXml.h>
@@ -14,22 +16,38 @@
 xXml::xXml()
 {}
 
-xXml::xXml(xString file) : xFile(file) 
+xXml::xXml(xString file) : xFile(file)
 {
-    rapidxml::file<> xmlFile("/home/brandonmfong/source/repo/xPro/Config/Users/Makito.xml");
-    this->_document.parse<0>(xmlFile.data());
+    // When file is passed to the base class
+    // The path is initialized and we can receive the C String via CStringpath() method 
+    this->_xmlFile = new rapidxml::file<>(this->CStringPath());
 
-    // Find out the root node
-    xml_node<> * root = this->_document.first_node("Machine");
-    std::cout << root->name() << std::endl;
-    xml_node<> * child = root->first_node();
+    this->_xmlDocument.parse<0>(this->_xmlFile->data());
+}
+
+xXml::xXml(xString rootNodeName, xString file) : xFile(file) 
+{
+    // When file is passed to the base class
+    // The path is initialized and we can receive the C String via CStringpath() method 
+    this->_xmlFile = new rapidxml::file<>(this->CStringPath());
+
+    this->_xmlDocument.parse<0>(this->_xmlFile->data());
+
+    this->_rootNodeName = rootNodeName;
+}
+
+xStringArray xXml::RootNodeChildren()
+{
+    xStringArray result;
+    rapidxml::xml_node<> * root, * child;
+    
+    root = this->_xmlDocument.first_node(this->_rootNodeName.c_str()); // Get the root node's xmlnode object
+
+    child = root->first_node(); // init with first node of the root node's children 
     while(child)
     {
-        std::cout << "\t" << child->name() << std::endl;
+        result.push_back(child->name());
+        // std::cout << "\t" << child->name() << std::endl;
         child = child->next_sibling();
-
-        // std::cout << "\nDirectory Alias =   " << node->first_attribute("Alias")->value();
-        // std::cout << std::endl;
-        // node = node->next_sibling();
     }
 }

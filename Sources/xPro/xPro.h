@@ -61,6 +61,7 @@ namespace fs = std::__fs::filesystem;
 #include <xPro/xTypes.h>
 #include <xPro/xDirectory.h>
 #include <xPro/xFile.h>
+#include <xPro/xXml.h>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

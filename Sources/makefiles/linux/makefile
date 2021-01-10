@@ -15,7 +15,8 @@ OBJECTS = \
 	exist \
 	selectitem \
 	getpath \
-	cat
+	cat \
+	xml
 SUBOBJECTS = \
 	xPro \
 	xXml \

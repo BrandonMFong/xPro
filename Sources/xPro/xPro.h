@@ -57,7 +57,10 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-/** APP SPECIFIC **/
+// #include <xPro/extern/refl.hpp>
+// struct serializable : refl::attr::usage::field, refl::attr::usage::function{};
+
+/** APP SPECIFIC START **/
 
 /*** xTypes ***/
 // #include <xPro/xTypes.h>
@@ -100,5 +103,10 @@ xString LeafItemFromPath(xString path);
  * @return xInt
  */
 xInt Char2xInt(xString character);
+
+// template <typename T>
+// void serialize(std::ostream& os, T&& value);
+
+/** APP SPECIFIC END **/
 
 #endif

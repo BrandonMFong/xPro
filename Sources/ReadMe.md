@@ -26,14 +26,19 @@ Use getters and setters
 
 public, protected and private sections should be in said order 
 
-members are always private and start with '_' 
+members are always private or protected and start with '_' 
 
 Class names should start with x, i.e. xClassName
 
 Only inherity from one other class
 
+Structures is allowed to be public
+
 ## Return types
 if function affects in class variables, use void
+
+## Structures
+All CamelCased
 
 ## References
 https://developer.lsst.io/v/DM-5063/docs/cpp_docs.html

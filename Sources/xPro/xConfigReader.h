@@ -26,15 +26,15 @@
  * Goal: Code uses struct to load.  struct defines what the code looks for
  * 
  */
-struct UpdateStamp
-{
-    xString name = "UpdateStamp";
-    xString value;
-};
-REFL_TYPE(UpdateStamp)
-    REFL_FIELD(name, serializable()) // here we use serializable only as a maker
-    REFL_FIELD(value, serializable()) // here we use serializable only as a maker
-REFL_END
+// struct UpdateStamp
+// {
+//     xString name = "UpdateStamp";
+//     xString value;
+// };
+// REFL_TYPE(UpdateStamp)
+//     REFL_FIELD(name) 
+//     REFL_FIELD(value) 
+// REFL_END
 
 struct Root
 {
@@ -43,12 +43,12 @@ struct Root
     xString loadProcedure;
     xString loadProfile;
 
-    // struct UpdateStamp
-    // {
-    //     xString Name = "UpdateStamp";
-    //     xString Value;
-    // } UpdateStamp;
-    UpdateStamp updateStamp;
+    struct UpdateStamp
+    {
+        xString name = "UpdateStamp";
+        xString value;
+    } updateStamp;
+    // UpdateStamp updateStamp;
     
 
     // struct ShellSettings
@@ -119,12 +119,16 @@ struct Root
     // } Programs;
 };
 
+REFL_TYPE(Root::UpdateStamp)
+    REFL_FIELD(name) 
+    REFL_FIELD(value) 
+REFL_END
 REFL_TYPE(Root)
-    REFL_FIELD(name, serializable()) // here we use serializable only as a maker
-    REFL_FIELD(machineName, serializable()) // here we use serializable only as a maker
-    REFL_FIELD(loadProcedure, serializable()) // here we use serializable only as a maker
-    REFL_FIELD(loadProfile, serializable()) // here we use serializable only as a maker
-    REFL_FIELD(updateStamp, serializable()) // here we use serializable only as a maker
+    REFL_FIELD(name) 
+    REFL_FIELD(machineName) 
+    REFL_FIELD(loadProcedure) 
+    REFL_FIELD(loadProfile) 
+    REFL_FIELD(updateStamp) 
 REFL_END
 
 

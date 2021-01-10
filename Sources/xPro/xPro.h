@@ -57,8 +57,10 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-// #include <xPro/extern/refl.hpp>
-// struct serializable : refl::attr::usage::field, refl::attr::usage::function{};
+#include <xPro/extern/refl.hpp>
+#include <xPro/extern/rapidxml.hpp>
+#include <xPro/extern/rapidxml_utils.hpp>
+struct serializable : refl::attr::usage::field, refl::attr::usage::function{};
 
 /** APP SPECIFIC START **/
 
@@ -67,7 +69,7 @@ namespace fs = std::__fs::filesystem;
 #define True true /* Boolean True */
 #define False false /* Boolean False */
 #define xNull nullptr /* Null Pointer */
-#define xEmptyString ""
+#define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
 typedef int xInt; /** xPro-Type Integer */
@@ -104,8 +106,27 @@ xString LeafItemFromPath(xString path);
  */
 xInt Char2xInt(xString character);
 
-// template <typename T>
-// void serialize(std::ostream& os, T&& value);
+// Based off of serialization: https://github.com/veselink1/refl-cpp/blob/master/examples/example-serialization.cpp
+template <typename T>
+/**
+ * @brief Get the Members a struct object
+ * 
+ * @param value The struct
+ */
+void GetMembers(T&& value)
+{
+    // iterate over the members of T
+    for_each(refl::reflect(value).members, [&](auto member)
+    {
+        // is_readable checks if the member is a non-const field
+        // or a 0-arg const-qualified function marked with property attribute
+        if constexpr (is_readable(member) && refl::descriptor::has_attribute<serializable>(member))
+        {
+            // get_display_name prefers the friendly_name of the property over the function name
+            std::cout << get_display_name(member) << std::endl;
+        }
+    });
+}
 
 /** APP SPECIFIC END **/
 

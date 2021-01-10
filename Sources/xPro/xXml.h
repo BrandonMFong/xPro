@@ -9,10 +9,7 @@
 #ifndef _XXML_
 #define _XXML_
 
-#include <xPro/extern/rapidxml.hpp>
-#include <xPro/extern/rapidxml_utils.hpp>
 #include <xPro/xPro.h>
-// #define RAPIDXML_NO_EXCEPTIONS // read rapidxml
 
 class xXml : public xFile
 {
@@ -59,6 +56,5 @@ protected:
     xString _rootNodeName; /** String name of the root node of xml file */
 private: 
 };
-
 
 #endif

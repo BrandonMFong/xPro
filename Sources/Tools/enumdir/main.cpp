@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[]) 
 {
-    int index = 1; // we are only accepting one argument here
+    xInt index = 1; // we are only accepting one argument here
     xDirectory * path;
 
     // Exit program if this is met

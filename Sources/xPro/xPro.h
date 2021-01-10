@@ -126,7 +126,7 @@ void GetMembers(T&& value)
         {
             // get_display_name prefers the friendly_name of the property over the function name
             std::cout << get_display_name(member) << std::endl;
-            std::cout << get_simple_name(refl::reflect(value)) << std::endl;
+            // std::cout << get_simple_name(refl::reflect(value)) << std::endl;
         }
     });
 }

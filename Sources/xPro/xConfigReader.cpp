@@ -19,4 +19,5 @@ xConfigReader::xConfigReader()
 xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName,filepath)
 {
     serialize(std::cout, this->Machine);
+    
 }

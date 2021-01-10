@@ -29,7 +29,7 @@ void serialize(std::ostream& os, T&& value)
             // get_display_name prefers the friendly_name of the property over the function name
             os << get_display_name(member) << "=";
             // member(value) returns a reference to the field or calls the property accessor
-            os << member(value) << ";";
+            // os << member(value) << ";";
         }
     });
 }
@@ -54,11 +54,11 @@ struct Root
     xString LoadProcedure;
     xString LoadProfile;
 
-    // struct UpdateStamp
-    // {
-    //     xString Name = "UpdateStamp";
-    //     xString Value;
-    // } UpdateStamp;
+    struct UpdateStamp
+    {
+        xString Name = "UpdateStamp";
+        xString Value;
+    } UpdateStamp;
     
 
     // struct ShellSettings
@@ -129,9 +129,12 @@ struct Root
     // } Programs;
 };
 
-REFL_TYPE(Root, bases<>)
+REFL_TYPE(Root)
     REFL_FIELD(Name, serializable()) // here we use serializable only as a maker
     REFL_FIELD(MachineName, serializable()) // here we use serializable only as a maker
+    REFL_FIELD(LoadProcedure, serializable()) // here we use serializable only as a maker
+    REFL_FIELD(LoadProfile, serializable()) // here we use serializable only as a maker
+    // REFL_FIELD(UpdateStamp, serializable()) // here we use serializable only as a maker
 REFL_END
 
 class xConfigReader : public xXml

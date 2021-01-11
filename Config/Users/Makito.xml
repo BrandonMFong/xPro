@@ -62,6 +62,7 @@
     <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
     <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
     <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
+    <Program Alias="grep" SecType="public">grep --color</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

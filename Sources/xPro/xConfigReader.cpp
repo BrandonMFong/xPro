@@ -23,10 +23,12 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
     // std::cout << typeid(this->Machine.name).name() << std::endl;
 
     // Going to write into name 
-    for_each(refl::reflect(this->Machine).members, [&](auto member){
-
+    for_each(refl::reflect(this->Machine).members, [&](auto member)
+    {
         xString name = get_display_name(member);// using result to test variable name 
         
+
+        std::cout << "Var:" << name  << ". Is a struct = ";
 
         constexpr auto isStruct = refl::descriptor::get_attribute<IsStruct>(member);
         std::cout << isStruct.flag << std::endl;

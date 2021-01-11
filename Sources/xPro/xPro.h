@@ -122,10 +122,11 @@ void GetMembers(T&& value)
         // is_readable checks if the member is a non-const field
         // or a 0-arg const-qualified function marked with property attribute
         // if constexpr (is_readable(member) && refl::descriptor::has_attribute<serializable>(member))
-        if constexpr (is_readable(member))
+        if constexpr (is_readable(member) && refl::descriptor::has_attribute<serializable>(member))
         {
             // get_display_name prefers the friendly_name of the property over the function name
             std::cout << get_display_name(member) << std::endl;
+            std::cout << member(value) << std::endl;
             // std::cout << get_simple_name(refl::reflect(value)) << std::endl;
         }
     });

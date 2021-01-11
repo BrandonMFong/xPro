@@ -18,6 +18,5 @@ xConfigReader::xConfigReader()
 // and returns the filled in variables
 xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName,filepath)
 {
-    GetMembers(this->Machine.directories);
-
+    GetMembers(this->Machine);
 }

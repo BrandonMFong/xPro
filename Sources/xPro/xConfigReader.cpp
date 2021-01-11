@@ -18,5 +18,14 @@ xConfigReader::xConfigReader()
 // and returns the filled in variables
 xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName,filepath)
 {
-    GetMembers(this->Machine);
+    // Going to write into name 
+    for_each(refl::reflect(this->Machine).members, [&](auto member){
+        xString result = get_display_name(member);
+        if(result == "name") 
+        {
+            std::cout << "found name" << std::endl;
+            constexpr auto writer = get_writer(member);
+            // TODO use writer
+        }
+    });
 }

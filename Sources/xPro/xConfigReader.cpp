@@ -33,7 +33,8 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         constexpr auto isStruct = refl::descriptor::get_attribute<IsStruct>(member);
         if(isStruct.flag == "Yes") std::cout << "Yup" << std::endl;
         else std::cout << "Nope" << std::endl;
-        // std::cout << isStruct.flag << std::endl;
+
+        
         // if(result == "name") 
         // {
         //     // Write 

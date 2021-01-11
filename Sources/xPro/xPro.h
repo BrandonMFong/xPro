@@ -55,6 +55,7 @@ namespace fs = std::experimental::filesystem;
 #include <sstream> 
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
+// #define REFL_NO_STD_SUPPORT
 #endif
 
 #include <xPro/extern/refl.hpp>

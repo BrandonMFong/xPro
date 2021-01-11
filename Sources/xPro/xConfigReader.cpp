@@ -24,8 +24,11 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         if(result == "name") 
         {
             std::cout << "found name" << std::endl;
+            std::cout << this->Machine.name << std::endl;
             constexpr auto writer = get_writer(member);
             // TODO use writer
+            writer(this->Machine, "new name");
+            std::cout << this->Machine.name << std::endl;
         }
     });
 }

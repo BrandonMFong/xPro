@@ -81,6 +81,20 @@ typedef std::stringstream xStringStream; /** xPro-Type String Stream */
 typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
 
+/**
+ * @brief Struct for refl fields that identifies if field is a field is a struct 
+ * 
+ */
+struct IsStruct : refl::attr::usage::field
+{
+    const char* name;
+
+    constexpr IsStruct(const char* name) noexcept
+        : name(name)
+    {
+    }
+};
+
 /*** xClasses ***/
 // Order in descending order of inheritance
 

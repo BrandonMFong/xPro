@@ -29,7 +29,7 @@
 struct Root
 {
     xString name = "Machine"; 
-    // xString machineName;
+    xString machineName;
     // xString loadProcedure;
     // xString loadProfile;
 
@@ -110,24 +110,28 @@ struct Root
 };
 
 
-REFL_AUTO(type(xString))
+REFL_AUTO(type(xString));
+// REFL_AUTO(
+//     type(Root),
+//     field(name, Table{"No"})
+// );
 
 REFL_TYPE(Root)
-    REFL_FIELD(name, serializable()) 
-    // REFL_FIELD(machineName, serializable()) 
+    REFL_FIELD(name, serializable(), IsStruct{"No"})
+    REFL_FIELD(machineName, serializable(), IsStruct{"Yes"}) 
     // REFL_FIELD(loadProcedure, serializable()) 
     // REFL_FIELD(loadProfile, serializable()) 
-    REFL_FIELD(updateStamp, serializable()) 
+    REFL_FIELD(updateStamp, serializable(), IsStruct{"Yes"}) 
     // REFL_FIELD(shellSettings, serializable()) 
     // REFL_FIELD(modules, serializable()) 
     // REFL_FIELD(directories, serializable()) 
     // REFL_FIELD(programs, serializable()) 
 REFL_END
 
-REFL_TYPE(Root::UpdateStamp)
-    REFL_FIELD(name, serializable()) 
-    REFL_FIELD(value, serializable()) 
-REFL_END
+// REFL_TYPE(Root::UpdateStamp)
+//     REFL_FIELD(name, serializable()) 
+//     REFL_FIELD(value, serializable()) 
+// REFL_END
 
 // REFL_TYPE(Root::ShellSettings)
 //     REFL_FIELD(name, serializable()) 

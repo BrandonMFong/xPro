@@ -25,10 +25,11 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
     // Going to write into name 
     for_each(refl::reflect(this->Machine).members, [&](auto member){
 
-        xString result = get_display_name(member);// using result to test variable name 
+        xString name = get_display_name(member);// using result to test variable name 
+        
 
-        // constexpr auto IsStruct = descriptor::get_attribute<IsStruct>(member);
-        // std::cout << IsStruct << std::endl;
+        constexpr auto isStruct = refl::descriptor::get_attribute<IsStruct>(member);
+        std::cout << isStruct.flag << std::endl;
         // if(result == "name") 
         // {
         //     // Write 

@@ -118,7 +118,7 @@ REFL_AUTO(type(xString));
 
 REFL_TYPE(Root)
     REFL_FIELD(name, serializable(), IsStruct{"No"})
-    REFL_FIELD(machineName, serializable(), IsStruct{"Yes"}) 
+    REFL_FIELD(machineName, serializable(), IsStruct{"No"}) 
     // REFL_FIELD(loadProcedure, serializable()) 
     // REFL_FIELD(loadProfile, serializable()) 
     REFL_FIELD(updateStamp, serializable(), IsStruct{"Yes"}) 

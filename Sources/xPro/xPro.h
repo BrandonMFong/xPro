@@ -87,10 +87,10 @@ typedef fs::path xPath; /** xPro-Type File System Path */
  */
 struct IsStruct : refl::attr::usage::field
 {
-    const char* name;
+    const char* flag;
 
     constexpr IsStruct(const char* name) noexcept
-        : name(name)
+        : flag(name)
     {
     }
 };

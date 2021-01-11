@@ -29,15 +29,15 @@
 struct Root
 {
     xString name = "Machine"; 
-    xString machineName;
-    xString loadProcedure;
-    xString loadProfile;
+    // xString machineName;
+    // xString loadProcedure;
+    // xString loadProfile;
 
-    // struct UpdateStamp
-    // {
-    //     xString name = "UpdateStamp";
-    //     xString value;
-    // } updateStamp;
+    struct UpdateStamp
+    {
+        xString name = "UpdateStamp";
+        xString value;
+    } updateStamp;
     
 
     // struct ShellSettings
@@ -109,22 +109,25 @@ struct Root
     // } programs;
 };
 
+
+REFL_AUTO(type(xString))
+
 REFL_TYPE(Root)
     REFL_FIELD(name, serializable()) 
-    REFL_FIELD(machineName, serializable()) 
-    REFL_FIELD(loadProcedure, serializable()) 
-    REFL_FIELD(loadProfile, serializable()) 
-    // REFL_FIELD(updateStamp, serializable()) 
+    // REFL_FIELD(machineName, serializable()) 
+    // REFL_FIELD(loadProcedure, serializable()) 
+    // REFL_FIELD(loadProfile, serializable()) 
+    REFL_FIELD(updateStamp, serializable()) 
     // REFL_FIELD(shellSettings, serializable()) 
     // REFL_FIELD(modules, serializable()) 
     // REFL_FIELD(directories, serializable()) 
     // REFL_FIELD(programs, serializable()) 
 REFL_END
 
-// REFL_TYPE(Root::UpdateStamp)
-//     REFL_FIELD(name, serializable()) 
-//     REFL_FIELD(value, serializable()) 
-// REFL_END
+REFL_TYPE(Root::UpdateStamp)
+    REFL_FIELD(name, serializable()) 
+    REFL_FIELD(value, serializable()) 
+REFL_END
 
 // REFL_TYPE(Root::ShellSettings)
 //     REFL_FIELD(name, serializable()) 
@@ -184,7 +187,6 @@ REFL_END
 //     REFL_FIELD(secType, serializable()) 
 //     REFL_FIELD(innerXml, serializable()) 
 // REFL_END
-
 
 class xConfigReader : public xXml
 {

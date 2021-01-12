@@ -6,17 +6,19 @@ function _GetContents # static
     Write-Host("Configuration File : $($x.Machine.ConfigFile)");
 }
 
-function _GetFullContent
+function _WriteFullContent
 {
     Param([string]$FileName)
-    [String]$content = Get-Content $FileName;
+    [String]$content = Get-Content $FileName; # get the content
     [String]$FirstLine = "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n";
-    [String]$FullContent = $FirstLine + $content;
-    return $FullContent;
+    [String]$FullContent = $FirstLine + $content; # put first line 
+    $FullContent | Out-File $FileName; 
 }
 function _InitConfig
 {
     Write-Host "Creating AppPointer";
+
+    # Construct empty xml file
     [XML]$NewXml = [XML]::new();
     $Node_Machine = $NewXml.CreateElement("Machine");
     $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
@@ -26,10 +28,10 @@ function _InitConfig
     $NewXml.Machine.AppendChild($Node_GitRepoDir)
     $NewXml.Machine.AppendChild($Node_ConfigFile)
     $NewXml.Machine.GitRepoDir = $($PSScriptRoot | Split-Path -Parent).ToString();
-    [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml";
-    $NewXml.Save($FileName);
-    [String] $FullContent = _GetFullContent($FileName);
-    $FullContent | Out-File $FileName;
+
+    [String]$FileName = $($PROFILE | Split-Path -Parent).ToString() + "\Profile.xml"; # Get file name
+    $NewXml.Save($FileName); # save the contents to the file
+    _WriteFullContent($FileName); # get the empty xml file 
 
     $x = Read-Host -Prompt "What do you want to do?`nCreate New Config[1]`nUse Existing Confg[2]`nSo"
 
@@ -46,21 +48,6 @@ function _InitConfig
     }
     elseif($x -eq 2) {.\.\update-config.ps1;}
     else{Throw "Please Specify an option"}
-}
-
-function _InitProfile
-{
-    if(!(Test-Path $Profile))
-    {
-        New-Item -Path $Profile -Type File -Force;
-        .\.\update-profile.ps1 -ForceUpdate $true;
-        Write-Host "`nCreated Profile script!`n" -BackgroundColor Black -ForegroundColor Yellow;
-    }
-    else
-    {
-        .\.\update-profile.ps1 -ForceUpdate $true;
-        Write-Host "`nProfile already exists!`n" -BackgroundColor Black -ForegroundColor Yellow;
-    }
 }
 
 function _MakeConfig

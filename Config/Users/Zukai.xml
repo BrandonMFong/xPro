@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Machine MachineName="Zukai" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
+  <UpdateStamp Value="08302020" />
+  <!-- Terminal Settings -->
+  <ShellSettings Enabled="True">
+    <Prompt Enabled="True">
+      <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
+      <String Color="cyan">[%n] %.\>_ </String>
+    </Prompt>
+    <StartDirectory>/home/brandonmfong/</StartDirectory>
+  </ShellSettings>
+  <!-- Modules -->
+  <Modules>
+    <Module>/home/brandonmfong/source/repo/xPro/Modules/System.zsh</Module>
+    <Module>/home/brandonmfong/source/repo/xPro/Modules/Network.zsh</Module>
+  </Modules>
+  <!-- Directory paths -->
+  <Directories>
+    <Directory Alias="pow" SecType="public">/home/brandonmfong/source/repo/xPro</Directory>
+    <Directory Alias="repo" SecType="public">/home/brandonmfong/source/repo</Directory>
+  </Directories>
+  <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
+  <Programs>
+    <Program Alias="cls" SecType="public">clear</Program>
+    <Program Alias="cl" SecType="public">clear;ls -al;</Program>
+    <Program Alias="scb" SecType="public">xsel --clipboard --input</Program>
+  </Programs>
+</Machine>

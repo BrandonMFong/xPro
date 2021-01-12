@@ -24,11 +24,13 @@
     <Directory Alias="vol" SecType="public">/Volumes</Directory>
     <Directory Alias="dg" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguide</Directory>
     <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
+    <Directory Alias="dgpr" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguideprofiles</Directory>
     <Directory Alias="docs" SecType="public">/Users/BrandonMFong/brando/docs</Directory>
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
     <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
     <Directory Alias="lib" SecType="public">//Library</Directory>
+    <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -42,6 +44,7 @@
     <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
     <Program Alias="outlook" SecType="public">open -a 'Microsoft Outlook'</Program>
     <Program Alias="whatsapp" SecType="public">open -a 'Whatsapp'</Program>
+    <Program Alias="spotify" SecType="public">open -a 'Spotify'</Program>
     <Program Alias="trello" SecType="public">open -a 'Trello'</Program>
     <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong/brando/books/workbook/vc-notebook.code-workspace'</Program>
     <Program Alias="screenshot" SecType="public">open -a screenshot</Program>
@@ -55,6 +58,11 @@
     <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Scripts/ARCHIVE.zsh</Program>
     <Program Alias="scb" SecType="public">pbcopy</Program>
     <Program Alias="get-calendar" SecType="public">cal</Program>
+    <Program Alias="make" SecType="public">/usr/local/opt/make/libexec/gnubin/make</Program>
+    <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
+    <Program Alias="grep" SecType="public">grep --color</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

@@ -16,9 +16,15 @@ OBJECTS = \
 	exist \
 	selectitem \
 	getpath \
-	basename
+	cat \
+	getrootchild \
+	readxml
+
+# Ascend object hierarchy
 SUBOBJECTS = \
 	xPro \
+	xConfigReader \
+	xXml \
 	xFile \
 	xDirectory
 ALL = $(OBJECTS) $(SUBOBJECTS)

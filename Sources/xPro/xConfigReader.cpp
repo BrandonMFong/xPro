@@ -30,8 +30,15 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
 
         std::cout << "Var:" << name  << ". Is a struct = ";
 
+        // Identify if this is a struct 
         constexpr auto isStruct = refl::descriptor::get_attribute<IsStruct>(member);
-        if(isStruct.flag == "Yes") std::cout << "Yup" << std::endl;
+        if(isStruct.flag == "Yes") 
+        {
+            std::cout << "Yup" << std::endl;
+            // using member_type = decltype(member);
+            // auto opt_value = std::get<member_type>(member);
+            // std::cout << member_type << std::endl;
+        }
         else std::cout << "Nope" << std::endl;
 
         

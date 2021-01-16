@@ -7,37 +7,37 @@
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
       <String Color="cyan">[%n] %.\>_ </String>
     </Prompt>
-    <StartDirectory>/Users/BrandonMFong/brando/</StartDirectory>
+    <StartDirectory>/Users/BrandonMFong_1/brando/</StartDirectory>
   </ShellSettings>
   <!-- Modules -->
   <Modules>
-    <Module>/Users/BrandonMFong/brando/sources/repos/xPro/Modules/System.zsh</Module>
-    <Module>/Users/BrandonMFong/brando/sources/repos/xPro/Modules/Network.zsh</Module>
+    <Module>/Users/BrandonMFong_1/brando/sources/repos/xPro/Modules/System.zsh</Module>
+    <Module>/Users/BrandonMFong_1/brando/sources/repos/xPro/Modules/Network.zsh</Module>
   </Modules>
   <!-- Directory paths -->
   <Directories>
-    <Directory Alias="repo" SecType="public">//Users/BrandonMFong/brando/sources/repos</Directory>
-    <Directory Alias="pow" SecType="public">//Users/BrandonMFong/brando/sources/repos/xPro</Directory>
-    <Directory Alias="dl" SecType="public">/Users/BrandonMFong/brando/downloads</Directory>
-    <Directory Alias="main" SecType="public">/Users/BrandonMFong/brando</Directory>
+    <Directory Alias="repo" SecType="public">//Users/BrandonMFong_1/brando/sources/repos</Directory>
+    <Directory Alias="pow" SecType="public">//Users/BrandonMFong_1/brando/sources/repos/xPro</Directory>
+    <Directory Alias="dl" SecType="public">/Users/BrandonMFong_1/brando/downloads</Directory>
+    <Directory Alias="main" SecType="public">/Users/BrandonMFong_1/brando</Directory>
     <Directory Alias="apps" SecType="public">/Applications</Directory>
     <Directory Alias="vol" SecType="public">/Volumes</Directory>
-    <Directory Alias="dg" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguide</Directory>
-    <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
-    <Directory Alias="dgpr" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguideprofiles</Directory>
-    <Directory Alias="docs" SecType="public">/Users/BrandonMFong/brando/docs</Directory>
-    <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
+    <Directory Alias="dg" SecType="public">/Users/BrandonMFong_1/brando/sources/repos/driveguide</Directory>
+    <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong_1/brando/sources/repos/driveguidepa</Directory>
+    <Directory Alias="dgpr" SecType="public">/Users/BrandonMFong_1/brando/sources/repos/driveguideprofiles</Directory>
+    <Directory Alias="docs" SecType="public">/Users/BrandonMFong_1/brando/docs</Directory>
+    <Directory Alias="pics" SecType="public">/Users/BrandonMFong_1/brando/photos</Directory>
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
-    <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
+    <Directory Alias="source" SecType="public">/Users/BrandonMFong_1/brando/sources</Directory>
     <Directory Alias="lib" SecType="public">//Library</Directory>
-    <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
+    <Directory Alias="desk" SecType="public">/Users/BrandonMFong_1/Desktop</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <Program Alias="cls" SecType="public">clear</Program>
     <Program Alias="cl" SecType="public">clear;ls -al;</Program>
-    <Program Alias="pow" SecType="public">/home/BrandonMFong/source/repo/xPro</Program>
-    <Program Alias="code" SecType="public">open -a /Users/BrandonMFong/brando/programs/vscode/Visual\ Studio\ Code.app</Program>
+    <Program Alias="pow" SecType="public">/home/BrandonMFong_1/source/repo/xPro</Program>
+    <Program Alias="code" SecType="public">open -a /Users/BrandonMFong_1/brando/programs/vscode/Visual\ Studio\ Code.app</Program>
     <Program Alias="xc" SecType="public">open -a Xcode</Program>
     <Program Alias="chrome" SecType="public">open -a 'Google Chrome'</Program>
     <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
@@ -46,22 +46,22 @@
     <Program Alias="whatsapp" SecType="public">open -a 'Whatsapp'</Program>
     <Program Alias="spotify" SecType="public">open -a 'Spotify'</Program>
     <Program Alias="trello" SecType="public">open -a 'Trello'</Program>
-    <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong/brando/books/workbook/vc-notebook.code-workspace'</Program>
+    <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong_1/brando/books/workbook/vc-notebook.code-workspace'</Program>
     <Program Alias="screenshot" SecType="public">open -a screenshot</Program>
     <Program Alias="cisco" SecType="public">open -a 'cisco AnyConnect Secure Mobility Client'</Program>
     <Program Alias="eject" SecType="public">diskutil eject</Program>
     <Program Alias="umount" SecType="public">diskutil unmountDisk</Program>
     <Program Alias="blkid" SecType="public">diskutil list</Program>
     <Program Alias="open-settings" SecType="public">open -a 'System Preferences'</Program>
-    <Program Alias="open-makito" SecType="public">/Users/BrandonMFong/brando/programs/sql/sqlite3 /Users/BrandonMFong/brando/programs/sql/makito.db</Program>
-    <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
-    <Program Alias="archive" SecType="public">/Users/BrandonMFong/brando/sources/repos/xPro/Scripts/ARCHIVE.zsh</Program>
+    <Program Alias="open-makito" SecType="public">/Users/BrandonMFong_1/brando/programs/sql/sqlite3 /Users/BrandonMFong_1/brando/programs/sql/makito.db</Program>
+    <Program Alias="vc-powershell" SecType="public">code /Users/BrandonMFong_1/brando/sources/repos/xPro/vc-powershell.code-workspace</Program>
+    <Program Alias="archive" SecType="public">/Users/BrandonMFong_1/brando/sources/repos/xPro/Scripts/ARCHIVE.zsh</Program>
     <Program Alias="scb" SecType="public">pbcopy</Program>
     <Program Alias="get-calendar" SecType="public">cal</Program>
     <Program Alias="make" SecType="public">/usr/local/opt/make/libexec/gnubin/make</Program>
-    <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
-    <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
-    <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
+    <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong_1/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong_1/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong_1/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
     <Program Alias="grep" SecType="public">grep --color</Program>
   </Programs>
   <Objects>

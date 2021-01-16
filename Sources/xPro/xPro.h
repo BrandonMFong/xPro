@@ -55,13 +55,11 @@ namespace fs = std::experimental::filesystem;
 #include <sstream> 
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
-// #define REFL_NO_STD_SUPPORT
 #endif
 
-#include <xPro/extern/refl.hpp>
+// #include <xPro/extern/refl.hpp> // I want to use this to access variables recursively 
 #include <xPro/extern/rapidxml.hpp>
 #include <xPro/extern/rapidxml_utils.hpp>
-struct serializable : refl::attr::usage::field, refl::attr::usage::function{};
 
 /** APP SPECIFIC START **/
 
@@ -81,20 +79,6 @@ typedef char xChar; /** xPro-Type String */
 typedef std::stringstream xStringStream; /** xPro-Type String Stream */
 typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
-
-/**
- * @brief Struct for refl fields that identifies if field is a field is a struct 
- * 
- */
-struct IsStruct : refl::attr::usage::field
-{
-    const char* flag;
-
-    constexpr IsStruct(const char* name) noexcept
-        : flag(name)
-    {
-    }
-};
 
 /*** xClasses ***/
 // Order in descending order of inheritance

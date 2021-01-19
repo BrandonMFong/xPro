@@ -39,7 +39,6 @@ struct Machine
         xString Name = "UpdateStamp";
         xString Value;
     } UpdateStamp;
-    
 
     struct ShellSettings
     {

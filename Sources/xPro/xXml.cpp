@@ -32,6 +32,7 @@ xXml::xXml(xString rootNodeName, xString filepath) : xFile(filepath)
     if(result) this->_LoadVariables(); 
 }
 
+// Can be deleted 
 xStringArray xXml::RootChildNames()
 {
     xStringArray result;

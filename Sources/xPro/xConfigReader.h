@@ -62,8 +62,8 @@ struct Machine
             {
                 xString Name = "String";
                 xString InnerXml;
-            } string;
-        } prompt;
+            } String;
+        } Prompt;
 
         struct StartDirectory
         {

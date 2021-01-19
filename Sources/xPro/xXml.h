@@ -54,6 +54,8 @@ protected:
     rapidxml::file<> * _xmlFile; /** Rapidxml file object */
     rapidxml::xml_document<> _xmlDocument; /** xmldocument that holds parse xml data */ 
     xString _rootNodeName; /** String name of the root node of xml file */
+
+    void _LoadVariables();
 private: 
 };
 

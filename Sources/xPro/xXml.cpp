@@ -19,22 +19,17 @@ xXml::xXml()
 
 xXml::xXml(xString filepath) : xFile(filepath)
 {
-    // When file is passed to the base class
-    // The path is initialized and we can receive the C String via CStringpath() method 
-    this->_xmlFile = new rapidxml::file<>(this->CStringPath());
+    xBool result = this->_exists;
 
-    this->_xmlDocument.parse<0>(this->_xmlFile->data());
+    if(result) this->_LoadVariables(); 
 }
 
 xXml::xXml(xString rootNodeName, xString filepath) : xFile(filepath) 
 {
-    // When file is passed to the base class
-    // The path is initialized and we can receive the C String via CStringpath() method 
-    this->_xmlFile = new rapidxml::file<>(this->CStringPath());
-
-    this->_xmlDocument.parse<0>(this->_xmlFile->data());
-
+    xBool result = this->_exists;
     this->_rootNodeName = rootNodeName;
+
+    if(result) this->_LoadVariables(); 
 }
 
 xStringArray xXml::RootChildNames()
@@ -56,4 +51,13 @@ xStringArray xXml::RootChildNames()
 xString xXml::RootNodeName()
 {
     return this->_rootNodeName;
+}
+
+void xXml::_LoadVariables()
+{
+    // When file is passed to the base class
+    // The path is initialized and we can receive the C String via CStringpath() method 
+    this->_xmlFile = new rapidxml::file<>(this->CStringPath());
+
+    this->_xmlDocument.parse<0>(this->_xmlFile->data());
 }

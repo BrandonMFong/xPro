@@ -36,8 +36,8 @@ xFile::xFile(xString path)
     // Handle error 
     if(ec || !this->_exists || !result) 
     {
-        std::cout << "xFile: "; 
-        if(ec) std::cout << "\tError Code returned" << std::endl;
+        std::cout << "xFile:"; 
+        if(ec) std::cout << "\tError Code returned.  File path may not exist." << std::endl;
         else if(!this->_exists) std::cout << "\tMay not exist" << std::endl;
         else if(!result) std::cout << "\tIsFile return null" << std::endl;
         else std::cout << "\tUnknown error" << std::endl;

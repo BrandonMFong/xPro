@@ -29,85 +29,107 @@
  */
 struct Machine
 {
-    xString name = "Machine"; 
-    xString machineName;
-    xString loadProcedure;
-    xString loadProfile;
+    xString Name = "Machine"; 
+    xString MachineName;
+    xString LoadProcedure;
+    xString LoadProfile;
 
     struct UpdateStamp
     {
-        xString name = "UpdateStamp";
-        xString value;
-    } updateStamp;
+        xString Name = "UpdateStamp";
+        xString Value;
+    } UpdateStamp;
     
 
     struct ShellSettings
     {
-        xString name = "ShellSettings";
-        xString enabled;
+        xString Name = "ShellSettings";
+        xString Enabled;
 
         struct Prompt
         {
-            xString name = "Prompt";
-            xString enabled;
+            xString Name = "Prompt";
+            xString Enabled;
 
             struct BaterryLifeThreshold
             {
-                xString name = "BaterryLifeThreshold";
-                xString enabled;
-                xString innerXml;
-            } baterryLifeThreshold;
+                xString Name = "BaterryLifeThreshold";
+                xString Enabled;
+                xString InnerXml;
+            } BaterryLifeThreshold;
 
             struct String
             {
-                xString name = "String";
-                xString innerXml;
+                xString Name = "String";
+                xString InnerXml;
             } string;
         } prompt;
 
         struct StartDirectory
         {
-            xString name = "StartDirectory";
-        } startDirectory;
-    } shellSettings;
+            xString Name = "StartDirectory";
+        } StartDirectory;
+    } ShellSettings;
 
     struct Modules
     {
-        xString name = "Modules";
+        xString Name = "Modules";
 
         struct Module
         {
-            xString name = "Module";
-            xString innerXml;
+            xString Name = "Module";
+            xString InnerXml;
         };
-        std::vector<Module> module;
-    } modules;
+        std::vector<Module> Module;
+    } Modules;
 
     struct Directories
     {
-        xString name = "Directories";
+        xString Name = "Directories";
         struct Directory
         {
-            xString name = "Directory";
-            xString alias;
-            xString secType;
-            xString innerXml;
+            xString Name = "Directory";
+            xString Alias;
+            xString SecType;
+            xString InnerXml;
         };
-        std::vector<Directory> directory;
-    } directories;
+        std::vector<Directory> Directory;
+    } Directories;
 
     struct Programs
     {
-        xString name = "Programs";
+        xString Name = "Programs";
         struct Program
         {
-            xString name = "Program";
-            xString alias;
-            xString secType;
-            xString innerXml;
+            xString Name = "Program";
+            xString Alias;
+            xString SecType;
+            xString InnerXml;
         };
-        std::vector<Program> program;
-    } programs;
+        std::vector<Program> Program;
+    } Programs;
+
+    struct Objects
+    {
+        xString Name = "Programs";
+        struct Object
+        {
+            xString Name = "Program";
+            
+            struct VarName
+            {
+                xString SecType;
+                xString InnerXml;  
+            } VarName;
+            
+            struct SimpleValue
+            {
+                xString SecType;
+                xString InnerXml;  
+            } SimpleValue;
+        };
+        std::vector<Object> Object;
+    } Objects;
 };
 
 class xConfigReader : public xXml

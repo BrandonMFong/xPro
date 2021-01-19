@@ -1,6 +1,5 @@
 # xPro c++ coding standard
 
-
 ## Functions
 CamelCased names
 Boolean Types: 'Is{Function}'
@@ -27,6 +26,8 @@ Use getters and setters
 public, protected and private sections should be in said order 
 
 members are always private or protected and start with '_' 
+
+Private functions must start with '_'
 
 Class names should start with x, i.e. xClassName
 

@@ -105,32 +105,6 @@ xString LeafItemFromPath(xString path);
  */
 xInt Char2xInt(xString character);
 
-// Based off of serialization: https://github.com/veselink1/refl-cpp/blob/master/examples/example-serialization.cpp
-template <typename T>
-/**
- * @brief Get the Members a struct object
- * 
- * @param value The struct
- */
-void GetMembers(T&& value)
-{
-    // std::vector<T&&> result;
-    // iterate over the members of T
-    for_each(refl::reflect(value).members, [&](auto member)
-    {
-        // is_readable checks if the member is a non-const field
-        // or a 0-arg const-qualified function marked with property attribute
-        // if constexpr (is_readable(member) && refl::descriptor::has_attribute<serializable>(member))
-        if constexpr (is_readable(member) && refl::descriptor::has_attribute<serializable>(member))
-        {
-            // get_display_name prefers the friendly_name of the property over the function name
-            std::cout << get_display_name(member) << std::endl;
-            std::cout << member(value) << std::endl;
-            // std::cout << get_simple_name(refl::reflect(value)) << std::endl;
-        }
-    });
-}
-
 /** APP SPECIFIC END **/
 
 #endif

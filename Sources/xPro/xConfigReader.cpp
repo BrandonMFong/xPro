@@ -14,4 +14,7 @@ xConfigReader::xConfigReader()
 
 xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName,filepath)
 {
+    xBool result = this->_exists;
+
+
 }

@@ -12,19 +12,9 @@ int main(int argc, char *argv[])
 {
     xBool okayToContinue;
     xStringArray::iterator itr;
-    xConfigReader * config = new xConfigReader("/Users/BrandonMFong/brando/sources/repos/xPro/Config/Users/Makitos.xml");
+    xConfigReader * config = new xConfigReader("/Users/BrandonMFong/brando/sources/repos/xPro/Config/Users/Makito.xml");
 
-    okayToContinue = config->Exists();
-    
-    if(okayToContinue)
-    {
-        xStringArray arr = config->RootChildNames();
-
-        for(itr = arr.begin(); itr < arr.end(); itr++)
-        {
-            std::cout << *itr << std::endl;
-        }
-    }
+    std::cout << config->Machine.MachineName << std::endl;
 
     return 0;
 }

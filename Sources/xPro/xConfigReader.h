@@ -28,7 +28,7 @@
  * Goal: Code uses struct to load.  struct defines what the code looks for
  * 
  */
-struct Machine
+struct Root
 {
     xString Name = "Machine"; 
     xString MachineName;
@@ -132,7 +132,7 @@ struct Machine
                 xString InnerXml;  
             } SimpleValue;
         };
-        std::vector<Object> Object;
+        std::vector<Obj> Object;
     } Objects;
 };
 
@@ -141,7 +141,7 @@ class xConfigReader : public xXml
 public:
     xConfigReader();
     xConfigReader(xString filepath);
-    Machine Machine;
+    Root Machine;
 private: 
 };
 

@@ -31,10 +31,10 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
     while(child0)
     {
         // UpdateStamp
-        if(child0->name() == "UpdateStamp") this->Machine.UpdateStamp.Value = child1->first_attribute("Value")->value(); 
+        if(strcmp(child0->name(),"UpdateStamp") == 0) this->Machine.UpdateStamp.Value = child1->first_attribute("Value")->value(); 
 
         // ShellSettings
-        else if(child0->name() == "ShellSettings")
+        else if(strcmp(child0->name(),"ShellSettings") == 0)
         {
             child1 = child0->first_node();
 
@@ -42,7 +42,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
 
             while(child1)
             {
-                if(child1->name() == "Prompt")
+                if(strcmp(child1->name(),"Prompt") == 0)
                 {
                     child2 = child1->first_node();
 
@@ -50,26 +50,26 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
 
                     while(child2)
                     {
-                        if(child2->name() == "BaterryLifeThreshold")
+                        if(strcmp(child2->name(),"BaterryLifeThreshold") == 0)
                         {
                             this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.Enabled = child2->first_attribute("Enabled")->value();
                             this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.InnerXml = child3->value();
                         }
-                        else if(child2->name() == "String")
+                        else if(strcmp(child2->name(),"String") == 0)
                         {
                             this->Machine.ShellSettings.Prompt.String.Color = child2->first_attribute("Color")->value();
                             this->Machine.ShellSettings.Prompt.String.InnerXml = child2->value();
                         }
                     }
                 }
-                else if(child1->name() == "StartDirectory") this->Machine.ShellSettings.StartDirectory.InnerXml = child1->value();
+                else if(strcmp(child1->name(),"StartDirectory") == 0) this->Machine.ShellSettings.StartDirectory.InnerXml = child1->value();
 
                 child1 = child1->next_sibling();
             }
         }
 
         // Modules
-        else if(child0->name() == "Modules")
+        else if(strcmp(child0->name(),"Modules") == 0)
         {
             child1 = child0->first_node();
 
@@ -85,7 +85,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         }
 
         // Directories
-        else if(child0->name() == "Directories")
+        else if(strcmp(child0->name(),"Directories") == 0)
         {
             child1 = child0->first_node();
 
@@ -103,7 +103,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         }
 
         // Programs
-        else if(child0->name() == "Programs")
+        else if(strcmp(child0->name(),"Programs") == 0)
         {
             child1 = child0->first_node();
 
@@ -120,7 +120,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
             }
         }
 
-        else if(child0->name() == "Objects")
+        else if(strcmp(child0->name(),"Objects") == 0)
         {
             child1 = child0->first_node();
 
@@ -134,12 +134,12 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
                 
                 while(child2)
                 {
-                    if(child2->name() == "VarName") 
+                    if(strcmp(child2->name(),"VarName") == 0)
                     {
                         tempObj.VarName.SecType = child2->first_attribute("SecType")->value();
                         tempObj.VarName.InnerXml = child2->value();
                     }
-                    else if(child2->name() == "SimpleValue") 
+                    else if(strcmp(child2->name(),"SimpleValue") == 0)
                     {
                         tempObj.SimpleValue.SecType = child2->first_attribute("SecType")->value();
                         tempObj.SimpleValue.InnerXml = child2->value();

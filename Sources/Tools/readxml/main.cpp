@@ -11,10 +11,13 @@
 int main(int argc, char *argv[]) 
 {
     xBool okayToContinue;
-    xStringArray::iterator itr;
-    xConfigReader * config = new xConfigReader("/Users/BrandonMFong/brando/sources/repos/xPro/Config/Users/Makito.xml");
+    xConfigReader * config = new xConfigReader("/home/brandonmfong/source/repo/xPro/Config/Users/Zukai.xml");
 
-    std::cout << config->Machine.MachineName << std::endl;
+    // okayToContinue = config->Exists();
+
+    // if(!okayToContinue) return 1;
+
+    // std::cout << config->Machine.MachineName << std::endl;
 
     return 0;
 }

@@ -14,13 +14,14 @@ xConfigReader::xConfigReader()
 
 xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName,filepath)
 {
-    xBool result = this->_exists;
+    xBool okayToContinue = this->_exists;
     rapidxml::xml_node<>    * root, 
                             * child0,
                             * child1,
-                            * child2,
-                            * child3;
+                            * child2;
     
+    if(!okayToContinue)  return; 
+
     root = this->_xmlDocument.first_node(this->_rootNodeName.c_str()); // Get the root node's xmlnode object
     child0 = root->first_node(); // init with first node of the root node's children 
 
@@ -53,7 +54,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
                         if(strcmp(child2->name(),"BaterryLifeThreshold") == 0)
                         {
                             this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.Enabled = child2->first_attribute("Enabled")->value();
-                            this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.InnerXml = child3->value();
+                            this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.InnerXml = child2->value();
                         }
                         else if(strcmp(child2->name(),"String") == 0)
                         {
@@ -78,7 +79,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
             {
                 tempMod = new Root::Modules::Mod(); // new object
                 tempMod->InnerXml = child1->value(); // Get the value
-                this->Machine.Modules.Module.push_back(tempMod); // insert into array 
+                this->Machine.Modules.Module.push_back(*tempMod); // insert into array 
 
                 child1 = child1->next_sibling();
             }
@@ -96,7 +97,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
                 tempDir->Alias = child1->first_attribute("Alias")->value();
                 tempDir->SecType = child1->first_attribute("SecType")->value();
                 tempDir->InnerXml = child1->value(); // Get the value
-                this->Machine.Modules.Module.push_back(tempDir); // insert into array 
+                this->Machine.Directories.Directory.push_back(*tempDir); // insert into array 
 
                 child1 = child1->next_sibling();
             }
@@ -114,7 +115,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
                 tempProg->Alias = child1->first_attribute("Alias")->value();
                 tempProg->SecType = child1->first_attribute("SecType")->value();
                 tempProg->InnerXml = child1->value(); // Get the value
-                this->Machine.Modules.Module.push_back(tempProg); // insert into array 
+                this->Machine.Programs.Program.push_back(*tempProg); // insert into array 
 
                 child1 = child1->next_sibling();
             }
@@ -148,7 +149,7 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
                     child2 = child2->next_sibling();
                 }
 
-                this->Machine.Objects.Object.push_back(tempObj);
+                this->Machine.Objects.Object.push_back(*tempObj);
 
                 child1 = child1->next_sibling();
             }

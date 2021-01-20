@@ -57,17 +57,15 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-// #include <xPro/extern/refl.hpp> // I want to use this to access variables recursively 
 #include <xPro/extern/rapidxml.hpp>
 #include <xPro/extern/rapidxml_utils.hpp>
 
 /** APP SPECIFIC START **/
 
 /*** xTypes ***/
-// #include <xPro/xTypes.h>
-#define True true /* Boolean True */
-#define False false /* Boolean False */
-#define xNull nullptr /* Null Pointer */
+#define True true /** Boolean True */
+#define False false /** Boolean False */
+#define xNull nullptr /** Null Pointer */
 #define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)

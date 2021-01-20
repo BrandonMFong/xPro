@@ -71,7 +71,15 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         // Modules
         else if(child0->name() == "Modules")
         {
-            
+            child1 = child0->first_node();
+
+            Machine::Modules::Module mod = {"Module",""};
+            while(child1)
+            {
+
+
+                child1 = child1->next_sibling();
+            }
         }
 
         child0 = child0->next_sibling();

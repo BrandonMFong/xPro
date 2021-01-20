@@ -78,46 +78,47 @@ struct Machine
     {
         xString Name = "Modules";
 
-        struct Module
+        struct Mod
         {
             xString Name = "Module";
             xString InnerXml;
         };
-        std::vector<Module> Module;
+        std::vector<Mod> Module;
     } Modules;
 
     struct Directories
     {
         xString Name = "Directories";
-        struct Directory
+        struct Dir
         {
             xString Name = "Directory";
             xString Alias;
             xString SecType;
             xString InnerXml;
         };
-        std::vector<Directory> Directory;
+        std::vector<Dir> Directory;
     } Directories;
 
     struct Programs
     {
         xString Name = "Programs";
-        struct Program
+        struct Prog
         {
             xString Name = "Program";
             xString Alias;
             xString SecType;
             xString InnerXml;
         };
-        std::vector<Program> Program;
+        std::vector<Prog> Program;
     } Programs;
 
     struct Objects
     {
-        xString Name = "Programs";
-        struct Object
+        xString Name = "Objects";
+        struct Obj
         {
-            xString Name = "Program";
+            xString Name = "Object";
+            xString Type;
             
             struct VarName
             {

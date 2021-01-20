@@ -61,6 +61,7 @@ struct Machine
             struct String
             {
                 xString Name = "String";
+                xString Color;
                 xString InnerXml;
             } String;
         } Prompt;
@@ -68,7 +69,9 @@ struct Machine
         struct StartDirectory
         {
             xString Name = "StartDirectory";
+            xString InnerXml;
         } StartDirectory;
+
     } ShellSettings;
 
     struct Modules

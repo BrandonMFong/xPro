@@ -73,11 +73,11 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         {
             child1 = child0->first_node();
 
-            Machine::Modules::Mod tempMod;
+            Root::Modules::Mod * tempMod;
             while(child1)
             {
-                tempMod = new Machine::Modules::Mod(); // new object
-                tempMod.InnerXml = child1->value(); // Get the value
+                tempMod = new Root::Modules::Mod(); // new object
+                tempMod->InnerXml = child1->value(); // Get the value
                 this->Machine.Modules.Module.push_back(tempMod); // insert into array 
 
                 child1 = child1->next_sibling();
@@ -89,13 +89,13 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         {
             child1 = child0->first_node();
 
-            Machine::Directories::Dir tempDir;
+            Root::Directories::Dir * tempDir;
             while(child1)
             {
-                tempDir = new Machine::Directories::Dir(); // new object
-                tempDir.Alias = child1->first_attribute("Alias")->value();
-                tempDir.SecType = child1->first_attribute("SecType")->value();
-                tempDir.InnerXml = child1->value(); // Get the value
+                tempDir = new Root::Directories::Dir; // new object
+                tempDir->Alias = child1->first_attribute("Alias")->value();
+                tempDir->SecType = child1->first_attribute("SecType")->value();
+                tempDir->InnerXml = child1->value(); // Get the value
                 this->Machine.Modules.Module.push_back(tempDir); // insert into array 
 
                 child1 = child1->next_sibling();
@@ -107,13 +107,13 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         {
             child1 = child0->first_node();
 
-            Machine::Programs::Prog tempProg;
+            Root::Programs::Prog * tempProg;
             while(child1)
             {
-                tempProg = new Machine::Programs::Prog(); // new object
-                tempProg.Alias = child1->first_attribute("Alias")->value();
-                tempProg.SecType = child1->first_attribute("SecType")->value();
-                tempProg.InnerXml = child1->value(); // Get the value
+                tempProg = new Root::Programs::Prog; // new object
+                tempProg->Alias = child1->first_attribute("Alias")->value();
+                tempProg->SecType = child1->first_attribute("SecType")->value();
+                tempProg->InnerXml = child1->value(); // Get the value
                 this->Machine.Modules.Module.push_back(tempProg); // insert into array 
 
                 child1 = child1->next_sibling();
@@ -124,25 +124,25 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
         {
             child1 = child0->first_node();
 
-            Machine::Objects::Obj tempObj;
+            Root::Objects::Obj * tempObj;
             while(child1)
             {
                 child2 = child1->first_node();
 
-                tempObj = new Machine::Objects::Obj();
-                tempObj.Type = child1->first_attribute("Type")->value();
+                tempObj = new Root::Objects::Obj;
+                tempObj->Type = child1->first_attribute("Type")->value();
                 
                 while(child2)
                 {
                     if(strcmp(child2->name(),"VarName") == 0)
                     {
-                        tempObj.VarName.SecType = child2->first_attribute("SecType")->value();
-                        tempObj.VarName.InnerXml = child2->value();
+                        tempObj->VarName.SecType = child2->first_attribute("SecType")->value();
+                        tempObj->VarName.InnerXml = child2->value();
                     }
                     else if(strcmp(child2->name(),"SimpleValue") == 0)
                     {
-                        tempObj.SimpleValue.SecType = child2->first_attribute("SecType")->value();
-                        tempObj.SimpleValue.InnerXml = child2->value();
+                        tempObj->SimpleValue.SecType = child2->first_attribute("SecType")->value();
+                        tempObj->SimpleValue.InnerXml = child2->value();
                     }
 
                     child2 = child2->next_sibling();
@@ -156,5 +156,4 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
 
         child0 = child0->next_sibling();
     }
-
 }

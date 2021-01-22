@@ -20,5 +20,5 @@ xXml::xXml()
 xXml::xXml(xString xmlFile) : xFile(xmlFile)
 {
     std::cout << xmlFile.c_str() << std::endl;
-    pugi::xml_parse_result okayToContinue = this->_xmlDocument->load_file(xmlFile.c_str());
+    pugi::xml_parse_result okayToContinue = this->_xmlDocument.load_file(xmlFile.c_str());
 }

@@ -17,7 +17,7 @@ public:
     xXml();
     xXml(xString xmlDocument);
 protected:
-    pugi::xml_document * _xmlDocument; /** Rapidxml file object */
+    pugi::xml_document _xmlDocument; /** Rapidxml file object */
 private: 
 };
 

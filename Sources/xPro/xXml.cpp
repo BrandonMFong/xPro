@@ -26,4 +26,5 @@ xXml::xXml(xString xmlFile) : xFile(xmlFile)
     pugi::xpath_node node = this->_xmlDocument.select_node("/Machine/ShellSettings");
 
     std::cout << node.node().name() << std::endl;
+    // TODO move this to xConfigReader and sweep/assign xml values
 }

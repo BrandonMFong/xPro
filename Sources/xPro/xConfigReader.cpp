@@ -52,8 +52,17 @@ xConfigReader::xConfigReader(xString filepath) : xXml(xDefaultConfigRootNodeName
     this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.InnerXml = child3->value();
 
     // StartDirectory
-    child2 = child1->first_node("StartDirectory");
-    this->Machine.ShellSettings.StartDirectory.InnerXml = child2->value();
+    try 
+    {
+        child2 = child1->first_node("StartDirectory");
+        this->Machine.ShellSettings.StartDirectory.InnerXml = child2->value();
+    }
+    catch (std::exception& e)
+    {
+        this->Machine.ShellSettings.StartDirectory.InnerXml = xEmptyString;
+    }
+    std::cout << "here" << std::endl;
+
 
     // // Modules
     // child2 = child1->first_node("Modules");

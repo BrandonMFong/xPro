@@ -7,7 +7,7 @@
       <BaterryLifeThreshold Enabled="True">35</BaterryLifeThreshold>
       <String Color="cyan">[%n] %.\>_ </String>
     </Prompt>
-    <StartDirectory>/home/brandonmfong/</StartDirectory>
+    <!-- <StartDirectory>/home/brandonmfong/</StartDirectory> -->
   </ShellSettings>
   <!-- Modules -->
   <Modules>

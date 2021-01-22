@@ -20,6 +20,8 @@ xFile::xFile()
 xFile::xFile(xString path)
 {
     xBool result = true;
+
+    // TODO test if path is empty
     const xPath tempPath(path); // Constructing the path from a string is possible.
     std::error_code ec; // For using the non-throwing overloads of functions below.
 

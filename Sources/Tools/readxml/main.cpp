@@ -10,14 +10,7 @@
 
 int main(int argc, char *argv[]) 
 {
-    xBool okayToContinue;
-    xConfigReader * config = new xConfigReader("/home/brandonmfong/source/repo/xPro/Config/Users/Zukai.xml");
-
-    okayToContinue = config->Exists();
-
-    if(!okayToContinue) return 1;
-
-    std::cout << config->Machine.MachineName << std::endl;
+    xXml * xmlFile = new xXml("/home/brandonmfong/source/repo/xPro/Config/Users/Zukai.xml"); 
 
     return 0;
 }

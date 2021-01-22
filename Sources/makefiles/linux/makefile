@@ -16,7 +16,6 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	getrootchild \
 	readxml
 
 # Ascend object hierarchy
@@ -26,13 +25,15 @@ SUBOBJECTS = \
 	xXml \
 	xFile \
 	xDirectory
-EXTERN = \
-	rapidxml
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: $(SUBOBJECTS) $(OBJECTS) clean
+all: pugi $(SUBOBJECTS) $(OBJECTS) clean
+
+pugi : 
+	@echo Building Pugixml 
+	@$(CC) $(SOURCE_ROOT)/xPro/extern/pugixml.cpp -c -o pugixml.o $(FLAGS)
 
 $(SUBOBJECTS) :
 	@echo Creating $@.o

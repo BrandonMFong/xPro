@@ -57,8 +57,10 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-#include <xPro/extern/rapidxml.hpp>
-#include <xPro/extern/rapidxml_utils.hpp>
+// #include <xPro/extern/rapidxml.hpp>
+// #include <xPro/extern/rapidxml_utils.hpp>
+#include <xPro/extern/pugixml.hpp>
+
 
 /** APP SPECIFIC START **/
 

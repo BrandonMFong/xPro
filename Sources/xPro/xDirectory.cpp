@@ -32,7 +32,7 @@ xDirectory::xDirectory(xString path) : xObject()
     if(result)
     {
         tempPath = new xPath(path);
-        this->_isDirectory = IsDirectory(path,ec);
+        this->_isDirectory = IsDirectory(*tempPath,ec);
     }
 
     if(result) 

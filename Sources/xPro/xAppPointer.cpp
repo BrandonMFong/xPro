@@ -18,11 +18,11 @@ xAppPointer::xAppPointer() : xXml(dProfileXmlpath)
                     nodeGitRepoDir,
                     nodeConfigFile;
 
-    if(status)
-    {
-        // dProfileXmlPath has ~ and pugixml does not like it
-        status = this->SetXmlDocument(this->_path);
-    }
+    // if(status)
+    // {
+    //     // dProfileXmlPath has ~ and pugixml does not like it
+    //     status = this->SetXmlDocument(this->_path);
+    // }
 
     if(status)
     {

@@ -41,7 +41,6 @@ xDirectory::xDirectory(xString path) : xObject()
 
     if(status) 
     {
-        std::cout << path << std::endl;
         this->SetPath(path);
         this->SetExists();
 
@@ -112,8 +111,6 @@ void xDirectory::PrintItems(xString flag)
 
     if(this->_exists)
     {
-        // if(this->_path[0] == '\\') path.erase(0,1);  // I don't think I need this
-        
         for(itr = this->_items.begin(); itr < this->_items.end(); itr++)
         {
             // Print out items
@@ -126,7 +123,7 @@ void xDirectory::PrintItems(xString flag)
 
 xString xDirectory::ItemByIndex(xInt index)
 {
-    xString result = "";
+    xString result = xEmptyString;
     xInt count = 0; // zero index
     xStringArray::iterator itr;
 
@@ -162,17 +159,18 @@ void xDirectory::SetPath(xString path)
     // I don't think all cases are considered
     // if this matches, i am assuming path is coming from root
     // so will not proceed
-    if(std::to_string(path[0]).compare(std::to_string(dPathSeparator)))
-    {
-        // Get Curent working directory
-        getcwd(cwd,sizeof(cwd));
-        currdir = cwd;
+    // if(path[0] == dPathSeparator)
+    // {
+    //     std::cout << "Here" << std::endl;
+    //     // Get Curent working directory
+    //     getcwd(cwd,sizeof(cwd));
+    //     currdir = cwd;
 
-        if(path[0] != dPathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
-        else if (path[0] == '.') path.erase(0,1);
+    //     if(path[0] != dPathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
+    //     else if (path[0] == '.') path.erase(0,1);
 
-        path = currdir + path;
-    }
+    //     path = currdir + path;
+    // }
 
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
 }

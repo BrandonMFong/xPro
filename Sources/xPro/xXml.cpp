@@ -21,13 +21,9 @@ xXml::xXml() : xFile()
 xXml::xXml(xString xmlFile) : xFile(xmlFile)
 {
     xStatus status = this->_status;
-    // pugi::xml_parse_result result;
 
     if(status)
     {
-        // result = this->_xmlDocument.load_file(xmlFile.c_str());
-        // this->_isParsed = result;
-        // status = this->_isParsed;
         status = this->SetXmlDocument(xmlFile);
     }
 
@@ -41,7 +37,7 @@ xBool xXml::SetXmlDocument(xString xmlDocument)
     result = this->_xmlDocument.load_file(xmlDocument.c_str());
     this->_isParsed = result;
 
-    std::cout << result.description() << std::endl;
+    // std::cout << result.description() << std::endl;
 
     return result;
 }

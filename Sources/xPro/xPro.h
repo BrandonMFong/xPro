@@ -61,8 +61,7 @@ namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
 
-// #include <xPro/extern/rapidxml.hpp>
-// #include <xPro/extern/rapidxml_utils.hpp>
+// Using Pugixml as an xml parser 
 #include <xPro/extern/pugixml.hpp>
 
 /** APP SPECIFIC START **/
@@ -70,6 +69,8 @@ namespace fs = std::__fs::filesystem;
 /*** xTypes ***/
 #define True true /** Boolean True */
 #define False false /** Boolean False */
+#define Good true /** Status = Good */
+#define Bad false /** Status = Bad */ 
 #define xNull nullptr /** Null Pointer */
 #define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
@@ -77,6 +78,7 @@ namespace fs = std::__fs::filesystem;
 typedef int xInt; /** xPro-Type Integer */
 typedef std::string xString; /** xPro-Type String */
 typedef bool xBool; /** xPro-Type Boolean */
+typedef bool xStatus; /** xPro-Type Status */
 typedef std::vector<xString> xStringArray; /** xPro-Type String Array */
 typedef char xChar; /** xPro-Type String */
 typedef std::stringstream xStringStream; /** xPro-Type String Stream */

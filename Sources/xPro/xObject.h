@@ -24,8 +24,15 @@ public:
      */
     xObject();
 
+    /**
+     * @brief Returns xObject's construction flag.  Should be used outside of the hierarchy
+     * 
+     * @return xStatus=Bad if constructions failed
+     */
+    xStatus Status();
+
 protected:
-    xBool _result; /** Result of the constructors */
+    xStatus _status; /** Result of the constructors */
 private:
 };
 

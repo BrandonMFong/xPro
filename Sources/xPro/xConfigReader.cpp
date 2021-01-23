@@ -14,6 +14,7 @@ xConfigReader::xConfigReader() : xXml()
 
 xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
 {
+    xStatus status = this->_status;
     Root::Modules::Mod      tempMod;
     Root::Directories::Dir  tempDir;
     Root::Programs::Prog    tempProg;
@@ -25,7 +26,7 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
                             nodeDirectories,            nodePrograms,
                             nodeObjects;
 
-    if(this->_exists)
+    if(status)
     {
         /* Machine */
         nodeMachine = this->_xmlDocument.child("Machine");

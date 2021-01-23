@@ -14,5 +14,10 @@
 
 xObject::xObject()
 {
-    this->_result = True; // Init everything to true 
+    this->_status = True; // Init everything to true 
 };
+
+xStatus xObject::Status()
+{
+    return this->_status;
+}

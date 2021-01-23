@@ -11,6 +11,16 @@
 
 #include <xPro/xPro.h>
 
+/**
+ * @brief Basic xml parameters
+ * 
+ */
+struct BasicXml
+{
+    xString Name;
+    xString InnerXml;
+};
+
 class xXml : public xFile
 {
 public:

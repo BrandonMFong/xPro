@@ -15,6 +15,10 @@
 
 #include <xPro/xPro.h>
 
+/**
+ * @brief The C++ xml structure for xPro User config files.  Please read xPro.xsd for more details
+ * 
+ */
 struct Root : BasicXml
 {
     xString MachineName;

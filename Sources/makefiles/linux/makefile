@@ -16,11 +16,13 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	readxml
+	readxml \
+	goto
 
 # Ascend object hierarchy
 SUBOBJECTS = \
 	xPro \
+	xAppPointer \
 	xConfigReader \
 	xXml \
 	xFile \

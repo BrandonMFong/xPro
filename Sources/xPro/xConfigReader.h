@@ -19,7 +19,7 @@
  * @brief The C++ xml structure for xPro User config files.  Please read xPro.xsd for more details
  * 
  */
-struct Root : BasicXml
+struct xRootConfigReader : BasicXml
 {
     xString MachineName;
     xString LoadProcedure;
@@ -125,7 +125,7 @@ public:
      * @brief Carries the xPro config structure 
      * 
      */
-    Root Machine;
+    xRootConfigReader Machine;
 private: 
 };
 

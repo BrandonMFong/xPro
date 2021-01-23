@@ -28,6 +28,7 @@ namespace fs = std::filesystem;
 #define getcwd _getcwd
 #define PATH_MAX _MAX_PATH
 #define isWINDOWS
+#define dProfileXmlpath "~/.profile.xml"
 
 /* LINUX */
 #elif __linux__ 
@@ -45,6 +46,7 @@ namespace fs = std::filesystem;
 // #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
+#define dProfileXmlpath "~/.profile.xml"
 
 /* APPLE */
 #elif __APPLE__
@@ -59,6 +61,7 @@ namespace fs = std::experimental::filesystem;
 // #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
+#define dProfileXmlpath "~/.profile.xml"
 #endif
 
 // Using Pugixml as an xml parser 
@@ -94,6 +97,7 @@ typedef fs::path xPath; /** xPro-Type File System Path */
 #include <xPro/xFile.h>
 #include <xPro/xXml.h>
 #include <xPro/xConfigReader.h>
+#include <xPro/xAppPointer.h>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

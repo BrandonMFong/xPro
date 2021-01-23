@@ -6,6 +6,7 @@
  * @author Brando
  */
 
+#include <xPro/xAppPointer.h>
 #include <xPro/xConfigReader.h>
 #include <xPro/xXml.h>
 #include <xPro/xFile.h>

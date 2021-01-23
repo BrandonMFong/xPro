@@ -11,8 +11,11 @@ Boolean names: 'is{Variable Name}'
 ## Directory names in Tools folder
 The directory must be all lowercased 
 
-## define Heders
+## Header guards
 Use #ifdef
+
+## Pound define variables
+Start with d in front of the variable name 
 
 ## Global Variables
 append variable with g, i.e. int gMyVar;

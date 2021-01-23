@@ -42,6 +42,8 @@ public:
      */
     xXml(xString xmlDocument);
 
+    xBool SetXmlDocument(xString xmlDocument);
+
 protected:
     pugi::xml_document _xmlDocument; /** pugixml file object */
     xBool _isParsed; /** Successfully parsed */

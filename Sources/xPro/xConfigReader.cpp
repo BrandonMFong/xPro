@@ -15,16 +15,16 @@ xConfigReader::xConfigReader() : xXml()
 xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
 {
     xStatus status = this->_status;
-    Root::Modules::Mod      tempMod;
-    Root::Directories::Dir  tempDir;
-    Root::Programs::Prog    tempProg;
-    Root::Objects::Obj      tempObj;
-    pugi::xml_node          nodeMachine,                nodeUpdateStamp,
-                            nodeShellSettings,          nodePrompt,
-                            nodeBaterryLifeThreshold,   nodeString,
-                            nodeStartDirectory,         nodeModules,
-                            nodeDirectories,            nodePrograms,
-                            nodeObjects;
+    xRootConfigReader::Modules::Mod     tempMod;
+    xRootConfigReader::Directories::Dir tempDir;
+    xRootConfigReader::Programs::Prog   tempProg;
+    xRootConfigReader::Objects::Obj     tempObj;
+    pugi::xml_node                      nodeMachine,                nodeUpdateStamp,
+                                        nodeShellSettings,          nodePrompt,
+                                        nodeBaterryLifeThreshold,   nodeString,
+                                        nodeStartDirectory,         nodeModules,
+                                        nodeDirectories,            nodePrograms,
+                                        nodeObjects;
 
     if(status)
     {

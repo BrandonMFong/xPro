@@ -25,7 +25,8 @@ SUBOBJECTS = \
 	xConfigReader \
 	xXml \
 	xFile \
-	xDirectory
+	xDirectory \
+	xObject
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 

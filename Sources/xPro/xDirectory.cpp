@@ -19,21 +19,33 @@ xDirectory::xDirectory() : xObject()
 
 xDirectory::xDirectory(xString path) : xObject()
 {
-    xBool result = True;
+    xBool result = this->_result;
     xString filepath, tmp; 
     xString currdir;
     xChar cwd[PATH_MAX];
-    const xPath tempPath(path); // Constructing the path from a string is possible.
+    const xPath * tempPath; // Constructing the path from a string is possible.
     std::error_code ec; // For using the non-throwing overloads of functions below.
 
-    this->_isDirectory = IsDirectory(path,ec);
+    result = !path.empty(); // if the string is empty 
 
-    if(result) this->SetPath(path);
+    // Test if this is a directory 
+    if(result)
+    {
+        tempPath = new xPath(path);
+        this->_isDirectory = IsDirectory(path,ec);
+    }
 
-    if(result) this->SetExists();
+    if(result) 
+    {
+        this->SetPath(path);
+        this->SetExists();
+
+        // Keep track if this path exists
+        result = this->_exists;
+    }
 
     // if this is a directory, initialize items into Items vector
-    if(result && this->_exists)
+    if(result && this->_isDirectory)
     {
         if(path[0] == '\\') path.erase(0,1); // For windows
 
@@ -53,7 +65,9 @@ xDirectory::xDirectory(xString path) : xObject()
         }
     }
 
-    if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
+    // if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
+
+    this->_result = result;
 }
 
 xBool xDirectory::Exists()

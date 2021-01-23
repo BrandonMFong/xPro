@@ -19,10 +19,11 @@ xFile::xFile() : xDirectory()
 
 xFile::xFile(xString path) : xDirectory(path)
 {
-    xBool result = !path.empty();
+    xBool result = this->_result;
     const xPath * tempPath; // Constructing the path from a string is possible.
     std::error_code ec; // For using the non-throwing overloads of functions below.
 
+    // Test if this is file
     if(result)
     {
         tempPath = new xPath(path);
@@ -31,7 +32,7 @@ xFile::xFile(xString path) : xDirectory(path)
 
     if(result) 
     {
-        // TODO SetPath and SetExists to put in top base class 
+        // TODO delete SetPath and SetExists from here 
         this->SetPath(path); // Set's the private path member 
         this->SetExists();
         this->_name = LeafItemFromPath(this->_path);
@@ -46,6 +47,8 @@ xFile::xFile(xString path) : xDirectory(path)
         else if(!result) std::cout << "\tIsFile return null" << std::endl;
         else std::cout << "\tUnknown error" << std::endl;
     }
+
+    this->_result = result;
 }
 
 xString xFile::Content()

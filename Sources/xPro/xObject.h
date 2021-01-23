@@ -11,6 +11,10 @@
 
 #include <xPro/xPro.h>
 
+/**
+ * @brief The base object of the xPro framework.  Every object in this framework is a child of this class
+ * 
+ */
 class xObject
 {
 public:

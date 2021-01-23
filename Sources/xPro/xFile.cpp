@@ -13,9 +13,7 @@
 
 xFile::xFile() : xDirectory()
 {
-    this->_path = xEmptyString;
-    this->_exists = False;
-    this->_name = xNull;
+    this->_name = xEmptyString;
 }
 
 xFile::xFile(xString path) : xDirectory(path)

@@ -41,6 +41,7 @@ xDirectory::xDirectory(xString path) : xObject()
 
     if(status) 
     {
+        std::cout << path << std::endl;
         this->SetPath(path);
         this->SetExists();
 
@@ -64,7 +65,7 @@ xDirectory::xDirectory(xString path) : xObject()
             #else
             tmp = entry.path();
             #endif
-            filepath = currdir + PathSeparator + tmp; 
+            filepath = currdir + dPathSeparator + tmp; 
             this->_items.push_back(filepath);
         }
     }
@@ -106,7 +107,7 @@ void xDirectory::PrintItems()
 
 void xDirectory::PrintItems(xString flag)
 {
-    int count = 1;
+    xInt count = 1;
     xStringArray::iterator itr;
 
     if(this->_exists)
@@ -125,15 +126,12 @@ void xDirectory::PrintItems(xString flag)
 
 xString xDirectory::ItemByIndex(xInt index)
 {
-    std::string result = "";
-    int count = 0; // zero index
+    xString result = "";
+    xInt count = 0; // zero index
     xStringArray::iterator itr;
 
     if(this->_exists)
     {
-        // remove leading \\ for the case of windows and Get the items from the directory 
-        // if(path[0] == '\\') path.erase(0,1); I don't think I need this
-        
         for(itr = this->_items.begin(); itr < this->_items.end(); itr++)
         {
             if (index == count) result = *itr;
@@ -164,19 +162,19 @@ void xDirectory::SetPath(xString path)
     // I don't think all cases are considered
     // if this matches, i am assuming path is coming from root
     // so will not proceed
-    if(std::to_string(path[0]).compare(std::to_string(PathSeparator)))
+    if(std::to_string(path[0]).compare(std::to_string(dPathSeparator)))
     {
         // Get Curent working directory
         getcwd(cwd,sizeof(cwd));
         currdir = cwd;
 
-        if(path[0] != PathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
+        if(path[0] != dPathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
         else if (path[0] == '.') path.erase(0,1);
 
         path = currdir + path;
     }
 
-    this->_path = path; // concat base dir with relative path
+    this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
 }
 
 xBool xDirectory::SetDirectory()

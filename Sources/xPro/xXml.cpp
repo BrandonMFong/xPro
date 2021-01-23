@@ -41,5 +41,7 @@ xBool xXml::SetXmlDocument(xString xmlDocument)
     result = this->_xmlDocument.load_file(xmlDocument.c_str());
     this->_isParsed = result;
 
+    std::cout << result.description() << std::endl;
+
     return result;
 }

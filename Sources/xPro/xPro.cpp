@@ -25,7 +25,7 @@ xString LeafItemFromPath(xString path)
     leaf = entry.path().filename().string(); // apply to string 
     #else 
     filepath = entry.path(); // apply to string 
-    i = filepath.rfind(PathSeparator, filepath.length()); // find the positions of the path delimiters
+    i = filepath.rfind(dPathSeparator, filepath.length()); // find the positions of the path delimiters
     
     // if no failure
     if (i != xString::npos)  leaf = filepath.substr(i+1, filepath.length() - i);

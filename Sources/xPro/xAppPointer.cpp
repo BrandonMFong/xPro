@@ -11,7 +11,7 @@
 
 #include <xPro/xAppPointer.h>
 
-xAppPointer::xAppPointer() : xXml()
+xAppPointer::xAppPointer() : xXml(dProfileXmlpath)
 {
     xStatus status = this->_status;
     pugi::xml_node  nodeMachine,
@@ -20,7 +20,8 @@ xAppPointer::xAppPointer() : xXml()
 
     if(status)
     {
-        status = this->SetXmlDocument(dProfileXmlpath);
+        // dProfileXmlPath has ~ and pugixml does not like it
+        status = this->SetXmlDocument(this->_path);
     }
 
     if(status)

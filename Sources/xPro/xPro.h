@@ -24,7 +24,7 @@
 #include <sstream> 
 // #include <xPro/extern/pugixml.hpp>
 namespace fs = std::filesystem;
-#define PathSeparator '\\'
+#define dPathSeparator '\\'
 #define getcwd _getcwd
 #define PATH_MAX _MAX_PATH
 #define isWINDOWS
@@ -45,7 +45,7 @@ namespace fs = std::filesystem;
 #include <fstream>
 // #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
-#define PathSeparator '/'
+#define dPathSeparator '/'
 #define dProfileXmlpath "~/.profile.xml"
 
 /* APPLE */
@@ -60,7 +60,7 @@ namespace fs = std::experimental::filesystem;
 #include <fstream>
 // #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
-#define PathSeparator '/'
+#define dPathSeparator '/'
 #define dProfileXmlpath "~/.profile.xml"
 #endif
 

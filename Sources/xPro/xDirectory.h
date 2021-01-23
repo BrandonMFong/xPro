@@ -12,7 +12,7 @@
 #include <xPro/xPro.h>
 #define xEnumerateDirectoryItems "EnumerateDirectoryItems"
 
-class xDirectory
+class xDirectory : public xObject
 {
 public:
     /**

@@ -87,6 +87,7 @@ typedef fs::path xPath; /** xPro-Type File System Path */
 // Order in descending order of inheritance
 
 /**** File System Objects ****/
+#include <xPro/xObject.h>
 #include <xPro/xDirectory.h>
 #include <xPro/xFile.h>
 #include <xPro/xXml.h>

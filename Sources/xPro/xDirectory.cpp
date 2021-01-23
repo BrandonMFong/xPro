@@ -11,13 +11,13 @@
 #include <xPro/xFile.h>
 #include <xPro/xDirectory.h>
 
-xDirectory::xDirectory()
+xDirectory::xDirectory() : xObject()
 {
     this->_path = xEmptyString;
     this->_exists = False;
 }
 
-xDirectory::xDirectory(xString path)
+xDirectory::xDirectory(xString path) : xObject()
 {
     xBool result = True;
     xString filepath, tmp; 

@@ -10,7 +10,7 @@
 #include <xPro/xXml.h>
 #include <xPro/xFile.h>
 
-xFile::xFile()
+xFile::xFile() : xDirectory()
 {
     this->_path = xEmptyString;
     this->_exists = False;

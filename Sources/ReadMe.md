@@ -15,10 +15,13 @@ The directory must be all lowercased
 Use #ifdef
 
 ## Pound define variables
-Start with d in front of the variable name 
+Start with 'd' infront of the variable name 
+
+## Constant Variables
+enum, const, etc.  Use 'k' infront of the variable name 
 
 ## Global Variables
-append variable with g, i.e. int gMyVar;
+append variable with 'g', i.e. int gMyVar;
 
 ## Code
 Define and/or initialize all variables at the beginning of the function

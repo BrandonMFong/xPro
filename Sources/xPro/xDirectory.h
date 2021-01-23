@@ -11,6 +11,11 @@
 
 #include <xPro/xPro.h>
 #define xEnumerateDirectoryItems "EnumerateDirectoryItems"
+enum DirResult
+{
+    kDirSuccess = 0,
+    kDirFailure = 1
+};
 
 class xDirectory : public xObject
 {
@@ -83,6 +88,8 @@ public:
      * 
      */
     void SetPath(xString path);
+
+    xBool SetDirectory();
 
     // xBool IsDirectory();
 protected:

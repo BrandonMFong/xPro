@@ -79,6 +79,7 @@ namespace fs = std::__fs::filesystem;
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
 typedef int xInt; /** xPro-Type Integer */
+typedef uint xUInt; /** xPro-Type Unsigned Integer */
 typedef std::string xString; /** xPro-Type String */
 typedef bool xBool; /** xPro-Type Boolean */
 typedef bool xStatus; /** xPro-Type Status */
@@ -88,9 +89,8 @@ typedef std::stringstream xStringStream; /** xPro-Type String Stream */
 typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
 
-/*** xClasses ***/
 // Order in descending order of inheritance
-
+/*** xClasses ***/
 /**** File System Objects ****/
 #include <xPro/xObject.h>
 #include <xPro/xDirectory.h>

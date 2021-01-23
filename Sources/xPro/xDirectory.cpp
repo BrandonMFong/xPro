@@ -175,3 +175,14 @@ void xDirectory::SetPath(xString path)
 
     this->_path = path; // concat base dir with relative path
 }
+
+xBool xDirectory::SetDirectory()
+{
+    xBool result = False;
+    DirResult success = kDirFailure;
+
+    success = (chdir(this->CStringPath()) == 0) ? kDirSuccess : kDirFailure;
+    result = (success == kDirSuccess) ? True : False;
+
+    return result;
+}

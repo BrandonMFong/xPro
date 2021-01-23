@@ -43,3 +43,18 @@ xAppPointer::xAppPointer() : xXml()
 
     this->_status = status;
 }
+
+// TODO put this in xObject
+xString xAppPointer::ToString()
+{
+    xString result = xEmptyString;
+
+    result = this->Machine.GitRepoDir.InnerXml + this->Machine.ConfigFile.InnerXml;
+
+    return result;
+}
+
+xAppPointer::operator std::string()
+{
+    return this->ToString();
+}

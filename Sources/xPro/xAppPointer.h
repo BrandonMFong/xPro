@@ -39,6 +39,10 @@ public:
      */
     xAppPointer();
 
+    xString ToString();
+
+    operator std::string();
+
     /**
      * @brief Carries the xPro App Pointer structure 
      * 

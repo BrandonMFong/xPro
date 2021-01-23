@@ -22,9 +22,13 @@
 int main(int argc, char *argv[]) 
 {
     xStatus status = Good;
-    xInt index = 1; // We only have one argument here 
-    xDirectory * dir;
-    xConfigReader * config;
+    xInt argIndex = 1; // We only have one argument here 
+    xUInt size = 0;
+    xString destination;
+    xString alias;
+    xDirectory * directory;
+    xAppPointer * AppPointer = new xAppPointer();
+    xConfigReader * ConfigReader = new xConfigReader(*AppPointer);
 
     if(argc > (MAXARG + 1))
     {
@@ -33,8 +37,29 @@ int main(int argc, char *argv[])
 
     if(status)
     {
-        dir = new xDirectory(argv[index]);
-        status = dir->Status(); 
+        alias = argv[argIndex];
+        status = !alias.empty(); 
+    }
+
+    if(status)
+    {
+        size = ConfigReader->Machine.Directories.Directory.size();
+        for(xUInt i = 0; i < size; i++)
+        {
+            if(ConfigReader->Machine.Directories.Directory[i].Alias == alias)
+            {
+                directory = new xDirectory(ConfigReader->Machine.Directories.Directory[i].InnerXml);
+                break;
+            }
+        }
+
+        status = directory->Status();
+    }
+
+    // set the current directory    
+    if(status)
+    {
+        status = directory->SetDirectory();
     }
 
     return (xInt)(!status);

@@ -14,21 +14,16 @@ xConfigReader::xConfigReader() : xXml()
 
 xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
 {
-    pugi::xml_node          nodeMachine,
-                            nodeUpdateStamp,
-                            nodeShellSettings,
-                            nodePrompt,
-                            nodeBaterryLifeThreshold,
-                            nodeString,
-                            nodeStartDirectory,
-                            nodeModules,
-                            nodeDirectories,
-                            nodePrograms,
-                            nodeObjects;
     Root::Modules::Mod      tempMod;
     Root::Directories::Dir  tempDir;
     Root::Programs::Prog    tempProg;
     Root::Objects::Obj      tempObj;
+    pugi::xml_node          nodeMachine,                nodeUpdateStamp,
+                            nodeShellSettings,          nodePrompt,
+                            nodeBaterryLifeThreshold,   nodeString,
+                            nodeStartDirectory,         nodeModules,
+                            nodeDirectories,            nodePrograms,
+                            nodeObjects;
 
     if(this->_exists)
     {
@@ -102,7 +97,7 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
             this->Machine.Programs.Program.push_back(tempProg);
         }
         
-        /* Programs */ 
+        /* Objects */ 
         nodeObjects = nodeMachine.child("Objects");
         for(pugi::xml_node obj : nodeObjects.children("Object"))
         {

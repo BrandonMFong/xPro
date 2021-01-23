@@ -18,7 +18,11 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
                     nodeUpdateStamp,
                     nodeShellSettings,
                     nodePrompt,
-                    nodeBaterryLifeThreshold;
+                    nodeBaterryLifeThreshold,
+                    nodeString,
+                    nodeStartDirectory,
+                    nodeModules;
+    Root::Modules::Mod tempMod;
 
     if(this->_exists)
     {
@@ -49,5 +53,25 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
         this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.Name = nodeBaterryLifeThreshold.name();
         this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.Enabled = nodeBaterryLifeThreshold.attribute("Enabled").value();
         this->Machine.ShellSettings.Prompt.BaterryLifeThreshold.InnerXml = nodePrompt.child_value("BaterryLifeThreshold");
+
+        /* String */ 
+        nodeString = nodePrompt.child("String");
+        this->Machine.ShellSettings.Prompt.String.Name = nodeString.name();
+        this->Machine.ShellSettings.Prompt.String.Color = nodeString.attribute("Color").value();
+        this->Machine.ShellSettings.Prompt.String.InnerXml = nodePrompt.child_value("String");
+
+        /* StartDirectory */ 
+        nodeStartDirectory = nodeShellSettings.child("StartDirectory");
+        this->Machine.ShellSettings.StartDirectory.Name = nodeStartDirectory.name();
+        this->Machine.ShellSettings.StartDirectory.InnerXml = nodeShellSettings.child_value("StartDirectory");
+        
+        /* ShellSettings */ 
+        nodeModules = nodeMachine.child("Modules");
+        for(pugi::xml_node mod : nodeModules.children("Module"))
+        {
+            tempMod.Name = mod.name();
+            tempMod.InnerXml = mod.text().get();
+            this->Machine.Modules.Module.push_back(tempMod);
+        }
     }
 }

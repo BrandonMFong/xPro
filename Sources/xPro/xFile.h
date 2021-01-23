@@ -47,9 +47,12 @@ public:
      * @return xBool 
      */
     // xBool IsFile();
+
+protected:
+    xBool _isFile; /** Boolean flag that shows if file exists */
+
 private:
     xString _name; /** Name of the xFile */
-    xBool _isFile; /** Boolean flag that shows if file exists */
 };
 
 #endif

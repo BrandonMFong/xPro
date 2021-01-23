@@ -88,6 +88,7 @@ public:
 protected:
     xString _path; /** The object's path */
     xBool _exists; /** if the path exists */
+    xBool _isDirectory; /** if path is a directory */
 private:
     xString _leafitem; /** The object's leaf item from path */
     xStringArray _items; /** List of items in path */

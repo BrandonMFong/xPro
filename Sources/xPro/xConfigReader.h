@@ -101,11 +101,30 @@ struct Root : BasicXml
     } Objects;
 };
 
+/**
+ * @brief Class that drives the structure for xPro User Configurations 
+ * 
+ */
 class xConfigReader : public xXml
 {
 public:
+    /**
+     * @brief Construct a new xConfigReader object
+     * 
+     */
     xConfigReader();
+
+    /**
+     * @brief Construct a new xConfigReader object
+     * 
+     * @param filepath file path to the user configuration 
+     */
     xConfigReader(xString filepath);
+
+    /**
+     * @brief Carries the xPro config structure 
+     * 
+     */
     Root Machine;
 private: 
 };

@@ -19,8 +19,11 @@ xXml::xXml() : xFile()
 
 xXml::xXml(xString xmlFile) : xFile(xmlFile)
 {
+    pugi::xml_parse_result result;
+
     if(this->_exists)
     {
-        pugi::xml_parse_result okayToContinue = this->_xmlDocument.load_file(xmlFile.c_str());
+        result = this->_xmlDocument.load_file(xmlFile.c_str());
+        this->_isParsed = result;
     }
 }

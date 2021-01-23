@@ -21,13 +21,30 @@ struct BasicXml
     xString InnerXml;
 };
 
+/**
+ * @brief Class for Xml that uses pugixml library 
+ * 
+ */
 class xXml : public xFile
 {
 public:
+
+    /**
+     * @brief Construct a new xXml object
+     * 
+     */
     xXml();
+
+    /**
+     * @brief Construct a new xXml object
+     * 
+     * @param xmlDocument File path to the xml document
+     */
     xXml(xString xmlDocument);
+
 protected:
-    pugi::xml_document _xmlDocument; /** Rapidxml file object */
+    pugi::xml_document _xmlDocument; /** pugixml file object */
+    xBool _isParsed; /** Successfully parsed */
 private: 
 };
 

@@ -26,7 +26,7 @@ xDirectory::xDirectory(xString path)
     const xPath tempPath(path); // Constructing the path from a string is possible.
     std::error_code ec; // For using the non-throwing overloads of functions below.
 
-    result = IsDirectory(path,ec);
+    this->_isDirectory = IsDirectory(path,ec);
 
     if(result) this->SetPath(path);
 

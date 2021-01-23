@@ -17,16 +17,18 @@ xFile::xFile()
     this->_name = xNull;
 }
 
-xFile::xFile(xString path)
+xFile::xFile(xString path) : xDirectory(path)
 {
-    xBool result = true;
-
-    // TODO test if path is empty
-    const xPath tempPath(path); // Constructing the path from a string is possible.
+    xBool result = !path.empty();
+    const xPath * tempPath; // Constructing the path from a string is possible.
     std::error_code ec; // For using the non-throwing overloads of functions below.
 
-    result = IsFile(tempPath,ec);
-    
+    if(result)
+    {
+        tempPath = new xPath(path);
+        this->_isFile = IsFile(*tempPath,ec);
+    }
+
     if(result) 
     {
         // TODO SetPath and SetExists to put in top base class 

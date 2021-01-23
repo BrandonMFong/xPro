@@ -14,15 +14,19 @@ xConfigReader::xConfigReader() : xXml()
 
 xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
 {
-    pugi::xml_node  nodeMachine,
-                    nodeUpdateStamp,
-                    nodeShellSettings,
-                    nodePrompt,
-                    nodeBaterryLifeThreshold,
-                    nodeString,
-                    nodeStartDirectory,
-                    nodeModules;
-    Root::Modules::Mod tempMod;
+    pugi::xml_node          nodeMachine,
+                            nodeUpdateStamp,
+                            nodeShellSettings,
+                            nodePrompt,
+                            nodeBaterryLifeThreshold,
+                            nodeString,
+                            nodeStartDirectory,
+                            nodeModules,
+                            nodeDirectories,
+                            nodePrograms;
+    Root::Modules::Mod      tempMod;
+    Root::Directories::Dir  tempDir;
+    Root::Programs::Prog    tempProg;
 
     if(this->_exists)
     {
@@ -65,13 +69,35 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
         this->Machine.ShellSettings.StartDirectory.Name = nodeStartDirectory.name();
         this->Machine.ShellSettings.StartDirectory.InnerXml = nodeShellSettings.child_value("StartDirectory");
         
-        /* ShellSettings */ 
+        /* Modules */ 
         nodeModules = nodeMachine.child("Modules");
         for(pugi::xml_node mod : nodeModules.children("Module"))
         {
             tempMod.Name = mod.name();
             tempMod.InnerXml = mod.text().get();
             this->Machine.Modules.Module.push_back(tempMod);
+        }
+        
+        /* Directories */ 
+        nodeDirectories = nodeMachine.child("Directories");
+        for(pugi::xml_node dir : nodeDirectories.children("Directory"))
+        {
+            tempDir.Name = dir.name();
+            tempDir.Alias = dir.attribute("Alias").value();
+            tempDir.SecType = dir.attribute("SecType").value();
+            tempDir.InnerXml = dir.text().get();
+            this->Machine.Directories.Directory.push_back(tempDir);
+        }
+        
+        /* Programs */ 
+        nodePrograms = nodeMachine.child("Programs");
+        for(pugi::xml_node prog : nodePrograms.children("Program"))
+        {
+            tempProg.Name = prog.name();
+            tempProg.Alias = prog.attribute("Alias").value();
+            tempProg.SecType = prog.attribute("SecType").value();
+            tempProg.InnerXml = prog.text().get();
+            this->Machine.Programs.Program.push_back(tempProg);
         }
     }
 }

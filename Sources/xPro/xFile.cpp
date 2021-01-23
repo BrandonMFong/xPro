@@ -40,7 +40,7 @@ xFile::xFile(xString path) : xDirectory(path)
     }
     
     // Handle error 
-    if(ec || !this->_exists || !status) 
+    if(this->_isFile && (ec || !this->_exists || !status))
     {
         std::cout << "xFile:"; 
         if(ec) std::cout << "\tError Code returned.  File path may not exist." << std::endl;

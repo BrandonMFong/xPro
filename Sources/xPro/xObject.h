@@ -31,8 +31,16 @@ public:
      */
     xStatus Status();
 
+    xBool Initialized();
+
 protected:
     xStatus _status; /** Result of the constructors */
+
+    /**
+     * @brief This is variable is false if was initialized with no parameters
+     * 
+     */
+    xBool _isInitialized;
 private:
 };
 

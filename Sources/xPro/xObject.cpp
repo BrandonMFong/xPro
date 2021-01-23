@@ -22,3 +22,8 @@ xStatus xObject::Status()
 {
     return this->_status;
 }
+
+xBool xObject::Initialized()
+{
+    return this->_isInitialized;
+}

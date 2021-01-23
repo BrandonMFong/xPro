@@ -16,11 +16,14 @@ xDirectory::xDirectory() : xObject()
 {
     this->_path = xEmptyString;
     this->_exists = False;
+
+    this->_isInitialized = False;
 }
 
 xDirectory::xDirectory(xString path) : xObject()
 {
-    xStatus status = this->_status;
+    this->_isInitialized = True;
+    xBool status = this->_status;
     xString filepath, tmp; 
     xString currdir;
     xChar cwd[PATH_MAX];

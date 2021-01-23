@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     xUInt size = 0;
     xString destination;
     xString alias;
-    xDirectory * directory;
+    xDirectory * directory = new xDirectory();
     xAppPointer * AppPointer = new xAppPointer();
     xConfigReader * ConfigReader = new xConfigReader(*AppPointer);
 
@@ -38,23 +38,28 @@ int main(int argc, char *argv[])
     if(status)
     {
         alias = argv[argIndex];
+        std::cout << alias << std::endl;
         status = !alias.empty(); 
     }
 
     if(status)
     {
         size = ConfigReader->Machine.Directories.Directory.size();
+        std::cout << size << std::endl;
         for(xUInt i = 0; i < size; i++)
         {
+            std::cout << ConfigReader->Machine.Directories.Directory[i].Alias << std::endl;
             if(ConfigReader->Machine.Directories.Directory[i].Alias == alias)
             {
+                std::cout << "Found " << alias << std::endl;
                 directory = new xDirectory(ConfigReader->Machine.Directories.Directory[i].InnerXml);
                 break;
             }
         }
 
-        status = directory->Status();
+        status = directory->Initialized() ? directory->Status() : Bad;
     }
+    std::cout << status << std::endl;
 
     // set the current directory    
     if(status)

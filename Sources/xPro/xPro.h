@@ -22,6 +22,7 @@
 #include <istream> 
 #include <direct.h>
 #include <sstream> 
+// #include <xPro/extern/pugixml.hpp>
 namespace fs = std::filesystem;
 #define PathSeparator '\\'
 #define getcwd _getcwd
@@ -41,6 +42,7 @@ namespace fs = std::filesystem;
 #include <stdio.h>
 #include <limits.h>
 #include <fstream>
+// #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
 #define PathSeparator '/'
 
@@ -53,6 +55,7 @@ namespace fs = std::experimental::filesystem;
 #include <vector>
 #include <unistd.h>
 #include <sstream> 
+// #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'
 #endif
@@ -60,7 +63,6 @@ namespace fs = std::__fs::filesystem;
 // #include <xPro/extern/rapidxml.hpp>
 // #include <xPro/extern/rapidxml_utils.hpp>
 #include <xPro/extern/pugixml.hpp>
-
 
 /** APP SPECIFIC START **/
 

@@ -11,6 +11,12 @@
 
 #include <xPro/xPro.h>
 
+struct BasicXml
+{
+    xString Name;
+    xString InnerXml;
+};
+
 class xFile : public xDirectory
 {
 public:

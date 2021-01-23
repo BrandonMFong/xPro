@@ -15,11 +15,94 @@
 
 #include <xPro/xPro.h>
 
+struct Root : BasicXml
+{
+    xString MachineName;
+    xString LoadProcedure;
+    xString LoadProfile;
+
+    struct UpdateStamp : BasicXml
+    {
+        xString Value;
+    } UpdateStamp;
+
+    struct ShellSettings : BasicXml
+    {
+        xString Enabled;
+
+        struct Prompt : BasicXml
+        {
+            xString Enabled;
+
+            struct BaterryLifeThreshold : BasicXml
+            {
+                xString Enabled;
+            } BaterryLifeThreshold;
+
+            struct String : BasicXml
+            {
+                xString Color;
+            } String;
+        } Prompt;
+
+        struct StartDirectory : BasicXml
+        {} StartDirectory;
+
+    } ShellSettings;
+
+    struct Modules : BasicXml
+    {
+        struct Mod : BasicXml
+        {};
+        std::vector<Mod> Module;
+    } Modules;
+
+    struct Directories : BasicXml
+    {
+        struct Dir : BasicXml
+        {
+            xString Alias;
+            xString SecType;
+        };
+        std::vector<Dir> Directory;
+    } Directories;
+
+    struct Programs : BasicXml
+    {
+        struct Prog : BasicXml
+        {
+            xString Alias;
+            xString SecType;
+        };
+        std::vector<Prog> Program;
+    } Programs;
+
+    struct Objects : BasicXml
+    {
+        struct Obj : BasicXml
+        {
+            xString Type;
+            
+            struct VarName : BasicXml
+            {
+                xString SecType;
+            } VarName;
+            
+            struct SimpleValue : BasicXml
+            {
+                xString SecType;
+            } SimpleValue;
+        };
+        std::vector<Obj> Object;
+    } Objects;
+};
+
 class xConfigReader : public xXml
 {
 public:
     xConfigReader();
     xConfigReader(xString filepath);
+    Root Machine;
 private: 
 };
 

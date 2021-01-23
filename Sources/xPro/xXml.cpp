@@ -14,17 +14,13 @@
 #include <xPro/xConfigReader.h>
 #include <xPro/xXml.h>
 
-xXml::xXml()
+xXml::xXml() : xFile()
 {}
 
 xXml::xXml(xString xmlFile) : xFile(xmlFile)
 {
-    std::cout << xmlFile.c_str() << std::endl;
-    pugi::xml_parse_result okayToContinue = this->_xmlDocument.load_file(xmlFile.c_str());
-
-    // Test Getting nodes
-    pugi::xpath_node node = this->_xmlDocument.select_node("/Machine/ShellSettings");
-
-    std::cout << node.node().name() << std::endl;
-    // TODO move this to xConfigReader and sweep/assign xml values
+    if(this->_exists)
+    {
+        pugi::xml_parse_result okayToContinue = this->_xmlDocument.load_file(xmlFile.c_str());
+    }
 }

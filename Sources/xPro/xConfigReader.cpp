@@ -23,10 +23,12 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
                             nodeStartDirectory,
                             nodeModules,
                             nodeDirectories,
-                            nodePrograms;
+                            nodePrograms,
+                            nodeObjects;
     Root::Modules::Mod      tempMod;
     Root::Directories::Dir  tempDir;
     Root::Programs::Prog    tempProg;
+    Root::Objects::Obj      tempObj;
 
     if(this->_exists)
     {
@@ -98,6 +100,24 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
             tempProg.SecType = prog.attribute("SecType").value();
             tempProg.InnerXml = prog.text().get();
             this->Machine.Programs.Program.push_back(tempProg);
+        }
+        
+        /* Programs */ 
+        nodeObjects = nodeMachine.child("Objects");
+        for(pugi::xml_node obj : nodeObjects.children("Object"))
+        {
+            tempObj.Name = obj.name();
+            tempObj.InnerXml = obj.text().get();
+
+            tempObj.VarName.Name = obj.child("VarName").name();
+            tempObj.VarName.SecType = obj.child("VarName").attribute("SecType").value();
+            tempObj.VarName.InnerXml = obj.child("VarName").text().get();
+
+            tempObj.SimpleValue.Name = obj.child("SimpleValue").name();
+            tempObj.SimpleValue.SecType = obj.child("SimpleValue").attribute("SecType").value();
+            tempObj.SimpleValue.InnerXml = obj.child("SimpleValue").text().get();
+
+            this->Machine.Objects.Object.push_back(tempObj);
         }
     }
 }

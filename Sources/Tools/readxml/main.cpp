@@ -15,5 +15,7 @@ int main(int argc, char *argv[])
 
     std::cout << config->Machine.Directories.Directory[0].InnerXml << std::endl; // Can increment
 
+    std::cout << config->Machine.Objects.Object[0].VarName.InnerXml << std::endl;
+
     return 0;
 }

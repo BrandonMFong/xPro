@@ -55,6 +55,7 @@ namespace fs = std::experimental::filesystem;
 #include <vector>
 #include <unistd.h>
 #include <sstream> 
+#include <fstream>
 // #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
 #define PathSeparator '/'

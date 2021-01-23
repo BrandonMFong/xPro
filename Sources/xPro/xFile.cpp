@@ -48,13 +48,13 @@ xFile::xFile(xString path)
 
 xString xFile::Content()
 {
-    std::ifstream * ifs;
+    xInputFile * ifs;
     xString * fileContent = new xString();
 
     // If the file exists, init with content
     if(this->Exists())
     {
-        ifs = new std::ifstream(this->_path);
+        ifs = new xInputFile(this->_path);
         fileContent = new xString((std::istreambuf_iterator<char>(*ifs)),(std::istreambuf_iterator<char>())); // init with new content
     }
     return *fileContent;

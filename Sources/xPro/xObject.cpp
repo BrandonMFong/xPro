@@ -1,9 +1,11 @@
 /**
  * @file xDirectory.cpp
  * 
- * @brief xDirectory class
+ * @author Brando (BrandonMFong.com)
+ * @brief 
+ * @date 2021-01-23
  * 
- * @author Brando
+ * @copyright Copyright (c) 2021
  */
 
 #include <xPro/xAppPointer.h>

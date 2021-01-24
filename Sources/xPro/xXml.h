@@ -4,6 +4,7 @@
  * @brief xXml class
  * 
  * @author Brando
+ * @date 2021-01-23
  */
 
 #ifndef _XXML_

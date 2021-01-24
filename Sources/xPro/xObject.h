@@ -1,9 +1,11 @@
 /**
  * @file xObject.h 
  * 
- * @brief xObject class
+ * @author Brando (BrandonMFong.com)
+ * @brief 
+ * @date 2021-01-23
  * 
- * @author Brando
+ * @copyright Copyright (c) 2021
  */
 
 #ifndef _XOBJECT_

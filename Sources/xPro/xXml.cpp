@@ -4,6 +4,7 @@
  * @brief xDirectory class
  * 
  * @author Brando
+ * @date 2021-01-23
  * 
  * Using RapidXml lib https://linuxhint.com/parse_xml_in_c__/
  * https://linuxhint.com/parse_xml_in_c__/

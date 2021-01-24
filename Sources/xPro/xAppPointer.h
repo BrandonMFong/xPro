@@ -2,8 +2,11 @@
  * @file xConfigReader.h 
  * 
  * @brief xConfigReader class
+ * @author Brando (BrandonMFong.com)
+ * @brief 
+ * @date 2021-01-23
  * 
- * @author Brando
+ * @copyright Copyright (c) 2021
  * 
  * Am not using the below.  Will think about it though
  * https://github.com/veselink1/refl-cpp

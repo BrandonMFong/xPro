@@ -17,7 +17,7 @@ OBJECTS = \
 	getpath \
 	cat \
 	readxml \
-	goto
+	getdir
 
 # Ascend object hierarchy
 SUBOBJECTS = \

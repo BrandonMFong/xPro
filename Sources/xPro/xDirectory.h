@@ -81,7 +81,12 @@ public:
      */
     xString Path();
 
-    xChar * CStringPath();
+    /**
+     * @brief Print c string
+     * 
+     * @return xChar * of Directory path 
+     */
+    xChar * ToCString();
 
     /**
      * @brief Set the Path 
@@ -89,9 +94,12 @@ public:
      */
     void SetPath(xString path);
 
-    xBool SetDirectory();
+    /**
+     * @brief To String
+     * 
+     */
+    xString ToString();
 
-    // xBool IsDirectory();
 protected:
     xString _path; /** The object's path */
     xBool _exists; /** if the path exists */

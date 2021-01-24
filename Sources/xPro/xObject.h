@@ -31,6 +31,11 @@ public:
      */
     xStatus Status();
 
+    /**
+     * @brief The _initiliaized variable is set if a constructor with parameters was called 
+     * 
+     * @return xBool 
+     */
     xBool Initialized();
 
 protected:

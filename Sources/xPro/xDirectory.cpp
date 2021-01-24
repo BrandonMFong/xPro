@@ -141,12 +141,12 @@ xString xDirectory::ItemByIndex(xInt index)
 
 xString xDirectory::Path()
 {
-    return this->_path;
+    return this->ToString();
 }
 
-xChar * xDirectory::CStringPath()
+xChar * xDirectory::ToCString()
 {
-    return (xChar *)this->_path.c_str();
+    return (xChar *)this->ToString().c_str();
 }
 
 // In the previous methods, I don't think I need to check if the path starts with 
@@ -174,13 +174,7 @@ void xDirectory::SetPath(xString path)
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
 }
 
-xBool xDirectory::SetDirectory()
+xString xDirectory::ToString()
 {
-    xBool result = False;
-    DirResult success = kDirFailure;
-
-    success = (chdir(this->CStringPath()) == 0) ? kDirSuccess : kDirFailure;
-    result = (success == kDirSuccess) ? True : False;
-
-    return result;
+    return this->_path;
 }

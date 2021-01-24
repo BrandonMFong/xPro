@@ -34,6 +34,8 @@ do
     declare "$(echo $VarName)=$(echo $SimpleValue)";
 done 
 
+export PATH="${AppPointer[GitRepoDir]}/bin":$PATH
+
 # Prompt
 color=$(echo $(xmllint --xpath "(//ShellSettings/Prompt/String/@Color)" ${ConfigPath}) | awk -F'[="]' '!/>/{print $(NF-1)}')
 PROMPT="%F{$color}$(xmllint --xpath "string(//ShellSettings/Prompt/String)" ${ConfigPath})%f"

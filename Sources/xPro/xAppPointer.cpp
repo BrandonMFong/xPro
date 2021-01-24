@@ -11,7 +11,7 @@
 
 #include <xPro/xAppPointer.h>
 
-xAppPointer::xAppPointer() : xXml(dProfileXmlpath)
+xAppPointer::xAppPointer() : xXml(kHomeProfilePath)
 {
     xStatus status = this->_status;
     pugi::xml_node  nodeMachine,
@@ -50,7 +50,7 @@ xString xAppPointer::ToString()
 {
     xString result = xEmptyString;
 
-    result = this->Machine.GitRepoDir.InnerXml + this->Machine.ConfigFile.InnerXml;
+    result = this->Machine.GitRepoDir.InnerXml + dUserConfigDirectoryPath + this->Machine.ConfigFile.InnerXml;
 
     return result;
 }

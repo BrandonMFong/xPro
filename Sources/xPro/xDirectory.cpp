@@ -153,8 +153,8 @@ xChar * xDirectory::CStringPath()
 // '/' because I create the full path here
 void xDirectory::SetPath(xString path)
 {
-    xChar cwd[PATH_MAX];
-    xString currdir;
+    // xChar cwd[PATH_MAX];
+    // xString currdir;
 
     // I don't think all cases are considered
     // if this matches, i am assuming path is coming from root
@@ -171,7 +171,6 @@ void xDirectory::SetPath(xString path)
 
     //     path = currdir + path;
     // }
-
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
 }
 

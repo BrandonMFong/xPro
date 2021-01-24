@@ -28,7 +28,7 @@ namespace fs = std::filesystem;
 #define getcwd _getcwd
 #define PATH_MAX _MAX_PATH
 #define isWINDOWS
-#define dProfileXmlpath "~/.profile.xml"
+#define dAppPointerFile "Profile.xml"
 
 /* LINUX */
 #elif __linux__ 
@@ -46,7 +46,7 @@ namespace fs = std::filesystem;
 // #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
 #define dPathSeparator '/'
-#define dProfileXmlpath "~/.profile.xml"
+#define dAppPointerFile ".profile.xml"
 
 /* APPLE */
 #elif __APPLE__
@@ -61,7 +61,7 @@ namespace fs = std::experimental::filesystem;
 // #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
 #define dPathSeparator '/'
-#define dProfileXmlpath "~/.profile.xml"
+#define dAppPointerFile ".profile.xml"
 #endif
 
 // Using Pugixml as an xml parser 
@@ -78,6 +78,7 @@ namespace fs = std::__fs::filesystem;
 #define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
+#define dUserConfigDirectoryPath "/Config/Users" /** User Config Path */
 typedef int xInt; /** xPro-Type Integer */
 typedef uint xUInt; /** xPro-Type Unsigned Integer */
 typedef std::string xString; /** xPro-Type String */
@@ -88,6 +89,10 @@ typedef char xChar; /** xPro-Type String */
 typedef std::stringstream xStringStream; /** xPro-Type String Stream */
 typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
+
+/*** xPro Constants ***/
+const std::string kHomeDirectoryPath = getenv("HOME");
+const std::string kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 // Order in descending order of inheritance
 /*** xClasses ***/

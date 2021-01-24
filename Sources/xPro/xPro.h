@@ -80,6 +80,7 @@ namespace fs = std::__fs::filesystem;
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
 #define dUserConfigDirectoryPath "/Config/Users" /** User Config Path */
+#define Return(value) return (xInt)(!value)
 typedef int xInt; /** xPro-Type Integer */
 typedef uint xUInt; /** xPro-Type Unsigned Integer */
 typedef std::string xString; /** xPro-Type String */
@@ -97,8 +98,9 @@ const std::string kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 // Order in descending order of inheritance
 /*** xClasses ***/
-/**** File System Objects ****/
 #include <xPro/xObject.h>
+
+/**** File System Objects ****/
 #include <xPro/xDirectory.h>
 #include <xPro/xFile.h>
 #include <xPro/xXml.h>

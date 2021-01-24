@@ -61,5 +61,6 @@ int main(int argc, char *argv[])
         std::cout << directory->ToString() << std::endl;
     }
 
-    return (xInt)(!status);
+    // return (xInt)(!status);
+    Return(status);
 }

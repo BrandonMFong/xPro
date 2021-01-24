@@ -16,7 +16,6 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	readxml \
 	getdir
 
 # Ascend object hierarchy

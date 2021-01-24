@@ -38,6 +38,8 @@ public:
      */
     xBool Initialized();
 
+    xString ToString();
+
 protected:
     xStatus _status; /** Result of the constructors */
 

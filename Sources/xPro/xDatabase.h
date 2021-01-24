@@ -7,7 +7,7 @@
  * 
  * @copyright Copyright (c) 2021
  * 
- * https://mariadb.com/downloads/#connectors
+ * https://mariadb.com/kb/en/mariadb-connector-c/
  * 
  */
 

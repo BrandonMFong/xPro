@@ -16,11 +16,13 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	getdir
+	getdir \
+	query
 
 # Ascend object hierarchy
 SUBOBJECTS = \
 	xPro \
+	xDatabase \
 	xAppPointer \
 	xConfigReader \
 	xXml \

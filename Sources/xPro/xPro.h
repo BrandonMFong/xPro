@@ -73,8 +73,8 @@ namespace fs = std::__fs::filesystem;
 /*** xTypes ***/
 #define True true /** Boolean True */
 #define False false /** Boolean False */
-#define Good true /** Status = Good */
-#define Bad false /** Status = Bad */ 
+// #define Good true /** Status = Good */
+// #define Bad false /** Status = Bad */ 
 #define xNull nullptr /** Null Pointer */
 #define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
@@ -92,9 +92,18 @@ typedef std::stringstream xStringStream; /** xPro-Type String Stream */
 typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
 
-/*** xPro Constants ***/
+/*** xConstants ***/
 const std::string kHomeDirectoryPath = getenv("HOME");
 const std::string kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
+
+/*** xEnums ***/
+enum xEnums
+{
+    Good = true,
+    Bad = false
+
+    // TODO add True and False
+};
 
 // Order in descending order of inheritance
 /*** xClasses ***/
@@ -106,6 +115,9 @@ const std::string kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 #include <xPro/xXml.h>
 #include <xPro/xConfigReader.h>
 #include <xPro/xAppPointer.h>
+
+/**** Database Objects ****/
+#include <xPro/xDatabase.h>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

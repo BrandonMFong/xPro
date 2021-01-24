@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
     xString destination;
     xString alias;
     xDirectory * directory = new xDirectory();
-    xAppPointer * AppPointer = new xAppPointer();
-    xConfigReader * ConfigReader = new xConfigReader(*AppPointer);
+    xAppPointer * appPointer = new xAppPointer();
+    xConfigReader * configReader = new xConfigReader(*appPointer);
 
     if(argc > (MAXARG + 1))
     {
@@ -43,12 +43,12 @@ int main(int argc, char *argv[])
 
     if(status)
     {
-        size = ConfigReader->Machine.Directories.Directory.size();
+        size = configReader->Machine.Directories.Directory.size();
         for(xUInt i = 0; i < size; i++)
         {
-            if(ConfigReader->Machine.Directories.Directory[i].Alias == alias)
+            if(configReader->Machine.Directories.Directory[i].Alias == alias)
             {
-                directory = new xDirectory(ConfigReader->Machine.Directories.Directory[i].InnerXml);
+                directory = new xDirectory(configReader->Machine.Directories.Directory[i].InnerXml);
                 break;
             }
         }
@@ -61,6 +61,5 @@ int main(int argc, char *argv[])
         std::cout << directory->ToString() << std::endl;
     }
 
-    // return (xInt)(!status);
     Return(status);
 }

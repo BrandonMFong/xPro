@@ -7,7 +7,7 @@
  * 
  * @copyright Copyright (c) 2021
  * 
- * https://dev.mysql.com/doc/connector-cpp/8.0/en/preface.html
+ * https://mariadb.com/downloads/#connectors
  * 
  */
 

@@ -9,7 +9,9 @@ FLAGS = \
 	-lstdc++fs \
 	-std=c++17 \
 	-I$(SOURCE_ROOT) \
-	-Wall
+	-Wall \
+	-lssl \
+	-lcrypto 
 OBJECTS = \
 	enumdir \
 	exist \

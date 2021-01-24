@@ -18,11 +18,15 @@
   <Directories>
     <Directory Alias="pow" SecType="public">/home/brandonmfong/source/repo/xPro</Directory>
     <Directory Alias="repo" SecType="public">/home/brandonmfong/source/repo</Directory>
+    <Directory Alias="dl" SecType="public">/home/brandonmfong/downloads</Directory>
+    <Directory Alias="main" SecType="public">/home/brandonmfong</Directory>
+    <Directory Alias="lin" SecType="public">/home/brandonmfong/source/repo/xPro/Sources/makefiles/linux</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <Program Alias="cls" SecType="public">clear</Program>
     <Program Alias="cl" SecType="public">clear;ls -al;</Program>
+    <Program Alias="ls" SecType="public">ls -al;</Program>
     <Program Alias="scb" SecType="public">xsel --clipboard --input</Program>
     <Program Alias="getpath" SecType="public">xpro.getpath</Program>
   </Programs>

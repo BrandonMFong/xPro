@@ -18,7 +18,7 @@ debug.log
 *.hidden.xml
 
 # binary files
-bin/*
+**/bin/**
 *.exe
 *.obj
 *.o

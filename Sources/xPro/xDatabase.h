@@ -1,7 +1,7 @@
 /**
  * @file xDatabase.h
  * @author Brando BrandonMFong.com
- * @brief 
+ * @brief Should handle all admin stuff
  * @version 0.1
  * @date 2021-01-23
  * 
@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef _XSQL_
-#define _XSQL_
+#ifndef _XDATABASE_
+#define _XDATABASE_
 
 #include <xPro/xPro.h>
 

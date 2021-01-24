@@ -9,6 +9,7 @@
  * 
  */
 
+#include <xPro/xQuery.h>
 #include <xPro/xDatabase.h>
 
 xDatabase::xDatabase() : xObject()

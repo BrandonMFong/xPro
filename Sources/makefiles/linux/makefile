@@ -23,6 +23,7 @@ OBJECTS = \
 SUBOBJECTS = \
 	xPro \
 	xDatabase \
+	xQuery \
 	xAppPointer \
 	xConfigReader \
 	xXml \

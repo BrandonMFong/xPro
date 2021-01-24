@@ -14,5 +14,7 @@
 int main(int argc, char *argv[]) 
 {
     xStatus status = Good;
-    xDatabase * database = new xDatabase();
+    xQuery * database = new xQuery();
+
+    Return(status);
 }

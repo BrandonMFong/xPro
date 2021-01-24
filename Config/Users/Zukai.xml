@@ -24,5 +24,6 @@
     <Program Alias="cls" SecType="public">clear</Program>
     <Program Alias="cl" SecType="public">clear;ls -al;</Program>
     <Program Alias="scb" SecType="public">xsel --clipboard --input</Program>
+    <Program Alias="getpath" SecType="public">xpro.getpath</Program>
   </Programs>
 </Machine>

@@ -17,6 +17,3 @@ function hop()
         cd ..;
     done 
 }
-
-function getpath { echo $(cd $(dirname $1); pwd)/$(basename $1); }
-

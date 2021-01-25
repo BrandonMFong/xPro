@@ -95,8 +95,8 @@ pushd "$(dirname "$0")" > /dev/null;
         # Write to apppointer 
         echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" | tee -a $out;
         echo "<Machine MachineName=\"KAMANTA\">" | tee -a $out;
-        echo "  <gitRepoDir>${gitRepoDir}</gitRepoDir>" | tee -a $out;
-        echo "  <configFile>${configFile}</configFile>" | tee -a $out;
+        echo "  <GitRepoDir>${gitRepoDir}</GitRepoDir>" | tee -a $out;
+        echo "  <ConfigFile>${configFile}</ConfigFile>" | tee -a $out;
         echo "</Machine>" | tee -a $out;
     fi
 popd  > /dev/null;

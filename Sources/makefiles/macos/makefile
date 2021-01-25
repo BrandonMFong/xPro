@@ -17,32 +17,49 @@ OBJECTS = \
 	selectitem \
 	getpath \
 	cat \
-	readxml
+	getdir \
+	query
 
 # Ascend object hierarchy
-SUBOBJECTS = \
-	xPro \
+FILESYSTEM = \
+	xAppPointer \
 	xConfigReader \
 	xXml \
 	xFile \
-	xDirectory \
+	xDirectory 
+
+SQL = \
+	xDatabase \
+	xQuery 
+
+XPRO = \
+	xPro \
 	xObject
+
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: pugi $(SUBOBJECTS) $(OBJECTS) clean
+all: pugi $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 pugi : 
-	@echo Building Pugixml 
+	@echo Package: Pugixml 
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/pugixml.cpp -c -o pugixml.o $(FLAGS)
 
-$(SUBOBJECTS) :
-	@echo Creating $@.o
+$(XPRO) :
+	@echo xPro Objects: $@.o
+	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
+
+$(FILESYSTEM) :
+	@echo xPro Objects: $@.o
+	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
+
+$(SQL) :
+	@echo xPro Objects: $@.o
 	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $@.o $(FLAGS)
 
 $(OBJECTS) :
-	@echo Building xpro.$@
+	@echo xPro Tools: xpro.$@
 	@$(CC) $(TOOLS_DIR)/$@/main.cpp *.o -o $(BIN_DIR)/xpro.$@ $(FLAGS)
 
 clean :

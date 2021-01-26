@@ -80,7 +80,8 @@ namespace fs = std::__fs::filesystem;
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
 #define dUserConfigDirectoryPath "/Config/Users" /** User Config Path */
-#define Return(value) return (xInt)(!value)
+#define xMain int main(int argc, char *argv[]){
+#define xReturn return (xInt)(!gStatus);}
 typedef int xInt; /** xPro-Type Integer */
 typedef uint xUInt; /** xPro-Type Unsigned Integer */
 typedef std::string xString; /** xPro-Type String */
@@ -93,8 +94,8 @@ typedef std::ifstream xInputFile; /** xPro-Type ifstream */
 typedef fs::path xPath; /** xPro-Type File System Path */
 
 /*** xConstants ***/
-const std::string kHomeDirectoryPath = getenv("HOME");
-const std::string kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
+const xString kHomeDirectoryPath = getenv("HOME");
+const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 /*** xEnums ***/
 enum xEnums
@@ -104,6 +105,9 @@ enum xEnums
 
     // TODO add True and False
 };
+
+/*** xGlobals ***/
+extern xStatus gStatus;
 
 // Order in descending order of inheritance
 /*** xClasses ***/

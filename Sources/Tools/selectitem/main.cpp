@@ -19,8 +19,8 @@ struct Arguments
     xDirectory * path;
 };
 
-int main(int argc, char *argv[]) 
-{
+xMain
+
     Arguments args;
     std::string filepath = "";
 
@@ -58,5 +58,4 @@ int main(int argc, char *argv[])
     filepath = args.path->ItemByIndex(args.index);
     std::cout << LeafItemFromPath(filepath) << std::endl;
     
-    return 0;
-}
+xReturn

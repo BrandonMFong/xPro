@@ -19,9 +19,9 @@
 // arguments to solidify a template yet 
 // So, will deal with arguments in main for now until I 
 // get a better idea 
-int main(int argc, char *argv[]) 
-{
-    xStatus status = Good;
+xMain
+
+    // xStatus status = Good;
     xInt argIndex = 1; // We only have one argument here 
     xUInt size = 0;
     xString destination;
@@ -32,16 +32,16 @@ int main(int argc, char *argv[])
 
     if(argc > (MAXARG + 1))
     {
-        status = Bad; // we have more than 1 argument 
+        gStatus = Bad; // we have more than 1 argument 
     }
 
-    if(status)
+    if(gStatus)
     {
         alias = argv[argIndex];
-        status = !alias.empty(); 
+        gStatus = !alias.empty(); 
     }
 
-    if(status)
+    if(gStatus)
     {
         size = configReader->Machine.Directories.Directory.size();
         for(xUInt i = 0; i < size; i++)
@@ -53,13 +53,12 @@ int main(int argc, char *argv[])
             }
         }
 
-        status = directory->Initialized() ? directory->Status() : Bad;
+        gStatus = directory->Initialized() ? directory->Status() : Bad;
     }
 
-    if(status)
+    if(gStatus)
     {
         std::cout << directory->ToString() << std::endl;
     }
 
-    Return(status);
-}
+xReturn

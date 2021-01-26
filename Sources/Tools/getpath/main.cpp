@@ -8,8 +8,8 @@
 
 #include <xPro/xPro.h>
 
-int main(int argc, char *argv[]) 
-{
+xMain
+
     xDirectory * pathObject;
     if(argc != 2)
     {
@@ -21,4 +21,5 @@ int main(int argc, char *argv[])
     } 
     pathObject = new xDirectory(argv[1]);
     std::cout << pathObject->Path() << std::endl;
-}
+
+xReturn 

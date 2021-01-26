@@ -11,10 +11,9 @@
 
 #include <xPro/xPro.h>
 
-int main(int argc, char *argv[]) 
-{
-    xStatus status = Good;
+xMain
+
+    gStatus = Good;
     xQuery * database = new xQuery();
 
-    Return(status);
-}
+xReturn

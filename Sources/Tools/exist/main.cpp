@@ -8,9 +8,9 @@
 
 #include <xPro/xPro.h>
 
-int main(int argc, char *argv[]) 
-{
-    int index = 1; // we are only accepting one argument here
+xMain
+
+    xInt index = 1; // we are only accepting one argument here
     xDirectory * item;
 
     // Exit program if this is met
@@ -24,5 +24,4 @@ int main(int argc, char *argv[])
 
     std::cout << "File " << (item->Exists() ? "does exist" : "does not exist") << std::endl;
 
-    return 0;
-}
+xReturn

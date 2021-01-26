@@ -8,8 +8,8 @@
 
 #include <xPro/xPro.h>
 
-int main(int argc, char *argv[]) 
-{
+xMain
+
     xInt index = 1; // we are only accepting one argument here
     xDirectory * path;
 
@@ -31,5 +31,4 @@ int main(int argc, char *argv[])
 
     path->PrintItems(xEnumerateDirectoryItems);
 
-    return 0;
-}
+xReturn

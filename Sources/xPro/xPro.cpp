@@ -9,6 +9,8 @@
 
 #include <xPro/xPro.h>
 
+xStatus gStatus = Good;
+
 xString LeafItemFromPath(xString path)
 {
     xString leaf = "";

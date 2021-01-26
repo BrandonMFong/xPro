@@ -390,6 +390,7 @@
     <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
+    <Program Alias="7z" SecType="public">C:\Program Files\7-Zip\7z.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

@@ -763,6 +763,11 @@
       <Value Lvl="3" Node="CES514" SecType="public">https://jakevdp.github.io/PythonDataScienceHandbook/</Value>
       <Key Lvl="3" Node="CES514" SecType="public">Textbook</Key>
       <Value Lvl="3" Node="CES514" SecType="public">https://github.com/quantumahesh/Hands-On-Machine-Learning-Book/blob/master/Hands-on-Machine-Learning.pdf</Value>
+      <!-- CES594 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES594</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES594" />
+      <Key Lvl="3" Node="CES594" SecType="public">BR</Key>
+      <Value Lvl="3" Node="CES594" SecType="private">https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf</Value>
     </Object>
     <!-- Phone -->
     <Object Type="HashTable">

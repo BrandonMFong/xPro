@@ -342,6 +342,7 @@
     <Directory Alias="arduino" SecType="public">C:\Program Files (x86)\Arduino</Directory>
     <Directory Alias="site" SecType="public">B:\SOURCE\Repo\Site</Directory>
     <Directory Alias="ces594" SecType="public">B:\COLLEGE\20_21\Spring21\CES594</Directory>
+    <Directory Alias="ces514" SecType="public">B:\COLLEGE\20_21\Spring21\CES514</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -385,6 +386,8 @@
     <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
+    <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>
+    <Program Alias="pip" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\Scripts\pip3.9.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

@@ -335,15 +335,14 @@
     <Directory Alias="docs" SecType="public">B:\DOCUMENTS</Directory>
     <Directory Alias="nb" SecType="public">B:\NOTEBOOK</Directory>
     <Directory Alias="repo" SecType="public">B:\SOURCE\Repo</Directory>
-    <Directory Alias="ces400" SecType="public">B:\COLLEGE\20_21\Fall20\CES400</Directory>
-    <Directory Alias="ces543" SecType="public">B:\COLLEGE\20_21\Fall20\CES543</Directory>
-    <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
     <Directory Alias="life" SecType="public">B:\LIFE</Directory>
     <Directory Alias="Code" SecType="public">B:\CODE</Directory>
     <Directory Alias="job" SecType="public">B:\JOB</Directory>
     <Directory Alias="thesis" SecType="public">B:\COLLEGE\Thesis</Directory>
     <Directory Alias="arduino" SecType="public">C:\Program Files (x86)\Arduino</Directory>
     <Directory Alias="site" SecType="public">B:\SOURCE\Repo\Site</Directory>
+    <Directory Alias="ces594" SecType="public">B:\COLLEGE\20_21\Spring21\CES594</Directory>
+    <Directory Alias="ces514" SecType="public">B:\COLLEGE\20_21\Spring21\CES514</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -388,6 +387,8 @@
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
     <Program Alias="7z" SecType="public">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>
+    <Program Alias="pip" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\Scripts\pip3.9.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -757,8 +758,19 @@
       <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES514" />
       <Key Lvl="3" Node="CES514" SecType="public">Zoom</Key>
       <Value Lvl="3" Node="CES514" SecType="private">6fb78d64-b70d-4c00-9cf5-eb7fe9835763</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">URL</Key>
+      <Value Lvl="3" Node="CES514" SecType="private">e2477741-7e4f-41d5-a947-8146b70879db</Value>
       <Key Lvl="3" Node="CES514" SecType="public">Email</Key>
       <Value Lvl="3" Node="CES514" SecType="private">0a41e0a6-519a-409b-966f-3b0e88356ef37</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">Handbook</Key>
+      <Value Lvl="3" Node="CES514" SecType="public">https://jakevdp.github.io/PythonDataScienceHandbook/</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">Textbook</Key>
+      <Value Lvl="3" Node="CES514" SecType="public">https://github.com/quantumahesh/Hands-On-Machine-Learning-Book/blob/master/Hands-on-Machine-Learning.pdf</Value>
+      <!-- CES594 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES594</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES594" />
+      <Key Lvl="3" Node="CES594" SecType="public">BR</Key>
+      <Value Lvl="3" Node="CES594" SecType="private">https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf</Value>
     </Object>
     <!-- Phone -->
     <Object Type="HashTable">

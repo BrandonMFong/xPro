@@ -11,9 +11,9 @@
 
 #include <xPro/xPro.h>
 
-xMain
+xBegin
 
     gStatus = Good;
     xQuery * database = new xQuery();
 
-xReturn
+xEnd

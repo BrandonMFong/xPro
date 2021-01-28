@@ -8,7 +8,7 @@
 
 #include <xPro/xPro.h>
 
-xMain
+xBegin
 
     xFile * file;
 
@@ -16,4 +16,4 @@ xMain
 
     std::cout << file->Content() << std::endl;
     
-xReturn
+xEnd

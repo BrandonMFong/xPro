@@ -8,7 +8,7 @@
 
 #include <xPro/xPro.h>
 
-xMain
+xBegin
 
     xInt index = 1; // we are only accepting one argument here
     xDirectory * path;
@@ -31,4 +31,4 @@ xMain
 
     path->PrintItems(xEnumerateDirectoryItems);
 
-xReturn
+xEnd

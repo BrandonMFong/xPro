@@ -19,7 +19,7 @@ struct Arguments
     xDirectory * path;
 };
 
-xMain
+xBegin
 
     Arguments args;
     std::string filepath = "";
@@ -58,4 +58,4 @@ xMain
     filepath = args.path->ItemByIndex(args.index);
     std::cout << LeafItemFromPath(filepath) << std::endl;
     
-xReturn
+xEnd

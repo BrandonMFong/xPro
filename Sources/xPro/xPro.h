@@ -80,8 +80,8 @@ namespace fs = std::__fs::filesystem;
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
 #define IsDirectory(path,ec) fs::is_directory(path,ec)
 #define dUserConfigDirectoryPath "/Config/Users" /** User Config Path */
-#define xMain int main(int argc, char *argv[]){
-#define xReturn return (xInt)(!gStatus);}
+#define xBegin int main(int argc, char *argv[]){
+#define xEnd return (xInt)(!gStatus);}
 typedef int xInt; /** xPro-Type Integer */
 typedef uint xUInt; /** xPro-Type Unsigned Integer */
 typedef std::string xString; /** xPro-Type String */

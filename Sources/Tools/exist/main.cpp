@@ -8,7 +8,7 @@
 
 #include <xPro/xPro.h>
 
-xMain
+xBegin
 
     xInt index = 1; // we are only accepting one argument here
     xDirectory * item;
@@ -24,4 +24,4 @@ xMain
 
     std::cout << "File " << (item->Exists() ? "does exist" : "does not exist") << std::endl;
 
-xReturn
+xEnd

@@ -19,7 +19,7 @@
 // arguments to solidify a template yet 
 // So, will deal with arguments in main for now until I 
 // get a better idea 
-xMain
+xBegin
 
     // xStatus status = Good;
     xInt argIndex = 1; // We only have one argument here 
@@ -61,4 +61,4 @@ xMain
         std::cout << directory->ToString() << std::endl;
     }
 
-xReturn
+xEnd

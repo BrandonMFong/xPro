@@ -41,11 +41,15 @@ XPRO = \
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: pugi $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
+all: pugi sqlite $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 pugi : 
 	@echo Package: Pugixml 
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/pugixml.cpp -c -o pugixml.o $(FLAGS)
+
+sqlite : 
+	@echo Package: linux 
+	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o $(FLAGS)
 
 $(XPRO) :
 	@echo xPro Objects: $@.o

@@ -67,6 +67,7 @@ namespace fs = std::__fs::filesystem;
 
 // Using Pugixml as an xml parser 
 #include <xPro/extern/pugixml.hpp>
+#include <xPro/extern/sqlite3.h>
 
 /** APP SPECIFIC START **/
 

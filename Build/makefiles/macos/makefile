@@ -1,17 +1,16 @@
-# Linux
+# macos
+# https://stackoverflow.com/questions/43465483/makefile-with-c-classes
+
 # MACROS START
 CC=g++
-SOURCE_ROOT=./../..
+SOURCE_ROOT=./../../../Sources
 xPro_ROOT=$(SOURCE_ROOT)/..
 TOOLS_DIR=$(SOURCE_ROOT)/Tools
 BIN_DIR=$(xPro_ROOT)/bin
 FLAGS = \
-	-lstdc++fs \
 	-std=c++17 \
 	-I$(SOURCE_ROOT) \
-	-Wall \
-	-lssl \
-	-lcrypto 
+	-Wall
 OBJECTS = \
 	enumdir \
 	exist \

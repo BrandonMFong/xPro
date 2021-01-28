@@ -770,7 +770,7 @@
       <Key Lvl="2" Node="8cd2" SecType="public">CES594</Key>
       <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES594" />
       <Key Lvl="3" Node="CES594" SecType="public">BR</Key>
-      <Value Lvl="3" Node="CES594" SecType="private">https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf</Value>
+      <Value Lvl="3" Node="CES594" SecType="public">https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf</Value>
     </Object>
     <!-- Phone -->
     <Object Type="HashTable">

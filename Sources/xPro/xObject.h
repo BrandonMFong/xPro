@@ -42,6 +42,13 @@ public:
 
     xString ToString();
 
+    /**
+     * @brief Returns the xStatus of the construction 
+     * 
+     * @return xBool Good if everything is constructed correctly 
+     */
+    operator xBool();
+    
 protected:
     xStatus _status; /** Result of the constructors */
 

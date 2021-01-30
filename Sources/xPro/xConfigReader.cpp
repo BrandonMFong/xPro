@@ -27,7 +27,7 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
                                         nodeBaterryLifeThreshold,   nodeString,
                                         nodeStartDirectory,         nodeModules,
                                         nodeDirectories,            nodePrograms,
-                                        nodeObjects;
+                                        nodeObjects,                nodeDatabase;
 
     if(status)
     {
@@ -42,6 +42,11 @@ xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
         nodeUpdateStamp = nodeMachine.child("UpdateStamp");
         this->Machine.UpdateStamp.Name = nodeUpdateStamp.name();
         this->Machine.UpdateStamp.Value = nodeUpdateStamp.attribute("Value").value();
+        
+        /* Database */ 
+        nodeDatabase = nodeMachine.child("Database");
+        this->Machine.Database.Name = nodeDatabase.name();
+        this->Machine.Database.Path = nodeDatabase.attribute("Path").value();
         
         /* ShellSettings */ 
         nodeShellSettings = nodeMachine.child("ShellSettings");

@@ -36,11 +36,11 @@ public:
     xString Content();
 
     /**
-     * @brief Gets the name of the file 
+     * @brief Gets the base name of the file 
      * 
      * @return xString 
      */
-    xString Name();
+    xString Name(); // TODO rename to BaseName()
 
     /**
      * @brief Confirms if this is a file

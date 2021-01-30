@@ -29,3 +29,8 @@ xBool xObject::Initialized()
 {
     return this->_isInitialized;
 }
+
+xObject::operator xBool()
+{
+    return this->_status;
+}

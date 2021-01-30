@@ -24,9 +24,11 @@ class xDatabase : public xObject
 public:
     xDatabase();
 protected:
+    xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */
     xString _user; /** Database user */
     xString _server; /** Database server */
+    sqlite3 * _sqlDatabasePtr; /** Sqlite3 database object */
 };
 
 #endif

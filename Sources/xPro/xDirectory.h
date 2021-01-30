@@ -83,7 +83,7 @@ public:
     xString Path();
 
     /**
-     * @brief Print c string
+     * @brief Print full file path in c string
      * 
      * @return xChar * of Directory path 
      */

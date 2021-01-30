@@ -31,6 +31,11 @@ struct xRootConfigReader : BasicXml
         xString Value;
     } UpdateStamp;
 
+    struct Database : BasicXml
+    {
+        xString Path;
+    } Database;
+
     struct ShellSettings : BasicXml
     {
         xString Enabled;

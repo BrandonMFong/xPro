@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="Zukai" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
+  <Database>
+    <Path>/home/brandonmfong/databases/zukai.db</Path>
+  </Database>
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">

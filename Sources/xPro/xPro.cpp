@@ -44,3 +44,9 @@ xInt Char2xInt(xString character)
     strValue >> result;
     return result;
 }
+
+xInt stdCallBack(void *NotUsed, int argc, char **argv, char **azColName)
+{
+    std::cout << "Something bad happened" << std::endl;
+    return 0;
+}

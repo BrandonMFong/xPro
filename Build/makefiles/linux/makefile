@@ -11,7 +11,10 @@ FLAGS = \
 	-I$(SOURCE_ROOT) \
 	-Wall \
 	-lssl \
-	-lcrypto 
+	-lcrypto \
+	-lpthread \
+	-ldl
+
 OBJECTS = \
 	enumdir \
 	exist \
@@ -48,8 +51,8 @@ pugi :
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/pugixml.cpp -c -o pugixml.o $(FLAGS)
 
 sqlite : 
-	@echo Package: linux 
-	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o $(FLAGS)
+	@echo Package: sqlite 
+	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o -lstdc++fs -I$(SOURCE_ROOT) -Wall -lssl -ldl
 
 $(XPRO) :
 	@echo xPro Objects: $@.o

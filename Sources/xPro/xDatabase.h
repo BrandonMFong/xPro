@@ -10,6 +10,7 @@
  * https://mariadb.com/kb/en/mariadb-connector-c/
  * 
  * Going to use sqlite since it seems easier to integrate
+ * https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
  * 
  */
 

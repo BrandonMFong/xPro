@@ -23,6 +23,7 @@ class xDatabase : public xObject
 {
 public:
     xDatabase();
+    xBool Connected();
 protected:
     xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */

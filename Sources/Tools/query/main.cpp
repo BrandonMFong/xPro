@@ -16,4 +16,6 @@ xBegin
     gStatus = Good;
     xQuery * database = new xQuery();
 
+    std::cout << (database->Connected() ? "Connected" : "Not Connected") << std::endl;
+
 xEnd

@@ -46,8 +46,17 @@ xDatabase::xDatabase() : xObject()
 
         result = sqlite3_open(databasePath->ToCString(), &this->_sqlDatabasePtr);
 
-        status = (result) ? Bad : Good;
+        this->_connected = (result) ? False : True;
+        status = this->_connected ? Bad : Good;
+
+        // std::cout << status << std::endl;
+
     }
     
     this->_status = status;
+}
+
+xBool xDatabase::Connected()
+{
+    return this->_connected;
 }

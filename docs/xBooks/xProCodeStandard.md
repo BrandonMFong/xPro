@@ -6,7 +6,6 @@ Boolean Types: 'Is{Function}'
 
 ## Variables
 camelCased names
-Boolean names: 'is{Variable Name}'
 
 ## Directory names in Tools folder
 The directory must be all lowercased 
@@ -32,8 +31,6 @@ Use getters and setters
 public, protected and private sections should be in said order 
 
 members are always private or protected and start with '_' 
-
-Private functions must start with '_'
 
 Class names should start with x, i.e. xClassName
 

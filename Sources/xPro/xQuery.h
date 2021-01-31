@@ -18,6 +18,13 @@ class xQuery : public xDatabase
 {
 public:
     xQuery();
+
+    /**
+     * @brief Executes query 
+     * 
+     * @param queryString Query string 
+     */
+    void Query(xString queryString);
 protected:
 };
 

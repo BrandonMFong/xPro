@@ -18,4 +18,6 @@ xBegin
 
     std::cout << (database->Connected() ? "Connected" : "Not Connected") << std::endl;
 
+    database->Close();
+
 xEnd

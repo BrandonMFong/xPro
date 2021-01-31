@@ -23,7 +23,19 @@ class xDatabase : public xObject
 {
 public:
     xDatabase();
+
+    /**
+     * @brief Getter for _connected variable
+     * 
+     * @return xBool = True if the file is successfully connected 
+     */
     xBool Connected();
+
+    /**
+     * @brief Closes database connection 
+     * 
+     */
+    void Close();
 protected:
     xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */

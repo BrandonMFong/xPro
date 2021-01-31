@@ -13,3 +13,8 @@
 
 xQuery::xQuery()
 {}
+
+void xQuery::Query(xString queryString)
+{
+    
+}

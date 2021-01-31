@@ -48,9 +48,6 @@ xDatabase::xDatabase() : xObject()
 
         this->_connected = (result) ? False : True;
         status = this->_connected ? Bad : Good;
-
-        // std::cout << status << std::endl;
-
     }
     
     this->_status = status;
@@ -59,4 +56,9 @@ xDatabase::xDatabase() : xObject()
 xBool xDatabase::Connected()
 {
     return this->_connected;
+}
+
+void xDatabase::Close()
+{
+    sqlite3_close(this->_sqlDatabasePtr);
 }

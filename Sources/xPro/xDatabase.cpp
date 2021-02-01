@@ -29,29 +29,16 @@ xInt callback(void *data, int argc, char **argv, char **azColName)
 xDatabase::xDatabase() : xObject()
 {
     xInt result;
-    // xBool okayToContinue = True;
     xStatus status = this->_status;
     xFile * databasePath = new xFile();
     xConfigReader * configReader = new xConfigReader(*(new xAppPointer()));
 
-    if((configReader->Machine.Database.Path.empty() == True))
+    if(!configReader->Machine.Database.Path.empty())
     {
-        this->_name = xEmptyString;
-        this->_user = xEmptyString;
-        this->_server = xEmptyString;
-
-        // okayToContinue = False;
-    }
-    else
-    {
-        // Not used
-        this->_user = xEmptyString;
-        this->_server = xEmptyString;
-        
         databasePath = new xFile(configReader->Machine.Database.Path); // Put file path into xFile object 
     }
 
-    if(databasePath->Exists())
+    if(!databasePath->Exists())
     {
         this->_name = databasePath->Name(); // Get base name 
         this->_path = databasePath->Path(); // Get the full file path 
@@ -60,6 +47,13 @@ xDatabase::xDatabase() : xObject()
 
         this->_connected = (result) ? False : True;
         status = this->_connected ? Bad : Good;
+    }
+    else
+    {
+        this->_name = xEmptyString;
+        this->_path = xEmptyString;
+        this->_server = xEmptyString;
+        this->_connected = xEmptyString;
     }
     
     this->_status = status;

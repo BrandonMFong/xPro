@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="Makito" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
+  <Database Path="/Users/BrandonMFong/brando/programs/sql/makito.db" />
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">

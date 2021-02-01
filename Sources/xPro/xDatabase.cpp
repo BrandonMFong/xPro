@@ -12,6 +12,12 @@
 #include <xPro/xQuery.h>
 #include <xPro/xDatabase.h>
 
+xInt stdCallBack(void *NotUsed, int argc, char **argv, char **azColName)
+{
+    std::cout << "Something bad happened" << std::endl;
+    return 0;
+}
+
 xDatabase::xDatabase() : xObject()
 {
     xInt result;

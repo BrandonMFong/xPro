@@ -12,10 +12,18 @@
 #include <xPro/xQuery.h>
 #include <xPro/xDatabase.h>
 
-xInt stdCallBack(void *NotUsed, int argc, char **argv, char **azColName)
+xInt callback(void *data, int argc, char **argv, char **azColName)
 {
-    std::cout << "Something bad happened" << std::endl;
-    return 0;
+   int i;
+   fprintf(stderr, "%s: ", (const char*)data);
+   
+    for(i = 0; i<argc; i++)
+    {
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    }
+   
+   printf("\n");
+   return 0;
 }
 
 xDatabase::xDatabase() : xObject()
@@ -24,8 +32,7 @@ xDatabase::xDatabase() : xObject()
     xBool okayToContinue = True;
     xStatus status = this->_status;
     xFile * databasePath;
-    xAppPointer * appPointer = new xAppPointer();
-    xConfigReader * configReader = new xConfigReader(*appPointer);
+    xConfigReader * configReader = new xConfigReader(*(new xAppPointer()));
 
     if((configReader->Machine.Database.Path.empty() == True) && (okayToContinue))
     {
@@ -40,15 +47,14 @@ xDatabase::xDatabase() : xObject()
         // Not used
         this->_user = xEmptyString;
         this->_server = xEmptyString;
-
+        
         databasePath = new xFile(configReader->Machine.Database.Path); // Put file path into xFile object 
-
-        // okayToContinue = (databasePath) ? True : False;
     }
 
-    if(databasePath)
+    if(databasePath->Exists())
     {
         this->_name = databasePath->Name(); // Get base name 
+        this->_path = databasePath->Path(); // Get the full file path 
 
         result = sqlite3_open(databasePath->ToCString(), &this->_sqlDatabasePtr);
 
@@ -67,4 +73,14 @@ xBool xDatabase::Connected()
 void xDatabase::Close()
 {
     sqlite3_close(this->_sqlDatabasePtr);
+}
+
+xString xDatabase::Name()
+{
+    return this->_name;
+}
+
+xString xDatabase::Path()
+{
+    return this->_path;
 }

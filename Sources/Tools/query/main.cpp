@@ -17,6 +17,10 @@ xBegin
     xQuery * database = new xQuery();
 
     std::cout << (database->Connected() ? "Connected" : "Not Connected") << std::endl;
+    std::cout << "Database name: " << database->Name() << std::endl;
+    std::cout << "Database file path: " << database->Path() << std::endl;
+
+    database->Query("select * from test");
 
     database->Close();
 

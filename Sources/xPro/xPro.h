@@ -44,6 +44,7 @@ namespace fs = std::filesystem;
 #include <stdio.h>
 #include <limits.h>
 #include <fstream>
+#include <stdlib.h>
 // #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
 #define dPathSeparator '/'
@@ -67,6 +68,7 @@ namespace fs = std::__fs::filesystem;
 
 // Using Pugixml as an xml parser 
 #include <xPro/extern/pugixml.hpp>
+
 #include <xPro/extern/sqlite3.h>
 
 /** APP SPECIFIC START **/

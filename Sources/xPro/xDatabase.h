@@ -36,23 +36,18 @@ public:
      * 
      */
     void Close();
+
+    xString Name();
+    xString Path();
 protected:
     xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */
+    xString _path; /** Database file path */
     xString _user; /** Database user */
     xString _server; /** Database server */
     sqlite3 * _sqlDatabasePtr; /** Sqlite3 database object */
 };
 
-/**
- * @brief Not using static keyword. Don't know what this does 
- * 
- * @param NotUsed 
- * @param argc 
- * @param argv 
- * @param azColName 
- * @return xInt 
- */
-xInt stdCallBack(void *NotUsed, int argc, char **argv, char **azColName);
+int callback(void *data, int argc, char **argv, char **azColName);
 
 #endif

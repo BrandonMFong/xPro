@@ -10,7 +10,8 @@ BIN_DIR=$(xPro_ROOT)/bin
 FLAGS = \
 	-std=c++17 \
 	-I$(SOURCE_ROOT) \
-	-Wall
+	-Wall 
+
 OBJECTS = \
 	enumdir \
 	exist \
@@ -40,11 +41,15 @@ XPRO = \
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: pugi $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
+all: pugi sqlite $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 pugi : 
 	@echo Package: Pugixml 
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/pugixml.cpp -c -o pugixml.o $(FLAGS)
+
+sqlite : 
+	@echo Package: sqlite 
+	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o -I$(SOURCE_ROOT) -Wall -lssl -ldl
 
 $(XPRO) :
 	@echo xPro Objects: $@.o

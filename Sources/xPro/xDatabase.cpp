@@ -29,18 +29,18 @@ xInt callback(void *data, int argc, char **argv, char **azColName)
 xDatabase::xDatabase() : xObject()
 {
     xInt result;
-    xBool okayToContinue = True;
+    // xBool okayToContinue = True;
     xStatus status = this->_status;
-    xFile * databasePath;
+    xFile * databasePath = new xFile();
     xConfigReader * configReader = new xConfigReader(*(new xAppPointer()));
 
-    if((configReader->Machine.Database.Path.empty() == True) && (okayToContinue))
+    if((configReader->Machine.Database.Path.empty() == True))
     {
         this->_name = xEmptyString;
         this->_user = xEmptyString;
         this->_server = xEmptyString;
 
-        okayToContinue = False;
+        // okayToContinue = False;
     }
     else
     {

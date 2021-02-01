@@ -40,6 +40,13 @@ xDatabase::xDatabase() : xObject()
 
     if(!databasePath->Exists())
     {
+        this->_name = xEmptyString;
+        this->_path = xEmptyString;
+        this->_server = xEmptyString;
+        this->_connected = xEmptyString;
+    }
+    else
+    {
         this->_name = databasePath->Name(); // Get base name 
         this->_path = databasePath->Path(); // Get the full file path 
 
@@ -47,13 +54,6 @@ xDatabase::xDatabase() : xObject()
 
         this->_connected = (result) ? False : True;
         status = this->_connected ? Bad : Good;
-    }
-    else
-    {
-        this->_name = xEmptyString;
-        this->_path = xEmptyString;
-        this->_server = xEmptyString;
-        this->_connected = xEmptyString;
     }
     
     this->_status = status;

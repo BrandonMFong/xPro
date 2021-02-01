@@ -76,8 +76,8 @@ namespace fs = std::__fs::filesystem;
 /*** xTypes ***/
 #define True true /** Boolean True */
 #define False false /** Boolean False */
-// #define Good true /** Status = Good */
-// #define Bad false /** Status = Bad */ 
+#define Good true /** Status = Good */
+#define Bad false /** Status = Bad */ 
 #define xNull nullptr /** Null Pointer */
 #define xEmptyString "" /** Empty String */
 #define IsFile(path,ec) fs::is_regular_file(path,ec)
@@ -101,13 +101,13 @@ const xString kHomeDirectoryPath = getenv("HOME");
 const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 /*** xEnums ***/
-enum xEnums
-{
-    Good = true,
-    Bad = false
+// enum xEnums
+// {
+//     Good = true,
+//     Bad = false
 
-    // TODO add True and False
-};
+//     // TODO add True and False
+// };
 
 /*** xGlobals ***/
 extern xStatus gStatus;

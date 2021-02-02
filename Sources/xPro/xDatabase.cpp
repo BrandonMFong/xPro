@@ -50,7 +50,7 @@ xDatabase::xDatabase() : xObject()
         this->_name = databasePath->Name(); // Get base name 
         this->_path = databasePath->Path(); // Get the full file path 
 
-        result = sqlite3_open(databasePath->ToCString(), &this->_sqlDatabasePtr);
+        result = sqlite3_open(databasePath->Path().c_str(), &this->_sqlDatabasePtr);
 
         this->_connected = (result) ? False : True;
         status = this->_connected ? Bad : Good;

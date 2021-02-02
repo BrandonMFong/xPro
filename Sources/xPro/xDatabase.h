@@ -23,6 +23,7 @@ class xDatabase : public xObject
 {
 public:
     xDatabase();
+    xDatabase(xString pathToDatabaseFile);
 
     /**
      * @brief Getter for _connected variable
@@ -44,7 +45,7 @@ protected:
     xString _name; /** Database name */
     xString _path; /** Database file path */
     // xString _user; /** Database user */
-    xString _server; /** Database server */
+    // xString _server; /** Database server */
     sqlite3 * _sqlDatabasePtr; /** Sqlite3 database object */
 };
 

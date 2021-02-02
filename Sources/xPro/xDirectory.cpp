@@ -145,10 +145,11 @@ xString xDirectory::Path()
     return this->ToString();
 }
 
-xChar * xDirectory::ToCString()
-{
-    return (xChar *)this->ToString().c_str();
-}
+// [[deprecated]]
+// xChar * xDirectory::ToCString()
+// {
+//     return (xChar *)this->ToString().c_str();
+// }
 
 // In the previous methods, I don't think I need to check if the path starts with 
 // '/' because I create the full path here

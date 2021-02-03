@@ -11,6 +11,8 @@
 
 #include <xPro/xAppSettings.hpp>
 
+// How do I get the path to the xPro config path? 
+// I need to read the AppPointer in order to know the repo path 
 xAppSettings::xAppSettings() : xJson()
 {
     xStatus status = this->_status;
@@ -20,10 +22,20 @@ xAppSettings::xAppSettings() : xJson()
     // We are going to hard code the path to the app.json since it will 
     // not move by design
     filePath = new xFile(appPointer->Machine.GitRepoDir.InnerXml + dAppSettingsFilePath); 
+    status = filePath->Exists() ? Good : Bad;
 
-    if(filePath->Exists())
+    // Get file name and path 
+    if(status)
     {
         this->_name = filePath->Name();
+        this->_path = filePath->Path();
+    }
+
+    status = this->SetJsonDocument(filePath->Path());
+
+    if(status)
+    {
+        // TODO load the struct
     }
 
     this->_status = status;

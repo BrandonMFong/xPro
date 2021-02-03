@@ -23,5 +23,23 @@ xJson::xJson(xString filePath) : xFile(filePath)
 {
     xStatus status = this->_status;
 
+    if(status)
+    {
+        status = this->SetJsonDocument(filePath);
+    }
+
     this->_status = status;
+}
+
+xBool xJson::SetJsonDocument(xString filePath)
+{
+    xStatus status = Good;
+    std::ifstream inputFile(filePath);
+
+    inputFile >> this->_jsonDocument;
+    status = this->_jsonDocument.is_null() ? Bad : Good;
+
+    this->_isParsed = status ? True : False;
+
+    return status;
 }

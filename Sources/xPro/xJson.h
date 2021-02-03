@@ -26,6 +26,9 @@ public:
 
     xJson(xString filePath);
 protected:
+    xBool SetJsonDocument(xString filePath);
+    nlohmann::json _jsonDocument;
+    xBool _isParsed;
 private:
 };
 

@@ -72,8 +72,6 @@ xDirectory::xDirectory(xString path) : xObject()
         }
     }
 
-    // if(ec || !this->_exists || !result) std::cout << "xDirectory: This path may not be a directory" << std::endl;
-
     this->_status = status;
 }
 
@@ -147,34 +145,10 @@ xString xDirectory::Path()
     return this->ToString();
 }
 
-// [[deprecated]]
-// xChar * xDirectory::ToCString()
-// {
-//     return (xChar *)this->ToString().c_str();
-// }
-
 // In the previous methods, I don't think I need to check if the path starts with 
 // '/' because I create the full path here
 void xDirectory::SetPath(xString path)
 {
-    // xChar cwd[PATH_MAX];
-    // xString currdir;
-
-    // I don't think all cases are considered
-    // if this matches, i am assuming path is coming from root
-    // so will not proceed
-    // if(path[0] == dPathSeparator)
-    // {
-    //     std::cout << "Here" << std::endl;
-    //     // Get Curent working directory
-    //     getcwd(cwd,sizeof(cwd));
-    //     currdir = cwd;
-
-    //     if(path[0] != dPathSeparator)path = '/' + path; // if doesn't start with / and is unix file separator
-    //     else if (path[0] == '.') path.erase(0,1);
-
-    //     path = currdir + path;
-    // }
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
 }
 

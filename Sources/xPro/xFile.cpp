@@ -34,12 +34,9 @@ xFile::xFile(xString path) : xDirectory(path)
 
     if(status) 
     {
-        // TODO delete SetPath and SetExists from here 
-        // this->SetPath(path); // Set's the private path member 
-        // this->SetExists();
         this->_name = LeafItemFromPath(this->_path);
 
-        status = this->_exists;
+        status = this->_exists; // Position somewhere else 
     }
     
     // Handle error 

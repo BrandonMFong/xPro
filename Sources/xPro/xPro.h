@@ -66,42 +66,44 @@ namespace fs = std::__fs::filesystem;
 #define dAppSettingsFilePath "/Config/app.json"
 #endif
 
-// Using Pugixml as an xml parser 
+/** EXTERNAL RESOURCES **/
 #include <xPro/extern/pugixml.hpp>
 #include <xPro/extern/json.hpp>
 #include <xPro/extern/sqlite3.h>
 
 /** APP SPECIFIC START **/
 
+/*** xDefintions ***/
+#define True true                                       /** Boolean True */
+#define False false                                     /** Boolean False */
+#define Good true                                       /** Status = Good */
+#define Bad false                                       /** Status = Bad */ 
+#define xNull nullptr                                   /** Null Pointer */
+#define xEmptyString ""                                 /** Empty String */
+#define IsFile(path,ec) fs::is_regular_file(path,ec)    /** Tests if file */
+#define IsDirectory(path,ec) fs::is_directory(path,ec)  /** Tests path if it is a directory */
+#define dUserConfigDirectoryPath "/Config/Users"        /** User Config Path */
+#define xBegin int main(int argc, char *argv[]){        /** Marks beginning of code */
+#define xEnd return (xInt)(!gStatus);}                  /** Returns xStatus */
+
 /*** xTypes ***/
-#define True true /** Boolean True */
-#define False false /** Boolean False */
-#define Good true /** Status = Good */
-#define Bad false /** Status = Bad */ 
-#define xNull nullptr /** Null Pointer */
-#define xEmptyString "" /** Empty String */
-#define IsFile(path,ec) fs::is_regular_file(path,ec)
-#define IsDirectory(path,ec) fs::is_directory(path,ec)
-#define dUserConfigDirectoryPath "/Config/Users" /** User Config Path */
-#define xBegin int main(int argc, char *argv[]){
-#define xEnd return (xInt)(!gStatus);}
-typedef int xInt; /** xPro-Type Integer */
-typedef uint xUInt; /** xPro-Type Unsigned Integer */
-typedef std::string xString; /** xPro-Type String */
-typedef bool xBool; /** xPro-Type Boolean */
-typedef bool xStatus; /** xPro-Type Status */
-typedef std::vector<xString> xStringArray; /** xPro-Type String Array */
-typedef char xChar; /** xPro-Type String */
-typedef std::stringstream xStringStream; /** xPro-Type String Stream */
-typedef std::ifstream xInputFile; /** xPro-Type ifstream */
-typedef fs::path xPath; /** xPro-Type File System Path */
+typedef int xInt;                           /** xPro-Type Integer */
+typedef uint xUInt;                         /** xPro-Type Unsigned Integer */
+typedef std::string xString;                /** xPro-Type String */
+typedef bool xBool;                         /** xPro-Type Boolean */
+typedef bool xStatus;                       /** xPro-Type Status */
+typedef std::vector<xString> xStringArray;  /** xPro-Type String Array */
+typedef char xChar;                         /** xPro-Type String */
+typedef std::stringstream xStringStream;    /** xPro-Type String Stream */
+typedef std::ifstream xInputFile;           /** xPro-Type ifstream */
+typedef fs::path xPath;                     /** xPro-Type File System Path */
 
 /*** xConstants ***/
 const xString kHomeDirectoryPath = getenv("HOME");
 const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 /*** xGlobals ***/
-extern xStatus gStatus;
+extern xStatus gStatus; /**Status variable for xTools */ 
 
 // Order in descending order of inheritance
 /*** xClasses ***/

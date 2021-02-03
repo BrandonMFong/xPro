@@ -11,8 +11,12 @@
 #include <xPro/xAppPointer.h>
 #include <xPro/xConfigReader.h>
 #include <xPro/xXml.h>
+#include <xPro/xAppSettings.hpp>
+#include <xPro/xJson.h>
 #include <xPro/xFile.h>
 #include <xPro/xDirectory.h>
+#include <xPro/xQuery.h>
+#include <xPro/xDatabase.h>
 #include <xPro/xObject.h>
 
 xObject::xObject()

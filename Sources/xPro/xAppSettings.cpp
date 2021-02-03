@@ -9,4 +9,4 @@
  * 
  */
 
-
+#include <xPro/xAppSettings.hpp>

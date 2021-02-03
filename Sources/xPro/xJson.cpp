@@ -9,6 +9,7 @@
  * 
  */
 
+#include <xPro/xAppSettings.hpp>
 #include <xPro/xJson.h>
 
 xJson::xJson() : xFile()

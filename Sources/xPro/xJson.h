@@ -17,7 +17,7 @@
 struct BasicJson
 {
     xString Name;
-}
+};
 
 class xJson : public xFile
 {

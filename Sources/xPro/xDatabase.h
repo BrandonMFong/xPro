@@ -41,6 +41,14 @@ public:
     xString Name();
     xString Path();
 protected:
+    /**
+     * @brief Connects to a database with a provided string
+     * 
+     * @param filePath Path to sqlite3 database file 
+     * @return xStatus 
+     */
+    xStatus ConnectToDatabase(xString filePath);
+
     xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */
     xString _path; /** Database file path */

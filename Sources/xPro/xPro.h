@@ -100,15 +100,6 @@ typedef fs::path xPath; /** xPro-Type File System Path */
 const xString kHomeDirectoryPath = getenv("HOME");
 const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
-/*** xEnums ***/
-// enum xEnums
-// {
-//     Good = true,
-//     Bad = false
-
-//     // TODO add True and False
-// };
-
 /*** xGlobals ***/
 extern xStatus gStatus;
 
@@ -119,9 +110,15 @@ extern xStatus gStatus;
 /**** File System Objects ****/
 #include <xPro/xDirectory.h>
 #include <xPro/xFile.h>
+
+// Xml family
 #include <xPro/xXml.h>
 #include <xPro/xConfigReader.h>
 #include <xPro/xAppPointer.h>
+
+// Json family 
+#include <xPro/xJson.h>
+#include <xPro/xAppSettings.hpp>
 
 /**** Database Objects ****/
 #include <xPro/xDatabase.h>

@@ -14,6 +14,11 @@
 
 #include <xPro/xPro.h>
 
+struct BasicJson
+{
+    xString Name;
+}
+
 class xJson : public xFile
 {
 public: 

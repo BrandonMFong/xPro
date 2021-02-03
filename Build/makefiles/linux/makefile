@@ -29,6 +29,8 @@ FILESYSTEM = \
 	xAppPointer \
 	xConfigReader \
 	xXml \
+	xJson \
+	xAppSettings \
 	xFile \
 	xDirectory 
 

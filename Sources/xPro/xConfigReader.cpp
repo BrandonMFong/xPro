@@ -15,8 +15,6 @@ xConfigReader::xConfigReader() : xXml()
 
 xConfigReader::xConfigReader(xString filePath) : xXml(filePath)
 {
-    // std::cout << filePath << std::endl;
-    // std::cout << this->_path << std::endl;
     xStatus status = this->_status;
     xRootConfigReader::Modules::Mod     tempMod;
     xRootConfigReader::Directories::Dir tempDir;

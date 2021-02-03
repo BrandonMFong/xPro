@@ -50,6 +50,12 @@ struct xRootAppSettings : BasicJson
     } Files;
 };
 
+/**
+ * @brief 
+ * 
+ * @note this is a unique case where we are using xFile (its relative) to construct the path 
+ * 
+ */
 class xAppSettings : public xJson 
 {
 public: 

@@ -21,5 +21,7 @@ xJson::xJson() : xFile()
 
 xJson::xJson(xString filePath) : xFile(filePath)
 {
-    
+    xStatus status = this->_status;
+
+    this->_status = status;
 }

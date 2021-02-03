@@ -23,13 +23,13 @@
 #include <istream> 
 #include <direct.h>
 #include <sstream> 
-// #include <xPro/extern/pugixml.hpp>
 namespace fs = std::filesystem;
 #define dPathSeparator '\\'
 #define getcwd _getcwd
 #define PATH_MAX _MAX_PATH
 #define isWINDOWS
 #define dAppPointerFile "Profile.xml"
+#define dAppSettingsFilePath "\\Config\\app.json"
 
 /* LINUX */
 #elif __linux__ 
@@ -45,10 +45,10 @@ namespace fs = std::filesystem;
 #include <limits.h>
 #include <fstream>
 #include <stdlib.h>
-// #include <xPro/extern/pugixml.hpp>
 namespace fs = std::experimental::filesystem;
 #define dPathSeparator '/'
 #define dAppPointerFile ".profile.xml"
+#define dAppSettingsFilePath "/Config/app.json"
 
 /* APPLE */
 #elif __APPLE__
@@ -60,10 +60,10 @@ namespace fs = std::experimental::filesystem;
 #include <unistd.h>
 #include <sstream> 
 #include <fstream>
-// #include <xPro/extern/macos/pugixml.hpp>
 namespace fs = std::__fs::filesystem;
 #define dPathSeparator '/'
 #define dAppPointerFile ".profile.xml"
+#define dAppSettingsFilePath "/Config/app.json"
 #endif
 
 // Using Pugixml as an xml parser 

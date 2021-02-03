@@ -51,9 +51,9 @@ public:
 
 protected:
     xBool _isFile; /** Boolean flag that shows if file exists */
+    xString _name; /** Name of the xFile */
 
 private:
-    xString _name; /** Name of the xFile */
 };
 
 #endif

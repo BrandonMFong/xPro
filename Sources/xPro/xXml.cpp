@@ -17,7 +17,13 @@
 #include <xPro/xXml.h>
 
 xXml::xXml() : xFile()
-{}
+{
+    xStatus status = this->_status;
+
+    this->_isParsed = False;
+
+    this->_status = status;
+}
 
 xXml::xXml(xString xmlFile) : xFile(xmlFile)
 {
@@ -37,8 +43,6 @@ xBool xXml::SetXmlDocument(xString xmlDocument)
 
     result = this->_xmlDocument.load_file(xmlDocument.c_str());
     this->_isParsed = result;
-
-    // std::cout << result.description() << std::endl;
 
     return result;
 }

@@ -14,10 +14,25 @@
 
 #include <xPro/xPro.h>
 
+/**
+ * @brief a database object that handles database querying 
+ * 
+ */
 class xQuery : public xDatabase
 {
 public:
+    /**
+     * @brief Construct a new xQuery object
+     * 
+     */
     xQuery();
+
+    /**
+     * @brief Construct a new xQuery object
+     * 
+     * @param databaseFilePath the full file path for the database 
+     */
+    xQuery(xString databaseFilePath);
 
     /**
      * @brief Executes query 

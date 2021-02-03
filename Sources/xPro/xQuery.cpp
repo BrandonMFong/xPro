@@ -18,6 +18,13 @@ xQuery::xQuery() : xDatabase()
     this->_status = status;
 }
 
+xQuery::xQuery(xString databaseFilePath) : xDatabase(databaseFilePath)
+{
+    xStatus status = this->_status;
+
+    this->_status = status;
+}
+
 void xQuery::Query(xString queryString)
 {
     xInt result;

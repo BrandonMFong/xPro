@@ -19,10 +19,24 @@
 
 #include <xPro/xPro.h>
 
+/**
+ * @brief Sqlite3 database object 
+ * 
+ */
 class xDatabase : public xObject
 {
 public:
+    /**
+     * @brief Construct a new xDatabase object
+     * 
+     */
     xDatabase();
+
+    /**
+     * @brief Construct a new xDatabase object
+     * 
+     * @param pathToDatabaseFile accepts any string to database  
+     */
     xDatabase(xString pathToDatabaseFile);
 
     /**
@@ -38,7 +52,18 @@ public:
      */
     void Close();
 
+    /**
+     * @brief Getter for _name
+     * 
+     * @return xString Name of database file
+     */
     xString Name();
+
+    /**
+     * @brief Getter for _path 
+     * 
+     * @return xString Full file path for the database file 
+     */
     xString Path();
 protected:
     /**
@@ -52,11 +77,18 @@ protected:
     xBool _connected; /** If database has been connected to */
     xString _name; /** Database name */
     xString _path; /** Database file path */
-    // xString _user; /** Database user */
-    // xString _server; /** Database server */
     sqlite3 * _sqlDatabasePtr; /** Sqlite3 database object */
 };
 
+/**
+ * @brief Call back function for query results 
+ * 
+ * @param data 
+ * @param argc 
+ * @param argv 
+ * @param azColName 
+ * @return int 
+ */
 int callback(void *data, int argc, char **argv, char **azColName);
 
 #endif

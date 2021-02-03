@@ -40,11 +40,15 @@ XPRO = \
 	xPro \
 	xObject
 
+EXTERN = \
+	pugi \
+	sqlite 
+
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: pugi sqlite $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
+all: $(EXTERN) $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 pugi : 
 	@echo Package: Pugixml 

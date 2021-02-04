@@ -63,6 +63,13 @@ public:
 
     xRootAppSettings Machine;
 protected:
+    /**
+     * @brief Set the Json Value object
+     * 
+     * @param target The struct
+     * @param value the json object
+     */
+    void SetJsonValue(xString &target, nlohmann::json value);
 private:
 };
 

@@ -59,8 +59,16 @@ struct xRootAppSettings : BasicJson
 class xAppSettings : public xJson 
 {
 public: 
+    /**
+     * @brief Construct a new App Settings object
+     * 
+     */
     xAppSettings();
 
+    /**
+     * @brief The holder for the app settings structure 
+     * 
+     */
     xRootAppSettings Machine;
 protected:
     /**

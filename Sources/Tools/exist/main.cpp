@@ -6,7 +6,7 @@
  * @author Brando (BrandonMFong.com)
  */
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 xBegin
 

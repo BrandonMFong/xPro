@@ -14,7 +14,7 @@
 #ifndef _XCONFIGREADER_
 #define _XCONFIGREADER_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief The C++ xml structure for xPro User config files.  Please read xPro.xsd for more details

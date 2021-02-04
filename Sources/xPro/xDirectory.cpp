@@ -7,13 +7,13 @@
  * @date 2021-01-23
  */
 
-#include <xPro/xAppPointer.h>
-#include <xPro/xConfigReader.h>
-#include <xPro/xXml.h>
+#include <xPro/xAppPointer.hpp>
+#include <xPro/xConfigReader.hpp>
+#include <xPro/xXml.hpp>
 #include <xPro/xAppSettings.hpp>
-#include <xPro/xJson.h>
-#include <xPro/xFile.h>
-#include <xPro/xDirectory.h>
+#include <xPro/xJson.hpp>
+#include <xPro/xFile.hpp>
+#include <xPro/xDirectory.hpp>
 
 xDirectory::xDirectory() : xObject()
 {

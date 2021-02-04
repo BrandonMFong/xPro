@@ -17,7 +17,7 @@
 #ifndef _XDATABASE_
 #define _XDATABASE_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief Sqlite3 database object 

@@ -12,7 +12,7 @@
 #ifndef _XQUERY_
 #define _XQUERY_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief a database object that handles database querying 

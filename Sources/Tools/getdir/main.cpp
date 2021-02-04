@@ -6,7 +6,7 @@
  * @author Brando (BrandonMFong.com)
  */
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief   We are only accepting the directory alias. The push flag was never really used when I implemented

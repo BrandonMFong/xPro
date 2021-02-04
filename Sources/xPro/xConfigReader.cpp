@@ -8,7 +8,7 @@
  * 
  */
 
-#include <xPro/xConfigReader.h>
+#include <xPro/xConfigReader.hpp>
 
 xConfigReader::xConfigReader() : xXml()
 {}

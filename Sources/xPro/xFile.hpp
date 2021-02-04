@@ -10,7 +10,7 @@
 #ifndef _XFILE_
 #define _XFILE_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 class xFile : public xDirectory
 {

@@ -12,9 +12,9 @@
  * I need to initialize with the root node 
  */
 
-#include <xPro/xAppPointer.h>
-#include <xPro/xConfigReader.h>
-#include <xPro/xXml.h>
+#include <xPro/xAppPointer.hpp>
+#include <xPro/xConfigReader.hpp>
+#include <xPro/xXml.hpp>
 
 xXml::xXml() : xFile()
 {

@@ -12,7 +12,7 @@
 #ifndef _XAPPSETTINGS_
 #define _XAPPSETTINGS_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief Defines the app.json structure.  Pretty follows similarly to the xml family 

@@ -107,24 +107,24 @@ extern xStatus gStatus; /**Status variable for xTools */
 
 // Order in descending order of inheritance
 /*** xClasses ***/
-#include <xPro/xObject.h>
+#include <xPro/xObject.hpp>
 
 /**** File System Objects ****/
-#include <xPro/xDirectory.h>
-#include <xPro/xFile.h>
+#include <xPro/xDirectory.hpp>
+#include <xPro/xFile.hpp>
 
 // Xml family
-#include <xPro/xXml.h>
-#include <xPro/xConfigReader.h>
-#include <xPro/xAppPointer.h>
+#include <xPro/xXml.hpp>
+#include <xPro/xConfigReader.hpp>
+#include <xPro/xAppPointer.hpp>
 
 // Json family 
-#include <xPro/xJson.h>
+#include <xPro/xJson.hpp>
 #include <xPro/xAppSettings.hpp>
 
 /**** Database Objects ****/
-#include <xPro/xDatabase.h>
-#include <xPro/xQuery.h>
+#include <xPro/xDatabase.hpp>
+#include <xPro/xQuery.hpp>
 
 /** Get's leaf item from a given filesystem path. This function is assuming the path already exists. 
  * Reference: https://stackoverflow.com/questions/22818925/c-error-undefined-symbols-for-architecture-x86-64

@@ -9,8 +9,8 @@
  * 
  */
 
-#include <xPro/xQuery.h>
-#include <xPro/xDatabase.h>
+#include <xPro/xQuery.hpp>
+#include <xPro/xDatabase.hpp>
 
 xInt callback(void *data, int argc, char **argv, char **azColName)
 {

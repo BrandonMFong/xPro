@@ -5,7 +5,7 @@
  * 
  * @author Brando (BrandonMFong.com)
  */
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 #define ArgsLimit 5
 

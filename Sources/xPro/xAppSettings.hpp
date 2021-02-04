@@ -41,7 +41,7 @@ struct xRootAppSettings : BasicJson
         xString SessionCache;
         xString plistConfig;
         xString CalendarClassMod;
-        xString DirectoryCache;
+        xString DictionaryCache;
 
         struct Config : BasicJson 
         {
@@ -60,6 +60,8 @@ class xAppSettings : public xJson
 {
 public: 
     xAppSettings();
+
+    xRootAppSettings Machine;
 protected:
 private:
 };

@@ -37,7 +37,33 @@ xAppSettings::xAppSettings() : xJson()
     if(status)
     {
         // TODO load the struct
-        std::cout << this->_jsonDocument["RepoName"] << std::endl;
+        xString temp = this->_jsonDocument["Directories"]["UserConfig"];
+        std::cout << temp << std::endl;
+
+        this->Machine.RepoName = this->_jsonDocument["RepoName"];
+        this->Machine.BaseConfig = this->_jsonDocument["BaseConfig"];
+
+        // Directories
+        this->Machine.Directories.UserConfig = this->_jsonDocument["Directories"]["UserConfig"];
+        this->Machine.Directories.UserCache = this->_jsonDocument["Directories"]["UserCache"];
+        this->Machine.Directories.CalendarCache = this->_jsonDocument["Directories"]["CalendarCache"];
+        this->Machine.Directories.gitCache = this->_jsonDocument["Directories"]["gitCache"];
+        this->Machine.Directories.GreetingsCache = this->_jsonDocument["Directories"]["GreetingsCache"];
+        this->Machine.Directories.CalendarFileEventImport = this->_jsonDocument["Directories"]["CalendarFileEventImport"];
+        this->Machine.Directories.Classes = this->_jsonDocument["Directories"]["Classes"];
+
+        // Files
+        this->Machine.Files.Debug = this->_jsonDocument["Files"]["Debug"];
+        this->Machine.Files.Greetings = this->_jsonDocument["Files"]["Greetings"];
+        this->Machine.Files.SessionCache = this->_jsonDocument["Files"]["SessionCache"];
+        this->Machine.Files.plistConfig = this->_jsonDocument["Files"]["plistConfig"];
+        this->Machine.Files.CalendarClassMod = this->_jsonDocument["Files"]["CalendarClassMod"];
+        this->Machine.Files.DictionaryCache = this->_jsonDocument["Files"]["DictionaryCache"];
+
+        // Config
+        this->Machine.Files.Config.Verioning = this->_jsonDocument["Files"]["Config"]["Versioning"];
+
+        std::cout << this->Machine.Files.Config.Verioning << std::endl;
     }
 
     this->_status = status;

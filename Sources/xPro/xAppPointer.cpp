@@ -8,7 +8,7 @@
  * 
  */
 
-#include <xPro/xAppPointer.h>
+#include <xPro/xAppPointer.hpp>
 
 xAppPointer::xAppPointer() : xXml(kHomeProfilePath)
 {

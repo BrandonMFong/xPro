@@ -10,7 +10,7 @@
 #ifndef _XXML_
 #define _XXML_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief Basic xml parameters

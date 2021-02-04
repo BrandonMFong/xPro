@@ -9,7 +9,7 @@
  * 
  */
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 xBegin
 

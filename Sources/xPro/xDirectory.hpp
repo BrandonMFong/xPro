@@ -10,7 +10,7 @@
 #ifndef _XDIRECTORY_
 #define _XDIRECTORY_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 #define xEnumerateDirectoryItems "EnumerateDirectoryItems"
 enum DirResult
 {

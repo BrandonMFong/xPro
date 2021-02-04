@@ -9,7 +9,7 @@
  * 
  */
 
-#include <xPro/xQuery.h>
+#include <xPro/xQuery.hpp>
 
 xQuery::xQuery() : xDatabase()
 {

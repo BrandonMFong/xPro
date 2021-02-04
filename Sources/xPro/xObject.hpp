@@ -11,7 +11,7 @@
 #ifndef _XOBJECT_
 #define _XOBJECT_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 /**
  * @brief The base object of the xPro framework.  Every object in this framework is a child of this class

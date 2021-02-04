@@ -7,7 +7,7 @@
  * @date 2021-01-23
  */
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 xStatus gStatus = Good;
 

@@ -12,7 +12,7 @@
 #ifndef _XJSON_
 #define _XJSON_
 
-#include <xPro/xPro.h>
+#include <xPro/xPro.hpp>
 
 struct BasicJson
 {

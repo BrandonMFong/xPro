@@ -22,7 +22,8 @@ OBJECTS = \
 	getpath \
 	cat \
 	getdir \
-	query
+	query \
+	json
 
 # Ascend object hierarchy
 FILESYSTEM = \

@@ -29,13 +29,15 @@ xAppSettings::xAppSettings() : xJson()
     {
         this->_name = filePath->Name();
         this->_path = filePath->Path();
+
+        status = this->SetJsonDocument(filePath->Path());
     }
 
-    status = this->SetJsonDocument(filePath->Path());
 
     if(status)
     {
         // TODO load the struct
+        std::cout << this->_jsonDocument["RepoName"] << std::endl;
     }
 
     this->_status = status;

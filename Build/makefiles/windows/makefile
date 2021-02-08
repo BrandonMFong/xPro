@@ -3,32 +3,74 @@
 # @cl $(SOURCE_DIR)\$@\main.cpp $(LIB_ROOT)\xPro\xPro.cpp /Fexpro.$@.exe $(FLAGS)
 
 # MACROS START
-CPP_EXT = cpp
-LIB_ROOT = ..\..
-SOURCE_DIR = $(LIB_ROOT)\Sources
-xPro_ROOT = $(LIB_ROOT)\..
-BIN_DIR = $(xPro_ROOT)\bin
+CC=cl
+SOURCE_ROOT=.\..\..\..\Sources
+xPro_ROOT=$(SOURCE_ROOT)\..
+TOOLS_DIR=$(SOURCE_ROOT)\Tools
+BIN_DIR=$(xPro_ROOT)\bin
 FLAGS = \
 	/std:c++latest \
 	/EHsc \
-	/I$(LIB_ROOT)
-TARGET_DIR = xPro 
-TARGETS = \
-	$(SOURCE_DIR)\$@\main.cpp \
-	$(LIB_ROOT)\xPro\xPro.cpp \
-	$(LIB_ROOT)\xPro\xDirectory.cpp
+	/I$(LIB_ROOT) \
+	/Wall \
+
 OBJECTS = \
 	enumdir \
 	exist \
-	selectitem
+	selectitem \
+	getpath \
+	cat \
+	getdir \
+	query \
+	json
+
+# Ascend object hierarchy
+FILESYSTEM = \
+	xAppPointer \
+	xConfigReader \
+	xXml \
+	xJson \
+	xAppSettings \
+	xFile \
+	xDirectory 
+
+SQL = \
+	xDatabase \
+	xQuery 
+
+XPRO = \
+	xPro \
+	xObject
+
+EXTERN = \
+	pugi \
+	sqlite 
 # MACROS end
 
 # nmake 
-all: $(OBJECTS) Clean
+all: pugi
 
-$(OBJECTS): 
+pugi : 
+	@echo Package: Pugixml 
+	@$(CC) /Fopugixml.obj $(SOURCE_ROOT)\xPro\extern\pugixml.cpp $(FLAGS)
+
+sqlite : 
+	@echo Package: sqlite 
+
+$(XPRO) :
+	@echo xPro Objects: $@.o
+
+$(FILESYSTEM) :
+	@echo xPro Objects: $@.o
+
+$(SQL) :
+	@echo xPro Objects: $@.o
+
+$(OBJECTS) :
+	@echo xPro Tools: xpro.$@
+
+$(OBJECTS) : 
 	@echo Building 
-	@cl $(TARGETS) /Fexpro.$@.exe $(FLAGS)
 	@copy xpro.$@.exe $(BIN_DIR)\$(ENUMDIR_EXE)
 	@del xpro.$@.exe
 	@del main.obj

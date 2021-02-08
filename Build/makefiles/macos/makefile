@@ -19,7 +19,8 @@ OBJECTS = \
 	getpath \
 	cat \
 	getdir \
-	query
+	query \
+	json
 
 # Ascend object hierarchy
 FILESYSTEM = \
@@ -37,11 +38,15 @@ XPRO = \
 	xPro \
 	xObject
 
+EXTERN = \
+	pugi \
+	sqlite 
+
 # MACROS END
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: pugi sqlite $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
+all: $(EXTERN) $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 pugi : 
 	@echo Package: Pugixml 
@@ -49,7 +54,7 @@ pugi :
 
 sqlite : 
 	@echo Package: sqlite 
-	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o -I$(SOURCE_ROOT) -Wall -lssl -ldl
+	@gcc $(SOURCE_ROOT)/xPro/extern/sqlite3.c -c -o sqlite3.o -I$(SOURCE_ROOT) -Wall
 
 $(XPRO) :
 	@echo xPro Objects: $@.o

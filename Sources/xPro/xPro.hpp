@@ -60,6 +60,7 @@ namespace fs = std::experimental::filesystem;
 #include <unistd.h>
 #include <sstream> 
 #include <fstream>
+#include <stdlib.h>
 namespace fs = std::__fs::filesystem;
 #define dPathSeparator '/'
 #define dAppPointerFile ".profile.xml"

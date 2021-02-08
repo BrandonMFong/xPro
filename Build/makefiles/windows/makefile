@@ -7,11 +7,12 @@ CC=cl
 SOURCE_ROOT=.\..\..\..\Sources
 xPro_ROOT=$(SOURCE_ROOT)\..
 TOOLS_DIR=$(SOURCE_ROOT)\Tools
+FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
 BIN_DIR=$(xPro_ROOT)\bin
 FLAGS = \
 	/std:c++latest \
 	/EHsc \
-	/I$(LIB_ROOT) \
+	/I$(SOURCE_ROOT) \
 	/Wall \
 
 OBJECTS = \
@@ -26,51 +27,32 @@ OBJECTS = \
 
 # Ascend object hierarchy
 FILESYSTEM = \
-	xAppPointer \
-	xConfigReader \
-	xXml \
-	xJson \
-	xAppSettings \
-	xFile \
-	xDirectory 
+	$(FRAMEWORK_DIR)\xAppPointer.cpp \
+	$(FRAMEWORK_DIR)\xConfigReader.cpp \
+	$(FRAMEWORK_DIR)\xXml.cpp \
+	$(FRAMEWORK_DIR)\xJson.cpp \
+	$(FRAMEWORK_DIR)\xAppSettings.cpp \
+	$(FRAMEWORK_DIR)\xFile.cpp \
+	$(FRAMEWORK_DIR)\xDirectory.cpp 
 
 SQL = \
-	xDatabase \
-	xQuery 
+	$(FRAMEWORK_DIR)\xDatabase.cpp \
+	$(FRAMEWORK_DIR)\xQuery.cpp 
 
 XPRO = \
-	xPro \
-	xObject
+	$(FRAMEWORK_DIR)\xPro.cpp \
+	$(FRAMEWORK_DIR)\xObject.cpp
 
 EXTERN = \
-	pugi \
-	sqlite 
+	$(FRAMEWORK_DIR)\extern\pugixml.cpp \
+	$(FRAMEWORK_DIR)\extern\sqlite3.c 
+
+SOURCE_FILES = $(FILESYSTEM) $(SQL) $(XPRO) $(EXTERN)
 # MACROS end
 
 # nmake 
-all: pugi
-
-pugi : 
-	@echo Package: Pugixml 
-	@$(CC) /Fopugixml.obj $(SOURCE_ROOT)\xPro\extern\pugixml.cpp $(FLAGS)
-
-sqlite : 
-	@echo Package: sqlite 
-
-$(XPRO) :
-	@echo xPro Objects: $@.o
-
-$(FILESYSTEM) :
-	@echo xPro Objects: $@.o
-
-$(SQL) :
-	@echo xPro Objects: $@.o
-
-$(OBJECTS) :
-	@echo xPro Tools: xpro.$@
+all: $(OBJECTS)
 
 $(OBJECTS) : 
 	@echo Building 
-	@copy xpro.$@.exe $(BIN_DIR)\$(ENUMDIR_EXE)
-	@del xpro.$@.exe
-	@del main.obj
+	@$(CC) /Fe$(BIN_DIR)\xpro.$@.exe $(SOURCE_FILES) $(FLAGS)

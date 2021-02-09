@@ -30,6 +30,7 @@ namespace fs = std::filesystem;
 #define isWINDOWS
 #define dAppPointerFile "Profile.xml"
 #define dAppSettingsFilePath "\\Config\\app.json"
+typedef uint unsigned int;
 
 /* LINUX */
 #elif __linux__ 
@@ -100,7 +101,7 @@ typedef std::ifstream xInputFile;           /** xPro-Type ifstream */
 typedef fs::path xPath;                     /** xPro-Type File System Path */
 
 /*** xConstants ***/
-const xString kHomeDirectoryPath = getenv("HOME");
+const xString kHomeDirectoryPath = getenv("HOME"); // _dupenv_s is suggested for windows 
 const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 /*** xGlobals ***/

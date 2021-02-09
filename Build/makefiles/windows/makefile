@@ -13,7 +13,7 @@ FLAGS = \
 	/std:c++latest \
 	/EHsc \
 	/I$(SOURCE_ROOT) \
-	/Wall \
+	/D_CRT_SECURE_NO_WARNINGS=1
 
 OBJECTS = \
 	enumdir \

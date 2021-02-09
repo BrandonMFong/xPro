@@ -30,7 +30,8 @@ namespace fs = std::filesystem;
 #define isWINDOWS
 #define dAppPointerFile "Profile.xml"
 #define dAppSettingsFilePath "\\Config\\app.json"
-typedef uint unsigned int;
+#define dHomePath "USERPROFILE"
+typedef unsigned int uint;
 
 /* LINUX */
 #elif __linux__ 
@@ -50,6 +51,7 @@ namespace fs = std::experimental::filesystem;
 #define dPathSeparator '/'
 #define dAppPointerFile ".profile.xml"
 #define dAppSettingsFilePath "/Config/app.json"
+#define dHomePath "HOME"
 
 /* APPLE */
 #elif __APPLE__
@@ -66,6 +68,7 @@ namespace fs = std::__fs::filesystem;
 #define dPathSeparator '/'
 #define dAppPointerFile ".profile.xml"
 #define dAppSettingsFilePath "/Config/app.json"
+#define dHomePath "HOME"
 #endif
 
 /** EXTERNAL RESOURCES **/
@@ -101,7 +104,7 @@ typedef std::ifstream xInputFile;           /** xPro-Type ifstream */
 typedef fs::path xPath;                     /** xPro-Type File System Path */
 
 /*** xConstants ***/
-const xString kHomeDirectoryPath = getenv("HOME"); // _dupenv_s is suggested for windows 
+const xString kHomeDirectoryPath = getenv(dHomePath); // _dupenv_s is suggested for windows 
 const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
 
 /*** xGlobals ***/

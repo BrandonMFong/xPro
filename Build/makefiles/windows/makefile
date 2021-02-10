@@ -1,5 +1,6 @@
 # makefile
 # https://docs.microsoft.com/en-us/cpp/build/reference/description-blocks?view=msvc-160
+# https://www.bojankomazec.com/2011/10/how-to-use-nmake-and-makefile.html
 # @cl $(SOURCE_DIR)\$@\main.cpp $(LIB_ROOT)\xPro\xPro.cpp /Fexpro.$@.exe $(FLAGS)
 
 # MACROS START
@@ -53,6 +54,10 @@ SOURCE_FILES = $(FILESYSTEM) $(SQL) $(XPRO) $(EXTERN)
 # nmake 
 all: $(OBJECTS)
 
+PREPROCESS :
+	@echo Building library
+	@$(CC) $(SOURCE_FILES) $(FLAGS)
+
 $(OBJECTS) : 
 	@echo Building 
-	@$(CC) /Fe$(BIN_DIR)\xpro.$@.exe $(SOURCE_FILES) $(FLAGS)
+	@$(CC) $(TOOLS_DIR)\$@\main.cpp /Fe$(BIN_DIR)\xpro.$@.exe $(SOURCE_FILES) $(FLAGS)

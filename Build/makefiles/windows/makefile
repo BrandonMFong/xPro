@@ -5,11 +5,13 @@
 
 # MACROS START
 CC=cl
+LINK=link
 SOURCE_ROOT=.\..\..\..\Sources
 xPro_ROOT=$(SOURCE_ROOT)\..
 TOOLS_DIR=$(SOURCE_ROOT)\Tools
 FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
 BIN_DIR=$(xPro_ROOT)\bin
+OBJ=.obj
 FLAGS = \
 	/std:c++latest \
 	/EHsc \
@@ -28,36 +30,56 @@ OBJECTS = \
 
 # Ascend object hierarchy
 FILESYSTEM = \
-	$(FRAMEWORK_DIR)\xAppPointer.cpp \
-	$(FRAMEWORK_DIR)\xConfigReader.cpp \
-	$(FRAMEWORK_DIR)\xXml.cpp \
-	$(FRAMEWORK_DIR)\xJson.cpp \
-	$(FRAMEWORK_DIR)\xAppSettings.cpp \
-	$(FRAMEWORK_DIR)\xFile.cpp \
-	$(FRAMEWORK_DIR)\xDirectory.cpp 
+	xAppPointer \
+	xConfigReader \
+	xXml \
+	xJson \
+	xAppSettings \
+	xFile \
+	xDirectory 
 
 SQL = \
-	$(FRAMEWORK_DIR)\xDatabase.cpp \
-	$(FRAMEWORK_DIR)\xQuery.cpp 
+	xDatabase \
+	xQuery 
 
 XPRO = \
-	$(FRAMEWORK_DIR)\xPro.cpp \
-	$(FRAMEWORK_DIR)\xObject.cpp
+	xPro \
+	xObject
 
 EXTERN = \
-	$(FRAMEWORK_DIR)\extern\pugixml.cpp \
+	$(FRAMEWORK_DIR)\extern\pugixml \
 	$(FRAMEWORK_DIR)\extern\sqlite3.c 
 
 SOURCE_FILES = $(FILESYSTEM) $(SQL) $(XPRO) $(EXTERN)
 # MACROS end
 
 # nmake 
-all: $(OBJECTS)
-
-PREPROCESS :
-	@echo Building library
-	@$(CC) $(SOURCE_FILES) $(FLAGS)
+all: $(EXTERN) $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
+# all: $(OBJECTS)
 
 $(OBJECTS) : 
 	@echo Building 
-	@$(CC) $(TOOLS_DIR)\$@\main.cpp /Fe$(BIN_DIR)\xpro.$@.exe $(SOURCE_FILES) $(FLAGS)
+	@$(CC) $(TOOLS_DIR)\$@\main.cpp /Fe$(BIN_DIR)\xpro.$@.exe *.obj 
+
+$(FRAMEWORK_DIR)\extern\pugixml : 
+	@echo Package: Pugixml 
+	@$(CC) /c $@.cpp /Fepugixml.obj $(FLAGS)
+
+$(FRAMEWORK_DIR)\extern\sqlite3 : 
+	@echo Package: sqlite 
+	@$(CC) /c $@.cpp /Fesqlite3.obj $(FLAGS)
+
+$(XPRO) :
+	@echo xPro Objects: $@.obj
+	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+
+$(FILESYSTEM) :
+	@echo xPro Objects: $@.obj
+	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+
+$(SQL) :
+	@echo xPro Objects: $@.o
+	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+
+clean :
+	@echo Cleaning...

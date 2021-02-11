@@ -1,52 +1,21 @@
+include windows\win.mak
 
-ifeq $($(shell uname), Darwin)
-SEP = /
-CPP_VERSION = c++17
-LSTDC_FLAG = -lstdc++fs
-EXT = 
-CFLAG = 
-else
+# nmake 
+all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
-# Linux
-ifeq $($(shell uname),Linux)
-SEP = /
-CPP_VERSION = c++2a
-LSTDC_FLAG = -lstdc++fs
-EXT = 
-CFLAG = 
-endif
+$(TOOLS) : 
+	@echo xPro Tools: $@ 
+	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) 
+	@$(LINK) /out:$(BIN_DIR)\xpro.$@.exe *.obj 
 
-# Windows
-else
-SEP = \\
-CPP_VERSION = c++latest
-LSTDC_FLAG = 
-EXT = .exe
-CFLAG = -c
-endif
-
-# https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
-
-# MACROS START
-CC=g++
-LIB_ROOT=./..
-SOURCE_DIR=$(LIB_ROOT)/Sources
-xPro_ROOT=$(LIB_ROOT)/..
-BIN_DIR=$(xPro_ROOT)/bin
-INC=-I$(LIB_ROOT)
-
-# Applications
-OBJECTS = \
-	enumdir \
-	exist \
-	selectitem
-
-# MACROS END
-
-tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
-
-all: $(OBJECTS)
+$(EXTERN) : 
+	@echo Package: $@ 
+	@$(CC) /c $(FRAMEWORK_DIR)\extern\$@ /Fe$@.obj $(FLAGS)
 
 $(OBJECTS) :
-	@echo Building $@
-	$(CC) $(SOURCE_DIR)/$@/main.cpp $(LSTDC_FLAG) -std=$(CPP_VERSION) $(INC) $(CFLAG) -Wall -o $(BIN_DIR)/xpro.$@$(EXT)
+	@echo xPro Objects: $@
+	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+
+clean :
+	@echo Cleaning...
+	@del *.obj

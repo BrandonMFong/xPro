@@ -1,7 +1,6 @@
 # makefile
 # https://docs.microsoft.com/en-us/cpp/build/reference/description-blocks?view=msvc-160
 # https://www.bojankomazec.com/2011/10/how-to-use-nmake-and-makefile.html
-# @cl $(SOURCE_DIR)\$@\main.cpp $(LIB_ROOT)\xPro\xPro.cpp /Fexpro.$@.exe $(FLAGS)
 
 # MACROS START
 CC=cl
@@ -59,7 +58,8 @@ all: $(EXTERN) $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
 
 $(OBJECTS) : 
 	@echo Building 
-	@$(CC) $(TOOLS_DIR)\$@\main.cpp /Fe$(BIN_DIR)\xpro.$@.exe *.obj 
+	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) *.obj
+	@$(LINK) /out:$(BIN_DIR)\xpro.$@.exe *.obj 
 
 $(FRAMEWORK_DIR)\extern\pugixml : 
 	@echo Package: Pugixml 
@@ -83,3 +83,4 @@ $(SQL) :
 
 clean :
 	@echo Cleaning...
+	@del *.obj

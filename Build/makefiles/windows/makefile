@@ -12,12 +12,12 @@ FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
 BIN_DIR=$(xPro_ROOT)\bin
 OBJ=.obj
 FLAGS = \
-	/std:c++latest \
+	/std:c++17 \
 	/EHsc \
 	/I$(SOURCE_ROOT) \
 	/D_CRT_SECURE_NO_WARNINGS=1
 
-OBJECTS = \
+TOOLS = \
 	enumdir \
 	exist \
 	selectitem \
@@ -46,39 +46,26 @@ XPRO = \
 	xObject
 
 EXTERN = \
-	$(FRAMEWORK_DIR)\extern\pugixml \
-	$(FRAMEWORK_DIR)\extern\sqlite3.c 
+	pugixml.cpp \
+	sqlite3.c 
 
-SOURCE_FILES = $(FILESYSTEM) $(SQL) $(XPRO) $(EXTERN)
+OBJECTS = $(XPRO) $(SQL) $(FILESYSTEM)
 # MACROS end
 
 # nmake 
-all: $(EXTERN) $(XPRO) $(SQL) $(FILESYSTEM) $(OBJECTS) clean
-# all: $(OBJECTS)
+all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
-$(OBJECTS) : 
-	@echo Building 
-	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) *.obj
+$(TOOLS) : 
+	@echo xPro Tools: $@ 
+	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) 
 	@$(LINK) /out:$(BIN_DIR)\xpro.$@.exe *.obj 
 
-$(FRAMEWORK_DIR)\extern\pugixml : 
-	@echo Package: Pugixml 
-	@$(CC) /c $@.cpp /Fepugixml.obj $(FLAGS)
+$(EXTERN) : 
+	@echo Package: $@ 
+	@$(CC) /c $(FRAMEWORK_DIR)\extern\$@ /Fe$@.obj $(FLAGS)
 
-$(FRAMEWORK_DIR)\extern\sqlite3 : 
-	@echo Package: sqlite 
-	@$(CC) /c $@.cpp /Fesqlite3.obj $(FLAGS)
-
-$(XPRO) :
-	@echo xPro Objects: $@.obj
-	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
-
-$(FILESYSTEM) :
-	@echo xPro Objects: $@.obj
-	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
-
-$(SQL) :
-	@echo xPro Objects: $@.o
+$(OBJECTS) :
+	@echo xPro Objects: $@
 	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
 
 clean :

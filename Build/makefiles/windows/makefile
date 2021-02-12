@@ -12,17 +12,12 @@ xPro_ROOT=$(SOURCE_ROOT)\..
 TOOLS_DIR=$(SOURCE_ROOT)\Tools
 FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
 BIN_DIR=$(xPro_ROOT)\bin
-REMOVE=del 
-OBJECTFILE=obj
 FLAGS = \
 	/std:c++17 \
 	/EHsc \
 	/I$(SOURCE_ROOT) \
 	/D_CRT_SECURE_NO_WARNINGS=1
 # MACROS end
-
-# nmake 
-all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
 $(TOOLS) : 
 	@echo xPro Tools: $@ 

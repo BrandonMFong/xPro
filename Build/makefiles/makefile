@@ -35,7 +35,3 @@ EXTERN = \
 OBJECTS = $(XPRO) $(SQL) $(FILESYSTEM)
 
 all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
-
-clean :
-	@echo Cleaning...
-	@$(REMOVE) *.$(OBJ)

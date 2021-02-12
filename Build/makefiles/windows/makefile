@@ -12,6 +12,8 @@ xPro_ROOT=$(SOURCE_ROOT)\..
 TOOLS_DIR=$(SOURCE_ROOT)\Tools
 FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
 BIN_DIR=$(xPro_ROOT)\bin
+REMOVE=del 
+OBJECTFILE=obj
 FLAGS = \
 	/std:c++17 \
 	/EHsc \

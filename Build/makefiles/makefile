@@ -33,3 +33,9 @@ EXTERN = \
 	sqlite3.c 
 
 OBJECTS = $(XPRO) $(SQL) $(FILESYSTEM)
+
+all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
+
+clean :
+	@echo Cleaning...
+	@$(REMOVE) *.$(OBJECTFILE)

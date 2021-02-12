@@ -8,6 +8,8 @@ SOURCE_ROOT=./../../../Sources
 xPro_ROOT=$(SOURCE_ROOT)/..
 TOOLS_DIR=$(SOURCE_ROOT)/Tools
 BIN_DIR=$(xPro_ROOT)/bin
+REMOVE=rm 
+OBJECTFILE=o
 FLAGS = \
 	-lstdc++fs \
 	-std=c++17 \
@@ -27,8 +29,6 @@ CLANGFLAGS = \
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
-all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
-
 pugixml.cpp : 
 	@echo Package: $@ 
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/$@ -c -o $@.o $(FLAGS)
@@ -44,8 +44,3 @@ $(OBJECTS) :
 $(TOOLS) :
 	@echo xPro Tools: xpro.$@
 	@$(CC) $(TOOLS_DIR)/$@/main.cpp *.o -o $(BIN_DIR)/xpro.$@ $(FLAGS)
-
-clean :
-	@echo Cleaning...
-	@rm *.o
-	

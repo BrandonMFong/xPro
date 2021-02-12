@@ -38,4 +38,4 @@ all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
 clean :
 	@echo Cleaning...
-	@$(REMOVE) *.$(OBJECTFILE)
+	@$(REMOVE) *.$(OBJ)

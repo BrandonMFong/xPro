@@ -1,34 +1,40 @@
 # makefile
 # https://docs.microsoft.com/en-us/cpp/build/reference/description-blocks?view=msvc-160
-# @cl $(SOURCE_DIR)\$@\main.cpp $(LIB_ROOT)\xPro\xPro.cpp /Fexpro.$@.exe $(FLAGS)
+# https://www.bojankomazec.com/2011/10/how-to-use-nmake-and-makefile.html
+
+include ..\makefile
 
 # MACROS START
-CPP_EXT = cpp
-LIB_ROOT = ..\..
-SOURCE_DIR = $(LIB_ROOT)\Sources
-xPro_ROOT = $(LIB_ROOT)\..
-BIN_DIR = $(xPro_ROOT)\bin
+CC=cl
+LINK=link
+SOURCE_ROOT=.\..\..\..\Sources
+xPro_ROOT=$(SOURCE_ROOT)\..
+TOOLS_DIR=$(SOURCE_ROOT)\Tools
+FRAMEWORK_DIR=$(SOURCE_ROOT)\xPro
+BIN_DIR=$(xPro_ROOT)\bin
 FLAGS = \
-	/std:c++latest \
+	/std:c++17 \
 	/EHsc \
-	/I$(LIB_ROOT)
-TARGET_DIR = xPro 
-TARGETS = \
-	$(SOURCE_DIR)\$@\main.cpp \
-	$(LIB_ROOT)\xPro\xPro.cpp \
-	$(LIB_ROOT)\xPro\xDirectory.cpp
-OBJECTS = \
-	enumdir \
-	exist \
-	selectitem
+	/I$(SOURCE_ROOT) \
+	/D_CRT_SECURE_NO_WARNINGS=1
 # MACROS end
 
 # nmake 
-all: $(OBJECTS) Clean
+all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
-$(OBJECTS): 
-	@echo Building 
-	@cl $(TARGETS) /Fexpro.$@.exe $(FLAGS)
-	@copy xpro.$@.exe $(BIN_DIR)\$(ENUMDIR_EXE)
-	@del xpro.$@.exe
-	@del main.obj
+$(TOOLS) : 
+	@echo xPro Tools: $@ 
+	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) 
+	@$(LINK) /out:$(BIN_DIR)\xpro.$@.exe *.obj 
+
+$(EXTERN) : 
+	@echo Package: $@ 
+	@$(CC) /c $(FRAMEWORK_DIR)\extern\$@ /Fe$@.obj $(FLAGS)
+
+$(OBJECTS) :
+	@echo xPro Objects: $@
+	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+
+clean :
+	@echo Cleaning...
+	@del *.obj

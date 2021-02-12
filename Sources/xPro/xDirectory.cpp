@@ -149,7 +149,11 @@ xString xDirectory::Path()
 // '/' because I create the full path here
 void xDirectory::SetPath(xString path)
 {
+    #ifdef isWINDOWS
+    this->_path = fs::canonical(path).string();
+    #else
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 
+    #endif
 }
 
 xString xDirectory::ToString()

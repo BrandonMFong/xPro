@@ -1,21 +1,35 @@
-include windows\win.mak
+# This is an include file for the other makefiles
 
-# nmake 
-all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
+TOOLS = \
+	enumdir \
+	exist \
+	selectitem \
+	getpath \
+	cat \
+	getdir \
+	query \
+	json
 
-$(TOOLS) : 
-	@echo xPro Tools: $@ 
-	@$(CC) /c $(TOOLS_DIR)\$@\main.cpp $(FLAGS) 
-	@$(LINK) /out:$(BIN_DIR)\xpro.$@.exe *.obj 
+# Ascend object hierarchy
+FILESYSTEM = \
+	xAppPointer \
+	xConfigReader \
+	xXml \
+	xJson \
+	xAppSettings \
+	xFile \
+	xDirectory 
 
-$(EXTERN) : 
-	@echo Package: $@ 
-	@$(CC) /c $(FRAMEWORK_DIR)\extern\$@ /Fe$@.obj $(FLAGS)
+SQL = \
+	xDatabase \
+	xQuery 
 
-$(OBJECTS) :
-	@echo xPro Objects: $@
-	@$(CC) /c $(FRAMEWORK_DIR)\$@.cpp /Fe$@.obj $(FLAGS)
+XPRO = \
+	xPro \
+	xObject
 
-clean :
-	@echo Cleaning...
-	@del *.obj
+EXTERN = \
+	pugixml.cpp \
+	sqlite3.c 
+
+OBJECTS = $(XPRO) $(SQL) $(FILESYSTEM)

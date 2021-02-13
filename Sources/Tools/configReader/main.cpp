@@ -22,7 +22,6 @@ xBegin
     xConfigReader * configReader = new xConfigReader();
 
     // Handle Arguments
-    help(True);
 
 xEnd
 

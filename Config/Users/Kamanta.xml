@@ -386,6 +386,7 @@
     <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
+    <Program Alias="7z" SecType="public">C:\Program Files\7-Zip\7z.exe</Program>
     <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>
     <Program Alias="pip" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\Scripts\pip3.9.exe</Program>
   </Programs>
@@ -654,6 +655,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.eyebuydirect.com/eyeglasses/frames/courser-gunmetal-l-18353</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Vbox</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://learnappmaking.com/xcode-for-windows-how-to/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">CarProgram</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://smogcheck.ca.gov/Consumer/Consumer_Assistance_Program/CAP_Repair_Assistance_Program.aspx</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

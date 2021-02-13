@@ -1,6 +1,6 @@
 # xPro
 
-This repository allows an .XML file to be your shell Profile (i.e. PROFILE.ps1 or .zshrc), allowing adaptability of the profile on different machines. 
+This repository allows an .XML file to be your shell Profile, allowing adaptability of the profile on different machines. 
 
 xPro provides the ease of defining aliases, functions, and objects inside an .XML file.  Using the .XML format allows easy readibility and central location for your command line needs.  xPro also allows the user to customize their terminal such as terminal title or terminal prompt.
 
@@ -14,31 +14,14 @@ Currently xPro supports Powershell and z shell.
 
 - Run Setup.ps1
 
-### Z shell
+### Z shell and Bash shell
 
-- Run Setup.zsh
+- Run Setup.sh
 
-## Developed With
+## Secondary Software
 
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-### Prerequisites
-
-* [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7)
-* [z Shell](https://ohmyz.sh/)
-* [SQL](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
-
-## Versioning
-
-* MAJOR.MINOR.PATCH
-    * Version Types
-        * MAJOR: upgrade
-        * MINOR: update, feature
-        * PATCH: bug, patch
-    * Merge workflow
-        * ![git diagram](https://github.com/BrandonMFong/xPro/blob/dev/docs/simplegitdiagram.png)
-    * Branch Name
-        {VersionType}-{BranchToMergeBackInto}-{DescriptionOfBranch}
+* MariaDB
+    * [Mac OS](https://mariadb.com/kb/en/installing-mariadb-on-macos-using-homebrew/)
         
 ## Authors
 

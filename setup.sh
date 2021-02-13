@@ -9,7 +9,8 @@ bashFlag="-bash";                               # Bash shell
 zshFlag="-zsh";                                 # zsh shell
 helpFlag="-help";                               # help flag
 okayToContinue=true;                            # okay to continue flag 
-xProDirectory="$HOME/.xPro"                     # xPro directory 
+xProDirectory="$HOME/.xPro"                     # xPro directory path
+binDirectory="$xProDirectory/bin";              # bin directory 
 out="$xProDirectory/profile.xml";               # Profile
 gitRepoDir=$(pwd);                              # get the xPro directory 
 configPath="${gitRepoDir}/Config/Users";
@@ -57,10 +58,16 @@ else
     okayToContinue=false;
 fi 
 
-# Copy profile script 
+# Make and copy files 
 if [ $okayToContinue = true ]
 then 
-    mkdir $xProDirectory;               # Create directory 
+    if [ -d $xProDirectory ]
+    then 
+        rm -r $xProDirectory;
+    fi
+    
+    mkdir $xProDirectory;               # Create xPro directory 
+    mkdir $binDirectory;                # Create bin directory 
     cp -f $profileScript $shellProfile; # create the profile script 
 
     # See if app pointer exists 
@@ -123,13 +130,17 @@ then
 fi 
 
 # Keeping it in this if statement because I don't want to execute it if the user input something wrong 
-# Write to apppointer 
+# Write to apppointer and copy binaries
 if [ $okayToContinue = true ]
 then
+    # app pointer
     echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" | tee -a $out;
     echo "<Machine MachineName=\"KAMANTA\">" | tee -a $out;
     echo "  <GitRepoDir>${gitRepoDir}</GitRepoDir>" | tee -a $out;
     echo "  <ConfigFile>${configFile}</ConfigFile>" | tee -a $out;
     echo "</Machine>" | tee -a $out;
+
+    # Binaries
+    cp -r "./bin/" $xProDirectory;
 fi
 popd  > /dev/null;

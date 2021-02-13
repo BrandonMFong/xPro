@@ -1,8 +1,11 @@
-// xPro
-// zero index
-
-#include <xPro/xPro.h>
-// #include "xProLibrary.h"
+/**
+ * @file xpro.selectiem
+ * 
+ * @brief From the list given by enumdir, returns the item that is selected by the index
+ * 
+ * @author Brando (BrandonMFong.com)
+ */
+#include <xPro/xPro.hpp>
 
 #define ArgsLimit 5
 
@@ -12,16 +15,13 @@
 
 struct Arguments 
 {
-    int index;
-    std::string path;
+    xInt index;
+    xDirectory * path;
 };
 
-int main(int argc, char *argv[]) 
-{
+xBegin
+
     Arguments args;
-    std::stringstream strValue;
-    std::vector<std::string> filepathvector;
-    // std::vector<std::string>::iterator itr;
     std::string filepath = "";
 
     // Exit program if this is met
@@ -39,26 +39,23 @@ int main(int argc, char *argv[])
         // If we find correct argument, get the one in the succeeding index 
         if(strcmp(argv[i],pathFlag) == 0) 
         {
-            args.path = argv[i+1];
+            args.path = new xDirectory(argv[i+1]);
 
             // going to test if the path exists
             // if it does, then the IsExist() will string the leading dir separator
-            if(!IsExist(args.path))
+            if(!args.path->Exists())
             {
-                // std::cout << "Path does not exist.  Please check spelling" << std::endl;
                 return 1;
             }
         }
         else if (strcmp(argv[i],indexFlag) == 0) 
         {
             // convert char* to int 
-            strValue << argv[i+1];
-            strValue >> args.index;
+            args.index = Char2xInt(argv[i+1]);
         }
     }
 
-    filepath = GetFileByIndex(args.path,args.index);
-    std::cout << GetLeafItem(filepath) << std::endl;
+    filepath = args.path->ItemByIndex(args.index);
+    std::cout << LeafItemFromPath(filepath) << std::endl;
     
-    return 0;
-}
+xEnd

@@ -130,7 +130,7 @@
         <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
         <SSHClientPath Type="Powershell" />
       </Connection>
-      <IpAddress>192.168.1.5</IpAddress>
+      <IpAddress>192.168.1.40</IpAddress>
       <LANConfig>491A5A41-541A-4098-8CF0-50F288960D3A</LANConfig>
     </Network>
     <!-- ELEMENTS-5G 5.0 GHz -->
@@ -193,7 +193,7 @@
         <Username SecType="private">04c97b7d-88b5-4ffc-9e2f-19d09eafd98c</Username>
         <SSHClientPath Type="Powershell" />
       </Connection>
-      <IpAddress>192.168.1.5</IpAddress>
+      <IpAddress>192.168.1.40</IpAddress>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
     <!-- Maki -->
@@ -312,9 +312,6 @@
       }
     ]]></Function>
     <Function><![CDATA[ function global:Open-AppsFolder{start shell:AppsFolder}]]></Function>
-    <Function><![CDATA[ function global:Zoom-CES440{chrome $College.SONOMA.Classes.CES440.Zoom}]]></Function>
-    <Function><![CDATA[ function global:Zoom-CES543{chrome $College.SONOMA.Classes.CES543.Zoom}]]></Function>
-    <Function><![CDATA[ function global:Zoom-CES400{chrome $College.SONOMA.Classes.CES400.Zoom}]]></Function>
   </Functions>
   <!-- Modules -->
   <Modules>
@@ -338,15 +335,14 @@
     <Directory Alias="docs" SecType="public">B:\DOCUMENTS</Directory>
     <Directory Alias="nb" SecType="public">B:\NOTEBOOK</Directory>
     <Directory Alias="repo" SecType="public">B:\SOURCE\Repo</Directory>
-    <Directory Alias="ces400" SecType="public">B:\COLLEGE\20_21\Fall20\CES400</Directory>
-    <Directory Alias="ces543" SecType="public">B:\COLLEGE\20_21\Fall20\CES543</Directory>
-    <Directory Alias="ces440" SecType="public">B:\COLLEGE\20_21\Fall20\CES440</Directory>
     <Directory Alias="life" SecType="public">B:\LIFE</Directory>
     <Directory Alias="Code" SecType="public">B:\CODE</Directory>
     <Directory Alias="job" SecType="public">B:\JOB</Directory>
     <Directory Alias="thesis" SecType="public">B:\COLLEGE\Thesis</Directory>
     <Directory Alias="arduino" SecType="public">C:\Program Files (x86)\Arduino</Directory>
     <Directory Alias="site" SecType="public">B:\SOURCE\Repo\Site</Directory>
+    <Directory Alias="ces594" SecType="public">B:\COLLEGE\20_21\Spring21\CES594</Directory>
+    <Directory Alias="ces514" SecType="public">B:\COLLEGE\20_21\Spring21\CES514</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -390,6 +386,9 @@
     <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
     <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
+    <Program Alias="7z" SecType="public">C:\Program Files\7-Zip\7z.exe</Program>
+    <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>
+    <Program Alias="pip" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\Scripts\pip3.9.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">
@@ -656,6 +655,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://www.eyebuydirect.com/eyeglasses/frames/courser-gunmetal-l-18353</Value>
       <Key Lvl="1" Node="Misc" SecType="public">Vbox</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://learnappmaking.com/xcode-for-windows-how-to/</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">CarProgram</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://smogcheck.ca.gov/Consumer/Consumer_Assistance_Program/CAP_Repair_Assistance_Program.aspx</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />
@@ -732,25 +733,6 @@
       <Value Lvl="1" Node="bd78" SecType="public">http://web.sonoma.edu/users/f/farahman/</Value>
       <Key Lvl="1" Node="bd78" SecType="public">FaridZoom</Key>
       <Value Lvl="1" Node="bd78" SecType="private">7b00c34b-495c-43f6-8995-696305749662</Value>
-      <!-- Hackathon -->
-      <Key Lvl="1" Node="bd78" SecType="public">Hackathon</Key>
-      <Value Lvl="1" Node="bd78" SecType="public" NodePointer="Hackathon" />
-      <Key Lvl="2" Node="Hackathon" SecType="public">Board</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://nodemcu.readthedocs.io/en/release/</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">PinLayout</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://lastminuteengineers.com/esp8266-nodemcu-arduino-tutorial/</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">AQI</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.airnow.gov/?city=Santa%20Rosa&amp;state=CA&amp;country=USA</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">Board2</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">GetStarted2</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://www.instructables.com/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">Devkit</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://github.com/nodemcu/nodemcu-devkit-v1.0</Value>
-      <Key Lvl="2" Node="Hackathon" SecType="public">googledocs</Key>
-      <Value Lvl="2" Node="Hackathon" SecType="public">https://docs.google.com/document/u/1/d/e/2PACX-1vSoZdG2YSPsEtawXJnYKJOsn27L2ftez70Ca6tAhft8WLVZHQE_9DzEIeb2izOIFvzIDDjxzc-AuOFa/pub</Value>
       <!-- Slack -->
       <Key Lvl="1" Node="bd78" SecType="public">Slack</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="a9c2" />
@@ -771,33 +753,24 @@
       <!-- Classes -->
       <Key Lvl="1" Node="bd78" SecType="public">Classes</Key>
       <Value Lvl="1" Node="bd78" SecType="public" NodePointer="8cd2" />
-      <!-- CES440 -->
-      <Key Lvl="2" Node="8cd2" SecType="public">CES440</Key>
-      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES440" />
-      <Key Lvl="3" Node="CES440" SecType="public">URL</Key>
-      <Value Lvl="3" Node="CES440" SecType="public">http://web.sonoma.edu/users/k/kujoory/</Value>
-      <Key Lvl="3" Node="CES440" SecType="public">Zoom</Key>
-      <Value Lvl="3" Node="CES440" SecType="private">d3bc33f2-1756-47d6-a9b6-3ef6495653a2</Value>
-      <Key Lvl="3" Node="CES440" SecType="public">Email</Key>
-      <Value Lvl="3" Node="CES440" SecType="private">a60136f4-9699-4dc0-9bca-1cfea33f0a77</Value>
-      <!-- CES400 -->
-      <Key Lvl="2" Node="8cd2" SecType="public">CES400</Key>
-      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES400" />
-      <Key Lvl="3" Node="CES400" SecType="public">Zoom</Key>
-      <Value Lvl="3" Node="CES400" SecType="private">e9056e0b-1fd2-4bb6-abdd-10b988e57e31</Value>
-      <Key Lvl="3" Node="CES400" SecType="public">Email</Key>
-      <Value Lvl="3" Node="CES400" SecType="private">07320f86-7b1a-4eed-8017-430538104cb7</Value>
-      <!-- CES543 -->
-      <Key Lvl="2" Node="8cd2" SecType="public">CES543</Key>
-      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES543" />
-      <Key Lvl="3" Node="CES543" SecType="public">Zoom</Key>
-      <Value Lvl="3" Node="CES543" SecType="private">4fdaf1b3-5e9b-4c07-87d1-53c32b43aca3</Value>
-      <Key Lvl="3" Node="CES543" SecType="public">Email</Key>
-      <Value Lvl="3" Node="CES543" SecType="private">f5c2374c-bc1e-4ddc-913b-58bf163be17c</Value>
-      <Key Lvl="3" Node="CES543" SecType="public">ZoomPhoneNumber</Key>
-      <Value Lvl="3" Node="CES543" SecType="private">d71670a1-5c00-43b3-a09c-50ef651fc4a7</Value>
-      <Key Lvl="3" Node="CES543" SecType="public">URL</Key>
-      <Value Lvl="3" Node="CES543" SecType="private">1823e6d5-6d84-4725-ab4b-0358ab3b50a2</Value>
+      <!-- CES514 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES514</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES514" />
+      <Key Lvl="3" Node="CES514" SecType="public">Zoom</Key>
+      <Value Lvl="3" Node="CES514" SecType="private">6fb78d64-b70d-4c00-9cf5-eb7fe9835763</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">URL</Key>
+      <Value Lvl="3" Node="CES514" SecType="private">e2477741-7e4f-41d5-a947-8146b70879db</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">Email</Key>
+      <Value Lvl="3" Node="CES514" SecType="private">0a41e0a6-519a-409b-966f-3b0e88356ef37</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">Handbook</Key>
+      <Value Lvl="3" Node="CES514" SecType="public">https://jakevdp.github.io/PythonDataScienceHandbook/</Value>
+      <Key Lvl="3" Node="CES514" SecType="public">Textbook</Key>
+      <Value Lvl="3" Node="CES514" SecType="public">https://github.com/quantumahesh/Hands-On-Machine-Learning-Book/blob/master/Hands-on-Machine-Learning.pdf</Value>
+      <!-- CES594 -->
+      <Key Lvl="2" Node="8cd2" SecType="public">CES594</Key>
+      <Value Lvl="2" Node="8cd2" SecType="public" NodePointer="CES594" />
+      <Key Lvl="3" Node="CES594" SecType="public">BR</Key>
+      <Value Lvl="3" Node="CES594" SecType="public">https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf</Value>
     </Object>
     <!-- Phone -->
     <Object Type="HashTable">

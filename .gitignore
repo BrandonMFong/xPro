@@ -16,11 +16,14 @@ Config/Wifi/*.xml
 debug.log
 .DS_Store
 *.hidden.xml
+XTUM
 
 # binary files
-bin/*
+**/bin/**   
 *.exe
 *.obj
+*.o
+*.out
 
 # Visual Code files
 .vscode/settings.json

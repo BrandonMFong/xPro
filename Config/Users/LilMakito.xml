@@ -31,11 +31,12 @@
     <Directory Alias="source" SecType="public">/Users/BrandonMFong_1/brando/sources</Directory>
     <Directory Alias="lib" SecType="public">//Library</Directory>
     <Directory Alias="desk" SecType="public">/Users/BrandonMFong_1/Desktop</Directory>
+    <Directory Alias="scripts" SecType="public">/Users/BrandonMFong_1/brando/sources/repos/OWC_Scripts/</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <Program Alias="cls" SecType="public">clear</Program>
-    <Program Alias="cl" SecType="public">clear;ls -al;</Program>
+    <Program Alias="cl" SecType="public">clear;ls;</Program>
     <Program Alias="pow" SecType="public">/home/BrandonMFong_1/source/repo/xPro</Program>
     <Program Alias="code" SecType="public">open -a /Users/BrandonMFong_1/brando/programs/vscode/Visual\ Studio\ Code.app</Program>
     <Program Alias="xc" SecType="public">open -a Xcode</Program>
@@ -63,6 +64,7 @@
     <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong_1/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
     <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong_1/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
     <Program Alias="grep" SecType="public">grep --color</Program>
+    <Program Alias="ls" SecType="public">ls -al;</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

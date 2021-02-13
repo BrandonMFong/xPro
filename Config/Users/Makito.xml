@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="Makito" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
+  <Database Path="/Users/BrandonMFong/brando/programs/sql/makito.db" />
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">
@@ -29,8 +30,10 @@
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
     <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
-    <Directory Alias="lib" SecType="public">//Library</Directory>
+    <!-- <Directory Alias="lib" SecType="public">//Library</Directory> -->
     <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
+    <Directory Alias="lib" SecType="public">/Users/BrandonMFong/brando/sources/repos/lsources</Directory>
+    <Directory Alias="scripts" SecType="public">/Users/BrandonMFong/brando/sources/repos/OWC_Scripts</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
@@ -63,6 +66,8 @@
     <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
     <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
     <Program Alias="grep" SecType="public">grep --color</Program>
+    <Program Alias="ls" SecType="public">ls -al</Program>
+    <Program Alias="vc" SecType="public">code</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

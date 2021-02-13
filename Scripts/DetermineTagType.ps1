@@ -14,20 +14,7 @@ Param(
     [string]$PathToTag=$null
 )
 Import-Module $($PSScriptRoot + "\..\Modules\Git.psm1") -Scope Local -DisableNameChecking;
-
-# Push-Location $Global:AppPointer.Machine.GitRepoDir;
-#     # The .yml handles the trigger
-#     # I probably don't need this anymore
-#     if([string]::IsNullOrEmpty($PathToVersionConfig))
-#     {
-#         [System.Object[]]$VersionReader = Get-Content ($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Files.Config.Versioning) | ConvertFrom-Json;
-#     }
-#     else 
-#     {
-        # This case considers other repos using the auto tag feature
-        # For me, I configured the default location in the app.json file
-        [System.Object[]]$VersionReader = Get-Content $PathToVersionConfig | ConvertFrom-Json; # Passed by the user
-    # }
+    [System.Object[]]$VersionReader = Get-Content $PathToVersionConfig | ConvertFrom-Json; # Passed by the user
     [string]$BranchNameDelimiter = $VersionReader.BranchNameDelimiter; # Doing this because I might change to / 
     [String]$LastCommitMessage = $(git log -1 --pretty=format:"%s"); # get the commit message
     [String]$LatestTag = "$(git describe --tags)";

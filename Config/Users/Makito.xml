@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Machine MachineName="Makito" LoadProcedure="" LoadProfile="True" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Schema\xPro.xsd">
   <UpdateStamp Value="08302020" />
+  <Database Path="/Users/BrandonMFong/brando/programs/sql/makito.db" />
   <!-- Terminal Settings -->
   <ShellSettings Enabled="True">
     <Prompt Enabled="True">
@@ -24,18 +25,21 @@
     <Directory Alias="vol" SecType="public">/Volumes</Directory>
     <Directory Alias="dg" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguide</Directory>
     <Directory Alias="dgpa" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguidepa</Directory>
+    <Directory Alias="dgpr" SecType="public">/Users/BrandonMFong/brando/sources/repos/driveguideprofiles</Directory>
     <Directory Alias="docs" SecType="public">/Users/BrandonMFong/brando/docs</Directory>
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
     <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
-    <Directory Alias="lib" SecType="public">//Library</Directory>
+    <!-- <Directory Alias="lib" SecType="public">//Library</Directory> -->
     <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
+    <Directory Alias="lib" SecType="public">/Users/BrandonMFong/brando/sources/repos/lsources</Directory>
+    <Directory Alias="scripts" SecType="public">/Users/BrandonMFong/brando/sources/repos/OWC_Scripts</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>
     <Program Alias="cls" SecType="public">clear</Program>
     <Program Alias="cl" SecType="public">clear;ls -al;</Program>
-    <Program Alias="pow" SecType="public">/home/brandonmfong/source/repo/xPro</Program>
+    <Program Alias="pow" SecType="public">/home/BrandonMFong/source/repo/xPro</Program>
     <Program Alias="code" SecType="public">open -a /Users/BrandonMFong/brando/programs/vscode/Visual\ Studio\ Code.app</Program>
     <Program Alias="xc" SecType="public">open -a Xcode</Program>
     <Program Alias="chrome" SecType="public">open -a 'Google Chrome'</Program>
@@ -43,6 +47,7 @@
     <Program Alias="teams" SecType="public">open -a 'Microsoft Teams'</Program>
     <Program Alias="outlook" SecType="public">open -a 'Microsoft Outlook'</Program>
     <Program Alias="whatsapp" SecType="public">open -a 'Whatsapp'</Program>
+    <Program Alias="spotify" SecType="public">open -a 'Spotify'</Program>
     <Program Alias="trello" SecType="public">open -a 'Trello'</Program>
     <Program Alias="vc-notebook" SecType="public">open '/Users/BrandonMFong/brando/books/workbook/vc-notebook.code-workspace'</Program>
     <Program Alias="screenshot" SecType="public">open -a screenshot</Program>
@@ -57,6 +62,12 @@
     <Program Alias="scb" SecType="public">pbcopy</Program>
     <Program Alias="get-calendar" SecType="public">cal</Program>
     <Program Alias="make" SecType="public">/usr/local/opt/make/libexec/gnubin/make</Program>
+    <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
+    <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
+    <Program Alias="grep" SecType="public">grep --color</Program>
+    <Program Alias="ls" SecType="public">ls -al</Program>
+    <Program Alias="vc" SecType="public">code</Program>
   </Programs>
   <Objects>
     <Object Type="Simple">

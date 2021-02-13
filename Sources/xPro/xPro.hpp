@@ -49,7 +49,7 @@ typedef unsigned int uint;
 #include <stdlib.h>
 namespace fs = std::experimental::filesystem;
 #define dPathSeparator '/'
-#define dAppPointerFile ".profile.xml"
+#define dAppPointerFile ".xPro/profile.xml"
 #define dAppSettingsFilePath "/Config/app.json"
 #define dHomePath "HOME"
 
@@ -66,7 +66,7 @@ namespace fs = std::experimental::filesystem;
 #include <stdlib.h>
 namespace fs = std::__fs::filesystem;
 #define dPathSeparator '/'
-#define dAppPointerFile ".profile.xml"
+#define dAppPointerFile ".xPro/profile.xml"
 #define dAppSettingsFilePath "/Config/app.json"
 #define dHomePath "HOME"
 #endif

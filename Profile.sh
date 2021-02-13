@@ -3,7 +3,7 @@
 # sudo apt install apt
 # Known issues: if object count is one, that object will not load 
 
-declare -A AppPointer=( [GitRepoDir]=$(xmllint --xpath "string(//GitRepoDir)" ~/.profile.xml) [ConfigFile]=$(xmllint --xpath "string(//ConfigFile)" ~/.profile.xml))
+declare -A AppPointer=( [GitRepoDir]=$(xmllint --xpath "string(//GitRepoDir)" $HOME/.xPro/profile.xml) [ConfigFile]=$(xmllint --xpath "string(//ConfigFile)" $HOME/.xPro/profile.xml))
 ConfigPath="${AppPointer[GitRepoDir]}/Config/Users${AppPointer[ConfigFile]}";
 
 # Define alias

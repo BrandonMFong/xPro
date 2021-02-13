@@ -9,7 +9,8 @@ bashFlag="-bash";                               # Bash shell
 zshFlag="-zsh";                                 # zsh shell
 helpFlag="-help";                               # help flag
 okayToContinue=true;                            # okay to continue flag 
-out=~/.profile.xml;                         
+xProDirectory="$HOME/.xPro"                     # xPro directory 
+out="$xProDirectory/profile.xml";               # Profile
 gitRepoDir=$(pwd);                              # get the xPro directory 
 configPath="${gitRepoDir}/Config/Users";
 configFile="/${configFile}.xml";                # config name 
@@ -38,40 +39,38 @@ help ()
 
 pushd "$(dirname "$0")" > /dev/null;
 
-# copy profile 
+# Handle arguments
 if [[ ${arg1} == ${zshFlag} ]]
 then 
-    shellProfile="~/.zshrc"
-    okayToContinue=true
+    shellProfile="$HOME/.zshrc";
+    okayToContinue=true;
 elif [[ ${arg1} == ${bashFlag} ]]
 then 
-    shellProfile="~/.bashrc"
-    okayToContinue=true
+    shellProfile="$HOME/.bashrc";
+    okayToContinue=true;
 elif [[ ${arg1} == ${helpFlag} ]]
 then 
-    help true 
-    okayToContinue=false
+    help true;
+    okayToContinue=false;
 else 
-    help false
-    # printf "${usage}\n\n";
-    # printf "${footer}\n";
+    help false;
     okayToContinue=false;
 fi 
 
 # Copy profile script 
 if [ $okayToContinue = true ]
 then 
-    cp -f $profileScript $shellProfile;
-fi
+    mkdir $xProDirectory;               # Create directory 
+    cp -f $profileScript $shellProfile; # create the profile script 
 
-# Create Profile pointer 
-if [[ ! -f $out ]] && ( [ $okayToContinue = true ] )
-then 
-    touch $out;
-else 
-    rm $out;
-    touch $out;
-fi 
+    # See if app pointer exists 
+    if [ -f $out ]
+    then 
+        rm $out;
+    fi 
+    
+    touch $out; # Create app pointer 
+fi
 
 # Asking if user wants to use or create
 # going to use Makito.xml as basis 
@@ -84,11 +83,13 @@ fi
 
 if ( [ $okayToContinue = true ] ) && ( [[ -z $choice ]] )
 then 
-    printf "No arguments passed";
+    printf "$0: No arguments passed";
+    help false
     okayToContinue=false;
 elif ( [ $okayToContinue = true ] ) && ( [[ $choice -ne 1 ]] ) && ( [[ $choice -ne 2 ]] )
 then 
-    printf "Not choice 1 or 2\n";
+    printf "$0: Not choice 1 or 2\n";
+    help false
     okayToContinue=false;
 fi 
 
@@ -103,19 +104,28 @@ then
         
         # Copy base config to new config 
         cp -f "${configPath}${baseConfig}" "${configPath}${configFile}";
+        okayToContinue=true;
 
     # Use existing config
-    else 
+    elif [ $choice -eq 2 ] 
+    then
         printf "Choose out of the following:\n"
         $enumdir $configPath
         read -p "So: " choice;
         choice=$(($choice - 1));
         configFile="/$($selectitem -path $configPath -index $choice)";
         printf $configFile;
+        okayToContinue=true;
+    else 
+        okayToContinue=false;
     fi 
 
-    # Keeping it in this if statement because I don't want to execute it if the user input something wrong 
-    # Write to apppointer 
+fi 
+
+# Keeping it in this if statement because I don't want to execute it if the user input something wrong 
+# Write to apppointer 
+if [ $okayToContinue = true ]
+then
     echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" | tee -a $out;
     echo "<Machine MachineName=\"KAMANTA\">" | tee -a $out;
     echo "  <GitRepoDir>${gitRepoDir}</GitRepoDir>" | tee -a $out;

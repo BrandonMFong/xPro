@@ -8,7 +8,8 @@ TOOLS = \
 	cat \
 	getdir \
 	query \
-	json
+	json \
+	configReader
 
 # Ascend object hierarchy
 FILESYSTEM = \
@@ -26,7 +27,8 @@ SQL = \
 
 XPRO = \
 	xPro \
-	xObject
+	xObject \
+	xArguments
 
 EXTERN = \
 	pugixml.cpp \

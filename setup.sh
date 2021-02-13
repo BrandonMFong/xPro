@@ -4,37 +4,65 @@
 #
 
 ## Variables Start ## 
-arg1=$1;                                    # Type of unix shell
-bashFlag="-bash";                           # Bash shell
-zshFlag="-zsh";                             # zsh shell
-okayToContinue=true;                        # okay to continue flag 
+arg1=$1;                                        # Type of unix shell
+bashFlag="-bash";                               # Bash shell
+zshFlag="-zsh";                                 # zsh shell
+helpFlag="-help";                               # help flag
+okayToContinue=true;                            # okay to continue flag 
 out=~/.profile.xml;                         
-gitRepoDir=$(pwd);                          # get the xPro directory 
+gitRepoDir=$(pwd);                              # get the xPro directory 
 configPath="${gitRepoDir}/Config/Users";
-configFile="/${configFile}.xml";            # config name 
-baseConfig="/Makito.xml";                   # TODO read from app.json 
+configFile="/${configFile}.xml";                # config name 
+baseConfig="/Makito.xml";                       # TODO read from app.json 
 helpFlag="-help";
 usage="usage: $0 [ -bash | -zsh ]";
 footer="See '$0 ${helpFlag}' for an overview."
 selectitem="./bin/xpro.selectitem"
 enumdir="./bin/xpro.enumdir"
+profileScript="./Profile.sh"
 ## Variables End ## 
+
+help () 
+{
+    showHelp=$1
+    printf "${usage}\n";
+    if [ $showHelp = true ]
+    then 
+        printf "\nArguments for profile setup: "
+        printf "\n\t-bash\tUse if you want to set up bash profile";
+        printf "\n\t-zsh\tUse if you want to set up z shell profile";
+        printf "\n";
+    fi 
+    printf "\n${footer}\n";
+}
 
 pushd "$(dirname "$0")" > /dev/null;
 
 # copy profile 
 if [[ ${arg1} == ${zshFlag} ]]
 then 
-    shellProfile=".zshrc"
+    shellProfile="~/.zshrc"
+    okayToContinue=true
 elif [[ ${arg1} == ${bashFlag} ]]
 then 
-    shellProfile=".bashrc"
+    shellProfile="~/.bashrc"
+    okayToContinue=true
+elif [[ ${arg1} == ${helpFlag} ]]
+then 
+    help true 
+    okayToContinue=false
 else 
-    printf "${usage}\n\n";
-    printf "${footer}\n";
+    help false
+    # printf "${usage}\n\n";
+    # printf "${footer}\n";
     okayToContinue=false;
 fi 
-cp -f ./Profile.sh ~/$shellProfile;
+
+# Copy profile script 
+if [ $okayToContinue = true ]
+then 
+    cp -f $profileScript $shellProfile;
+fi
 
 # Create Profile pointer 
 if [[ ! -f $out ]] && ( [ $okayToContinue = true ] )

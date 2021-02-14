@@ -657,6 +657,8 @@
       <Value Lvl="1" Node="Misc" SecType="public">https://learnappmaking.com/xcode-for-windows-how-to/</Value>
       <Key Lvl="1" Node="Misc" SecType="public">CarProgram</Key>
       <Value Lvl="1" Node="Misc" SecType="public">https://smogcheck.ca.gov/Consumer/Consumer_Assistance_Program/CAP_Repair_Assistance_Program.aspx</Value>
+      <Key Lvl="1" Node="Misc" SecType="public">Pynq</Key>
+      <Value Lvl="1" Node="Misc" SecType="public">https://pynq.readthedocs.io/en/v2.5.1/getting_started.html</Value>
       <!-- Kaiser -->
       <Key Lvl="0" SecType="public">Kaiser</Key>
       <Value Lvl="0" SecType="public" NodePointer="kp" />

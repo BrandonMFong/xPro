@@ -9,7 +9,8 @@ TOOLS = \
 	getdir \
 	query \
 	json \
-	configReader
+	configReader \
+	homePath
 
 # Ascend object hierarchy
 FILESYSTEM = \

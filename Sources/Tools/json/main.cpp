@@ -13,41 +13,29 @@
 
 #define dMaxArgs 2
 
-xBool help();
-
 xBegin
-    xString delimiterString = "/";
-    xAppSettings * settingsReader = new xAppSettings();
-
-    gStatus = help();
-
-    if(gStatus)
-    {
-
-    }
-xEnd
-
-xBool help()
-{
-    xStatus status = Good;
     xUInt size;
     xString value;
     xBool userAskedForHelp = False;
+    xString delimiterString = "/";
+    xAppSettings * settingsReader = new xAppSettings();
 
-    // Count arguments
-    if(status)
+    std::cout << gStatus << std::endl;
+    
+    if(gStatus)
     {
-        status = gArg->Count() != dMaxArgs ? Bad : Good; 
+        std::cout << gArg->Count() << std::endl;
+        gStatus = gArg->Count() != dMaxArgs ? Bad : Good; 
     }
 
-    if(!status) 
+    if(!gStatus) 
     {
         std::cout << "usage: " << gArg->Values()[0] << std::endl;
         std::cout << "See '"<< gArg->Values()[0] << " " << dHelpArgument << "' for an overview of the system." << std::endl;
         std::cout << dFooter << std::endl;
     }
 
-    if(status)
+    if(gStatus)
     {
         size = gArg->Values().size();
         for(xUInt i = 0; i < size; i++)
@@ -70,5 +58,4 @@ xBool help()
         }
     }
 
-    return status;
-}
+xEnd

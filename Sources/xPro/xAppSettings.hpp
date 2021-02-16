@@ -70,9 +70,6 @@ public:
      * 
      */
     xRootAppSettings Machine;
-    xString get(xString node0);
-    xString get(xString node0, xString node1);
-    xString get(xString node0, xString node1, xString node2);
 protected:
     /**
      * @brief Set the Json Value object

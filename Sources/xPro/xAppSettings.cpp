@@ -67,3 +67,18 @@ void xAppSettings::SetJsonValue(xString &target, nlohmann::json value)
 {
     target = value.is_null() ? xEmptyString : value;
 }
+
+xString xAppSettings::get(xString node0)
+{
+    return this->get(node0, xEmptyString);
+}
+
+xString xAppSettings::get(xString node0, xString node1)
+{
+    return this->get(node0, node1, xEmptyString);
+}
+
+xString xAppSettings::get(xString node0, xString node1, xString node2)
+{
+    return xEmptyString;
+}

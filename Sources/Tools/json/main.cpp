@@ -11,8 +11,64 @@
 
 #include <xPro/xPro.hpp>
 
-xBegin
+#define dMaxArgs 2
 
+xBool help();
+
+xBegin
+    xString delimiterString = "/";
     xAppSettings * settingsReader = new xAppSettings();
 
+    gStatus = help();
+
+    if(gStatus)
+    {
+
+    }
 xEnd
+
+xBool help()
+{
+    xStatus status = Good;
+    xUInt size;
+    xString value;
+    xBool userAskedForHelp = False;
+
+    // Count arguments
+    if(status)
+    {
+        status = gArg->Count() != dMaxArgs ? Bad : Good; 
+    }
+
+    if(!status) 
+    {
+        std::cout << "usage: " << gArg->Values()[0] << std::endl;
+        std::cout << "See '"<< gArg->Values()[0] << " " << dHelpArgument << "' for an overview of the system." << std::endl;
+        std::cout << dFooter << std::endl;
+    }
+
+    if(status)
+    {
+        size = gArg->Values().size();
+        for(xUInt i = 0; i < size; i++)
+        {
+            value = gArg->Values()[i];
+            if(value == dHelpArgument)
+            {
+                userAskedForHelp = True;
+                break;
+            }
+        }
+
+        if(userAskedForHelp)
+        {
+            std::cout << "usage: " << gArg->Values()[0] << std::endl;
+            
+            std::cout << "\nAvailable Commands: " << std::endl;
+
+            std::cout << dFooter << std::endl;
+        }
+    }
+
+    return status;
+}

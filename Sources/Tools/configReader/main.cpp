@@ -11,7 +11,7 @@
 
 #include <xPro/xPro.hpp>
 
-#define kMaxArgs 2
+#define dMaxArgs 2
 
 void help(xBool showDetails);
 

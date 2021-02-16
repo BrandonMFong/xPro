@@ -5,6 +5,7 @@
 #>
 
 [Bool]$status = $true;
+[String]$repoName = "";
 
 Push-Location $PSScriptRoot;
 
@@ -26,6 +27,8 @@ if($status)
    Write-Host " '----------------'  '----------------'  '----------------'  '----------------' " -ForegroundColor Cyan;
    Write-Host "Author: Brando" -ForegroundColor DarkGray;
    Write-Host "";
+
+   Write-Host ""
 
    $status = $true;
 }

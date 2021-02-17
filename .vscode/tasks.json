@@ -10,7 +10,8 @@
 				"${file}",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
-				"-I${workspaceFolder}\\Sources"
+				"-I${workspaceFolder}\\Sources",
+				"-std=c++17"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

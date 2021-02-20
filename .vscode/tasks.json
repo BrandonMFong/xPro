@@ -3,6 +3,28 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
+			"label": "Build Pugi",
+			"command": "C:\\MinGW\\bin\\g++.exe",
+			"args": [
+				"${workspaceFolder}\\Sources\\extern\\pugixml.cpp",
+				"-c",
+				"-o",
+				"${workspaceFolder}\\Build\\pugixml.obj",
+				"-I${workspaceFolder}\\Sources",
+				"-std=c++17",
+				"*.o"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:\\MinGW\\bin\\g++.exe"
+		},
+		{
+			"type": "cppbuild",
 			"label": "C/C++: g++.exe build active file",
 			"command": "C:\\MinGW\\bin\\g++.exe",
 			"args": [
@@ -11,7 +33,8 @@
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-I${workspaceFolder}\\Sources",
-				"-std=c++17"
+				"-std=c++17",
+				"*.o"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

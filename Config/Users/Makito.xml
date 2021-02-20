@@ -34,6 +34,7 @@
     <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
     <Directory Alias="lib" SecType="public">/Users/BrandonMFong/brando/sources/repos/lsources</Directory>
     <Directory Alias="scripts" SecType="public">/Users/BrandonMFong/brando/sources/repos/OWC_Scripts</Directory>
+    <Directory Alias="tool" SecType="public">/Users/BrandonMFong/brando/sources/repos/tsources</Directory>
   </Directories>
   <!-- Aliases to call Third Party OR User Defined exectuables, scripts, etc  -->
   <Programs>

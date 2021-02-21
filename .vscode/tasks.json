@@ -6,13 +6,12 @@
 			"label": "Build Pugi",
 			"command": "C:\\MinGW\\bin\\g++.exe",
 			"args": [
-				"${workspaceFolder}\\Sources\\extern\\pugixml.cpp",
+				"${workspaceFolder}\\Sources\\xPro\\extern\\pugixml.cpp",
 				"-c",
 				"-o",
-				"${workspaceFolder}\\Build\\pugixml.obj",
+				"${workspaceFolder}\\Build\\pugixml.o",
 				"-I${workspaceFolder}\\Sources",
-				"-std=c++17",
-				"*.o"
+				"-std=c++17"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

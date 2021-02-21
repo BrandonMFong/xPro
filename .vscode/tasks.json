@@ -24,6 +24,50 @@
 		},
 		{
 			"type": "cppbuild",
+			"label": "Build sqlite",
+			"command": "C:\\MinGW\\bin\\gcc.exe",
+			"args": [
+				"${workspaceFolder}\\Sources\\xPro\\extern\\sqlite3.c",
+				"-c",
+				"-o",
+				"${workspaceFolder}\\Build\\sqlite3.o",
+				"-I${workspaceFolder}\\Sources",
+				"-lstdc++fs",
+				"-lssl -lcrypto -lpthread -ldl"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:\\MinGW\\bin\\gcc.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "Build xPro objects",
+			"command": "C:\\MinGW\\bin\\g++.exe",
+			"args": [
+				"${workspaceFolder}\\Sources\\xPro\\*.cpp",
+				"-c",
+				"-o",
+				"${workspaceFolder}\\Build\\sqlite3.o",
+				"-I${workspaceFolder}\\Sources",
+				"-lstdc++fs",
+				"-lssl -lcrypto -lpthread -ldl"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:\\MinGW\\bin\\g++.exe"
+		},
+		{
+			"type": "cppbuild",
 			"label": "C/C++: g++.exe build active file",
 			"command": "C:\\MinGW\\bin\\g++.exe",
 			"args": [

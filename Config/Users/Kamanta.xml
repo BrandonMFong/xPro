@@ -196,31 +196,6 @@
       <IpAddress>192.168.1.40</IpAddress>
       <LANConfig>703974EB-A955-42B0-8E2D-48F26C9A20DA</LANConfig>
     </Network>
-    <!-- Maki -->
-    <Network>
-      <!-- \\Tataki\notebook -->
-      <!-- TODO configure on Tataki -->
-      <Connection xsi:Type="NetworkShare">
-        <DriveLetter>N:</DriveLetter>
-        <ID>notebook</ID>
-        <IPAddress SecType="private">e3353a07-dd95-438d-b77c-38583006d1ee</IPAddress>
-        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
-        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
-      </Connection>
-      <LANConfig>2276A6AA-CFC3-489F-A607-737823526C7D</LANConfig>
-    </Network>
-    <!-- QW -->
-    <Network>
-      <!-- \\Tataki\notebook -->
-      <Connection xsi:Type="NetworkShare">
-        <DriveLetter>N:</DriveLetter>
-        <ID>notebook</ID>
-        <IPAddress SecType="public">\\10.1.10.181\notebook</IPAddress>
-        <Username SecType="private">ca45be80-d0e2-40a9-9c9c-8f09df3d4916</Username>
-        <Password SecType="private">163b46f3-d80b-440b-83e0-709414ff62a3</Password>
-      </Connection>
-      <LANConfig>22f4733b-7957-47ed-aa2a-81de12465d07</LANConfig>
-    </Network>
   </Networks>
   <!-- Search links for command line web site calls -->
   <Searches>
@@ -635,6 +610,11 @@
       <Value Lvl="1" Node="Github" SecType="private">EE364910-9924-48DC-9673-685591B6EEC1</Value>
       <Key Lvl="1" Node="Github" SecType="public">Password</Key>
       <Value Lvl="1" Node="Github" SecType="private">DA9A8A29-F04E-48FD-808B-BCB3E1B5E7C3</Value>
+      <!-- Github -->
+      <Key Lvl="0" SecType="public">Gitlab</Key>
+      <Value Lvl="0" SecType="public" NodePointer="Gitlab" />
+      <Key Lvl="1" Node="Gitlab" SecType="public">URL</Key>
+      <Value Lvl="1" Node="Gitlab" SecType="public">https://gitlab.sonoma.edu/</Value>
       <!-- Bookmarks -->
       <Key Lvl="0" SecType="public">Bookmarks</Key>
       <Value Lvl="0" SecType="public" NodePointer="Misc" />

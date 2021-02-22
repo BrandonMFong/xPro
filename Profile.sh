@@ -4,7 +4,7 @@
 # Known issues: if object count is one, that object will not load 
 
 dirPath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-xProBin="${dirPath}/.xPro/bin"
+xProBin="${HOME}/.xPro/bin"
 
 export PATH="${xProBin}":$PATH
 

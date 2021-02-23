@@ -46,7 +46,7 @@
 		},
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++.exe build active file",
+			"label": "Build current file",
 			"command": "C:\\MinGW\\bin\\g++.exe",
 			"args": [
 				"-g",

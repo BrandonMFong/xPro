@@ -23,10 +23,15 @@
 #include <istream> 
 #include <direct.h>
 #include <sstream> 
+#include <stdlib.h>
 namespace fs = std::filesystem;
 #define dPathSeparator '\\'
 #define getcwd _getcwd
+#ifdef _MAX_PATH
 #define PATH_MAX _MAX_PATH
+#else 
+#define PATH_MAX 260
+#endif
 #define isWINDOWS
 #define dAppPointerFile "Profile.xml"
 #define dAppSettingsFilePath "\\Config\\app.json"

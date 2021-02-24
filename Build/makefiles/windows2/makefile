@@ -8,6 +8,7 @@ SOURCE_ROOT=./../../../Sources
 xPro_ROOT=$(SOURCE_ROOT)/..
 TOOLS_DIR=$(SOURCE_ROOT)/Tools
 BIN_DIR=$(xPro_ROOT)/bin
+BUILD_DIR=./../..
 OBJ=o
 FLAGS = \
 	-lstdc++fs \
@@ -30,19 +31,19 @@ tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory
 
 pugixml.cpp : promptPackage
 	@echo "  |->" $@
-	@$(CC) $(SOURCE_ROOT)/xPro/extern/$@ -c -o $@.$(OBJ) $(FLAGS)
+	@$(CC) $(SOURCE_ROOT)/xPro/extern/$@ -c -o $(BUILD_DIR)/$@.$(OBJ) $(FLAGS)
 
 sqlite3.c : 
 	@echo "  |->" $@
-	@gcc $(SOURCE_ROOT)/xPro/extern/$@ -c -o $@.$(OBJ) $(CLANGFLAGS)
+	@gcc $(SOURCE_ROOT)/xPro/extern/$@ -c -o $(BUILD_DIR)/$@.$(OBJ) $(CLANGFLAGS)
 
 $(OBJECTS) : promptObjects
 	@echo "  |->" $@.o
-	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $@.$(OBJ) $(FLAGS)
+	@$(CC) $(SOURCE_ROOT)/xPro/$@.cpp -c -o $(BUILD_DIR)/$@.$(OBJ) $(FLAGS)
 
 $(TOOLS) : promptTools
 	@echo "  |->" xpro.$@
-	@$(CC) $(TOOLS_DIR)/$@/main.cpp *.$(OBJ) -o $(BIN_DIR)/xpro.$@ $(FLAGS)
+	@$(CC) $(TOOLS_DIR)/$@/main.cpp $(BUILD_DIR)/*.$(OBJ) -o $(BIN_DIR)/xpro.$@ $(FLAGS)
 
 promptTools :
 	@echo " /"

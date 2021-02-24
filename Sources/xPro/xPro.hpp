@@ -24,6 +24,7 @@
 #include <direct.h>
 #include <sstream> 
 #include <stdlib.h>
+#include <sys/stat.h>
 namespace fs = std::filesystem;
 #define dPathSeparator '\\'
 #define getcwd _getcwd

@@ -51,12 +51,16 @@
 			"args": [
 				"-g",
 				"${file}",
-				"${workspaceFolder}\\Sources\\xPro\\*.cpp",
 				"${workspaceFolder}\\Build\\*.o",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-I${workspaceFolder}\\Sources",
-				"-std=c++17"
+				"-std=c++17",
+				"-lstdc++fs",
+				"-lssl",
+				"-lcrypto",
+				"-lpthread",
+				"-ldl"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

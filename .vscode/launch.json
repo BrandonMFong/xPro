@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "(gdb) Launch",
+        "name": "xPro Tool Launch",
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}\\main.exe",

@@ -40,7 +40,6 @@ xDirectory::xDirectory(xString path) : xObject()
     {
         tempPath = new xPath(path);
         this->_isDirectory = IsDirectory(*tempPath,ec);
-        std::cout << path << std::endl;
     }
 
     if(status) 
@@ -151,6 +150,7 @@ xString xDirectory::Path()
 void xDirectory::SetPath(xString path)
 {
     #ifdef isWINDOWS
+    // std::cout << path << std::endl;
     this->_path = fs::canonical(path).string();
     #else
     this->_path = fs::canonical(path); // Remove any of the ".." or "~" in path 

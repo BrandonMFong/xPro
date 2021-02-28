@@ -19,7 +19,6 @@ xBegin
     xBool userAskedForHelp = False;
     xString delimiterString = "/";
     xAppSettings * settingsReader = new xAppSettings();
-
     
     if(gStatus)
     {

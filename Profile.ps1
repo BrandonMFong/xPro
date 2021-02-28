@@ -13,7 +13,8 @@ try
     <### GET AppPointer ###>
     if(![string]::IsNullOrEmpty($BuildPath)){Push-Location $($BuildPath|Split-Path -Parent);}
     else{Push-Location $($PROFILE |Split-Path -Parent);}
-        [System.Xml.XmlDocument]$Global:AppPointer = Get-Content Profile.xml; # Will always be Profile.xml
+        [string]$profileFilePath = $HOME + "\\Profile.xml"; # TODO change 
+        [System.Xml.XmlDocument]$Global:AppPointer = Get-Content $profileFilePath; # Will always be Profile.xml
     Pop-Location;
     <### LOAD ###>
     Push-Location $Global:AppPointer.Machine.GitRepoDir; 
@@ -21,8 +22,9 @@ try
         [System.Object[]]$Global:AppJson = Get-Content .\Config\app.json|ConvertFrom-Json;
         # pwsh
         # Todo test different environments
-        if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);}
-        else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $($Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile);}
+        [string]$pathToConfig = $Global:AppPointer.Machine.GitRepoDir + $Global:AppJson.Directories.UserConfig + $Global:AppPointer.Machine.ConfigFile;
+        if($IsWindows){[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $pathToConfig;}
+        else{[System.Xml.XmlDocument]$Global:XMLReader = Get-Content $pathToConfig;}
     
         if(!$Global:XMLReader.Machine.LoadProfile.ToBoolean($null)){break;} # Flag to load profile (in case someone wanting to use powershell)
         if(($Global:XMLReader.Machine.LoadProcedure -eq "Verbose") -and !$Silent){[System.Boolean]$Verbose = $true} # Helps debugging if on

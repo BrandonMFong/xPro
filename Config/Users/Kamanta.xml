@@ -359,7 +359,7 @@
     <Program Alias="launch4j" SecType="public">C:\Program Files (x86)\Launch4j\launch4j.exe</Program>
     <Program Alias="geany" SecType="public">C:\Program Files (x86)\Geany\bin\geany.exe</Program>
     <Program Alias="st-util" SecType="public">B:\PROGRAMFILES\stlink\bin\st-util.exe</Program>
-    <!-- <Program Alias="make" SecType="public">C:\Program Files\CMake\bin\cmake.exe</Program> -->
+    <Program Alias="make" SecType="public">C:\MinGW\bin\mingw32-make.exe</Program>
     <Program Alias="truestudio" SecType="public">C:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.3.0\ide\TrueSTUDIO.exe</Program>
     <Program Alias="7z" SecType="public">C:\Program Files\7-Zip\7z.exe</Program>
     <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>

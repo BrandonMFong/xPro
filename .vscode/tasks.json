@@ -3,49 +3,6 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "Build Pugi",
-			"command": "C:\\MinGW\\bin\\g++.exe",
-			"args": [
-				"${workspaceFolder}\\Sources\\xPro\\extern\\pugixml.cpp",
-				"-c",
-				"-o",
-				"${workspaceFolder}\\Build\\pugixml.o",
-				"-I${workspaceFolder}\\Sources",
-				"-std=c++17"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: C:\\MinGW\\bin\\g++.exe"
-		},
-		{
-			"type": "cppbuild",
-			"label": "Build sqlite",
-			"command": "C:\\MinGW\\bin\\gcc.exe",
-			"args": [
-				"${workspaceFolder}\\Sources\\xPro\\extern\\sqlite3.c",
-				"-c",
-				"-o",
-				"${workspaceFolder}\\Build\\sqlite3.o",
-				"-I${workspaceFolder}\\Sources",
-				"-lstdc++fs",
-				"-lssl -lcrypto -lpthread -ldl"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: C:\\MinGW\\bin\\gcc.exe"
-		},
-		{
-			"type": "cppbuild",
 			"label": "Build current file",
 			"command": "C:\\MinGW\\bin\\g++.exe",
 			"args": [
@@ -55,12 +12,12 @@
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-I${workspaceFolder}\\Sources",
-				"-std=c++17",
-				"-lstdc++fs",
-				"-lssl",
-				"-lcrypto",
-				"-lpthread",
-				"-ldl"
+				"-std=c++17"
+				// "-lstdc++fs",
+				// "-lssl",
+				// "-lcrypto",
+				// "-lpthread",
+				// "-ldl"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

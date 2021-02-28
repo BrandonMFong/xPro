@@ -62,3 +62,8 @@ xAppSettings::xAppSettings() : xJson()
 
     this->_status = status;
 }
+
+void xAppSettings::SetJsonValue(xString &target, nlohmann::json value)
+{
+    target = value.is_null() ? xEmptyString : value;
+}

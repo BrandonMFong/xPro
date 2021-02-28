@@ -39,4 +39,4 @@ OBJECTS = $(XPRO) $(SQL) $(FILESYSTEM)
 
 all: $(EXTERN) $(OBJECTS) $(TOOLS) clean
 
-lib: $(EXTERN) $(OBJECTS)
+lib: debug $(EXTERN) $(OBJECTS)

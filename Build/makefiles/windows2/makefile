@@ -29,6 +29,10 @@ CLANGFLAGS = \
 
 tmp := $(shell mkdir -p $(BIN_DIR)) # create output bin directory 
 
+debug : 
+    $(eval FLAGS += -g)
+    $(eval CLANGFLAGS += -g)
+
 pugixml.cpp : promptPackage
 	@echo "  |->" $@
 	@$(CC) $(SOURCE_ROOT)/xPro/extern/$@ -c -o $(BUILD_DIR)/$@.$(OBJ) $(FLAGS)

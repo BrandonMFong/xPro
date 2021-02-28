@@ -15,14 +15,18 @@
         "environment": [],
         "console": "externalTerminal",
         "MIMode": "gdb",
-        "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
         "setupCommands": [
             {
                 "description": "Enable pretty-printing for gdb",
                 "text": "-enable-pretty-printing",
                 "ignoreFailures": true
             }
-        ]
+        ],
+        "visualizerFile": "${workspaceFolder}\\.vscode\\visualizer.natvis",
+        "showDisplayString": true,
+        "windows": {
+            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe"
+        }
       },
         {
             "name": "(Powershell) xPro Debug",

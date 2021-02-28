@@ -150,11 +150,11 @@ void xDirectory::SetPath(xString path)
     #ifdef isWINDOWS
     try 
     {
-        this->_path = fs::canonical("B:\\test.txt").string();
-        // this->_path = fs::canonical(path).string();
+        this->_path = fs::canonical(path).string();
     }
     catch (...)
     {
+        std::cout << "xDirectory: error in fs::canonical() method, with parameter " << path << std::endl;
         this->_path = xEmptyString;
     }
     #else

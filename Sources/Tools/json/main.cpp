@@ -22,7 +22,6 @@ xBegin
     
     if(gStatus)
     {
-        std::cout << gArg->Count() << std::endl;
         gStatus = gArg->Count() != dMaxArgs ? Bad : Good; 
     }
 

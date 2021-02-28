@@ -20,7 +20,6 @@ xBegin
     xString delimiterString = "/";
     xAppSettings * settingsReader = new xAppSettings();
 
-    std::cout << gStatus << std::endl;
     
     if(gStatus)
     {

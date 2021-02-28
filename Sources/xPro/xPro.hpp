@@ -114,7 +114,7 @@ typedef fs::path xPath;                     /** xPro-Type File System Path */
 
 /*** xConstants ***/
 const xString kHomeDirectoryPath = getenv(dHomePath); // _dupenv_s is suggested for windows 
-const xString kHomeProfilePath = kHomeDirectoryPath + "/" + dAppPointerFile;
+const xString kHomeProfilePath = kHomeDirectoryPath + dPathSeparator + dAppPointerFile;
 
 /*** xGlobals ***/
 extern xStatus gStatus; /** Status variable for xTools */ 

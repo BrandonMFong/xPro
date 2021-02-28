@@ -40,6 +40,7 @@ xDirectory::xDirectory(xString path) : xObject()
     {
         tempPath = new xPath(path);
         this->_isDirectory = IsDirectory(*tempPath,ec);
+        std::cout << path << std::endl;
     }
 
     if(status) 

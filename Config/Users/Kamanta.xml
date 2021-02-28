@@ -365,6 +365,8 @@
     <Program Alias="python" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\python.exe</Program>
     <Program Alias="pip" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python39\Scripts\pip3.9.exe</Program>
     <Program Alias="open" SecType="public">start</Program>
+    <Program Alias="python38" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python38\python.exe</Program>
+    <Program Alias="pip38" SecType="public">C:\Users\fongm\AppData\Local\Programs\Python\Python38\Scripts\pip3.8.exe</Program>
   </Programs>
   <!-- Objects User uses while on the command line -->
   <Objects Database="BrandonMFong" ServerInstance="KAMANTA\KAMANTA">

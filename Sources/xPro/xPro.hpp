@@ -97,7 +97,7 @@ namespace fs = std::__fs::filesystem;
 #define xBegin int main(int argc, char *argv[])\
 {setArgs(argc,argv);                                        /** Marks beginning of code */
 #define xEnd return (xInt)(!gStatus);}                      /** Returns xStatus */
-#define dFooter "© 2021 xPro All Rights Reserved"           /** Footer */
+#define dFooter "(c) 2021 xPro All Rights Reserved"           /** Footer */
 #define dHelpArgument "--help"                              /** Help argument */
 
 /*** xTypes ***/

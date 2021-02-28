@@ -67,3 +67,12 @@ void xAppSettings::SetJsonValue(xString &target, nlohmann::json value)
 {
     target = value.is_null() ? xEmptyString : value;
 }
+
+// TODO make recursive function that parses the path 
+
+xString xAppSettings::GetValueFromPath(xString path)
+{
+    xString result;
+
+    return result;
+}

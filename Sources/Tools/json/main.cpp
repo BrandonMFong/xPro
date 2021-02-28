@@ -16,10 +16,9 @@
 xBegin
     xUInt size;
     xString value;
-    xBool userAskedForHelp = False;
     xString delimiterString = "/";
     xAppSettings * settingsReader = new xAppSettings();
-    
+
     if(gStatus)
     {
         gStatus = gArg->Count() != dMaxArgs ? Bad : Good; 
@@ -34,25 +33,8 @@ xBegin
 
     if(gStatus)
     {
-        size = gArg->Values().size();
-        for(xUInt i = 0; i < size; i++)
-        {
-            value = gArg->Values()[i];
-            if(value == dHelpArgument)
-            {
-                userAskedForHelp = True;
-                break;
-            }
-        }
-
-        if(userAskedForHelp)
-        {
-            std::cout << "usage: " << gArg->Values()[0] << std::endl;
-            
-            std::cout << "\nAvailable Commands: " << std::endl;
-
-            std::cout << dFooter << std::endl;
-        }
+        value = gArg->Values()[1];
+        std::cout << value << std::endl;
     }
 
 xEnd

@@ -9,26 +9,28 @@ Param(
 )
 Import-Module .\Modules\Setup.psm1;
 
+[Bool]$status = $true; 
+[String[]]$tempContent;
+[String]$tempFilePath;
+
 function UpdateProfile 
 {
    Param([bool]$ForceUpdate=$false)
-   [Byte]$status = 0;
+   [Byte]$status = 0; # is this the global?
    # [boolean]$Updated = $false;
    [String]$ProfPath;
-   [datetime]$PSProfileDate;
-   [datetime]$GitProfileDate;
-   
-
-   Push-Location $PSScriptRoot
+   # [datetime]$PSProfileDate = [datetime]::new();
+   # [datetime]$GitProfileDate = [datetime]::new();
+   [string]$tempPath;
 
    # Get full path to git repo's profile script
    $ProfPath = $PSScriptRoot + "\profile.ps1";
 
    # Get the time stamp for what the user has
-   $PSProfileDate = $(Get-ChildItem $($PROFILE | Split-Path -Leaf)).LastWriteTime; # Timestamp for msprofile script
+   [datetime]$PSProfileDate = $(Get-ChildItem $PROFILE).LastWriteTime; # Timestamp for msprofile script
 
    # Get the time stamp for the repo's profile
-   $GitProfileDate = $(Get-ChildItem $ProfPath).LastWriteTime; # Timestamp for repo profile script
+   [datetime]$GitProfileDate = $(Get-ChildItem $ProfPath).LastWriteTime; # Timestamp for repo profile script
 
    # Compare each Date
    if(($GitProfileDate -gt $PSProfileDate) -or ($ForceUpdate))
@@ -43,7 +45,9 @@ function UpdateProfile
       {
          Remove-Item $PROFILE -Verbose; 
          Copy-Item $ProfPath $($PROFILE | Split-Path -Parent) -Verbose;
-         Rename-Item $ProfPath $PROFILE -Verbose;
+
+         $tempPath = $($PROFILE | Split-Path -Parent) + "\" + $($ProfPath | Split-Path -Leaf);
+         Rename-Item $tempPath $PROFILE -Verbose;
 
          $status = 1;
       }
@@ -56,7 +60,6 @@ function UpdateProfile
    {
       Write-Host "`nNo updates to profile`n" -ForegroundColor Green; 
    }
-   Pop-Location
 
    if($status)
    {
@@ -65,10 +68,6 @@ function UpdateProfile
 
    return $status;
 }
-
-[Bool]$status = $true;
-
-Push-Location $PSScriptRoot;
 
 if($status)
 {
@@ -113,12 +112,110 @@ if($status)
       New-Item -Path $Profile -Type File -Force;
    }
 
-   .\update-profile.ps1 -ForceUpdate $true;
+   # .\update-profile.ps1 -ForceUpdate $true;
+   $status = $(UpdateProfile -ForceUpdate:$true);
 
-   Write-Host "`nProfile established!`n" -BackgroundColor Black -ForegroundColor Yellow;
-   
-   # Config
-   _InitConfig;
+   if($status)
+   {
+      Write-Host "`nProfile established!`n" -BackgroundColor Black -ForegroundColor Yellow;  
+   }
+   else
+   {
+      Write-Warning "`nError in making profile`n"
+   }
 }
 
-Pop-Location;
+# Config
+if($status)
+{
+   # _InitConfig;
+   Write-Host "Creating AppPointer";
+
+   # Construct empty xml file
+   [XML]$NewXml = [XML]::new();
+   $Node_Machine = $NewXml.CreateElement("Machine");
+   $Node_Machine.SetAttribute("MachineName",$env:COMPUTERNAME);
+   $Node_GitRepoDir = $NewXml.CreateElement("GitRepoDir");
+   $Node_ConfigFile = $NewXml.CreateElement("ConfigFile");
+   $NewXml.AppendChild($Node_Machine);
+   $NewXml.Machine.AppendChild($Node_GitRepoDir)
+   $NewXml.Machine.AppendChild($Node_ConfigFile)
+   $NewXml.Machine.GitRepoDir = $PSScriptRoot;
+
+   [String]$FileName = $HOME + "\Profile.xml"; # Get file name
+   $NewXml.Save($FileName); # save the contents to the file
+
+   $status = [byte]$(Test-Path $FileName);
+   
+   if(!$status)
+   {
+      Write-Warning "Error in creating file";
+   }
+
+   $tempContent = (Get-Content $FileName);
+
+   if($tempContent.Length -eq 0)
+   {
+      Write-Warning "No content in file";
+      $status = 0;
+   }
+}
+
+if($status)
+{
+   # _WriteFullContent($FileName); # get the empty xml file 
+   [String]$content = Get-Content $FileName; # get the content
+   [String]$FirstLine = "<?xml version=`"1.0`" encoding=`"ISO-8859-1`"?>`n";
+   [String]$FullContent = $FirstLine + $content; # put first line 
+   $FullContent | Out-File $FileName; 
+
+   $tempContent = $(Get-Content $FileName);
+
+   $status = $FirstLine.Contains($tempContent[0]);
+
+   if(!$status)
+   {
+      Write-Warning "Firstline ($($FirstLine))was not written";
+   }
+}
+
+if($status)
+{
+   [byte]$userIntInput = Read-Host -Prompt "What do you want to do?`nCreate New Config[1]`nUse Existing Confg[2]`nSo"
+
+   if ($userIntInput -eq 1)
+   {
+      [String]$ConfigurationName = Read-Host -Prompt "Name the configuration file";
+      $NewXml.Machine.ConfigFile = $("\" + $ConfigurationName + ".xml");
+
+      Write-Host "`nPlease review:" -Foregroundcolor Cyan;
+      Write-Host("Machine Name : $($NewXml.Machine.MachineName)");
+      Write-Host("Git Repository Directory : $($NewXml.Machine.GitRepoDir)");
+      Write-Host("Configuration File : $($NewXml.Machine.ConfigFile)");
+
+      if($(Read-Host -Prompt "Approve? (y/n)") -ne "y")
+      {
+         Write-Warning "Please restart setup."
+         $status = 0;
+      } # maybe call this function again
+
+      # TODO give the user an option to put in their own path 
+      if($status)
+      {
+         # _MakeConfig -ConfigurationName:$ConfigurationName;
+         $tempFilePath = $PSScriptRoot + "\Config\Users\Kamanta.xml"; # TODO read from app settings
+         [XML]$File = Get-Content $tempFilePath;
+         # [XML]$File = Get-Content $($PSScriptRoot + "\.." + $Global:AppJson.Directories.UserConfig + $Global:AppJson.BaseConfig); # Using a base config rather than a template.  Should be the working dev config
+         $File.Save($($PSScriptRoot + '\Config\Users\' + $ConfigurationName + '.xml'));
+      }
+   }
+   elseif($userIntInput -eq 2) 
+   {
+      .\.\update-config.ps1;
+   }
+   else
+   {
+      Write-Warning "Please Specify an option"
+      $status = 0;
+   }
+}

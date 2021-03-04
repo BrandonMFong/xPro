@@ -5,10 +5,12 @@
 #>
 Param(
    [System.Management.Automation.SwitchParameter]$UpdateProfile,
+   [System.Management.Automation.SwitchParameter]$ForceUpdate,
    [System.Management.Automation.SwitchParameter]$UpdateConfig
 )
 Import-Module .\Modules\Setup.psm1;
 
+[Bool]$okayToContinue = $true;
 [Bool]$status = $true; 
 [String[]]$tempContent;
 [String]$tempFilePath;
@@ -134,7 +136,16 @@ function UpdateConfig()
    Pop-Location
 }
 
-if($status)
+if($okayToContinue)
+{
+   if($UpdateProfile)
+   {
+      UpdateProfile -ForceUpdate:$ForceUpdate;
+      $okayToContinue = $false;
+   }
+}
+
+if($okayToContinue)
 {
    Write-Host "";
    Write-Host " .----------------.  .----------------.  .----------------.  .----------------. " -ForegroundColor Cyan;
@@ -156,7 +167,7 @@ if($status)
    $status = $true;
 }
 
-if($status)
+if($okayToContinue)
 {
    Write-Warning "$($Global:AppJson.RepoName) uses Microsoft.PowerShell_profile.ps1 script.  Continuing will erase the script."
    $Answer = Read-Host -Prompt "Continue(y/n)?"
@@ -165,9 +176,11 @@ if($status)
       Write-Warning "Exiting...";
       $status = $false;
    }
+
+   $okayToContinue = $status;
 }
 
-if($status)
+if($okayToContinue)
 {
    Write-Host "`nInitializing setup`n";
    
@@ -188,10 +201,12 @@ if($status)
    {
       Write-Warning "`nError in making profile`n"
    }
+
+   $okayToContinue = $status;
 }
 
 # Config
-if($status)
+if($okayToContinue)
 {
    # _InitConfig;
    Write-Host "Creating AppPointer";
@@ -224,9 +239,11 @@ if($status)
       Write-Warning "No content in file";
       $status = 0;
    }
+
+   $okayToContinue = $status;
 }
 
-if($status)
+if($okayToContinue)
 {
    # _WriteFullContent($FileName); # get the empty xml file 
    [String]$content = Get-Content $FileName; # get the content
@@ -243,9 +260,11 @@ if($status)
    {
       Write-Warning "Firstline was not written";
    }
+
+   $okayToContinue = $status;
 }
 
-if($status)
+if($okayToContinue)
 {
    [byte]$userIntInput = Read-Host -Prompt "What do you want to do?`nCreate New Config[1]`nUse Existing Confg[2]`nSo"
 
@@ -269,10 +288,8 @@ if($status)
       # TODO give the user an option to put in their own path 
       if($status)
       {
-         # _MakeConfig -ConfigurationName:$ConfigurationName;
          $tempFilePath = $PSScriptRoot + "\Config\Users\Kamanta.xml"; # TODO read from app settings
          [XML]$File = Get-Content $tempFilePath;
-         # [XML]$File = Get-Content $($PSScriptRoot + "\.." + $Global:AppJson.Directories.UserConfig + $Global:AppJson.BaseConfig); # Using a base config rather than a template.  Should be the working dev config
          $File.Save($($PSScriptRoot + '\Config\Users\' + $ConfigurationName + '.xml'));
       }
    }
@@ -286,4 +303,8 @@ if($status)
       Write-Warning "Please Specify an option"
       $status = 0;
    }
+
+   $okayToContinue = $status;
 }
+
+return $status;

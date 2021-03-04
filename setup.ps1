@@ -6,7 +6,9 @@
 Param(
    [System.Management.Automation.SwitchParameter]$UpdateProfile,
    [System.Management.Automation.SwitchParameter]$ForceUpdate,
-   [System.Management.Automation.SwitchParameter]$UpdateConfig
+   [System.Management.Automation.SwitchParameter]$UpdateConfig,
+   [System.Management.Automation.SwitchParameter]$CheckUpdate,
+   [String]$ConfigName=$null
 )
 Import-Module .\Modules\Setup.psm1;
 
@@ -136,11 +138,22 @@ function UpdateConfig()
    Pop-Location
 }
 
+# Profile
 if($okayToContinue)
 {
    if($UpdateProfile)
    {
       UpdateProfile -ForceUpdate:$ForceUpdate;
+      $okayToContinue = $false;
+   }
+}
+
+# Config
+if($okayToContinue)
+{
+   if($UpdateConfig)
+   {
+      UpdateConfig -ConfigName:$ConfigName -CheckUpdate:$CheckUpdate;
       $okayToContinue = $false;
    }
 }
@@ -162,9 +175,7 @@ if($okayToContinue)
    Write-Host "Author: Brando" -ForegroundColor DarkGray;
    Write-Host "";
 
-   Write-Host ""
-
-   $status = $true;
+   Write-Host "";
 }
 
 if($okayToContinue)
@@ -190,7 +201,6 @@ if($okayToContinue)
       New-Item -Path $Profile -Type File -Force;
    }
 
-   # .\update-profile.ps1 -ForceUpdate $true;
    $status = $(UpdateProfile -ForceUpdate:$true);
 
    if($status)

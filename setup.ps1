@@ -76,8 +76,10 @@ function UpdateProfile
 function UpdateConfig()
 {
    Param([string]$ConfigName=$null,[Switch]$CheckUpdate)
-   Push-Location $PSScriptRoot
-   [System.Object[]]$AppJson = Get-Content .\Config\app.json|ConvertFrom-Json; # Get app config
+   [String]$tempString = "";
+   # Push-Location $PSScriptRoot
+   $tempString = $PSScriptRoot + "\Config\app.json"; # TODO use binaries
+   [System.Object[]]$AppJson = Get-Content $tempString | ConvertFrom-Json; # Get app config
 
    # This segment runs independtly.  I could have made another script but the context of this script is similar to this segment's goal
    # Can probably be arranged better
@@ -100,42 +102,49 @@ function UpdateConfig()
          {
             Import-Module $($PSScriptRoot + "\Modules\ConfigHandler.psm1") -Scope Local -DisableNameChecking;
             Run-Update -InOrderScripts:$InOrderScripts; # Updates configuration file
-            Pop-location; 
+            # Pop-location; 
 
             Write-Warning "Config was updated";
             return 1; # Exiting code
          }
          else
          {
-            Pop-Location; 
+            # Pop-Location; 
             return 0;
          }
       }
       else
       {
-         Pop-location;
+         # Pop-location;
          return 0;
       }
    }
-
-   # Create AppPointer
-   Write-Host "Config files to choose from:"
-   [string]$pathToxProConfig = "." + $AppJson.Directories.UserConfig
-   .\bin\xpro.enumdir.exe $pathToxProConfig; # Get items from the user config
-   $choice = Read-Host -Prompt "So"; # Get user's choice 
-   [String]$ConfigFile = $(.\bin\xpro.selectitem.exe -path $pathToxProConfig -index $($choice - 1)); # Get the index
-
-   Write-Host  "`nConfig => $($ConfigFile)`n" -ForegroundColor Cyan;
-
-   # write into apppointer
-   Push-Location $HOME;
-   # Push-Location $($PROFILE |Split-Path -Parent);
-   [System.Xml.XmlDocument]$XmlEditor = Get-Content .\Profile.xml; # read profile.xml
-   [String]$Path = $(Get-ChildItem .\Profile.xml).FullName; # get the path to the profile.xml
-   $XmlEditor.Machine.ConfigFile = "\" + $ConfigFile; # write configfile to AppPointer
-   $XmlEditor.Save($Path); # save 
-   Pop-Location
-   Pop-Location
+   else 
+   {
+      # Create AppPointer
+      Write-Host "Config files to choose from:";
+      [string]$pathToxProConfig = $PSScriptRoot + "\" + $AppJson.Directories.UserConfig;
+      [string]$xProEnumDir = $PSScriptRoot + "\bin\xpro.enumdir.exe";
+      # .\bin\xpro.enumdir.exe $pathToxProConfig; # Get items from the user config
+      $(& $xProEnumDir $pathToxProConfig); # Get items from the user config
+      $choice = Read-Host -Prompt "So"; # Get user's choice 
+      [string]$xProSelectItem = $PSScriptRoot + "\bin\xpro.selectitem.exe";
+      # [String]$ConfigFile = $(.\bin\xpro.selectitem.exe -path $pathToxProConfig -index $($choice - 1)); # Get the index
+      [String]$ConfigFile = $(& $xProSelectItem -path $pathToxProConfig -index $($choice - 1)); # Get the index
+   
+      Write-Host  "`nConfig => $($ConfigFile)`n" -ForegroundColor Cyan;
+   
+      # write into apppointer
+      # Push-Location $HOME;
+      # Push-Location $($PROFILE |Split-Path -Parent);
+      [String]$xAppPointerPath = $HOME + "\Profile.xml";
+      [System.Xml.XmlDocument]$XmlEditor = Get-Content $xAppPointerPath; # read profile.xml
+      [String]$Path = $(Get-ChildItem $xAppPointerPath).FullName; # get the path to the profile.xml
+      $XmlEditor.Machine.ConfigFile = "\" + $ConfigFile; # write configfile to AppPointer
+      $XmlEditor.Save($Path); # save 
+      # Pop-Location
+      # Pop-Location
+   }
 }
 
 # Profile
@@ -316,5 +325,3 @@ if($okayToContinue)
 
    $okayToContinue = $status;
 }
-
-return $status;

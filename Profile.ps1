@@ -16,6 +16,9 @@ Param(
 [System.Object[]]$Global:AppJson;
 [String]$pathToConfig;
 [System.Boolean]$Verbose;
+[String]$xProUtilitiesPath = "";
+[String]$TerminalModulePath = "";
+
 try 
 {
     <### GET AppPointer ###>
@@ -37,6 +40,9 @@ try
     # Get Git repo dir
     $GitRepoDir = $Global:AppPointer.Machine.GitRepoDir;
     # Pop-Location;
+    $xProUtilitiesPath = $GitRepoDir + "\Modules\xProUtilities.psm1";
+    $TerminalModulePath = $GitRepoDir + "\Modules\Terminal.psm1";
+
     <### LOAD ###>
     Push-Location $GitRepoDir; 
 
@@ -64,7 +70,8 @@ try
         $Verbose = $false
     }
 
-    Import-Module .\Modules\xProUtilities.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+    # Import-Module .\Modules\xProUtilities.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+    Import-Module $xProUtilitiesPath -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
 
     <### LOGS ###>
     $Global:LogHandler = Get-LogObject;
@@ -79,61 +86,65 @@ try
                 if($PSVersionTable.PSVersion.Major -lt 7){Start-Process powershell;Stop-Process -Id $PID;}
                 else{Start-Process pwsh;Stop-Process -Id $PID;}
             }
-            else{exit;}
+            else
+            {
+                exit;
+            }
         }
     }
 
     <### GET CREDENTIALS ###>
-        CheckCredentials;
+    CheckCredentials;
     
     <# BACKGROUND SETTINGS #>
-        # Doing this early so if Verbose:$false then progress color will be set
-        Import-Module .\Modules\Terminal.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
-        _SetBackgroundColor;
+    # Doing this early so if Verbose:$false then progress color will be set
+    # Import-Module .\Modules\Terminal.psm1 -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+    Import-Module $TerminalModulePath -DisableNameChecking:$true -Scope Local -WarningAction SilentlyContinue;
+    _SetBackgroundColor;
         
     <### PROGRAMS ###> 
-        LoadPrograms -XMLReader:$Global:XMLReader -Verbose:$Verbose
+    LoadPrograms -XMLReader:$Global:XMLReader -Verbose:$Verbose
     
     <### MODULES ###>
-        LoadModules -XMLReader:$Global:XMLReader -Verbose:$Verbose
+    LoadModules -XMLReader:$Global:XMLReader -Verbose:$Verbose
         
     <### OBJECTS ###>
-        LoadObjects -XMLReader:$Global:XMLReader -Verbose:$Verbose
+    LoadObjects -XMLReader:$Global:XMLReader -Verbose:$Verbose
 
     <### FUNCTIONS ###>
-        LoadFunctions -XMLReader:$Global:XMLReader -Verbose:$Verbose
+    LoadFunctions -XMLReader:$Global:XMLReader -Verbose:$Verbose
         
     <### START ###>
-        if(($Global:XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript) -and ![string]::IsNullOrEmpty($Global:XMLReader.Machine.Start)) 
+    if(($Global:XMLReader.Machine.Start.Enabled -eq "true") -and ($StartScript) -and ![string]::IsNullOrEmpty($Global:XMLReader.Machine.Start)) 
+    {
+        if($Global:XMLReader.Machine.Start.ClearHost -eq "true"){Clear-Host;} # clears host from the progess text
+
+        # Some output methods that should be defined
+        # Greetings, calendar
+
+        # Greetings
+        if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Greetings))
         {
-            if($Global:XMLReader.Machine.Start.ClearHost -eq "true"){Clear-Host;} # clears host from the progess text
-
-            # Some output methods that should be defined
-            # Greetings, calendar
-
-            # Greetings
-            if(![string]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Greetings))
-            {
-                if([String]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Greetings.Type)){[String]$Type = "Big";}
-                else{[String]$Type = $Global:XMLReader.Machine.Start.Greetings.Type;}
-                [System.Boolean]$Save = [System.Boolean]$Global:XMLReader.Machine.Start.Greetings.Save;
-                $arg = 
-                @{
-                    string=$Global:XMLReader.Machine.Start.Greetings.InnerXml; # String 
-                    Type=$Type; # Type of font
-                    SaveToFile=$Save;
-                    UniqueExtension=$("." + $($Global:AppPointer.Machine.ConfigFile | Split-Path -Leaf));
-                };
-                [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Files.Greetings)).FullName; # Gets the full file path to the greetings script
-                & $GreetingsPath @arg;
-            }
-
-            # If the script is defined, run it
-            if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Script) -and $(Test-Path $Global:XMLReader.Machine.Start.Script))
-            {
-                Invoke-Expression $(Evaluate -value:$Global:XMLReader.Machine.Start.Script);# Executes the file that the user defines
-            } 
+            if([String]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Greetings.Type)){[String]$Type = "Big";}
+            else{[String]$Type = $Global:XMLReader.Machine.Start.Greetings.Type;}
+            [System.Boolean]$Save = [System.Boolean]$Global:XMLReader.Machine.Start.Greetings.Save;
+            $arg = 
+            @{
+                string=$Global:XMLReader.Machine.Start.Greetings.InnerXml; # String 
+                Type=$Type; # Type of font
+                SaveToFile=$Save;
+                UniqueExtension=$("." + $($Global:AppPointer.Machine.ConfigFile | Split-Path -Leaf));
+            };
+            [String]$GreetingsPath = (Get-ChildItem $($Global:AppJson.Files.Greetings)).FullName; # Gets the full file path to the greetings script
+            & $GreetingsPath @arg;
         }
+
+        # If the script is defined, run it
+        if(![String]::IsNullOrEmpty($Global:XMLReader.Machine.Start.Script) -and $(Test-Path $Global:XMLReader.Machine.Start.Script))
+        {
+            Invoke-Expression $(Evaluate -value:$Global:XMLReader.Machine.Start.Script);# Executes the file that the user defines
+        } 
+    }
     
     try 
     {
@@ -166,7 +177,11 @@ try
         elseif(Test-Path $Global:XMLReader.Machine.ShellSettings.StartDirectory){Set-Location $Global:XMLReader.Machine.ShellSettings.StartDirectory;}
         else{$Global:LogHandler.Warning("Configured Start directory does not exist.  Please check.")}
     }
-    else{Set-Location ~;} # Main dir for OS user
+    else
+    {
+        # Main dir for OS user
+        Set-Location ~;
+    } 
     
     # For debug mode
     # It will run the debug script after profile is loaded

@@ -315,3 +315,12 @@ if($okayToContinue)
 
    $okayToContinue = $status;
 }
+
+if($okayToContinue)
+{
+   $LASTEXITCODE = 0;
+}
+else 
+{
+   $LASTEXITCODE = 1;
+}

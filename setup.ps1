@@ -8,7 +8,8 @@ Param(
    [System.Management.Automation.SwitchParameter]$ForceUpdate,
    [System.Management.Automation.SwitchParameter]$UpdateConfig,
    [System.Management.Automation.SwitchParameter]$CheckUpdate,
-   [String]$ConfigName=$null
+   [String]$ConfigName=$null,
+   [ref]$BooleanReply
 )
 Import-Module .\Modules\Setup.psm1;
 
@@ -20,11 +21,8 @@ Import-Module .\Modules\Setup.psm1;
 function UpdateProfile 
 {
    Param([bool]$ForceUpdate=$false)
-   [Byte]$status = 0; # is this the global?
-   # [boolean]$Updated = $false;
+   [Bool]$status = $true; # is this the global?
    [String]$ProfPath;
-   # [datetime]$PSProfileDate = [datetime]::new();
-   # [datetime]$GitProfileDate = [datetime]::new();
    [string]$tempPath;
 
    # Get full path to git repo's profile script
@@ -53,16 +51,18 @@ function UpdateProfile
          $tempPath = $($PROFILE | Split-Path -Parent) + "\" + $($ProfPath | Split-Path -Leaf);
          Rename-Item $tempPath $PROFILE -Verbose;
 
-         $status = 1;
+         $status = $true;
       }
       else
       {
          Write-Host "`nNot updating.`n" -ForegroundColor Red -BackgroundColor Yellow; 
+         $status = $false;
       }
    }
    else
    {
       Write-Host "`nNo updates to profile`n" -ForegroundColor Green; 
+      $status = $true;
    }
 
    if($status)
@@ -142,14 +142,14 @@ if($okayToContinue)
 {
    if($UpdateProfile)
    {
-      $status = UpdateProfile -ForceUpdate:$ForceUpdate;
+      $status = [Bool]$(UpdateProfile -ForceUpdate:$ForceUpdate);
       if($status)
       {
-         $LASTEXITCODE = 0;
+         $BooleanReply.Value = $true
       }
       else 
       {
-         $LASTEXITCODE = 1;
+         $BooleanReply.Value = $true
       }
 
       $okayToContinue = $false;

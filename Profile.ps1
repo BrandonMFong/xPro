@@ -110,9 +110,9 @@ if($okayToContinue)
     <### CHECK UPDATES ###>
     if([string]::IsNullOrEmpty($BuildPath))
     {
-        $arg = @{UpdateProfile=$true}
+        $arg = @{UpdateProfile=$true;BooleanReply=[ref]$updateProfileFlag}
         $(& $pathToSetupScript @arg);
-        $updateProfileFlag = $($LASTEXITCODE -eq 0);
+        # $updateProfileFlag = $($LASTEXITCODE -eq 0);
 
         $arg = @{UpdateConfig=$true;CheckUpdate=$true}
         $updateConfigFlag = $(& $pathToSetupScript @arg);

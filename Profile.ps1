@@ -8,21 +8,21 @@ Param(
     [System.Boolean]$Silent=$false # There is Verbose/Progress. Using Progress in github workflow looks silent
 )
 
-[System.Boolean]$okayToContinue = $true
-[System.Xml.XmlDocument]$Global:XMLReader = $null;
-[System.Xml.XmlDocument]$Global:AppPointer = $null;
-[String]$profileFilePath = $null;
-[String]$GitRepoDir = $null;
-[String]$AppJsonPath = $null;
-[System.Object[]]$Global:AppJson  = $null;
-[String]$pathToConfig = $null;
-[System.Boolean]$Verbose = $false;
-[String]$xProUtilitiesPath = $null;
-[String]$TerminalModulePath = $null;
-[System.Boolean]$Save = $false;
-[System.Boolean]$updateProfileFlag = $false;
-[System.Boolean]$updateConfigFlag = $false;
-[String]$pathToSetupScript = "setup.ps1";
+[System.Boolean]$okayToContinue             = $true;
+[System.Xml.XmlDocument]$Global:XMLReader   = $null;
+[System.Xml.XmlDocument]$Global:AppPointer  = $null;
+[String]$profileFilePath                    = $null;
+[String]$GitRepoDir                         = $null;
+[String]$AppJsonPath                        = $null;
+[System.Object[]]$Global:AppJson            = $null;
+[String]$pathToConfig                       = $null;
+[System.Boolean]$Verbose                    = $false;
+[String]$xProUtilitiesPath                  = $null;
+[String]$TerminalModulePath                 = $null;
+[System.Boolean]$Save                       = $false;
+[System.Boolean]$updateProfileFlag          = $false;
+[System.Boolean]$updateConfigFlag           = $false;
+[String]$pathToSetupScript                  = "setup.ps1";
 
 <### GET AppPointer ###>
 # For the CI test build

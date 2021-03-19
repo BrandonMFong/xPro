@@ -142,7 +142,16 @@ if($okayToContinue)
 {
    if($UpdateProfile)
    {
-      UpdateProfile -ForceUpdate:$ForceUpdate;
+      $status = UpdateProfile -ForceUpdate:$ForceUpdate;
+      if($status)
+      {
+         $LASTEXITCODE = 0;
+      }
+      else 
+      {
+         $LASTEXITCODE = 1;
+      }
+
       $okayToContinue = $false;
    }
 }
@@ -152,7 +161,16 @@ if($okayToContinue)
 {
    if($UpdateConfig)
    {
-      UpdateConfig -ConfigName:$ConfigName -CheckUpdate:$CheckUpdate;
+      $status = UpdateConfig -ConfigName:$ConfigName -CheckUpdate:$CheckUpdate;
+      if($status)
+      {
+         $LASTEXITCODE = 0;
+      }
+      else 
+      {
+         $LASTEXITCODE = 1;
+      }
+      
       $okayToContinue = $false;
    }
 }
@@ -316,11 +334,11 @@ if($okayToContinue)
    $okayToContinue = $status;
 }
 
-if($okayToContinue)
-{
-   $LASTEXITCODE = 0;
-}
-else 
-{
-   $LASTEXITCODE = 1;
-}
+# if($okayToContinue)
+# {
+#    $LASTEXITCODE = 0;
+# }
+# else 
+# {
+#    $LASTEXITCODE = 1;
+# }

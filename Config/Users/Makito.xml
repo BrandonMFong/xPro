@@ -30,7 +30,6 @@
     <Directory Alias="pics" SecType="public">/Users/BrandonMFong/brando/photos</Directory>
     <Directory Alias="vol" SecType="public">//Volumes</Directory>
     <Directory Alias="source" SecType="public">/Users/BrandonMFong/brando/sources</Directory>
-    <!-- <Directory Alias="lib" SecType="public">//Library</Directory> -->
     <Directory Alias="desk" SecType="public">/Users/BrandonMFong/Desktop</Directory>
     <Directory Alias="lib" SecType="public">/Users/BrandonMFong/brando/sources/repos/lsources</Directory>
     <Directory Alias="scripts" SecType="public">/Users/BrandonMFong/brando/sources/repos/OWC_Scripts</Directory>
@@ -66,6 +65,7 @@
     <Program Alias="xc-driveguide" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguide/DriveGuide.xcodeproj'</Program>
     <Program Alias="xc-driveguidepa" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguidepa/DriveGuidePA.xcodeproj'</Program>
     <Program Alias="xc-driveguidepr" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/driveguideprofiles/xc-dgpaprofiles.xcworkspace'</Program>
+    <Program Alias="xc-copy" SecType="public">open '/Users/BrandonMFong/brando/sources/repos/copythat/Copy That.xcodeproj'</Program>
     <Program Alias="grep" SecType="public">grep --color</Program>
     <Program Alias="ls" SecType="public">ls -al</Program>
     <Program Alias="vc" SecType="public">code</Program>

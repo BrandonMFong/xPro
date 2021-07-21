@@ -1,1 +1,0 @@
-alter table personalinfo alter column Value varchar(1000);

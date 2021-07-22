@@ -1,29 +1,3 @@
-# misc
-archive/*
-.vs/*
-Profile/*
+archive
+bin
 *.code-workspace
-FTPFromVolta.ps1
-Resources/Calendar/*
-Resources/MathImports/*
-ssh.json
-Config/Server.xml
-Config/User/*
-Tests/Debug.ps1
-logs/User/*
-Cache/*
-Config/Wifi/*.xml
-debug.log
-.DS_Store
-*.hidden.xml
-XTUM
-
-# binary files
-**/bin/**   
-*.exe
-*.obj
-*.o
-*.out
-
-# Visual Code files
-.vscode/settings.json

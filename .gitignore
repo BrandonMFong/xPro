@@ -1,3 +1,4 @@
 archive
 bin
 *.code-workspace
+.metadata

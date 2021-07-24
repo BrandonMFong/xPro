@@ -3,8 +3,14 @@
     xPro Microsoft Powershell profile
 #>
 
-Write-Host "Hello world from xPro!"
+enum xError {
+    kUnknownError = 0
+    kNoError = 1
+}
 
-Import-Module -Name $PSScriptRoot\modules\xError.psm1
+[xError]$error = [xError]::kNoError;
 
-[xError]$error = [xError]::kNoError
+if ($error -eq [xError]::kNoError) {
+    Write-Host "NoError!"
+}
+

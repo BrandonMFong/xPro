@@ -49,7 +49,7 @@ class Installer():
         destination = str()
 
         if result == xError.kNoError:
-            source = "../terminal/powershell/xpro-profile.ps1"
+            source = "../terminal/powershell/profile.ps1"
             source = os.path.abspath(source)
 
             if os.path.exists(source) is False:
@@ -57,7 +57,7 @@ class Installer():
         
         if result == xError.kNoError:
             destination = os.path.expanduser("~")
-            destination = "{}/.xpro/xpro-profile.ps1".format(destination)
+            destination = "{}/.xpro/profile.ps1".format(destination)
 
             cp(source, destination)
 

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    xPro Microsoft Powershell profile
+    xPro Microsoft Powershell profileasdf
 #>
 
 enum xError {

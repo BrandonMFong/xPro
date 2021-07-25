@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : testProject.cpp
+// Name        : xpro.cpp
 // Author      : 
 // Version     :
 // Copyright   : Your copyright notice

@@ -10,8 +10,7 @@
 namespace xPro {
 
 xObject::xObject() {
-	// TODO Auto-generated constructor stub
-
+	this->_status = kNoError;
 }
 
 xObject::~xObject() {

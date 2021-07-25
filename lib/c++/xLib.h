@@ -10,6 +10,7 @@
 
 
 #include <xError.h>
+#include <xObject/xObject.h>
 
 
 #endif /* XLIB_H_ */

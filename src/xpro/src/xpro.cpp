@@ -7,9 +7,10 @@
 //============================================================================
 
 #include <iostream>
-using namespace std;
+#include <xLib.h>
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	xPro::xObject temp;
+	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 	return 0;
 }

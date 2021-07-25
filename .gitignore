@@ -2,3 +2,4 @@ archive
 bin
 *.code-workspace
 .metadata
+__pycache__

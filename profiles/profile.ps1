@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    xPro Microsoft Powershell profil
+    xPro Microsoft Powershell profile
 #>
 
-Import-Module -Name $PSScriptRoot\modules\xError.psm1
+using module .\modules\xError.psm1
 
 [xError]$error = [xError]::kNoError;
 

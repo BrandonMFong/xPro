@@ -11,7 +11,8 @@
 
 typedef enum {
 	kUnknownError = -1,
-	kNoError = 0
+	kNoError = 0,
+	kNULLError = 1
 } xError;
 
 

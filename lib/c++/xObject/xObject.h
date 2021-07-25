@@ -29,7 +29,7 @@ public:
 	 */
 	const xError & status = _status;
 
-private:
+protected:
 	/**
 	 * Status of the object, usually used to check
 	 * if constructor successfully executed

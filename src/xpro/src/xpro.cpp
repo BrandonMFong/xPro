@@ -6,11 +6,21 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
-#include <xLib.h>
+#include <Driver/Driver.h>
 
 int main() {
-	xPro::xObject temp;
+	xError error = kNoError;
+	Driver * driver = NULL;
+
+	if (error == kNoError) {
+		driver = new Driver();
+
+		if (driver == NULL) {
+			error = kNULLError;
+		} else {
+			error = driver->status;
+		}
+	}
 	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 	return 0;
 }

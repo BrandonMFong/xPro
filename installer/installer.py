@@ -111,20 +111,20 @@ class Installer():
         return result 
 
     def copyProfile(self):
-        result = xError.kNoError
-        source = str()
+        result      = xError.kNoError
+        source      = str()
         destination = str()
 
         if result == xError.kNoError:
-            source = "{}../profiles/profile.ps1".format(self._scriptPath)
+            source = "{}/../profiles/profile.ps1".format(self._scriptPath)
             source = os.path.abspath(source)
 
             if os.path.exists(source) is False:
                 result = xError.kShellProfilePathError
         
         if result == xError.kNoError:
-            destination = os.path.expanduser("~")
-            destination = "{}/.xpro/profile.ps1".format(destination)
+            destination = "{}/profile.ps1".format(self._xproHomeDir)
+            destination = os.path.abspath(destination)
 
             cp(source, destination)
 
@@ -146,8 +146,7 @@ class Installer():
                 result = xError.kModuleError
         
         if result == xError.kNoError:
-            destination = os.path.expanduser("~")
-            destination = "{}/.xpro/modules/xError.psm1".format(destination)
+            destination = "{}/xError.psm1".format(self._xproModDir)
             destination = os.path.abspath(destination)
 
             cp(source, destination)

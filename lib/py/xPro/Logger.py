@@ -30,7 +30,7 @@ class Logger():
     kExcept = "exception"
     kWarning = "warning"
 
-    def __init__(self, noTime=False, noLineno=False):
+    def __init__(self, noTime=True, noLineno=False):
         okayToContinue = True 
         callerName      = str()
         tracebackInfo   = None 

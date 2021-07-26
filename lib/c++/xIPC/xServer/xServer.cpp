@@ -111,6 +111,11 @@ int xServer::run() {
                 return 1;
             }
             printf("Bytes sent: %d\n", iSendResult);
+
+            // closing
+            closesocket(ClientSocket);
+            WSACleanup();
+            return 1;
         }
         else if (iResult == 0)
             printf("Connection closing...\n");

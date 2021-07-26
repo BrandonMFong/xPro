@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <xLib.h>
-#include <xIPC/xClient/xClient.h>
+#include <xIPC/xIPC.h>
 
 int main(int argc, char **argv) {
 	xPro::xClient * client = new xPro::xClient();

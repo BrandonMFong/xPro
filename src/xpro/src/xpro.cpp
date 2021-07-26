@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <Driver/Driver.h>
-#include <xIPC/xServer/xServer.h>
+#include <xIPC/xIPC.h>
 
 int main() {
 	xPro::xServer * server = new xPro::xServer;

@@ -12,7 +12,7 @@
 #include <xLib.h>
 #include <xIPC/xServer/xServer.h>
 
-class Driver : public xPro::xObject {
+class Driver : public xPro::xServer {
 public:
 	/**
 	 * Constructor
@@ -24,7 +24,6 @@ public:
 	 */
 	virtual ~Driver();
 private:
-	xPro::xServer * _server;
 };
 
 #endif /* DRIVER_DRIVER_H_ */

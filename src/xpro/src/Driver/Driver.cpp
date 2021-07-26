@@ -7,24 +7,12 @@
 
 #include <Driver/Driver.h>
 
-Driver::Driver() : xPro::xObject() {
-	xError error = kNoError;
-
-	if (error == kNoError) {
-		this->_server = new xPro::xServer();
-
-		if (this->_server == NULL) {
-			error = kNULLError;
-		} else {
-			error = this->_server->status;
-		}
-	}
+Driver::Driver() : xPro::xServer() {
+	xError error = this->_status;
 
 	this->_status = error;
 }
 
 Driver::~Driver() {
-	if (this->_server != NULL) {
-		delete this->_server;
-	}
+
 }

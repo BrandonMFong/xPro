@@ -12,7 +12,9 @@
 typedef enum {
 	kUnknownError = -1,
 	kNoError = 0,
-	kNULLError = 1
+	kNULLError = 1,
+	kSocketServerInitError = 2,
+	kSocketServerBindError = 3
 } xError;
 
 

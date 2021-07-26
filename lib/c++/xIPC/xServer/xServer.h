@@ -8,8 +8,6 @@
 #ifndef XIPC_XSERVER_XSERVER_H_
 #define XIPC_XSERVER_XSERVER_H_
 
-#ifdef __WIN32__
-
 #undef UNICODE
 
 #define WIN32_LEAN_AND_MEAN
@@ -22,10 +20,6 @@
 
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
-
-#else
-#include <sys/socket.h>
-#endif
 
 #include <xObject/xObject.h>
 #include <xLogger/xDLog.h>
@@ -48,7 +42,7 @@ public:
 	/**
 	 * Bind to socket
 	 */
-	xError bind();
+	int run();
 };
 
 } /* namespace xPro */

@@ -31,7 +31,7 @@ int _tmain(VOID)
 
    for (;;)
    {
-      _tprintf( TEXT("\nPipe Server: Main thread awaiting client connection on %s\n"), lpszPipename);
+      printf("\nPipe Server: Main thread awaiting client connection on %s\n", lpszPipename);
       hPipe = CreateNamedPipe(
           lpszPipename,             // pipe name
           PIPE_ACCESS_DUPLEX,       // read/write access
@@ -46,7 +46,7 @@ int _tmain(VOID)
 
       if (hPipe == INVALID_HANDLE_VALUE)
       {
-          _tprintf(TEXT("CreateNamedPipe failed, GLE=%d.\n"), GetLastError());
+    	  printf(TEXT("CreateNamedPipe failed, GLE=%d.\n"), GetLastError());
           return -1;
       }
 
@@ -72,7 +72,7 @@ int _tmain(VOID)
 
          if (hThread == NULL)
          {
-            _tprintf(TEXT("CreateThread failed, GLE=%d.\n"), GetLastError());
+        	 printf(TEXT("CreateThread failed, GLE=%d.\n"), GetLastError());
             return -1;
          }
          else CloseHandle(hThread);
@@ -154,11 +154,11 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
       {
           if (GetLastError() == ERROR_BROKEN_PIPE)
           {
-              _tprintf(TEXT("InstanceThread: client disconnected.\n"));
+        	  printf(TEXT("InstanceThread: client disconnected.\n"));
           }
           else
           {
-              _tprintf(TEXT("InstanceThread ReadFile failed, GLE=%d.\n"), GetLastError());
+        	  printf(TEXT("InstanceThread ReadFile failed, GLE=%d.\n"), GetLastError());
           }
           break;
       }
@@ -176,7 +176,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 
       if (!fSuccess || cbReplyBytes != cbWritten)
       {
-          _tprintf(TEXT("InstanceThread WriteFile failed, GLE=%d.\n"), GetLastError());
+    	  printf(TEXT("InstanceThread WriteFile failed, GLE=%d.\n"), GetLastError());
           break;
       }
   }
@@ -205,7 +205,7 @@ VOID GetAnswerToRequest( LPTSTR pchRequest,
 // of an instance thread. Keep in mind the main thread will continue to wait for
 // and receive other client connections while the instance thread is working.
 {
-    _tprintf( TEXT("Client Request String:\"%s\"\n"), pchRequest );
+	printf( TEXT("Client Request String:\"%s\"\n"), pchRequest );
 
     // Check the outgoing message to make sure it's not too long for the buffer.
     if (FAILED(StringCchCopy( pchReply, BUFSIZE, TEXT("default answer from server") )))

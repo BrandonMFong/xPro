@@ -48,7 +48,7 @@ int _tmain(int argc, TCHAR *argv[])
 
       if (GetLastError() != ERROR_PIPE_BUSY)
       {
-         _tprintf( TEXT("Could not open pipe. GLE=%d\n"), GetLastError() );
+    	  printf( TEXT("Could not open pipe. GLE=%d\n"), GetLastError() );
          return -1;
       }
 
@@ -71,14 +71,14 @@ int _tmain(int argc, TCHAR *argv[])
       NULL);    // don't set maximum time
    if ( ! fSuccess)
    {
-      _tprintf( TEXT("SetNamedPipeHandleState failed. GLE=%d\n"), GetLastError() );
+	   printf( TEXT("SetNamedPipeHandleState failed. GLE=%d\n"), GetLastError() );
       return -1;
    }
 
 // Send a message to the pipe server.
 
    cbToWrite = (lstrlen(lpvMessage)+1)*sizeof(TCHAR);
-   _tprintf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, lpvMessage);
+   printf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, lpvMessage);
 
    fSuccess = WriteFile(
       hPipe,                  // pipe handle
@@ -89,7 +89,7 @@ int _tmain(int argc, TCHAR *argv[])
 
    if ( ! fSuccess)
    {
-      _tprintf( TEXT("WriteFile to pipe failed. GLE=%d\n"), GetLastError() );
+	   printf( TEXT("WriteFile to pipe failed. GLE=%d\n"), GetLastError() );
       return -1;
    }
 
@@ -109,12 +109,12 @@ int _tmain(int argc, TCHAR *argv[])
       if ( ! fSuccess && GetLastError() != ERROR_MORE_DATA )
          break;
 
-      _tprintf( TEXT("\"%s\"\n"), chBuf );
+      printf( TEXT("\"%s\"\n"), chBuf );
    } while ( ! fSuccess);  // repeat loop if ERROR_MORE_DATA
 
    if ( ! fSuccess)
    {
-      _tprintf( TEXT("ReadFile from pipe failed. GLE=%d\n"), GetLastError() );
+	   printf( TEXT("ReadFile from pipe failed. GLE=%d\n"), GetLastError() );
       return -1;
    }
 

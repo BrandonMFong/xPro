@@ -6,137 +6,122 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-//#include <iostream>
-//#include <xLib.h>
-//#include <xIPC/xIPC.h>
-//
-//int main(int argc, char **argv) {
-//	xPro::xClient * client = new xPro::xClient();
-//
-//	client->run();
-//}
-#define WIN32_LEAN_AND_MEAN
-
 #include <windows.h>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <conio.h>
+#include <tchar.h>
 
+#define BUFSIZE 512
 
-//// Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
-//#pragma comment (lib, "Ws2_32.lib")
-//#pragma comment (lib, "Mswsock.lib")
-//#pragma comment (lib, "AdvApi32.lib")
-
-
-#define DEFAULT_BUFLEN 512
-#define DEFAULT_PORT "27015"
-
-int __cdecl main(int argc, char **argv)
+int _tmain(int argc, TCHAR *argv[])
 {
-    WSADATA wsaData;
-    SOCKET ConnectSocket = INVALID_SOCKET;
-    struct addrinfo *result = NULL,
-                    *ptr = NULL,
-                    hints;
-    const char *sendbuf = "this is a test";
-    char recvbuf[DEFAULT_BUFLEN];
-    int iResult;
-    int recvbuflen = DEFAULT_BUFLEN;
+   HANDLE hPipe;
+   LPTSTR lpvMessage=TEXT("Default message from client.");
+   TCHAR  chBuf[BUFSIZE];
+   BOOL   fSuccess = FALSE;
+   DWORD  cbRead, cbToWrite, cbWritten, dwMode;
+   LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\mynamedpipe");
 
-    // Validate the parameters
-    if (argc != 2) {
-        printf("usage: %s server-name\n", argv[0]);
-        return 1;
-    }
+   if( argc > 1 )
+      lpvMessage = argv[1];
 
-    // Initialize Winsock
-    iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
-    if (iResult != 0) {
-        printf("WSAStartup failed with error: %d\n", iResult);
-        return 1;
-    }
+// Try to open a named pipe; wait for it, if necessary.
 
-    ZeroMemory( &hints, sizeof(hints) );
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
+   while (1)
+   {
+      hPipe = CreateFile(
+         lpszPipename,   // pipe name
+         GENERIC_READ |  // read and write access
+         GENERIC_WRITE,
+         0,              // no sharing
+         NULL,           // default security attributes
+         OPEN_EXISTING,  // opens existing pipe
+         0,              // default attributes
+         NULL);          // no template file
 
-    // Resolve the server address and port
-    iResult = getaddrinfo(argv[1], DEFAULT_PORT, &hints, &result);
-    if ( iResult != 0 ) {
-        printf("getaddrinfo failed with error: %d\n", iResult);
-        WSACleanup();
-        return 1;
-    }
+   // Break if the pipe handle is valid.
 
-    // Attempt to connect to an address until one succeeds
-    for(ptr=result; ptr != NULL ;ptr=ptr->ai_next) {
+      if (hPipe != INVALID_HANDLE_VALUE)
+         break;
 
-        // Create a SOCKET for connecting to server
-        ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype,
-            ptr->ai_protocol);
-        if (ConnectSocket == INVALID_SOCKET) {
-            printf("socket failed with error: %ld\n", WSAGetLastError());
-            WSACleanup();
-            return 1;
-        }
+      // Exit if an error other than ERROR_PIPE_BUSY occurs.
 
-        // Connect to server.
-        iResult = connect( ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
-        if (iResult == SOCKET_ERROR) {
-            closesocket(ConnectSocket);
-            ConnectSocket = INVALID_SOCKET;
-            continue;
-        }
-        break;
-    }
+      if (GetLastError() != ERROR_PIPE_BUSY)
+      {
+         _tprintf( TEXT("Could not open pipe. GLE=%d\n"), GetLastError() );
+         return -1;
+      }
 
-    freeaddrinfo(result);
+      // All pipe instances are busy, so wait for 20 seconds.
 
-    if (ConnectSocket == INVALID_SOCKET) {
-        printf("Unable to connect to server!\n");
-        WSACleanup();
-        return 1;
-    }
+      if ( ! WaitNamedPipe(lpszPipename, 20000))
+      {
+         printf("Could not open pipe: 20 second wait timed out.");
+         return -1;
+      }
+   }
 
-    // Send an initial buffer
-    iResult = send( ConnectSocket, sendbuf, (int)strlen(sendbuf), 0 );
-    if (iResult == SOCKET_ERROR) {
-        printf("send failed with error: %d\n", WSAGetLastError());
-        closesocket(ConnectSocket);
-        WSACleanup();
-        return 1;
-    }
+// The pipe connected; change to message-read mode.
 
-    printf("Bytes Sent: %ld\n", iResult);
+   dwMode = PIPE_READMODE_MESSAGE;
+   fSuccess = SetNamedPipeHandleState(
+      hPipe,    // pipe handle
+      &dwMode,  // new pipe mode
+      NULL,     // don't set maximum bytes
+      NULL);    // don't set maximum time
+   if ( ! fSuccess)
+   {
+      _tprintf( TEXT("SetNamedPipeHandleState failed. GLE=%d\n"), GetLastError() );
+      return -1;
+   }
 
-    // shutdown the connection since no more data will be sent
-    iResult = shutdown(ConnectSocket, SD_SEND);
-    if (iResult == SOCKET_ERROR) {
-        printf("shutdown failed with error: %d\n", WSAGetLastError());
-        closesocket(ConnectSocket);
-        WSACleanup();
-        return 1;
-    }
+// Send a message to the pipe server.
 
-    // Receive until the peer closes the connection
-    do {
+   cbToWrite = (lstrlen(lpvMessage)+1)*sizeof(TCHAR);
+   _tprintf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, lpvMessage);
 
-        iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-        if ( iResult > 0 )
-            printf("Bytes received: %d\n", iResult);
-        else if ( iResult == 0 )
-            printf("Connection closed\n");
-        else
-            printf("recv failed with error: %d\n", WSAGetLastError());
+   fSuccess = WriteFile(
+      hPipe,                  // pipe handle
+      lpvMessage,             // message
+      cbToWrite,              // message length
+      &cbWritten,             // bytes written
+      NULL);                  // not overlapped
 
-    } while( iResult > 0 );
+   if ( ! fSuccess)
+   {
+      _tprintf( TEXT("WriteFile to pipe failed. GLE=%d\n"), GetLastError() );
+      return -1;
+   }
 
-    // cleanup
-    closesocket(ConnectSocket);
-    WSACleanup();
+   printf("\nMessage sent to server, receiving reply as follows:\n");
 
-    return 0;
+   do
+   {
+   // Read from the pipe.
+
+      fSuccess = ReadFile(
+         hPipe,    // pipe handle
+         chBuf,    // buffer to receive reply
+         BUFSIZE*sizeof(TCHAR),  // size of buffer
+         &cbRead,  // number of bytes read
+         NULL);    // not overlapped
+
+      if ( ! fSuccess && GetLastError() != ERROR_MORE_DATA )
+         break;
+
+      _tprintf( TEXT("\"%s\"\n"), chBuf );
+   } while ( ! fSuccess);  // repeat loop if ERROR_MORE_DATA
+
+   if ( ! fSuccess)
+   {
+      _tprintf( TEXT("ReadFile from pipe failed. GLE=%d\n"), GetLastError() );
+      return -1;
+   }
+
+   printf("\n<End of message, press ENTER to terminate connection and exit>");
+   _getch();
+
+   CloseHandle(hPipe);
+
+   return 0;
 }

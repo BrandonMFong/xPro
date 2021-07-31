@@ -18,12 +18,14 @@
 #define kBufferSize 512
 #define kPipename "\\\\.\\pipe\\mynamedpipe"
 
+DWORD WINAPI InstanceThread(LPVOID);
+
 int main() {
 	xError error = kNoError;
-	BOOL   connected = FALSE;
-	DWORD  dwThreadId = 0;
+//	BOOL   connected = FALSE;
+	DWORD  threadID = 0;
 	HANDLE pipeHandler = INVALID_HANDLE_VALUE;
-	HANDLE hThread = NULL;
+	HANDLE threadHandler = NULL;
 	LPCTSTR lpszPipename = kPipename;
 
 	while (error == kNoError) {
@@ -51,5 +53,26 @@ int main() {
 				CloseHandle(pipeHandler);
 			}
 		}
+
+		if (error == kNoError) {
+			threadHandler = CreateThread(
+		            NULL,              		// no security attribute
+		            0,                	 	// default stack size
+		            InstanceThread,    		// thread proc
+		            (LPVOID) pipeHandler,	// thread parameter
+		            0,                 		// not suspended
+		            &threadID);      		// returns thread ID
+
+			error = threadHandler != NULL ? kNoError : kThreadError;
+		}
+
+		// Close the thread because we are now done with it
+		if (error == kNoError) {
+			CloseHandle(threadHandler);
+		}
 	}
+}
+
+DWORD WINAPI InstanceThread(LPVOID lpvParam) {
+	return 1;
 }

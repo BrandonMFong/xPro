@@ -14,7 +14,8 @@ typedef enum {
 	kNoError = 0,
 	kNULLError = 1,
 	kPipeError = 2,
-	kPipeConnectionError = 3
+	kPipeConnectionError = 3,
+	kThreadError = 4
 } xError;
 
 

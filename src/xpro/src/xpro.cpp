@@ -46,6 +46,10 @@ int main() {
 
 		if (error == kNoError) {
 			error = ConnectNamedPipe(pipeHandler, NULL) == true ? kNoError : kPipeConnectionError;
+
+			if (error != kNoError) {
+				CloseHandle(pipeHandler);
+			}
 		}
 	}
 }

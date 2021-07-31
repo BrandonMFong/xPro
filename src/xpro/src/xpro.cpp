@@ -15,7 +15,7 @@
 /* xPro */
 #include <xLib.h>
 
-#define BUFSIZE 512
+#define kBufferSize 512
 #define kPipename "\\\\.\\pipe\\mynamedpipe"
 
 int main() {
@@ -26,19 +26,26 @@ int main() {
 	HANDLE hThread = NULL;
 	LPCTSTR lpszPipename = kPipename;
 
-	if (error == kNoError) {
-		while (true) {
+	while (error == kNoError) {
+		if (error == kNoError) {
 			pipeHandler = CreateNamedPipe(
-			          lpszPipename,             // pipe name
-			          PIPE_ACCESS_DUPLEX,       // read/write access
-			          PIPE_TYPE_MESSAGE |       // message type pipe
-			          PIPE_READMODE_MESSAGE |   // message-read mode
-			          PIPE_WAIT,                // blocking mode
-			          PIPE_UNLIMITED_INSTANCES, // max. instances
-			          BUFSIZE,                  // output buffer size
-			          BUFSIZE,                  // input buffer size
-			          0,                        // client time-out
-			          NULL);
+				lpszPipename,             // pipe name
+				PIPE_ACCESS_DUPLEX,       // read/write access
+				PIPE_TYPE_MESSAGE |       // message type pipe
+				PIPE_READMODE_MESSAGE |   // message-read mode
+				PIPE_WAIT,                // blocking mode
+				PIPE_UNLIMITED_INSTANCES, // max. instances
+				kBufferSize,                  // output buffer size
+				kBufferSize,                  // input buffer size
+				0,                        // client time-out
+				NULL
+			);
+
+			error = pipeHandler != INVALID_HANDLE_VALUE ? kNoError : kPipeError;
+		}
+
+		if (error == kNoError) {
+			error = ConnectNamedPipe(pipeHandler, NULL) == true ? kNoError : kPipeConnectionError;
 		}
 	}
 }

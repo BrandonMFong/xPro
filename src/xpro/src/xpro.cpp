@@ -74,5 +74,21 @@ int main() {
 }
 
 DWORD WINAPI InstanceThread(LPVOID lpvParam) {
+	xError error = kNoError;
+	HANDLE heapHandler = NULL;
+	TCHAR * request = NULL;
+	TCHAR * reply = NULL;
+
+	if (error == kNoError) {
+		heapHandler = GetProcessHeap();
+		error 		= heapHandler != NULL ? kNoError : kProcessHeapError;
+	}
+
+	if (error == kNoError) {
+		request = (TCHAR*)HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+
+		error = request != NULL ? kNoError : kHeapRequestError;
+	}
+
 	return 1;
 }

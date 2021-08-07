@@ -82,6 +82,7 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 	DWORD bytesReply = 0;
 	DWORD bytesWritten = 0;
 	HANDLE pipeHandler = NULL;
+	BOOL success = FALSE;
 
 	if (error == kNoError) {
 		error = param != NULL ? kNoError : kNULLError;
@@ -105,6 +106,24 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 	if (error == kNoError) {
 		pipeHandler = (HANDLE) param;
 		error = pipeHandler != NULL ? kNoError : kPipeError;
+	}
+
+	while (error == kNoError) {
+		if (error == kNoError) {
+			success = ReadFile(
+				pipeHandler,
+				request,
+				kBufferSize * sizeof(TCHAR),
+				&bytesRead,
+				NULL
+			);
+
+			error = (success && (bytesRead != 0)) ? kNoError : kReadError;
+		}
+
+		if (error == kNoError) {
+
+		}
 	}
 
 	return 1;

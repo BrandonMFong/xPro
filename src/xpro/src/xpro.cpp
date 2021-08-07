@@ -122,7 +122,23 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 		}
 
 		if (error == kNoError) {
+		    if (FAILED(StringCchCopy(reply, kBufferSize, TEXT("default answer from server"))))
+		    {
+		        bytesReply = 0;
+		        reply[0] = 0;
+		        DLog("StringCchCopy failed, no outgoing message.\n");
+		        error = kWriteError;
+		    }
 
+		    success = WriteFile(
+				pipeHandler,
+				reply,
+				bytesReply,
+				&bytesWritten,
+				NULL
+			);
+
+		    error = success ? kNoError : kWriteError;
 		}
 	}
 

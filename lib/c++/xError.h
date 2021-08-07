@@ -17,7 +17,8 @@ typedef enum {
 	kPipeConnectionError = 3,
 	kThreadError = 4,
 	kProcessHeapError = 5,
-	kHeapRequestError = 6
+	kHeapRequestError = 6,
+	kHeapReplyError = 7,
 } xError;
 
 

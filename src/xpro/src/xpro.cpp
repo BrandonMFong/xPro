@@ -73,11 +73,19 @@ int main() {
 	}
 }
 
-DWORD WINAPI InstanceThread(LPVOID lpvParam) {
+DWORD WINAPI InstanceThread(LPVOID param) {
 	xError error = kNoError;
 	HANDLE heapHandler = NULL;
 	TCHAR * request = NULL;
 	TCHAR * reply = NULL;
+	DWORD bytesRead = 0;
+	DWORD bytesReply = 0;
+	DWORD bytesWritten = 0;
+	HANDLE pipeHandler = NULL;
+
+	if (error == kNoError) {
+		error = param != NULL ? kNoError : kNULLError;
+	}
 
 	if (error == kNoError) {
 		heapHandler = GetProcessHeap();
@@ -85,9 +93,18 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 	}
 
 	if (error == kNoError) {
-		request = (TCHAR*)HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+		request = (TCHAR*) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+		error 	= request != NULL ? kNoError : kHeapRequestError;
+	}
 
-		error = request != NULL ? kNoError : kHeapRequestError;
+	if (error == kNoError) {
+		reply = (TCHAR *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+		error = reply != NULL ? kNoError : kHeapReplyError;
+	}
+
+	if (error == kNoError) {
+		pipeHandler = (HANDLE) param;
+		error = pipeHandler != NULL ? kNoError : kPipeError;
 	}
 
 	return 1;

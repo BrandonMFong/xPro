@@ -142,5 +142,14 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 		}
 	}
 
+	FlushFileBuffers(pipeHandler);
+	DisconnectNamedPipe(pipeHandler);
+	CloseHandle(pipeHandler);
+
+	HeapFree(heapHandler, 0, request);
+	HeapFree(heapHandler, 0, reply);
+
+	printf("InstanceThread exiting.\n");
+
 	return 1;
 }

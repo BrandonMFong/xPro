@@ -21,26 +21,25 @@
 DWORD WINAPI InstanceThread(LPVOID);
 
 int main() {
-	int result = 0;
-	xError error = kNoError;
-//	BOOL   connected = FALSE;
-	DWORD  threadID = 0;
-	HANDLE pipeHandler = INVALID_HANDLE_VALUE;
-	HANDLE threadHandler = NULL;
-	LPCTSTR lpszPipename = kPipename;
+	int 	result 			= 0;
+	xError 	error 			= kNoError;
+	DWORD  	threadID 		= 0;
+	HANDLE 	pipeHandler 	= INVALID_HANDLE_VALUE;
+	HANDLE 	threadHandler 	= NULL;
+	LPCTSTR pipeName 		= kPipename;
 
 	while (error == kNoError) {
 		if (error == kNoError) {
 			pipeHandler = CreateNamedPipe(
-				lpszPipename,             // pipe name
-				PIPE_ACCESS_DUPLEX,       // read/write access
-				PIPE_TYPE_MESSAGE |       // message type pipe
-				PIPE_READMODE_MESSAGE |   // message-read mode
-				PIPE_WAIT,                // blocking mode
-				PIPE_UNLIMITED_INSTANCES, // max. instances
-				kBufferSize,                  // output buffer size
-				kBufferSize,                  // input buffer size
-				0,                        // client time-out
+				pipeName,					// pipe name
+				PIPE_ACCESS_DUPLEX,       	// read/write access
+				PIPE_TYPE_MESSAGE |       	// message type pipe
+				PIPE_READMODE_MESSAGE |   	// message-read mode
+				PIPE_WAIT,                	// blocking mode
+				PIPE_UNLIMITED_INSTANCES, 	// max. instances
+				kBufferSize,           		// output buffer size
+				kBufferSize,               	// input buffer size
+				0,                        	// client time-out
 				NULL
 			);
 
@@ -80,15 +79,15 @@ int main() {
 }
 
 DWORD WINAPI InstanceThread(LPVOID param) {
-	xError error = kNoError;
-	HANDLE heapHandler = NULL;
-	TCHAR * request = NULL;
-	TCHAR * reply = NULL;
-	DWORD bytesRead = 0;
-	DWORD bytesReply = 0;
-	DWORD bytesWritten = 0;
-	HANDLE pipeHandler = NULL;
-	BOOL success = FALSE;
+	xError error 			= kNoError;
+	HANDLE heapHandler 		= NULL;
+	TCHAR * request 		= NULL;
+	TCHAR * reply 			= NULL;
+	DWORD 	bytesRead 		= 0;
+	DWORD 	bytesReply 		= 0;
+	DWORD 	bytesWritten 	= 0;
+	HANDLE 	pipeHandler 	= NULL;
+	BOOL 	success 		= FALSE;
 
 	if (error == kNoError) {
 		error = param != NULL ? kNoError : kNULLError;
@@ -129,10 +128,11 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 
 		if (error == kNoError) {
 		    if (FAILED(StringCchCopy(reply, kBufferSize, TEXT("Hello you fool!")))) {
-		        bytesReply = 0;
-		        reply[0] = 0;
 		        DLog("StringCchCopy failed, no outgoing message.\n");
-		        error = kWriteError;
+
+		        bytesReply 	= 0;
+		        reply[0] 	= 0;
+		        error	 	= kWriteError;
 		    }
 
 		    bytesReply = (lstrlen(reply)+1) * sizeof(TCHAR);

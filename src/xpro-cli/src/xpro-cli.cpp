@@ -20,12 +20,12 @@
 int _tmain(int argc, TCHAR *argv[])
 {
 	xError 	error = kNoError;
-	HANDLE hPipe;
+	HANDLE pipeHandler;
 	LPTSTR messageString;
 	TCHAR  chBuf[kBufferSize];
 	BOOL   fSuccess = FALSE;
 	DWORD  cbRead, cbToWrite, cbWritten, dwMode;
-	LPTSTR lpszPipename = kPipename;
+	LPTSTR pipeName = kPipename;
 
 	if (error == kNoError) {
 		if (argc > 1) {
@@ -39,8 +39,8 @@ int _tmain(int argc, TCHAR *argv[])
 
    while (1)
    {
-      hPipe = CreateFile(
-         lpszPipename,   // pipe name
+	   pipeHandler = CreateFile(
+    		 pipeName,   // pipe name
          GENERIC_READ |  // read and write access
          GENERIC_WRITE,
          0,              // no sharing
@@ -51,7 +51,7 @@ int _tmain(int argc, TCHAR *argv[])
 
    // Break if the pipe handle is valid.
 
-      if (hPipe != INVALID_HANDLE_VALUE)
+      if (pipeHandler != INVALID_HANDLE_VALUE)
          break;
 
       // Exit if an error other than ERROR_PIPE_BUSY occurs.
@@ -64,7 +64,7 @@ int _tmain(int argc, TCHAR *argv[])
 
       // All pipe instances are busy, so wait for 20 seconds.
 
-      if ( ! WaitNamedPipe(lpszPipename, 20000))
+      if ( ! WaitNamedPipe(pipeName, 20000))
       {
          printf("Could not open pipe: 20 second wait timed out.");
          return -1;
@@ -75,7 +75,7 @@ int _tmain(int argc, TCHAR *argv[])
 
    dwMode = PIPE_READMODE_MESSAGE;
    fSuccess = SetNamedPipeHandleState(
-      hPipe,    // pipe handle
+		   pipeHandler,    // pipe handle
       &dwMode,  // new pipe mode
       NULL,     // don't set maximum bytes
       NULL);    // don't set maximum time
@@ -91,7 +91,7 @@ int _tmain(int argc, TCHAR *argv[])
    printf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, messageString);
 
    fSuccess = WriteFile(
-      hPipe,                  // pipe handle
+		   pipeHandler,                  // pipe handle
 	  messageString,             // message
       cbToWrite,              // message length
       &cbWritten,             // bytes written
@@ -110,7 +110,7 @@ int _tmain(int argc, TCHAR *argv[])
    // Read from the pipe.
 
       fSuccess = ReadFile(
-         hPipe,    // pipe handle
+    		  pipeHandler,    // pipe handle
          chBuf,    // buffer to receive reply
 		 kBufferSize*sizeof(TCHAR),  // size of buffer
          &cbRead,  // number of bytes read
@@ -131,7 +131,7 @@ int _tmain(int argc, TCHAR *argv[])
    printf("\n<End of message, press ENTER to terminate connection and exit>");
    _getch();
 
-   CloseHandle(hPipe);
+   CloseHandle(pipeHandler);
 
    return 0;
 }

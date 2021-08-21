@@ -21,6 +21,7 @@
 DWORD WINAPI InstanceThread(LPVOID);
 
 int main() {
+	int result = 0;
 	xError error = kNoError;
 //	BOOL   connected = FALSE;
 	DWORD  threadID = 0;
@@ -56,12 +57,13 @@ int main() {
 
 		if (error == kNoError) {
 			threadHandler = CreateThread(
-		            NULL,              		// no security attribute
-		            0,                	 	// default stack size
-		            InstanceThread,    		// thread proc
-		            (LPVOID) pipeHandler,	// thread parameter
-		            0,                 		// not suspended
-		            &threadID);      		// returns thread ID
+				NULL,              		// no security attribute
+				0,                	 	// default stack size
+				InstanceThread,    		// thread proc
+				(LPVOID) pipeHandler,	// thread parameter
+				0,                 		// not suspended
+				&threadID				// returns thread ID
+			);
 
 			error = threadHandler != NULL ? kNoError : kThreadError;
 		}
@@ -69,8 +71,12 @@ int main() {
 		// Close the thread because we are now done with it
 		if (error == kNoError) {
 			CloseHandle(threadHandler);
+		} else {
+			result = -1;
 		}
 	}
+
+	return result;
 }
 
 DWORD WINAPI InstanceThread(LPVOID param) {
@@ -122,13 +128,14 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 		}
 
 		if (error == kNoError) {
-		    if (FAILED(StringCchCopy(reply, kBufferSize, TEXT("default answer from server"))))
-		    {
+		    if (FAILED(StringCchCopy(reply, kBufferSize, TEXT("Hello you fool!")))) {
 		        bytesReply = 0;
 		        reply[0] = 0;
 		        DLog("StringCchCopy failed, no outgoing message.\n");
 		        error = kWriteError;
 		    }
+
+		    bytesReply = (lstrlen(reply)+1) * sizeof(TCHAR);
 
 		    success = WriteFile(
 				pipeHandler,

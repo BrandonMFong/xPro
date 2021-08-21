@@ -11,19 +11,29 @@
 #include <conio.h>
 #include <tchar.h>
 
-#define BUFSIZE 512
+/* xPro */
+#include <xLib.h>
+
+#define kBufferSize 512
+#define kPipename "\\\\.\\pipe\\mynamedpipe"
 
 int _tmain(int argc, TCHAR *argv[])
 {
-   HANDLE hPipe;
-   LPTSTR lpvMessage=TEXT("Default message from client.");
-   TCHAR  chBuf[BUFSIZE];
-   BOOL   fSuccess = FALSE;
-   DWORD  cbRead, cbToWrite, cbWritten, dwMode;
-   LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\mynamedpipe");
+	xError 	error = kNoError;
+	HANDLE hPipe;
+	LPTSTR messageString;
+	TCHAR  chBuf[kBufferSize];
+	BOOL   fSuccess = FALSE;
+	DWORD  cbRead, cbToWrite, cbWritten, dwMode;
+	LPTSTR lpszPipename = kPipename;
 
-   if( argc > 1 )
-      lpvMessage = argv[1];
+	if (error == kNoError) {
+		if (argc > 1) {
+			messageString = argv[1];
+		} else {
+			messageString = "Default message from client.";
+		}
+	}
 
 // Try to open a named pipe; wait for it, if necessary.
 
@@ -77,12 +87,12 @@ int _tmain(int argc, TCHAR *argv[])
 
 // Send a message to the pipe server.
 
-   cbToWrite = (lstrlen(lpvMessage)+1)*sizeof(TCHAR);
-   printf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, lpvMessage);
+   cbToWrite = (lstrlen(messageString)+1)*sizeof(TCHAR);
+   printf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, messageString);
 
    fSuccess = WriteFile(
       hPipe,                  // pipe handle
-      lpvMessage,             // message
+	  messageString,             // message
       cbToWrite,              // message length
       &cbWritten,             // bytes written
       NULL);                  // not overlapped
@@ -102,7 +112,7 @@ int _tmain(int argc, TCHAR *argv[])
       fSuccess = ReadFile(
          hPipe,    // pipe handle
          chBuf,    // buffer to receive reply
-         BUFSIZE*sizeof(TCHAR),  // size of buffer
+		 kBufferSize*sizeof(TCHAR),  // size of buffer
          &cbRead,  // number of bytes read
          NULL);    // not overlapped
 

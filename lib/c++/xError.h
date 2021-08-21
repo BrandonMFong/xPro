@@ -20,7 +20,8 @@ typedef enum {
 	kHeapRequestError = 6,
 	kHeapReplyError = 7,
 	kReadError = 8,
-	kWriteError = 9
+	kWriteError = 9,
+	kArgError = 10
 } xError;
 
 

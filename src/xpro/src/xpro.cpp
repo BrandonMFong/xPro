@@ -79,8 +79,8 @@ int main() {
 }
 
 DWORD WINAPI InstanceThread(LPVOID param) {
-	xError error 			= kNoError;
-	HANDLE heapHandler 		= NULL;
+	xError 	error 			= kNoError;
+	HANDLE 	heapHandler 	= NULL;
 	TCHAR * request 		= NULL;
 	TCHAR * reply 			= NULL;
 	DWORD 	bytesRead 		= 0;

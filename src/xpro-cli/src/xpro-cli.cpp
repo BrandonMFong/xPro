@@ -19,17 +19,17 @@
 
 int _tmain(int argc, TCHAR *argv[])
 {
-	xError 	error = kNoError;
-	HANDLE pipeHandler;
-	LPTSTR messageString;
-	TCHAR  chBuf[kBufferSize];
-	DWORD  cbRead;
-	DWORD messageBuffer;
-	DWORD cbWritten;
-	DWORD pipeMode;
-	LPTSTR pipeName = kPipename;
-	bool isBusy = true;
-	bool success = true;
+	xError 	error 		= kNoError;
+	LPTSTR 	pipeName 	= (char *) kPipename;
+	bool 	isBusy 		= true;
+	bool 	success 	= true;
+	HANDLE 	pipeHandler;
+	LPTSTR 	messageString;
+	TCHAR  	buffer[kBufferSize];
+	DWORD  	readMessageLength;
+	DWORD 	messageLength;
+	DWORD 	writtenBytes;
+	DWORD 	pipeMode;
 
 	if (error == kNoError) {
 		if (argc > 1) {
@@ -59,7 +59,7 @@ int _tmain(int argc, TCHAR *argv[])
 		if (isBusy && (error == kNoError)) {
 			if (GetLastError() != ERROR_PIPE_BUSY) {
 				error = kPipeError;
-				printf("Could not open pipe.  GLE=%d", GetLastError());
+				printf("Could not open pipe.  GLE=%lu", GetLastError());
 			}
 		}
 
@@ -84,26 +84,26 @@ int _tmain(int argc, TCHAR *argv[])
 
 		if (!success) {
 			error = kPipeError;
-			printf("SetNamedPipeHandleState failed. GLE=%d\n", GetLastError());
+			printf("SetNamedPipeHandleState failed. GLE=%lu\n", GetLastError());
 		}
 	}
 
 	// Send message through pipe
 	if (error == kNoError) {
-		messageBuffer = (lstrlen(messageString)+1)*sizeof(TCHAR);
+		messageLength = (lstrlen(messageString)+1)*sizeof(TCHAR);
 
-		printf("Sending %d byte message: \"%s\"\n", messageBuffer, messageString);
+		printf("Sending %lu byte message: \"%s\"\n", messageLength, messageString);
 
 		success = WriteFile(
 			pipeHandler,	// pipe handle
 			messageString, 	// message
-			messageBuffer, 	// message length
-			&cbWritten, 	// bytes written
+			messageLength, 	// message length
+			&writtenBytes, 	// bytes written
 			NULL			// not overlapped
 		);
 
 		if (!success) {
-			printf("WriteFile to pipe failed. GLE=%d\n", GetLastError());
+			printf("WriteFile to pipe failed. GLE=%lu\n", GetLastError());
 
 			error = kWriteError;
 		}
@@ -113,9 +113,9 @@ int _tmain(int argc, TCHAR *argv[])
 		do {
 			success = ReadFile(
 				pipeHandler,    			// pipe handle
-				chBuf,    					// buffer to receive reply
+				buffer,    					// buffer to receive reply
 				kBufferSize*sizeof(TCHAR),  // size of buffer
-				&cbRead,  					// number of bytes read
+				&readMessageLength,  		// number of bytes read
 				NULL						// not overlapped
 			);
 
@@ -123,12 +123,12 @@ int _tmain(int argc, TCHAR *argv[])
 				isBusy = false;
 			} else {
 				isBusy = true;
-				printf("\"%s\"\n", chBuf);
+				printf("\"%s\"\n", buffer);
 			}
 		} while (isBusy && !success);
 
 		if (!success) {
-			printf("ReadFile from pipe failed. GLE=%d\n", GetLastError());
+			printf("ReadFile from pipe failed. GLE=%lu\n", GetLastError());
 			error = kReadError;
 		}
 	}

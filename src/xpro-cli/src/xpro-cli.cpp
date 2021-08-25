@@ -23,10 +23,13 @@ int _tmain(int argc, TCHAR *argv[])
 	HANDLE pipeHandler;
 	LPTSTR messageString;
 	TCHAR  chBuf[kBufferSize];
-	BOOL   fSuccess = FALSE;
-	DWORD  cbRead, cbToWrite, cbWritten, dwMode;
+	DWORD  cbRead;
+	DWORD messageBuffer;
+	DWORD cbWritten;
+	DWORD pipeMode;
 	LPTSTR pipeName = kPipename;
 	bool isBusy = true;
+	bool success = true;
 
 	if (error == kNoError) {
 		if (argc > 1) {
@@ -50,83 +53,92 @@ int _tmain(int argc, TCHAR *argv[])
 				NULL							// no template file
 			);
 
-			isBusy = pipeHandler != INVALID_HANDLE_VALUE;
+			isBusy = pipeHandler == INVALID_HANDLE_VALUE;
 		}
 
 		if (isBusy && (error == kNoError)) {
 			if (GetLastError() != ERROR_PIPE_BUSY) {
 				error = kPipeError;
-				DLog("Could not open pipe.  GLE=%d", GetLastError());
+				printf("Could not open pipe.  GLE=%d", GetLastError());
 			}
 		}
 
 		if (isBusy && (error == kNoError)) {
 			if (!WaitNamedPipe(pipeName, 20000)) {
 				error = kPipeDelayError;
-				DLog("Could not open pipe: 20 second wait timed out");
+				printf("Could not open pipe: 20 second wait timed out");
 			}
 		}
 	}
 
-// The pipe connected; change to message-read mode.
+	if (error == kNoError) {
+		pipeMode = PIPE_READMODE_MESSAGE;
 
-   dwMode = PIPE_READMODE_MESSAGE;
-   fSuccess = SetNamedPipeHandleState(
-		   pipeHandler,    // pipe handle
-      &dwMode,  // new pipe mode
-      NULL,     // don't set maximum bytes
-      NULL);    // don't set maximum time
-   if ( ! fSuccess)
-   {
-	   printf( TEXT("SetNamedPipeHandleState failed. GLE=%d\n"), GetLastError() );
-      return -1;
-   }
+		// Get pipe
+		success = SetNamedPipeHandleState(
+			pipeHandler,	// pipe handle
+			&pipeMode,  	// new pipe mode
+			NULL,     		// don't set maximum bytes
+			NULL			// don't set maximum time
+		);
 
-// Send a message to the pipe server.
+		if (!success) {
+			error = kPipeError;
+			printf("SetNamedPipeHandleState failed. GLE=%d\n", GetLastError());
+		}
+	}
 
-   cbToWrite = (lstrlen(messageString)+1)*sizeof(TCHAR);
-   printf( TEXT("Sending %d byte message: \"%s\"\n"), cbToWrite, messageString);
+	// Send message through pipe
+	if (error == kNoError) {
+		messageBuffer = (lstrlen(messageString)+1)*sizeof(TCHAR);
 
-   fSuccess = WriteFile(
-		   pipeHandler,                  // pipe handle
-	  messageString,             // message
-      cbToWrite,              // message length
-      &cbWritten,             // bytes written
-      NULL);                  // not overlapped
+		printf("Sending %d byte message: \"%s\"\n", messageBuffer, messageString);
 
-   if ( ! fSuccess)
-   {
-	   printf( TEXT("WriteFile to pipe failed. GLE=%d\n"), GetLastError() );
-      return -1;
-   }
+		success = WriteFile(
+			pipeHandler,	// pipe handle
+			messageString, 	// message
+			messageBuffer, 	// message length
+			&cbWritten, 	// bytes written
+			NULL			// not overlapped
+		);
 
-   printf("\nMessage sent to server, receiving reply as follows:\n");
+		if (!success) {
+			printf("WriteFile to pipe failed. GLE=%d\n", GetLastError());
 
-   do
-   {
-   // Read from the pipe.
+			error = kWriteError;
+		}
+	}
 
-      fSuccess = ReadFile(
-    		  pipeHandler,    // pipe handle
-         chBuf,    // buffer to receive reply
-		 kBufferSize*sizeof(TCHAR),  // size of buffer
-         &cbRead,  // number of bytes read
-         NULL);    // not overlapped
+	if (error == kNoError) {
+		isBusy = true;
+		do {
+			success = ReadFile(
+				pipeHandler,    			// pipe handle
+				chBuf,    					// buffer to receive reply
+				kBufferSize*sizeof(TCHAR),  // size of buffer
+				&cbRead,  					// number of bytes read
+				NULL						// not overlapped
+			);
 
-      if ( ! fSuccess && GetLastError() != ERROR_MORE_DATA )
-         break;
+			if (!success && (GetLastError() != ERROR_MORE_DATA)) {
+				isBusy = false;
+			} else {
+				printf("\"%s\"\n", chBuf);
+			}
+		} while (isBusy && !success);
 
-      printf( TEXT("\"%s\"\n"), chBuf );
-   } while ( ! fSuccess);  // repeat loop if ERROR_MORE_DATA
+		if (!success) {
+			printf("ReadFile from pipe failed. GLE=%d\n", GetLastError());
+			error = kReadError;
+		}
+	}
 
-   if ( ! fSuccess)
-   {
-	   printf( TEXT("ReadFile from pipe failed. GLE=%d\n"), GetLastError() );
-      return -1;
-   }
-
-   printf("\n<End of message, press ENTER to terminate connection and exit>");
-   _getch();
+	if (error == kNoError) {
+		printf("\n<End of message, press ENTER to terminate connection and exit>");
+		_getch();
+	} else {
+		printf("\nError %d", error);
+	}
 
    CloseHandle(pipeHandler);
 

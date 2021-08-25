@@ -110,7 +110,6 @@ int _tmain(int argc, TCHAR *argv[])
 	}
 
 	if (error == kNoError) {
-		isBusy = true;
 		do {
 			success = ReadFile(
 				pipeHandler,    			// pipe handle
@@ -123,6 +122,7 @@ int _tmain(int argc, TCHAR *argv[])
 			if (!success && (GetLastError() != ERROR_MORE_DATA)) {
 				isBusy = false;
 			} else {
+				isBusy = true;
 				printf("\"%s\"\n", chBuf);
 			}
 		} while (isBusy && !success);

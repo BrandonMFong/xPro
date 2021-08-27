@@ -21,12 +21,11 @@
 DWORD WINAPI InstanceThread(LPVOID);
 
 int main() {
-	int 	result 			= 0;
 	xError 	error 			= kNoError;
-	DWORD  	threadID 		= 0;
+	long unsigned int  	threadID 		= 0;
 	HANDLE 	pipeHandler 	= INVALID_HANDLE_VALUE;
 	HANDLE 	threadHandler 	= NULL;
-	LPCTSTR pipeName 		= kPipename;
+	const char * pipeName 		= kPipename;
 
 	while (error == kNoError) {
 		if (error == kNoError) {
@@ -71,23 +70,23 @@ int main() {
 		if (error == kNoError) {
 			CloseHandle(threadHandler);
 		} else {
-			result = -1;
+
 		}
 	}
 
-	return result;
+	return (int) error;
 }
 
 DWORD WINAPI InstanceThread(LPVOID param) {
 	xError 	error 			= kNoError;
 	HANDLE 	heapHandler 	= NULL;
-	TCHAR * request 		= NULL;
-	TCHAR * reply 			= NULL;
-	DWORD 	bytesRead 		= 0;
-	DWORD 	bytesReply 		= 0;
-	DWORD 	bytesWritten 	= 0;
+	char * request 		= NULL;
+	char * reply 			= NULL;
+	long unsigned int 	bytesRead 		= 0;
+	long unsigned int 	bytesReply 		= 0;
+	long unsigned int 	bytesWritten 	= 0;
 	HANDLE 	pipeHandler 	= NULL;
-	BOOL 	success 		= FALSE;
+	bool 	success 		= false;
 
 	if (error == kNoError) {
 		error = param != NULL ? kNoError : kNULLError;
@@ -99,18 +98,18 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 	}
 
 	if (error == kNoError) {
-		request = (TCHAR*) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+		request = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
 		error 	= request != NULL ? kNoError : kHeapRequestError;
 	}
 
 	if (error == kNoError) {
-		reply = (TCHAR *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(TCHAR));
+		reply = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
 		error = reply != NULL ? kNoError : kHeapReplyError;
 	}
 
 	if (error == kNoError) {
 		pipeHandler = (HANDLE) param;
-		error = pipeHandler != NULL ? kNoError : kPipeError;
+		error 		= pipeHandler != NULL ? kNoError : kPipeError;
 	}
 
 	while (error == kNoError) {
@@ -118,7 +117,7 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 			success = ReadFile(
 				pipeHandler,
 				request,
-				kBufferSize * sizeof(TCHAR),
+				kBufferSize * sizeof(char),
 				&bytesRead,
 				NULL
 			);
@@ -127,14 +126,16 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 		}
 
 		if (error == kNoError) {
-		    if (FAILED(StringCchCopy(reply, kBufferSize, TEXT("Hello you fool!")))) {
+		    if (FAILED(StringCchCopy(reply, kBufferSize, "Hello you fool!"))) {
 		        DLog("StringCchCopy failed, no outgoing message.\n");
 
 		        bytesReply 	= 0;
 		        reply[0] 	= 0;
 		        error	 	= kWriteError;
 		    }
+		}
 
+		if (error == kNoError) {
 		    bytesReply = (lstrlen(reply)+1) * sizeof(TCHAR);
 
 		    success = WriteFile(
@@ -156,7 +157,7 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 	HeapFree(heapHandler, 0, request);
 	HeapFree(heapHandler, 0, reply);
 
-	printf("InstanceThread exiting.\n");
+	DLog("InstanceThread exiting.\n");
 
 	return 1;
 }

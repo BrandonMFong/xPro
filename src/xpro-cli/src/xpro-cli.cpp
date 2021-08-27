@@ -37,7 +37,7 @@ int main(int argc, char ** argv)
 			messageString = argv[1];
 		} else {
 			error = kArgError;
-			printf("No argument provided");
+			DLog("No argument provided");
 		}
 	}
 

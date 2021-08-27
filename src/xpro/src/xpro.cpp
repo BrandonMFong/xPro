@@ -81,7 +81,6 @@ int main() {
 
 long unsigned int InstanceThread(void * param) {
 	xError 				error 			= kNoError;
-	HANDLE 				heapHandler 	= NULL;
 	char * 				request 		= NULL;
 	char * 				reply 			= NULL;
 	long unsigned int 	bytesRead 		= 0;
@@ -95,13 +94,8 @@ long unsigned int InstanceThread(void * param) {
 	}
 
 	if (error == kNoError) {
-		heapHandler = GetProcessHeap();
-		error 		= heapHandler != NULL ? kNoError : kProcessHeapError;
-	}
-
-	if (error == kNoError) {
-		request = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
-		error 	= request != NULL ? kNoError : kHeapRequestError;
+		request = (char *) malloc(sizeof(char) * kBufferSize);
+		error 	= request != NULL ? kNoError : kNULLError;
 	}
 
 	if (error == kNoError) {
@@ -151,7 +145,7 @@ long unsigned int InstanceThread(void * param) {
 	DisconnectNamedPipe(pipeHandler);
 	CloseHandle(pipeHandler);
 
-	HeapFree(heapHandler, 0, request);
+	free(request);
 	free(reply);
 
 	DLog("InstanceThread exiting.\n");

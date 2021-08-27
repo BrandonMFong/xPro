@@ -9,10 +9,9 @@
 #define XLOGGER_XDLOG_H_
 
 #ifdef DEBUG
- #define DLog(fmt, args...) fprintf(stderr, "\nDEBUG: %s:%d:%s(): " fmt, \
-    __FILE__, __LINE__, __func__, ##args)
+ #define DLog(...) printf(__VA_ARGS__)
 #else
- #define DLog(fmt, args...) /* Don't do anything in release builds */
+ #define DLog(...) /* Don't do anything in release builds */
 #endif
 
 #endif /* XLOGGER_XDLOG_H_ */

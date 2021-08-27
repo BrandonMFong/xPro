@@ -14,9 +14,6 @@
 /* xPro */
 #include <xLib.h>
 
-#define kBufferSize 4096
-#define kPipename "\\\\.\\pipe\\mynamedpipe"
-
 int main(int argc, char ** argv)
 {
 	xError 				error 		= kNoError;

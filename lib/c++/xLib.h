@@ -13,13 +13,16 @@ extern "C"
 {
 #endif
 
-#include <xError.h>
-#include <xLogger/xDLog.h>
 
 #ifdef __cplusplus
 }
 #endif
 
+#include <xPipe.h>
+#include <xError.h>
+#include <xLogger/xDLog.h>
+
+/// Objects
 #include <xObject/xObject.h>
 
 #endif /* XLIB_H_ */

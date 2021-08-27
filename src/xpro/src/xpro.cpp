@@ -17,9 +17,6 @@
 /* xPro */
 #include <xLib.h>
 
-#define kBufferSize 512
-#define kPipename "\\\\.\\pipe\\mynamedpipe"
-
 xError SendResponse(HANDLE pipe);
 
 int main() {

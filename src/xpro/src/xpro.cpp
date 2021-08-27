@@ -81,10 +81,10 @@ int main() {
 
 long unsigned int InstanceThread(void * param) {
 	xError 				error 			= kNoError;
-	char * 				request 		= NULL;
-	char * 				reply 			= NULL;
+	char * 				readBuffer 		= NULL;
+	char * 				writeBuffer 	= NULL;
 	long unsigned int 	bytesRead 		= 0;
-	long unsigned int 	bytesReply 		= 0;
+	long unsigned int 	messageSize 	= 0;
 	long unsigned int 	bytesWritten 	= 0;
 	HANDLE 				pipeHandler 	= NULL;
 	bool 				success 		= false;
@@ -94,25 +94,25 @@ long unsigned int InstanceThread(void * param) {
 	}
 
 	if (error == kNoError) {
-		request = (char *) malloc(sizeof(char) * kBufferSize);
-		error 	= request != NULL ? kNoError : kNULLError;
-	}
-
-	if (error == kNoError) {
 		pipeHandler = (HANDLE) param;
 		error 		= pipeHandler != NULL ? kNoError : kPipeError;
 	}
 
 	if (error == kNoError) {
-		reply = (char *) malloc(sizeof(char) * kBufferSize);
-		error = reply != NULL ? kNoError : kNULLError;
+		readBuffer 	= (char *) malloc(sizeof(char) * kBufferSize);
+		error 		= readBuffer != NULL ? kNoError : kNULLError;
+	}
+
+	if (error == kNoError) {
+		writeBuffer = (char *) malloc(sizeof(char) * kBufferSize);
+		error 		= writeBuffer != NULL ? kNoError : kNULLError;
 	}
 
 	while (error == kNoError) {
 		if (error == kNoError) {
 			success = ReadFile(
 				pipeHandler,
-				request,
+				readBuffer,
 				kBufferSize * sizeof(char),
 				&bytesRead,
 				NULL
@@ -122,17 +122,17 @@ long unsigned int InstanceThread(void * param) {
 		}
 
 		if (error == kNoError) {
-			strcpy(reply, "Hello world! I did it!");
-			error = !strcmp(reply, "Hello world! I did it!") ? kNoError : kStringError;
+			strcpy(writeBuffer, "Hello world! I did it!");
+			error = !strcmp(writeBuffer, "Hello world! I did it!") ? kNoError : kStringError;
 		}
 
 		if (error == kNoError) {
-		    bytesReply = (lstrlen(reply)+1) * sizeof(char);
+			messageSize = (lstrlen(writeBuffer)+1) * sizeof(char);
 
 		    success = WriteFile(
 				pipeHandler,
-				reply,
-				bytesReply,
+				writeBuffer,
+				messageSize,
 				&bytesWritten,
 				NULL
 			);
@@ -145,8 +145,8 @@ long unsigned int InstanceThread(void * param) {
 	DisconnectNamedPipe(pipeHandler);
 	CloseHandle(pipeHandler);
 
-	free(request);
-	free(reply);
+	free(readBuffer);
+	free(writeBuffer);
 
 	DLog("InstanceThread exiting.\n");
 

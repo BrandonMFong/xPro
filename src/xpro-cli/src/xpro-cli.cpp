@@ -14,28 +14,30 @@
 /* xPro */
 #include <xLib.h>
 
-#define kBufferSize 512
+#define kBufferSize 4096
 #define kPipename "\\\\.\\pipe\\mynamedpipe"
 
-int _tmain(int argc, TCHAR *argv[])
+int main(int argc, char ** argv)
 {
-	xError 	error 		= kNoError;
-	LPTSTR 	pipeName 	= (char *) kPipename;
-	bool 	isBusy 		= true;
-	bool 	success 	= true;
-	HANDLE 	pipeHandler;
-	LPTSTR 	messageString;
-	TCHAR  	buffer[kBufferSize];
-	DWORD  	readMessageLength;
-	DWORD 	messageLength;
-	DWORD 	writtenBytes;
-	DWORD 	pipeMode;
+	xError 				error 		= kNoError;
+	const char * 		pipeName 	= kPipename;
+	bool 				isBusy 		= true;
+	bool 				success 	= true;
+	HANDLE 				pipeHandler;
+	char * 				messageString;
+	char  				buffer[kBufferSize];
+	char  				result[kBufferSize];
+	long unsigned int 	readMessageLength;
+	long unsigned int	messageLength;
+	long unsigned int 	writtenBytes;
+	long unsigned int 	pipeMode;
 
 	if (error == kNoError) {
 		if (argc > 1) {
 			messageString = argv[1];
 		} else {
-			messageString = "Default message from client.";
+			error = kArgError;
+			printf("No argument provided");
 		}
 	}
 
@@ -114,7 +116,7 @@ int _tmain(int argc, TCHAR *argv[])
 			success = ReadFile(
 				pipeHandler,    			// pipe handle
 				buffer,    					// buffer to receive reply
-				kBufferSize*sizeof(TCHAR),  // size of buffer
+				kBufferSize*sizeof(char),  	// size of buffer
 				&readMessageLength,  		// number of bytes read
 				NULL						// not overlapped
 			);
@@ -123,13 +125,15 @@ int _tmain(int argc, TCHAR *argv[])
 				isBusy = false;
 			} else {
 				isBusy = true;
-				printf("\"%s\"\n", buffer);
+				strcat(result, buffer);
 			}
 		} while (isBusy && !success);
 
 		if (!success) {
 			printf("ReadFile from pipe failed. GLE=%lu\n", GetLastError());
 			error = kReadError;
+		} else {
+			printf("\"%s\"\n", buffer);
 		}
 	}
 
@@ -142,5 +146,5 @@ int _tmain(int argc, TCHAR *argv[])
 
    CloseHandle(pipeHandler);
 
-   return 0;
+   return (int) error;
 }

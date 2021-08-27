@@ -20,7 +20,7 @@
 #define kBufferSize 512
 #define kPipename "\\\\.\\pipe\\mynamedpipe"
 
-long unsigned int WINAPI InstanceThread(void * param);
+long unsigned int InstanceThread(void * param);
 
 int main() {
 	xError 				error 			= kNoError;
@@ -79,7 +79,7 @@ int main() {
 	return (int) error;
 }
 
-long unsigned int WINAPI InstanceThread(void * param) {
+long unsigned int InstanceThread(void * param) {
 	xError 				error 			= kNoError;
 	HANDLE 				heapHandler 	= NULL;
 	char * 				request 		= NULL;
@@ -103,11 +103,6 @@ long unsigned int WINAPI InstanceThread(void * param) {
 		request = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
 		error 	= request != NULL ? kNoError : kHeapRequestError;
 	}
-
-//	if (error == kNoError) {
-//		reply = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
-//		error = reply != NULL ? kNoError : kHeapReplyError;
-//	}
 
 	if (error == kNoError) {
 		pipeHandler = (HANDLE) param;
@@ -136,16 +131,6 @@ long unsigned int WINAPI InstanceThread(void * param) {
 			strcpy(reply, "Hello world! I did it!");
 			error = !strcmp(reply, "Hello world! I did it!") ? kNoError : kStringError;
 		}
-
-//		if (error == kNoError) {
-//		    if (FAILED(StringCchCopy(reply, kBufferSize, "Hello you fool!"))) {
-//		        DLog("StringCchCopy failed, no outgoing message.\n");
-//
-//		        bytesReply 	= 0;
-//		        reply[0] 	= 0;
-//		        error	 	= kWriteError;
-//		    }
-//		}
 
 		if (error == kNoError) {
 		    bytesReply = (lstrlen(reply)+1) * sizeof(char);

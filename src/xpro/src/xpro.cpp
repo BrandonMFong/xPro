@@ -72,7 +72,7 @@ int main() {
 		if (error == kNoError) {
 			CloseHandle(threadHandler);
 		} else {
-
+			DLog("Error %d", error);
 		}
 	}
 

@@ -22,11 +22,13 @@
 
 long unsigned int InstanceThread(void * param);
 
+xError SendResponse(HANDLE pipe);
+
 int main() {
 	xError 				error 			= kNoError;
-	long unsigned int  	threadID 		= 0;
+//	long unsigned int  	threadID 		= 0;
 	HANDLE 				pipeHandler 	= INVALID_HANDLE_VALUE;
-	HANDLE 				threadHandler 	= NULL;
+//	HANDLE 				threadHandler 	= NULL;
 	const char * 		pipeName 		= kPipename;
 
 	while (error == kNoError) {
@@ -56,27 +58,86 @@ int main() {
 		}
 
 		if (error == kNoError) {
-			threadHandler = CreateThread(
-				NULL,              		// no security attribute
-				0,                	 	// default stack size
-				InstanceThread,    		// thread proc
-				(void *) pipeHandler,	// thread parameter
-				0,                 		// not suspended
-				&threadID				// returns thread ID
-			);
-
-			error = threadHandler != NULL ? kNoError : kThreadError;
+			error = SendResponse(pipeHandler);
 		}
 
-		// Close the thread because we are now done with it
-		if (error == kNoError) {
-			CloseHandle(threadHandler);
-		} else {
-			DLog("Error %d", error);
+		if (pipeHandler != INVALID_HANDLE_VALUE) {
+			FlushFileBuffers(pipeHandler);
+			DisconnectNamedPipe(pipeHandler);
+			CloseHandle(pipeHandler);
 		}
 	}
 
+	if (error != kNoError) {
+		DLog("Error %d", error);
+	}
 	return (int) error;
+}
+
+xError SendResponse(HANDLE pipe)
+{
+	xError result = kNoError;
+	char * readBuffer = NULL;
+	char * writeBuffer = NULL;
+	bool success = false;
+	long unsigned int bytesRead = 0;
+	long unsigned int messageSize = 0;
+	long unsigned int bytesWritten = 0;
+
+	if (result == kNoError) {
+		result = pipe != NULL ? kNoError : kPipeError;
+	}
+
+	if (result == kNoError) {
+		readBuffer 	= (char *) malloc(sizeof(char) * kBufferSize);
+		result 		= readBuffer != NULL ? kNoError : kNULLError;
+	}
+
+	if (result == kNoError) {
+		writeBuffer = (char *) malloc(sizeof(char) * kBufferSize);
+		result 		= writeBuffer != NULL ? kNoError : kNULLError;
+	}
+
+	if (result == kNoError) {
+		success = ReadFile(
+			pipe,
+			readBuffer,
+			kBufferSize * sizeof(char),
+			&bytesRead,
+			NULL
+		);
+
+		result = (success && (bytesRead != 0)) ? kNoError : kReadError;
+	}
+
+	if (result == kNoError) {
+		strcpy(writeBuffer, "Hello world! I did it!");
+		result = !strcmp(writeBuffer, "Hello world! I did it!") ? kNoError : kStringError;
+	}
+
+	if (result == kNoError) {
+		messageSize = (lstrlen(writeBuffer)+1) * sizeof(char);
+
+	    success = WriteFile(
+			pipe,
+			writeBuffer,
+			messageSize,
+			&bytesWritten,
+			NULL
+		);
+
+	    result = success ? kNoError : kWriteError;
+	}
+
+	if (readBuffer != NULL) {
+		free(readBuffer);
+	}
+
+	if (writeBuffer != NULL) {
+		free(writeBuffer);
+	}
+
+	return result;
 }
 
 long unsigned int InstanceThread(void * param) {

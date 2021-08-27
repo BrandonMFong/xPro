@@ -23,6 +23,7 @@ typedef enum {
 	kWriteError = 9,
 	kArgError = 10,
 	kPipeDelayError = 11,
+	kStringError = 12,
 } xError;
 
 

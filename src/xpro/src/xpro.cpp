@@ -6,6 +6,8 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#define STRSAFE_NO_DEPRECATE
+
 /* Windows */
 #include <windows.h>
 #include <stdio.h>
@@ -21,11 +23,11 @@
 long unsigned int WINAPI InstanceThread(void * param);
 
 int main() {
-	xError 	error 			= kNoError;
+	xError 				error 			= kNoError;
 	long unsigned int  	threadID 		= 0;
-	HANDLE 	pipeHandler 	= INVALID_HANDLE_VALUE;
-	HANDLE 	threadHandler 	= NULL;
-	const char * pipeName 		= kPipename;
+	HANDLE 				pipeHandler 	= INVALID_HANDLE_VALUE;
+	HANDLE 				threadHandler 	= NULL;
+	const char * 		pipeName 		= kPipename;
 
 	while (error == kNoError) {
 		if (error == kNoError) {
@@ -78,15 +80,15 @@ int main() {
 }
 
 long unsigned int WINAPI InstanceThread(void * param) {
-	xError 	error 			= kNoError;
-	HANDLE 	heapHandler 	= NULL;
-	char * request 		= NULL;
-	char * reply 			= NULL;
+	xError 				error 			= kNoError;
+	HANDLE 				heapHandler 	= NULL;
+	char * 				request 		= NULL;
+	char * 				reply 			= NULL;
 	long unsigned int 	bytesRead 		= 0;
 	long unsigned int 	bytesReply 		= 0;
 	long unsigned int 	bytesWritten 	= 0;
-	HANDLE 	pipeHandler 	= NULL;
-	bool 	success 		= false;
+	HANDLE 				pipeHandler 	= NULL;
+	bool 				success 		= false;
 
 	if (error == kNoError) {
 		error = param != NULL ? kNoError : kNULLError;
@@ -102,14 +104,19 @@ long unsigned int WINAPI InstanceThread(void * param) {
 		error 	= request != NULL ? kNoError : kHeapRequestError;
 	}
 
-	if (error == kNoError) {
-		reply = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
-		error = reply != NULL ? kNoError : kHeapReplyError;
-	}
+//	if (error == kNoError) {
+//		reply = (char *) HeapAlloc(heapHandler, 0, kBufferSize * sizeof(char));
+//		error = reply != NULL ? kNoError : kHeapReplyError;
+//	}
 
 	if (error == kNoError) {
 		pipeHandler = (HANDLE) param;
 		error 		= pipeHandler != NULL ? kNoError : kPipeError;
+	}
+
+	if (error == kNoError) {
+		reply = (char *) malloc(sizeof(char) * kBufferSize);
+		error = reply != NULL ? kNoError : kNULLError;
 	}
 
 	while (error == kNoError) {
@@ -126,14 +133,19 @@ long unsigned int WINAPI InstanceThread(void * param) {
 		}
 
 		if (error == kNoError) {
-		    if (FAILED(StringCchCopy(reply, kBufferSize, "Hello you fool!"))) {
-		        DLog("StringCchCopy failed, no outgoing message.\n");
-
-		        bytesReply 	= 0;
-		        reply[0] 	= 0;
-		        error	 	= kWriteError;
-		    }
+			strcpy(reply, "Hello world! I did it!");
+			error = !strcmp(reply, "Hello world! I did it!") ? kNoError : kStringError;
 		}
+
+//		if (error == kNoError) {
+//		    if (FAILED(StringCchCopy(reply, kBufferSize, "Hello you fool!"))) {
+//		        DLog("StringCchCopy failed, no outgoing message.\n");
+//
+//		        bytesReply 	= 0;
+//		        reply[0] 	= 0;
+//		        error	 	= kWriteError;
+//		    }
+//		}
 
 		if (error == kNoError) {
 		    bytesReply = (lstrlen(reply)+1) * sizeof(char);
@@ -155,7 +167,7 @@ long unsigned int WINAPI InstanceThread(void * param) {
 	CloseHandle(pipeHandler);
 
 	HeapFree(heapHandler, 0, request);
-	HeapFree(heapHandler, 0, reply);
+	free(reply);
 
 	DLog("InstanceThread exiting.\n");
 

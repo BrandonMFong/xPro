@@ -18,7 +18,7 @@
 #define kBufferSize 512
 #define kPipename "\\\\.\\pipe\\mynamedpipe"
 
-DWORD WINAPI InstanceThread(LPVOID);
+long unsigned int WINAPI InstanceThread(void * param);
 
 int main() {
 	xError 	error 			= kNoError;
@@ -58,7 +58,7 @@ int main() {
 				NULL,              		// no security attribute
 				0,                	 	// default stack size
 				InstanceThread,    		// thread proc
-				(LPVOID) pipeHandler,	// thread parameter
+				(void *) pipeHandler,	// thread parameter
 				0,                 		// not suspended
 				&threadID				// returns thread ID
 			);
@@ -77,7 +77,7 @@ int main() {
 	return (int) error;
 }
 
-DWORD WINAPI InstanceThread(LPVOID param) {
+long unsigned int WINAPI InstanceThread(void * param) {
 	xError 	error 			= kNoError;
 	HANDLE 	heapHandler 	= NULL;
 	char * request 		= NULL;
@@ -136,7 +136,7 @@ DWORD WINAPI InstanceThread(LPVOID param) {
 		}
 
 		if (error == kNoError) {
-		    bytesReply = (lstrlen(reply)+1) * sizeof(TCHAR);
+		    bytesReply = (lstrlen(reply)+1) * sizeof(char);
 
 		    success = WriteFile(
 				pipeHandler,

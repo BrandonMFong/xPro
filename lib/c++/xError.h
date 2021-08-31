@@ -25,6 +25,7 @@ typedef enum {
 	kPipeDelayError = 11,
 	kStringError = 12,
 	kServerError = 13,
+	kClientError = 14,
 } xError;
 
 

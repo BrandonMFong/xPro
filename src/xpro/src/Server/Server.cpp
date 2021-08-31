@@ -7,15 +7,19 @@
 
 #include "Server.h"
 
-Server::Server() {
+Server::Server(xError * err) {
+	xError error = kNoError;
 
+	if (err != NULL) {
+		*err = error;
+	}
 }
 
 Server::~Server() {
 	// TODO Auto-generated destructor stub
 }
 
-xError Server::Listen() {
+xError Server::listen() {
 	xError 			result 		= kNoError;
 	HANDLE 			pipeHandler = INVALID_HANDLE_VALUE;
 	const char *	pipeName 	= kPipename;
@@ -47,7 +51,7 @@ xError Server::Listen() {
 		}
 
 		if (result == kNoError) {
-			result = this->HandleRequest(pipeHandler);
+			result = this->handleRequest(pipeHandler);
 		}
 
 		if (pipeHandler != INVALID_HANDLE_VALUE) {
@@ -64,7 +68,7 @@ xError Server::Listen() {
 	return result;
 }
 
-xError Server::HandleRequest(HANDLE pipe) {
+xError Server::handleRequest(HANDLE pipe) {
 	xError 				result 			= kNoError;
 	char * 				readBuffer 		= NULL;
 	char * 				writeBuffer 	= NULL;

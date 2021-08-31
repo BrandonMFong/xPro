@@ -21,10 +21,10 @@
 
 class Server {
 public:
-	Server();
+	Server(xError * err);
 	virtual ~Server();
-	xError Listen();
-	xError HandleRequest(HANDLE pipe);
+	xError listen();
+	xError handleRequest(HANDLE pipe);
 private:
 	HANDLE _pipe;
 };

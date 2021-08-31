@@ -13,12 +13,15 @@ int main() {
 	Server * heimdall = NULL;
 
 	if (error == kNoError) {
-		heimdall = new Server;
-		error = heimdall != NULL ? kNoError : kServerError;
+		heimdall = new Server(&error);
+
+		if (heimdall == NULL) {
+			error = kServerError;
+		}
 	}
 
 	if (error == kNoError) {
-		error = heimdall->Listen();
+		error = heimdall->listen();
 	}
 
 	return (int) error;

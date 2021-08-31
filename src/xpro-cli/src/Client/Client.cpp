@@ -1,64 +1,57 @@
-//============================================================================
-// Name        : xpro-cli.cpp
-// Author      : 
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+ * Client.cpp
+ *
+ *  Created on: Aug 30, 2021
+ *      Author: BrandonMFong
+ */
 
-#include <Client/Client.h>
+#include "Client.h"
 
-int main (int argc, char ** argv) {
+Client::Client(xError * err) {
 	xError error = kNoError;
-	Client * client = NULL;
 
-	if (error == kNoError) {
-		client = new Client(&error);
+	if (err != NULL) {
+		*err = error;
+	}
+}
 
-		if (client == NULL) {
-			error = kClientError;
+Client::~Client() {
+	// TODO Auto-generated destructor stub
+}
+
+xError Client::readArgs(int argc, char ** argv) {
+	xError result = kNoError;
+	if (result == kNoError) {
+		if (argc > 1) {
+			DLog("Good arg count");
+		} else {
+			result = kArgError;
+			DLog("No argument provided");
 		}
 	}
 
-	if (error == kNoError) {
-		error = client->readArgs(argc, argv);
-	}
-
-	if (error == kNoError) {
-		error = client->exec();
-	}
-
-	return (int) error;
+	return result;
 }
 
-int temp(int argc, char ** argv)
-{
-	xError 				error 		= kNoError;
+xError Client::exec() {
+
+	xError 				result 		= kNoError;
 	const char * 		pipeName 	= kPipename;
 	bool 				isBusy 		= true;
 	bool 				success 	= true;
 	HANDLE 				pipeHandler;
-	char * 				messageString;
+	const char * 		messageString = "Hello world!";
 	char  				buffer[kBufferSize];
-	char  				result[kBufferSize];
+	char  				data[kBufferSize];
 	long unsigned int 	readMessageLength;
 	long unsigned int	messageLength;
 	long unsigned int 	writtenBytes;
 	long unsigned int 	pipeMode;
 
-	if (error == kNoError) {
-		if (argc > 1) {
-			messageString = argv[1];
-		} else {
-			error = kArgError;
-			DLog("No argument provided");
-		}
-	}
-
 	// Try to open pipe
-	while (isBusy && (error == kNoError))
+	while (isBusy && (result == kNoError))
 	{
-		if (error == kNoError) {
+		if (result == kNoError) {
 			pipeHandler = CreateFile(
 				pipeName,   					// pipe name
 				GENERIC_READ | GENERIC_WRITE, 	// read and write access
@@ -72,22 +65,22 @@ int temp(int argc, char ** argv)
 			isBusy = pipeHandler == INVALID_HANDLE_VALUE;
 		}
 
-		if (isBusy && (error == kNoError)) {
+		if (isBusy && (result == kNoError)) {
 			if (GetLastError() != ERROR_PIPE_BUSY) {
-				error = kPipeError;
+				result = kPipeError;
 				printf("Could not open pipe.  GLE=%lu", GetLastError());
 			}
 		}
 
-		if (isBusy && (error == kNoError)) {
+		if (isBusy && (result == kNoError)) {
 			if (!WaitNamedPipe(pipeName, 20000)) {
-				error = kPipeDelayError;
+				result = kPipeDelayError;
 				printf("Could not open pipe: 20 second wait timed out");
 			}
 		}
 	}
 
-	if (error == kNoError) {
+	if (result == kNoError) {
 		pipeMode = PIPE_READMODE_MESSAGE;
 
 		// Get pipe
@@ -99,13 +92,13 @@ int temp(int argc, char ** argv)
 		);
 
 		if (!success) {
-			error = kPipeError;
+			result = kPipeError;
 			printf("SetNamedPipeHandleState failed. GLE=%lu\n", GetLastError());
 		}
 	}
 
 	// Send message through pipe
-	if (error == kNoError) {
+	if (result == kNoError) {
 		messageLength = (lstrlen(messageString)+1)*sizeof(TCHAR);
 
 		printf("Sending %lu byte message: \"%s\"\n", messageLength, messageString);
@@ -121,11 +114,11 @@ int temp(int argc, char ** argv)
 		if (!success) {
 			printf("WriteFile to pipe failed. GLE=%lu\n", GetLastError());
 
-			error = kWriteError;
+			result = kWriteError;
 		}
 	}
 
-	if (error == kNoError) {
+	if (result == kNoError) {
 		do {
 			success = ReadFile(
 				pipeHandler,    			// pipe handle
@@ -139,26 +132,26 @@ int temp(int argc, char ** argv)
 				isBusy = false;
 			} else {
 				isBusy = true;
-				strcat(result, buffer);
+				strcat(data, buffer);
 			}
 		} while (isBusy && !success);
 
 		if (!success) {
 			printf("ReadFile from pipe failed. GLE=%lu\n", GetLastError());
-			error = kReadError;
+			result = kReadError;
 		} else {
-			printf("\"%s\"\n", buffer);
+			printf("\"%s\"\n", data);
 		}
 	}
 
-	if (error == kNoError) {
+	if (result == kNoError) {
 		printf("\n<End of message, press ENTER to terminate connection and exit>");
 		_getch();
 	} else {
-		printf("\nError %d", error);
+		printf("\nError %d", result);
 	}
 
    CloseHandle(pipeHandler);
 
-   return (int) error;
+   return result;
 }

@@ -14,7 +14,7 @@ void xArrayRunTests(void)
 
 void testInitializer(void)
 {
-	xAssert(false, "Test assert");
-	xAssert(false, "Test assert");
-	xUTResults(false, "Testing initializer");
+	xAssert(true, "Test assert");
+	xAssert(true, "Test assert");
+	xUTResults(true, "Testing initializer");
 }

@@ -53,18 +53,24 @@ void xAssert(bool value, const char * string, ...)
 	if (result && okayToContinue) {
 		if (::errorOutput == NULL) {
 			::errorOutput = (char *) malloc(sizeof(char) * (strlen(string) + 2));
+
+			if (::errorOutput != NULL) {
+				strcpy(::errorOutput, "- ");
+				result = true;
+			}
 		} else {
 			::errorOutput = (char *) realloc(::errorOutput, (strlen(::errorOutput) + strlen(string) + 2));
-		}
 
-		result = ::errorOutput != NULL;
+			if (::errorOutput != NULL) {
+				strcat(::errorOutput, "- ");
+				result = true;
+			}
+		}
 	}
 
 	if (result && okayToContinue) {
-//		strcat(::errorOutput, string);
-//		strcat(::errorOutput, "\n");
-		memcpy(::errorOutput, string, strlen(string));
-		memcpy(::errorOutput, "\n", 2);
+		strcat(::errorOutput, string);
+		strcat(::errorOutput, "\n");
 	}
 
 	va_end(args);

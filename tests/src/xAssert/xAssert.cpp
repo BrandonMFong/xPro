@@ -38,6 +38,13 @@ void xUTResults(bool value, const char * string, ...)
 	va_end(args);
 }
 
+void xAssertNotNull(void * value, const char * string, ...) {
+	va_list args;
+	va_start(args, string);
+	xAssert(value != NULL, string, args);
+	va_end(args);
+}
+
 void xAssert(bool value, const char * string, ...)
 {
 	bool 	result 			= true;

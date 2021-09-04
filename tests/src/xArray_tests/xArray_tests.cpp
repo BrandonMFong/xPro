@@ -7,13 +7,13 @@
 
 #include "xArray_tests.hpp"
 
-void xArrayRunTests(void)
-{
+void xArrayRunTests(void) {
 	testInitializer();
 }
 
-void testInitializer(void)
-{
+void testInitializer(void) {
+	xArray * array = new xArray();
+
 	xAssert(true, "Test assert");
 	xAssert(true, "Test assert");
 	xUTResults(true, "Testing initializer");

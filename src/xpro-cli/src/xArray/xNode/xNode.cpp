@@ -7,9 +7,24 @@
 
 #include <xArray/xNode/xNode.h>
 
-xNode::xNode() {
-	// TODO Auto-generated constructor stub
+xNode::xNode(void * object, xError * err) {
+	xError error = kNoError;
 
+	this->next = NULL;
+	this->previous = NULL;
+	this->object = NULL;
+
+	if (error == kNoError) {
+		error = object != NULL ? kNoError : kNodeObjectError;
+	}
+
+	if (error == kNoError) {
+		this->object = object;
+	}
+
+	if (err != NULL) {
+		*err = error;
+	}
 }
 
 xNode::~xNode() {

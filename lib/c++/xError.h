@@ -26,6 +26,9 @@ typedef enum {
 	kStringError = 12,
 	kServerError = 13,
 	kClientError = 14,
+	kNodeObjectError = 15,
+	kNodeError = 16,
+	kStartNodeError = 17,
 } xError;
 
 

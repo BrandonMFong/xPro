@@ -13,11 +13,37 @@
 
 class xArray {
 public:
+	/**
+	 * Constructor
+	 */
 	xArray();
+
+	/**
+	 * Destructor
+	 */
 	virtual ~xArray();
+
+	/**
+	 * Add any object to the array
+	 */
 	xError addObject(void * obj);
 private:
+
+	/**
+	 * Adds the xNode object to the end of the list
+	 *
+	 * This function assumes that the _startNode was already set
+	 */
+	xError addObject(xNode * node);
+
+	/**
+	 * Pointer to the start of the array
+	 */
 	xNode * _startNode;
+
+	/**
+	 * Size of the array
+	 */
 	xUint64 _size;
 };
 

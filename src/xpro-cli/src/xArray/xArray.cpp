@@ -8,11 +8,15 @@
 #include <xArray/xArray.h>
 
 xArray::xArray() {
-	// TODO Auto-generated constructor stub
-
+	this->_startNode = NULL;
 }
 
 xArray::~xArray() {
-	// TODO Auto-generated destructor stub
+
 }
 
+xError xArray::addObject(void * obj) {
+	xError result = kNoError;
+
+	return result;
+}

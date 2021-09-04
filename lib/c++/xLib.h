@@ -18,9 +18,14 @@ extern "C"
 }
 #endif
 
+/// Std Library
+#include <stdio.h>
+
+/// xLib
 #include <xPipe.h>
 #include <xError.h>
 #include <xLogger/xDLog.h>
+#include <xIntType.h>
 
 /// Objects
 #include <xObject/xObject.h>

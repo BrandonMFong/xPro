@@ -22,7 +22,7 @@
 /**
  * Displays results if value is false
  */
-void xUTResults(bool value, const char * string, ...);
+void xUTResults(const char * string, ...);
 
 /**
  * Asserts that value has to be true

@@ -13,8 +13,6 @@ void xArrayRunTests(void) {
 
 void testInitializer(void) {
 	xArray * array = new xArray();
-
-	xAssert(true, "Test assert");
-	xAssert(true, "Test assert");
-	xUTResults(true, "Testing initializer");
+	xAssertNotNull(array, "Array object is null");
+	xUTResults("Testing initializer");
 }

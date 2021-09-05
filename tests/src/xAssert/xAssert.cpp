@@ -8,14 +8,15 @@
 #include <xAssert.hpp>
 
 char * errorOutput = NULL;
+bool assertStatus = true;
 
-void xUTResults(bool value, const char * string, ...)
+void xUTResults(const char * string, ...)
 {
 	va_list args;
 
 	va_start(args, string);
 
-	if (!value) {
+	if (!assertStatus) {
 		printf("\n============================\n");
 
 		if (::errorOutput != NULL) {
@@ -23,19 +24,22 @@ void xUTResults(bool value, const char * string, ...)
 		}
 	}
 
-	printf("[ %s ] ", value ? "PASS" : "FAIL");
+	printf("[ %s ] ", assertStatus ? "PASS" : "FAIL");
 
 	vprintf(string, args);
 
-	if (!value) {
+	if (!assertStatus) {
 		printf("\n===========================\n");
-
-		if (::errorOutput != NULL) {
-			free(::errorOutput);
-		}
 	}
 
 	va_end(args);
+
+	// Reset status flag
+	assertStatus = true;
+
+	if (::errorOutput != NULL) {
+		free(::errorOutput);
+	}
 }
 
 void xAssertNotNull(void * value, const char * string, ...) {
@@ -78,6 +82,10 @@ void xAssert(bool value, const char * string, ...)
 	if (result && okayToContinue) {
 		strcat(::errorOutput, string);
 		strcat(::errorOutput, "\n");
+
+		// Save the value of the assertion so we remember
+		// to print at the end of the test run
+		assertStatus = value;
 	}
 
 	va_end(args);

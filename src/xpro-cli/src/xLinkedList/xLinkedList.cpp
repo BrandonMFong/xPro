@@ -5,18 +5,18 @@
  *      Author: BrandonMFong
  */
 
-#include <xArray/xArray.h>
+#include <xLinkedList/xLinkedList.h>
 
-xArray::xArray() {
+xLinkedList::xLinkedList() {
 	this->_startNode 	= NULL;
 	this->_size 		= 0;
 }
 
-xArray::~xArray() {
+xLinkedList::~xLinkedList() {
 
 }
 
-xError xArray::addObject(void * obj) {
+xError xLinkedList::addObject(void * obj) {
 	xError 	result 			= kNoError;
 	xNode * node 			= xNull;
 	bool 	okayToContinue 	= false;

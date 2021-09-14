@@ -9,7 +9,7 @@
 #define TESTS_HPP_
 
 
-#include <xArray_tests/xArray_tests.hpp>
+#include <xLinkedList_tests/xLinkedList_tests.hpp>
 
 
 #endif /* TESTS_HPP_ */

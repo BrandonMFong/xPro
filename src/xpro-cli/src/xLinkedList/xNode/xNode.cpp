@@ -5,7 +5,7 @@
  *      Author: BrandonMFong
  */
 
-#include <xArray/xNode/xNode.h>
+#include <xLinkedList/xNode/xNode.h>
 
 xNode::xNode(void * object, xError * err) {
 	xError error = kNoError;

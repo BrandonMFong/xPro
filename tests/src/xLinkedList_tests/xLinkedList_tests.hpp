@@ -7,7 +7,7 @@
 
 #include <xLib.h>
 #include <xAssert.hpp>
-#include <xArray.h>
+#include <xLinkedList/xLinkedList.h>
 
 void xArrayRunTests(void);
 

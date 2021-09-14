@@ -9,19 +9,19 @@
 #define XARRAY_H_
 
 #include <xLib.h>
-#include "xNode/xNode.h"
+#include <xLinkedList/xNode/xNode.h>
 
-class xArray {
+class xLinkedList {
 public:
 	/**
 	 * Constructor
 	 */
-	xArray();
+	xLinkedList();
 
 	/**
 	 * Destructor
 	 */
-	virtual ~xArray();
+	virtual ~xLinkedList();
 
 	/**
 	 * Adds the xNode object to the end of the list

@@ -5,14 +5,14 @@
  *      Author: BrandonMFong
  */
 
-#include "xArray_tests.hpp"
+#include <xLinkedList_tests/xLinkedList_tests.hpp>
 
 void xArrayRunTests(void) {
 	testInitializer();
 }
 
 void testInitializer(void) {
-	xArray * array = new xArray();
+	xLinkedList * array = new xLinkedList();
 	xAssertNotNull(array, "Array object is null");
 
 	xError error = array->addObject(xNull);

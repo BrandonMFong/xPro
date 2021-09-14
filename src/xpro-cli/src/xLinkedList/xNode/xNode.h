@@ -5,8 +5,8 @@
  *      Author: BrandonMFong
  */
 
-#ifndef XARRAY_XNODE_XNODE_H_
-#define XARRAY_XNODE_XNODE_H_
+#ifndef XLINKEDLIST_XNODE_XNODE_H_
+#define XLINKEDLIST_XNODE_XNODE_H_
 
 #include <xLib.h>
 
@@ -38,4 +38,4 @@ public:
 	void * object;
 };
 
-#endif /* XARRAY_XNODE_XNODE_H_ */
+#endif /* XLINKEDLIST_XNODE_XNODE_H_ */

@@ -8,10 +8,6 @@
 #ifndef XINTTYPE_H_
 #define XINTTYPE_H_
 
-#ifndef __USE_MINGW_ANSI_STDIO
-#define __USE_MINGW_ANSI_STDIO
-#endif
-
 /// Unsigned Integers
 typedef unsigned char 		xUint8;
 typedef unsigned short 		xUint16;

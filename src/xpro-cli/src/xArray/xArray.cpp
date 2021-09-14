@@ -49,30 +49,16 @@ xError xArray::addObject(void * obj) {
 
 	if (okayToContinue && (result == kNoError)) {
 		index = 0;
-		count = this->_size;
+		count = this->_size - 1;
 		while ((index < count) && (result == kNoError))
 		{
-			okayToContinue = true;
-
-			// Get next node
 			if (result == kNoError) {
 				tempNode = tempNode->next;
 				result = tempNode != xNull ? kNoError : kNodeObjectError;
 			}
 
-			// See if we are at the last index
-			if (result == kNoError) {
-				okayToContinue = (index == (count - 1));
-			}
-
-			// node pointer should not be null
-			if (okayToContinue && (result == kNoError)) {
-				result = (tempNode->next == xNull) ? kNoError : kNodeObjectError;
-			}
-
-			// Save node
-			if (okayToContinue && (result == kNoError)) {
-				tempNode->next = node;
+			if (result != kNoError) {
+				DLog("Node is null and that is not expected, index %llu\n", index);
 			}
 
 			index++;
@@ -80,6 +66,9 @@ xError xArray::addObject(void * obj) {
 	}
 
 	if (result == kNoError) {
+		if (okayToContinue) {
+			tempNode->next = node;
+		}
 		this->_size++;
 	}
 

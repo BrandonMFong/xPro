@@ -17,12 +17,12 @@ xArray::~xArray() {
 }
 
 xError xArray::addObject(void * obj) {
-	xError result = kNoError;
-	xNode * node = xNull;
-	bool okayToContinue = false;
+	xError 	result 			= kNoError;
+	xNode * node 			= xNull;
+	bool 	okayToContinue 	= false;
+	xNode * tempNode 		= xNull;
 	xUint64 index;
 	xUint64 count;
-	xNode * tempNode = xNull;
 
 	if (result == kNoError) {
 		node = new xNode(obj, &result);
@@ -53,8 +53,8 @@ xError xArray::addObject(void * obj) {
 		while ((index < count) && (result == kNoError))
 		{
 			if (result == kNoError) {
-				tempNode = tempNode->next;
-				result = tempNode != xNull ? kNoError : kNodeObjectError;
+				tempNode 	= tempNode->next;
+				result 		= tempNode != xNull ? kNoError : kNodeObjectError;
 			}
 
 			if (result != kNoError) {
@@ -68,60 +68,10 @@ xError xArray::addObject(void * obj) {
 	if (result == kNoError) {
 		if (okayToContinue) {
 			tempNode->next = node;
+			node->previous = tempNode;
 		}
 		this->_size++;
 	}
 
 	return result;
 }
-
-//xError xArray::addObject(xNode * node)
-//{
-//	xError result = kNoError;
-//	xNode * tempNode = NULL;
-//	bool okayToContinue = true;
-//	xUint64 index;
-//	xUint64 count;
-//
-//	if (result == kNoError) {
-//		result = this->_startNode != NULL ? kNoError : kStartNodeError;
-//
-//		if (result == kNoError) {
-//			tempNode = this->_startNode;
-//		}
-//	}
-//
-//	if (result == kNoError) {
-//		index = 0;
-//		count = this->_size;
-//		while ((index < count) && (result == kNoError))
-//		{
-//			okayToContinue = true;
-//
-//			// Get next node
-//			if (result == kNoError) {
-//				tempNode = tempNode->next;
-//				result = tempNode != NULL ? kNoError : kNodeObjectError;
-//			}
-//
-//			// See if we are at the last index
-//			if (result == kNoError) {
-//				okayToContinue = (index == (count - 1));
-//			}
-//
-//			// node pointer should not be null
-//			if (okayToContinue && (result == kNoError)) {
-//				result = (tempNode->next == NULL) ? kNoError : kNodeObjectError;
-//			}
-//
-//			// Save node
-//			if (okayToContinue && (result == kNoError)) {
-//				tempNode->next = node;
-//			}
-//
-//			index++;
-//		}
-//	}
-//
-//	return result;
-//}

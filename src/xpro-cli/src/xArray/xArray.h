@@ -24,17 +24,19 @@ public:
 	virtual ~xArray();
 
 	/**
-	 * Add any object to the array
-	 */
-	xError addObject(void * obj);
-private:
-
-	/**
 	 * Adds the xNode object to the end of the list
 	 *
 	 * This function assumes that the _startNode was already set
 	 */
-	xError addObject(xNode * node);
+	xError addObject(void * obj);
+private:
+
+//	/**
+//	 * Adds the xNode object to the end of the list
+//	 *
+//	 * This function assumes that the _startNode was already set
+//	 */
+//	xError addObject(xNode * node);
 
 	/**
 	 * Pointer to the start of the array

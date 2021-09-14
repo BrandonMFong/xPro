@@ -10,19 +10,19 @@
 xNode::xNode(void * object, xError * err) {
 	xError error = kNoError;
 
-	this->next = NULL;
-	this->previous = NULL;
-	this->object = NULL;
+	this->next = xNull;
+	this->previous = xNull;
+	this->object = xNull;
 
 	if (error == kNoError) {
-		error = object != NULL ? kNoError : kNodeObjectError;
+		error = object != xNull ? kNoError : kNodeObjectError;
 	}
 
 	if (error == kNoError) {
 		this->object = object;
 	}
 
-	if (err != NULL) {
+	if (err != xNull) {
 		*err = error;
 	}
 }

@@ -8,16 +8,6 @@
 #ifndef XLIB_H_
 #define XLIB_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-
-#ifdef __cplusplus
-}
-#endif
-
 /// Std Library
 #include <stdio.h>
 
@@ -26,6 +16,7 @@ extern "C"
 #include <xError.h>
 #include <xLogger/xDLog.h>
 #include <xIntType.h>
+#include <xNull.h>
 
 /// Objects
 #include <xObject/xObject.h>

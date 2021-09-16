@@ -21,8 +21,13 @@
 #include <xLogger/xDLog.h>
 #include <xIntType.h>
 #include <xNull.h>
+#include <xBool.h>
+
+#ifdef __cplusplus
 
 /// Objects
 #include <xObject/xObject.h>
+
+#endif // __cplusplus
 
 #endif /* XLIB_H_ */

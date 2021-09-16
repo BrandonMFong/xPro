@@ -7,24 +7,25 @@
 //============================================================================
 
 #include <Client/Client.h>
+#include <ArgsReader/ArgsReader.h>
 
-enum xOpCode {
-	opGetDir = 0
+#define xMaxArgs 2
+
+xFlag helloFlag = {.name = "hello"};
+
+xFlag * flags[1] = {&helloFlag};
+
+xArgs args = {
+	.flags = flags
 };
-
-/**
- * Used to hold the operation we will be executing based on the arguments
- */
-typedef struct {
-	xOpCode code;
-} xOpPacket;
-
-xError readArgs(int argc, char ** argv, xOpPacket * op);
 
 int main (int argc, char ** argv) {
 	xError error = kNoError;
 	Client * client = NULL;
-	xOpPacket op;
+
+	if (error == kNoError) {
+		error = readArgs(argc, argv, args);
+	}
 
 	if (error == kNoError) {
 		client = new Client(&error);
@@ -35,18 +36,8 @@ int main (int argc, char ** argv) {
 	}
 
 	if (error == kNoError) {
-		error = readArgs(argc, argv, &op);
-	}
-
-	if (error == kNoError) {
 		error = client->exec();
 	}
 
 	return (int) error;
-}
-
-xError readArgs(int argc, char ** argv, xOpPacket * op) {
-	xError result = kNoError;
-
-	return result;
 }

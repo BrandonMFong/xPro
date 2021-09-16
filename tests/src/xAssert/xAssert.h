@@ -8,7 +8,8 @@
 #ifndef XASSERT_HPP_
 #define XASSERT_HPP_
 
-#include <cstdarg>
+//#include <cstdarg>
+#include <stdarg> // TODO: how to read args in c
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

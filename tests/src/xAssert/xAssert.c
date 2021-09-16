@@ -5,7 +5,7 @@
  *      Author: BrandonMFong
  */
 
-#include <xAssert.hpp>
+#include <xAssert.h>
 
 char * errorOutput = NULL;
 bool assertStatus = true;

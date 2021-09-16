@@ -7,5 +7,9 @@
 
 
 void xArgumentsRunTests(void) {
+	testReadFlags();
+}
 
+void testReadFlags(void) {
+//	xUTResults("Testing Reading flags");
 }

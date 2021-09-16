@@ -12,6 +12,7 @@
 extern "C" {
 #endif
 
+void testReadFlags(void);
 
 void xArgumentsRunTests(void);
 

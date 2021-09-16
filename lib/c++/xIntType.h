@@ -9,10 +9,10 @@
 #define XINTTYPE_H_
 
 /// Unsigned Integers
-typedef unsigned char 		xUint8;
-typedef unsigned short 		xUint16;
-typedef unsigned int 		xUint32;
-typedef unsigned long long 	xUint64;
+typedef unsigned char 		xUInt8;
+typedef unsigned short 		xUInt16;
+typedef unsigned int 		xUInt32;
+typedef unsigned long long 	xUInt64;
 
 /// Signed Integers
 typedef char 		xInt8;

@@ -15,6 +15,7 @@
 
 /* xPro */
 #include <xLib.h>
+#include <xLinkedList/xLinkedList.h>
 
 class Client {
 public:
@@ -22,6 +23,8 @@ public:
 	virtual ~Client();
 	xError readArgs(int argc, char ** argv);
 	xError exec();
+private:
+
 };
 
 #endif /* CLIENT_CLIENT_H_ */

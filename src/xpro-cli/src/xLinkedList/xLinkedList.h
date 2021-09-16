@@ -26,7 +26,9 @@ public:
 	/**
 	 * Adds the xNode object to the end of the list
 	 *
-	 * This function assumes that the _startNode was already set
+	 * This function assumes that the _startNode was already set. I also expect that
+	 * the objecdts that are being saved are retained.  DO NOT add an object that does not
+	 * have guaranteed memory.
 	 */
 	xError addObject(void * obj);
 private:

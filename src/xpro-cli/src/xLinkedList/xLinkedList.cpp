@@ -8,7 +8,7 @@
 #include <xLinkedList/xLinkedList.h>
 
 xLinkedList::xLinkedList() {
-	this->_startNode 	= NULL;
+	this->_startNode 	= xNull;
 	this->_size 		= 0;
 }
 

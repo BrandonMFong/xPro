@@ -24,6 +24,16 @@
 #include <xBool.h>
 
 #ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <xArguments/xArguments.h>
+
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
 
 /// Objects
 #include <xObject/xObject.h>

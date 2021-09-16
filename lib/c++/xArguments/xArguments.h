@@ -5,8 +5,8 @@
  *      Author: BrandonMFong
  */
 
-#ifndef ARGSREADER_ARGSREADER_H_
-#define ARGSREADER_ARGSREADER_H_
+#ifndef XARGUMENTS_XARGUMENTS_H_
+#define XARGUMENTS_XARGUMENTS_H_
 
 #include <xLib.h>
 #include <stdio.h>
@@ -45,4 +45,4 @@ xError readArgs(int argc, char ** argv, xArgs args);
 }
 #endif
 
-#endif /* ARGSREADER_ARGSREADER_H_ */
+#endif /* XARGUMENTS_XARGUMENTS_H_ */

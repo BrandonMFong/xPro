@@ -5,7 +5,7 @@
  *      Author: BrandonMFong
  */
 
-#include <ArgsReader/ArgsReader.h>
+#include <xArguments/xArguments.h>
 
 xError readFlags(char * arg, xFlag ** flags, xUInt8 count) {
 	xError result = kNoError;
@@ -45,13 +45,15 @@ xError readFlags(char * arg, xFlag ** flags, xUInt8 count) {
 xError readArgs(int argc, char ** argv, xArgs args) {
 	xError result = kNoError;
 
-	for (xUInt8 i = 0; i < argc; i++) {
-		if (result == kNoError) {
-			result = readFlags(argv[i], args.flags, args.flagCount);
-		}
+	if (result == kNoError) {
+		for (xUInt8 i = 0; i < argc; i++) {
+			if (result == kNoError) {
+				result = readFlags(argv[i], args.flags, args.flagCount);
+			}
 
-		if (result != kNoError) {
-			break;
+			if (result != kNoError) {
+				break;
+			}
 		}
 	}
 

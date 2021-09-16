@@ -11,7 +11,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
-#include <tchar.h>
+//#include <tchar.h>
 
 /* xPro */
 #include <xLib.h>

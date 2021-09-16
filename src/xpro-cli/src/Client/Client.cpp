@@ -21,13 +21,10 @@ Client::~Client() {
 
 xError Client::readArgs(int argc, char ** argv) {
 	xError result = kNoError;
+
+
 	if (result == kNoError) {
-		if (argc > 1) {
-			DLog("Good arg count");
-		} else {
-			result = kArgError;
-			DLog("No argument provided");
-		}
+
 	}
 
 	return result;

@@ -9,6 +9,6 @@
 #include <xAssert.hpp>
 #include <xLinkedList/xLinkedList.h>
 
-void xArrayRunTests(void);
+void xLinkedListRunTests(void);
 
 void testInitializer(void);

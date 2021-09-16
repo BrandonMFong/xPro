@@ -7,7 +7,7 @@
 
 #include <xLinkedList_tests/xLinkedList_tests.hpp>
 
-void xArrayRunTests(void) {
+void xLinkedListRunTests(void) {
 	testInitializer();
 }
 

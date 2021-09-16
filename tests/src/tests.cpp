@@ -10,7 +10,11 @@
 
 int main() {
 
-	xArrayRunTests();
+	/// Linked List
+	xLinkedListRunTests();
+
+	/// xArguments
+	xArgumentsRunTests();
 
 	return 0;
 }

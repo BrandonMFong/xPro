@@ -10,6 +10,7 @@
 
 
 #include <xLinkedList_tests/xLinkedList_tests.hpp>
+#include <xArguments_tests/xArguments_tests.h>
 
 
 #endif /* TESTS_HPP_ */

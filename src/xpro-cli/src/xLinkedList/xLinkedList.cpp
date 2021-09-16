@@ -75,3 +75,7 @@ xError xLinkedList::addObject(void * obj) {
 
 	return result;
 }
+
+xUInt64 xLinkedList::size() {
+	return this->_size;
+}

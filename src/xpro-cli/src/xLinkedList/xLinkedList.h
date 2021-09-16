@@ -31,6 +31,12 @@ public:
 	 * have guaranteed memory.
 	 */
 	xError addObject(void * obj);
+
+	/**
+	 * Returns _size
+	 */
+	xUInt64 size();
+
 private:
 
 	/**

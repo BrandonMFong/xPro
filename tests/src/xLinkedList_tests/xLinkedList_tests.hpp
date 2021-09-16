@@ -11,4 +11,7 @@
 
 void xLinkedListRunTests(void);
 
+/**
+ * Also tests execution of addObject
+ */
 void testInitializer(void);

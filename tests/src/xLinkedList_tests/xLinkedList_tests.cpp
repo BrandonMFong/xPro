@@ -29,5 +29,7 @@ void testInitializer(void) {
 	error = array->addObject(&z);
 	xAssert(error == kNoError, "Cannot add %d", z);
 
+	xAssert(array->size() == 3, "Size is supposed to be 3 but size is %llu", array->size());
+
 	xUTResults("Testing initializer");
 }

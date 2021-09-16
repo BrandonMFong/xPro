@@ -10,33 +10,53 @@
 
 #define xMaxArgs 2
 
-xFlag helloFlag = {.name = "hello"};
+xFlag clientFlag = {.name = "client"};
+xFlag serverFlag = {.name = "server"};
 
-xFlag * flags[1] = {&helloFlag};
+xFlag * flags[2] = {&clientFlag, &serverFlag};
 
 xArgs args = {
-	.flags = flags
+	.flags = flags,
+	.flagCount = (sizeof(flags)/sizeof(flags[0]))
 };
+
+xError run(void);
 
 int main (int argc, char ** argv) {
 	xError error = kNoError;
-	Client * client = NULL;
 
 	if (error == kNoError) {
 		error = readArgs(argc, argv, args);
 	}
 
 	if (error == kNoError) {
-		client = new Client(&error);
-
-		if (client == NULL) {
-			error = kClientError;
-		}
-	}
-
-	if (error == kNoError) {
-		error = client->exec();
+		error = run();
 	}
 
 	return (int) error;
+}
+
+xError run() {
+	xError result = kNoError;
+	Client * client = xNull;
+
+	if (result == kNoError) {
+		if (serverFlag.passed) {
+			if (result == kNoError) {
+				client = new Client(&result);
+
+				if (client == NULL) {
+					result = kClientError;
+				}
+			}
+
+			if (result == kNoError) {
+				result = client->exec();
+			}
+		} else if (clientFlag.passed) {
+			printf("Hello from Client!\n");
+		}
+	}
+
+	return result;
 }

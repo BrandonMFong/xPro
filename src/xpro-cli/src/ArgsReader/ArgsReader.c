@@ -47,7 +47,7 @@ xError readArgs(int argc, char ** argv, xArgs args) {
 
 	for (xUInt8 i = 0; i < argc; i++) {
 		if (result == kNoError) {
-
+			result = readFlags(argv[i], args.flags, args.flagCount);
 		}
 
 		if (result != kNoError) {

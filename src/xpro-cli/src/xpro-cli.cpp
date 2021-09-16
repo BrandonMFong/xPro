@@ -8,9 +8,23 @@
 
 #include <Client/Client.h>
 
+enum xOpCode {
+	opGetDir = 0
+};
+
+/**
+ * Used to hold the operation we will be executing based on the arguments
+ */
+typedef struct {
+	xOpCode code;
+} xOpPacket;
+
+xError readArgs(int argc, char ** argv, xOpPacket * op);
+
 int main (int argc, char ** argv) {
 	xError error = kNoError;
 	Client * client = NULL;
+	xOpPacket op;
 
 	if (error == kNoError) {
 		client = new Client(&error);
@@ -21,7 +35,7 @@ int main (int argc, char ** argv) {
 	}
 
 	if (error == kNoError) {
-		error = client->readArgs(argc, argv);
+		error = readArgs(argc, argv, &op);
 	}
 
 	if (error == kNoError) {
@@ -29,4 +43,10 @@ int main (int argc, char ** argv) {
 	}
 
 	return (int) error;
+}
+
+xError readArgs(int argc, char ** argv, xOpPacket * op) {
+	xError result = kNoError;
+
+	return result;
 }

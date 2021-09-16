@@ -41,7 +41,7 @@ private:
 	/**
 	 * Size of the array
 	 */
-	xUint64 _size;
+	xUInt64 _size;
 };
 
 #endif /* XARRAY_H_ */

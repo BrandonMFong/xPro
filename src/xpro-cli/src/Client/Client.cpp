@@ -19,33 +19,6 @@ Client::~Client() {
 	// TODO Auto-generated destructor stub
 }
 
-xError Client::readArgs(int argc, char ** argv) {
-	xError result = kNoError;
-	xLinkedList * argsList = xNull;
-	char * tempArgString = xNull;
-
-	// Save args into a list
-
-	if (result == kNoError) {
-		argsList = new xLinkedList;
-		result = argsList != xNull ? kNoError : kNULLError;
-	}
-
-	if (result == kNoError) {
-		for (xUInt8 i = 0; i < argc; i++) {
-			if (result == kNoError) {
-				tempArgString = (char *) malloc(sizeof(char));
-			}
-
-			if (result != kNoError) {
-				break;
-			}
-		}
-	}
-
-	return result;
-}
-
 xError Client::exec() {
 
 	xError 				result 		= kNoError;

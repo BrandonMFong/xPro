@@ -21,8 +21,8 @@ xError xLinkedList::addObject(void * obj) {
 	xNode * node 			= xNull;
 	bool 	okayToContinue 	= false;
 	xNode * tempNode 		= xNull;
-	xUint64 index;
-	xUint64 count;
+	xUInt64 index;
+	xUInt64 count;
 
 	if (result == kNoError) {
 		node = new xNode(obj, &result);

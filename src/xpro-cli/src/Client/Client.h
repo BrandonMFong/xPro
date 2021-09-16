@@ -21,7 +21,6 @@ class Client {
 public:
 	Client(xError * err);
 	virtual ~Client();
-	xError readArgs(int argc, char ** argv);
 	xError exec();
 private:
 

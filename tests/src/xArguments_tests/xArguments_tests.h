@@ -8,6 +8,8 @@
 #ifndef XARGUMENTS_TESTS_XARGUMENTS_TESTS_H_
 #define XARGUMENTS_TESTS_XARGUMENTS_TESTS_H_
 
+#include <xAssert.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

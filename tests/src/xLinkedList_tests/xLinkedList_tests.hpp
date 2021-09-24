@@ -5,8 +5,8 @@
  *      Author: BrandonMFong
  */
 
+#include <xAssert.h>
 #include <xLib.h>
-#include <xAssert.hpp>
 #include <xLinkedList/xLinkedList.h>
 
 void xLinkedListRunTests(void);

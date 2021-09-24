@@ -24,7 +24,7 @@ void xUTResults(const char * string, ...)
 		}
 	}
 
-	printf("[ %s ] ", assertStatus ? "PASS" : "FAIL");
+	printf("\n[ %s ] ", assertStatus ? "PASS" : "FAIL");
 
 	vprintf(string, args);
 

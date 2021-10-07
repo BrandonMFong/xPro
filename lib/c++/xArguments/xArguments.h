@@ -23,7 +23,7 @@ typedef struct {
 } xFlag;
 
 typedef struct {
-	const char * name;
+	const char * key;
 	char * value;
 	xUInt8 position;
 } xSwitch;

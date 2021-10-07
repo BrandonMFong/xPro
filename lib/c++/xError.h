@@ -30,7 +30,8 @@ typedef enum {
 	kNodeError = 16,
 	kStartNodeError = 17,
 	xFlagError = 18,
-	xSwitchError = 19
+	xSwitchError = 19,
+	xRepeatedFlagError = 20,
 } xError;
 
 

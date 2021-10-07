@@ -12,6 +12,10 @@ xError readFlags(char * arg, xFlag ** flags, xUInt8 count) {
 	xFlag * flag = xNull;
 
 	if (result == kNoError) {
+		result = arg != xNull ? kNoError : kArgError;
+	}
+
+	if (result == kNoError) {
 		for (xUInt8 i = 0; i < count; i++) {
 			if (result == kNoError) {
 				flag = flags[i];
@@ -24,14 +28,47 @@ xError readFlags(char * arg, xFlag ** flags, xUInt8 count) {
 				result = flag->name != xNull ? kNoError : xFlagError;
 			}
 
-			if (result == kNoError) {
-				result = arg != xNull ? kNoError : kArgError;
-			}
-
 			// If the arg is one of the flags, consider it as an argument that was passed
 			if (result == kNoError) {
-				flag->passed = !strcmp(arg, flag->name) ? TRUE : FALSE;
+				// If the passed flag=true then we have already found this flag.  We throw an error when this happens
+				if (!strcmp(arg, flag->name)) {
+					if (flag->passed) {
+						result = xRepeatedFlagError;
+					} else {
+						flag->passed = TRUE;
+					}
+				}
 			}
+
+			if (result != kNoError) {
+				break;
+			}
+		}
+	}
+
+	return result;
+}
+
+xError readSwtiches(char * arg, xSwitch ** switches, xUInt8 switchCount) {
+	xError result = kNoError;
+	xSwitch * argSwitch = xNull;
+
+	if (result == kNoError) {
+		result = arg != xNull ? kNoError : kArgError;
+	}
+
+	if (result == kNoError) {
+		for (xUInt8 i = 0; i < switchCount; i++) {
+			if (result == kNoError) {
+				argSwitch = switches[i];
+				result = argSwitch != xNull ? kNoError : xSwitchError;
+			}
+
+			if (result == kNoError) {
+				result = argSwitch->key != xNull ? kNoError : xSwitchError;
+			}
+
+
 
 			if (result != kNoError) {
 				break;

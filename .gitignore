@@ -5,3 +5,14 @@ bin
 __pycache__
 *.log
 *.o
+
+# Visual Studio 
+.vs
+*.exe
+*.ilk
+*.pdb
+*.user
+*.obj
+*.idb
+*.recipe
+*.tlog

@@ -26,6 +26,7 @@ typedef struct {
 	const char * key;
 	char * value;
 	xUInt8 position;
+	xBool passed;
 } xSwitch;
 
 typedef struct {

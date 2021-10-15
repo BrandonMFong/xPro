@@ -68,7 +68,19 @@ xError readSwtiches(char * arg, xSwitch ** switches, xUInt8 switchCount) {
 				result = argSwitch->key != xNull ? kNoError : xSwitchError;
 			}
 
+			if (result == kNoError) {
+				if (!strcmp(arg, argSwitch->key)) {
+					if (argSwitch->passed) {
+						result = xRepeatedFlagError;
+					} else {
+						argSwitch->passed = TRUE;
+					}
+				}
+			}
 
+			if (argSwitch->passed && (result == kNoError)) {
+
+			}
 
 			if (result != kNoError) {
 				break;

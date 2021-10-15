@@ -4,3 +4,4 @@ bin
 .metadata
 __pycache__
 *.log
+*.o

@@ -1,0 +1,2 @@
+B:\SOURCE\Repo\xpro-projects\xpro\src\hello\Debug\hello.exe
+B:\SOURCE\Repo\xpro-projects\xpro\src\hello\Debug\hello.pdb

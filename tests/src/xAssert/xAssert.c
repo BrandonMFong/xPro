@@ -20,7 +20,7 @@ void xUTResults(const char * string, ...)
 		printf("\n============================\n");
 
 		if (errorOutput != xNull) {
-			printf(errorOutput);
+			printf("%s", errorOutput);
 		}
 	}
 

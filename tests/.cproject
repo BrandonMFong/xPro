@@ -50,9 +50,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug.2135337455" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug.963375367" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.userobjs.1403835773" name="Other objects" superClass="gnu.cpp.link.option.userobjs" useByScannerDiscovery="false" valueType="userObjs">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/Test/src/xLinkedList/xNode/xNode.o}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xLib/Debug/xLinkedList/xNode/xNode.o}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xLib/Debug/xLinkedList/xLinkedList.o}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xLib/Test/xArguments/xArguments.o}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/Test/src/xLinkedList/xLinkedList.o}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.157717332" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

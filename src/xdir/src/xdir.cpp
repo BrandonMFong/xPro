@@ -20,18 +20,25 @@ typedef struct
 	xUInt8 position;
 	const char * name;
 	xBool passed;
-} xArg;
+} xFlag;
 
 typedef struct
 {
 	xUInt8 switchCount;
 	xSwitch ** switches;
-	xUInt8 argCount;
-	xArg ** args;
+	xUInt8 flagCount;
+	xFlag ** flags;
 } xArgs;
 
 xError ReadArgs(int argc, char ** argv, xArgs arguments) {
 	xError result = kNoError;
+	xSwitch ** switches = xNull;
+	xFlag ** flags = xNull;
+
+	if (result == kNoError) {
+		switches = arguments.switches;
+		result = switches != xNull ? kNoError : kSwitchError;
+	}
 
 	if (result == kNoError) {
 		for (xUInt8 i = 0; i < argc; i++) {
@@ -68,8 +75,8 @@ xSwitch  * switches[kSwtichArgCount] = {
 xArgs arguments = {
 		.switchCount = kSwtichArgCount,
 		.switches = switches,
-		.argCount = 0,
-		.args = xNull
+		.flagCount = 0,
+		.flags = xNull
 };
 
 int main(int argc, char ** argv) {

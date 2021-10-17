@@ -17,7 +17,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"/Users/brandonmfong/brando/2021/sources/repo/xPro/lib/c++" -include"/Users/brandonmfong/brando/2021/sources/repo/xPro/lib/c++/Debug/libxLib.a" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -I"B:\SOURCE\Repo\xpro-projects\xpro\lib\c++" -include"B:\SOURCE\Repo\xpro-projects\xpro\lib\c++\Debug\libxLib.a" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

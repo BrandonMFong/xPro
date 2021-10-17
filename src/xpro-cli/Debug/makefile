@@ -67,6 +67,6 @@ clean:
 	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) xpro-cli
 	-@echo ' '
 
-.PHONY: all clean dependents main-build
+.PHONY: all clean dependents
 
 -include ../makefile.targets

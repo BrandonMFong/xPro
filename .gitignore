@@ -5,6 +5,7 @@ bin
 __pycache__
 *.log
 *.o
+*.a
 
 # Visual Studio 
 .vs
@@ -18,3 +19,4 @@ __pycache__
 *.tlog
 
 language.settings.xml
+

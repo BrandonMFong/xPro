@@ -300,8 +300,12 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.;cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.835735459;cdt.managedbuild.tool.gnu.c.compiler.input.1401718705">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.release.1153620590;cdt.managedbuild.config.gnu.mingw.lib.release.1153620590.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.release.1652884564;cdt.managedbuild.tool.gnu.cpp.compiler.input.853733747">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
@@ -320,6 +324,8 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1024410099;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1024410099.;cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.1262711161;cdt.managedbuild.tool.gnu.c.compiler.input.1098853956">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.642258007;cdt.managedbuild.tool.gnu.cpp.compiler.input.1960803634">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

@@ -224,7 +224,12 @@
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1003766145" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1790794435" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1481857111" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1481857111" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1993405598" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
 						</toolChain>
 					</folderInfo>
 				</configuration>
@@ -254,6 +259,9 @@
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.1135919213;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.1135919213.;cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.1015770182;cdt.managedbuild.tool.gnu.c.compiler.input.1003766145">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.macosx.exe.debug.1422976525;cdt.managedbuild.config.gnu.macosx.exe.debug.1422976525.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.debug.2143341864;cdt.managedbuild.tool.gnu.cpp.compiler.input.1575643760">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
@@ -261,6 +269,9 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.574106477;cdt.managedbuild.tool.gnu.cpp.compiler.input.849255342">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.1135919213;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.1135919213.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.1452277471;cdt.managedbuild.tool.gnu.cpp.compiler.input.1885012531">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.macosx.exe.release.874848559;cdt.managedbuild.config.macosx.exe.release.874848559.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.release.1694268688;cdt.managedbuild.tool.gnu.cpp.compiler.input.1185956834">

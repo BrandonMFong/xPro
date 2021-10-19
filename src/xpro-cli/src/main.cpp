@@ -53,8 +53,6 @@ xError ReadArgs(int argc, char ** argv, xArgs arguments) {
 	return result;
 }
 
-#pragma mark - Switches
-
 #define kSwtichArgCount 2
 xSwitch keyArg = {
 		.position = 0,

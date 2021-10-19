@@ -3,21 +3,21 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-C_SRCS += \
-../xUtilities/xUtilities.c 
+CPP_SRCS += \
+../src/main.cpp 
 
 OBJS += \
-./xUtilities/xUtilities.o 
+./src/main.o 
 
-C_DEPS += \
-./xUtilities/xUtilities.d 
+CPP_DEPS += \
+./src/main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-xUtilities/%.o: ../xUtilities/%.c xUtilities/subdir.mk
+src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C Compiler'
-	gcc -DDEBUG -I"/Users/brandonmfong/brando/2021/sources/repo/xPro/lib/c++" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -DDEBUG -I"B:\SOURCE\Repo\xpro-projects\xpro\lib\c++" -include"B:\SOURCE\Repo\xpro-projects\xpro\lib\c++\Debug (windows)\libxLib.a" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

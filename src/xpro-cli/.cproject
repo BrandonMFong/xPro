@@ -190,7 +190,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.1703053870.1135919213." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.1375101678" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.922012935" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-							<builder buildPath="${workspace_loc:/xpro-cli}/Debug (windows)" id="cdt.managedbuild.builder.gnu.cross.1097007520" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder buildPath="${workspace_loc:/xpro-cli}/Debug (windows)" id="cdt.managedbuild.builder.gnu.cross.1097007520" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.334300157" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2079065977" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>

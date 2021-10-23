@@ -13,7 +13,8 @@ typedef enum {
 	kUnknownError = -1,
 	kNoError = 0,
 	kStringError = 1,
-	kArgError = 2
+	kArgError = 2,
+	kOutOfRangeError = 3,
 } xError;
 
 

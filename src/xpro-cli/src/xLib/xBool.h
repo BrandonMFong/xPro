@@ -10,7 +10,7 @@
 
 typedef unsigned char xBool;
 
-#define TRUE 1
-#define FALSE 0
+#define xTrue 	1
+#define xFalse 	0
 
 #endif /* XBOOL_H_ */

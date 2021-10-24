@@ -24,7 +24,11 @@ int main(int argc, char ** argv) {
 		args = new xArguments(argc, argv, &result);
 	}
 
-	return run();
+	if (result == kNoError) {
+		result = run();
+	}
+
+	return result;
 }
 
 xError run() {

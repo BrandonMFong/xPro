@@ -22,7 +22,7 @@ char * xCopyString(
 	if (error == kNoError) {
 		strcpy(result, string);
 
-		if (!strcmp(result, string)) {
+		if (strcmp(result, string)) {
 			error = kStringError;
 		}
 	}

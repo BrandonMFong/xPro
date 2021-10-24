@@ -41,7 +41,7 @@ private:
 	/**
 	 * Saves the argv into memory
 	 */
-	xError saveArgs(int argc, char ** argv);
+	xError _saveArgs(int argc, char ** argv);
 
 	/**
 	 * Holds the count of the arguments

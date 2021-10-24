@@ -14,7 +14,7 @@ xArguments::xArguments(int argc, char ** argv, xError * err) {
 	this->_numArgs 		= 0;
 
 	if (error == kNoError) {
-		error = this->saveArgs(argc, argv);
+		error = this->_saveArgs(argc, argv);
 	}
 
 	if (err != xNull) {
@@ -23,10 +23,16 @@ xArguments::xArguments(int argc, char ** argv, xError * err) {
 }
 
 xArguments::~xArguments() {
-
+	if (this->_arguments != xNull) {
+		for (xUInt8 i = 0; i < this->_numArgs; i++) {
+			if (this->_arguments[i] != xNull) {
+				free(this->_arguments[i]);
+			}
+		}
+	}
 }
 
-xError xArguments::saveArgs(int argc, char ** argv){
+xError xArguments::_saveArgs(int argc, char ** argv){
 	xError result = kNoError;
 
 	if (result == kNoError) {

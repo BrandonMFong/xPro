@@ -15,16 +15,30 @@
 xArguments * args = xNull;
 
 xError run(void);
-xError help(void);
+xError help(xBool moreInfo);
 
 int main(int argc, char ** argv) {
 	xError result = kNoError;
+	xBool okayToContinue = xTrue;
 
+	// Read arguments
 	if (result == kNoError) {
 		args = new xArguments(argc, argv, &result);
 	}
 
+	// See if the user wants help
 	if (result == kNoError) {
+		if (args->count() == 0) {
+			result = help(xFalse);
+			okayToContinue = xFalse;
+		} else if (args->contains(kHelpArg, &result)) {
+			result = help(xFalse);
+			okayToContinue = xFalse;
+		}
+	}
+
+	// Run application
+	if (okayToContinue && (result == kNoError)) {
 		result = run();
 	}
 
@@ -35,13 +49,12 @@ xError run() {
 	xError result = kNoError;
 
 	if (result == kNoError) {
-		help();
 	}
 
 	return result;
 }
 
-xError help() {
+xError help(xBool moreInfo) {
 	xError result = kNoError;
 	char * executableName = xNull;
 

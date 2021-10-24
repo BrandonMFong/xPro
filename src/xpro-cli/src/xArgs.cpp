@@ -49,7 +49,7 @@ xError xArguments::saveArgs(int argc, char ** argv){
 	return result;
 }
 
-xBool xArguments::argsContain(const char * arg, xError * err) {
+xBool xArguments::contains(const char * arg, xError * err) {
 	xBool result 	= xFalse;
 	xError error 	= kNoError;
 	char * tempArg 	= xNull;
@@ -89,4 +89,8 @@ char * xArguments::argAtIndex(xUInt8 index, xError * err) {
 	}
 
 	return result;
+}
+
+xUInt8 xArguments::count() {
+	return this->_numArgs;
 }

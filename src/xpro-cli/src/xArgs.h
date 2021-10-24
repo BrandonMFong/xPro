@@ -25,12 +25,17 @@ public:
 	/**
 	 * Returns true if the saved argv from command line contains arg
 	 */
-	xBool argsContain(const char * arg, xError * err);
+	xBool contains(const char * arg, xError * err);
 
 	/**
 	 * Returns argument at the specified index.
 	 */
 	char * argAtIndex(xUInt8 index, xError * err);
+
+	/**
+	 * Returns total count of application arguments
+	 */
+	xUInt8 count();
 
 private:
 	/**

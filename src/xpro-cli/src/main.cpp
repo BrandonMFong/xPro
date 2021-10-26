@@ -6,6 +6,9 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#define _GNU_SOURCE
+#include <string.h>
+
 #include <xLib.h>
 #include "xArgs.h"
 
@@ -71,7 +74,7 @@ void help(xBool moreInfo) {
 	}
 
 	if (result == kNoError) {
-		printf("%s", executableName);
+		printf("%s", basename(executableName));
 	}
 
 	if (result != kNoError) {

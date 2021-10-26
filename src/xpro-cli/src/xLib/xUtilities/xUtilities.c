@@ -33,3 +33,18 @@ char * xCopyString(
 
 	return result;
 }
+
+char * xBasename(const char * path, xError * err) {
+	char * result = xNull;
+	xError error = kNoError;
+
+	if (error == kNoError) {
+
+	}
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
+}

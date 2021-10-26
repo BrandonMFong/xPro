@@ -15,7 +15,7 @@
 xArguments * args = xNull;
 
 xError run(void);
-xError help(xBool moreInfo);
+void help(xBool moreInfo);
 
 int main(int argc, char ** argv) {
 	xError result = kNoError;
@@ -28,12 +28,19 @@ int main(int argc, char ** argv) {
 
 	// See if the user wants help
 	if (result == kNoError) {
-		if (args->count() == 0) {
-			result = help(xFalse);
-			okayToContinue = xFalse;
+		if (args->count() == 1) {
+			printf("No arguments\n");
+
+			help(xFalse);
+			okayToContinue 	= xFalse;
+		} else if (args->contains(kHelpArg, &result) && (args->count() > 2)) {
+			printf("Too many arguments for %s\n", kHelpArg);
+
+			help(xFalse);
+			okayToContinue 	= xFalse;
 		} else if (args->contains(kHelpArg, &result)) {
-			result = help(xFalse);
-			okayToContinue = xFalse;
+			help(xTrue);
+			okayToContinue 	= xFalse;
 		}
 	}
 
@@ -55,7 +62,7 @@ xError run() {
 	return result;
 }
 
-xError help(xBool moreInfo) {
+void help(xBool moreInfo) {
 	xError result = kNoError;
 	char * executableName = xNull;
 
@@ -67,5 +74,7 @@ xError help(xBool moreInfo) {
 		printf("%s", executableName);
 	}
 
-	return result;
+	if (result != kNoError) {
+		DLog("help ended in %d", result);
+	}
 }

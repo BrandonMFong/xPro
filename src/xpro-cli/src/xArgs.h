@@ -29,6 +29,9 @@ public:
 
 	/**
 	 * Returns argument at the specified index.
+	 *
+	 * You do not need to free the return string.  This string is
+	 * owned by xArgument object
 	 */
 	char * argAtIndex(xUInt8 index, xError * err);
 

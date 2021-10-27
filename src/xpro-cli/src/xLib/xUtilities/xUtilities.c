@@ -35,11 +35,27 @@ char * xCopyString(
 }
 
 char * xBasename(const char * path, xError * err) {
-	char * result = xNull;
-	xError error = kNoError;
+	char * 	result 	= xNull;
+	xError 	error 	= kNoError;
+	char 	tempString[PATH_MAX];
 
 	if (error == kNoError) {
+		error = path != xNull ? kNoError : kStringError;
+	}
 
+	if (error == kNoError) {
+		result = (char *) malloc(sizeof(char) * (strlen(path) + 1));
+		error = result != xNull ? kNoError : kUnknownError;
+	}
+
+	if (error == kNoError) {
+		for (xUInt64 i = strlen(path); i >= 0; i--) {
+			if (path[i] == '\\') break;
+			else {
+				strcpy(tempString, result);
+				sprintf(result, "%c%s", path[i], tempString);
+			}
+		}
 	}
 
 	if (err != xNull) {

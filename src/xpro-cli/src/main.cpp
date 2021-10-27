@@ -8,8 +8,9 @@
 
 #include <xLib.h>
 
-#define kHelpArg "--help"
-#define kDirArg "dir"
+#define HELP_ARG "--help"
+#define DIR_ARG "dir"
+#define VERSION_ARG "--version"
 
 xArguments * args = xNull;
 
@@ -28,16 +29,16 @@ int main(int argc, char ** argv) {
 	// See if the user wants help
 	if (result == kNoError) {
 		if (args->count() == 1) {
-			printf("No arguments\n");
+			printf("No arguments\n\n");
 
 			help(xFalse);
 			okayToContinue 	= xFalse;
-		} else if (args->contains(kHelpArg, &result) && (args->count() > 2)) {
-			printf("Too many arguments for %s\n", kHelpArg);
+		} else if (args->contains(HELP_ARG, &result) && (args->count() > 2)) {
+			printf("Too many arguments for %s\n\n", HELP_ARG);
 
 			help(xFalse);
 			okayToContinue 	= xFalse;
-		} else if (args->contains(kHelpArg, &result)) {
+		} else if (args->contains(HELP_ARG, &result)) {
 			help(xTrue);
 			okayToContinue 	= xFalse;
 		}
@@ -74,7 +75,14 @@ void help(xBool moreInfo) {
 	}
 
 	if (result == kNoError) {
-		printf("%s", executableName);
+		printf("usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
+				executableName,
+				VERSION_ARG,
+				HELP_ARG);
+
+		printf("List of commands:\n");
+
+		printf("\t%s\treturns directory for alias", DIR_ARG);
 
 		printf("\n");
 

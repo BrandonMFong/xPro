@@ -7,6 +7,16 @@
 
 #include "xArgs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <xUtilities/xUtilities.h>
+
+#ifdef __cplusplus
+}
+#endif
+
 xArguments::xArguments(int argc, char ** argv, xError * err) {
 	xError error = kNoError;
 

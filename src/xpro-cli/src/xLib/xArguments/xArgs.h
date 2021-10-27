@@ -8,7 +8,12 @@
 #ifndef SRC_XARGS_H_
 #define SRC_XARGS_H_
 
-#include <xLib.h>
+#include <xError.h>
+#include <xBool.h>
+#include <xNull.h>
+#include <xInt.h>
+#include <stdlib.h>
+#include <string.h>
 
 class xArguments {
 public:

@@ -19,7 +19,7 @@
 #include <xPipe.h>
 #include <xError.h>
 #include <xLogger/xDLog.h>
-#include <xIntType.h>
+#include <xInt.h>
 #include <xNull.h>
 #include <xBool.h>
 
@@ -33,6 +33,9 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/// Classes
+#include <xArguments/xArgs.h>
 
 #ifdef __cplusplus
 

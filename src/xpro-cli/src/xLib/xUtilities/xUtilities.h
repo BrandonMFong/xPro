@@ -12,8 +12,8 @@
 #include <xNull.h>
 #include <stdlib.h>
 #include <string.h>
-#include <xIntType.h>
 #include <stdio.h>
+#include <xInt.h>
 
 /**
  * Creates a copy of the string.

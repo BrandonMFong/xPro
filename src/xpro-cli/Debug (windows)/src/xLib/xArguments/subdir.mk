@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/main.cpp 
+../src/xLib/xArguments/xArgs.cpp 
 
 OBJS += \
-./src/main.o 
+./src/xLib/xArguments/xArgs.o 
 
 CPP_DEPS += \
-./src/main.d 
+./src/xLib/xArguments/xArgs.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/%.o: ../src/%.cpp src/subdir.mk
+src/xLib/xArguments/%.o: ../src/xLib/xArguments/%.cpp src/xLib/xArguments/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
 	g++ -DDEBUG -I"B:\SOURCE\Repo\xpro-projects\xpro\src\xpro-cli\src\xLib" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"

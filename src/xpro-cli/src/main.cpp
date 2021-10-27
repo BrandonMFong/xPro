@@ -7,7 +7,6 @@
 //============================================================================
 
 #include <xLib.h>
-#include "xArgs.h"
 
 #define kHelpArg "--help"
 #define kDirArg "dir"

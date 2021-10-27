@@ -35,17 +35,22 @@ char * xCopyString(
 }
 
 char * xBasename(const char * path, xError * err) {
-	char * 	result 	= xNull;
-	xError 	error 	= kNoError;
-	char 	tempString[PATH_MAX];
+	char * 	result 		= xNull;
+	xError 	error 		= kNoError;
+	char * 	tempString 	= xNull;
 
 	if (error == kNoError) {
 		error = path != xNull ? kNoError : kStringError;
 	}
 
 	if (error == kNoError) {
-		result = (char *) malloc(sizeof(char) * (strlen(path) + 1));
-		error = result != xNull ? kNoError : kUnknownError;
+		result 	= (char *) malloc(sizeof(char) * (strlen(path) + 1));
+		error 	= result != xNull ? kNoError : kUnknownError;
+	}
+
+	if (error == kNoError) {
+		tempString 	= (char *) malloc(sizeof(char) * (strlen(path) + 1));
+		error 		= tempString != xNull ? kNoError : kUnknownError;
 	}
 
 	if (error == kNoError) {
@@ -56,6 +61,10 @@ char * xBasename(const char * path, xError * err) {
 				sprintf(result, "%c%s", path[i], tempString);
 			}
 		}
+	}
+
+	if (tempString != xNull) {
+		free(tempString);
 	}
 
 	if (err != xNull) {

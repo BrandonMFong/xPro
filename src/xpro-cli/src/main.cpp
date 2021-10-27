@@ -78,6 +78,8 @@ void help(xBool moreInfo) {
 		printf("%s", executableName);
 
 		printf("\n");
+
+		free(executableName);
 	}
 
 	if (result != kNoError) {

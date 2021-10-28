@@ -55,7 +55,7 @@ char * xBasename(const char * path, xError * err) {
 
 	if (error == kNoError) {
 		for (xUInt64 i = strlen(path); i >= 0; i--) {
-			if (path[i] == '\\') break;
+			if (path[i] == FILE_SYSTEM_SEPARATOR) break;
 			else {
 				strcpy(tempString, result);
 				sprintf(result, "%c%s", path[i], tempString);

@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-/// Utilitites
+/// Utilities
 #include <xUtilities/xUtilities.h>
 
 #ifdef __cplusplus

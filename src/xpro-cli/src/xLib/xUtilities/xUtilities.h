@@ -15,6 +15,16 @@
 #include <stdio.h>
 #include <xInt.h>
 
+#if defined(__WINDOWS__)
+
+#define FILE_SYSTEM_SEPARATOR '\\'
+
+#elif defined(__MACOS__)
+
+#define FILE_SYSTEM_SEPARATOR '/'
+
+#endif
+
 /**
  * Creates a copy of the string.
  *

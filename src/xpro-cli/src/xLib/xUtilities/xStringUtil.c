@@ -14,10 +14,8 @@ char * xCopyString(
 	char * result 	= xNull;
 	xError error 	= kNoError;
 
-	if (error == kNoError) {
-		result	= (char *) malloc(sizeof(char) * (strlen(string) + 1));
-		error 	= result != xNull ? kNoError : kUnknownError;
-	}
+	result	= (char *) malloc((strlen(string) + 1));
+	error 	= result != xNull ? kNoError : kUnknownError;
 
 	if (error == kNoError) {
 		strcpy(result, string);
@@ -42,17 +40,16 @@ char * xBasename(
 	xError 	error 		= kNoError;
 	char * 	tempString 	= xNull;
 
-	if (error == kNoError) {
-		error = path != xNull ? kNoError : kStringError;
-	}
+	// Make sure path is not null
+	error = path != xNull ? kNoError : kStringError;
 
 	if (error == kNoError) {
-		result 	= (char *) malloc(sizeof(char) * (strlen(path) + 1));
+		result 	= (char *) malloc((strlen(path) + 1));
 		error 	= result != xNull ? kNoError : kUnknownError;
 	}
 
 	if (error == kNoError) {
-		tempString 	= (char *) malloc(sizeof(char) * (strlen(path) + 1));
+		tempString 	= (char *) malloc((strlen(path) + 1));
 		error 		= tempString != xNull ? kNoError : kUnknownError;
 	}
 

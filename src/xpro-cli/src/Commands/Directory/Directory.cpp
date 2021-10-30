@@ -74,7 +74,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 	xError result = kNoError;
 
 	if (result == kNoError) {
-		DLog("Printing alias for %s", alias);
+		DLog("Printing alias for %s\n", alias);
 	}
 
 	return result;

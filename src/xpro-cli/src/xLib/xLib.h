@@ -12,9 +12,6 @@
 #define __USE_MINGW_ANSI_STDIO 1
 #endif
 
-/// Std Library
-#include <stdio.h>
-
 /// xLib
 #include <xPipe.h>
 #include <xError.h>

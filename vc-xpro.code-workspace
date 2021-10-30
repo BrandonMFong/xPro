@@ -2,6 +2,10 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name" : "xPro user directory",
+			"path" : "/Users/brandonmfong/.xpro"
 		}
 	],
 	"settings": {}

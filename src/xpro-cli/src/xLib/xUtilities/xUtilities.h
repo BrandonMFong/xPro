@@ -11,12 +11,15 @@
 /// xPro
 #include <xError.h>
 #include <xNull.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include <xInt.h>
 #include <xLogger/xDLog.h>
 #include <xBool.h>
+
+/// System
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #if defined(__WINDOWS__)
 
@@ -54,7 +57,17 @@ char * xBasename(const char * path, xError * err);
 
 #pragma mark - File System
 
-xBool xIsDirectory(const char * path, xError * err);
+/**
+ * Returns true if path exists as a file
+ */
+xBool xIsFile(const char * path);
+
+/**
+ * Returns user home directory path
+ *
+ * Caller is responsible for freeing memory
+ */
+char * xHomePath(xError * err);
 
 #pragma mark - Other
 
@@ -64,13 +77,6 @@ xBool xIsDirectory(const char * path, xError * err);
  * Caller is responsible for freeing memory
  */
 char * xConfigFilePath(xError * err);
-
-/**
- * Returns user home directory path
- *
- * Caller is responsible for freeing memory
- */
-char * xHomePath(xError * err);
 
 #ifdef __cplusplus
 }

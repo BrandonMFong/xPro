@@ -21,7 +21,7 @@ char * xHomePath(xError * err) {
 #elif defined(__LINUX__)
 		sprintf(tempPath, "%s", getenv("HOME"));
 #else
-		DLog("No architecture defined for build");
+		DLog("No architecture defined for build\n");
 		error = kOSError;
 #endif
 
@@ -41,8 +41,12 @@ char * xHomePath(xError * err) {
 	return result;
 }
 
-xBool xIsDirectory(const char * path, xError * err) {
-	xBool result = xFalse;
+xBool xIsFile(const char * path) {
+	xBool result = access(path, F_OK) == 0;
+
+	if (!result) {
+		DLog("'%s' does not exist\n", path);
+	}
 
 	return result;
 }

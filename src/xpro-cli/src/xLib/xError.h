@@ -18,7 +18,10 @@ typedef enum {
 	kEmptyStringError = 4,
 	kXMLError = 5,
 	kDirectoryAliasError = 6,
-	kOSError = 7
+	kOSError = 7,
+	kFileError = 8,
+	kReadError = 9,
+	kFileContentError = 10,
 } xError;
 
 

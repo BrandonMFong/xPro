@@ -22,17 +22,7 @@
 #include <xInt.h>
 #include <xNull.h>
 #include <xBool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/// Utilities
 #include <xUtilities/xUtilities.h>
-
-#ifdef __cplusplus
-}
-#endif
 
 /// Classes
 #include <xArguments/xArgs.h>

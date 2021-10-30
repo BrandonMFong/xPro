@@ -18,9 +18,6 @@
 #include <xLogger/xDLog.h>
 #include <xBool.h>
 
-/// System
-#include <sys/syslimits.h>
-
 #if defined(__WINDOWS__)
 
 #define FILE_SYSTEM_SEPARATOR '\\'
@@ -29,6 +26,10 @@
 
 #define FILE_SYSTEM_SEPARATOR '/'
 
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 #pragma mark - String
@@ -70,5 +71,9 @@ char * xConfigFilePath(xError * err);
  * Caller is responsible for freeing memory
  */
 char * xHomePath(xError * err);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XUTILITIES_XUTILITIES_H_ */

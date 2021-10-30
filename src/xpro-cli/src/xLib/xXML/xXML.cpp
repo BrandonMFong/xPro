@@ -16,6 +16,10 @@ xXML::xXML(const char * path, xError * err) {
 
 	}
 
+	if (error == kNoError) {
+		this->_path = xCopyString(path, &error);
+	}
+
 	if (err != xNull) {
 		*err = error;
 	}

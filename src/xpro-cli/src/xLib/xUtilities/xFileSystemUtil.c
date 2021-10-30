@@ -6,7 +6,7 @@
  */
 
 #include "xUtilities.h"
-
+#include <sys/syslimits.h>
 
 char * xHomePath(xError * err) {
 	char * 	result 	= xNull;

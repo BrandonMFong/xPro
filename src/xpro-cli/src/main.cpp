@@ -21,12 +21,12 @@ int main(int argc, char ** argv) {
 	// See if the user wants help
 	if (result == kNoError) {
 		if (args->count() == 1) {
-			printf("No arguments\n\n");
+			printf("No arguments\n");
 
 			Help(xFalse);
 			okayToContinue 	= xFalse;
 		} else if (args->contains(HELP_ARG, &result) && (args->count() > 2)) {
-			printf("Too many arguments for %s\n\n", HELP_ARG);
+			printf("Too many arguments for %s\n", HELP_ARG);
 
 			Help(xFalse);
 			okayToContinue 	= xFalse;
@@ -73,14 +73,13 @@ void Help(xBool moreInfo) {
 				executableName,
 				VERSION_ARG,
 				HELP_ARG);
+		free(executableName);
 
 		printf("List of commands:\n");
 
-		printf("\t%s\treturns directory for alias", DIR_ARG);
+		printf("\t%s\treturns directory for alias\n", DIR_ARG);
 
 		printf("\n");
-
-		free(executableName);
 	}
 
 	if (result != kNoError) {

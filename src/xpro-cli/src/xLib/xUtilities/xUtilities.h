@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <xInt.h>
 #include <xLogger/xDLog.h>
+#include <xBool.h>
 
 /// System
 #include <sys/syslimits.h>
@@ -49,6 +50,10 @@ char * xCopyString(
  * Must free the return string
  */
 char * xBasename(const char * path, xError * err);
+
+#pragma mark - File System
+
+xBool xIsDirectory(const char * path, xError * err);
 
 #pragma mark - Other
 

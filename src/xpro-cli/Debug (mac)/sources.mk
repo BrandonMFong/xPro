@@ -27,4 +27,5 @@ src/Commands/Directory \
 src \
 src/xLib/xArguments \
 src/xLib/xUtilities \
+src/xLib/xXML \
 

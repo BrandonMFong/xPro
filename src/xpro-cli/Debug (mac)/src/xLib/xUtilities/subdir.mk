@@ -4,12 +4,18 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/xLib/xUtilities/xFileSystemUtil.c \
+../src/xLib/xUtilities/xStringUtil.c \
 ../src/xLib/xUtilities/xUtilities.c 
 
 OBJS += \
+./src/xLib/xUtilities/xFileSystemUtil.o \
+./src/xLib/xUtilities/xStringUtil.o \
 ./src/xLib/xUtilities/xUtilities.o 
 
 C_DEPS += \
+./src/xLib/xUtilities/xFileSystemUtil.d \
+./src/xLib/xUtilities/xStringUtil.d \
 ./src/xLib/xUtilities/xUtilities.d 
 
 

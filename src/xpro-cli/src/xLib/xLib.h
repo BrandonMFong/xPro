@@ -36,6 +36,7 @@ extern "C" {
 
 /// Classes
 #include <xArguments/xArgs.h>
+#include <xXML/xXML.h>
 
 #ifdef __cplusplus
 

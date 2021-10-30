@@ -9,7 +9,8 @@ src/Commands/Directory/Directory.o: \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xNull.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xBool.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xUtilities/xUtilities.h \
-  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xArguments/xArgs.h
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xArguments/xArgs.h \
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xXML/xXML.h
 
 ../src/Commands/Directory/Directory.hpp:
 
@@ -30,3 +31,5 @@ src/Commands/Directory/Directory.o: \
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xUtilities/xUtilities.h:
 
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xArguments/xArgs.h:
+
+/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xXML/xXML.h:

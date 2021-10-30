@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Command line argument parsers
+ */
 class xArguments {
 public:
 	/**
@@ -43,7 +46,11 @@ public:
 	/**
 	 * Returns total count of application arguments
 	 */
-	xUInt8 count();
+	xUInt8 count() {
+		return this->_numArgs;
+	}
+
+	static xArguments * shared();
 
 private:
 	/**

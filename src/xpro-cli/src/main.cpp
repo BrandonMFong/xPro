@@ -6,20 +6,12 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <xLib.h>
-
-#define HELP_ARG "--help"
-#define DIR_ARG "dir"
-#define VERSION_ARG "--version"
-
-xArguments * args = xNull;
-
-xError run(void);
-void help(xBool moreInfo);
+#include <main.hpp>
 
 int main(int argc, char ** argv) {
 	xError result = kNoError;
 	xBool okayToContinue = xTrue;
+	xArguments * args = xNull;
 
 	// Read arguments
 	if (result == kNoError) {
@@ -31,43 +23,45 @@ int main(int argc, char ** argv) {
 		if (args->count() == 1) {
 			printf("No arguments\n\n");
 
-			help(xFalse);
+			Help(xFalse);
 			okayToContinue 	= xFalse;
 		} else if (args->contains(HELP_ARG, &result) && (args->count() > 2)) {
 			printf("Too many arguments for %s\n\n", HELP_ARG);
 
-			help(xFalse);
+			Help(xFalse);
 			okayToContinue 	= xFalse;
 		} else if (args->contains(HELP_ARG, &result)) {
-			help(xTrue);
+			Help(xTrue);
 			okayToContinue 	= xFalse;
 		}
 	}
 
 	// Run application
 	if (okayToContinue && (result == kNoError)) {
-		result = run();
+		result = Run();
 	}
 
 	return result;
 }
 
-xError run() {
+xError Run() {
 	xError result = kNoError;
 
 	if (result == kNoError) {
-
+		if (xArguments::shared()->contains(DIR_ARG, &result)) {
+			result = HandleDirectory();
+		}
 	}
 
 	return result;
 }
 
-void help(xBool moreInfo) {
-	xError result = kNoError;
-	char * executableName = xNull;
+void Help(xBool moreInfo) {
+	xError result 			= kNoError;
+	char * executableName 	= xNull;
 
 	if (result == kNoError) {
-		executableName = args->argAtIndex(0, &result);
+		executableName = xArguments::shared()->argAtIndex(0, &result);
 	}
 
 	if (result == kNoError) {

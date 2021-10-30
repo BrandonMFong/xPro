@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include src/xLib/xUtilities/subdir.mk
 -include src/xLib/xArguments/subdir.mk
+-include src/Commands/Directory/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

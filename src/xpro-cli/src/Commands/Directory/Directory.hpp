@@ -8,9 +8,11 @@
 #ifndef SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 
-#include <xError.h>
+#include <xLib.h>
 
-/// Command functions
+/**
+ * Handles the dir argument from
+ */
 xError HandleDirectory(void); // dir
 
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_ */

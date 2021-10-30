@@ -22,6 +22,10 @@ class xArguments {
 public:
 	/**
 	 * Saves argv array into memory
+	 *
+	 * Establishes a reference to itself so that this object
+	 * is globally accessable from any part of the source
+	 * code.  So long as the constructor is invoked once
 	 */
 	xArguments(int argc, char ** argv, xError * err);
 
@@ -36,7 +40,7 @@ public:
 	xBool contains(const char * arg, xError * err);
 
 	/**
-	 * Returns argument at the specified index.
+	 * Returns argument at the specified index.  Null on error
 	 *
 	 * You do not need to free the return string.  This string is
 	 * owned by xArgument object
@@ -44,12 +48,18 @@ public:
 	char * argAtIndex(xUInt8 index, xError * err);
 
 	/**
-	 * Returns total count of application arguments
+	 * Returns total count of application arguments including
+	 * the executable
+	 *
 	 */
 	xUInt8 count() {
 		return this->_numArgs;
 	}
 
+	/**
+	 * Returns a reference to a shared xArguments that
+	 * was initially constructed by the first caller
+	 */
 	static xArguments * shared();
 
 private:

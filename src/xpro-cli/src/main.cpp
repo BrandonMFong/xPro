@@ -9,9 +9,9 @@
 #include <main.hpp>
 
 int main(int argc, char ** argv) {
-	xError result = kNoError;
-	xBool okayToContinue = xTrue;
-	xArguments * args = xNull;
+	xError 			result 			= kNoError;
+	xBool 			okayToContinue 	= xTrue;
+	xArguments * 	args 			= xNull;
 
 	// Read arguments
 	if (result == kNoError) {

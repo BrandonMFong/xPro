@@ -10,10 +10,7 @@
 
 #include <xLib.h>
 #include <Commands/Directory/Directory.hpp>
-
-#define HELP_ARG "--help"
-#define DIR_ARG "dir"
-#define VERSION_ARG "--version"
+#include <Commands/Commands.h>
 
 xError Run(void);
 void Help(xBool moreInfo);

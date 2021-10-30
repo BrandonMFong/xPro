@@ -8,12 +8,17 @@
 #ifndef XUTILITIES_XUTILITIES_H_
 #define XUTILITIES_XUTILITIES_H_
 
+/// xPro
 #include <xError.h>
 #include <xNull.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <xInt.h>
+#include <xLogger/xDLog.h>
+
+/// System
+#include <sys/syslimits.h>
 
 #if defined(__WINDOWS__)
 
@@ -24,6 +29,8 @@
 #define FILE_SYSTEM_SEPARATOR '/'
 
 #endif
+
+#pragma mark - String
 
 /**
  * Creates a copy of the string.
@@ -42,5 +49,21 @@ char * xCopyString(
  * Must free the return string
  */
 char * xBasename(const char * path, xError * err);
+
+#pragma mark - Other
+
+/**
+ * Returns the standard config file for user
+ *
+ * Caller is responsible for freeing memory
+ */
+char * xConfigFilePath(xError * err);
+
+/**
+ * Returns user home directory path
+ *
+ * Caller is responsible for freeing memory
+ */
+char * xHomePath(xError * err);
 
 #endif /* XUTILITIES_XUTILITIES_H_ */

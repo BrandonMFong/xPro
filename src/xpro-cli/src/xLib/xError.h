@@ -15,6 +15,7 @@ typedef enum {
 	kStringError = 1,
 	kArgError = 2,
 	kOutOfRangeError = 3,
+	kEmptyStringError = 4,
 } xError;
 
 

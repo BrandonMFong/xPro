@@ -13,6 +13,11 @@
 /**
  * Handles the dir argument from
  */
-xError HandleDirectory(void); // dir
+xError HandleDirectory(void);
+
+/**
+ * Prints out directory for the alias
+ */
+xError PrintDirectoryForAlias(const char * alias);
 
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_ */

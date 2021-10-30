@@ -7,11 +7,18 @@
 
 #include "Directory.hpp"
 
+/**
+ * Xml object for the xpro config file
+ *
+ * This should be allocated and deallocated in HandleDirectory()
+ */
+xXML * xProConfig = xNull;
+
 xError HandleDirectory() {
-	xError result = kNoError;
-	char * dirAlias = xNull;
-	xArguments * arguments = xNull;
-	char * configPath = xNull;
+	xError 		result 			= kNoError;
+	char 		* dirAlias 		= xNull,
+				* configPath 	= xNull;
+	xArguments 	* arguments 	= xNull;
 
 	if (result == kNoError) {
 		arguments = xArguments::shared();
@@ -26,17 +33,48 @@ xError HandleDirectory() {
 		}
 	}
 
+	// Get the alias from command line
 	if (result == kNoError) {
 		dirAlias = arguments->argAtIndex(2, &result);
 	}
 
+	// Get the config file
 	if (result == kNoError) {
 		configPath = xConfigFilePath(&result);
 	}
 
 	if (result == kNoError) {
-		DLog("Finding path for alias %s from config file %s\n", dirAlias, configPath);
-		free(configPath);
+		if (xProConfig == xNull) {
+			xProConfig = new xXML(configPath, &result);
+		} else {
+			result = kXMLError;
+			DLog("xPro config has already been read unexpectedly\n");
+		}
+	}
+
+	if (result == kNoError) {
+		// If user passed 3 arguments: <tool> dir <alias>
+		// then we just need to print the alias definition
+		if (arguments->count() == 3) {
+			result = PrintDirectoryForAlias(dirAlias);
+		} else {
+			result = kDirectoryAliasError;
+			DLog("Unexpected number of arguments, %d\n", arguments->count());
+		}
+	}
+
+	// Delete the object
+	if (xProConfig != xNull) {
+		delete xProConfig;
+	}
+
+	return result;
+}
+xError PrintDirectoryForAlias(const char * alias) {
+	xError result = kNoError;
+
+	if (result == kNoError) {
+		DLog("Printing alias for %s", alias);
 	}
 
 	return result;

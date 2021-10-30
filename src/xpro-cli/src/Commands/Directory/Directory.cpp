@@ -21,7 +21,7 @@ xError HandleDirectory() {
 		result = arguments->count() >= 3 ? kNoError : kArgError;
 
 		if (result != kNoError) {
-			DLog("Does not have correct count of arguments, actual: %d", arguments->count());
+			DLog("Does not have correct count of arguments, actual: %d\n", arguments->count());
 		}
 	}
 
@@ -30,7 +30,7 @@ xError HandleDirectory() {
 	}
 
 	if (result == kNoError) {
-		DLog("Finding path for alias %s", dirAlias);
+		DLog("Finding path for alias %s\n", dirAlias);
 	}
 
 	return result;

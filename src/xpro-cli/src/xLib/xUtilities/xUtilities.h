@@ -69,6 +69,11 @@ xBool xIsFile(const char * path);
  */
 char * xHomePath(xError * err);
 
+/**
+ * Returns file content at path
+ */
+char * xReadFile(const char * path, xError * err);
+
 #pragma mark - Other
 
 /**

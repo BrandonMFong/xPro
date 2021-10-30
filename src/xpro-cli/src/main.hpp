@@ -3,6 +3,8 @@
  *
  *  Created on: Oct 30, 2021
  *      Author: BrandonMFong
+ *
+ * todo: https://www.eclipse.org/lists/cdt-dev/msg32257.html
  */
 
 #ifndef SRC_MAIN_HPP_

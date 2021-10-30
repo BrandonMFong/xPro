@@ -44,18 +44,6 @@ int main(int argc, char ** argv) {
 	return result;
 }
 
-xError Run() {
-	xError result = kNoError;
-
-	if (result == kNoError) {
-		if (xArguments::shared()->contains(DIR_ARG, &result)) {
-			result = HandleDirectory();
-		}
-	}
-
-	return result;
-}
-
 void Help(xBool moreInfo) {
 	xError result 			= kNoError;
 	char * executableName 	= xNull;
@@ -85,4 +73,16 @@ void Help(xBool moreInfo) {
 	if (result != kNoError) {
 		DLog("help ended in %d", result);
 	}
+}
+
+xError Run() {
+	xError result = kNoError;
+
+	if (result == kNoError) {
+		if (xArguments::shared()->contains(DIR_ARG, &result)) {
+			result = HandleDirectory();
+		}
+	}
+
+	return result;
 }

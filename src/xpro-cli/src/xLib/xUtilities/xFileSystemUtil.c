@@ -18,9 +18,11 @@ char * xHomePath(xError * err) {
 		sprintf(tempPath, "%s%s", getenv("HOMEDRIVE"), getenv("HOMEPATH"));
 #elif defined(__MACOS__)
 		sprintf(tempPath, "%s", getenv("HOME"));
+#elif defined(__LINUX__)
+		sprintf(tempPath, "%s", getenv("HOME"));
 #else
-		tempPath = ""; // Empty string
 		DLog("No architecture defined for build");
+		error = kOSError;
 #endif
 
 		if (strlen(tempPath) == 0) {

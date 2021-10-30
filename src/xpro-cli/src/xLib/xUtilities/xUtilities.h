@@ -25,7 +25,7 @@
 
 #define FILE_SYSTEM_SEPARATOR '\\'
 
-#elif defined(__MACOS__)
+#elif defined(__MACOS__) || defined(__LINUX__)
 
 #define FILE_SYSTEM_SEPARATOR '/'
 

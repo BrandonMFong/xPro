@@ -56,3 +56,18 @@ xError xXML::read(const char * path) {
 
 	return result;
 }
+
+char ** xXML::getValue(const char * elementPath, xError * err) {
+	char ** result = xNull;
+	xError error = kNoError;
+
+	if (error == kNoError) {
+
+	}
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
+}

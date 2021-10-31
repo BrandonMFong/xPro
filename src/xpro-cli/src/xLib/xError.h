@@ -22,6 +22,7 @@ typedef enum {
 	kFileError = 8,
 	kReadError = 9,
 	kFileContentError = 10,
+	kSubStringError = 11,
 } xError;
 
 

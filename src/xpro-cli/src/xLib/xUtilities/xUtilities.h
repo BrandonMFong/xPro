@@ -44,9 +44,30 @@ extern "C" {
  * Must free
  */
 char * xCopyString(
-		const char * 	string,
-		xError * 		err
+	const char * 	string,
+	xError * 		err
 );
+
+/**
+ * Returns true if string contains subString
+ */
+xBool xContainsSubString (
+	const char * 	string,
+	const char * 	subString,
+	xError * 		err
+);
+
+/**
+ * Returns an array of strings that contains substrings from
+ * input string separated by the input separator
+ */
+char ** xSplitString(
+	char * 		string,
+	char * 		separator,
+	xError * 	err
+);
+
+#pragma mark - File System
 
 /**
  * Returns base name of path
@@ -54,8 +75,6 @@ char * xCopyString(
  * Must free the return string
  */
 char * xBasename(const char * path, xError * err);
-
-#pragma mark - File System
 
 /**
  * Returns true if path exists as a file

@@ -70,7 +70,7 @@ void TestBasename(void) {
 #if defined(__MACOS__) || defined(__LINUX__)
 	path = "/Path/To/Executable";
 #elif defined(__WINDOWS__)
-	path = "C:\Path\To\Executable";
+	path = "C:\\Path\\To\\Executable";
 #else
 	success = xFalse;
 	printf("No os defined in build\nPlease check config\n");

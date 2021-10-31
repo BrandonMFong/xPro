@@ -475,6 +475,9 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Tests (windows)">
+			<resource resourceType="PROJECT" workspacePath="/xpro-cli"/>
+		</configuration>
 		<configuration configurationName="Debug (windows)">
 			<resource resourceType="PROJECT" workspacePath="/xpro-cli"/>
 		</configuration>

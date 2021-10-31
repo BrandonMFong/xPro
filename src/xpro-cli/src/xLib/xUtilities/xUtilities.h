@@ -24,10 +24,12 @@
 #if defined(__WINDOWS__)
 
 #define FILE_SYSTEM_SEPARATOR '\\'
+#define MAX_PATH_LENGTH MAX_PATH
 
 #elif defined(__MACOS__) || defined(__LINUX__)
 
 #define FILE_SYSTEM_SEPARATOR '/'
+#define MAX_PATH_LENGTH PATH_MAX
 
 #endif
 

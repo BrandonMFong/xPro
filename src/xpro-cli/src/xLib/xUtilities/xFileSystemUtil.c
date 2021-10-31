@@ -7,16 +7,14 @@
 
 #include "xUtilities.h"
 
-#if defined(__WINDOWS__)
-#include <syslimits.h>
-#else
+#if defined(__MACOS__)
 #include <sys/syslimits.h>
 #endif
 
 char * xHomePath(xError * err) {
 	char * 	result 	= xNull;
 	xError 	error 	= kNoError;
-	char 	tempPath[PATH_MAX];
+	char 	tempPath[MAX_PATH_LENGTH];
 
 	if (error == kNoError) {
 #if defined(__WINDOWS__)

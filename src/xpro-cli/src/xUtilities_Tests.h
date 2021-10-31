@@ -17,7 +17,26 @@ void TestStringContainsSubString(void) {
 	const char * substring = "world";
 	xError error = kNoError;
 
-	success = xContainsSubString(string, substring, &error);
+	if (!xContainsSubString(string, substring, &error)) {
+		printf("%s should be in %s\n", substring, string);
+		success = xFalse;
+	} else {
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		substring = "no sub string";
+		if (xContainsSubString(string, substring, &error)) {
+			success = xFalse;
+			printf("%s should not be in %s\n", substring, string);
+		} else {
+			success = error == kNoError;
+		}
+	}
 
 	printf("String containing substring: [ %s ]\n", success ? PASS : FAIL);
 }

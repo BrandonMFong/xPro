@@ -88,6 +88,10 @@ char * xReadFile(
 	if (error == kNoError) {
 		result 	= (char *) malloc(fileLength + 1);
 		error 	= result != xNull ? kNoError : kUnknownError;
+
+		if (error == kNoError) {
+			strcpy(result, "");
+		}
 	}
 
 	if (error == kNoError) {
@@ -111,7 +115,9 @@ char * xReadFile(
 		error = strlen(result) == fileLength ? kNoError : kFileContentError;
 
 		if (error != kNoError) {
-			DLog("Could not read entire file");
+			DLog("Could not read entire file.  Expected length: %d. Actual: %d\n",
+					fileLength,
+					strlen(result));
 		}
 	}
 

@@ -41,8 +41,29 @@ void TestStringContainsSubString(void) {
 	printf("String containing substring: [ %s ]\n", success ? PASS : FAIL);
 }
 
+void TestCopyString(void) {
+	xError error = kNoError;
+	const char * string = "Hello world";
+	char * result = xCopyString(string, &error);
+
+	xBool success = xTrue;
+	if (error == kNoError) {
+		if (strcmp(result, string)) {
+			success = xFalse;
+			printf("%s != %s\n", result, string);
+		}
+	} else {
+		success = xFalse;
+		printf("Copying string failed, %d\n", error);
+	}
+
+
+	printf("String copying: [ %s ]\n", success ? PASS : FAIL);
+}
+
 void xUtilities_Tests(void) {
 	TestStringContainsSubString();
+	TestCopyString();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

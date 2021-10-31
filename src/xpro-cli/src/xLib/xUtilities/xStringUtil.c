@@ -82,32 +82,38 @@ xBool xContainsSubString (
 
 char ** xSplitString(
 	const char *	string,
-	const char * 	separator,
+	const char * 	sep,
 	xError * 		err
 ) {
-	char ** result = xNull;
-	xError error = kNoError;
-	char * tempString = xNull;
-	xBool okayToContinue = xTrue;
-	xUInt64 index = 0, stringLength = 0;
+	char 	** result 		= xNull,
+			* tempString 	= xNull,
+			* stringCopy	= xNull;
+	xError 	error 				= kNoError;
+	xBool 	okayToContinue 		= xTrue;
+	xUInt64 index 				= 0,
+			stringLength	= 0,
+			resultIndex 	= 0,
+			sepIndex 		= 0,
+			sepLength 		= 0;
 
-	if ((string == xNull) || (separator == xNull)) {
+	if ((string == xNull) || (sep == xNull)) {
 		error = kStringError;
 		DLog("Must provide a nonull string");
 	} else {
-		stringLength = strlen(string);
+		stringLength 	= strlen(string);
+		sepLength		= strlen(sep);
 	}
 
 	if (error == kNoError) {
-		result = (char **) malloc(sizeof(char *));
-		error = result != xNull ? kNoError : kUnknownError;
+		result 	= (char **) malloc(sizeof(char *));
+		error 	= result != xNull ? kNoError : kUnknownError;
 	}
 
 	if (error == kNoError) {
 		// If we could not find the sub string, then we will just
 		// return a single element array containing a copy of the
 		// the input string
-		if (!xContainsSubString(string, separator, &error)) {
+		if (!xContainsSubString(string, sep, &error)) {
 			tempString = xCopyString(string, &error);
 
 			if (error == kNoError) {
@@ -115,13 +121,62 @@ char ** xSplitString(
 				okayToContinue 	= xFalse;
 			}
 		} else {
-			tempString = (char *) malloc(1); // Create empty string
-			error = tempString != xNull ? kNoError : kUnknownError;
+			tempString 	= (char *) malloc(1); // Create empty string
+			error 		= tempString != xNull ? kNoError : kUnknownError;
 		}
 	}
 
-	if (okayToContinue && (error == kNoError)) {
-		while ((index < stringLength)) {
+	if (okayToContinue) {
+		while ((index < stringLength) && (error == kNoError)) {
+			// For every character match between separator and
+			// string, increment the separator index.  We want to
+			// make sure that we identify the substring
+			if (string[index] == sep[sepIndex]) {
+				sepIndex++;
+			} else {
+				sepIndex = 0;
+			}
+
+			if (sepIndex < sepLength) {
+				// Add 2 more spots, 1 for new and another for null character
+				tempString 	= (char *) realloc(tempString, strlen(tempString) + 2);
+				error 		= tempString != xNull ? kNoError : kUnknownError;
+
+				// Copy string
+				if (error == kNoError) {
+//					stringCopy = xCopyString(tempString, &error);
+				}
+
+				// Add new character
+				if (error == kNoError){
+					tempString[strlen(tempString)] = string[index];
+//					sprintf(tempString, "%s%c", tempString, string[index]);
+				}
+
+			} else {	// If we found the substring, then add string tempString
+						// into array
+
+				sepIndex = 0; // Reset index
+
+				// Add string to array
+				result[resultIndex] = tempString;
+				resultIndex++;
+
+				// Free string
+				if (tempString != xNull) {
+					free(tempString);
+				}
+
+				// Create empty string
+				tempString 	= (char *) malloc(1);
+				error 		= tempString != xNull ? kNoError : kUnknownError;
+
+				// Add another index for the next iteraction
+				if (error == kNoError) {
+					result 	= (char **) realloc(result, (sizeof(result) / sizeof(result)) + 1);
+					error 	= result != xNull ? kNoError : kUnknownError;
+				}
+			}
 
 			index++;
 		}

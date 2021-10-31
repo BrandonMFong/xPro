@@ -94,10 +94,10 @@ void TestBasename(void) {
 void TestSplitString(void) {
 	xBool success = xTrue;
 
-	const char * sep = "|";
-	const char * Is = "Is";
-	const char * A = "A";
-	const char * String = "String";
+	const char 	* sep 		= "|",
+				* Is 		= "Is",
+				* A 		= "A",
+				* String 	= "String";
 	char string[	strlen(sep)
 				+ 	strlen(Is)
 				+ 	strlen(sep)

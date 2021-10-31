@@ -65,7 +65,7 @@ xBool xContainsSubString (
  */
 char ** xSplitString(
 	const char *	string,
-	const char * 	separator,
+	const char * 	sep,
 	xError * 		err
 );
 

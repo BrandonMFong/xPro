@@ -80,7 +80,11 @@ xBool xContainsSubString (
 	return result;
 }
 
-char ** xSplitString(char * string, char * separator, xError * err) {
+char ** xSplitString(
+	const char *	string,
+	const char * 	separator,
+	xError * 		err
+) {
 	char ** result = xNull;
 	xError error = kNoError;
 	char * tempString = xNull;

@@ -9,6 +9,7 @@
 #define SRC_XUTILITIES_TESTS_H_
 
 #include <xPro-CLI.h>
+#include <stdio.h>
 
 void TestStringContainsSubString(void) {
 	xBool success = xTrue;
@@ -90,10 +91,70 @@ void TestBasename(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestSplitString(void) {
+	xBool success = xTrue;
+
+	const char * sep = "|";
+	const char * Is = "Is";
+	const char * A = "A";
+	const char * String = "String";
+	char string[	strlen(sep)
+				+ 	strlen(Is)
+				+ 	strlen(sep)
+				+ 	strlen(A)
+				+ 	strlen(sep)
+				+ 	strlen(String)
+				+ 	1];
+
+	sprintf(string, "%s%s%s%s%s%s", sep, Is, sep, A, sep, String);
+
+	xError error = kNoError;
+	char ** result = xSplitString(string, sep, &error);
+
+	if (error != kNoError) {
+		printf("Error getting split string %d\n", error);
+		success = xFalse;
+	}
+
+	if (success) {
+		xUInt8 expectedSize = 3;
+		xUInt8 actualSize = sizeof(result) / sizeof(result[0]);
+
+		success = expectedSize == actualSize;
+		if (!success) {
+			printf("Size of split string array is %d, expected is %d\n", actualSize, expectedSize);
+		}
+	}
+
+	if (success) {
+		success = !strcmp(result[0], Is);
+		if (!success) {
+			printf("%s != %s\n", result[0], Is);
+		}
+	}
+
+	if (success) {
+		success = !strcmp(result[1], A);
+		if (!success) {
+			printf("%s != %s\n", result[1], A);
+		}
+	}
+
+	if (success) {
+		success = !strcmp(result[2], String);
+		if (!success) {
+			printf("%s != %s\n", result[2], String);
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xUtilities_Tests(void) {
 	TestStringContainsSubString();
 	TestCopyString();
 	TestBasename();
+	TestSplitString();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

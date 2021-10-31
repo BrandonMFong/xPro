@@ -62,9 +62,9 @@ xBool xContainsSubString (
  * input string separated by the input separator
  */
 char ** xSplitString(
-	char * 		string,
-	char * 		separator,
-	xError * 	err
+	const char *	string,
+	const char * 	separator,
+	xError * 		err
 );
 
 #pragma mark - File System

@@ -6,7 +6,12 @@
  */
 
 #include "xUtilities.h"
+
+#if defined(__WINDOWS__)
+#include <syslimits.h>
+#else
 #include <sys/syslimits.h>
+#endif
 
 char * xHomePath(xError * err) {
 	char * 	result 	= xNull;

@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/xLib/xXML/subdir.mk
 -include src/xLib/xUtilities/subdir.mk
 -include src/xLib/xArguments/subdir.mk
 -include src/Commands/Directory/subdir.mk

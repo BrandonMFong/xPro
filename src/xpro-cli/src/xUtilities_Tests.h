@@ -19,7 +19,7 @@ void TestStringContainsSubString(void) {
 
 	success = xContainsSubString(string, substring, &error);
 
-	printf("String containing substring: [ %s ]", success ? PASS : FAIL);
+	printf("String containing substring: [ %s ]\n", success ? PASS : FAIL);
 }
 
 void xUtilities_Tests(void) {

@@ -25,9 +25,19 @@
 #include <xArguments/xArgs.h>
 #include <xXML/xXML.h>
 
-#define PASS "Pass"
-#define FAIL "Fail"
+/**
+ * Use this to print test results.  It will also print the
+ * function name. Will not print anything if we did not do
+ * a test build
+ */
+#if defined(TESTING)
 
-#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? PASS : FAIL);
+#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? "Pass" : "Fail");
+
+#else
+
+#define PRINT_TEST_RESULTS(result)
+
+#endif
 
 #endif /* XLIB_H_ */

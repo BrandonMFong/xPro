@@ -51,6 +51,8 @@ void TestCopyString(void) {
 		if (strcmp(result, string)) {
 			success = xFalse;
 			printf("%s != %s\n", result, string);
+		} else {
+			free(result);
 		}
 	} else {
 		success = xFalse;
@@ -60,9 +62,38 @@ void TestCopyString(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestBasename(void) {
+	xBool success = xTrue;
+	const char * path = xNull;
+
+#if defined(__MACOS__) || defined(__LINUX__)
+	path = "/Path/To/Executable";
+#elif defined(__WINDOWS__)
+	path = "C:\Path\To\Executable";
+#else
+	success = xFalse;
+	printf("No os defined in build\nPlease check config\n");
+#endif
+	xError error = kNoError;
+	char * result = xBasename(path, &error);
+
+	if (success) {
+		if (strcmp(result, "Executable")) {
+			success = xFalse;
+			printf("'%s' is not the executable name from '%s'\n", result, path);
+		} else if (error != kNoError) {
+			success = xFalse;
+			printf("Error %d\n", error);
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xUtilities_Tests(void) {
 	TestStringContainsSubString();
 	TestCopyString();
+	TestBasename();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

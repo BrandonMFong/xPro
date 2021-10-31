@@ -6,9 +6,9 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <main.hpp>
+#include <xPro-CLI.h>
 
-int main(int argc, char ** argv) {
+int xMain(int argc, char ** argv) {
 	xError 			result 			= kNoError;
 	xBool 			okayToContinue 	= xTrue;
 	xArguments * 	args 			= xNull;

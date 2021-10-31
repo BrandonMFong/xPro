@@ -25,8 +25,7 @@
 #include <xArguments/xArgs.h>
 #include <xXML/xXML.h>
 
-#ifdef __cplusplus
-
-#endif // __cplusplus
+#define PASS "Pass"
+#define FAIL "Fail"
 
 #endif /* XLIB_H_ */

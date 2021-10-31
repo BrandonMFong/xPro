@@ -5,6 +5,10 @@
  *      Author: brandonmfong
  */
 
+#include <xPro-CLI.h>
+#include <xUtilities_Tests.h>
 
-
-
+int xTests() {
+	xUtilities_Tests();
+	return 0;
+}

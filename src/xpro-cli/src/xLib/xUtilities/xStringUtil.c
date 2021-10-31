@@ -43,7 +43,6 @@ xBool xContainsSubString (
 			subStringIndex 	= 0,
 			stringLength 	= 0,
 			subStringLength = 0;
-	xBool 	foundSubString 	= xFalse;
 
 	if ((string == xNull) || (subString == xNull)) {
 		error = kStringError;
@@ -104,7 +103,7 @@ char ** xSplitString(char * string, char * separator, xError * err) {
 		// If we could not find the sub string, then we will just
 		// return a single element array containing a copy of the
 		// the input string
-		if (!xContainsSubString(string, separator)) {
+		if (!xContainsSubString(string, separator, &error)) {
 			tempString = xCopyString(string, &error);
 
 			if (error == kNoError) {

@@ -38,7 +38,7 @@ void TestStringContainsSubString(void) {
 		}
 	}
 
-	printf("String containing substring: [ %s ]\n", success ? PASS : FAIL);
+	PRINT_TEST_RESULTS(success);
 }
 
 void TestCopyString(void) {
@@ -57,8 +57,7 @@ void TestCopyString(void) {
 		printf("Copying string failed, %d\n", error);
 	}
 
-
-	printf("String copying: [ %s ]\n", success ? PASS : FAIL);
+	PRINT_TEST_RESULTS(success);
 }
 
 void xUtilities_Tests(void) {

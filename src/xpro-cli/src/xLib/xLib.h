@@ -28,4 +28,6 @@
 #define PASS "Pass"
 #define FAIL "Fail"
 
+#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? PASS : FAIL);
+
 #endif /* XLIB_H_ */

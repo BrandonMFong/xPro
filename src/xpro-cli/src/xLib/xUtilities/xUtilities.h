@@ -21,23 +21,21 @@
 #include <string.h>
 #include <unistd.h>
 
-#if defined(__WINDOWS__)
-
-#define FILE_SYSTEM_SEPARATOR '\\'
-#define MAX_PATH_LENGTH MAX_PATH
-
-#elif defined(__MACOS__) || defined(__LINUX__)
-
-#define FILE_SYSTEM_SEPARATOR '/'
-#define MAX_PATH_LENGTH PATH_MAX
-
-#endif
+/**
+ * Frees memory from heap and nulls out pointer
+ */
+#define xFree(var) free(var); var = 0;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #pragma mark - String
+
+/**
+ * Returns malloc'd string and copies an empty string to it
+ */
+char * xMallocString(xUInt64 length, xError * err);
 
 /**
  * Creates a copy of the string.
@@ -70,6 +68,21 @@ char ** xSplitString(
 );
 
 #pragma mark - File System
+
+/**
+ * File system separator
+ */
+#if defined(__WINDOWS__)
+
+#define FILE_SYSTEM_SEPARATOR '\\'
+#define MAX_PATH_LENGTH MAX_PATH
+
+#elif defined(__MACOS__) || defined(__LINUX__)
+
+#define FILE_SYSTEM_SEPARATOR '/'
+#define MAX_PATH_LENGTH PATH_MAX
+
+#endif
 
 /**
  * Returns base name of path

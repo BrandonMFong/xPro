@@ -105,6 +105,7 @@ void TestSplitString(void) {
 				+ 	strlen(sep)
 				+ 	strlen(String)
 				+ 	1];
+	char * tempString = xNull;
 
 	sprintf(string, "%s%s%s%s%s%s", sep, Is, sep, A, sep, String);
 
@@ -120,30 +121,33 @@ void TestSplitString(void) {
 		xUInt8 expectedSize = 3;
 		xUInt8 actualSize = sizeof(result) / sizeof(result[0]);
 
-		success = expectedSize == actualSize;
+//		success = expectedSize == actualSize;
+//		if (!success) {
+//			printf("Size of split string array is %d, expected is %d\n", actualSize, expectedSize);
+//		}
+	}
+
+	if (success) {
+		tempString = result[1];
+		success = !strcmp(tempString, Is);
 		if (!success) {
-			printf("Size of split string array is %d, expected is %d\n", actualSize, expectedSize);
+			printf("%s != %s\n", tempString, Is);
 		}
 	}
 
 	if (success) {
-		success = !strcmp(result[0], Is);
+		tempString = result[2];
+		success = !strcmp(tempString, A);
 		if (!success) {
-			printf("%s != %s\n", result[0], Is);
+			printf("%s != %s\n", tempString, A);
 		}
 	}
 
 	if (success) {
-		success = !strcmp(result[1], A);
+		tempString = result[3];
+		success = !strcmp(tempString, String);
 		if (!success) {
-			printf("%s != %s\n", result[1], A);
-		}
-	}
-
-	if (success) {
-		success = !strcmp(result[2], String);
-		if (!success) {
-			printf("%s != %s\n", result[2], String);
+			printf("%s != %s\n", tempString, String);
 		}
 	}
 

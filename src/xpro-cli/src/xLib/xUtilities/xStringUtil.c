@@ -104,7 +104,8 @@ char ** xSplitString(
 	xError * 		err
 ) {
 	char 	** result 		= xNull,
-			* tempString 	= xNull;
+			* tempString 	= xNull,
+			* stringCopy	= xNull;
 	xError 	error 			= kNoError;
 	xBool 	okayToContinue 	= xTrue;
 	xUInt64 index 			= 0,
@@ -138,18 +139,14 @@ char ** xSplitString(
 				okayToContinue 	= xFalse;
 			}
 		} else {
-//			tempString 	= (char *) malloc(1); // Create empty string
-//			error 		= tempString != xNull ? kNoError : kUnknownError;
-//
-//			if (error == kNoError) {
-//				strcpy(tempString, "");
-//			}
 			tempString = xMallocString(1, &error);
 		}
 	}
 
 	if (okayToContinue) {
-		while ((index < stringLength) && (error == kNoError)) {
+
+		// Sweep the entire string
+		while ((index <= stringLength) && (error == kNoError)) {
 
 			// For every character match between separator and
 			// string, increment the separator index.  We want to
@@ -160,22 +157,26 @@ char ** xSplitString(
 				sepIndex = 0;
 			}
 
-			if (sepIndex < sepLength) {
+			// If we have no more of the string left to sweep, i.e. index == stringLength,
+			// then we need to finish inserting the last string
+			if ((sepIndex < sepLength) && (index < stringLength)) {
 				// Add 2 more spots, 1 for new and another for null character
 				tempString 	= (char *) realloc(tempString, strlen(tempString) + 2);
 				error 		= tempString != xNull ? kNoError : kUnknownError;
 
-				// Add new character
-				if (error == kNoError){
-					tempString[strlen(tempString)] = string[index];
-					tempString[strlen(tempString) + 1] = '\0';
+				if (error == kNoError) {
+					stringCopy = xCopyString(tempString, &error);
 				}
 
-			} else {	// If we found the substring, then add string tempString
-						// into array
+				// Add new character
+				if (error == kNoError){
+					sprintf(tempString, "%s%c", stringCopy, string[index]);
+					xFree(stringCopy);
+				}
 
-				DLog("String: %s\n", tempString);
-
+			// If we found the substring, then add string tempString
+			// into array
+			} else {
 				sepIndex = 0; // Reset index
 
 				// Add string to array
@@ -184,18 +185,20 @@ char ** xSplitString(
 
 				// Free string
 				if (tempString != xNull) {
-					free(tempString);
+					xFree(tempString);
 				}
 
-				// Create empty string
-				tempString = xMallocString(1, &error);
-//				tempString 	= (char *) malloc(1);
-//				error 		= tempString != xNull ? kNoError : kUnknownError;
+				// If we have more string to sweep, create new string, and another
+				// index to the string array
+				if (index < stringLength) {
+					// Create empty string
+					tempString = xMallocString(1, &error);
 
-				// Add another index to the array for the next iteraction
-				if (error == kNoError) {
-					result 	= (char **) realloc(result, (sizeof(result) / sizeof(result)) + 1);
-					error 	= result != xNull ? kNoError : kUnknownError;
+					// Add another index to the array for the next iteraction
+					if (error == kNoError) {
+						result 	= (char **) realloc(result, (sizeof(result) / sizeof(result[0])) + 1);
+						error 	= result != xNull ? kNoError : kUnknownError;
+					}
 				}
 			}
 

@@ -101,6 +101,7 @@ xBool xContainsSubString (
 char ** xSplitString(
 	const char *	string,
 	const char * 	sep,
+	xUInt8 *		size,
 	xError * 		err
 ) {
 	char 	** result 		= xNull,
@@ -110,7 +111,7 @@ char ** xSplitString(
 	xBool 	okayToContinue 	= xTrue;
 	xUInt64 index 			= 0,
 			stringLength	= 0,
-			resultIndex 	= 0,
+			resultSize 		= 0,
 			sepIndex 		= 0,
 			sepLength 		= 0;
 
@@ -180,8 +181,8 @@ char ** xSplitString(
 				sepIndex = 0; // Reset index
 
 				// Add string to array
-				result[resultIndex] = tempString;
-				resultIndex++;
+				result[resultSize] = tempString;
+				resultSize++;
 
 				// Free string
 				if (tempString != xNull) {
@@ -204,6 +205,11 @@ char ** xSplitString(
 
 			index++;
 		}
+	}
+
+	if (size != xNull)
+	{
+		*size = resultSize;
 	}
 
 	if (err != xNull) {

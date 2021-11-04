@@ -105,12 +105,14 @@ void TestSplitString(void) {
 				+ 	strlen(sep)
 				+ 	strlen(String)
 				+ 	1];
-	char * tempString = xNull;
+	char * tempString 	= xNull;
+	xUInt8 expectedSize = 4; // 4 because we start with the separator
+	xUInt8 actualSize 	= 0;
 
 	sprintf(string, "%s%s%s%s%s%s", sep, Is, sep, A, sep, String);
 
 	xError error = kNoError;
-	char ** result = xSplitString(string, sep, &error);
+	char ** result = xSplitString(string, sep, &actualSize, &error);
 
 	if (error != kNoError) {
 		printf("Error getting split string %d\n", error);
@@ -118,20 +120,18 @@ void TestSplitString(void) {
 	}
 
 	if (success) {
-		xUInt8 expectedSize = 3;
-		xUInt8 actualSize = sizeof(result) / sizeof(result[0]);
 
-//		success = expectedSize == actualSize;
-//		if (!success) {
-//			printf("Size of split string array is %d, expected is %d\n", actualSize, expectedSize);
-//		}
+		success = expectedSize == actualSize;
+		if (!success) {
+			printf("Size of split string array is %d, expected is %d\n", actualSize, expectedSize);
+		}
 	}
 
 	if (success) {
 		tempString = result[1];
 		success = !strcmp(tempString, Is);
 		if (!success) {
-			printf("%s != %s\n", tempString, Is);
+			printf("(1) %s != %s\n", tempString, Is);
 		}
 	}
 
@@ -139,7 +139,7 @@ void TestSplitString(void) {
 		tempString = result[2];
 		success = !strcmp(tempString, A);
 		if (!success) {
-			printf("%s != %s\n", tempString, A);
+			printf("(2) %s != %s\n", tempString, A);
 		}
 	}
 
@@ -147,7 +147,7 @@ void TestSplitString(void) {
 		tempString = result[3];
 		success = !strcmp(tempString, String);
 		if (!success) {
-			printf("%s != %s\n", tempString, String);
+			printf("(3) %s != %s\n", tempString, String);
 		}
 	}
 

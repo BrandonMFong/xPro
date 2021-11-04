@@ -60,10 +60,13 @@ xBool xContainsSubString (
 /**
  * Returns an array of strings that contains substrings from
  * input string separated by the input separator
+ *
+ * @param size The size of the returned array
  */
 char ** xSplitString(
 	const char *	string,
 	const char * 	sep,
+	xUInt8 *		size,
 	xError * 		err
 );
 

@@ -64,6 +64,9 @@ public:
 	 *	- 	When you want an attribute, follow the element path with a
 	 *		'.' and the attribute name
 	 *		- 	Example /Root/Path/To/Element.Attribute
+	 *	- 	To get an inner xml from a specific attribute, enclose the attribute
+	 *		inside parenthesis
+	 *		- 	Example /Root/Path/To/Element.Attribute(value)
 	 *
 	 * Return value is an array of values at path.  If no element was found,
 	 * an error will be returned in the err pointer and function will return null.

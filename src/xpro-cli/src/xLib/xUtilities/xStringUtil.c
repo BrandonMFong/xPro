@@ -180,7 +180,7 @@ char ** xSplitString(
 			} else {
 				sepIndex = 0; // Reset index
 
-				// Add string to array
+				// Add string to array.  Keep the memory to the string
 				result[resultSize] = tempString;
 				resultSize++;
 
@@ -192,7 +192,7 @@ char ** xSplitString(
 
 					// Add another index to the array for the next iteraction
 					if (error == kNoError) {
-						result 	= (char **) realloc(result, (sizeof(result) / sizeof(result[0])) + 1);
+						result 	= (char **) realloc(result, (sizeof(char *) * (resultSize + 1)));
 						error 	= result != xNull ? kNoError : kUnknownError;
 					}
 				}

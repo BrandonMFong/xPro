@@ -151,6 +151,11 @@ void TestSplitString(void) {
 		}
 	}
 
+	for (xUInt8 i = 0; i < actualSize; i++) {
+		xFree(result[i]);
+	}
+	xFree(result);
+
 	PRINT_TEST_RESULTS(success);
 }
 

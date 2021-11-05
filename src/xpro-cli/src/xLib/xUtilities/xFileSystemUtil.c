@@ -115,7 +115,7 @@ char * xReadFile(
 		error = strlen(result) == fileLength ? kNoError : kFileContentError;
 
 		if (error != kNoError) {
-			DLog("Could not read entire file.  Expected length: %d. Actual: %d\n",
+			DLog("Could not read entire file.  Expected length: %llu. Actual: %lu\n",
 					fileLength,
 					strlen(result));
 		}

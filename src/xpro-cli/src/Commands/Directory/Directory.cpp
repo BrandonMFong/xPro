@@ -6,6 +6,7 @@
  */
 
 #include "Directory.hpp"
+#include <Utilities/Utilities.h>
 
 /**
  * Xml object for the xpro config file
@@ -40,7 +41,7 @@ xError HandleDirectory() {
 
 	// Get the config file
 	if (result == kNoError) {
-		configPath = xConfigFilePath(&result);
+		configPath = ConfigFilePath(&result);
 	}
 
 	if (result == kNoError) {
@@ -65,7 +66,7 @@ xError HandleDirectory() {
 
 	// Delete the object
 	if (xProConfig != xNull) {
-		delete xProConfig;
+		xDelete(xProConfig);
 	}
 
 	return result;

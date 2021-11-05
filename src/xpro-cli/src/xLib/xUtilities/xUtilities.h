@@ -26,9 +26,14 @@
  */
 #define xFree(var) if (var != 0) {free(var); var = 0;}
 
+/**
+ * Frees memory from free store
+ */
+#define xDelete(var) if (var != 0) {delete var; var = 0;}
+
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
 
 #pragma mark - String
 
@@ -111,17 +116,8 @@ char * xHomePath(xError * err);
  */
 char * xReadFile(const char * path, xError * err);
 
-#pragma mark - Other
-
-/**
- * Returns the standard config file for user
- *
- * Caller is responsible for freeing memory
- */
-char * xConfigFilePath(xError * err);
-
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
 #endif /* XUTILITIES_XUTILITIES_H_ */

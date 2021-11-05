@@ -13,7 +13,6 @@
 #endif
 
 /// xLib
-#include <xPipe.h>
 #include <xError.h>
 #include <xLogger/xDLog.h>
 #include <xInt.h>
@@ -22,9 +21,12 @@
 #include <xUtilities/xUtilities.h>
 
 /// Classes
+#ifdef __cplusplus
+
 #include <xArguments/xArgs.h>
 #include <xXML/xXML.h>
 
+#endif // __cplusplus
 /**
  * Use this to print test results.  It will also print the
  * function name. Will not print anything if we did not do
@@ -34,10 +36,10 @@
 
 #define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? "Pass" : "Fail");
 
-#else
+#else // defined(TESTING)
 
 #define PRINT_TEST_RESULTS(result)
 
-#endif
+#endif // defined(TESTING)
 
 #endif /* XLIB_H_ */

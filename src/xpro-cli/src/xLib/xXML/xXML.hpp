@@ -99,6 +99,8 @@ private:
 	 * We should be using this when we find values from a node path
 	 */
 	char * _rawContent;
+
+	char * getStringInsideElementPath(const char * content, const char * elementPath, xError * err);
 };
 
 

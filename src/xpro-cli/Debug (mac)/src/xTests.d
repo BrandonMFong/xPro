@@ -1,6 +1,5 @@
 src/xTests.o: ../src/xTests.cpp \
-  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory_Tests.h \
-  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory.hpp \
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/Tests/xUtilities_Tests.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xLib.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xError.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xLogger/xDLog.h \
@@ -10,13 +9,12 @@ src/xTests.o: ../src/xTests.cpp \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xUtilities/xUtilities.h \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xArguments/xArgs.hpp \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xXML/xXML.hpp \
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory_Tests.h \
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory.hpp \
   /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xPro-CLI.h \
-  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Commands.h \
-  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xTests/xUtilities_Tests.h
+  /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Commands.h
 
-/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory_Tests.h:
-
-/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory.hpp:
+/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/Tests/xUtilities_Tests.h:
 
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xLib.h:
 
@@ -36,8 +34,10 @@ src/xTests.o: ../src/xTests.cpp \
 
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xXML/xXML.hpp:
 
+/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory_Tests.h:
+
+/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Directory/Directory.hpp:
+
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xPro-CLI.h:
 
 /Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/Commands/Commands.h:
-
-/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib/xTests/xUtilities_Tests.h:

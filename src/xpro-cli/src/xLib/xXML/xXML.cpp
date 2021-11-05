@@ -40,9 +40,7 @@ xError xXML::read(const char * path) {
 	// Save the path
 	if (result == kNoError) {
 		// Free memory if path was already set
-		if (this->_path != xNull) {
-			free(this->_path);
-		}
+		xFree(this->_path);
 
 		this->_path = xCopyString(path, &result);
 	}
@@ -57,20 +55,9 @@ char ** xXML::getValue(
 ) {
 	char ** result = xNull;
 	xError error = kNoError;
-	char ** elementPathArray = xNull;
-	xUInt8 elementArraySize = 0;
-	char * element = xNull;
-	xUInt8 elementIndex = 0;
 
 	if (elementPath == xNull) {
 		error = kStringError;
-	} else {
-		elementPathArray = xSplitString(
-			elementPath,
-			ELEMENT_PATH_SEP,
-			&elementArraySize,
-			&error
-		);
 	}
 
 	if (error == kNoError) {
@@ -78,26 +65,21 @@ char ** xXML::getValue(
 		error = result != xNull ? kNoError : kUnknownError;
 	}
 
-	while ((error == kNoError) && (elementIndex < elementArraySize)) {
-		element = elementPathArray[elementIndex];
-		error = element != xNull ? kNoError : kXMLError;
-
-		if (error == kNoError) {
-
-		} else {
-			DLog("Null element at index %d\n", elementIndex);
-		}
-
-		elementIndex++;
+	if (error == kNoError) {
+		result[0] = this->getStringInsideElementPath(this->_rawContent, elementPath, &error);
 	}
 
-	// Free the split string array
-	if (elementPathArray != xNull) {
-		for (xUInt8 i = 0; i < elementArraySize; i++) {
-			xFree(elementPathArray[i]);
-		}
-		xFree(elementPathArray);
+	if (err != xNull) {
+		*err = error;
 	}
+
+	return result;
+}
+
+char * xXML::getStringInsideElementPath(const char * content, const char * elementPath, xError * err) {
+	char * result = xNull;
+	xError error = kNoError;
+
 
 	if (err != xNull) {
 		*err = error;

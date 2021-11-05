@@ -5,9 +5,9 @@
  *      Author: brandonmfong
  */
 
+#include <xLib/Tests/xUtilities_Tests.h>
 #include <Commands/Directory/Directory_Tests.h>
 #include <xPro-CLI.h>
-#include <xTests/xUtilities_Tests.h>
 
 int xTests() {
 	xUtilities_Tests();

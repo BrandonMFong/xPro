@@ -184,11 +184,6 @@ char ** xSplitString(
 				result[resultSize] = tempString;
 				resultSize++;
 
-				// Free string
-				if (tempString != xNull) {
-					xFree(tempString);
-				}
-
 				// If we have more string to sweep, create new string, and another
 				// index to the string array
 				if (index < stringLength) {

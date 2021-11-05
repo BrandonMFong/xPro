@@ -24,7 +24,7 @@
 /**
  * Frees memory from heap and nulls out pointer
  */
-#define xFree(var) free(var); var = 0;
+#define xFree(var) if (var != 0) {free(var); var = 0;}
 
 #ifdef __cplusplus
 extern "C" {

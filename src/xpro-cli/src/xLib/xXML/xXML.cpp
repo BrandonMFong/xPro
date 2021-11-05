@@ -85,7 +85,7 @@ char ** xXML::getValue(
 		if (error == kNoError) {
 
 		} else {
-			DLog("Null element at index %d", elementIndex);
+			DLog("Null element at index %d\n", elementIndex);
 		}
 
 		elementIndex++;

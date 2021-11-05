@@ -102,14 +102,14 @@ xError PrintDirectoryForAlias(const char * alias) {
 
 	if (result == kNoError) {
 		if (size != 1) {
-			DLog("Received an unexpected amount of values from config, %d", size);
+			DLog("Received an unexpected amount of values from config, %d\n", size);
 			result = kSizeError;
 		} else {
 			directory = values[0];
 			result = directory != xNull ? kNoError : kStringError;
 
 			if (result != kNoError) {
-				DLog("Directory is NULL");
+				DLog("Directory is NULL\n");
 			}
 		}
 	}

@@ -75,6 +75,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 	char * elementPath = xNull;
 	char ** values = xNull;
 	xUInt8 size = 0;
+	char * directory = xNull;
 
 	if (alias == xNull) {
 		result = kDirectoryAliasError;
@@ -103,11 +104,25 @@ xError PrintDirectoryForAlias(const char * alias) {
 		if (size != 1) {
 			DLog("Received an unexpected amount of values from config, %d", size);
 			result = kSizeError;
+		} else {
+			directory = values[0];
+			result = directory != xNull ? kNoError : kStringError;
+
+			if (result != kNoError) {
+				DLog("Directory is NULL");
+			}
 		}
 	}
 
 	if (result == kNoError) {
+		printf("%s\n", directory);
+	}
 
+	if (values != xNull) {
+		for (xUInt8 i = 0; i < size; i++) {
+			xFree(values[i]);
+		}
+		xFree(values);
 	}
 
 	return result;

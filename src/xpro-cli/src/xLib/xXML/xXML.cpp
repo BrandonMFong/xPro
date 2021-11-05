@@ -59,6 +59,8 @@ char ** xXML::getValue(
 	xError error = kNoError;
 	char ** elementPathArray = xNull;
 	xUInt8 elementArraySize = 0;
+	char * element = xNull;
+	xUInt8 elementIndex = 0;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -72,9 +74,24 @@ char ** xXML::getValue(
 	}
 
 	if (error == kNoError) {
-
+		result = (char **) malloc(sizeof(char *));
+		error = result != xNull ? kNoError : kUnknownError;
 	}
 
+	while ((error == kNoError) && (elementIndex < elementArraySize)) {
+		element = elementPathArray[elementIndex];
+		error = element != xNull ? kNoError : kXMLError;
+
+		if (error == kNoError) {
+
+		} else {
+			DLog("Null element at index %d", elementIndex);
+		}
+
+		elementIndex++;
+	}
+
+	// Free the split string array
 	if (elementPathArray != xNull) {
 		for (xUInt8 i = 0; i < elementArraySize; i++) {
 			xFree(elementPathArray[i]);

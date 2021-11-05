@@ -23,8 +23,8 @@
 /// Classes
 #ifdef __cplusplus
 
-#include <xArguments/xArgs.h>
-#include <xXML/xXML.h>
+#include <xArguments/xArgs.hpp>
+#include <xXML/xXML.hpp>
 
 #endif // __cplusplus
 /**

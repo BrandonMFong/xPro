@@ -5,7 +5,7 @@
  *      Author: brandonmfong
  */
 
-#include "xArgs.h"
+#include <xArguments/xArgs.hpp>
 
 #ifdef __cplusplus
 extern "C" {

@@ -5,7 +5,7 @@
  *      Author: brandonmfong
  */
 
-#include "xXML.h"
+#include <xXML/xXML.hpp>
 
 xXML::xXML(const char * path, xError * err) {
 	xError error = kNoError;

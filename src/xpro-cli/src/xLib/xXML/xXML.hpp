@@ -10,8 +10,8 @@
  *
  */
 
-#ifndef SRC_XLIB_XXML_XXML_H_
-#define SRC_XLIB_XXML_XXML_H_
+#ifndef SRC_XLIB_XXML_XXML_HPP_
+#define SRC_XLIB_XXML_XXML_HPP_
 
 /// xPro
 #include <xError.h>
@@ -74,4 +74,4 @@ private:
 };
 
 
-#endif /* SRC_XLIB_XXML_XXML_H_ */
+#endif /* SRC_XLIB_XXML_XXML_HPP_ */

@@ -10,6 +10,8 @@
 
 #include <xLib.h>
 
+#define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories.alias(repo)/Value.hostname(%s)"
+
 /**
  * Handles the dir argument from
  */

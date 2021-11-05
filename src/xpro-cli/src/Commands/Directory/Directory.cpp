@@ -69,11 +69,45 @@ xError HandleDirectory() {
 
 	return result;
 }
+
 xError PrintDirectoryForAlias(const char * alias) {
 	xError result = kNoError;
+	char * elementPath = xNull;
+	char ** values = xNull;
+	xUInt8 size = 0;
+
+	if (alias == xNull) {
+		result = kDirectoryAliasError;
+	} else {
+		elementPath = xMallocString(
+				strlen(alias)
+			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
+			+ 	1,
+			&result
+		);
+
+		if (result == kNoError) {
+			sprintf(
+				elementPath,
+				DIRECTORY_ELEMENT_PATH_FORMAT,
+				alias
+			);
+		}
+	}
 
 	if (result == kNoError) {
-		DLog("Printing alias for %s\n", alias);
+		values = xProConfig->getValue(elementPath, &size, &result);
+	}
+
+	if (result == kNoError) {
+		if (size != 1) {
+			DLog("Received an unexpected amount of values from config, %d", size);
+			result = kSizeError;
+		}
+	}
+
+	if (result == kNoError) {
+
 	}
 
 	return result;

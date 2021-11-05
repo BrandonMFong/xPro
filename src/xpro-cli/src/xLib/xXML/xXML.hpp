@@ -66,9 +66,23 @@ public:
 	 *		- 	Example /Root/Path/To/Element.Attribute
 	 *
 	 * Return value is an array of values at path.  If no element was found,
-	 * an error will be returned in the err pointer and function will return null
+	 * an error will be returned in the err pointer and function will return null.
+	 *
+	 * Caller is responsible for freeing the memory, use the size pointer to
+	 * know how many strings there are to free
 	 */
-	char ** getValue(const char * elementPath, xError * err);
+	char ** getValue(
+		const char * 	elementPath,
+		xUInt8 * 		size,
+		xError * 		err
+	);
+
+	/**
+	 * Returns _path.  Caller should not attempt to free return value
+	 */
+	char * path() {
+		return this->_path;
+	}
 
 private:
 	/**

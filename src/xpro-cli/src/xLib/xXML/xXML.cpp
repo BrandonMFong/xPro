@@ -24,13 +24,8 @@ xXML::xXML(const char * path, xError * err) {
 }
 
 xXML::~xXML() {
-	if (this->_path != xNull) {
-		free(this->_path);
-	}
-
-	if (this->_rawContent != xNull) {
-		free(this->_rawContent);
-	}
+	xFree(this->_path);
+	xFree(this->_rawContent);
 }
 
 xError xXML::read(const char * path) {
@@ -55,7 +50,11 @@ xError xXML::read(const char * path) {
 	return result;
 }
 
-char ** xXML::getValue(const char * elementPath, xError * err) {
+char ** xXML::getValue(
+	const char * 	elementPath,
+	xUInt8 * 		size,
+	xError * 		err
+) {
 	char ** result = xNull;
 	xError error = kNoError;
 	char ** elementPathArray = xNull;

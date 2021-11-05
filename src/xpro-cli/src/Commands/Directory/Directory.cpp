@@ -21,10 +21,8 @@ xError HandleDirectory() {
 				* configPath 	= xNull;
 	xArguments 	* arguments 	= xNull;
 
-	if (result == kNoError) {
-		arguments = xArguments::shared();
-		result = arguments != xNull ? kNoError : kArgError;
-	}
+	arguments 	= xArguments::shared();
+	result 		= arguments != xNull ? kNoError : kArgError;
 
 	if (result == kNoError) {
 		result = arguments->count() >= 3 ? kNoError : kArgError;

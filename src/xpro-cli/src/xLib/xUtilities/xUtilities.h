@@ -116,6 +116,13 @@ char * xHomePath(xError * err);
  */
 char * xReadFile(const char * path, xError * err);
 
+#pragma mark - Other
+
+/**
+ * Returns host name of system
+ */
+char * xHostname(xError * err);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

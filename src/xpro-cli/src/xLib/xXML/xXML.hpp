@@ -23,6 +23,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Each element must be separate by a forward slash
+ */
+#define ELEMENT_PATH_SEP "/"
+
+/**
+ * Attributes must be denoted after an element path,
+ * followed by a "."
+ */
+#define ATTRIBUTE_PATH_SEP "."
+
 class xXML {
 public:
 	/**

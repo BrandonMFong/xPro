@@ -14,21 +14,6 @@
 #include <Commands/Commands.h>
 
 /**
- * If TESTING is defined, we need to have the entry point be the tests
- */
-#if defined(TESTING)
-
-#define xMain 	xMain
-#define xTests 	main
-
-#else
-
-#define xMain 	main
-#define xTests 	xTests
-
-#endif
-
-/**
  * Reads arguments for the command calls the respective function that
  * handles said command
  */

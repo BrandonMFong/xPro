@@ -5,10 +5,12 @@
  *      Author: brandonmfong
  */
 
-#include <Tests/xUtilities_Tests.h>
+#include <xLib/Tests/xUtilities_Tests.h>
+#include <Commands/Directory/Directory_Tests.h>
 #include <xPro-CLI.h>
 
 int xTests() {
 	xUtilities_Tests();
+	Directory_Tests();
 	return 0;
 }

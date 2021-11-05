@@ -37,9 +37,7 @@ xError xXML::read(const char * path) {
 	xError result = kNoError;
 
 	// Erase old content
-	if (this->_rawContent != xNull) {
-		free(this->_rawContent);
-	}
+	xFree(this->_rawContent);
 
 	// Read file content at path
 	this->_rawContent = xReadFile(path, &result);
@@ -60,10 +58,29 @@ xError xXML::read(const char * path) {
 char ** xXML::getValue(const char * elementPath, xError * err) {
 	char ** result = xNull;
 	xError error = kNoError;
+	char ** elementPathArray = xNull;
+	xUInt8 elementArraySize = 0;
 
+	if (elementPath == xNull) {
+		error = kStringError;
+	} else {
+		elementPathArray = xSplitString(
+			elementPath,
+			ELEMENT_PATH_SEP,
+			&elementArraySize,
+			&error
+		);
+	}
 
 	if (error == kNoError) {
 
+	}
+
+	if (elementPathArray != xNull) {
+		for (xUInt8 i = 0; i < elementArraySize; i++) {
+			xFree(elementPathArray[i]);
+		}
+		xFree(elementPathArray);
 	}
 
 	if (err != xNull) {

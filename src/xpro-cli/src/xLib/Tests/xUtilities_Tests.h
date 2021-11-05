@@ -8,8 +8,7 @@
 #ifndef SRC_XUTILITIES_TESTS_H_
 #define SRC_XUTILITIES_TESTS_H_
 
-#include <xPro-CLI.h>
-#include <stdio.h>
+#include <xLib.h>
 
 void TestStringContainsSubString(void) {
 	xBool success = xTrue;
@@ -159,11 +158,21 @@ void TestSplitString(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestHostname(void) {
+	xError error = kNoError;
+	char * hostname = xHostname(&error);
+
+	PRINT_TEST_RESULTS(hostname != xNull);
+
+	xFree(hostname);
+}
+
 void xUtilities_Tests(void) {
 	TestStringContainsSubString();
 	TestCopyString();
 	TestBasename();
 	TestSplitString();
+	TestHostname();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

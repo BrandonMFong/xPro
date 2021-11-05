@@ -27,6 +27,22 @@
 #include <xXML/xXML.hpp>
 
 #endif // __cplusplus
+
+/**
+ * If TESTING is defined, we need to have the entry point be the tests
+ */
+#if defined(TESTING)
+
+#define xMain 	xMain
+#define xTests 	main
+
+#else
+
+#define xMain 	main
+#define xTests 	xTests
+
+#endif
+
 /**
  * Use this to print test results.  It will also print the
  * function name. Will not print anything if we did not do

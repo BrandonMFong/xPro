@@ -79,7 +79,47 @@ char ** xXML::getValue(
 char * xXML::getStringInsideElementPath(const char * content, const char * elementPath, xError * err) {
 	char * result = xNull;
 	xError error = kNoError;
+	xUInt32 contentIndex = 0;
+	xUInt32 contentLength = 0;
+	char ** splitString = xNull;
+	xUInt8 elementPathSize = 0;
+	char * elementString = xNull;
 
+	if (content == xNull) {
+		DLog("Content cannot be parsed\n");
+		error = kStringError;
+	} else {
+		contentLength = strlen(content);
+	}
+
+	if (error == kNoError) {
+		if (elementPath == xNull) {
+			error = kStringError;
+		} else {
+			splitString = xSplitString(elementPath, ELEMENT_PATH_SEP, &elementPathSize, &error);
+		}
+	}
+
+	if (error == kNoError) {
+		if (elementPathSize <= 1) {
+			error = kSizeError;
+			DLog("Starting point cannot be determined with element path: %s\n", elementPath);
+		} else {
+			elementString = splitString[1];
+			error = elementString != xNull ? kNoError : kStringError;
+		}
+	}
+
+	if (error == kNoError) {
+
+	}
+
+	if (splitString != xNull) {
+		for (xUInt8 i = 0; i < elementPathSize; i++) {
+			xFree(splitString[i]);
+		}
+		xFree(splitString);
+	}
 
 	if (err != xNull) {
 		*err = error;

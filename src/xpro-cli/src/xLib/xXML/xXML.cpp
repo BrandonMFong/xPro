@@ -84,6 +84,10 @@ char * xXML::sweepContent(xError * err) {
 	char * result = xNull;
 	xError error = kNoError;
 	char * tagString = xNull;
+	char * tempString = xNull;
+
+	// Init empty string
+	tagString = xCopyString("", &error);
 
 	while ((this->_parseHelper.contentIndex < this->_parseHelper.contentLength) && (error == kNoError)) {
 		switch (this->_parseHelper.state) {
@@ -94,7 +98,14 @@ char * xXML::sweepContent(xError * err) {
 		break;
 
 		case kReadingTagString:
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
 
+			} else {
+				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+
+				error = xApendToString(&tagString, tempString);
+				xFree(tempString);
+			}
 			break;
 		default:
 			break;

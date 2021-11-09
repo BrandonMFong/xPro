@@ -161,26 +161,14 @@ char ** xSplitString(
 			// If we have no more of the string left to sweep, i.e. index == stringLength,
 			// then we need to finish inserting the last string
 			if ((sepIndex < sepLength) && (index < stringLength)) {
-//				// Add 2 more spots, 1 for new and another for null character
-//				tempString 	= (char *) realloc(tempString, strlen(tempString) + 2);
-//				error 		= tempString != xNull ? kNoError : kUnknownError;
-//
-//				if (error == kNoError) {
-//					stringCopy = xCopyString(tempString, &error);
-//				}
-//
-//				// Add new character
-//				if (error == kNoError){
-//					sprintf(tempString, "%s%c", stringCopy, string[index]);
-//					xFree(stringCopy);
-//				}
-
-				tempCharPtr = (char *) malloc(2);
-				error 		= tempCharPtr != xNull ? kNoError : kUnknownError;
+//				tempCharPtr = (char *) malloc(2);
+//				error 		= tempCharPtr != xNull ? kNoError : kUnknownError;
+//				tempCharPtr = xMallocString(2, &error);
+				tempCharPtr = xCharToString(string[index], &error);
 
 				if (error == kNoError) {
-					tempCharPtr[0] 	= string[index];
-					tempCharPtr[1] 	= '\0';
+//					tempCharPtr[0] 	= string[index];
+//					tempCharPtr[1] 	= '\0';
 
 					// Append the char to string
 					error = xApendToString(&tempString, tempCharPtr);
@@ -250,6 +238,17 @@ xError xApendToString(
 		);
 
 		xFree(stringCopy);
+	}
+
+	return result;
+}
+
+char * xCharToString(char ch, xError * err) {
+	char * result = xMallocString(2, err);
+
+	if (*err == kNoError) {
+		result[0] = ch;
+		result[1] = '\0';
 	}
 
 	return result;

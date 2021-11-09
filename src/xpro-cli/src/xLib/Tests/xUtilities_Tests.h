@@ -182,7 +182,20 @@ void TestAppendingStringToString(void) {
 	}
 
 	if (error != kNoError) {
-		printf("Error %d", error);
+		printf("Error %d\n", error);
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
+void TestConvertingCharToString(void) {
+	xError error = kNoError;
+
+	char * string = xCharToString('t', &error);
+	xBool success = !strcmp(string, "t");
+
+	if (!success) {
+		printf("%s is not t\n", string);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -194,7 +207,8 @@ void xUtilities_Tests(void) {
 	TestBasename();
 	TestSplitString();
 	TestHostname();
-	TestAppendingCharToString();
+	TestAppendingStringToString();
+	TestConvertingCharToString();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

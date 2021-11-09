@@ -83,6 +83,13 @@ xError xApendToString(
 	const char * stringToAppend
 );
 
+/**
+ * Converts char to string
+ *
+ * Resulting string must be freed
+ */
+char * xCharToString(char ch, xError * err);
+
 #pragma mark - File System
 
 /**

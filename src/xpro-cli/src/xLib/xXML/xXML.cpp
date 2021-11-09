@@ -98,9 +98,13 @@ char * xXML::sweepContent(xError * err) {
 		break;
 
 		case kReadingTagString:
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
-
-			} else {
+			// Add to tag string if are still sweeping tag
+			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+			case '>': // end of tag
+			case ' ': // start of attribute
+			case '/': // start of the end of a tag
+				break;
+			default:
 				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 
 				error = xApendToString(&tagString, tempString);
@@ -110,6 +114,7 @@ char * xXML::sweepContent(xError * err) {
 		default:
 			break;
 		}
+
 		this->_parseHelper.contentIndex++;
 	}
 

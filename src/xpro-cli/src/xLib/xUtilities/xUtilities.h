@@ -75,6 +75,14 @@ char ** xSplitString(
 	xError * 		err
 );
 
+/**
+ * Appends a character to string
+ */
+xError xApendToString(
+	char ** string,
+	const char * stringToAppend
+);
+
 #pragma mark - File System
 
 /**

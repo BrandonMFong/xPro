@@ -167,12 +167,34 @@ void TestHostname(void) {
 	xFree(hostname);
 }
 
+void TestAppendingStringToString(void) {
+	xError error = kNoError;
+	char * string = xCopyString("Hello worl", &error);
+	xBool success = string != xNull;
+
+	if (success) {
+		error = xApendToString(&string, "d!");
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(string, "Hello world!");
+	}
+
+	if (error != kNoError) {
+		printf("Error %d", error);
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xUtilities_Tests(void) {
 	TestStringContainsSubString();
 	TestCopyString();
 	TestBasename();
 	TestSplitString();
 	TestHostname();
+	TestAppendingCharToString();
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

@@ -34,6 +34,12 @@
  */
 #define ATTRIBUTE_PATH_SEP "."
 
+
+enum ParsingState {
+	kIdle,
+	kReadingTagString
+};
+
 class xXML {
 public:
 	/**
@@ -67,16 +73,9 @@ public:
 	 *	- 	To get an inner xml from a specific attribute, enclose the attribute
 	 *		inside parenthesis
 	 *		- 	Example /Root/Path/To/Element.Attribute(value)
-	 *
-	 * Return value is an array of values at path.  If no element was found,
-	 * an error will be returned in the err pointer and function will return null.
-	 *
-	 * Caller is responsible for freeing the memory, use the size pointer to
-	 * know how many strings there are to free
 	 */
-	char ** getValue(
-		const char * 	elementPath,
-		xUInt8 * 		size,
+	char * getValue(
+		const char *	elementPath,
 		xError * 		err
 	);
 
@@ -100,7 +99,25 @@ private:
 	 */
 	char * _rawContent;
 
-	char * getStringInsideElementPath(const char * content, const char * elementPath, xError * err);
+	struct {
+		void init(void) {
+			this->tagPathArray 	= xNull;
+			this->arraySize 	= 0;
+			this->openTags 		= 0;
+			this->contentIndex	= 0;
+			this->state 		= kIdle;
+			this->contentLength	= 0;
+		}
+
+		char ** tagPathArray;
+		xUInt8 arraySize;
+		xUInt64 contentIndex;
+		xUInt64 contentLength;
+		xUInt32 openTags;
+		ParsingState state;
+	} _parseHelper;
+
+	char * sweepContent(xError * err);
 };
 
 

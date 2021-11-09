@@ -106,7 +106,7 @@ char ** xSplitString(
 ) {
 	char 	** result 		= xNull,
 			* tempString 	= xNull,
-			* stringCopy	= xNull;
+			* tempCharPtr	= xNull;
 	xError 	error 			= kNoError;
 	xBool 	okayToContinue 	= xTrue;
 	xUInt64 index 			= 0,
@@ -161,18 +161,31 @@ char ** xSplitString(
 			// If we have no more of the string left to sweep, i.e. index == stringLength,
 			// then we need to finish inserting the last string
 			if ((sepIndex < sepLength) && (index < stringLength)) {
-				// Add 2 more spots, 1 for new and another for null character
-				tempString 	= (char *) realloc(tempString, strlen(tempString) + 2);
-				error 		= tempString != xNull ? kNoError : kUnknownError;
+//				// Add 2 more spots, 1 for new and another for null character
+//				tempString 	= (char *) realloc(tempString, strlen(tempString) + 2);
+//				error 		= tempString != xNull ? kNoError : kUnknownError;
+//
+//				if (error == kNoError) {
+//					stringCopy = xCopyString(tempString, &error);
+//				}
+//
+//				// Add new character
+//				if (error == kNoError){
+//					sprintf(tempString, "%s%c", stringCopy, string[index]);
+//					xFree(stringCopy);
+//				}
+
+				tempCharPtr = (char *) malloc(2);
+				error 		= tempCharPtr != xNull ? kNoError : kUnknownError;
 
 				if (error == kNoError) {
-					stringCopy = xCopyString(tempString, &error);
-				}
+					tempCharPtr[0] 	= string[index];
+					tempCharPtr[1] 	= '\0';
 
-				// Add new character
-				if (error == kNoError){
-					sprintf(tempString, "%s%c", stringCopy, string[index]);
-					xFree(stringCopy);
+					// Append the char to string
+					error = xApendToString(&tempString, tempCharPtr);
+
+					xFree(tempCharPtr);
 				}
 
 			// If we found the substring, then add string tempString
@@ -209,6 +222,34 @@ char ** xSplitString(
 
 	if (err != xNull) {
 		*err = error;
+	}
+
+	return result;
+}
+
+xError xApendToString(
+	char ** 		string,
+	const char * 	stringToAppend
+) {
+	xError result 		= kNoError;
+	char * stringCopy 	= xNull;
+
+	// reallocating space for both strings
+	*string = (char *) realloc(*string, strlen(*string) + strlen(stringToAppend) + 1);
+	result 	= *string  != xNull ? kNoError : kUnknownError;
+
+	if (result == kNoError) {
+		stringCopy = xCopyString(*string, &result);
+	}
+
+	// Add new character
+	if (result == kNoError){
+		sprintf(
+			*string, "%s%s",
+			stringCopy, stringToAppend
+		);
+
+		xFree(stringCopy);
 	}
 
 	return result;

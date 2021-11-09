@@ -5,6 +5,7 @@ __pycache__
 *.log
 *.o
 *.a
+*.d
 
 # Visual Studio 
 .vs

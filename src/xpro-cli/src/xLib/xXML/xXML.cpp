@@ -85,6 +85,10 @@ char * xXML::sweepContent(xError * err) {
 	xError error = kNoError;
 	char * tagString = xNull;
 	char * tempString = xNull;
+	char * tempAttrString = xNull;
+	char * attrString = xNull;
+	char ** split = xNull;
+	xUInt8 splitSize = 0;
 
 	// Init empty string
 	tagString = xCopyString("", &error);
@@ -95,27 +99,101 @@ char * xXML::sweepContent(xError * err) {
 			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
 				this->_parseHelper.state = kReadingTagString;
 			}
-		break;
+			break;
 
 		case kReadingTagString:
 			// Add to tag string if are still sweeping tag
 			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+
+			// Compare tag string with the strings in array
 			case '>': // end of tag
-			case ' ': // start of attribute
 			case '/': // start of the end of a tag
+				if (error == kNoError) {
+					tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
+
+					// If we found a tag from the tag path then increment the array index
+					if (!strcmp(tempString, tagString)) {
+						this->_parseHelper.arrayIndex++;
+					}
+				}
+				break;
+			case ' ': // start of attribute
+				if (error == kNoError) {
+					tempString 	= this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
+					split 		= xSplitString(tempString, ".", &splitSize, &error);
+				}
+
+				if (error == kNoError) {
+					if (splitSize == 2) {
+						tempAttrString = split[1];
+
+						if (tempAttrString != xNull) {
+							this->_parseHelper.state = kReadAttributeString;
+						} else {
+
+						}
+					} else if (splitSize == 1) {
+						this->_parseHelper.state = kWaitToCloseTag;
+					} else {
+						error = kXMLError;
+					}
+				}
 				break;
 			default:
-				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+				if (error == kNoError) {
+					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 
-				error = xApendToString(&tagString, tempString);
-				xFree(tempString);
+					error = xApendToString(&tagString, tempString);
+					xFree(tempString);
+				}
 			}
+			break;
+
+		// When find the close tag, then go to the idle state to wait for new start of tag
+		case kWaitToCloseTag:
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+				this->_parseHelper.state = kIdle;
+			}
+			break;
+
+		// Gather the characters to form the attribute
+		case kReadAttributeString:
+			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+			case '=':
+				if (error == kNoError) {
+					// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
+					if (!strcmp(tempAttrString, attrString)) {
+						this->_parseHelper.state = kReadAttributeValue;
+					} else {
+						this->_parseHelper.state = kWaitToCloseTag;
+					}
+				}
+				break;
+			default:
+				if (error == kNoError) {
+					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+
+					error = xApendToString(&attrString, tempString);
+					xFree(tempString);
+				}
+				break;
+			}
+			break;
+
+		// Get the attribute value inside quotes
+		case kReadAttributeValue:
 			break;
 		default:
 			break;
 		}
 
-		this->_parseHelper.contentIndex++;
+		if (error == kNoError) {
+			this->_parseHelper.contentIndex++;
+		}
+	}
+
+	if (error != kNoError) {
+		DLog("There was an error during parsing");
 	}
 
 	if (err != xNull) {

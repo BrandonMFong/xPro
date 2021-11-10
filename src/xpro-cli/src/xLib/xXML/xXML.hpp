@@ -36,8 +36,11 @@
 
 
 enum ParsingState {
-	kIdle,
-	kReadingTagString
+	kIdle = 0,
+	kReadingTagString = 1,
+	kWaitToCloseTag = 2,
+	kReadAttributeString = 3,
+	kReadAttributeValue = 4,
 };
 
 class xXML {
@@ -107,8 +110,10 @@ private:
 			this->contentIndex	= 0;
 			this->state 		= kIdle;
 			this->contentLength	= 0;
+			this->arrayIndex	= 0;
 		}
 
+		xUInt16 arrayIndex;
 		char ** tagPathArray;
 		xUInt8 arraySize;
 		xUInt64 contentIndex;

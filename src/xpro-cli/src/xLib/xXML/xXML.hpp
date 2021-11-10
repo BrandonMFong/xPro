@@ -50,6 +50,8 @@ public:
 	 */
 	xXML(const char * path, xError * err);
 
+	xXML(xError * err) : xXML(NULL, err) {};
+
 	/**
 	 *
 	 */
@@ -89,6 +91,11 @@ public:
 		return this->_path;
 	}
 
+	/**
+	 * Copies rawContent to _rawContent  The user is still responsible for the value
+	 */
+	xError setContent(const char * rawContent);
+
 private:
 	/**
 	 * Path to the xml file
@@ -98,7 +105,7 @@ private:
 	/**
 	 * Raw text content of xml file
 	 *
-	 * We should be using this when we find values from a node path
+	 * We should be using this when we find values from a node path.  The memory should be set with malloc
 	 */
 	char * _rawContent;
 

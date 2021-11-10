@@ -202,3 +202,13 @@ char * xXML::sweepContent(xError * err) {
 
 	return result;
 }
+
+xError xXML::setContent(const char * rawContent) {
+	xError result = kNoError;
+
+	xFree(this->_rawContent);
+
+	this->_rawContent = xCopyString(rawContent, &result);
+
+	return result;
+}

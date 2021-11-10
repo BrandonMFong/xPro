@@ -70,6 +70,7 @@ char * xXML::getValue(
 
 	if (error == kNoError) {
 		this->_parseHelper.contentLength = strlen(this->_rawContent);
+		this->_parseHelper.arrayIndex = 1; // Set it to 1
 		result = this->sweepContent(&error);
 	}
 
@@ -93,7 +94,11 @@ char * xXML::sweepContent(xError * err) {
 	// Init empty string
 	tagString = xCopyString("", &error);
 
-	while ((this->_parseHelper.contentIndex < this->_parseHelper.contentLength) && (error == kNoError)) {
+	// TODO: how to read inner xml
+	while (		(this->_parseHelper.contentIndex < this->_parseHelper.contentLength)
+			&& 	(error == kNoError)
+			&& 	(this->_parseHelper.arrayIndex < this->_parseHelper.arraySize)
+	) {
 		switch (this->_parseHelper.state) {
 		case kIdle:
 			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
@@ -114,9 +119,24 @@ char * xXML::sweepContent(xError * err) {
 					// If we found a tag from the tag path then increment the array index
 					if (!strcmp(tempString, tagString)) {
 						this->_parseHelper.arrayIndex++;
+
+						// Reset the tag string
+						xFree(tagString);
+						tagString = xCopyString("", &error);
+					}
+				}
+
+				if (error == kNoError) {
+					if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+						// Go to idle
+						this->_parseHelper.state = kIdle;
+					} else if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
+						// Wait for not to finish
+						this->_parseHelper.state = kWaitToCloseTag;
 					}
 				}
 				break;
+
 			case ' ': // start of attribute
 				if (error == kNoError) {
 					tempString 	= this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
@@ -139,10 +159,13 @@ char * xXML::sweepContent(xError * err) {
 					}
 				}
 				break;
+
 			default:
 				if (error == kNoError) {
 					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+				}
 
+				if (error == kNoError) {
 					error = xApendToString(&tagString, tempString);
 					xFree(tempString);
 				}

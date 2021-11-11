@@ -110,8 +110,8 @@ private:
 	 */
 	char * _rawContent;
 
-	struct {
-		void init(void) {
+	struct xParseHelper {
+		xParseHelper() {
 			this->tagPathArray 	= xNull;
 			this->arraySize 	= 0;
 			this->openTags 		= 0;

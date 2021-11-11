@@ -58,7 +58,8 @@ char * xXML::getValue(
 	if (elementPath == xNull) {
 		error = kStringError;
 	} else {
-		this->_parseHelper.init();
+		this->_parseHelper.contentLength = strlen(this->_rawContent);
+		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
 		this->_parseHelper.tagPathArray = xSplitString(
 			elementPath,
@@ -69,8 +70,6 @@ char * xXML::getValue(
 	}
 
 	if (error == kNoError) {
-		this->_parseHelper.contentLength = strlen(this->_rawContent);
-		this->_parseHelper.arrayIndex = 1; // Set it to 1
 		result = this->sweepContent(&error);
 	}
 

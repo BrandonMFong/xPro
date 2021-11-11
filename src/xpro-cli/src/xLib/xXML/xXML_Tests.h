@@ -5,6 +5,8 @@
  *      Author: brandonmfong
  */
 
+#ifdef TESTING
+
 #ifndef SRC_XLIB_XXML_XXML_TESTS_H_
 #define SRC_XLIB_XXML_XXML_TESTS_H_
 
@@ -38,3 +40,5 @@ void xXML_Tests(void) {
 }
 
 #endif /* SRC_XLIB_XXML_XXML_TESTS_H_ */
+
+#endif // TESTING

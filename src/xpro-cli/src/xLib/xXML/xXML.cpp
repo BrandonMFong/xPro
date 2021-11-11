@@ -52,8 +52,18 @@ char * xXML::getValue(
 	const char * 	elementPath,
 	xError * 		err
 ) {
-	char * result = xNull;
-	xError error = kNoError;
+	char 	* result 			= xNull,
+			* tagString 		= xNull,
+			* tempString 		= xNull,
+			* tempAttrString 	= xNull,
+			* attrString 		= xNull,
+			** split 			= xNull,
+			* innerXml 			= xNull,
+			* prevTagString 	= xNull;
+	xError 	error 				= kNoError;
+	xUInt8 	splitSize 			= 0;
+	xUInt32 endTagCharCount 	= 0;
+	xBool 	finished 			= xFalse;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -70,32 +80,9 @@ char * xXML::getValue(
 	}
 
 	if (error == kNoError) {
-		result = this->sweepContent(&error);
+		// Init empty string
+		tagString = xCopyString("", &error);
 	}
-
-	if (err != xNull) {
-		*err = error;
-	}
-
-	return result;
-}
-
-char * xXML::sweepContent(xError * err) {
-	char 	* result 			= xNull,
-			* tagString 		= xNull,
-			* tempString 		= xNull,
-			* tempAttrString 	= xNull,
-			* attrString 		= xNull,
-			** split 			= xNull,
-			* innerXml 			= xNull,
-			* prevTagString 	= xNull;
-	xError 	error 				= kNoError;
-	xUInt8 	splitSize 			= 0;
-	xUInt32 endTagCharCount 	= 0;
-	xBool 	finished 			= xFalse;
-
-	// Init empty string
-	tagString = xCopyString("", &error);
 
 	while (		(this->_parseHelper.contentIndex < this->_parseHelper.contentLength)
 			&& 	(error == kNoError)

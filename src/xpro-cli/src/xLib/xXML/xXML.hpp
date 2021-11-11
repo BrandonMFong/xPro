@@ -129,8 +129,6 @@ private:
 		xUInt32 openTags;
 		ParsingState state;
 	} _parseHelper;
-
-	char * sweepContent(xError * err);
 };
 
 

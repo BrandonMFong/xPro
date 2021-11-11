@@ -29,7 +29,25 @@ void TestParsing(void) {
 	xBool success = error == kNoError;
 
 	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
 		success = (strcmp(value, "Adam") == 0);
+	}
+
+	if (success) {
+		xFree(value);
+		value = xml->getValue("/Person", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
 	PRINT_TEST_RESULTS(success);

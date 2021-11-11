@@ -82,23 +82,22 @@ char * xXML::getValue(
 }
 
 char * xXML::sweepContent(xError * err) {
-	char * result = xNull;
-	xError error = kNoError;
-	char * tagString = xNull;
-	char * tempString = xNull;
-	char * tempAttrString = xNull;
-	char * attrString = xNull;
-	char ** split = xNull;
-	xUInt8 splitSize = 0;
-	char * innerXml = xNull;
-	char * prevTagString = xNull;
-	xUInt32 endTagCharCount = 0;
-	xBool finished = false;
+	char 	* result 			= xNull,
+			* tagString 		= xNull,
+			* tempString 		= xNull,
+			* tempAttrString 	= xNull,
+			* attrString 		= xNull,
+			** split 			= xNull,
+			* innerXml 			= xNull,
+			* prevTagString 	= xNull;
+	xError 	error 				= kNoError;
+	xUInt8 	splitSize 			= 0;
+	xUInt32 endTagCharCount 	= 0;
+	xBool 	finished 			= xFalse;
 
 	// Init empty string
 	tagString = xCopyString("", &error);
 
-	// TODO: how to read inner xml
 	while (		(this->_parseHelper.contentIndex < this->_parseHelper.contentLength)
 			&& 	(error == kNoError)
 			&& 	(this->_parseHelper.arrayIndex <= this->_parseHelper.arraySize)

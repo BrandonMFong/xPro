@@ -62,14 +62,14 @@ char * xXML::getValue(
 			* prevTagString 	= xNull;
 	xError 	error 				= kNoError;
 	xUInt8 	splitSize 			= 0;
-	xUInt32 endTagCharCount 	= 0;
+	xUInt32 endTagCharRecord 	= 0;
 	xBool 	finished 			= xFalse;
 
 	if (elementPath == xNull) {
 		error = kStringError;
 	} else {
-		this->_parseHelper.contentLength = strlen(this->_rawContent);
-		this->_parseHelper.arrayIndex = 1; // Set it to 1
+		this->_parseHelper.contentLength 	= strlen(this->_rawContent);
+		this->_parseHelper.arrayIndex 		= 1; // Set it to 1
 
 		this->_parseHelper.tagPathArray = xSplitString(
 			elementPath,
@@ -107,9 +107,10 @@ char * xXML::getValue(
 					xFree(tempString);
 				}
 
-				endTagCharCount = 1;
+				endTagCharRecord = 1;
 
 				this->_parseHelper.state = kInnerXml;
+
 			} else if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
 				this->_parseHelper.state = kReadingTagString;
 			}
@@ -122,16 +123,17 @@ char * xXML::getValue(
 			if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
 				if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
 					if (this->_rawContent[this->_parseHelper.contentIndex + 1] == '/') {
-						endTagCharCount--;
+						endTagCharRecord--;
 					} else {
-						endTagCharCount++;
+						endTagCharRecord++;
 					}
 				}
 			} else {
 				error = kOutOfRangeError;
 			}
 
-			if (endTagCharCount > 0) {
+			// If endTagCharRecord is 0 then we know we found the last closing tag
+			if (endTagCharRecord > 0) {
 				if (error == kNoError) {
 					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 				}

@@ -58,8 +58,7 @@ char * xXML::getValue(
 			* tempAttrString 	= xNull,
 			* attrString 		= xNull,
 			** split 			= xNull,
-			* innerXml 			= xNull,
-			* prevTagString 	= xNull;
+			* innerXml 			= xNull;
 	xError 	error 				= kNoError;
 	xUInt8 	splitSize 			= 0;
 	xUInt32 endTagCharRecord 	= 0;
@@ -68,6 +67,8 @@ char * xXML::getValue(
 	if (elementPath == xNull) {
 		error = kStringError;
 	} else {
+		this->_parseHelper.init();
+
 		this->_parseHelper.contentLength 	= strlen(this->_rawContent);
 		this->_parseHelper.arrayIndex 		= 1; // Set it to 1
 
@@ -91,33 +92,39 @@ char * xXML::getValue(
 	) {
 		switch (this->_parseHelper.state) {
 		case kIdle:
-			// If we are here and we have went through the whole tag
-			// array, then we need to immediately go record the inner xml
-			if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-				// Initialize innerXml string
-				xFree(innerXml);
-				innerXml = xCopyString("", &error);
-
-				if (error == kNoError) {
-					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
-				}
-
-				if (error == kNoError) {
-					error = xApendToString(&innerXml, tempString);
-					xFree(tempString);
-				}
-
-				endTagCharRecord = 1;
-
-				this->_parseHelper.state = kInnerXml;
-
-			} else if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
 				this->_parseHelper.state = kReadingTagString;
 			}
 
 			break;
 
-		// If we are here, we should already have a prevTagString value
+		case kPrepareReadingInnerXml:
+			// Init to one
+			endTagCharRecord = 1;
+
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+				endTagCharRecord++;
+			}
+
+			// Initialize innerXml string
+			xFree(innerXml);
+			innerXml = xCopyString("", &error);
+
+			if (error == kNoError) {
+				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+			}
+
+			if (error == kNoError) {
+				error = xApendToString(&innerXml, tempString);
+				xFree(tempString);
+			}
+
+			// If we are here and we have went through the whole tag
+			// array, then we need to immediately go record the inner xml
+			this->_parseHelper.state = kInnerXml;
+
+			break;
+
 		case kInnerXml:
 			// Make sure we are not out of range
 			if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
@@ -164,10 +171,6 @@ char * xXML::getValue(
 						tempString = xNull;
 						this->_parseHelper.arrayIndex++;
 
-						// Save previous tag string
-						xFree(prevTagString);
-						prevTagString = tagString;
-
 						// Reset the tag string
 						tagString = xCopyString("", &error);
 					}
@@ -175,8 +178,13 @@ char * xXML::getValue(
 
 				if (error == kNoError) {
 					if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
-						// Go to idle
-						this->_parseHelper.state = kIdle;
+						// If we reached the end of the tag array, we need to start reading the inner xml
+						if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
+							this->_parseHelper.state = kPrepareReadingInnerXml;
+						} else {
+							// Go to idle
+							this->_parseHelper.state = kIdle;
+						}
 					} else if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
 						// Wait for not to finish
 						this->_parseHelper.state = kWaitToCloseTag;

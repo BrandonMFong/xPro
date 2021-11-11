@@ -42,6 +42,7 @@ enum ParsingState {
 	kReadAttributeString = 3,
 	kReadAttributeValue = 4,
 	kInnerXml = 5,
+	kPrepareReadingInnerXml = 6
 };
 
 class xXML {
@@ -110,8 +111,8 @@ private:
 	 */
 	char * _rawContent;
 
-	struct xParseHelper {
-		xParseHelper() {
+	struct {
+		void init(void) {
 			this->tagPathArray 	= xNull;
 			this->arraySize 	= 0;
 			this->openTags 		= 0;

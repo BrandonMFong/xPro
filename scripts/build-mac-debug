@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Brando
 
 status=0
 xproPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
@@ -6,23 +7,24 @@ linkPath="/Library/xPro";
 createLink=true;
 xproPathMakeVar="XPRO_PATH";
 debugMac="Debug (mac)";
+xproCLISourcePath="src/xpro-cli/src"; # xpro-cli source file path
 
-# Source paths
-xproCLISourcePath="src/xpro-cli/src";
-
-pushd $xproPath >/dev/null 2>&1;
+pushd $xproPath >/dev/null 2>&1; # Go to xpro path
 
 echo "Building xPro"
-pushd $xproCLISourcePath;
+pushd $xproCLISourcePath; # Go to the source file path for cli
 
-cd "$debugMac";
+cd "$debugMac"; # CD into the debug mac folder
 
-buildPath="$xproPath/$xproCLISourcePath";
+buildPath="$xproPath/$xproCLISourcePath"; # base include path
+
+# Build
 make clean;
 make all $xproPathMakeVar=$buildPath;
 
-popd;
+status=$?;
 
+popd;
 popd >/dev/null 2>&1;
 
 if [ $status -eq 0 ]; then 

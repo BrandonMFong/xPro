@@ -1,0 +1,49 @@
+#!/bin/bash
+
+status=0
+scriptPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
+linkPath="/Library/xPro";
+createLink=true;
+
+pushd $scriptPath >/dev/null 2>&1;
+
+if [ $EUID -ne 0 ]; then 
+    echo "Please run as root";
+    status=1;
+fi 
+
+if [ $status -eq 0 ]; then 
+    echo "Creating alias to xPro";
+    
+    if [ ! -d $linkPath ]; then 
+        mkdir $linkPath;
+
+        createLink=true;
+
+        status=$?;
+    else 
+        type=`stat $linkPath | awk 'FNR == 2 {print $8;}'`
+
+        if [[ $type != "symbolic" ]]; then 
+            echo "Path $linkPath alredy exists and is not a symbolic link";
+            status=1;
+        else 
+            createLink=false;
+        fi 
+    fi 
+fi 
+
+if [[ $status -eq 0 ]] && [[ $createLink -eq true ]]; then 
+    echo "Create link";
+    ln -s $scriptPath $linkPath;
+fi 
+
+popd >/dev/null 2>&1;
+
+if [ $status -eq 0 ]; then 
+    echo "Success";
+else 
+    echo "Failed";
+fi
+
+exit $status;

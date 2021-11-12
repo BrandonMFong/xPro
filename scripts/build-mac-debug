@@ -1,0 +1,34 @@
+#!/bin/bash
+
+status=0
+xproPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
+linkPath="/Library/xPro";
+createLink=true;
+xproPathMakeVar="XPRO_PATH";
+debugMac="Debug (mac)";
+
+# Source paths
+xproCLISourcePath="src/xpro-cli/src";
+
+pushd $xproPath >/dev/null 2>&1;
+
+echo "Building xPro"
+pushd $xproCLISourcePath;
+
+cd "$debugMac";
+
+buildPath="$xproPath/$xproCLISourcePath";
+make clean;
+make all $xproPathMakeVar=$buildPath;
+
+popd;
+
+popd >/dev/null 2>&1;
+
+if [ $status -eq 0 ]; then 
+    echo "Success";
+else 
+    echo "Failed";
+fi
+
+exit $status;

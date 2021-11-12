@@ -5,6 +5,8 @@
  *      Author: brandonmfong
  */
 
+#ifdef TESTING
+
 /// xLib tests
 #include <xLib/Tests/xUtilities_Tests.h>
 #include <xLib/xXML/xXML_Tests.h>
@@ -18,3 +20,5 @@ int xTests() {
 	xXML_Tests();
 	return 0;
 }
+
+#endif

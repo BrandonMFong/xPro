@@ -13,14 +13,10 @@ if [ $EUID -ne 0 ]; then
 fi 
 
 if [ $status -eq 0 ]; then 
-    echo "Creating alias to xPro";
+    echo "Creating link to xPro at: $linkPath";
     
     if [ ! -d $linkPath ]; then 
-        mkdir $linkPath;
-
         createLink=true;
-
-        status=$?;
     else 
         type=`stat $linkPath | awk 'FNR == 2 {print $8;}'`
 
@@ -34,7 +30,6 @@ if [ $status -eq 0 ]; then
 fi 
 
 if [[ $status -eq 0 ]] && [[ $createLink -eq true ]]; then 
-    echo "Create link";
     ln -s $scriptPath $linkPath;
 fi 
 

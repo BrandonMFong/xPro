@@ -18,7 +18,6 @@ int xTests() {
 	printf("\n");
 
 	xUtilities_Tests();
-	Directory_Tests();
 	xXML_Tests();
 	return 0;
 }

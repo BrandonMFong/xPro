@@ -463,9 +463,19 @@ xError xXML::parseAttributeValue() {
 		// need to determine what the next state is
 		if (this->_parseHelper.quoteCount == 2) {
 			if (this->_parseHelper.attrValSpecified) {
-				// if we found the attribute, then we need to immediately find what is in the inner xml
 				if (!strcmp(this->_parseHelper.attrValue, this->_parseHelper.specAttrValue)) {
-					this->_parseHelper.state = kWaitToReadInnerXml;
+					// Since we found the attribute, let's increment the array index to see what is
+					// our next move
+					this->_parseHelper.arrayIndex++;
+
+					if (this->_parseHelper.arrayIndex < this->_parseHelper.arraySize) {
+						this->_parseHelper.state = kIdle;
+					} else {
+						// if we found the attribute and there are no more tags to
+						// sweep for, then we need to immediately find what is in
+						// the inner xml
+						this->_parseHelper.state = kWaitToReadInnerXml;
+					}
 				} else {
 
 					// If we did not find a match, then we need to continue on with

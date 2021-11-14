@@ -58,6 +58,7 @@ char * xXML::getValue(
 			* tempAttrString 	= xNull,
 			* attrKey 			= xNull,
 			* attrValue			= xNull,
+			* specAttrValue		= xNull,
 			** split 			= xNull,
 			* innerXml 			= xNull;
 	xError 	error 				= kNoError;
@@ -65,7 +66,7 @@ char * xXML::getValue(
 			quoteCount			= 0;
 	xUInt32 endTagCharRecord 	= 0;
 	xBool 	finished 			= xFalse,
-			okayToContinue 		= xFalse;
+			attrValSpecified	= xFalse;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -101,6 +102,22 @@ char * xXML::getValue(
 
 			break;
 
+		// When find the close tag, then go to the idle state to wait for new start of tag
+		case kWaitToCloseTag:
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+				this->_parseHelper.state = kIdle;
+			}
+
+			break;
+
+		// If we are ready to read the inner xml but are far away from
+		// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
+		case kWaitToReadInnerXml:
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+				this->_parseHelper.state = kPrepareReadingInnerXml;
+			}
+
+			break;
 		case kPrepareReadingInnerXml:
 			// Init to one
 			endTagCharRecord = 1;
@@ -232,9 +249,7 @@ char * xXML::getValue(
 
 				if (split != xNull) {
 					// Free memory because we do not need it
-					for (xUInt8 i = 0; i < splitSize; i++) {
-						xFree(split[i]);
-					}
+					for (xUInt8 i = 0; i < splitSize; i++) xFree(split[i]);
 					xFree(split);
 				}
 
@@ -253,50 +268,65 @@ char * xXML::getValue(
 
 			break;
 
-		// When find the close tag, then go to the idle state to wait for new start of tag
-		case kWaitToCloseTag:
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
-				this->_parseHelper.state = kIdle;
-			}
-
-			break;
-
 		// Gather the characters to form the attribute
 		case kReadAttributeKey:
 			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 			case '=':
-				okayToContinue = xFalse;
+				attrValSpecified = xFalse;
 
+				// See if (...) is in the string
 				if (error == kNoError) {
-					okayToContinue = xContainsSubString(tempAttrString, "(", &error);
+					attrValSpecified = xContainsSubString(tempAttrString, "(", &error);
 				}
 
-				if (okayToContinue && (error == kNoError)) {
-					okayToContinue = xContainsSubString(tempAttrString, ")", &error);
+				if (attrValSpecified && (error == kNoError)) {
+					attrValSpecified = xContainsSubString(tempAttrString, ")", &error);
 				}
 
 				// If okayToContinue then we know the user specified an attribute value
-				if (okayToContinue) {
+				if (attrValSpecified) {
 					if (error == kNoError) {
-						attrValue = xStringBetweenTwoStrings(tempAttrString, "(", ")", &error);
+						specAttrValue = xStringBetweenTwoStrings(tempAttrString, "(", ")", &error);
 					}
-				} else {
+
+					// Reset the tempAttrString to remove the (...) string section
 					if (error == kNoError) {
-						// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
-						if (!strcmp(tempAttrString, attrKey)) {
-							// Set count to 0 so that we know when to stop reading
-							// for the attribute string
-							quoteCount = 0;
+						split = xSplitString(tempAttrString, "(", &splitSize, &error);
+					}
 
-							xFree(attrKey);
-
-							attrValue 					= xCopyString("", &error);
-							this->_parseHelper.state 	= kReadAttributeValue;
+					if (error == kNoError) {
+						if (splitSize == 2) {
+							xFree(tempAttrString);
+							tempAttrString = xCopyString(split[0], &error);
 						} else {
-							this->_parseHelper.state = kWaitToCloseTag;
+							error = kXMLError;
+							DLog("Error in attempting to split string. There may be an error in the syntax\n");
 						}
 					}
+
+					if (split != xNull) {
+						for (xUInt8 i = 0; i < splitSize; i++) xFree(split[i]);
+						xFree(split);
+					}
 				}
+
+				if (error == kNoError) {
+					// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
+					if (!strcmp(tempAttrString, attrKey)) {
+						// Set count to 0 so that we know when to stop reading
+						// for the attribute string
+						quoteCount = 0;
+
+						xFree(attrKey);
+
+						attrValue 					= xCopyString("", &error);
+						this->_parseHelper.state 	= kReadAttributeValue;
+					} else {
+						this->_parseHelper.state = kWaitToCloseTag;
+					}
+				}
+
+				xFree(tempAttrString);
 
 				break;
 			default:
@@ -316,6 +346,29 @@ char * xXML::getValue(
 			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 			case '"':
 				quoteCount++;
+
+				// If we found the entire attribute string then we will
+				// need to determine what the next state is
+				if (quoteCount == 2) {
+					if (attrValSpecified) {
+						// if we found the attribute, then we need to immediately find what is in the inner xml
+						if (!strcmp(attrValue, specAttrValue)) {
+							this->_parseHelper.state = kWaitToReadInnerXml;
+						} else {
+
+							// If we did not find a match, then we need to continue on with
+							// sweeping the raw content
+							this->_parseHelper.state = kIdle;
+						}
+
+						xFree(attrValue);
+						xFree(specAttrValue);
+					} else {
+						result 		= xCopyString(attrValue, &error);
+						finished 	= xTrue;
+					}
+				}
+
 				break;
 			default:
 				if (quoteCount < 2) {
@@ -326,13 +379,12 @@ char * xXML::getValue(
 						xFree(tempString);
 					}
 				} else {
-					result 		= xCopyString(attrValue, &error);
-					finished 	= xTrue;
+					error = kXMLError;
+					DLog("Quote count is %d, which should not be more than 2\n", quoteCount);
 				}
 
 				break;
 			}
-			break;
 
 			break;
 		default:

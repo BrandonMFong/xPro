@@ -156,7 +156,7 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 
 void TestGettingValueForSpecificAttribute(void) {
 	const char * content =
-		"<Persons>"
+		"<Persons family=\"Geronimo\">"
 			"<Person isCousin=\"true\">"
 				"<Name>Adam</Name>"
 			"</Person>"

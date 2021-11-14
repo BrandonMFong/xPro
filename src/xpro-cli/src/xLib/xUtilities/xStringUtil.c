@@ -138,6 +138,7 @@ char ** xSplitString(
 			if (error == kNoError) {
 				result[0] 		= tempString;
 				okayToContinue 	= xFalse;
+				resultSize		= 1;
 			}
 		} else {
 			tempString = xMallocString(1, &error);

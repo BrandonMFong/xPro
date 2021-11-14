@@ -96,7 +96,6 @@ xError PrintDirectoryForAlias(const char * alias) {
 
 	if (result == kNoError) {
 		directory = xProConfig->getValue(elementPath, &result);
-		result = directory != xNull ? kNoError : kStringError;
 
 		if (result != kNoError) {
 			DLog("Directory is NULL\n");

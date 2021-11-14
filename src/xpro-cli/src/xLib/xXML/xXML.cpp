@@ -129,7 +129,7 @@ char * xXML::getValue(
 	}
 
 	if (error != kNoError) {
-		DLog("There was an error during parsing");
+		DLog("There was an error during parsing, %d", error);
 	}
 
 	xFree(this->_parseHelper.attrValue);
@@ -302,7 +302,7 @@ xError xXML::parseTagString() {
 
 				if (this->_parseHelper.attrKeyString == xNull) {
 					result = kXMLError;
-					DLog("NULL string for attribute\n");
+					DLog("NULL string for attribute");
 				} else {
 					// Make a copy of the string because we are going to free split's memory
 					this->_parseHelper.attrKeyString = xCopyString(this->_parseHelper.attrKeyString, &result);
@@ -319,6 +319,8 @@ xError xXML::parseTagString() {
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
 			} else if (splitSize == 1) {
+				this->_parseHelper.arrayIndex++; // Go to the next indexed element
+
 				this->_parseHelper.state = kWaitToCloseTag;
 
 				if (result == kNoError) {
@@ -327,6 +329,7 @@ xError xXML::parseTagString() {
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
 			} else {
+				DLog("Received an unexpected size of %d", splitSize);
 				result = kXMLError;
 			}
 		}
@@ -429,8 +432,8 @@ xError xXML::parseAttributeKey() {
 
 				xFree(this->_parseHelper.attrKey);
 
-				this->_parseHelper.attrValue = xCopyString("", &result);
-				this->_parseHelper.state 	= kReadAttributeValue;
+				this->_parseHelper.attrValue 	= xCopyString("", &result);
+				this->_parseHelper.state 		= kReadAttributeValue;
 			} else {
 				this->_parseHelper.state = kWaitToCloseTag;
 			}

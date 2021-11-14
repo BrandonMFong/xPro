@@ -9,7 +9,7 @@
 #define XLOGGER_XDLOG_H_
 
 #ifdef DEBUG
- #define DLog(...) printf(__VA_ARGS__)
+ #define DLog(...) printf(__VA_ARGS__);printf("\n")
 #else
  #define DLog(...) /* Don't do anything in release builds */
 #endif

@@ -468,6 +468,7 @@ xError xXML::parseAttributeValue() {
 					// our next move
 					this->_parseHelper.arrayIndex++;
 
+					// If we still have more tags to look for, then we need to go back to the idle state
 					if (this->_parseHelper.arrayIndex < this->_parseHelper.arraySize) {
 						this->_parseHelper.state = kIdle;
 					} else {

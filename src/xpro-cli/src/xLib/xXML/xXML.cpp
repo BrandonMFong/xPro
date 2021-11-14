@@ -261,11 +261,6 @@ xError xXML::parseTagString() {
 			tempString = xNull;
 			this->_parseHelper.arrayIndex++;
 
-			// Reset the tag string
-			this->_parseHelper.tagString = xCopyString("", &result);
-		}
-
-		if (result == kNoError) {
 			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
 				// If we reached the end of the tag array, we need to start reading the inner xml
 				if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
@@ -279,6 +274,9 @@ xError xXML::parseTagString() {
 				this->_parseHelper.state = kWaitToCloseTag;
 			}
 		}
+
+		// Reset the tag string
+		this->_parseHelper.tagString = xCopyString("", &result);
 
 		break;
 
@@ -313,8 +311,18 @@ xError xXML::parseTagString() {
 				if (result == kNoError) {
 					this->_parseHelper.attrKey = xCopyString("", &result);
 				}
+
+				if (result == kNoError) {
+					// Reset the tag string
+					this->_parseHelper.tagString = xCopyString("", &result);
+				}
 			} else if (splitSize == 1) {
 				this->_parseHelper.state = kWaitToCloseTag;
+
+				if (result == kNoError) {
+					// Reset the tag string
+					this->_parseHelper.tagString = xCopyString("", &result);
+				}
 			} else {
 				result = kXMLError;
 			}

@@ -276,6 +276,7 @@ xError xXML::parseTagString() {
 		}
 
 		// Reset the tag string
+		xFree(this->_parseHelper.tagString);
 		this->_parseHelper.tagString = xCopyString("", &result);
 
 		break;
@@ -314,6 +315,7 @@ xError xXML::parseTagString() {
 
 				if (result == kNoError) {
 					// Reset the tag string
+					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
 			} else if (splitSize == 1) {
@@ -321,6 +323,7 @@ xError xXML::parseTagString() {
 
 				if (result == kNoError) {
 					// Reset the tag string
+					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
 			} else {

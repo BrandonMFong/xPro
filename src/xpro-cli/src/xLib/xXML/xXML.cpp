@@ -59,12 +59,12 @@ char * xXML::getValue(
 			* attrKey 			= xNull,
 			* attrValue			= xNull,
 			* specAttrValue		= xNull,
-			** split 			= xNull,
-			* innerXml 			= xNull;
+			** split 			= xNull;
+//			* innerXml 			= xNull;
 	xError 	error 				= kNoError;
 	xUInt8 	splitSize 			= 0,
 			quoteCount			= 0;
-	xUInt32 endTagCharRecord 	= 0;
+//	xUInt32 endTagCharRecord 	= 0;
 	xBool 	finished 			= xFalse,
 			attrValSpecified	= xFalse;
 
@@ -111,30 +111,7 @@ char * xXML::getValue(
 
 			break;
 		case kPrepareReadingInnerXml:
-			// Init to one
-			endTagCharRecord = 1;
-
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
-				endTagCharRecord++;
-			}
-
-			// Initialize innerXml string
-			xFree(innerXml);
-			innerXml = xCopyString("", &error);
-
-			if (error == kNoError) {
-				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
-			}
-
-			if (error == kNoError) {
-				error = xApendToString(&innerXml, tempString);
-				xFree(tempString);
-			}
-
-			// If we are here and we have went through the whole tag
-			// array, then we need to immediately go record the inner xml
-			this->_parseHelper.state = kInnerXml;
-
+			error = this->parsePrepareToReadInnerXml();
 			break;
 
 		case kInnerXml:
@@ -142,9 +119,9 @@ char * xXML::getValue(
 			if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
 				if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
 					if (this->_rawContent[this->_parseHelper.contentIndex + 1] == '/') {
-						endTagCharRecord--;
+						this->_parseHelper.endTagCharRecord--;
 					} else {
-						endTagCharRecord++;
+						this->_parseHelper.endTagCharRecord++;
 					}
 				}
 			} else {
@@ -152,18 +129,21 @@ char * xXML::getValue(
 			}
 
 			// If endTagCharRecord is 0 then we know we found the last closing tag
-			if (endTagCharRecord > 0) {
+			if (this->_parseHelper.endTagCharRecord > 0) {
 				if (error == kNoError) {
 					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 				}
 
 				if (error == kNoError) {
-					error = xApendToString(&innerXml, tempString);
+					error = xApendToString(&this->_parseHelper.innerXml, tempString);
 					xFree(tempString);
 				}
 			} else {
-				finished 	= xTrue;
-				result 		= xCopyString(innerXml, &error); // Save the value in result
+				finished = xTrue;
+				result = xCopyString( // Save the value in result
+					this->_parseHelper.innerXml,
+					&error
+				);
 			}
 
 			break;
@@ -395,7 +375,7 @@ char * xXML::getValue(
 	xFree(attrValue);
 	xFree(attrKey);
 	xFree(tagString);
-	xFree(innerXml);
+	xFree(this->_parseHelper.innerXml);
 
 	if (err != xNull) {
 		*err = error;
@@ -424,4 +404,35 @@ void xXML::parseWaitToCloseTag(ParsingState nextState) {
 	if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
 		this->_parseHelper.state = nextState;
 	}
+}
+
+xError xXML::parsePrepareToReadInnerXml() {
+	xError result = kNoError;
+	char * tempString = xNull;
+
+	// Init to one
+	this->_parseHelper.endTagCharRecord = 1;
+
+	if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+		this->_parseHelper.endTagCharRecord++;
+	}
+
+	// Initialize innerXml string
+	xFree(this->_parseHelper.innerXml);
+	this->_parseHelper.innerXml = xCopyString("", &result);
+
+	if (result == kNoError) {
+		tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+	}
+
+	if (result == kNoError) {
+		result = xApendToString(&this->_parseHelper.innerXml, tempString);
+		xFree(tempString);
+	}
+
+	// If we are here and we have went through the whole tag
+	// array, then we need to immediately go record the inner xml
+	this->_parseHelper.state = kInnerXml;
+
+	return result;
 }

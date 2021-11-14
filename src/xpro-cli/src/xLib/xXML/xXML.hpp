@@ -111,6 +111,8 @@ private:
 	 */
 	void parseWaitToCloseTag(ParsingState nextState);
 
+	xError parsePrepareToReadInnerXml();
+
 	/**
 	 * Path to the xml file
 	 */
@@ -132,6 +134,8 @@ private:
 			this->state 		= kIdle;
 			this->contentLength	= 0;
 			this->arrayIndex	= 0;
+			this->innerXml		= xNull;
+			this->endTagCharRecord	 = 0;
 		}
 
 		xUInt8 arrayIndex;
@@ -141,6 +145,9 @@ private:
 		xUInt64 contentLength;
 		xUInt32 openTags;
 		ParsingState state;
+		char * innerXml;
+		xUInt32 endTagCharRecord;
+
 	} _parseHelper;
 };
 

@@ -77,19 +77,19 @@ void TestParsingForAttribute(void) {
 		success = (strcmp(value, "true") == 0);
 	}
 
-//	if (success) {
-//		xFree(value);
-//		value = xml->getValue("/Persons/Person.isCousin(true)", &error);
-//		success = error == kNoError;
-//	}
-//
-//	if (success) {
-//		success = value != xNull;
-//	}
-//
-//	if (success) {
-//		success = (strcmp(value, "<Name>Adam</Name>") == 0);
-//	}
+	if (success) {
+		xFree(value);
+		value = xml->getValue("/Persons/Person.isCousin(true)", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "<Name>Adam</Name>") == 0);
+	}
 
 	PRINT_TEST_RESULTS(success);
 }

@@ -100,6 +100,42 @@ public:
 	xError setContent(const char * rawContent);
 
 private:
+
+	/**
+	 * Waits for '<' to appear at contentIndex
+	 */
+	void parseIdle();
+
+	/**
+	 * Waits for '>' to appear at contentIndex and then sets parsing state to nextState
+	 */
+	void parseWaitToCloseTag(ParsingState nextState);
+
+	/**
+	 * Prepare members in Parse helper to save inner xml
+	 */
+	xError parsePrepareToReadInnerXml();
+
+	/**
+	 * Reads inner xml into result
+	 */
+	xError parseReadInnerXml();
+
+	/**
+	 * Parses tag string
+	 */
+	xError parseTagString();
+
+	/**
+	 * Finds the attirbute key
+	 */
+	xError parseAttributeKey();
+
+	/**
+	 * Gets attribute value
+	 */
+	xError parseAttributeValue();
+
 	/**
 	 * Path to the xml file
 	 */
@@ -114,6 +150,7 @@ private:
 
 	struct {
 		void init(void) {
+			this->result		= xNull;
 			this->tagPathArray 	= xNull;
 			this->arraySize 	= 0;
 			this->openTags 		= 0;
@@ -121,8 +158,27 @@ private:
 			this->state 		= kIdle;
 			this->contentLength	= 0;
 			this->arrayIndex	= 0;
+			this->innerXml		= xNull;
+			this->endTagCharRecord	 = 0;
+			this->finished		= xFalse;
+			this->tagString		= xNull;
+			this->tempAttrString = xNull;
+			this->attrKey = xNull;
+			this->attrValSpecified = xFalse;
+			this->specAttrValue = xNull;
+			this->quoteCount = 0;
+			this->attrValue = xNull;
 		}
 
+		char * attrValue;
+		xUInt8 quoteCount;
+		char * specAttrValue;
+		xBool attrValSpecified;
+		char * attrKey;
+		char * tempAttrString;
+		char * tagString;
+		xBool finished;
+		char * result;
 		xUInt8 arrayIndex;
 		char ** tagPathArray;
 		xUInt8 arraySize;
@@ -130,6 +186,9 @@ private:
 		xUInt64 contentLength;
 		xUInt32 openTags;
 		ParsingState state;
+		char * innerXml;
+		xUInt32 endTagCharRecord;
+
 	} _parseHelper;
 };
 

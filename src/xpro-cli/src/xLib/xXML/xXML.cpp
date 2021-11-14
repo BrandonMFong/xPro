@@ -278,7 +278,7 @@ char * xXML::getValue(
 				// If okayToContinue then we know the user specified an attribute value
 				if (okayToContinue) {
 					if (error == kNoError) {
-
+						attrValue = xStringBetweenTwoStrings(tempAttrString, "(", ")", &error);
 					}
 				} else {
 					if (error == kNoError) {

@@ -249,16 +249,20 @@ char * xCharToString(char ch, xError * err) {
 }
 
 char * xStringBetweenTwoStrings(
-	const char * string,
-	const char * firstString,
-	const char * secondString,
-	xError * err
+	const char * 	string,
+	const char * 	firstString,
+	const char * 	secondString,
+	xError * 		err
 ) {
-	char * result = xNull;
-	char * mainString = xNull;
-	xError error = kNoError;
-	xUInt64 index = 0, count = 0, subIndex = 0, subCount = 0, offset = -1;
-	xBool okayToContinue = xFalse;
+	char 	* result 		= xNull,
+			* mainString 	= xNull;
+	xError 	error 			= kNoError;
+	xUInt64 index 			= 0,
+			count 			= 0,
+			subIndex 		= 0,
+			subCount 		= 0,
+			offset 			= -1;
+	xBool 	okayToContinue 	= xFalse;
 
 	if (	(firstString 	== xNull)
 		|| 	(secondString 	== xNull)
@@ -266,38 +270,37 @@ char * xStringBetweenTwoStrings(
 		error = kStringError;
 		DLog("Strings are empty. Please make sure you are calling xStringBetweenTwoStrings() correctly\n");
 	} else {
-		mainString = (char *) string; // Save to new variable so that we can increment string
-		count = strlen(mainString);
+		mainString 	= (char *) string; // Save to new variable so that we can increment string
+		count 		= strlen(mainString);
 	}
 
 	if (error == kNoError) {
+		// Get the start of the string after firstString
 		subCount = strlen(firstString);
-		while ((index < count) && (subIndex < subCount)) {
-			if (mainString[0] == firstString[subIndex]) {
-				subIndex++;
-			} else {
-				subIndex = 0;
-			}
+		while (		(index 		< count)
+				&& 	(subIndex 	< subCount)) {
+			if (mainString[0] == firstString[subIndex]) subIndex++;
+			else subIndex = 0;
 
 			mainString++;
 			index++;
 		}
 
-		index = 0;
-		subIndex = 0;
-		count = strlen(mainString);
-		subCount = strlen(secondString);
-		while ((index < count) && (subIndex < subCount)) {
+		// Find the index where the second string starts
+		index 		= 0;
+		subIndex 	= 0;
+		count 		= strlen(mainString);
+		subCount 	= strlen(secondString);
+		while (		(index 		< count)
+				&& 	(subIndex 	< subCount)) {
 			if (mainString[index] == secondString[subIndex]) {
 				subIndex++;
 
 				// Save the index to insert null character if it wasn't already set
-				if (offset == -1) {
-					offset = index;
-				}
+				if (offset == -1) offset = index;
 			} else {
-				subIndex = 0;
-				offset = -1;
+				subIndex 	= 0;
+				offset 		= -1;
 			}
 
 			index++;

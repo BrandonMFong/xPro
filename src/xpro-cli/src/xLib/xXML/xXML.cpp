@@ -60,7 +60,8 @@ char * xXML::getValue(
 			** split 			= xNull,
 			* innerXml 			= xNull;
 	xError 	error 				= kNoError;
-	xUInt8 	splitSize 			= 0;
+	xUInt8 	splitSize 			= 0,
+			quoteCount			= 0;
 	xUInt32 endTagCharRecord 	= 0;
 	xBool 	finished 			= xFalse;
 
@@ -150,8 +151,8 @@ char * xXML::getValue(
 					xFree(tempString);
 				}
 			} else {
-				finished = xTrue;
-				result = innerXml; // Save the value in result
+				finished 	= xTrue;
+				result 		= innerXml; // Save the value in result
 			}
 
 			break;
@@ -194,19 +195,28 @@ char * xXML::getValue(
 				break;
 
 			case ' ': // start of attribute
+				// Get the current tag string.  We want to see if it has the '.', denoting an attribute path
 				if (error == kNoError) {
 					tempString 	= this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 					split 		= xSplitString(tempString, ".", &splitSize, &error);
 				}
 
 				if (error == kNoError) {
+					// If the size is two, then caller passed a path to an attribute.  If that
+					// is true, then we need to save the attribute
 					if (splitSize == 2) {
+						this->_parseHelper.state = kReadAttributeString;
+
 						tempAttrString = split[1];
 
-						if (tempAttrString != xNull) {
-							this->_parseHelper.state = kReadAttributeString;
-						} else {
+						if (tempAttrString == xNull) {
+							error = kXMLError;
+							DLog("NULL string for attribute\n");
+						}
 
+						// We need to initialize the attrString if all succeeds
+						if (error == kNoError) {
+							attrString = xCopyString("", &error);
 						}
 					} else if (splitSize == 1) {
 						this->_parseHelper.state = kWaitToCloseTag;
@@ -245,7 +255,15 @@ char * xXML::getValue(
 				if (error == kNoError) {
 					// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
 					if (!strcmp(tempAttrString, attrString)) {
+						// Set count to 0 so that we know when to stop reading
+						// for the attribute string
+						quoteCount = 0;
+
 						this->_parseHelper.state = kReadAttributeValue;
+
+						// Reset attrString
+						xFree(attrString);
+						attrString = xCopyString("", &error);
 					} else {
 						this->_parseHelper.state = kWaitToCloseTag;
 					}
@@ -266,6 +284,27 @@ char * xXML::getValue(
 
 		// Get the attribute value inside quotes
 		case kReadAttributeValue:
+			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+			case '"':
+				quoteCount++;
+				break;
+			default:
+				if (quoteCount < 2) {
+					if (error == kNoError) {
+						tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
+
+						error = xApendToString(&attrString, tempString);
+						xFree(tempString);
+					}
+				} else {
+					result 		= attrString;
+					finished 	= xTrue;
+				}
+
+				break;
+			}
+			break;
+
 			break;
 		default:
 			break;

@@ -12,6 +12,12 @@ RM := rm -rf
 -include src/xLib/xUtilities/subdir.mk
 -include src/xLib/xArguments/subdir.mk
 -include src/Utilities/subdir.mk
+-include src/Debug\ (mac)/xLib/xXML/subdir.mk
+-include src/Debug\ (mac)/xLib/xUtilities/subdir.mk
+-include src/Debug\ (mac)/xLib/xArguments/subdir.mk
+-include src/Debug\ (mac)/Utilities/subdir.mk
+-include src/Debug\ (mac)/Commands/Directory/subdir.mk
+-include src/Debug\ (mac)/subdir.mk
 -include src/Commands/Directory/subdir.mk
 -include src/subdir.mk
 -include subdir.mk

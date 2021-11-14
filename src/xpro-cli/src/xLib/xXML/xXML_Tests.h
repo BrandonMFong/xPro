@@ -12,7 +12,7 @@
 
 #include "xXML.hpp"
 
-void TestParsing(void) {
+void TestParsingWithNodes(void) {
 	const char * content = "<Person><Name>Adam</Name></Person>";
 	xError error = kNoError;
 	xXML * xml = new xXML(&error);
@@ -53,8 +53,36 @@ void TestParsing(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestParsingForAttribute(void) {
+	const char * content = "<Persons><Person isCousin=\"true\"><Name>Adam</Name></Person></Persons>";
+	xError error = kNoError;
+	xXML * xml = new xXML(&error);
+
+	if (error == kNoError) {
+		error = xml->setContent(content);
+	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/Persons/Person.isCousin", &error);
+	}
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "true") == 0);
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
-	TestParsing();
+	TestParsingWithNodes();
+	TestParsingForAttribute();
 }
 
 #endif /* SRC_XLIB_XXML_XXML_TESTS_H_ */

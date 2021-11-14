@@ -100,7 +100,7 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 			"<Person isCousin=\"true\">"
 				"<Name>Adam</Name>"
 			"</Person>"
-			"Person isCousin=\"false\""
+			"<Person isCousin=\"false\">"
 				"<Name>Joe</Name>"
 			"</Person>"
 		"</Persons>";
@@ -131,6 +131,10 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 
 	if (success) {
 		success = (strcmp(value, "<Name>Joe</Name>") == 0);
+
+		if (!success) {
+			printf("%s != '<Name>Joe</Name>'", value);
+		}
 	}
 
 	if (success) {

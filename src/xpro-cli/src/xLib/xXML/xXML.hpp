@@ -111,7 +111,12 @@ private:
 	 */
 	void parseWaitToCloseTag(ParsingState nextState);
 
+	/**
+	 * Prepare members in Parse helper to save inner xml
+	 */
 	xError parsePrepareToReadInnerXml();
+
+	xError parseReadInnerXml();
 
 	/**
 	 * Path to the xml file
@@ -127,6 +132,7 @@ private:
 
 	struct {
 		void init(void) {
+			this->result		= xNull;
 			this->tagPathArray 	= xNull;
 			this->arraySize 	= 0;
 			this->openTags 		= 0;
@@ -136,8 +142,11 @@ private:
 			this->arrayIndex	= 0;
 			this->innerXml		= xNull;
 			this->endTagCharRecord	 = 0;
+			this->finished		= xFalse;
 		}
 
+		xBool finished;
+		char * result;
 		xUInt8 arrayIndex;
 		char ** tagPathArray;
 		xUInt8 arraySize;

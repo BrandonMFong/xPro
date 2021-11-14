@@ -52,8 +52,8 @@ char * xXML::getValue(
 	const char * 	elementPath,
 	xError * 		err
 ) {
-	char 	* result 			= xNull,
-			* tagString 		= xNull,
+//	char 	* result 			= xNull,
+char 			* tagString 		= xNull,
 			* tempString 		= xNull,
 			* tempAttrString 	= xNull,
 			* attrKey 			= xNull,
@@ -65,8 +65,8 @@ char * xXML::getValue(
 	xUInt8 	splitSize 			= 0,
 			quoteCount			= 0;
 //	xUInt32 endTagCharRecord 	= 0;
-	xBool 	finished 			= xFalse,
-			attrValSpecified	= xFalse;
+//	xBool 	finished 			= xFalse,
+			xBool attrValSpecified	= xFalse;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -92,7 +92,7 @@ char * xXML::getValue(
 	while (		(this->_parseHelper.contentIndex < this->_parseHelper.contentLength)
 			&& 	(error == kNoError)
 			&& 	(this->_parseHelper.arrayIndex <= this->_parseHelper.arraySize)
-			&& 	!finished
+			&& 	!this->_parseHelper.finished
 	) {
 		switch (this->_parseHelper.state) {
 		case kIdle:
@@ -110,42 +110,13 @@ char * xXML::getValue(
 			this->parseWaitToCloseTag(kPrepareReadingInnerXml);
 
 			break;
+
 		case kPrepareReadingInnerXml:
 			error = this->parsePrepareToReadInnerXml();
 			break;
 
 		case kInnerXml:
-			// Make sure we are not out of range
-			if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
-				if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
-					if (this->_rawContent[this->_parseHelper.contentIndex + 1] == '/') {
-						this->_parseHelper.endTagCharRecord--;
-					} else {
-						this->_parseHelper.endTagCharRecord++;
-					}
-				}
-			} else {
-				error = kOutOfRangeError;
-			}
-
-			// If endTagCharRecord is 0 then we know we found the last closing tag
-			if (this->_parseHelper.endTagCharRecord > 0) {
-				if (error == kNoError) {
-					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
-				}
-
-				if (error == kNoError) {
-					error = xApendToString(&this->_parseHelper.innerXml, tempString);
-					xFree(tempString);
-				}
-			} else {
-				finished = xTrue;
-				result = xCopyString( // Save the value in result
-					this->_parseHelper.innerXml,
-					&error
-				);
-			}
-
+			error = this->parseReadInnerXml();
 			break;
 
 		case kReadingTagString:
@@ -336,8 +307,8 @@ char * xXML::getValue(
 						xFree(attrValue);
 						xFree(specAttrValue);
 					} else {
-						result 		= xCopyString(attrValue, &error);
-						finished 	= xTrue;
+						this->_parseHelper.result 	= xCopyString(attrValue, &error);
+						this->_parseHelper.finished	= xTrue;
 					}
 				}
 
@@ -381,7 +352,7 @@ char * xXML::getValue(
 		*err = error;
 	}
 
-	return result;
+	return this->_parseHelper.result;
 }
 
 xError xXML::setContent(const char * rawContent) {
@@ -407,8 +378,8 @@ void xXML::parseWaitToCloseTag(ParsingState nextState) {
 }
 
 xError xXML::parsePrepareToReadInnerXml() {
-	xError result = kNoError;
-	char * tempString = xNull;
+	xError result 		= kNoError;
+	char * tempString 	= xNull;
 
 	// Init to one
 	this->_parseHelper.endTagCharRecord = 1;
@@ -434,5 +405,48 @@ xError xXML::parsePrepareToReadInnerXml() {
 	// array, then we need to immediately go record the inner xml
 	this->_parseHelper.state = kInnerXml;
 
+	return result;
+}
+
+xError xXML::parseReadInnerXml() {
+	xError result = kNoError;
+	char * tempString = xNull;
+
+	// Make sure we are not out of range
+	if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
+		if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+			if (this->_rawContent[this->_parseHelper.contentIndex + 1] == '/') {
+				this->_parseHelper.endTagCharRecord--;
+			} else {
+				this->_parseHelper.endTagCharRecord++;
+			}
+		}
+	} else {
+		result = kOutOfRangeError;
+	}
+
+	// If endTagCharRecord is 0 then we know we found the last closing tag
+	if (this->_parseHelper.endTagCharRecord > 0) {
+		if (result == kNoError) {
+			tempString = xCharToString(
+				this->_rawContent[this->_parseHelper.contentIndex],
+				&result
+			);
+		}
+
+		if (result == kNoError) {
+			result = xApendToString(
+				&this->_parseHelper.innerXml,
+				tempString
+			);
+			xFree(tempString);
+		}
+	} else {
+		this->_parseHelper.finished = xTrue;
+		this->_parseHelper.result = xCopyString( // Save the value in result
+			this->_parseHelper.innerXml,
+			&result
+		);
+	}
 	return result;
 }

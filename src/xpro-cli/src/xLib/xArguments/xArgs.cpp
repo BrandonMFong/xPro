@@ -121,6 +121,7 @@ xArguments * xArguments::shared() {
 xError xArguments::init(xInt8 argc, char ** argv) {
 	xError result = kNoError;
 
+	xDelete(args);
 	args = new xArguments(argc, argv, &result);
 
 	return result;

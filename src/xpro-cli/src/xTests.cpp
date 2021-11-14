@@ -8,13 +8,15 @@
 #ifdef TESTING
 
 /// xLib tests
-#include <xLib/Tests/xUtilities_Tests.h>
+#include <xLib/xUtilities/xUtilities_Tests.h>
 #include <xLib/xXML/xXML_Tests.h>
 
 #include <Commands/Directory/Directory_Tests.h>
 #include <xPro-CLI.h>
 
 int xTests() {
+	printf("\n");
+
 	xUtilities_Tests();
 	Directory_Tests();
 	xXML_Tests();

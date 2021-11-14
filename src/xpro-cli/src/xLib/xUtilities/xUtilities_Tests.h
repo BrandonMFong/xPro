@@ -201,7 +201,22 @@ void TestConvertingCharToString(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestFindingStringBetweenStrings(void) {
+	const char * string = "hello(world) haha";
+	xError error = kNoError;
+	char * result = xStringBetweenTwoStrings(string, "(", ")", &error);
+	xBool success = result != xNull;
+
+	if (success) {
+		success = !strcmp(result, "world");
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xUtilities_Tests(void) {
+	INTRO_TEST_FUNCTION;
+
 	TestStringContainsSubString();
 	TestCopyString();
 	TestBasename();
@@ -209,6 +224,8 @@ void xUtilities_Tests(void) {
 	TestHostname();
 	TestAppendingStringToString();
 	TestConvertingCharToString();
+
+	printf("\n");
 }
 
 #endif /* SRC_XUTILITIES_TESTS_H_ */

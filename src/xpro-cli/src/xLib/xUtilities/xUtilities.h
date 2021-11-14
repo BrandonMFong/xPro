@@ -90,6 +90,16 @@ xError xApendToString(
  */
 char * xCharToString(char ch, xError * err);
 
+/**
+ * Returns string between two strings
+ */
+char * xStringBetweenTwoStrings(
+	const char * string,
+	const char * firstString,
+	const char * secondString,
+	xError * err
+);
+
 #pragma mark - File System
 
 /**

@@ -50,10 +50,12 @@
  */
 #if defined(TESTING)
 
-#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? "Pass" : "Fail");
+#define INTRO_TEST_FUNCTION printf("<< Testing %s >>\n\n", __func__)
+#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? "Pass" : "Fail")
 
 #else // defined(TESTING)
 
+#define INTRO_TEST_FUNCTION
 #define PRINT_TEST_RESULTS(result)
 
 #endif // defined(TESTING)

@@ -205,7 +205,7 @@ char * xXML::getValue(
 					// If the size is two, then caller passed a path to an attribute.  If that
 					// is true, then we need to save the attribute
 					if (splitSize == 2) {
-						this->_parseHelper.state = kReadAttributeString;
+						this->_parseHelper.state = kReadAttributeKey;
 
 						tempAttrString = split[1];
 
@@ -249,7 +249,7 @@ char * xXML::getValue(
 			break;
 
 		// Gather the characters to form the attribute
-		case kReadAttributeString:
+		case kReadAttributeKey:
 			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 			case '=':
 				if (error == kNoError) {

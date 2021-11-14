@@ -95,8 +95,12 @@ void TestParsingForAttribute(void) {
 }
 
 void xXML_Tests(void) {
+	INTRO_TEST_FUNCTION;
+
 	TestParsingWithNodes();
 	TestParsingForAttribute();
+
+	printf("\n");
 }
 
 #endif /* SRC_XLIB_XXML_XXML_TESTS_H_ */

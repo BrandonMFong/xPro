@@ -11,6 +11,7 @@
 #include "Directory.hpp"
 
 void Directory_Tests() {
+	INTRO_TEST_FUNCTION;
 
 }
 

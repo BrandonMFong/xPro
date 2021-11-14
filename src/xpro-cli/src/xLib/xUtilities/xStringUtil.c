@@ -253,3 +253,44 @@ char * xCharToString(char ch, xError * err) {
 
 	return result;
 }
+
+char * xStringBetweenTwoStrings(
+	const char * string,
+	const char * firstString,
+	const char * secondString,
+	xError * err
+) {
+	char * result = xNull;
+	xError error = kNoError;
+	char * tempString = xNull, currentString = xNull;
+	xUInt64 index = 0, count = 0, subStringIndex = 0, subStringCount = 0;
+	xUInt8 stringNum = 0; // We use this to identify which string we are observing
+
+	if (	(firstString 	== xNull)
+		|| 	(secondString 	== xNull)
+		|| 	(string 		== xNull)) {
+		error = kStringError;
+		DLog("Strings are empty. Please make sure you are calling xStringBetweenTwoStrings() correctly\n");
+	} else {
+		count = strlen(string);
+	}
+
+	while ((index < count) && (subStringIndex < subStringCount) && (error == kNoError)) {
+		switch (stringNum) {
+		case 0:
+			stringNum 		= 1;
+			currentString 	= (char *) firstString;
+			subStringCount 	= strlen(currentString);
+			break;
+		case 1:
+			break;
+		}
+		index++;
+	}
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
+}

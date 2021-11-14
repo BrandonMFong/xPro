@@ -96,26 +96,18 @@ char * xXML::getValue(
 	) {
 		switch (this->_parseHelper.state) {
 		case kIdle:
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
-				this->_parseHelper.state = kReadingTagString;
-			}
-
+			this->parseIdle();
 			break;
 
 		// When find the close tag, then go to the idle state to wait for new start of tag
 		case kWaitToCloseTag:
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
-				this->_parseHelper.state = kIdle;
-			}
-
+			this->parseWaitToCloseTag(kIdle);
 			break;
 
 		// If we are ready to read the inner xml but are far away from
 		// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
 		case kWaitToReadInnerXml:
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
-				this->_parseHelper.state = kPrepareReadingInnerXml;
-			}
+			this->parseWaitToCloseTag(kPrepareReadingInnerXml);
 
 			break;
 		case kPrepareReadingInnerXml:
@@ -420,4 +412,16 @@ xError xXML::setContent(const char * rawContent) {
 	this->_rawContent = xCopyString(rawContent, &result);
 
 	return result;
+}
+
+void xXML::parseIdle(void) {
+	if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+		this->_parseHelper.state = kReadingTagString;
+	}
+}
+
+void xXML::parseWaitToCloseTag(ParsingState nextState) {
+	if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+		this->_parseHelper.state = nextState;
+	}
 }

@@ -100,6 +100,17 @@ public:
 	xError setContent(const char * rawContent);
 
 private:
+
+	/**
+	 * Waits for '<' to appear at contentIndex
+	 */
+	void parseIdle();
+
+	/**
+	 * Waits for '>' to appear at contentIndex and then sets parsing state to nextState
+	 */
+	void parseWaitToCloseTag(ParsingState nextState);
+
 	/**
 	 * Path to the xml file
 	 */

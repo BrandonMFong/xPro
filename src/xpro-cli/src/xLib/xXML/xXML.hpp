@@ -121,7 +121,12 @@ private:
 	 */
 	xError parseReadInnerXml();
 
+	/**
+	 * Parses tag string
+	 */
 	xError parseTagString();
+
+	xError parseAttributeKey();
 
 	/**
 	 * Path to the xml file
@@ -151,8 +156,16 @@ private:
 			this->tagString		= xNull;
 			this->tempAttrString = xNull;
 			this->attrKey = xNull;
+			this->attrValSpecified = xFalse;
+			this->specAttrValue = xNull;
+			this->quoteCount = 0;
+			this->attrValue = xNull;
 		}
 
+		char * attrValue;
+		xUInt8 quoteCount;
+		char * specAttrValue;
+		xBool attrValSpecified;
 		char * attrKey;
 		char * tempAttrString;
 		char * tagString;

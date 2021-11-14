@@ -126,7 +126,12 @@ private:
 	 */
 	xError parseTagString();
 
+	/**
+	 * Finds the attirbute key
+	 */
 	xError parseAttributeKey();
+
+	xError parseAttributeValue();
 
 	/**
 	 * Path to the xml file

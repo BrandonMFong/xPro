@@ -130,50 +130,9 @@ char * xXML::getValue(
 
 		// Get the attribute value inside quotes
 		case kReadAttributeValue:
-			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
-			case '"':
-				this->_parseHelper.quoteCount++;
-
-				// If we found the entire attribute string then we will
-				// need to determine what the next state is
-				if (this->_parseHelper.quoteCount == 2) {
-					if (this->_parseHelper.attrValSpecified) {
-						// if we found the attribute, then we need to immediately find what is in the inner xml
-						if (!strcmp(this->_parseHelper.attrValue, this->_parseHelper.specAttrValue)) {
-							this->_parseHelper.state = kWaitToReadInnerXml;
-						} else {
-
-							// If we did not find a match, then we need to continue on with
-							// sweeping the raw content
-							this->_parseHelper.state = kIdle;
-						}
-
-						xFree(this->_parseHelper.attrValue);
-						xFree(this->_parseHelper.specAttrValue);
-					} else {
-						this->_parseHelper.result 	= xCopyString(this->_parseHelper.attrValue, &error);
-						this->_parseHelper.finished	= xTrue;
-					}
-				}
-
-				break;
-			default:
-				if (this->_parseHelper.quoteCount < 2) {
-					if (error == kNoError) {
-						tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
-
-						error = xApendToString(&this->_parseHelper.attrValue, tempString);
-						xFree(tempString);
-					}
-				} else {
-					error = kXMLError;
-					DLog("Quote count is %d, which should not be more than 2\n", this->_parseHelper.quoteCount);
-				}
-
-				break;
-			}
-
+			error = this->parseAttributeValue();
 			break;
+
 		default:
 			break;
 		}
@@ -464,6 +423,56 @@ xError xXML::parseAttributeKey() {
 
 			result = xApendToString(&this->_parseHelper.attrKey, tempString);
 			xFree(tempString);
+		}
+
+		break;
+	}
+
+	return result;
+}
+
+xError xXML::parseAttributeValue() {
+	xError result = kNoError;
+	char * tempString = xNull;
+
+	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	case '"':
+		this->_parseHelper.quoteCount++;
+
+		// If we found the entire attribute string then we will
+		// need to determine what the next state is
+		if (this->_parseHelper.quoteCount == 2) {
+			if (this->_parseHelper.attrValSpecified) {
+				// if we found the attribute, then we need to immediately find what is in the inner xml
+				if (!strcmp(this->_parseHelper.attrValue, this->_parseHelper.specAttrValue)) {
+					this->_parseHelper.state = kWaitToReadInnerXml;
+				} else {
+
+					// If we did not find a match, then we need to continue on with
+					// sweeping the raw content
+					this->_parseHelper.state = kIdle;
+				}
+
+				xFree(this->_parseHelper.attrValue);
+				xFree(this->_parseHelper.specAttrValue);
+			} else {
+				this->_parseHelper.result 	= xCopyString(this->_parseHelper.attrValue, &result);
+				this->_parseHelper.finished	= xTrue;
+			}
+		}
+
+		break;
+	default:
+		if (this->_parseHelper.quoteCount < 2) {
+			if (result == kNoError) {
+				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+
+				result = xApendToString(&this->_parseHelper.attrValue, tempString);
+				xFree(tempString);
+			}
+		} else {
+			result = kXMLError;
+			DLog("Quote count is %d, which should not be more than 2\n", this->_parseHelper.quoteCount);
 		}
 
 		break;

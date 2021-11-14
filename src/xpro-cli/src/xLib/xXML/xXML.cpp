@@ -212,6 +212,9 @@ char * xXML::getValue(
 						if (tempAttrString == xNull) {
 							error = kXMLError;
 							DLog("NULL string for attribute\n");
+						} else {
+							// Make a copy of the string because we are going to free split's memory
+							tempAttrString = xCopyString(tempAttrString, &error);
 						}
 
 						// We need to initialize the attrString if all succeeds
@@ -223,6 +226,14 @@ char * xXML::getValue(
 					} else {
 						error = kXMLError;
 					}
+				}
+
+				if (split != xNull) {
+					// Free memory because we do not need it
+					for (xUInt8 i = 0; i < splitSize; i++) {
+						xFree(split[i]);
+					}
+					xFree(split);
 				}
 
 				break;

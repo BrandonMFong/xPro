@@ -152,7 +152,7 @@ char * xXML::getValue(
 				}
 			} else {
 				finished 	= xTrue;
-				result 		= innerXml; // Save the value in result
+				result 		= xCopyString(innerXml, &error); // Save the value in result
 			}
 
 			break;
@@ -297,7 +297,7 @@ char * xXML::getValue(
 						xFree(tempString);
 					}
 				} else {
-					result 		= attrString;
+					result 		= xCopyString(attrString, &error);
 					finished 	= xTrue;
 				}
 
@@ -318,6 +318,10 @@ char * xXML::getValue(
 	if (error != kNoError) {
 		DLog("There was an error during parsing");
 	}
+
+	xFree(attrString);
+	xFree(tagString);
+	xFree(innerXml);
 
 	if (err != xNull) {
 		*err = error;

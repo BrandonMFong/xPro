@@ -161,15 +161,9 @@ char ** xSplitString(
 			// If we have no more of the string left to sweep, i.e. index == stringLength,
 			// then we need to finish inserting the last string
 			if ((sepIndex < sepLength) && (index < stringLength)) {
-//				tempCharPtr = (char *) malloc(2);
-//				error 		= tempCharPtr != xNull ? kNoError : kUnknownError;
-//				tempCharPtr = xMallocString(2, &error);
 				tempCharPtr = xCharToString(string[index], &error);
 
 				if (error == kNoError) {
-//					tempCharPtr[0] 	= string[index];
-//					tempCharPtr[1] 	= '\0';
-
 					// Append the char to string
 					error = xApendToString(&tempString, tempCharPtr);
 
@@ -261,10 +255,10 @@ char * xStringBetweenTwoStrings(
 	xError * err
 ) {
 	char * result = xNull;
+	char * mainString = xNull;
 	xError error = kNoError;
-	char * tempString = xNull, currentString = xNull;
-	xUInt64 index = 0, count = 0, subStringIndex = 0, subStringCount = 0;
-	xUInt8 stringNum = 0; // We use this to identify which string we are observing
+	xUInt64 index = 0, count = 0, subIndex = 0, subCount = 0, offset = -1;
+	xBool okayToContinue = xFalse;
 
 	if (	(firstString 	== xNull)
 		|| 	(secondString 	== xNull)
@@ -272,20 +266,64 @@ char * xStringBetweenTwoStrings(
 		error = kStringError;
 		DLog("Strings are empty. Please make sure you are calling xStringBetweenTwoStrings() correctly\n");
 	} else {
-		count = strlen(string);
+		mainString = (char *) string; // Save to new variable so that we can increment string
+		count = strlen(mainString);
 	}
 
-	while ((index < count) && (subStringIndex < subStringCount) && (error == kNoError)) {
-		switch (stringNum) {
-		case 0:
-			stringNum 		= 1;
-			currentString 	= (char *) firstString;
-			subStringCount 	= strlen(currentString);
-			break;
-		case 1:
-			break;
+	if (error == kNoError) {
+		subCount = strlen(firstString);
+		while ((index < count) && (subIndex < subCount)) {
+			if (mainString[0] == firstString[subIndex]) {
+				subIndex++;
+			} else {
+				subIndex = 0;
+			}
+
+			mainString++;
+			index++;
 		}
-		index++;
+
+		index = 0;
+		subIndex = 0;
+		count = strlen(mainString);
+		subCount = strlen(secondString);
+		while ((index < count) && (subIndex < subCount)) {
+			if (mainString[index] == secondString[subIndex]) {
+				subIndex++;
+
+				// Save the index to insert null character if it wasn't already set
+				if (offset == -1) {
+					offset = index;
+				}
+			} else {
+				subIndex = 0;
+				offset = -1;
+			}
+
+			index++;
+		}
+
+		// If index == count then we found sub string
+		okayToContinue = (subIndex == subCount);
+	}
+
+	if (okayToContinue && (error == kNoError)) {
+		// We need to make sure we have a copy of the string because we originally
+		// set this mainString var to hold the address where the param string is
+		mainString = xCopyString(mainString, &error);
+	}
+
+	if (okayToContinue && (error == kNoError)) {
+		mainString[offset] = '\0'; // Terminate string where the second string started
+
+		// Copy string only up to where the null character is
+		result = xCopyString(mainString, &error);
+		xFree(mainString);
+	}
+
+	// If there is an error, make sure that we return null
+	if (error != kNoError) {
+		xFree(result);
 	}
 
 	if (err != xNull) {

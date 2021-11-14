@@ -209,6 +209,7 @@ void TestFindingStringBetweenStrings(void) {
 
 	if (success) {
 		success = !strcmp(result, "world");
+		xFree(result);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -224,6 +225,7 @@ void xUtilities_Tests(void) {
 	TestHostname();
 	TestAppendingStringToString();
 	TestConvertingCharToString();
+	TestFindingStringBetweenStrings();
 
 	printf("\n");
 }

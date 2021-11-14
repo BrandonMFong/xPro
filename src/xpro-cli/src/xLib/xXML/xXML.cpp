@@ -52,21 +52,7 @@ char * xXML::getValue(
 	const char * 	elementPath,
 	xError * 		err
 ) {
-//	char 	* result 			= xNull,
-//char 			* tagString 		= xNull,
-			char * tempString 		= xNull;
-//			* tempAttrString 	= xNull,
-//			* attrKey 			= xNull,
-//			* attrValue			= xNull,
-//			* specAttrValue		= xNull,
-//			** split 			= xNull;
-//			* innerXml 			= xNull;
-	xError 	error 				= kNoError;
-//	xUInt8 	splitSize 			= 0;
-//			quoteCount			= 0;
-//	xUInt32 endTagCharRecord 	= 0;
-//	xBool 	finished 			= xFalse,
-//			xBool attrValSpecified	= xFalse;
+	xError error = kNoError;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -212,8 +198,8 @@ xError xXML::parsePrepareToReadInnerXml() {
 }
 
 xError xXML::parseReadInnerXml() {
-	xError result = kNoError;
-	char * tempString = xNull;
+	xError result 		= kNoError;
+	char * tempString 	= xNull;
 
 	// Make sure we are not out of range
 	if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
@@ -246,19 +232,21 @@ xError xXML::parseReadInnerXml() {
 		}
 	} else {
 		this->_parseHelper.finished = xTrue;
+
 		this->_parseHelper.result = xCopyString( // Save the value in result
 			this->_parseHelper.innerXml,
 			&result
 		);
 	}
+
 	return result;
 }
 
 xError xXML::parseTagString() {
-	xError result = kNoError;
-	char * tempString = xNull;
-	char ** split = xNull;
-	xUInt8 splitSize = 0;
+	xError 	result 			= kNoError;
+	char 	* tempString 	= xNull,
+			** split 		= xNull;
+	xUInt8 	splitSize 		= 0;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
@@ -266,17 +254,15 @@ xError xXML::parseTagString() {
 	// Compare tag string with the strings in array
 	case '>': // end of tag
 	case '/': // start of the end of a tag
-		if (result == kNoError) {
-			tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
+		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 
-			// If we found a tag from the tag path then increment the array index
-			if (!strcmp(tempString, this->_parseHelper.tagString)) {
-				tempString = xNull;
-				this->_parseHelper.arrayIndex++;
+		// If we found a tag from the tag path then increment the array index
+		if (!strcmp(tempString, this->_parseHelper.tagString)) {
+			tempString = xNull;
+			this->_parseHelper.arrayIndex++;
 
-				// Reset the tag string
-				this->_parseHelper.tagString = xCopyString("", &result);
-			}
+			// Reset the tag string
+			this->_parseHelper.tagString = xCopyString("", &result);
 		}
 
 		if (result == kNoError) {
@@ -298,10 +284,14 @@ xError xXML::parseTagString() {
 
 	case ' ': // start of attribute
 		// Get the current tag string.  We want to see if it has the '.', denoting an attribute path
-		if (result == kNoError) {
-			tempString 	= this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
-			split 		= xSplitString(tempString, ".", &splitSize, &result);
-		}
+		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
+
+		split = xSplitString(
+			tempString,
+			".",
+			&splitSize,
+			&result
+		);
 
 		if (result == kNoError) {
 			// If the size is two, then caller passed a path to an attribute.  If that
@@ -339,12 +329,17 @@ xError xXML::parseTagString() {
 		break;
 
 	default:
-		if (result == kNoError) {
-			tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
-		}
+		tempString = xCharToString(
+			this->_rawContent[this->_parseHelper.contentIndex],
+			&result
+		);
 
 		if (result == kNoError) {
-			result = xApendToString(&this->_parseHelper.tagString, tempString);
+			result = xApendToString(
+				&this->_parseHelper.tagString,
+				tempString
+			);
+
 			xFree(tempString);
 		}
 	}
@@ -353,33 +348,48 @@ xError xXML::parseTagString() {
 }
 
 xError xXML::parseAttributeKey() {
-	xError result = kNoError;
-	char * tempString = xNull;
-	char ** split = xNull;
-	xUInt8 splitSize = 0;
+	xError 	result 			= kNoError;
+	char 	* tempString 	= xNull,
+			** split 		= xNull;
+	xUInt8 	splitSize 		= 0;
 
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 	case '=':
 		this->_parseHelper.attrValSpecified = xFalse;
 
 		// See if (...) is in the string
-		if (result == kNoError) {
-			this->_parseHelper.attrValSpecified = xContainsSubString(this->_parseHelper.tempAttrString, "(", &result);
-		}
+		this->_parseHelper.attrValSpecified = xContainsSubString(
+			this->_parseHelper.tempAttrString,
+			"(",
+			&result
+		);
 
 		if (this->_parseHelper.attrValSpecified && (result == kNoError)) {
-			this->_parseHelper.attrValSpecified = xContainsSubString(this->_parseHelper.tempAttrString, ")", &result);
+			this->_parseHelper.attrValSpecified = xContainsSubString(
+				this->_parseHelper.tempAttrString,
+				")",
+				&result
+			);
 		}
 
 		// If okayToContinue then we know the user specified an attribute value
 		if (this->_parseHelper.attrValSpecified) {
 			if (result == kNoError) {
-				this->_parseHelper.specAttrValue = xStringBetweenTwoStrings(this->_parseHelper.tempAttrString, "(", ")", &result);
+				this->_parseHelper.specAttrValue = xStringBetweenTwoStrings(
+					this->_parseHelper.tempAttrString,
+					"(",
+					")",
+					&result
+				);
 			}
 
 			// Reset the tempAttrString to remove the (...) string section
 			if (result == kNoError) {
-				split = xSplitString(this->_parseHelper.tempAttrString, "(", &splitSize, &result);
+				split = xSplitString(this->_parseHelper.tempAttrString,
+					"(",
+					&splitSize,
+					&result
+				);
 			}
 
 			if (result == kNoError) {
@@ -418,12 +428,10 @@ xError xXML::parseAttributeKey() {
 
 		break;
 	default:
-		if (result == kNoError) {
-			tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+		tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
 
-			result = xApendToString(&this->_parseHelper.attrKey, tempString);
-			xFree(tempString);
-		}
+		result = xApendToString(&this->_parseHelper.attrKey, tempString);
+		xFree(tempString);
 
 		break;
 	}
@@ -432,8 +440,8 @@ xError xXML::parseAttributeKey() {
 }
 
 xError xXML::parseAttributeValue() {
-	xError result = kNoError;
-	char * tempString = xNull;
+	xError result 		= kNoError;
+	char * tempString 	= xNull;
 
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 	case '"':
@@ -464,12 +472,13 @@ xError xXML::parseAttributeValue() {
 		break;
 	default:
 		if (this->_parseHelper.quoteCount < 2) {
-			if (result == kNoError) {
-				tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+			tempString = xCharToString(
+				this->_rawContent[this->_parseHelper.contentIndex],
+				&result
+			);
 
-				result = xApendToString(&this->_parseHelper.attrValue, tempString);
-				xFree(tempString);
-			}
+			result = xApendToString(&this->_parseHelper.attrValue, tempString);
+			xFree(tempString);
 		} else {
 			result = kXMLError;
 			DLog("Quote count is %d, which should not be more than 2\n", this->_parseHelper.quoteCount);

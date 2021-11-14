@@ -131,6 +131,9 @@ private:
 	 */
 	xError parseAttributeKey();
 
+	/**
+	 * Gets attribute value
+	 */
 	xError parseAttributeValue();
 
 	/**

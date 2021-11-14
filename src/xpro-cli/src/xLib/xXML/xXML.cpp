@@ -56,14 +56,16 @@ char * xXML::getValue(
 			* tagString 		= xNull,
 			* tempString 		= xNull,
 			* tempAttrString 	= xNull,
-			* attrString 		= xNull,
+			* attrKey 			= xNull,
+			* attrValue			= xNull,
 			** split 			= xNull,
 			* innerXml 			= xNull;
 	xError 	error 				= kNoError;
 	xUInt8 	splitSize 			= 0,
 			quoteCount			= 0;
 	xUInt32 endTagCharRecord 	= 0;
-	xBool 	finished 			= xFalse;
+	xBool 	finished 			= xFalse,
+			okayToContinue 		= xFalse;
 
 	if (elementPath == xNull) {
 		error = kStringError;
@@ -219,7 +221,7 @@ char * xXML::getValue(
 
 						// We need to initialize the attrString if all succeeds
 						if (error == kNoError) {
-							attrString = xCopyString("", &error);
+							attrKey = xCopyString("", &error);
 						}
 					} else if (splitSize == 1) {
 						this->_parseHelper.state = kWaitToCloseTag;
@@ -263,20 +265,36 @@ char * xXML::getValue(
 		case kReadAttributeKey:
 			switch (this->_rawContent[this->_parseHelper.contentIndex]) {
 			case '=':
+				okayToContinue = xFalse;
+
 				if (error == kNoError) {
-					// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
-					if (!strcmp(tempAttrString, attrString)) {
-						// Set count to 0 so that we know when to stop reading
-						// for the attribute string
-						quoteCount = 0;
+					okayToContinue = xContainsSubString(tempAttrString, "(", &error);
+				}
 
-						this->_parseHelper.state = kReadAttributeValue;
+				if (okayToContinue && (error == kNoError)) {
+					okayToContinue = xContainsSubString(tempAttrString, ")", &error);
+				}
 
-						// Reset attrString
-						xFree(attrString);
-						attrString = xCopyString("", &error);
-					} else {
-						this->_parseHelper.state = kWaitToCloseTag;
+				// If okayToContinue then we know the user specified an attribute value
+				if (okayToContinue) {
+					if (error == kNoError) {
+
+					}
+				} else {
+					if (error == kNoError) {
+						// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
+						if (!strcmp(tempAttrString, attrKey)) {
+							// Set count to 0 so that we know when to stop reading
+							// for the attribute string
+							quoteCount = 0;
+
+							xFree(attrKey);
+
+							attrValue 					= xCopyString("", &error);
+							this->_parseHelper.state 	= kReadAttributeValue;
+						} else {
+							this->_parseHelper.state = kWaitToCloseTag;
+						}
 					}
 				}
 
@@ -285,7 +303,7 @@ char * xXML::getValue(
 				if (error == kNoError) {
 					tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 
-					error = xApendToString(&attrString, tempString);
+					error = xApendToString(&attrKey, tempString);
 					xFree(tempString);
 				}
 
@@ -304,11 +322,11 @@ char * xXML::getValue(
 					if (error == kNoError) {
 						tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &error);
 
-						error = xApendToString(&attrString, tempString);
+						error = xApendToString(&attrValue, tempString);
 						xFree(tempString);
 					}
 				} else {
-					result 		= xCopyString(attrString, &error);
+					result 		= xCopyString(attrValue, &error);
 					finished 	= xTrue;
 				}
 
@@ -330,7 +348,8 @@ char * xXML::getValue(
 		DLog("There was an error during parsing");
 	}
 
-	xFree(attrString);
+	xFree(attrValue);
+	xFree(attrKey);
 	xFree(tagString);
 	xFree(innerXml);
 

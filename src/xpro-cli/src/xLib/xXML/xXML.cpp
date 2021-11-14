@@ -250,7 +250,6 @@ xError xXML::parseTagString() {
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
-
 	// Compare tag string with the strings in array
 	case '>': // end of tag
 	case '/': // start of the end of a tag

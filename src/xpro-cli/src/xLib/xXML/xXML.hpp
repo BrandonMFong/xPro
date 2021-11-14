@@ -178,7 +178,10 @@ private:
 			this->specAttrValue 	= xNull;
 			this->quoteCount 		= 0;
 			this->attrValue 		= xNull;
+			this->insideXMLDec		= xFalse;
 		}
+
+		xBool insideXMLDec;
 
 		/**
 		 * Holds the current state of parsing

@@ -74,23 +74,30 @@ xError PrintDirectoryForAlias(const char * alias) {
 	xError result = kNoError;
 	char * elementPath = xNull;
 	char * directory = xNull;
+	char * hostName = xNull;
 
-	if (alias == xNull) {
-		result = kDirectoryAliasError;
-	} else {
-		elementPath = xMallocString(
-				strlen(alias)
-			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-			+ 	1,
-			&result
-		);
+	hostName = xHostname(&result);
 
-		if (result == kNoError) {
-			sprintf(
-				elementPath,
-				DIRECTORY_ELEMENT_PATH_FORMAT,
-				alias
+	if (result == kNoError) {
+		if (alias == xNull) {
+			result = kDirectoryAliasError;
+		} else {
+			elementPath = xMallocString(
+					strlen(alias)
+				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
+				+	strlen(hostName)
+				+ 	1,
+				&result
 			);
+
+			if (result == kNoError) {
+				sprintf(
+					elementPath,
+					DIRECTORY_ELEMENT_PATH_FORMAT,
+					alias,
+					hostName
+				);
+			}
 		}
 	}
 
@@ -105,6 +112,8 @@ xError PrintDirectoryForAlias(const char * alias) {
 	if (result == kNoError) {
 		printf("%s\n", directory);
 	}
+
+	xFree(hostName);
 
 	return result;
 }

@@ -116,7 +116,12 @@ private:
 	 */
 	xError parsePrepareToReadInnerXml();
 
+	/**
+	 * Reads inner xml into result
+	 */
 	xError parseReadInnerXml();
+
+	xError parseTagString();
 
 	/**
 	 * Path to the xml file
@@ -143,8 +148,14 @@ private:
 			this->innerXml		= xNull;
 			this->endTagCharRecord	 = 0;
 			this->finished		= xFalse;
+			this->tagString		= xNull;
+			this->tempAttrString = xNull;
+			this->attrKey = xNull;
 		}
 
+		char * attrKey;
+		char * tempAttrString;
+		char * tagString;
 		xBool finished;
 		char * result;
 		xUInt8 arrayIndex;

@@ -14,6 +14,7 @@
 #include <xInt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <xInt.h>
 
 /**
  * Command line argument parsers
@@ -27,7 +28,7 @@ public:
 	 * is globally accessable from any part of the source
 	 * code.  So long as the constructor is invoked once
 	 */
-	xArguments(int argc, char ** argv, xError * err);
+	xArguments(xInt8 argc, char ** argv, xError * err);
 
 	/**
 	 * Destroys the argument memory array
@@ -61,6 +62,11 @@ public:
 	 * was initially constructed by the first caller
 	 */
 	static xArguments * shared();
+
+	/**
+	 * Initializes global argument variable
+	 */
+	static xError init(xInt8 argc, char ** argv);
 
 private:
 	/**

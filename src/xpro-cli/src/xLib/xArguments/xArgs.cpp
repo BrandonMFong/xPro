@@ -20,7 +20,7 @@ extern "C" {
 /// Use this global args variable for your main
 static xArguments * args = xNull;
 
-xArguments::xArguments(int argc, char ** argv, xError * err) {
+xArguments::xArguments(xInt8 argc, char ** argv, xError * err) {
 	xError error = kNoError;
 
 	this->_arguments 	= xNull;
@@ -116,4 +116,12 @@ char * xArguments::argAtIndex(xUInt8 index, xError * err) {
 
 xArguments * xArguments::shared() {
 	return args;
+}
+
+xError xArguments::init(xInt8 argc, char ** argv) {
+	xError result = kNoError;
+
+	args = new xArguments(argc, argv, &result);
+
+	return result;
 }

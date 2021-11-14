@@ -94,7 +94,10 @@ char * xXML::getValue(
 		// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
 		case kWaitToReadInnerXml:
 			this->parseWaitToCloseTag(kPrepareReadingInnerXml);
+			break;
 
+		case kWaitToCloseXmlDeclaration:
+			this->waitToCloseXmlDeclaration();
 			break;
 
 		case kPrepareReadingInnerXml:
@@ -163,6 +166,12 @@ void xXML::parseIdle(void) {
 void xXML::parseWaitToCloseTag(ParsingState nextState) {
 	if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
 		this->_parseHelper.state = nextState;
+	}
+}
+
+void xXML::waitToCloseXmlDeclaration() {
+	if (this->_rawContent[this->_parseHelper.contentIndex] == '?') {
+		this->_parseHelper.state = kIdle;
 	}
 }
 
@@ -250,6 +259,11 @@ xError xXML::parseTagString() {
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	// If we entered an xml declaration
+	case '?':
+		this->_parseHelper.state = kWaitToCloseXmlDeclaration;
+		break;
+
 	// Compare tag string with the strings in array
 	case '>': // end of tag
 	case '/': // start of the end of a tag
@@ -294,7 +308,7 @@ xError xXML::parseTagString() {
 		if (result == kNoError) {
 			// If the size is two, then caller passed a path to an attribute.  If that
 			// is true, then we need to save the attribute
-			if (splitSize == 2) {
+			if (splitSize >= 2) {
 				this->_parseHelper.state = kReadAttributeKey;
 
 				this->_parseHelper.attrKeyString = split[1];
@@ -304,7 +318,10 @@ xError xXML::parseTagString() {
 					DLog("NULL string for attribute");
 				} else {
 					// Make a copy of the string because we are going to free split's memory
-					this->_parseHelper.attrKeyString = xCopyString(this->_parseHelper.attrKeyString, &result);
+					this->_parseHelper.attrKeyString = xCopyString(
+						this->_parseHelper.attrKeyString,
+						&result
+					);
 				}
 
 				// We need to initialize the attrString if all succeeds

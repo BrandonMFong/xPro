@@ -45,7 +45,8 @@ enum ParsingState {
 	kReadAttributeValue = 4,
 	kInnerXml = 5,
 	kPrepareReadingInnerXml = 6,
-	kWaitToReadInnerXml = 7
+	kWaitToReadInnerXml = 7,
+	kWaitToCloseXmlDeclaration = 8
 };
 
 /**
@@ -143,6 +144,12 @@ private:
 	 * Gets attribute value
 	 */
 	xError parseAttributeValue();
+
+	/**
+	 * Assuming this was called when the first '?' was found, this
+	 * goes into the idle state when another '?' was found
+	 */
+	void waitToCloseXmlDeclaration();
 
 	/**
 	 * Path to the xml file

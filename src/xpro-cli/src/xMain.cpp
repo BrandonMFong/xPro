@@ -13,11 +13,16 @@ int xMain(int argc, char ** argv) {
 	xBool 			okayToContinue 	= xTrue;
 	xArguments * 	args 			= xNull;
 
-	// Read arguments
-	if (result == kNoError) {
-		args = new xArguments(argc, argv, &result);
-	}
+	result = xArguments::init(argc, argv);
 
+	if (result == kNoError) {
+		args 	= xArguments::shared();
+		result 	= args != xNull ? kNoError : kArgError;
+
+		if (result != kNoError) {
+			DLog("Shared args is null");
+		}
+	}
 	// See if the user wants help
 	if (result == kNoError) {
 		if (args->count() == 1) {

@@ -34,7 +34,9 @@
  */
 #define ATTRIBUTE_PATH_SEP "."
 
-
+/**
+ * States for parsing
+ */
 enum ParsingState {
 	kIdle = 0,
 	kReadingTagString = 1,
@@ -46,6 +48,9 @@ enum ParsingState {
 	kWaitToReadInnerXml = 7
 };
 
+/**
+ * Helps parse an xml file
+ */
 class xXML {
 public:
 	/**
@@ -53,6 +58,9 @@ public:
 	 */
 	xXML(const char * path, xError * err);
 
+	/**
+	 * Passes null to path
+	 */
 	xXML(xError * err) : xXML(NULL, err) {};
 
 	/**
@@ -148,45 +156,116 @@ private:
 	 */
 	char * _rawContent;
 
+	/**
+	 * Assists us in parsing
+	 */
 	struct {
 		void init(void) {
-			this->result		= xNull;
-			this->tagPathArray 	= xNull;
-			this->arraySize 	= 0;
-			this->openTags 		= 0;
-			this->contentIndex	= 0;
-			this->state 		= kIdle;
-			this->contentLength	= 0;
-			this->arrayIndex	= 0;
-			this->innerXml		= xNull;
-			this->endTagCharRecord	 = 0;
-			this->finished		= xFalse;
-			this->tagString		= xNull;
-			this->tempAttrString = xNull;
-			this->attrKey = xNull;
-			this->attrValSpecified = xFalse;
-			this->specAttrValue = xNull;
-			this->quoteCount = 0;
-			this->attrValue = xNull;
+			this->result			= xNull;
+			this->tagPathArray 		= xNull;
+			this->arraySize 		= 0;
+			this->contentIndex		= 0;
+			this->state 			= kIdle;
+			this->contentLength		= 0;
+			this->arrayIndex		= 0;
+			this->innerXml			= xNull;
+			this->endTagCharRecord	= 0;
+			this->finished			= xFalse;
+			this->tagString			= xNull;
+			this->attrKeyString 	= xNull;
+			this->attrKey 			= xNull;
+			this->attrValSpecified 	= xFalse;
+			this->specAttrValue 	= xNull;
+			this->quoteCount 		= 0;
+			this->attrValue 		= xNull;
 		}
 
-		char * attrValue;
-		xUInt8 quoteCount;
-		char * specAttrValue;
-		xBool attrValSpecified;
-		char * attrKey;
-		char * tempAttrString;
-		char * tagString;
-		xBool finished;
-		char * result;
-		xUInt8 arrayIndex;
-		char ** tagPathArray;
-		xUInt8 arraySize;
-		xUInt64 contentIndex;
-		xUInt64 contentLength;
-		xUInt32 openTags;
+		/**
+		 * Holds the current state of parsing
+		 */
 		ParsingState state;
+
+		/**
+		 * The amount of quotes found when reading attribute strings
+		 */
+		xUInt8 quoteCount;
+
+		/**
+		 * Holds attribute value from xml file
+		 */
+		char * attrValue;
+
+		/**
+		 * If attrValSpecified is true, then this variable will hold
+		 * the value of the specified attribute value from the tagPathArray
+		 */
+		char * specAttrValue;
+
+		/**
+		 * True if user provided an attribute value in the tag path
+		 */
+		xBool attrValSpecified;
+
+		/**
+		 * Holds the value before = for an attribute
+		 */
+		char * attrKey;
+
+		/**
+		 * Attribute key from tag path
+		 */
+		char * attrKeyString;
+
+		/**
+		 * Holds the tag string from each node in the xml file
+		 */
+		char * tagString;
+
+		/**
+		 * If we found what we are looking for
+		 */
+		xBool finished;
+
+		/**
+		 * String result for path
+		 */
+		char * result;
+
+		/**
+		 * Current index to tagPathArray
+		 */
+		xUInt8 arrayIndex;
+
+		/**
+		 * Array of the tag path split at '/'
+		 */
+		char ** tagPathArray;
+
+		/**
+		 * Size of tagPathArray
+		 */
+		xUInt8 arraySize;
+
+		/**
+		 * Current index to _rawContent
+		 */
+		xUInt64 contentIndex;
+
+		/**
+		 * Length of _rawContent
+		 */
+		xUInt64 contentLength;
+
+		/**
+		 * Holds the content of the innerxml while in kInnerXml state
+		 */
 		char * innerXml;
+
+		/**
+		 * While getting the innerxml, we need to keep track of where we need
+		 * to stop.  We do this by counting the number of open tags we come
+		 * across while parsing
+		 */
 		xUInt32 endTagCharRecord;
 
 	} _parseHelper;

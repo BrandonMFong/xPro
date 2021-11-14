@@ -299,14 +299,14 @@ xError xXML::parseTagString() {
 			if (splitSize == 2) {
 				this->_parseHelper.state = kReadAttributeKey;
 
-				this->_parseHelper.tempAttrString = split[1];
+				this->_parseHelper.attrKeyString = split[1];
 
-				if (this->_parseHelper.tempAttrString == xNull) {
+				if (this->_parseHelper.attrKeyString == xNull) {
 					result = kXMLError;
 					DLog("NULL string for attribute\n");
 				} else {
 					// Make a copy of the string because we are going to free split's memory
-					this->_parseHelper.tempAttrString = xCopyString(this->_parseHelper.tempAttrString, &result);
+					this->_parseHelper.attrKeyString = xCopyString(this->_parseHelper.attrKeyString, &result);
 				}
 
 				// We need to initialize the attrString if all succeeds
@@ -359,14 +359,14 @@ xError xXML::parseAttributeKey() {
 
 		// See if (...) is in the string
 		this->_parseHelper.attrValSpecified = xContainsSubString(
-			this->_parseHelper.tempAttrString,
+			this->_parseHelper.attrKeyString,
 			"(",
 			&result
 		);
 
 		if (this->_parseHelper.attrValSpecified && (result == kNoError)) {
 			this->_parseHelper.attrValSpecified = xContainsSubString(
-				this->_parseHelper.tempAttrString,
+				this->_parseHelper.attrKeyString,
 				")",
 				&result
 			);
@@ -376,7 +376,7 @@ xError xXML::parseAttributeKey() {
 		if (this->_parseHelper.attrValSpecified) {
 			if (result == kNoError) {
 				this->_parseHelper.specAttrValue = xStringBetweenTwoStrings(
-					this->_parseHelper.tempAttrString,
+					this->_parseHelper.attrKeyString,
 					"(",
 					")",
 					&result
@@ -385,7 +385,7 @@ xError xXML::parseAttributeKey() {
 
 			// Reset the tempAttrString to remove the (...) string section
 			if (result == kNoError) {
-				split = xSplitString(this->_parseHelper.tempAttrString,
+				split = xSplitString(this->_parseHelper.attrKeyString,
 					"(",
 					&splitSize,
 					&result
@@ -394,8 +394,8 @@ xError xXML::parseAttributeKey() {
 
 			if (result == kNoError) {
 				if (splitSize == 2) {
-					xFree(this->_parseHelper.tempAttrString);
-					this->_parseHelper.tempAttrString = xCopyString(split[0], &result);
+					xFree(this->_parseHelper.attrKeyString);
+					this->_parseHelper.attrKeyString = xCopyString(split[0], &result);
 				} else {
 					result = kXMLError;
 					DLog("Error in attempting to split string. There may be an error in the syntax\n");
@@ -409,8 +409,9 @@ xError xXML::parseAttributeKey() {
 		}
 
 		if (result == kNoError) {
-			// If user specified the attribute in the path then we need to read the value.  Otherwise we will wait for the next tag
-			if (!strcmp(this->_parseHelper.tempAttrString, this->_parseHelper.attrKey)) {
+			// If user specified the attribute in the path then we need to
+			// read the value.  Otherwise we will wait for the next tag
+			if (!strcmp(this->_parseHelper.attrKeyString, this->_parseHelper.attrKey)) {
 				// Set count to 0 so that we know when to stop reading
 				// for the attribute string
 				this->_parseHelper.quoteCount = 0;
@@ -424,7 +425,7 @@ xError xXML::parseAttributeKey() {
 			}
 		}
 
-		xFree(this->_parseHelper.tempAttrString);
+		xFree(this->_parseHelper.attrKeyString);
 
 		break;
 	default:

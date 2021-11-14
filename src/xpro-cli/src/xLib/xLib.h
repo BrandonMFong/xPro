@@ -19,6 +19,7 @@
 #include <xNull.h>
 #include <xBool.h>
 #include <xUtilities/xUtilities.h>
+#include <xTests.h>
 
 /// Classes
 #ifdef __cplusplus
@@ -27,37 +28,5 @@
 #include <xXML/xXML.hpp>
 
 #endif // __cplusplus
-
-/**
- * If TESTING is defined, we need to have the entry point be the tests
- */
-#if defined(TESTING)
-
-#define xMain 	xMain
-#define xTests 	main
-
-#else
-
-#define xMain 	main
-#define xTests 	xTests
-
-#endif
-
-/**
- * Use this to print test results.  It will also print the
- * function name. Will not print anything if we did not do
- * a test build
- */
-#if defined(TESTING)
-
-#define INTRO_TEST_FUNCTION printf("<< Testing %s >>\n\n", __func__)
-#define PRINT_TEST_RESULTS(result) printf("%s: [ %s ]\n", __func__, result ? "Pass" : "Fail")
-
-#else // defined(TESTING)
-
-#define INTRO_TEST_FUNCTION
-#define PRINT_TEST_RESULTS(result)
-
-#endif // defined(TESTING)
 
 #endif /* XLIB_H_ */

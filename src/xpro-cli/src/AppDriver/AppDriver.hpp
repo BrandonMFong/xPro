@@ -72,6 +72,11 @@ public:
 		return (const char *) this->_userInfo.configPath;
 	}
 
+	/// Returns _userInfo.username
+	const char * username() {
+		return (const char *) this->_userInfo.username;
+	}
+
 private:
 
 	/**

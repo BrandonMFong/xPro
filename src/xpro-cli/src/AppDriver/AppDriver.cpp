@@ -76,8 +76,8 @@ void AppDriver::help(xBool moreInfo) {
 }
 
 xError AppDriver::run() {
-	xError result = kNoError;
-	xBool 			okayToContinue 	= xTrue;
+	xError 	result 			= kNoError;
+	xBool 	okayToContinue 	= xTrue;
 
 	// See if the user wants help
 	if (result == kNoError) {
@@ -85,15 +85,15 @@ xError AppDriver::run() {
 			printf("No arguments\n");
 
 			this->help(xFalse);
-			okayToContinue 	= xFalse;
+			okayToContinue = xFalse;
 		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
 			printf("Too many arguments for %s\n", HELP_ARG);
 
 			this->help(xFalse);
-			okayToContinue 	= xFalse;
+			okayToContinue = xFalse;
 		} else if (this->args.contains(HELP_ARG, &result)) {
 			this->help(xTrue);
-			okayToContinue 	= xFalse;
+			okayToContinue = xFalse;
 		}
 	}
 
@@ -113,10 +113,10 @@ AppDriver * AppDriver::shared() {
 }
 
 xError AppDriver::setup() {
-	xError result = kNoError;
-	xXML * envConfig = xNull;
-	char * homeDir 	= xNull;
-	char * envPath = xNull;
+	xError 	result 		= kNoError;
+	xXML 	* envConfig = xNull;
+	char 	* homeDir 	= xNull,
+			* envPath 	= xNull;
 
 	homeDir = xHomePath(&result);
 
@@ -149,7 +149,10 @@ xError AppDriver::setup() {
 	}
 
 	if (result == kNoError) {
-		this->_userInfo.username = envConfig->getValue(USERNAME_XML_PATH, &result);
+		this->_userInfo.username = envConfig->getValue(
+			USERNAME_XML_PATH,
+			&result
+		);
 
 		if (result != kNoError) {
 			DLog("Could not find path: %s", USERNAME_XML_PATH);
@@ -157,7 +160,10 @@ xError AppDriver::setup() {
 	}
 
 	if (result == kNoError) {
-		this->_userInfo.configPath = envConfig->getValue(USERCONFIGPATH_XML_PATH, &result);
+		this->_userInfo.configPath = envConfig->getValue(
+			USERCONFIGPATH_XML_PATH,
+			&result
+		);
 
 		if (result != kNoError) {
 			DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);

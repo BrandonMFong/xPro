@@ -39,8 +39,8 @@ xError HandleDirectory() {
 
 	// Get the config file
 	if (result == kNoError) {
-		configPath = appDriver->configPath();
-		result = configPath != xNull ? kNoError : kUserConfigPathError;
+		configPath 	= appDriver->configPath();
+		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
 	}
 
 	if (result == kNoError) {
@@ -72,12 +72,13 @@ xError HandleDirectory() {
 }
 
 xError PrintDirectoryForAlias(const char * alias) {
-	xError result = kNoError;
-	char * elementPath = xNull;
-	char * directory = xNull;
-	char * hostName = xNull;
+	xError 		result 			= kNoError;
+	char 		* elementPath 	= xNull,
+				* directory 	= xNull;
+	const char 	* username 		= xNull;
 
-	hostName = xHostname(&result);
+	username 	= AppDriver::shared()->username();
+	result 		= username != xNull ? kNoError : kStringError;
 
 	if (result == kNoError) {
 		if (alias == xNull) {
@@ -86,7 +87,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 			elementPath = xMallocString(
 					strlen(alias)
 				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-				+	strlen(hostName)
+				+	strlen(username)
 				+ 	1,
 				&result
 			);
@@ -96,7 +97,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 					elementPath,
 					DIRECTORY_ELEMENT_PATH_FORMAT,
 					alias,
-					hostName
+					username
 				);
 			}
 		}
@@ -113,8 +114,6 @@ xError PrintDirectoryForAlias(const char * alias) {
 	if (result == kNoError) {
 		printf("%s\n", directory);
 	}
-
-	xFree(hostName);
 
 	return result;
 }

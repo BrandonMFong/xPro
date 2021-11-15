@@ -63,10 +63,7 @@ xError HandleDirectory() {
 		}
 	}
 
-	// Delete the object
-	if (xProConfig != xNull) {
-		xDelete(xProConfig);
-	}
+	xDelete(xProConfig);
 
 	return result;
 }

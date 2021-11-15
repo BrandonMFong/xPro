@@ -127,10 +127,10 @@ def main():
         if result == 0:
             result = install()
 
-    if result == 0:
-        print("Success")
-    else:
-        print("Failed")
+        if result == 0:
+            print("Success")
+        else:
+            print("Failed")
 
     sys.exit(result)
 

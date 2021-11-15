@@ -4,14 +4,26 @@
 status=0
 xproPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
 xproCLISourcePath="src/xpro-cli/Debug (mac)"; # xpro-cli source file path
+binPath="$xproPath/bin";
+xpBuild="debug-xp";
 
 pushd $xproPath >/dev/null 2>&1; # $xproPath
+
+if [ ! -d $binPath ]; then 
+    mkdir $binPath;
+    status=$?;
+fi 
 
 pushd "$xproCLISourcePath"; # $xproCLISourcePath
 if [ $status -eq 0 ]; then 
     echo "Building xPro CLI (debug)"
     make clean; 
     make all;
+    status=$?;
+fi 
+
+if [ $status -eq 0 ]; then 
+    cp -afv $xpBuild $binPath;
     status=$?;
 fi 
 popd; # $xproCLISourcePath

@@ -19,6 +19,6 @@
 
 /// create
 #define CREATE_ARG "create"
-#define CREATE_XPRO_ARG "xpro"
+#define CREATE_XPRO_ARG "home"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

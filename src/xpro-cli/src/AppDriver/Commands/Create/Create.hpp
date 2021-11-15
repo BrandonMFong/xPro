@@ -15,4 +15,9 @@
  */
 xError HandleCreate(void);
 
+/**
+ * Creates .xpro at home path
+ */
+xError CreateXProHomePath(void);
+
 #endif /* SRC_APPDRIVER_COMMANDS_CREATE_CREATE_HPP_ */

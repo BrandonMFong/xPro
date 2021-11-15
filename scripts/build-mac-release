@@ -23,6 +23,13 @@ if [ $status -eq 0 ]; then
 fi 
 
 if [ $status -eq 0 ]; then 
+    if [ -f $binPath ]; then 
+        rm -rfv $binPath;
+        status=$?;
+    fi 
+fi 
+
+if [ $status -eq 0 ]; then 
     cp -afv $xpBuild $binPath;
     status=$?;
 fi 

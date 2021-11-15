@@ -68,6 +68,10 @@ void AppDriver::help(xBool moreInfo) {
 
 		printf("\t%s\treturns directory for alias\n", DIR_ARG);
 
+		// Create dir
+		printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
+		printf("\t\t\%s: Creates .xpro at home path", CREATE_XPRO_ARG);
+
 		printf("\n");
 	}
 
@@ -124,18 +128,37 @@ xError AppDriver::setup() {
 	homeDir = xHomePath(&result);
 
 	if (result == kNoError) {
+		this->_xProHomePath = (char *) malloc(
+			strlen(homeDir) +
+			strlen(XPRO_HOME_DIR_NAME)
+			+ 2
+		);
+
+		result = this->_xProHomePath != xNull ? kNoError : kUnknownError;
+	}
+
+	if (result == kNoError) {
+		sprintf(this->_xProHomePath, "%s/%s", homeDir, XPRO_HOME_DIR_NAME);
+		xFree(homeDir);
+
+		if (strlen(this->_xProHomePath) == 0) {
+			DLog("Unknown behavior, resulted in empty string");
+			result = kEmptyStringError;
+		}
+	}
+
+	if (result == kNoError) {
 		envPath = (char *) malloc(
-				strlen(homeDir)
+				strlen(this->_xProHomePath)
 			+ 	strlen(ENV_CONFIG_NAME)
-			+ 	1
+			+ 	2
 		);
 
 		result = envPath != xNull ? kNoError : kUnknownError;
 	}
 
 	if (result == kNoError) {
-		sprintf(envPath, "%s/.xpro/%s", homeDir, ENV_CONFIG_NAME);
-		xFree(homeDir);
+		sprintf(envPath, "%s/%s", this->_xProHomePath, ENV_CONFIG_NAME);
 
 		if (strlen(envPath) == 0) {
 			DLog("Unknown behavior, resulted in empty string");

@@ -11,6 +11,11 @@
 #include <xLib.h>
 
 /**
+ * directory name at home path
+ */
+#define XPRO_HOME_DIR_NAME ".xpro"
+
+/**
  * Environment config name
  */
 #define ENV_CONFIG_NAME "env.xml"
@@ -76,6 +81,10 @@ public:
 	}
 
 private:
+	/**
+	 * Path to .xpro
+	 */
+	char * _xProHomePath;
 
 	/**
 	 * Contains user information from env.xml

@@ -7,6 +7,7 @@
 
 #include "Create.hpp"
 #include <AppDriver/AppDriver.hpp>
+#include <AppDriver/Commands/Commands.h>
 
 xError HandleCreate(void) {
 	xError result = kNoError;
@@ -21,9 +22,20 @@ xError HandleCreate(void) {
 	}
 
 	if (result == kNoError) {
+		subCommand = appDriver->args.argAtIndex(2, &result);
+	}
 
+	if (result == kNoError) {
+		if (!strcmp(subCommand, CREATE_XPRO_ARG)) {
+
+		}
 	}
 
 	return result;
 }
 
+xError CreateXProHomePath() {
+	xError result = kNoError;
+
+	return result;
+}

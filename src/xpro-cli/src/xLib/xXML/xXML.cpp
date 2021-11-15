@@ -292,6 +292,11 @@ xError xXML::parseTagString() {
 				// Wait for not to finish
 				this->_parseHelper.state = kWaitToCloseTag;
 			}
+		} else {
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
+				// Wait for not to finish
+				this->_parseHelper.state = kWaitToCloseTag;
+			}
 		}
 
 		tempString = xNull;

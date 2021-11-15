@@ -135,6 +135,13 @@ char * xXML::getValue(
 		DLog("There was an error during parsing, %d", error);
 	}
 
+	if (this->_parseHelper.tagPathArray != xNull) {
+		for (xUInt8 i = 0; i < this->_parseHelper.arraySize; i++)
+			xFree(this->_parseHelper.tagPathArray[i]);
+
+		xFree(this->_parseHelper.tagPathArray);
+	}
+
 	xFree(this->_parseHelper.attrValue);
 	xFree(this->_parseHelper.attrKey);
 	xFree(this->_parseHelper.tagString);

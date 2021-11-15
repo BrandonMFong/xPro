@@ -9,11 +9,22 @@
 
 AppDriver * globalAppDriver = xNull;
 
-AppDriver::AppDriver(xInt8 argc, char ** argv, xError * err) : args(argc, argv, err) {
+AppDriver::AppDriver(
+xInt8 		argc,
+char ** 	argv,
+xError * 	err
+) : args(argc, argv, err) {
 	xError result = kNoError;
+
+	this->_userInfo.configPath 	= xNull;
+	this->_userInfo.username 	= xNull;
 
 	if (err != xNull) {
 		result = *err;
+	}
+
+	if (result == kNoError) {
+		result = this->setup();
 	}
 
 	if (result != kNoError) {
@@ -28,7 +39,8 @@ AppDriver::AppDriver(xInt8 argc, char ** argv, xError * err) : args(argc, argv, 
 }
 
 AppDriver::~AppDriver() {
-
+	xFree(this->_userInfo.username);
+	xFree(this->_userInfo.configPath);
 }
 
 
@@ -98,4 +110,59 @@ xError AppDriver::run() {
 
 AppDriver * AppDriver::shared() {
 	return globalAppDriver;
+}
+
+xError AppDriver::setup() {
+	xError result = kNoError;
+	xXML * envConfig = xNull;
+	char * homeDir 	= xNull;
+	char * envPath = xNull;
+
+	homeDir = xHomePath(&result);
+
+	if (result == kNoError) {
+		envPath = (char *) malloc(
+				strlen(homeDir)
+			+ 	strlen(ENV_CONFIG_NAME)
+			+ 	1
+		);
+
+		result = envPath != xNull ? kNoError : kUnknownError;
+	}
+
+	if (result == kNoError) {
+		sprintf(envPath, "%s/.xpro/%s", homeDir, ENV_CONFIG_NAME);
+		xFree(homeDir);
+
+		if (strlen(envPath) == 0) {
+			DLog("Unknown behavior, resulted in empty string");
+			result = kEmptyStringError;
+		}
+	}
+
+	if (result == kNoError) {
+		envConfig = new xXML(envPath, &result);
+
+		if (result != kNoError) {
+			DLog("Error initializing xml object for path, %s, please check that file exists", envPath);
+		}
+	}
+
+	if (result == kNoError) {
+		this->_userInfo.username = envConfig->getValue(USERNAME_XML_PATH, &result);
+
+		if (result != kNoError) {
+			DLog("Could not find path: %s", USERNAME_XML_PATH);
+		}
+	}
+
+	if (result == kNoError) {
+		this->_userInfo.configPath = envConfig->getValue(USERCONFIGPATH_XML_PATH, &result);
+
+		if (result != kNoError) {
+			DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);
+		}
+	}
+
+	return result;
 }

@@ -7,12 +7,13 @@
 
 #ifdef TESTING
 
+#include <xLib.h>
+
 /// xLib tests
 #include <xLib/xUtilities/xUtilities_Tests.h>
 #include <xLib/xXML/xXML_Tests.h>
 
 #include <Commands/Directory/Directory_Tests.h>
-#include <xPro-CLI.h>
 
 int xTests() {
 	printf("\n");

@@ -17,8 +17,8 @@ xXML * xProConfig = xNull;
 
 xError HandleDirectory() {
 	xError 		result 			= kNoError;
-	char 		* dirAlias 		= xNull,
-				* configPath 	= xNull;
+	char 		* dirAlias 		= xNull;
+	const char 	* configPath	= xNull;
 	AppDriver 	* appDriver		= xNull;
 
 	appDriver 	= AppDriver::shared();
@@ -39,7 +39,8 @@ xError HandleDirectory() {
 
 	// Get the config file
 	if (result == kNoError) {
-		configPath = ConfigFilePath(&result);
+		configPath = appDriver->configPath();
+		result = configPath != xNull ? kNoError : kUserConfigPathError;
 	}
 
 	if (result == kNoError) {

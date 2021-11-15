@@ -32,11 +32,8 @@ xArguments::xArguments(xInt8 argc, char ** argv, xError * err) {
 
 xArguments::~xArguments() {
 	if (this->_arguments != xNull) {
-		for (xUInt8 i = 0; i < this->_numArgs; i++) {
-			if (this->_arguments[i] != xNull) {
-				free(this->_arguments[i]);
-			}
-		}
+		for (xUInt8 i = 0; i < this->_numArgs; i++) xFree(this->_arguments[i]);
+		xFree(this->_arguments);
 	}
 }
 

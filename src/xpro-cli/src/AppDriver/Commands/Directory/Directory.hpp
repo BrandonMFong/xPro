@@ -9,7 +9,6 @@
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 
 #include <xLib.h>
-#include <AppDriver/AppDriver.hpp>
 
 #define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories/Directory.alias(%s)/Value.username(%s)"
 

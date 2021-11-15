@@ -20,6 +20,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 /**
  * Frees memory from heap and nulls out pointer
@@ -128,6 +130,11 @@ char * xBasename(const char * path, xError * err);
  * Returns true if path exists as a file
  */
 xBool xIsFile(const char * path);
+
+/**
+ * Checks if path is a directory
+ */
+xBool xIsDir(const char * path);
 
 /**
  * Returns user home directory path

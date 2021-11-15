@@ -24,7 +24,8 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 src/AppDriver \
-src/Commands/Directory \
+src/AppDriver/Commands/Create \
+src/AppDriver/Commands/Directory \
 src/Utilities \
 src/xLib/xArguments \
 src/xLib/xUtilities \

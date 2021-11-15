@@ -15,15 +15,15 @@ import subprocess
 ## VARIABLES START ##
 
 # arguments
-HELP_ARG: str    = "--help"
-BUILD_ARG: str   = "build"
-RELEASE_BUILD_ARG: str = "-r"
-DEBUG_BUILD_ARG: str = "-d"
+HELP_ARG:           str = "--help"
+BUILD_ARG:          str = "build"
+RELEASE_BUILD_ARG:  str = "-r"
+DEBUG_BUILD_ARG:    str = "-d"
 
-SCRIPT_NAME: str = os.path.basename(sys.argv[0])
-SCRIPT_PATH: str = os.path.realpath(os.path.dirname(sys.argv[0]))
-BUILD_MAC_DEBUG: str = "build-mac-debug"
-BUILD_MAC_RELEASE: str = "build-mac-release"
+SCRIPT_NAME:        str = os.path.basename(sys.argv[0])
+SCRIPT_PATH:        str = os.path.realpath(os.path.dirname(sys.argv[0]))
+BUILD_MAC_DEBUG:    str = "build-mac-debug"
+BUILD_MAC_RELEASE:  str = "build-mac-release"
 
 ## VARIABLES END ##
 
@@ -110,8 +110,8 @@ def install() -> int:
     Installs application to home directory 
     """
     result: int = 0
+    
 
-    print("install")
 
     return result 
 

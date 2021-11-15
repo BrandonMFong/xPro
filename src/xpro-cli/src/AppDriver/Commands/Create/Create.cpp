@@ -1,0 +1,29 @@
+/*
+ * Create.cpp
+ *
+ *  Created on: Nov 14, 2021
+ *      Author: brandonmfong
+ */
+
+#include "Create.hpp"
+#include <AppDriver/AppDriver.hpp>
+
+xError HandleCreate(void) {
+	xError result = kNoError;
+	AppDriver * appDriver = xNull;
+	const char * subCommand = xNull;
+
+	appDriver = AppDriver::shared();
+	result = appDriver != xNull ? kNoError : kNullError;
+
+	if (result == kNoError) {
+		result = appDriver->args.count() <= 3 ? kNoError : kNullError;
+	}
+
+	if (result == kNoError) {
+
+	}
+
+	return result;
+}
+

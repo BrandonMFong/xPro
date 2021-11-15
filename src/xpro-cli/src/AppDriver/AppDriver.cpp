@@ -6,13 +6,14 @@
  */
 
 #include "AppDriver.hpp"
+#include "Commands/Commands.h"
 
 AppDriver * globalAppDriver = xNull;
 
 AppDriver::AppDriver(
-xInt8 		argc,
-char ** 	argv,
-xError * 	err
+	xInt8 		argc,
+	char ** 	argv,
+	xError * 	err
 ) : args(argc, argv, err) {
 	xError result = kNoError;
 
@@ -100,7 +101,9 @@ xError AppDriver::run() {
 	// Run application
 	if (okayToContinue && (result == kNoError)) {
 		if (this->args.contains(DIR_ARG, &result)) {
-			result = HandleDirectory();
+			if (result == kNoError) result = HandleDirectory();
+		} else if (this->args.contains(CREATE_ARG, &result)) {
+			if (result == kNoError) result = HandleCreate();
 		}
 	}
 

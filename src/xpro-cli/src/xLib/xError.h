@@ -26,6 +26,8 @@ typedef enum {
 	kHostnameError = 12,
 	kSizeError = 13,
 	kUserConfigPathError = 14,
+	kDirectoryError = 15,
+	kNullError = 16,
 } xError;
 
 

@@ -54,6 +54,19 @@ xBool xIsFile(const char * path) {
 	return result;
 }
 
+xBool xIsDir(const char * path) {
+	xBool 	result 	= xFalse;
+	DIR * 	d 		= xNull;
+
+	d = opendir(path);
+	if (d != NULL) {
+		closedir(d);
+		result = xTrue;
+	}
+
+	return result;
+}
+
 char * xReadFile(
 	const char * 	path,
 	xError * 		err
@@ -165,6 +178,26 @@ char * xBasename(
 
 	if (err != xNull) {
 		*err = error;
+	}
+
+	return result;
+}
+
+xError xMkDir(const char * path) {
+	xError result = kNoError;
+
+	if (!xIsDir(path)) {
+		if (mkdir(path, 0700) == -1) {
+			result = kDirectoryError;
+			DLog("Could not create %s", path);
+		}
+
+		if (result == kNoError) {
+			if (!xIsDir(path)) {
+				result = kDirectoryError;
+				DLog("Directory still does not exist, %s", path);
+			}
+		}
 	}
 
 	return result;

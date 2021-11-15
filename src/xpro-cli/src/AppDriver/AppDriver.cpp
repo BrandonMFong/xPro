@@ -164,5 +164,7 @@ xError AppDriver::setup() {
 		}
 	}
 
+	xDelete(envConfig);
+
 	return result;
 }

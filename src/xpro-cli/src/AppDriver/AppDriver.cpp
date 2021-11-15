@@ -28,7 +28,7 @@ AppDriver::AppDriver(xInt8 argc, char ** argv, xError * err) : args(argc, argv, 
 }
 
 AppDriver::~AppDriver() {
-	// TODO Auto-generated destructor stub
+
 }
 
 

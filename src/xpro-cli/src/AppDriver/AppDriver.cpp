@@ -166,33 +166,35 @@ xError AppDriver::setup() {
 		}
 	}
 
-	if (result == kNoError) {
-		envConfig = new xXML(envPath, &result);
+	if (xIsDir(envPath)) {
+		if (result == kNoError) {
+			envConfig = new xXML(envPath, &result);
 
-		if (result != kNoError) {
-			DLog("Error initializing xml object for path, %s, please check that file exists", envPath);
+			if (result != kNoError) {
+				DLog("Error initializing xml object for path, %s, please check that file exists", envPath);
+			}
 		}
-	}
 
-	if (result == kNoError) {
-		this->_userInfo.username = envConfig->getValue(
-			USERNAME_XML_PATH,
-			&result
-		);
+		if (result == kNoError) {
+			this->_userInfo.username = envConfig->getValue(
+				USERNAME_XML_PATH,
+				&result
+			);
 
-		if (result != kNoError) {
-			DLog("Could not find path: %s", USERNAME_XML_PATH);
+			if (result != kNoError) {
+				DLog("Could not find path: %s", USERNAME_XML_PATH);
+			}
 		}
-	}
 
-	if (result == kNoError) {
-		this->_userInfo.configPath = envConfig->getValue(
-			USERCONFIGPATH_XML_PATH,
-			&result
-		);
+		if (result == kNoError) {
+			this->_userInfo.configPath = envConfig->getValue(
+				USERCONFIGPATH_XML_PATH,
+				&result
+			);
 
-		if (result != kNoError) {
-			DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);
+			if (result != kNoError) {
+				DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);
+			}
 		}
 	}
 

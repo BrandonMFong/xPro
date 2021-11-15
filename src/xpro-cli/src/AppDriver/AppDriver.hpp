@@ -80,6 +80,11 @@ public:
 		return (const char *) this->_userInfo.username;
 	}
 
+	/// Returns _xProHomePath
+	const char * xProHomePath() {
+		return (const char *) this->_xProHomePath;
+	}
+
 private:
 	/**
 	 * Path to .xpro

@@ -12,6 +12,8 @@
 
 /**
  * Handles the dir argument from
+ *
+ * This is where we create the xpro environment, i.e. create env.xml
  */
 xError HandleCreate(void);
 

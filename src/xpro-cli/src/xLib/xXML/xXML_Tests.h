@@ -265,8 +265,13 @@ void TestParsingWithFilePath(void) {
 		}
 	}
 
-	if (error == kNoError) {
+	if (success) {
 		value = xml->getValue("/xPro/Users/User.active(true)/username", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error in getting value for '/xPro/Users/User.active(true)/username', %d\n", error);
+		}
 	}
 
 	if (success) {
@@ -275,8 +280,6 @@ void TestParsingWithFilePath(void) {
 		if (!success) {
 			printf("getValue() returned null\n");
 		}
-	} else {
-		printf("Error in getting value for '/xPro/Users/User.active(true)/username', %d\n", error);
 	}
 
 	if (success) {

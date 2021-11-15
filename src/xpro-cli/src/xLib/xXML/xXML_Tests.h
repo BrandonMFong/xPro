@@ -227,7 +227,6 @@ void TestParsingWithFilePath(void) {
 		"<xPro>\n"
 			"<Users>\n"
 				"<User active=\"true\">\n"
-					"<username>Name</username>\n"
 					"<ConfigPath>/Users/brandonmfong/.xpro/user.xml</ConfigPath>\n"
 				"</User>\n"
 			"</Users>\n"
@@ -265,14 +264,29 @@ void TestParsingWithFilePath(void) {
 		}
 	}
 
-	if (success) {
-		value = xml->getValue("/xPro/Users/User.active(true)/username", &error);
-		success = error == kNoError;
+	PRINT_TEST_RESULTS(success);
+}
 
-		if (!success) {
-			printf("Error in getting value for '/xPro/Users/User.active(true)/username', %d\n", error);
-		}
+void TestGettingSiblingNode(void) {
+	const char * content =
+		"<xPro>"
+			"<One>1</One>"
+			"<Two>2</Two>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = new xXML(&error);
+
+	if (error == kNoError) {
+		error = xml->setContent(content);
 	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/xPro/Two", &error);
+	}
+
+	xBool success = error == kNoError;
 
 	if (success) {
 		success = value != xNull;
@@ -280,13 +294,15 @@ void TestParsingWithFilePath(void) {
 		if (!success) {
 			printf("getValue() returned null\n");
 		}
+	} else {
+		printf("Error in getting value for '/xPro/Two', %d\n", error);
 	}
 
 	if (success) {
-		success = (strcmp(value, "Name") == 0);
+		success = (strcmp(value, "2") == 0);
 
 		if (!success) {
-			printf("%s != 'Name'\n", value);
+			printf("%s != '2'\n", value);
 		}
 	}
 
@@ -301,6 +317,7 @@ void xXML_Tests(void) {
 	TestGettingInnerXmlForSpecificAttribute();
 	TestGettingValueForSpecificAttribute();
 	TestParsingWithFilePath();
+	TestGettingSiblingNode();
 
 	printf("\n");
 }

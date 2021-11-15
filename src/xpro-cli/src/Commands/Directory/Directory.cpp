@@ -17,29 +17,30 @@ xXML * xProConfig = xNull;
 
 xError HandleDirectory() {
 	xError 		result 			= kNoError;
-	char 		* dirAlias 		= xNull,
-				* configPath 	= xNull;
-	xArguments 	* arguments 	= xNull;
+	char 		* dirAlias 		= xNull;
+	const char 	* configPath	= xNull;
+	AppDriver 	* appDriver		= xNull;
 
-	arguments 	= xArguments::shared();
-	result 		= arguments != xNull ? kNoError : kArgError;
+	appDriver 	= AppDriver::shared();
+	result 		= appDriver != xNull ? kNoError : kArgError;
 
 	if (result == kNoError) {
-		result = arguments->count() >= 3 ? kNoError : kArgError;
+		result = appDriver->args.count() >= 3 ? kNoError : kArgError;
 
 		if (result != kNoError) {
-			DLog("Does not have correct count of arguments, actual: %d\n", arguments->count());
+			DLog("Does not have correct count of arguments, actual: %d\n", appDriver->args.count());
 		}
 	}
 
 	// Get the alias from command line
 	if (result == kNoError) {
-		dirAlias = arguments->argAtIndex(2, &result);
+		dirAlias = appDriver->args.argAtIndex(2, &result);
 	}
 
 	// Get the config file
 	if (result == kNoError) {
-		configPath = ConfigFilePath(&result);
+		configPath 	= appDriver->configPath();
+		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
 	}
 
 	if (result == kNoError) {
@@ -54,11 +55,11 @@ xError HandleDirectory() {
 	if (result == kNoError) {
 		// If user passed 3 arguments: <tool> dir <alias>
 		// then we just need to print the alias definition
-		if (arguments->count() == 3) {
+		if (appDriver->args.count() == 3) {
 			result = PrintDirectoryForAlias(dirAlias);
 		} else {
 			result = kDirectoryAliasError;
-			DLog("Unexpected number of arguments, %d\n", arguments->count());
+			DLog("Unexpected number of arguments, %d\n", appDriver->args.count());
 		}
 	}
 
@@ -71,12 +72,13 @@ xError HandleDirectory() {
 }
 
 xError PrintDirectoryForAlias(const char * alias) {
-	xError result = kNoError;
-	char * elementPath = xNull;
-	char * directory = xNull;
-	char * hostName = xNull;
+	xError 		result 			= kNoError;
+	char 		* elementPath 	= xNull,
+				* directory 	= xNull;
+	const char 	* username 		= xNull;
 
-	hostName = xHostname(&result);
+	username 	= AppDriver::shared()->username();
+	result 		= username != xNull ? kNoError : kStringError;
 
 	if (result == kNoError) {
 		if (alias == xNull) {
@@ -85,7 +87,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 			elementPath = xMallocString(
 					strlen(alias)
 				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-				+	strlen(hostName)
+				+	strlen(username)
 				+ 	1,
 				&result
 			);
@@ -95,7 +97,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 					elementPath,
 					DIRECTORY_ELEMENT_PATH_FORMAT,
 					alias,
-					hostName
+					username
 				);
 			}
 		}
@@ -112,8 +114,6 @@ xError PrintDirectoryForAlias(const char * alias) {
 	if (result == kNoError) {
 		printf("%s\n", directory);
 	}
-
-	xFree(hostName);
 
 	return result;
 }

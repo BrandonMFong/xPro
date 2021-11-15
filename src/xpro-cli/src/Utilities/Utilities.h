@@ -14,12 +14,6 @@
 extern "C" {
 #endif // __cplusplus
 
-/**
- * Returns the standard config file for user
- *
- * Caller is responsible for freeing memory
- */
-char * ConfigFilePath(xError * err);
 
 #ifdef __cplusplus
 }

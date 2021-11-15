@@ -222,6 +222,93 @@ void TestGettingValueForSpecificAttribute(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestParsingWithFilePath(void) {
+	const char * content =
+		"<xPro>\n"
+			"<Users>\n"
+				"<User active=\"true\">\n"
+					"<ConfigPath>/Users/brandonmfong/.xpro/user.xml</ConfigPath>\n"
+				"</User>\n"
+			"</Users>\n"
+		"</xPro>\n";
+
+	xError error = kNoError;
+	xXML * xml = new xXML(&error);
+
+	if (error == kNoError) {
+		error = xml->setContent(content);
+	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/xPro/Users/User.active(true)/ConfigPath", &error);
+	}
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		success = value != xNull;
+
+		if (!success) {
+			printf("getValue() returned null\n");
+		}
+	} else {
+		printf("Error in getting value for '/xPro/Users/User.active(true)/ConfigPath', %d\n", error);
+	}
+
+	if (success) {
+		success = (strcmp(value, "/Users/brandonmfong/.xpro/user.xml") == 0);
+
+		if (!success) {
+			printf("%s != '/Users/brandonmfong/.xpro/user.xml'\n", value);
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
+void TestGettingSiblingNode(void) {
+	const char * content =
+		"<xPro>"
+			"<One>1</One>"
+			"<Two>2</Two>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = new xXML(&error);
+
+	if (error == kNoError) {
+		error = xml->setContent(content);
+	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/xPro/Two", &error);
+	}
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		success = value != xNull;
+
+		if (!success) {
+			printf("getValue() returned null\n");
+		}
+	} else {
+		printf("Error in getting value for '/xPro/Two', %d\n", error);
+	}
+
+	if (success) {
+		success = (strcmp(value, "2") == 0);
+
+		if (!success) {
+			printf("%s != '2'\n", value);
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
@@ -229,6 +316,8 @@ void xXML_Tests(void) {
 	TestParsingForAttribute();
 	TestGettingInnerXmlForSpecificAttribute();
 	TestGettingValueForSpecificAttribute();
+	TestParsingWithFilePath();
+	TestGettingSiblingNode();
 
 	printf("\n");
 }

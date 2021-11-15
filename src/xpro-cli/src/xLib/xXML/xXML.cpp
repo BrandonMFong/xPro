@@ -135,6 +135,13 @@ char * xXML::getValue(
 		DLog("There was an error during parsing, %d", error);
 	}
 
+	if (this->_parseHelper.tagPathArray != xNull) {
+		for (xUInt8 i = 0; i < this->_parseHelper.arraySize; i++)
+			xFree(this->_parseHelper.tagPathArray[i]);
+
+		xFree(this->_parseHelper.tagPathArray);
+	}
+
 	xFree(this->_parseHelper.attrValue);
 	xFree(this->_parseHelper.attrKey);
 	xFree(this->_parseHelper.tagString);
@@ -269,9 +276,8 @@ xError xXML::parseTagString() {
 	case '/': // start of the end of a tag
 		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 
-		// If we found a tag from the tag path then increment the array index
 		if (!strcmp(tempString, this->_parseHelper.tagString)) {
-			tempString = xNull;
+			// If we found a tag from the tag path then increment the array index
 			this->_parseHelper.arrayIndex++;
 
 			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
@@ -286,7 +292,14 @@ xError xXML::parseTagString() {
 				// Wait for not to finish
 				this->_parseHelper.state = kWaitToCloseTag;
 			}
+		} else {
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
+				// Wait for not to finish
+				this->_parseHelper.state = kWaitToCloseTag;
+			}
 		}
+
+		tempString = xNull;
 
 		// Reset the tag string
 		xFree(this->_parseHelper.tagString);

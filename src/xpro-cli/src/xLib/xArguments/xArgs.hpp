@@ -57,17 +57,6 @@ public:
 		return this->_numArgs;
 	}
 
-	/**
-	 * Returns a reference to a shared xArguments that
-	 * was initially constructed by the first caller
-	 */
-	static xArguments * shared();
-
-	/**
-	 * Initializes global argument variable
-	 */
-	static xError init(xInt8 argc, char ** argv);
-
 private:
 	/**
 	 * Saves the argv into memory

@@ -17,22 +17,13 @@ extern "C" {
 }
 #endif
 
-/// Use this global args variable for your main
-static xArguments * args = xNull;
-
 xArguments::xArguments(xInt8 argc, char ** argv, xError * err) {
 	xError error = kNoError;
 
 	this->_arguments 	= xNull;
 	this->_numArgs 		= 0;
 
-	if (error == kNoError) {
-		error = this->_saveArgs(argc, argv);
-	}
-
-	if ((error == kNoError) && (args == xNull)) {
-		args = this;
-	}
+	error = this->_saveArgs(argc, argv);
 
 	if (err != xNull) {
 		*err = error;
@@ -110,19 +101,6 @@ char * xArguments::argAtIndex(xUInt8 index, xError * err) {
 	if (err != xNull) {
 		*err = error;
 	}
-
-	return result;
-}
-
-xArguments * xArguments::shared() {
-	return args;
-}
-
-xError xArguments::init(xInt8 argc, char ** argv) {
-	xError result = kNoError;
-
-	xDelete(args);
-	args = new xArguments(argc, argv, &result);
 
 	return result;
 }

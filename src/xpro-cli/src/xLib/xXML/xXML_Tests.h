@@ -224,13 +224,14 @@ void TestGettingValueForSpecificAttribute(void) {
 
 void TestParsingWithFilePath(void) {
 	const char * content =
-		"<xPro>"
-			"<Users>"
-				"<User active=\"true\">"
-					"<ConfigPath>/Users/brandonmfong/.xpro/user.xml</ConfigPath>"
-				"</User>"
-			"</Users>"
-		"</xPro>";
+		"<xPro>\n"
+			"<Users>\n"
+				"<User active=\"true\">\n"
+					"<username>Name</username>\n"
+					"<ConfigPath>/Users/brandonmfong/.xpro/user.xml</ConfigPath>\n"
+				"</User>\n"
+			"</Users>\n"
+		"</xPro>\n";
 
 	xError error = kNoError;
 	xXML * xml = new xXML(&error);
@@ -260,7 +261,29 @@ void TestParsingWithFilePath(void) {
 		success = (strcmp(value, "/Users/brandonmfong/.xpro/user.xml") == 0);
 
 		if (!success) {
-			printf("%s != 'Joe'\n", value);
+			printf("%s != '/Users/brandonmfong/.xpro/user.xml'\n", value);
+		}
+	}
+
+	if (error == kNoError) {
+		value = xml->getValue("/xPro/Users/User.active(true)/username", &error);
+	}
+
+	if (success) {
+		success = value != xNull;
+
+		if (!success) {
+			printf("getValue() returned null\n");
+		}
+	} else {
+		printf("Error in getting value for '/xPro/Users/User.active(true)/username', %d\n", error);
+	}
+
+	if (success) {
+		success = (strcmp(value, "Name") == 0);
+
+		if (!success) {
+			printf("%s != 'Name'\n", value);
 		}
 	}
 

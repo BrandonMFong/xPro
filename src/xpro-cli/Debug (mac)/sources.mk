@@ -26,12 +26,6 @@ SUBDIRS := \
 src/AppDriver \
 src/AppDriver/Commands/Create \
 src/AppDriver/Commands/Directory \
-src/Debug\ (mac)/Commands/Directory \
-src/Debug\ (mac)/Utilities \
-src/Debug\ (mac)/xLib/xArguments \
-src/Debug\ (mac)/xLib/xUtilities \
-src/Debug\ (mac)/xLib/xXML \
-src/Debug\ (mac) \
 src/Utilities \
 src/xLib/xArguments \
 src/xLib/xUtilities \

@@ -21,6 +21,7 @@ BUILD_ARG:          str = "build"
 RELEASE_BUILD_ARG:  str = "-r"
 DEBUG_BUILD_ARG:    str = "-d"
 
+# File system items
 SCRIPT_NAME:        str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:        str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:          str = os.path.dirname(SCRIPT_PATH)
@@ -32,6 +33,10 @@ HOME_DIR:           str = os.path.expanduser("~")
 XPRO_HOME_PATH:     str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
 XPRO_DEBUG_BUILD:   str = "debug-xp"
 XPRO_RELEASE_BUILD: str = "xp"
+PROFILE_NAME:       str = "profile.sh"
+XPRO_PROFILE_PATH:  str = "{}/src/profiles/{}".format(XPRO_PATH, PROFILE_NAME)
+
+SOURCE_XPRO_PROF: str = "source ./.xpro/profile.sh"
 
 ## CONSTANTS END ##
 
@@ -134,6 +139,7 @@ def checkDependencies() -> int:
         print("Please run {} {} to build binaries".format(SCRIPT_NAME, BUILD_ARG))
         result = 1
 
+    # Create task to copy bin
     if result == 0:
         if RELEASE_BUILD_ARG in sys.argv:
             bin = XPRO_RELEASE_BUILD
@@ -144,13 +150,38 @@ def checkDependencies() -> int:
 
         tempString = "{}/{}".format(XPRO_BIN_PATH, bin) 
 
-        if os.path.exists(tempString):
-            copySet.append([tempString, XPRO_HOME_PATH])
-        else:
+        if os.path.exists(tempString) is False:
             print("{} does not exist!".format(tempString))
             result = 1
 
+    if result == 0:
+        if os.path.exists(XPRO_HOME_PATH) is False:
+            os.mkdir(XPRO_HOME_PATH)
+
+            if os.path.exists(XPRO_HOME_PATH) is False:
+                result = 1
+                print("Could not create directory {}".format(XPRO_HOME_PATH))
+            else:
+                copySet.append([tempString, XPRO_HOME_PATH])
+
+    if result == 0:
+        if os.path.exists(XPRO_PROFILE_PATH) is False:
+            print("{} does not exist!".format(XPRO_PROFILE_PATH))
+            result = 1
+        else:
+            copySet.append([XPRO_PROFILE_PATH, XPRO_HOME_PATH])
+
     return result
+
+def sourceXProInShellProfile() -> int:
+    """
+    sourceXProInShellProfile
+    ========================
+    Finds 
+    """
+    result: int = 0
+
+    return result 
 
 def install() -> int:
     """
@@ -168,14 +199,6 @@ def install() -> int:
         print("Current path is not {}.  Unexpected behavior".format(XPRO_PATH))
 
     if result == 0:
-        if os.path.exists(XPRO_HOME_PATH) is False:
-            os.mkdir(XPRO_HOME_PATH)
-
-            if os.path.exists(XPRO_HOME_PATH) is False:
-                result = 1
-                print("Could not create directory {}".format(XPRO_HOME_PATH))
-
-    if result == 0:
         result = checkDependencies()
 
     if result == 0:
@@ -186,6 +209,9 @@ def install() -> int:
                 result = 1
                 print("Unexpected amount of arguments")
                 break 
+
+    if result == 0:
+        result = sourceXProInShellProfile()
 
     return result 
 

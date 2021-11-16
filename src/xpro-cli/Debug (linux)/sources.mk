@@ -4,8 +4,8 @@
 
 C_UPPER_SRCS := 
 CXX_SRCS := 
-OBJ_SRCS := 
 C++_SRCS := 
+OBJ_SRCS := 
 CC_SRCS := 
 ASM_SRCS := 
 CPP_SRCS := 
@@ -15,17 +15,20 @@ S_UPPER_SRCS :=
 CC_DEPS := 
 C++_DEPS := 
 EXECUTABLES := 
-OBJS := 
 C_UPPER_DEPS := 
 CXX_DEPS := 
+OBJS := 
 CPP_DEPS := 
 C_DEPS := 
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-src/Commands/Directory \
-src \
+src/AppDriver \
+src/AppDriver/Commands/Create \
+src/AppDriver/Commands/Directory \
+src/Utilities \
 src/xLib/xArguments \
 src/xLib/xUtilities \
 src/xLib/xXML \
+src \
 

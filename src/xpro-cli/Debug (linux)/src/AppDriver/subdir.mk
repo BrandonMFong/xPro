@@ -4,20 +4,20 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Commands/Directory/Directory.cpp 
+../src/AppDriver/AppDriver.cpp 
 
 OBJS += \
-./src/Commands/Directory/Directory.o 
+./src/AppDriver/AppDriver.o 
 
 CPP_DEPS += \
-./src/Commands/Directory/Directory.d 
+./src/AppDriver/AppDriver.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/Commands/Directory/%.o: ../src/Commands/Directory/%.cpp src/Commands/Directory/subdir.mk
+src/AppDriver/%.o: ../src/AppDriver/%.cpp src/AppDriver/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -std=c++2a -DDEBUG -D__LINUX__ -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib" -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -DDEBUG -D__LINUX__ -I$(SOURCE_PATH)/src/xLib -I$(SOURCE_PATH)/src -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

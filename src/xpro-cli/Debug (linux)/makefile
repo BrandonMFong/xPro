@@ -11,7 +11,10 @@ RM := rm -rf
 -include src/xLib/xXML/subdir.mk
 -include src/xLib/xUtilities/subdir.mk
 -include src/xLib/xArguments/subdir.mk
--include src/Commands/Directory/subdir.mk
+-include src/Utilities/subdir.mk
+-include src/AppDriver/Commands/Directory/subdir.mk
+-include src/AppDriver/Commands/Create/subdir.mk
+-include src/AppDriver/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -61,14 +64,14 @@ main-build: xp
 # Tool invocations
 xp: $(OBJS) $(USER_OBJS) makefile objects.mk $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: MacOS X C++ Linker'
+	@echo 'Invoking: GCC C++ Linker'
 	g++  -o "xp" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) xp
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) xp
 	-@echo ' '
 
 .PHONY: all clean dependents main-build

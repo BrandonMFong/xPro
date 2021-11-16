@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <limits.h>
 
 /**
  * Frees memory from heap and nulls out pointer

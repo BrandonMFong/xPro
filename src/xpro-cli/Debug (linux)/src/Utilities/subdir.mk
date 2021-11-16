@@ -3,24 +3,21 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CPP_SRCS += \
-../src/xMain.cpp \
-../src/xTests.cpp 
+C_SRCS += \
+../src/Utilities/Utilities.c 
 
 OBJS += \
-./src/xMain.o \
-./src/xTests.o 
+./src/Utilities/Utilities.o 
 
-CPP_DEPS += \
-./src/xMain.d \
-./src/xTests.d 
+C_DEPS += \
+./src/Utilities/Utilities.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/%.o: ../src/%.cpp src/subdir.mk
+src/Utilities/%.o: ../src/Utilities/%.c src/Utilities/subdir.mk
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DDEBUG -D__LINUX__ -I$(SOURCE_PATH)/src/xLib -I$(SOURCE_PATH)/src -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	@echo 'Invoking: GCC C Compiler'
+	gcc -DDEBUG -D__LINUX__ -I$(SOURCE_PATH)/src/xLib -I$(SOURCE_PATH)/src -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

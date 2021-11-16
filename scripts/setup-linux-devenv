@@ -2,7 +2,8 @@
 # Author: Brando
 
 status=0
-xproLink="/Library/xPro";
+xproLibPath="/Library";
+xproLink="$xproLibPath/xPro";
 xproPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
 
 pushd $xproPath >/dev/null 2>&1; # $xproPath
@@ -23,10 +24,13 @@ if [ $status -eq 0 ]; then
     fi 
 fi 
 
-# Create the directory
+# Create the library directory if it 
+# does not already exist
 if [ $status -eq 0 ]; then 
-    mkdir -p $xproLink; 
-    status=$?;
+    if [ ! -d $xproLibPath ]; then 
+	mkdir -p $xproLibPath;
+	status=$?;
+    fi 
 fi
 
 # Create the link

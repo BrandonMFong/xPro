@@ -11,8 +11,9 @@ __date__ = "11/14/2021"
 import sys 
 import os 
 import subprocess
+import shutil
 
-## VARIABLES START ##
+## CONSTANTS START ##
 
 # arguments
 HELP_ARG:           str = "--help"
@@ -22,8 +23,23 @@ DEBUG_BUILD_ARG:    str = "-d"
 
 SCRIPT_NAME:        str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:        str = os.path.realpath(os.path.dirname(sys.argv[0]))
+XPRO_PATH:          str = os.path.dirname(SCRIPT_PATH)
+XPRO_BIN_PATH:      str = "{}/bin".format(XPRO_PATH)
 BUILD_MAC_DEBUG:    str = "build-mac-debug"
 BUILD_MAC_RELEASE:  str = "build-mac-release"
+XPRO_DIR_NAME:      str = ".xpro"
+HOME_DIR:           str = os.path.expanduser("~")
+XPRO_HOME_PATH:     str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
+XPRO_DEBUG_BUILD:   str = "debug-xp"
+XPRO_RELEASE_BUILD: str = "xp"
+
+## CONSTANTS END ##
+
+## VARIABLES START ##
+
+# Each object in index has two elements: [source, destination]
+# Use this to copy and setup user env
+copySet: list = list() 
 
 ## VARIABLES END ##
 
@@ -70,7 +86,7 @@ def build() -> int:
 
     if indexForBuildArg <= 0:
         result = 1
-        print("index for {BUILD_ARG} is {indexForBuildArg}")
+        print("index for {} is {}".format(BUILD_ARG, indexForBuildArg))
 
     if result == 0:
         if (indexForBuildArg + 1) < len(sys.argv):
@@ -103,6 +119,39 @@ def build() -> int:
 
     return result 
 
+def checkDependencies() -> int: 
+    """
+    checkDependencies
+    ================
+    Before we attempt to setup the environment, we need to make sure we have everything
+    """
+    global copySet
+    result: int = 0
+    tempString: str 
+
+    if os.path.exists(XPRO_BIN_PATH) is False:
+        print("{} does not exist".format(XPRO_BIN_PATH))
+        print("Please run {} {} to build binaries".format(SCRIPT_NAME, BUILD_ARG))
+        result = 1
+
+    if result == 0:
+        if RELEASE_BUILD_ARG in sys.argv:
+            bin = XPRO_RELEASE_BUILD
+        elif DEBUG_BUILD_ARG is sys.argv:
+            bin = XPRO_DEBUG_BUILD
+        else:
+            bin = XPRO_RELEASE_BUILD # default
+
+        tempString = "{}/{}".format(XPRO_BIN_PATH, bin) 
+
+        if os.path.exists(tempString):
+            copySet.append([tempString, XPRO_HOME_PATH])
+        else:
+            print("{} does not exist!".format(tempString))
+            result = 1
+
+    return result
+
 def install() -> int:
     """
     install
@@ -111,7 +160,32 @@ def install() -> int:
     """
     result: int = 0
     
+    os.chdir(XPRO_PATH)
+    path = os.getcwd()
 
+    if path != XPRO_PATH:
+        result = 1
+        print("Current path is not {}.  Unexpected behavior".format(XPRO_PATH))
+
+    if result == 0:
+        if os.path.exists(XPRO_HOME_PATH) is False:
+            os.mkdir(XPRO_HOME_PATH)
+
+            if os.path.exists(XPRO_HOME_PATH) is False:
+                result = 1
+                print("Could not create directory {}".format(XPRO_HOME_PATH))
+
+    if result == 0:
+        result = checkDependencies()
+
+    if result == 0:
+        for command in copySet:
+            if len(command) == 2:
+                shutil.copy(command[0], command[1])
+            else:
+                result = 1
+                print("Unexpected amount of arguments")
+                break 
 
     return result 
 

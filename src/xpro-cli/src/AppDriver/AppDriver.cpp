@@ -44,7 +44,6 @@ AppDriver::~AppDriver() {
 	xFree(this->_userInfo.configPath);
 }
 
-
 void AppDriver::help(xBool moreInfo) {
 	xError result 			= kNoError;
 	char * executableName 	= xNull;
@@ -70,7 +69,7 @@ void AppDriver::help(xBool moreInfo) {
 
 		// Create dir
 		printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
-		printf("\t\t\%s: Creates .xpro at home path", CREATE_XPRO_ARG);
+		printf("\t\t%s: Creates .xpro at home path", CREATE_XPRO_ARG);
 
 		printf("\n");
 	}
@@ -113,7 +112,6 @@ xError AppDriver::run() {
 
 	return result;
 }
-
 
 AppDriver * AppDriver::shared() {
 	return globalAppDriver;

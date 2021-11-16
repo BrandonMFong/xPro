@@ -3,7 +3,7 @@
 
 status=0
 xproPath="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))";
-xproCLISourcePath="src/xpro-cli/Linux (mac)"; # xpro-cli source file path
+xproCLISourcePath="src/xpro-cli/Debug (linux)"; # xpro-cli source file path
 binPath="$xproPath/bin";
 xpBuild="debug-xp";
 

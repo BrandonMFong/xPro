@@ -164,7 +164,7 @@ xError AppDriver::setup() {
 		}
 	}
 
-	if (xIsDir(envPath)) {
+	if (xIsFile(envPath)) {
 		if (result == kNoError) {
 			envConfig = new xXML(envPath, &result);
 

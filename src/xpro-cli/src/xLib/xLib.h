@@ -14,7 +14,7 @@
 
 /// xLib
 #include <xError.h>
-#include <xLogger/xDLog.h>
+#include "xLogger/xLog.h"
 #include <xInt.h>
 #include <xNull.h>
 #include <xBool.h>

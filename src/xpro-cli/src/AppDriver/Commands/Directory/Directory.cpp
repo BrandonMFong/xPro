@@ -64,7 +64,7 @@ xError HandleDirectory() {
 	}
 
 	if (result != kNoError) {
-		printf("Error occured: %d\n", result);
+		xError("Error occured: %d\n", result);
 	}
 
 	xDelete(xProConfig);

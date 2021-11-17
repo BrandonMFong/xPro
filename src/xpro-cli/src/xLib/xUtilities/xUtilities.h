@@ -12,7 +12,6 @@
 #include <xError.h>
 #include <xNull.h>
 #include <xInt.h>
-#include <xLogger/xDLog.h>
 #include <xBool.h>
 
 /// System
@@ -23,6 +22,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <limits.h>
+#include "../xLogger/xLog.h"
 
 /**
  * Frees memory from heap and nulls out pointer

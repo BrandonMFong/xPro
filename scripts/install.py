@@ -43,9 +43,9 @@ ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
 DEFAULT_CONF_NAME:  str = "user.xml"
 DEFAULT_CONF_PATH:  str = "{}/config/{}".format(XPRO_PATH, DEFAULT_CONF_NAME)
 
-SOURCE_XPRO_PROF: str = "source ~/.xpro/profile.sh"
-PROFILE_START_STR: str = "###### XPRO START ######"
-PROFILE_END_STR: str = "###### XPRO END ######"
+SOURCE_XPRO_PROF:   str = "source ~/.xpro/profile.sh"
+PROFILE_START_STR:  str = "###### XPRO START ######"
+PROFILE_END_STR:    str = "###### XPRO END ######"
 
 ## CONSTANTS END ##
 
@@ -74,10 +74,10 @@ def help():
     print()
     
     print("\t{scriptname} {build} [ {release} | {debug} ]: If passed, all makefiles will be ran to generate a clean build. Default mode is release".format(
-        scriptname = SCRIPT_NAME, 
-        build = BUILD_ARG,
-        release = RELEASE_BUILD_ARG, 
-        debug = DEBUG_BUILD_ARG
+        scriptname  = SCRIPT_NAME, 
+        build       = BUILD_ARG,
+        release     = RELEASE_BUILD_ARG, 
+        debug       = DEBUG_BUILD_ARG
     ))
 
     print()
@@ -171,6 +171,10 @@ def checkDependencies() -> int:
             if os.path.exists(XPRO_HOME_PATH) is False:
                 result = 1
                 print("Could not create directory {}".format(XPRO_HOME_PATH))
+
+        if os.path.exists("{}/{}".format(XPRO_HOME_PATH, bin)):
+            print("Removing existing '{}' at '{}'".format(bin, XPRO_HOME_PATH))
+            os.remove("{}/{}".format(XPRO_HOME_PATH, bin))
         
         if result == 0:
             copySet.append([tempString, XPRO_HOME_PATH])
@@ -295,9 +299,9 @@ def main():
             result = install()
 
         if result == 0:
-            print("Success")
+            print("Install complete")
         else:
-            print("Failed")
+            print("Install Failed")
 
     sys.exit(result)
 

@@ -23,8 +23,9 @@ if [ $status -eq 0 ]; then
 fi 
 
 if [ $status -eq 0 ]; then 
-    if [ -f $binPath ]; then 
-        rm -rfv $binPath;
+    if [ -f $binPath/$xpBuild ]; then 
+        echo "Removing old build";
+        rm -rfv $binPath/$xpBuild;
         status=$?;
     fi 
 fi 

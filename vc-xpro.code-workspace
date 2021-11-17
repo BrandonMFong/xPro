@@ -1,6 +1,7 @@
 {
 	"folders": [
 		{
+			"name": "main",
 			"path": "."
 		},
 		{
@@ -13,7 +14,7 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "Python: Current File",
+				"name": "Run Python File",
 				"type": "python",
 				"request": "launch",
 				"program": "${file}",

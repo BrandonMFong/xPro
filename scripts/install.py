@@ -40,8 +40,8 @@ ZSH_PROFILE_NAME:   str = ".zprofile"
 ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
 
 SOURCE_XPRO_PROF: str = "source ~/.xpro/profile.sh"
-PROFILE_START_STR: str = "======= XPRO START ======="
-PROFILE_END_STR: str = "======= XPRO END ======="
+PROFILE_START_STR: str = "###### XPRO START ######"
+PROFILE_END_STR: str = "###### XPRO END ######"
 
 ## CONSTANTS END ##
 
@@ -166,8 +166,9 @@ def checkDependencies() -> int:
             if os.path.exists(XPRO_HOME_PATH) is False:
                 result = 1
                 print("Could not create directory {}".format(XPRO_HOME_PATH))
-            else:
-                copySet.append([tempString, XPRO_HOME_PATH])
+        
+        if result == 0:
+            copySet.append([tempString, XPRO_HOME_PATH])
 
     if result == 0:
         if os.path.exists(XPRO_PROFILE_PATH) is False:

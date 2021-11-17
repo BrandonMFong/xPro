@@ -38,6 +38,10 @@ PROFILE_NAME:       str = "profile.sh"
 XPRO_PROFILE_PATH:  str = "{}/src/profiles/{}".format(XPRO_PATH, PROFILE_NAME)
 ZSH_PROFILE_NAME:   str = ".zprofile"
 ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
+ENV_CONFIG_NAME:    str = "env.xml"
+ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
+DEFAULT_CONF_NAME:  str = "user.xml"
+DEFAULT_CONF_PATH:  str = "{}/config/{}".format(XPRO_PATH, DEFAULT_CONF_NAME)
 
 SOURCE_XPRO_PROF: str = "source ~/.xpro/profile.sh"
 PROFILE_START_STR: str = "###### XPRO START ######"
@@ -160,6 +164,7 @@ def checkDependencies() -> int:
             result = 1
 
     if result == 0:
+        # Create xpro home path if it does not exist
         if os.path.exists(XPRO_HOME_PATH) is False:
             os.mkdir(XPRO_HOME_PATH)
 
@@ -170,6 +175,7 @@ def checkDependencies() -> int:
         if result == 0:
             copySet.append([tempString, XPRO_HOME_PATH])
 
+    # copy shell profile
     if result == 0:
         if os.path.exists(XPRO_PROFILE_PATH) is False:
             print("{} does not exist!".format(XPRO_PROFILE_PATH))
@@ -177,13 +183,33 @@ def checkDependencies() -> int:
         else:
             copySet.append([XPRO_PROFILE_PATH, XPRO_HOME_PATH])
 
+    # env.xml
+    if result == 0:
+        if os.path.exists(ENV_CONFIG_PATH) is False:
+            print("{} does not exist!".format(ENV_CONFIG_PATH))
+            result = 1
+        else:
+            # Only copy env.xml if it does not already exist
+            if os.path.exists("{}/{}".format(XPRO_HOME_PATH, ENV_CONFIG_NAME)) is False:
+                copySet.append([ENV_CONFIG_PATH, XPRO_HOME_PATH])
+
+    # user.xml, the default config
+    if result == 0:
+        if os.path.exists(DEFAULT_CONF_PATH) is False:
+            print("{} does not exist!".format(DEFAULT_CONF_PATH))
+            result = 1
+        else:
+            # Only copy user.xml if it does not already exist
+            if os.path.exists("{}/{}".format(XPRO_HOME_PATH, DEFAULT_CONF_PATH)) is False:
+                copySet.append([DEFAULT_CONF_PATH, XPRO_HOME_PATH])
+
     return result
 
 def modifyShellProfile() -> int:
     """
     sourceXProInShellProfile
     ========================
-    Finds 
+    Inserts command to source xpro profile
     """
     result: int = 0
     fp: FileIO

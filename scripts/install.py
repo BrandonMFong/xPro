@@ -42,6 +42,8 @@ ENV_CONFIG_NAME:    str = "env.xml"
 ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
 DEFAULT_CONF_NAME:  str = "user.xml"
 DEFAULT_CONF_PATH:  str = "{}/config/{}".format(XPRO_PATH, DEFAULT_CONF_NAME)
+UTIL_NAME:          str = "xutil.sh"
+UTIL_PATH:          str = "{}/src/lib/bash/{}".format(XPRO_PATH, UTIL_NAME)
 
 SOURCE_XPRO_PROF:   str = "source ~/.xpro/profile.sh"
 PROFILE_START_STR:  str = "###### XPRO START ######"
@@ -179,13 +181,21 @@ def checkDependencies() -> int:
         if result == 0:
             copySet.append([tempString, XPRO_HOME_PATH])
 
-    # copy shell profile
+    # copy shell profile no matter what
     if result == 0:
         if os.path.exists(XPRO_PROFILE_PATH) is False:
             print("{} does not exist!".format(XPRO_PROFILE_PATH))
             result = 1
         else:
             copySet.append([XPRO_PROFILE_PATH, XPRO_HOME_PATH])
+
+    # copy shell utilities no matter what
+    if result == 0:
+        if os.path.exists(UTIL_PATH) is False:
+            print("{} does not exist!".format(XPRO_PROFILE_PATH))
+            result = 1
+        else:
+            copySet.append([UTIL_PATH, XPRO_HOME_PATH])
 
     # env.xml
     if result == 0:

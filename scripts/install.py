@@ -8,6 +8,7 @@ Installs xPro to user's environment
 __author__ = "Brando"
 __date__ = "11/14/2021"
 
+from io import FileIO
 import sys 
 import os 
 import subprocess
@@ -35,8 +36,12 @@ XPRO_DEBUG_BUILD:   str = "debug-xp"
 XPRO_RELEASE_BUILD: str = "xp"
 PROFILE_NAME:       str = "profile.sh"
 XPRO_PROFILE_PATH:  str = "{}/src/profiles/{}".format(XPRO_PATH, PROFILE_NAME)
+ZSH_PROFILE_NAME:   str = ".zprofile"
+ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
 
-SOURCE_XPRO_PROF: str = "source ./.xpro/profile.sh"
+SOURCE_XPRO_PROF: str = "source ~/.xpro/profile.sh"
+PROFILE_START_STR: str = "======= XPRO START ======="
+PROFILE_END_STR: str = "======= XPRO END ======="
 
 ## CONSTANTS END ##
 
@@ -173,13 +178,48 @@ def checkDependencies() -> int:
 
     return result
 
-def sourceXProInShellProfile() -> int:
+def modifyShellProfile() -> int:
     """
     sourceXProInShellProfile
     ========================
     Finds 
     """
     result: int = 0
+    fp: FileIO
+
+    # Only read if profile already exists
+    if os.path.exists(ZSH_PROFILE_PATH):
+        fp = open(ZSH_PROFILE_PATH, 'r')
+
+        if fp is None:
+            result = 1
+            print("Could not open {}".format(ZSH_PROFILE_PATH))
+
+        # See if the lines already exist
+        if result == 0:
+            foundLine = False
+            for line in fp.readlines():
+                if SOURCE_XPRO_PROF in line:
+                    foundLine = True
+                    break 
+            
+            fp.close()
+
+    if result == 0:
+        fp = open(ZSH_PROFILE_PATH, 'a')
+        
+        if fp is None:
+            result = 1
+            print("Could not open {}".format(ZSH_PROFILE_PATH))
+    
+    # Write the line to source xpro profile
+    if result == 0:
+        if foundLine is False:
+            fp.write("\n{}\n".format(PROFILE_START_STR))
+            fp.write("{}".format(SOURCE_XPRO_PROF))
+            fp.write("\n{}\n\n".format(PROFILE_END_STR))
+
+        fp.close()
 
     return result 
 
@@ -211,7 +251,7 @@ def install() -> int:
                 break 
 
     if result == 0:
-        result = sourceXProInShellProfile()
+        result = modifyShellProfile()
 
     return result 
 

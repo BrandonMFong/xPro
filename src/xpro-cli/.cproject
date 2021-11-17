@@ -720,16 +720,10 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.267413436;cdt.managedbuild.tool.gnu.c.compiler.input.1167302293">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535.;cdt.managedbuild.tool.gnu.cpp.compiler.base.287778825;cdt.managedbuild.tool.gnu.cpp.compiler.input.2122698114">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.2008719134;cdt.managedbuild.tool.gnu.cpp.compiler.input.407632732">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1684052104;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1684052104.;cdt.managedbuild.tool.gnu.c.compiler.base.1502902404;cdt.managedbuild.tool.gnu.c.compiler.input.224006652">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535;cdt.managedbuild.config.gnu.mingw.lib.debug.536248059.829098083.1818207142.1161730535.;cdt.managedbuild.tool.gnu.c.compiler.base.1187173873;cdt.managedbuild.tool.gnu.c.compiler.input.197125208">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>

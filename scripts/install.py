@@ -35,7 +35,7 @@ XPRO_HOME_PATH:     str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
 XPRO_DEBUG_BUILD:   str = "debug-xp"
 XPRO_RELEASE_BUILD: str = "xp"
 PROFILE_NAME:       str = "profile.sh"
-XPRO_PROFILE_PATH:  str = "{}/src/profiles/{}".format(XPRO_PATH, PROFILE_NAME)
+XPRO_PROFILE_PATH:  str = "{}/scripts/{}".format(XPRO_PATH, PROFILE_NAME)
 ZSH_PROFILE_NAME:   str = ".zprofile"
 ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
 ENV_CONFIG_NAME:    str = "env.xml"
@@ -43,7 +43,7 @@ ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
 DEFAULT_CONF_NAME:  str = "user.xml"
 DEFAULT_CONF_PATH:  str = "{}/config/{}".format(XPRO_PATH, DEFAULT_CONF_NAME)
 UTIL_NAME:          str = "xutil.sh"
-UTIL_PATH:          str = "{}/src/lib/bash/{}".format(XPRO_PATH, UTIL_NAME)
+UTIL_PATH:          str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
 
 SOURCE_XPRO_PROF:   str = "source ~/.xpro/profile.sh"
 PROFILE_START_STR:  str = "###### XPRO START ######"

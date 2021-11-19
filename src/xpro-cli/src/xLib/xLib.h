@@ -12,6 +12,9 @@
 #define __USE_MINGW_ANSI_STDIO 1
 #endif
 
+/// Standard lib
+#include <libgen.h>
+
 /// xLib
 #include <xError.h>
 #include "xLogger/xLog.h"

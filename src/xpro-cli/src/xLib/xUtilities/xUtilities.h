@@ -121,13 +121,6 @@ char * xStringBetweenTwoStrings(
 #endif
 
 /**
- * Returns base name of path
- *
- * Must free the return string
- */
-char * xBasename(const char * path, xError * err);
-
-/**
  * Returns true if path exists as a file
  */
 xBool xIsFile(const char * path);

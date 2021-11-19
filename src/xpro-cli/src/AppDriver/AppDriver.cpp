@@ -47,16 +47,14 @@ AppDriver::~AppDriver() {
 void AppDriver::help(xBool moreInfo) {
 	xError result 			= kNoError;
 	char * executableName 	= xNull;
+	char * tempString		= xNull;
 
 	if (result == kNoError) {
-		executableName = this->args.argAtIndex(0, &result);
+		tempString = this->args.argAtIndex(0, &result);
 	}
 
 	if (result == kNoError) {
-		executableName = xBasename(executableName, &result);
-	}
-
-	if (result == kNoError) {
+		executableName = basename(tempString);
 		printf("usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
 				executableName,
 				VERSION_ARG,

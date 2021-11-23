@@ -22,4 +22,12 @@ xError HandleCreate(void);
  */
 xError CreateXProHomePath(void);
 
+/**
+ * Creates the user config file in the xPro home path
+ *
+ * Can accept an argument to write file to a specific location
+ * but default location is the xpro home path
+ */
+xError CreateUserConfig(void);
+
 #endif /* SRC_APPDRIVER_COMMANDS_CREATE_CREATE_HPP_ */

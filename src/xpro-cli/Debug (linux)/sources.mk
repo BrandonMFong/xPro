@@ -26,7 +26,6 @@ SUBDIRS := \
 src/AppDriver \
 src/AppDriver/Commands/Create \
 src/AppDriver/Commands/Directory \
-src/Utilities \
 src/xLib/xArguments \
 src/xLib/xUtilities \
 src/xLib/xXML \

@@ -58,7 +58,8 @@ void AppDriver::help(xBool moreInfo) {
 
 	// Create dir
 	printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
-	printf("\t\t%s: Creates .xpro at home path", CREATE_XPRO_ARG);
+	printf("\t\t- '%s' Creates .xpro at home path\n", CREATE_XPRO_ARG);
+	printf("\t\t- '%s' Creates the %s user config file with a basic template", CREATE_USER_CONF_ARG);
 
 	printf("\n");
 }

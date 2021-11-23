@@ -31,6 +31,11 @@
 #define USERCONFIGPATH_XML_PATH "/xPro/Users/User.active(true)/ConfigPath"
 
 /**
+ * Default name for a user config file
+ */
+#define DEFAULT_CONFIG_NAME "user.xml"
+
+/**
  * Main class for xPro CLI
  */
 class AppDriver {

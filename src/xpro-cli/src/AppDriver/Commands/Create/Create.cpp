@@ -28,6 +28,13 @@ xError HandleCreate(void) {
 	if (result == kNoError) {
 		if (!strcmp(subCommand, CREATE_XPRO_ARG)) {
 			result = CreateXProHomePath();
+		} else {
+			xLog("Unknown argument %s", subCommand);
+			xLog(
+				"Please run '%s %s' for help",
+				AppDriver::shared()->execName(),
+				HELP_ARG
+			);
 		}
 	}
 

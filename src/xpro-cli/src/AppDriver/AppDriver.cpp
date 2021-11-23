@@ -45,36 +45,22 @@ AppDriver::~AppDriver() {
 }
 
 void AppDriver::help(xBool moreInfo) {
-	xError result 			= kNoError;
-	char * executableName 	= xNull;
-	char * tempString		= xNull;
+	printf(
+		"usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
+		this->execName(),
+		VERSION_ARG,
+		HELP_ARG
+	);
 
-	if (result == kNoError) {
-		tempString = this->args.argAtIndex(0, &result);
-	}
+	printf("List of commands:\n");
 
-	if (result == kNoError) {
-		executableName = basename(tempString);
-		printf("usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
-				executableName,
-				VERSION_ARG,
-				HELP_ARG);
-		free(executableName);
+	printf("\t%s\treturns directory for alias\n", DIR_ARG);
 
-		printf("List of commands:\n");
+	// Create dir
+	printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
+	printf("\t\t%s: Creates .xpro at home path", CREATE_XPRO_ARG);
 
-		printf("\t%s\treturns directory for alias\n", DIR_ARG);
-
-		// Create dir
-		printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
-		printf("\t\t%s: Creates .xpro at home path", CREATE_XPRO_ARG);
-
-		printf("\n");
-	}
-
-	if (result != kNoError) {
-		DLog("help ended in %d", result);
-	}
+	printf("\n");
 }
 
 xError AppDriver::run() {

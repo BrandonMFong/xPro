@@ -38,8 +38,8 @@ PROFILE_NAME:       str = "profile.sh"
 XPRO_PROFILE_PATH:  str = "{}/scripts/{}".format(XPRO_PATH, PROFILE_NAME)
 ZSH_PROFILE_NAME:   str = ".zprofile"
 ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
-ENV_CONFIG_NAME:    str = "env.xml"
-ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
+# ENV_CONFIG_NAME:    str = "env.xml"
+# ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
 UTIL_NAME:          str = "xutil.sh"
 UTIL_PATH:          str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
 
@@ -195,15 +195,15 @@ def checkDependencies() -> int:
         else:
             copySet.append([UTIL_PATH, XPRO_HOME_PATH])
 
-    # env.xml
-    if result == 0:
-        if os.path.exists(ENV_CONFIG_PATH) is False:
-            print("{} does not exist!".format(ENV_CONFIG_PATH))
-            result = 1
-        else:
-            # Only copy env.xml if it does not already exist
-            if os.path.exists("{}/{}".format(XPRO_HOME_PATH, ENV_CONFIG_NAME)) is False:
-                copySet.append([ENV_CONFIG_PATH, XPRO_HOME_PATH])
+    # # env.xml
+    # if result == 0:
+    #     if os.path.exists(ENV_CONFIG_PATH) is False:
+    #         print("{} does not exist!".format(ENV_CONFIG_PATH))
+    #         result = 1
+    #     else:
+    #         # Only copy env.xml if it does not already exist
+    #         if os.path.exists("{}/{}".format(XPRO_HOME_PATH, ENV_CONFIG_NAME)) is False:
+    #             copySet.append([ENV_CONFIG_PATH, XPRO_HOME_PATH])
 
     return result
 

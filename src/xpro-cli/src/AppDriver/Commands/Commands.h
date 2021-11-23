@@ -21,5 +21,6 @@
 #define CREATE_ARG 				"create"
 #define CREATE_XPRO_ARG 		"home"
 #define CREATE_USER_CONF_ARG 	"uconf"
+#define CREATE_ENV_CONF_ARG		"uenv"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

@@ -8,6 +8,7 @@
 #include "Create.hpp"
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
+#include "UserConfigTemplate.h"
 
 xError HandleCreate(void) {
 	xError 			result 		= kNoError;
@@ -67,6 +68,9 @@ xError CreateUserConfig(void) {
 	xError result = kNoError;
 	char * homePath = xNull;
 	char * configPath = xNull;
+	FILE * file = xNull;
+	char buf[10];
+	xBool okayToContinue = xTrue;
 
 	// Get copy for us
 	homePath = xCopyString(AppDriver::shared()->xProHomePath(), &result);
@@ -84,7 +88,52 @@ xError CreateUserConfig(void) {
 	if (result == kNoError) {
 		sprintf(configPath, "%s/%s", homePath, DEFAULT_CONFIG_NAME);
 
-		DLog("Creating path %s", configPath);
+		if (strlen(configPath) == 0) result = kStringError;
+		else if (!xIsDir(dirname(configPath))) {
+			result = kDirectoryError;
+			xLog(
+				"%s does not exist. Please run '%s %s' to create xpro home environment",
+				dirname(configPath),
+				AppDriver::shared()->execName(),
+				CREATE_XPRO_ARG
+			);
+		}
+	}
+
+	if (result == kNoError) {
+		if (xIsFile(configPath)) {
+			printf("\n%s already exists.", configPath);
+			printf("\nYou can either:");
+			printf("\n\t- Move the file away from this path");
+			printf("\n\t- Continue to overwrite");
+
+			printf("\n\nWould you like to continue [y/N]? ");
+			scanf("%9s", buf);
+
+			okayToContinue = !strcmp(buf, "y");
+		}
+	}
+
+	if (okayToContinue) {
+		if (result == kNoError) {
+			file 	= fopen(configPath, "w");
+			result 	= file != xNull ? kNoError : kFileError;
+		}
+
+		if (result == kNoError) {
+			if (fputs(USER_CONFIG_TEMPLATE, file) == EOF) {
+				result = kWriteError;
+				DLog("Could not write to file %s", configPath);
+			}
+
+			if (fclose(file) == EOF) {
+				DLog("Error closing file %s", configPath);
+			}
+		}
+
+		if (result == kNoError) {
+			xLog("Successfully created: %s", configPath);
+		}
 	}
 
 	xFree(configPath);

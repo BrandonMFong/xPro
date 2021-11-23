@@ -28,6 +28,7 @@ typedef enum {
 	kUserConfigPathError = 14,
 	kDirectoryError = 15,
 	kNullError = 16,
+	kWriteError = 10,
 } xError;
 
 

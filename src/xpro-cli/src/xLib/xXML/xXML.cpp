@@ -122,6 +122,10 @@ char * xXML::getValue(
 			error = this->parseAttributeValue();
 			break;
 
+		case kParseComment:
+			error = this->parseComment();
+			break;
+
 		default:
 			break;
 		}
@@ -266,6 +270,12 @@ xError xXML::parseTagString() {
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	case '!':
+		// Initialize the flag
+		this->_parseHelper.insideComment 	= xFalse;
+		this->_parseHelper.dashCount		= 0;
+		this->_parseHelper.state 			= kParseComment;
+		break;
 	// If we entered an xml declaration
 	case '?':
 		this->_parseHelper.state = kWaitToCloseXmlDeclaration;
@@ -540,6 +550,41 @@ xError xXML::parseAttributeValue() {
 		}
 
 		break;
+	}
+
+	return result;
+}
+
+xError xXML::parseComment() {
+	xError result = kNoError;
+
+	// See if we are entering or exiting a comment
+	if (this->_rawContent[this->_parseHelper.contentIndex] == '-') {
+		// If we found two consecutive '-'s then we are either entering or existing
+		// a comment
+		if (this->_parseHelper.dashCount < 2) {
+			this->_parseHelper.dashCount++;
+		}
+	} else {
+		this->_parseHelper.dashCount = 0;
+	}
+
+	// If we found two dashes, then we invert the 'insideComment' flag
+	if (this->_parseHelper.dashCount == 2) {
+		this->_parseHelper.insideComment = ~this->_parseHelper.insideComment;
+	} else {
+		// If we are inside a comment, then we can do something with it.  At the
+		// momment I do not see a need to do so.  We will just leave this if block
+		// void but future implementations should live here
+		if (this->_parseHelper.insideComment) {
+
+		} else {
+			// If we are not inside the comment and we found '>' then we are
+			// done with the parsing comment state
+			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+				this->_parseHelper.state = kIdle;
+			}
+		}
 	}
 
 	return result;

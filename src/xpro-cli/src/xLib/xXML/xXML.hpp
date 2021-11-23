@@ -46,7 +46,8 @@ enum ParsingState {
 	kInnerXml = 5,
 	kPrepareReadingInnerXml = 6,
 	kWaitToReadInnerXml = 7,
-	kWaitToCloseXmlDeclaration = 8
+	kWaitToCloseXmlDeclaration = 8,
+	kParseComment = 9,
 };
 
 /**
@@ -152,6 +153,11 @@ private:
 	void waitToCloseXmlDeclaration();
 
 	/**
+	 * Inside '<!-- ... -->' will be parsed
+	 */
+	xError parseComment();
+
+	/**
 	 * Path to the xml file
 	 */
 	char * _path;
@@ -186,6 +192,8 @@ private:
 			this->quoteCount 		= 0;
 			this->attrValue 		= xNull;
 			this->insideXMLDec		= xFalse;
+			this->dashCount			= 0;
+			this->insideComment		= xFalse;
 		}
 
 		xBool insideXMLDec;
@@ -278,6 +286,15 @@ private:
 		 */
 		xUInt32 endTagCharRecord;
 
+		/**
+		 * A record of the first '-' we see inside the comment state
+		 */
+		xUInt64 dashCount;
+
+		/**
+		 * If true, we are currently indexing inside a comment
+		 */
+		xBool insideComment;
 	} _parseHelper;
 };
 

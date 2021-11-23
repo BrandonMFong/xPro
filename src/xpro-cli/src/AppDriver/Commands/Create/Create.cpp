@@ -65,15 +65,18 @@ xError CreateXProHomePath(void) {
 }
 
 xError CreateUserConfig(void) {
-	xError result = kNoError;
-	char * homePath = xNull;
-	char * configPath = xNull;
-	FILE * file = xNull;
-	char buf[10];
-	xBool okayToContinue = xTrue;
+	xError 	result 			= kNoError;
+	char * 	homePath 		= xNull;
+	char * 	configPath 		= xNull;
+	FILE * 	file 			= xNull;
+	xBool 	okayToContinue 	= xTrue;
+	char 	buf[10];
 
 	// Get copy for us
-	homePath = xCopyString(AppDriver::shared()->xProHomePath(), &result);
+	homePath = xCopyString(
+		AppDriver::shared()->xProHomePath(),
+		&result
+	);
 
 	if (result == kNoError) {
 		configPath = (char *) malloc(
@@ -89,6 +92,8 @@ xError CreateUserConfig(void) {
 		sprintf(configPath, "%s/%s", homePath, DEFAULT_CONFIG_NAME);
 
 		if (strlen(configPath) == 0) result = kStringError;
+
+		// Make sure the home directory exists
 		else if (!xIsDir(dirname(configPath))) {
 			result = kDirectoryError;
 			xLog(
@@ -100,6 +105,7 @@ xError CreateUserConfig(void) {
 		}
 	}
 
+	// If the config file already exists then we need to ask the user what we should do
 	if (result == kNoError) {
 		if (xIsFile(configPath)) {
 			printf("\n%s already exists.", configPath);
@@ -114,6 +120,7 @@ xError CreateUserConfig(void) {
 		}
 	}
 
+	// Write to file if we can continue
 	if (okayToContinue) {
 		if (result == kNoError) {
 			file 	= fopen(configPath, "w");

@@ -4,7 +4,7 @@ Builds debug versions of source files
 #>
 
 $success            = $true;
-$xproPath           = $(Split-Path -Path $PSScriptRoot -Parent)
+$xproPath           = $(Split-Path -Path $PSScriptRoot -Parent);
 $binPath            = $xproPath + "\\bin";
 $xproCLISourcePath  = "src/xpro-cli/Debug (windows)"; # xpro-cli source file path
 $xpBuild            = "debug-xp.exe";

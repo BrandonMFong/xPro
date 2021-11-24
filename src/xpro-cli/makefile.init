@@ -1,1 +1,5 @@
+if ($(OS), Windows_NT)
+SOURCE_PATH := C:\Library\xPro
+else
 SOURCE_PATH := /Library/xPro/src/xpro-cli
+endif

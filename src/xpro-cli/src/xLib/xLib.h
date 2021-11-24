@@ -8,10 +8,6 @@
 #ifndef XLIB_H_
 #define XLIB_H_
 
-//#if !defined(__USE_MINGW_ANSI_STDIO) || (__USE_MINGW_ANSI_STDIO != 1)
-//#define __USE_MINGW_ANSI_STDIO 1
-//#endif
-
 /// Standard lib
 #include <libgen.h>
 

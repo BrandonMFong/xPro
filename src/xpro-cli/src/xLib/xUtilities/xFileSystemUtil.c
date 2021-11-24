@@ -145,7 +145,7 @@ xError xMkDir(const char * path) {
 	xError result = kNoError;
 
 	if (!xIsDir(path)) {
-		if (mkdir(path, 0700) == -1) {
+		if (MAKE_DIR(path) == -1) {
 			result = kDirectoryError;
 			DLog("Could not create %s", path);
 		}

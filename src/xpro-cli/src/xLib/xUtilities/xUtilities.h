@@ -105,18 +105,19 @@ char * xStringBetweenTwoStrings(
 
 #pragma mark - File System
 
-/**
- * File system separator
- */
 #if defined(__WINDOWS__)
 
 #define FILE_SYSTEM_SEPARATOR '\\'
 #define MAX_PATH_LENGTH MAX_PATH
 
+#define MAKE_DIR(path) mkdir(path)
+
 #elif defined(__MACOS__) || defined(__LINUX__)
 
 #define FILE_SYSTEM_SEPARATOR '/'
 #define MAX_PATH_LENGTH PATH_MAX
+
+#define MAKE_DIR(path) mkdir(path, 700)
 
 #endif
 
@@ -150,10 +151,10 @@ xError xMkDir(const char * path);
 
 #pragma mark - Other
 
-/**
- * Returns host name of system
- */
-char * xHostname(xError * err);
+///**
+// * Returns host name of system
+// */
+//char * xHostname(xError * err);
 
 #ifdef __cplusplus
 }

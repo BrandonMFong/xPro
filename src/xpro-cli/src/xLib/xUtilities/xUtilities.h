@@ -149,13 +149,6 @@ char * xReadFile(const char * path, xError * err);
  */
 xError xMkDir(const char * path);
 
-#pragma mark - Other
-
-///**
-// * Returns host name of system
-// */
-//char * xHostname(xError * err);
-
 #ifdef __cplusplus
 }
 #endif // __cplusplus

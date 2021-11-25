@@ -18,7 +18,6 @@ import shutil
 
 # arguments
 HELP_ARG:           str = "--help"
-BUILD_ARG:          str = "build"
 RELEASE_BUILD_ARG:  str = "-r"
 DEBUG_BUILD_ARG:    str = "-d"
 
@@ -65,17 +64,15 @@ def help():
     ===================
     Prints help menu
     """
-    print("usage: {scriptname} [ {build} ] [ {help} ]".format(
+    print("usage: {scriptname} [ {help} ]".format(
         scriptname  = SCRIPT_NAME,
-        build       = BUILD_ARG,
         help        = HELP_ARG
     ))
 
     print()
     
-    print("\t{scriptname} {build} [ {release} | {debug} ]: If passed, all makefiles will be ran to generate a clean build. Default mode is release".format(
+    print("\t{scriptname} [ {release} | {debug} ]: If passed, all makefiles will be ran to generate a clean build. Default mode is release".format(
         scriptname  = SCRIPT_NAME, 
-        build       = BUILD_ARG,
         release     = RELEASE_BUILD_ARG, 
         debug       = DEBUG_BUILD_ARG
     ))
@@ -86,52 +83,6 @@ def help():
         scriptname  = SCRIPT_NAME,
         help        = HELP_ARG
     ))
-
-def build() -> int: 
-    """
-    build
-    ================
-    Runs build scripts
-    """
-    result:             int = 0
-    indexForBuildArg:   int = sys.argv.index(BUILD_ARG)
-    buildTypeArg:       str
-    buildScript:        str
-
-    if indexForBuildArg <= 0:
-        result = 1
-        print("index for {} is {}".format(BUILD_ARG, indexForBuildArg))
-
-    if result == 0:
-        if (indexForBuildArg + 1) < len(sys.argv):
-            buildTypeArg = sys.argv[indexForBuildArg + 1]
-
-            if buildTypeArg == DEBUG_BUILD_ARG:
-                buildScript = BUILD_MAC_DEBUG
-            elif buildTypeArg == RELEASE_BUILD_ARG:
-                buildScript = BUILD_MAC_RELEASE 
-            else: 
-                print("Unknown argument {}".format(buildTypeArg))
-                result = 1
-        else:
-            buildScript = BUILD_MAC_RELEASE 
-
-    if result == 0:
-        buildScript = "{}/{}".format(
-            SCRIPT_PATH, buildScript
-        ) 
-
-        if os.path.exists(buildScript) is False:
-            result = 1
-            print("{} does not exist, please check environment".format(buildScript))
-
-    if result == 0:
-        result = subprocess.Popen(
-            [ buildScript ], 
-            stderr = subprocess.STDOUT
-        ).wait()
-
-    return result 
 
 def checkDependencies() -> int: 
     """
@@ -145,7 +96,6 @@ def checkDependencies() -> int:
 
     if os.path.exists(XPRO_BIN_PATH) is False:
         print("{} does not exist".format(XPRO_BIN_PATH))
-        print("Please run {} {} to build binaries".format(SCRIPT_NAME, BUILD_ARG))
         result = 1
 
     # Create task to copy bin
@@ -194,16 +144,6 @@ def checkDependencies() -> int:
             result = 1
         else:
             copySet.append([UTIL_PATH, XPRO_HOME_PATH])
-
-    # # env.xml
-    # if result == 0:
-    #     if os.path.exists(ENV_CONFIG_PATH) is False:
-    #         print("{} does not exist!".format(ENV_CONFIG_PATH))
-    #         result = 1
-    #     else:
-    #         # Only copy env.xml if it does not already exist
-    #         if os.path.exists("{}/{}".format(XPRO_HOME_PATH, ENV_CONFIG_NAME)) is False:
-    #             copySet.append([ENV_CONFIG_PATH, XPRO_HOME_PATH])
 
     return result
 
@@ -271,8 +211,10 @@ def install() -> int:
         result = checkDependencies()
 
     if result == 0:
+        print("Installing:")
         for command in copySet:
             if len(command) == 2:
+                print("  - {}".format(os.path.basename(command[0])))
                 shutil.copy(command[0], command[1])
             else:
                 result = 1
@@ -290,11 +232,7 @@ def main():
     if HELP_ARG in sys.argv:
         help()
     else:
-        if BUILD_ARG in sys.argv:
-            result = build()
-
-        if result == 0:
-            result = install()
+        result = install()
 
         if result == 0:
             print("Install complete")

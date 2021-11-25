@@ -11,7 +11,6 @@ __date__ = "11/14/2021"
 from io import FileIO
 import sys 
 import os 
-import subprocess
 import shutil
 
 ## CONSTANTS START ##
@@ -35,10 +34,8 @@ XPRO_DEBUG_BUILD:   str = "debug-xp"
 XPRO_RELEASE_BUILD: str = "xp"
 PROFILE_NAME:       str = "profile.sh"
 XPRO_PROFILE_PATH:  str = "{}/scripts/{}".format(XPRO_PATH, PROFILE_NAME)
-ZSH_PROFILE_NAME:   str = ".zprofile"
-ZSH_PROFILE_PATH:   str = "{}/{}".format(HOME_DIR, ZSH_PROFILE_NAME)
-# ENV_CONFIG_NAME:    str = "env.xml"
-# ENV_CONFIG_PATH:    str = "{}/config/{}".format(XPRO_PATH, ENV_CONFIG_NAME)
+SHELL_PROFILE_NAME: str = ".zprofile"
+SHELL_PROFILE_PATH: str = "{}/{}".format(HOME_DIR, SHELL_PROFILE_NAME)
 UTIL_NAME:          str = "xutil.sh"
 UTIL_PATH:          str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
 
@@ -157,12 +154,12 @@ def modifyShellProfile() -> int:
     fp: FileIO
 
     # Only read if profile already exists
-    if os.path.exists(ZSH_PROFILE_PATH):
-        fp = open(ZSH_PROFILE_PATH, 'r')
+    if os.path.exists(SHELL_PROFILE_PATH):
+        fp = open(SHELL_PROFILE_PATH, 'r')
 
         if fp is None:
             result = 1
-            print("Could not open {}".format(ZSH_PROFILE_PATH))
+            print("Could not open {}".format(SHELL_PROFILE_PATH))
 
         # See if the lines already exist
         if result == 0:
@@ -175,11 +172,11 @@ def modifyShellProfile() -> int:
             fp.close()
 
     if result == 0:
-        fp = open(ZSH_PROFILE_PATH, 'a')
+        fp = open(SHELL_PROFILE_PATH, 'a')
         
         if fp is None:
             result = 1
-            print("Could not open {}".format(ZSH_PROFILE_PATH))
+            print("Could not open {}".format(SHELL_PROFILE_PATH))
     
     # Write the line to source xpro profile
     if result == 0:

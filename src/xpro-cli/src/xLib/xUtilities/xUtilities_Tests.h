@@ -130,15 +130,6 @@ void TestSplitString(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
-void TestHostname(void) {
-	xError error = kNoError;
-	char * hostname = xHostname(&error);
-
-	PRINT_TEST_RESULTS(hostname != xNull);
-
-	xFree(hostname);
-}
-
 void TestAppendingStringToString(void) {
 	xError error = kNoError;
 	char * string = xCopyString("Hello worl", &error);
@@ -193,7 +184,6 @@ void xUtilities_Tests(void) {
 	TestStringContainsSubString();
 	TestCopyString();
 	TestSplitString();
-	TestHostname();
 	TestAppendingStringToString();
 	TestConvertingCharToString();
 	TestFindingStringBetweenStrings();

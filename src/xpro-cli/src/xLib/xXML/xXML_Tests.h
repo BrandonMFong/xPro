@@ -309,7 +309,7 @@ void TestGettingSiblingNode(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
-void TestIgnoringComments() {
+void TestIgnoringComments(void) {
 	const char * content =
 		"<xPro>"
 			"<One>1</One>"
@@ -352,6 +352,45 @@ void TestIgnoringComments() {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
+	const char * content =
+		"<xPro>"
+			"<One>1</One>"
+			"<!-- <Two>3</Two> -->"
+			"<Two attr=\"yup\">2</Two>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = new xXML(&error);
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		error 	= xml->setContent(content);
+		success = error == kNoError;
+	}
+
+	char * value = xNull;
+	if (success) {
+		value 	= xml->getValue("/xPro/Two.(__ALL__)", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d", error);
+		}
+	}
+
+	if (success) {
+		success = value == xNull;
+
+		if (!success) {
+			printf("Value not null");
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
@@ -362,6 +401,7 @@ void xXML_Tests(void) {
 	TestParsingWithFilePath();
 	TestGettingSiblingNode();
 	TestIgnoringComments();
+	TestMakeSureNoErrorWithUnresolvedTagPath();
 
 	printf("\n");
 }

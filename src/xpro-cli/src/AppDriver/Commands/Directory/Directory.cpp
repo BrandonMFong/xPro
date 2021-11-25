@@ -113,7 +113,9 @@ xError PrintDirectoryForAlias(const char * alias) {
 	}
 
 	if (result == kNoError) {
-		printf("%s\n", directory);
+		if (directory != xNull) {
+			printf("%s\n", directory);
+		}
 	}
 
 	return result;

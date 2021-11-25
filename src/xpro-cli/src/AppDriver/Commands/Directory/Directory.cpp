@@ -78,13 +78,46 @@ xError PrintDirectoryForAlias(const char * alias) {
 				* directory 	= xNull;
 	const char 	* username 		= xNull;
 
-	username 	= AppDriver::shared()->username();
-	result 		= username != xNull ? kNoError : kStringError;
+	if (alias == xNull) {
+		result = kDirectoryAliasError;
+	} else {
+		elementPath = xMallocString(
+				strlen(alias)
+			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
+			+	strlen(ALL_USERS)
+			+ 	1,
+			&result
+		);
 
+		if (result == kNoError) {
+			sprintf(
+				elementPath,
+				DIRECTORY_ELEMENT_PATH_FORMAT,
+				alias,
+				ALL_USERS
+			);
+		}
+	}
+
+	// See if user has specified a default path with __ALL__
 	if (result == kNoError) {
-		if (alias == xNull) {
-			result = kDirectoryAliasError;
-		} else {
+		directory = xProConfig->getValue(elementPath, &result);
+
+		if (result != kNoError) {
+			DLog("Directory is NULL\n");
+		}
+	}
+
+	// If directory was NULL, then __ALL__ was not specified, now we use the user name
+	if (directory == xNull) {
+		if (result == kNoError) {
+			username 	= AppDriver::shared()->username();
+			result 		= username != xNull ? kNoError : kStringError;
+		}
+
+		if (result == kNoError) {
+			xFree(elementPath);
+
 			elementPath = xMallocString(
 					strlen(alias)
 				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
@@ -104,6 +137,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 		}
 	}
 
+	// Get value for user
 	if (result == kNoError) {
 		directory = xProConfig->getValue(elementPath, &result);
 
@@ -112,6 +146,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 		}
 	}
 
+	// If directory is still null then will not print out anything
 	if (result == kNoError) {
 		if (directory != xNull) {
 			printf("%s\n", directory);

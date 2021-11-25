@@ -64,7 +64,7 @@ xError HandleDirectory() {
 	}
 
 	if (result != kNoError) {
-		xError("Error occured: %d\n", result);
+		xError("[%d]\n", result);
 	}
 
 	xDelete(xProConfig);
@@ -143,6 +143,15 @@ xError PrintDirectoryForAlias(const char * alias) {
 
 		if (result != kNoError) {
 			DLog("Directory is NULL\n");
+		}
+	}
+
+	if (result == kNoError) {
+		if (directory != xNull) {
+			if (!xIsDir(directory)) {
+				xLog("%s is not a directory.  Please make sure that it exists and that is a directory, not a file", directory);
+				result = kDirectoryError;
+			}
 		}
 	}
 

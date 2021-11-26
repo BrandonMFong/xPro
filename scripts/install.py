@@ -54,10 +54,12 @@ UTIL_PATH:              str = os.path.join(XPRO_PATH, "scripts", UTIL_NAME)
 
 # Determining the path to shell profile
 if sys.platform == "win32":
-    if PROFILE_PATH_ARG is sys.argv:
-        SHELL_PROFILE_PATH: str = sys.argv[sys.argv.index(PROFILE_PATH_ARG) + 1]
-    else:
-        raise Exception("Windows installation requires user to profile path to profile") 
+    SHELL_PROFILE_PATH: str = ""
+    if HELP_ARG not in sys.argv:
+        if PROFILE_PATH_ARG in sys.argv:
+            SHELL_PROFILE_PATH = sys.argv[sys.argv.index(PROFILE_PATH_ARG) + 1]
+        else:
+            raise Exception("Windows installation requires user to profile path to profile") 
 else:
     SHELL_PROFILE_PATH: str = os.path.join(HOME_DIR, SHELL_PROFILE_NAME)
 
@@ -65,7 +67,7 @@ else:
 PROFILE_START_STR:  str = "\n###### XPRO START ######"
 
 if sys.platform == "win32":
-    IF_STATEMENT_STR:   str = "\nif (Test-Path -Path {}) {".format(XPRO_SHELL_REL_PATH)
+    IF_STATEMENT_STR:   str = "\nif (Test-Path -Path {}) {{".format(XPRO_SHELL_REL_PATH)
     SOURCE_XPRO_PROF:   str = "\n\t. ~/{}".format(XPRO_SHELL_REL_PATH)
     FI_STATEMENT_STR:   str = "\n}"
 else:

@@ -41,16 +41,16 @@ elif sys.platform == "win32":
 
 XPRO_PROFILE_NAME:      str = "profile.sh"
 XPRO_DIR_NAME:          str = ".xpro"
-XPRO_SHELL_REL_PATH:    str = "{}/{}".format(XPRO_DIR_NAME, XPRO_PROFILE_NAME)
+XPRO_SHELL_REL_PATH:    str = os.path.join(XPRO_DIR_NAME, XPRO_PROFILE_NAME)
 SCRIPT_NAME:            str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:            str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:              str = os.path.dirname(SCRIPT_PATH)
-XPRO_BIN_PATH:          str = "{}/bin".format(XPRO_PATH)
+XPRO_BIN_PATH:          str = os.path.join(XPRO_PATH, "bin")
 HOME_DIR:               str = os.path.expanduser("~")
-XPRO_HOME_PATH:         str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
-PROJ_PROFILE_PATH:      str = "{}/scripts/{}".format(XPRO_PATH, XPRO_PROFILE_NAME)
-SHELL_PROFILE_PATH:     str = "{}/{}".format(HOME_DIR, SHELL_PROFILE_NAME)
-UTIL_PATH:              str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
+XPRO_HOME_PATH:         str = os.path.join(HOME_DIR, XPRO_DIR_NAME)
+PROJ_PROFILE_PATH:      str = os.path.join(XPRO_PATH, "scripts", XPRO_PROFILE_NAME)
+SHELL_PROFILE_PATH:     str = os.path.join(HOME_DIR, SHELL_PROFILE_NAME)
+UTIL_PATH:              str = os.path.join(XPRO_PATH, "scripts", UTIL_NAME)
 
 # statement to source shell profile
 PROFILE_START_STR:  str = "\n###### XPRO START ######"
@@ -105,7 +105,7 @@ def checkDependencies() -> int:
 
     # Create task to copy bin
     if result == 0:
-        tempString = "{}/{}".format(XPRO_BIN_PATH, XP_BUILD) 
+        tempString = os.path.join(XPRO_BIN_PATH, XP_BUILD) 
 
         if os.path.exists(tempString) is False:
             print("{} does not exist!".format(tempString))
@@ -120,9 +120,10 @@ def checkDependencies() -> int:
                 result = 1
                 print("Could not create directory {}".format(XPRO_HOME_PATH))
 
-        if os.path.exists("{}/{}".format(XPRO_HOME_PATH, XP_BUILD)):
+        path = os.path.join(XPRO_HOME_PATH, XP_BUILD)
+        if os.path.exists(path):
             print("Removing existing '{}' at '{}'".format(XP_BUILD, XPRO_HOME_PATH))
-            os.remove("{}/{}".format(XPRO_HOME_PATH, XP_BUILD))
+            os.remove(path)
         
         if result == 0:
             copySet.append([tempString, XPRO_HOME_PATH])

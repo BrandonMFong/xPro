@@ -15,7 +15,7 @@ AppDriver::AppDriver(
 	char ** 	argv,
 	xError * 	err
 ) : args(argc, argv, err) {
-	xError result = kNoError;
+	xError result = *err;
 
 	this->_userInfo.configPath 	= xNull;
 	this->_userInfo.username 	= xNull;
@@ -150,6 +150,14 @@ xError AppDriver::setup() {
 		if (strlen(envPath) == 0) {
 			DLog("Unknown behavior, resulted in empty string");
 			result = kEmptyStringError;
+		}
+	}
+
+	if (result == kNoError) {
+		if (!xIsFile(envPath)) {
+			result = kEnvironmentConfigError;
+			xError("%s does not exist", envPath);
+			xLog("Please run '%s %s %s' to create", this->execName(), CREATE_ARG, CREATE_ENV_CONF_ARG);
 		}
 	}
 

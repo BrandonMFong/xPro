@@ -95,8 +95,8 @@ def checkDependencies() -> int:
     ================
     Before we attempt to setup the environment, we need to make sure we have everything
     """
-    global copySet
-    result: int = 0
+    global      copySet
+    result:     int = 0
     tempString: str 
 
     if os.path.exists(XPRO_BIN_PATH) is False:
@@ -120,9 +120,9 @@ def checkDependencies() -> int:
                 result = 1
                 print("Could not create directory {}".format(XPRO_HOME_PATH))
 
-        if os.path.exists("{}/{}".format(XPRO_HOME_PATH, bin)):
-            print("Removing existing '{}' at '{}'".format(bin, XPRO_HOME_PATH))
-            os.remove("{}/{}".format(XPRO_HOME_PATH, bin))
+        if os.path.exists("{}/{}".format(XPRO_HOME_PATH, XP_BUILD)):
+            print("Removing existing '{}' at '{}'".format(XP_BUILD, XPRO_HOME_PATH))
+            os.remove("{}/{}".format(XPRO_HOME_PATH, XP_BUILD))
         
         if result == 0:
             copySet.append([tempString, XPRO_HOME_PATH])

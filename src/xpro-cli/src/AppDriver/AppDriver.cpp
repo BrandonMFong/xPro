@@ -157,7 +157,12 @@ xError AppDriver::setup() {
 		if (!xIsFile(envPath)) {
 			result = kEnvironmentConfigError;
 			xError("%s does not exist", envPath);
-			xLog("Please run '%s %s %s' to create", this->execName(), CREATE_ARG, CREATE_ENV_CONF_ARG);
+			xLog(
+				"Please run '%s %s %s' to create",
+				this->execName(),
+				CREATE_ARG,
+				CREATE_ENV_CONF_ARG
+			);
 		}
 	}
 

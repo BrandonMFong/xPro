@@ -54,9 +54,16 @@ UTIL_PATH:              str = os.path.join(XPRO_PATH, "scripts", UTIL_NAME)
 
 # statement to source shell profile
 PROFILE_START_STR:  str = "\n###### XPRO START ######"
-IF_STATEMENT_STR:   str = "\nif [ -f ~/{} ]; then".format(XPRO_SHELL_REL_PATH)
-SOURCE_XPRO_PROF:   str = "\n\tsource ~/{}".format(XPRO_SHELL_REL_PATH)
-FI_STATEMENT_STR:   str = "\nfi"
+
+if sys.platform == "win32":
+    IF_STATEMENT_STR:   str = "\nif (Test-Path -Path {}) {".format(XPRO_SHELL_REL_PATH)
+    SOURCE_XPRO_PROF:   str = "\n\t. ~/{}".format(XPRO_SHELL_REL_PATH)
+    FI_STATEMENT_STR:   str = "\n}"
+else:
+    IF_STATEMENT_STR:   str = "\nif [ -f ~/{} ]; then".format(XPRO_SHELL_REL_PATH)
+    SOURCE_XPRO_PROF:   str = "\n\tsource ~/{}".format(XPRO_SHELL_REL_PATH)
+    FI_STATEMENT_STR:   str = "\nfi"
+
 PROFILE_END_STR:    str = "\n###### XPRO END ######\n"
 
 ## CONSTANTS END ##

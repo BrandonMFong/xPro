@@ -16,32 +16,48 @@ import shutil
 ## CONSTANTS START ##
 
 # arguments
-HELP_ARG:           str = "--help"
-RELEASE_BUILD_ARG:  str = "-r"
-DEBUG_BUILD_ARG:    str = "-d"
+HELP_ARG: str = "--help"
 
 # File system items
-SCRIPT_NAME:        str = os.path.basename(sys.argv[0])
-SCRIPT_PATH:        str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_PATH:          str = os.path.dirname(SCRIPT_PATH)
-XPRO_BIN_PATH:      str = "{}/bin".format(XPRO_PATH)
-BUILD_MAC_DEBUG:    str = "build-mac-debug"
-BUILD_MAC_RELEASE:  str = "build-mac-release"
-XPRO_DIR_NAME:      str = ".xpro"
-HOME_DIR:           str = os.path.expanduser("~")
-XPRO_HOME_PATH:     str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
-XPRO_DEBUG_BUILD:   str = "debug-xp"
-XPRO_RELEASE_BUILD: str = "xp"
-PROFILE_NAME:       str = "profile.sh"
-XPRO_PROFILE_PATH:  str = "{}/scripts/{}".format(XPRO_PATH, PROFILE_NAME)
-SHELL_PROFILE_NAME: str = ".zprofile"
-SHELL_PROFILE_PATH: str = "{}/{}".format(HOME_DIR, SHELL_PROFILE_NAME)
-UTIL_NAME:          str = "xutil.sh"
-UTIL_PATH:          str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
+# xp bin name
+if sys.platform == "win32":
+    XP_BUILD: str = "xp.exe"
+else:
+    XP_BUILD: str = "xp"
 
-SOURCE_XPRO_PROF:   str = "source ~/.xpro/profile.sh"
-PROFILE_START_STR:  str = "###### XPRO START ######"
-PROFILE_END_STR:    str = "###### XPRO END ######"
+# Shell profile
+if sys.platform == "linux" or sys.platform == "linux2":
+    SHELL_PROFILE_NAME: str = ".bashrc"
+elif sys.platform == "darwin":
+    SHELL_PROFILE_NAME: str = ".zshrc"
+elif sys.platform == "win32":
+    SHELL_PROFILE_NAME: str = "profile.ps1"
+
+# util name
+if sys.platform in ["linux", "linux2", "darwin"]:
+    UTIL_NAME: str = "xutil.sh"
+elif sys.platform == "win32":
+    UTIL_NAME: str = "xutil.psm1"
+
+XPRO_PROFILE_NAME:      str = "profile.sh"
+XPRO_DIR_NAME:          str = ".xpro"
+XPRO_SHELL_REL_PATH:    str = "{}/{}".format(XPRO_DIR_NAME, XPRO_PROFILE_NAME)
+SCRIPT_NAME:            str = os.path.basename(sys.argv[0])
+SCRIPT_PATH:            str = os.path.realpath(os.path.dirname(sys.argv[0]))
+XPRO_PATH:              str = os.path.dirname(SCRIPT_PATH)
+XPRO_BIN_PATH:          str = "{}/bin".format(XPRO_PATH)
+HOME_DIR:               str = os.path.expanduser("~")
+XPRO_HOME_PATH:         str = "{}/{}".format(HOME_DIR, XPRO_DIR_NAME)
+PROJ_PROFILE_PATH:      str = "{}/scripts/{}".format(XPRO_PATH, XPRO_PROFILE_NAME)
+SHELL_PROFILE_PATH:     str = "{}/{}".format(HOME_DIR, SHELL_PROFILE_NAME)
+UTIL_PATH:              str = "{}/scripts/{}".format(XPRO_PATH, UTIL_NAME)
+
+# statement to source shell profile
+PROFILE_START_STR:  str = "\n###### XPRO START ######"
+IF_STATEMENT_STR:   str = "\nif [ -f ~/{} ]; then".format(XPRO_SHELL_REL_PATH)
+SOURCE_XPRO_PROF:   str = "\n\tsource ~/{}".format(XPRO_SHELL_REL_PATH)
+FI_STATEMENT_STR:   str = "\nfi"
+PROFILE_END_STR:    str = "\n###### XPRO END ######"
 
 ## CONSTANTS END ##
 
@@ -67,14 +83,6 @@ def help():
     ))
 
     print()
-    
-    print("\t{scriptname} [ {release} | {debug} ]: If passed, all makefiles will be ran to generate a clean build. Default mode is release".format(
-        scriptname  = SCRIPT_NAME, 
-        release     = RELEASE_BUILD_ARG, 
-        debug       = DEBUG_BUILD_ARG
-    ))
-
-    print()
 
     print("See '{scriptname} {help}' for an overview of the system.".format(
         scriptname  = SCRIPT_NAME,
@@ -97,14 +105,7 @@ def checkDependencies() -> int:
 
     # Create task to copy bin
     if result == 0:
-        if RELEASE_BUILD_ARG in sys.argv:
-            bin = XPRO_RELEASE_BUILD
-        elif DEBUG_BUILD_ARG is sys.argv:
-            bin = XPRO_DEBUG_BUILD
-        else:
-            bin = XPRO_RELEASE_BUILD # default
-
-        tempString = "{}/{}".format(XPRO_BIN_PATH, bin) 
+        tempString = "{}/{}".format(XPRO_BIN_PATH, XP_BUILD) 
 
         if os.path.exists(tempString) is False:
             print("{} does not exist!".format(tempString))
@@ -128,16 +129,16 @@ def checkDependencies() -> int:
 
     # copy shell profile no matter what
     if result == 0:
-        if os.path.exists(XPRO_PROFILE_PATH) is False:
-            print("{} does not exist!".format(XPRO_PROFILE_PATH))
+        if os.path.exists(PROJ_PROFILE_PATH) is False:
+            print("{} does not exist!".format(PROJ_PROFILE_PATH))
             result = 1
         else:
-            copySet.append([XPRO_PROFILE_PATH, XPRO_HOME_PATH])
+            copySet.append([PROJ_PROFILE_PATH, XPRO_HOME_PATH])
 
     # copy shell utilities no matter what
     if result == 0:
         if os.path.exists(UTIL_PATH) is False:
-            print("{} does not exist!".format(XPRO_PROFILE_PATH))
+            print("{} does not exist!".format(PROJ_PROFILE_PATH))
             result = 1
         else:
             copySet.append([UTIL_PATH, XPRO_HOME_PATH])
@@ -150,8 +151,9 @@ def modifyShellProfile() -> int:
     ========================
     Inserts command to source xpro profile
     """
-    result: int = 0
-    fp: FileIO
+    result:     int = 0
+    fp:         FileIO
+    foundLine:  bool = False
 
     # Only read if profile already exists
     if os.path.exists(SHELL_PROFILE_PATH):
@@ -181,9 +183,11 @@ def modifyShellProfile() -> int:
     # Write the line to source xpro profile
     if result == 0:
         if foundLine is False:
-            fp.write("\n{}\n".format(PROFILE_START_STR))
-            fp.write("{}".format(SOURCE_XPRO_PROF))
-            fp.write("\n{}\n\n".format(PROFILE_END_STR))
+            fp.write(PROFILE_START_STR)
+            fp.write(IF_STATEMENT_STR)
+            fp.write(SOURCE_XPRO_PROF)
+            fp.write(FI_STATEMENT_STR)
+            fp.write(PROFILE_END_STR)
 
         fp.close()
 

@@ -17,6 +17,7 @@ import shutil
 
 # arguments
 HELP_ARG: str = "--help"
+PROFILE_PATH_ARG: str = "--profile"
 
 # File system items
 # xp bin name
@@ -51,7 +52,14 @@ XPRO_HOME_PATH:         str = os.path.join(HOME_DIR, XPRO_DIR_NAME)
 PROJ_PROFILE_PATH:      str = os.path.join(XPRO_PATH, "scripts", XPRO_PROFILE_NAME)
 UTIL_PATH:              str = os.path.join(XPRO_PATH, "scripts", UTIL_NAME)
 
-SHELL_PROFILE_PATH: str = os.path.join(HOME_DIR, SHELL_PROFILE_NAME)
+# Determining the path to shell profile
+if sys.platform == "win32":
+    if PROFILE_PATH_ARG is sys.argv:
+        SHELL_PROFILE_PATH: str = sys.argv[sys.argv.index(PROFILE_PATH_ARG) + 1]
+    else:
+        raise Exception("Windows installation requires user to profile path to profile") 
+else:
+    SHELL_PROFILE_PATH: str = os.path.join(HOME_DIR, SHELL_PROFILE_NAME)
 
 # statement to source shell profile
 PROFILE_START_STR:  str = "\n###### XPRO START ######"
@@ -85,9 +93,10 @@ def help():
     ===================
     Prints help menu
     """
-    print("usage: {scriptname} [ {help} ]".format(
+    print("usage: {scriptname} [ {profilePath} <Full path to profile> ] [ {help} ]".format(
         scriptname  = SCRIPT_NAME,
-        help        = HELP_ARG
+        help        = HELP_ARG,
+        profilePath = PROFILE_PATH_ARG
     ))
 
     print()

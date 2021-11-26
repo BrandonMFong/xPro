@@ -86,7 +86,7 @@ def main():
 
         # Clean
         if status == 0:
-            print("Building xPro CLI (debug)")
+            print("Cleaning up xPro CLI")
             status = subprocess.Popen(
                 [ "make", "clean" ], 
                 stderr = subprocess.STDOUT
@@ -94,7 +94,7 @@ def main():
             
         # Build all
         if status == 0:
-            print("Building xPro CLI (debug)")
+            print("Building xPro CLI")
             status = subprocess.Popen(
                 [ "make", "all" ], 
                 stderr = subprocess.STDOUT

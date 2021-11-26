@@ -39,7 +39,7 @@ BUILD_FOLDER:   str = "{} ({})".format(buildTypeString, platformName)
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
-BUILD_PATH:     str = os.path.join(XPRO_PATH, "src/xpro-cli", BUILD_FOLDER)
+BUILD_PATH:     str = os.path.join(XPRO_PATH, "src", "xpro-cli", BUILD_FOLDER)
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 
 # Remove memory from global access

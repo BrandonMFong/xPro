@@ -39,8 +39,8 @@ BUILD_FOLDER:   str = "{} ({})".format(buildTypeString, platformName)
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
-BUILD_PATH:     str = "{}/src/xpro-cli/{}".format(XPRO_PATH, BUILD_FOLDER)
-BIN_PATH:       str = "{}/bin".format(XPRO_PATH)
+BUILD_PATH:     str = os.path.join(XPRO_PATH, "src/xpro-cli", BUILD_FOLDER)
+BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 
 # Remove memory from global access
 del buildTypeString
@@ -101,7 +101,7 @@ def main():
             ).wait()
 
         if status == 0:
-            path = "{}/{}".format(BIN_PATH, XP_BUILD)
+            path = os.path.join(BIN_PATH, XP_BUILD)
             if os.path.exists(path):
                 print("Removing old build:", path)
                 os.remove(path)

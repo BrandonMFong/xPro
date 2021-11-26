@@ -153,19 +153,6 @@ xError AppDriver::setup() {
 		}
 	}
 
-	if (result == kNoError) {
-		if (!xIsFile(envPath)) {
-			result = kEnvironmentConfigError;
-			xError("%s does not exist", envPath);
-			xLog(
-				"Please run '%s %s %s' to create",
-				this->execName(),
-				CREATE_ARG,
-				CREATE_ENV_CONF_ARG
-			);
-		}
-	}
-
 	if (xIsFile(envPath)) {
 		if (result == kNoError) {
 			envConfig = new xXML(envPath, &result);
@@ -195,6 +182,17 @@ xError AppDriver::setup() {
 			if (result != kNoError) {
 				DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);
 			}
+		}
+	} else {
+		// Only split out error if user didn't pass create
+		if (!this->args.contains(CREATE_ARG, &result)) {
+			xError("%s does not exist", envPath);
+			xLog(
+				"Please run '%s %s %s' to create",
+				this->execName(),
+				CREATE_ARG,
+				CREATE_ENV_CONF_ARG
+			);
 		}
 	}
 

@@ -17,16 +17,34 @@ import shutil
 ## CONSTANTS START ##
 
 # Arguments
-DEBUG_ARG: str = "debug"
-HELP_ARG: str = "--help"
+DEBUG_ARG:  str = "debug"
+HELP_ARG:   str = "--help"
 
-BUILD_FOLDER: str = "Debug (mac)"
-SCRIPT_NAME: str = os.path.basename(sys.argv[0])
-SCRIPT_PATH: str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_PATH: str = os.path.dirname(SCRIPT_PATH)
-BUILD_PATH: str = "{}/src/xpro-cli/{}".format(XPRO_PATH, BUILD_FOLDER)
-BIN_PATH: str = "{}/bin".format(XPRO_PATH)
-XP_BUILD: str = "debug-xp"
+# See if we are in debug mode 
+XP_BUILD:           str = "xp"
+buildTypeString:    str = "Release"
+if DEBUG_ARG in sys.argv:
+    buildTypeString = "Debug"
+    XP_BUILD        = "debug-{}".format(XP_BUILD)
+
+if sys.platform == "linux" or sys.platform == "linux2":
+    platformName = "linux"
+elif sys.platform == "darwin":
+    platformName = "mac"
+elif sys.platform == "win32":
+    platformName    = "windows"
+    XP_BUILD        = "{}.exe".format(XP_BUILD) # Add .exe for xp build
+
+BUILD_FOLDER:   str = "{} ({})".format(buildTypeString, platformName)
+SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
+SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
+XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
+BUILD_PATH:     str = "{}/src/xpro-cli/{}".format(XPRO_PATH, BUILD_FOLDER)
+BIN_PATH:       str = "{}/bin".format(XPRO_PATH)
+
+# Remove memory from global access
+del buildTypeString
+del platformName
 
 ## CONSTANTS END ##
 

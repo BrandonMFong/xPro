@@ -147,12 +147,18 @@ xError WriteToFile(
 	xError 	result 			= kNoError;
 	FILE * 	file 			= xNull;
 	xBool 	okayToContinue 	= xTrue;
+	char *	filePathCopy	= xNull;
 	char 	buf[10];
 
 	if (strlen(filePath) == 0) result = kStringError;
 
+	// Create copy so that dirname does not modify param
+	if (result == kNoError) {
+		filePathCopy = xCopyString(filePath, &result);
+	}
+
 	// Make sure the home directory exists
-	else if (!xIsDir(dirname((char *) filePath))) {
+	else if (!xIsDir(dirname(filePathCopy))) {
 		result = kDirectoryError;
 		xLog(
 			"%s does not exist. Please run '%s %s' to create xpro home environment",
@@ -161,6 +167,8 @@ xError WriteToFile(
 			CREATE_XPRO_ARG
 		);
 	}
+
+	xFree(filePathCopy);
 
 	// If the config file already exists then we need to ask the user what we should do
 	if (result == kNoError) {

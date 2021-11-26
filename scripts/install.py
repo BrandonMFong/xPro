@@ -40,7 +40,12 @@ if sys.platform in ["linux", "linux2", "darwin"]:
 elif sys.platform == "win32":
     UTIL_NAME: str = "xutil.psm1"
 
-XPRO_PROFILE_NAME:      str = "profile.sh"
+# Profile name
+if sys.platform == "win32":
+    XPRO_PROFILE_NAME: str = "profile.ps1"
+else:
+    XPRO_PROFILE_NAME: str = "profile.sh"
+
 XPRO_DIR_NAME:          str = ".xpro"
 XPRO_SHELL_REL_PATH:    str = os.path.join(XPRO_DIR_NAME, XPRO_PROFILE_NAME)
 SCRIPT_NAME:            str = os.path.basename(sys.argv[0])
@@ -67,8 +72,8 @@ else:
 PROFILE_START_STR:  str = "\n###### XPRO START ######"
 
 if sys.platform == "win32":
-    IF_STATEMENT_STR:   str = "\nif (Test-Path -Path {}) {{".format(XPRO_SHELL_REL_PATH)
-    SOURCE_XPRO_PROF:   str = "\n\t. ~/{}".format(XPRO_SHELL_REL_PATH)
+    IF_STATEMENT_STR:   str = "\nif (Test-Path -Path ~\\{}) {{".format(XPRO_SHELL_REL_PATH)
+    SOURCE_XPRO_PROF:   str = "\n\t. ~\\{}".format(XPRO_SHELL_REL_PATH)
     FI_STATEMENT_STR:   str = "\n}"
 else:
     IF_STATEMENT_STR:   str = "\nif [ -f ~/{} ]; then".format(XPRO_SHELL_REL_PATH)

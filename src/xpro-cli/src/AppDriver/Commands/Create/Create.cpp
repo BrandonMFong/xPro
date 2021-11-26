@@ -91,58 +91,7 @@ xError CreateUserConfig(void) {
 		sprintf(configPath, "%s/%s", homePath, DEFAULT_CONFIG_NAME);
 
 		result = WriteToFile(USER_CONFIG_TEMPLATE, configPath);
-
-//		if (strlen(configPath) == 0) result = kStringError;
-//
-//		// Make sure the home directory exists
-//		else if (!xIsDir(dirname(configPath))) {
-//			result = kDirectoryError;
-//			xLog(
-//				"%s does not exist. Please run '%s %s' to create xpro home environment",
-//				dirname(configPath),
-//				AppDriver::shared()->execName(),
-//				CREATE_XPRO_ARG
-//			);
-//		}
 	}
-
-//	// If the config file already exists then we need to ask the user what we should do
-//	if (result == kNoError) {
-//		if (xIsFile(configPath)) {
-//			printf("\n%s already exists.", configPath);
-//			printf("\nYou can either:");
-//			printf("\n\t- Move the file away from this path");
-//			printf("\n\t- Continue to overwrite");
-//
-//			printf("\n\nWould you like to continue [y/N]? ");
-//			scanf("%9s", buf);
-//
-//			okayToContinue = !strcmp(buf, "y");
-//		}
-//	}
-//
-//	// Write to file if we can continue
-//	if (okayToContinue) {
-//		if (result == kNoError) {
-//			file 	= fopen(configPath, "w");
-//			result 	= file != xNull ? kNoError : kFileError;
-//		}
-//
-//		if (result == kNoError) {
-//			if (fputs(USER_CONFIG_TEMPLATE, file) == EOF) {
-//				result = kWriteError;
-//				DLog("Could not write to file %s", configPath);
-//			}
-//
-//			if (fclose(file) == EOF) {
-//				DLog("Error closing file %s", configPath);
-//			}
-//		}
-//
-//		if (result == kNoError) {
-//			xLog("Successfully created: %s", configPath);
-//		}
-//	}
 
 	xFree(configPath);
 	xFree(homePath);

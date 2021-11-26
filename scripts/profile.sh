@@ -3,7 +3,7 @@
 
 result=0;
 
-xproPath="$( cd -- "$(dirname -- "$0")" >/dev/null 2>&1 ; pwd -P )";
+xproPath=~/.xpro;
 xutilPath="xutil.sh";
 
 pushd $xproPath >/dev/null 2>&1;

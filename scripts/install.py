@@ -57,7 +57,7 @@ PROFILE_START_STR:  str = "\n###### XPRO START ######"
 IF_STATEMENT_STR:   str = "\nif [ -f ~/{} ]; then".format(XPRO_SHELL_REL_PATH)
 SOURCE_XPRO_PROF:   str = "\n\tsource ~/{}".format(XPRO_SHELL_REL_PATH)
 FI_STATEMENT_STR:   str = "\nfi"
-PROFILE_END_STR:    str = "\n###### XPRO END ######"
+PROFILE_END_STR:    str = "\n###### XPRO END ######\n"
 
 ## CONSTANTS END ##
 
@@ -167,7 +167,7 @@ def modifyShellProfile() -> int:
         if result == 0:
             foundLine = False
             for line in fp.readlines():
-                if SOURCE_XPRO_PROF in line:
+                if SOURCE_XPRO_PROF.strip() in line:
                     foundLine = True
                     break 
             

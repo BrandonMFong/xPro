@@ -10,6 +10,7 @@
 
 #include "Create/Create.hpp"
 #include "Directory/Directory.hpp"
+#include "Version/Version.hpp"
 
 #define HELP_ARG 	"--help"
 #define VERSION_ARG "--version"

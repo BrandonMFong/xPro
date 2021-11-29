@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/AppDriver/Commands/Directory/Directory.cpp 
+../src/AppDriver/Commands/Version/Version.cpp 
 
 OBJS += \
-./src/AppDriver/Commands/Directory/Directory.o 
+./src/AppDriver/Commands/Version/Version.o 
 
 CPP_DEPS += \
-./src/AppDriver/Commands/Directory/Directory.d 
+./src/AppDriver/Commands/Version/Version.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/AppDriver/Commands/Directory/%.o: ../src/AppDriver/Commands/Directory/%.cpp src/AppDriver/Commands/Directory/subdir.mk
+src/AppDriver/Commands/Version/%.o: ../src/AppDriver/Commands/Version/%.cpp src/AppDriver/Commands/Version/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
 	g++ -DDEBUG -DVERSION="0.0" -D__MACOS__ -I$(SOURCE_PATH)/src/xLib -I$(SOURCE_PATH)/src -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"

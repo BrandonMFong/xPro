@@ -192,8 +192,8 @@
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.1773636846" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="VERSION=&quot;\&quot;0.0\&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
-									<listOptionValue builtIn="false" value="VERSION=&quot;0.0&quot;"/>
 									<listOptionValue builtIn="false" value="__MACOS__"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1278939556" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
@@ -208,7 +208,7 @@
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.236610590" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="VERSION=&quot;0.0&quot;"/>
+									<listOptionValue builtIn="false" value="VERSION=&quot;\&quot;0.0\&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="__MACOS__"/>
 								</option>

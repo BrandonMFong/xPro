@@ -17,9 +17,11 @@ CREATE_ARG: str = "create"
 REMOVE_ARG: str = "remove"
 
 if sys.platform == "win32":
-    XPRO_LINK_PATH: str = "C:\\Library\\xPro"
+    RUN_PRIVILEGED_PROMPT:  str = "Please run script as admin"
+    XPRO_LINK_PATH:         str = "C:\\Library\\xPro"
 else:
-    XPRO_LINK_PATH: str = "/Library/xPro"
+    RUN_PRIVILEGED_PROMPT:  str = "Please run script with sudo"
+    XPRO_LINK_PATH:         str = "/Library/xPro"
 
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
@@ -99,7 +101,7 @@ def main():
         help()
     else:
         if isAdmin() is False:
-            print("Please run script with sudo")
+            print(RUN_PRIVILEGED_PROMPT)
             result = 1
 
     if result == 0:

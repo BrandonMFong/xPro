@@ -6,6 +6,7 @@
  */
 
 #include "Version.hpp"
+#include <Utilities/Utilities.h>
 
 xError HandleVersion() {
 	xError result = kNoError;

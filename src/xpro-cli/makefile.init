@@ -3,3 +3,5 @@ SOURCE_PATH := C:\Library\xPro\src\xpro-cli
 else
 SOURCE_PATH := /Library/xPro/src/xpro-cli
 endif
+
+VERSION_STRING := "\"1.1\""

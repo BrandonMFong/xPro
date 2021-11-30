@@ -64,7 +64,7 @@ if sys.platform == "win32":
         if PROFILE_PATH_ARG in sys.argv:
             SHELL_PROFILE_PATH = sys.argv[sys.argv.index(PROFILE_PATH_ARG) + 1]
         else:
-            raise Exception("Windows installation requires user to profile path to {} arg}".format(PROFILE_PATH_ARG)) 
+            raise Exception("Windows installation requires user to profile path to {} arg".format(PROFILE_PATH_ARG)) 
 else:
     SHELL_PROFILE_PATH: str = os.path.join(HOME_DIR, SHELL_PROFILE_NAME)
 

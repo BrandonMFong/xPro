@@ -4,4 +4,4 @@ else
 SOURCE_PATH := /Library/xPro/src/xpro-cli
 endif
 
-VERSION_STRING := "\"1.1\""
+VERSION_STRING := "\"$(shell git tag -l --sort=-creatordate | head -n 1)\""

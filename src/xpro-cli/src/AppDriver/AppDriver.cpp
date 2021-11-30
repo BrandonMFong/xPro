@@ -90,11 +90,11 @@ xError AppDriver::run() {
 	// Run application
 	if (okayToContinue && (result == kNoError)) {
 		if (this->args.contains(DIR_ARG, &result)) {
-			if (result == kNoError) result = HandleDirectory();
+			result = HandleDirectory();
 		} else if (this->args.contains(CREATE_ARG, &result)) {
-			if (result == kNoError) result = HandleCreate();
+			result = HandleCreate();
 		} else if (this->args.contains(VERSION_ARG, &result)) {
-			if (result == kNoError) result = HandleVersion();
+			HandleVersion();
 		} else {
 			xLog("Unknown command\n");
 			this->help(xFalse);

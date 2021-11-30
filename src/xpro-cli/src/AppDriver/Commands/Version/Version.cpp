@@ -8,10 +8,6 @@
 #include "Version.hpp"
 #include <Utilities/Utilities.h>
 
-xError HandleVersion() {
-	xError result = kNoError;
-
+void HandleVersion() {
 	printf("%s\n", VERSION);
-
-	return result;
 }

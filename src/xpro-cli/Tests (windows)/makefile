@@ -11,6 +11,7 @@ RM := rm -rf
 -include src/xLib/xXML/subdir.mk
 -include src/xLib/xUtilities/subdir.mk
 -include src/xLib/xArguments/subdir.mk
+-include src/AppDriver/Commands/Version/subdir.mk
 -include src/AppDriver/Commands/Directory/subdir.mk
 -include src/AppDriver/Commands/Create/subdir.mk
 -include src/AppDriver/subdir.mk
@@ -73,6 +74,6 @@ clean:
 	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) xp.exe
 	-@echo ' '
 
-.PHONY: all clean dependents
+.PHONY: all clean dependents main-build
 
 -include ../makefile.targets

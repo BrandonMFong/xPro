@@ -10,6 +10,6 @@
 
 #include <xLib.h>
 
-xError HandleVersion();
+void HandleVersion(void);
 
 #endif /* SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_ */

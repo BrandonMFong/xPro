@@ -61,7 +61,9 @@ def create() -> int:
 def remove() -> int:
     result: int = 0
 
-    print("remove")
+    if os.path.exists(XPRO_LINK_PATH):
+        print("Removing {}".format(XPRO_LINK_PATH))
+        os.remove(XPRO_LINK_PATH)
 
     return result
 

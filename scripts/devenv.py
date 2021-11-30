@@ -7,6 +7,7 @@ Use this to setup dev environment
 
 import sys 
 import os 
+import ctypes
 
 ## CONSTANTS START ##
 
@@ -40,6 +41,17 @@ def help():
     ))
 
     print()
+
+def isAdmin() -> bool:
+    """
+    isAdmin
+    =========
+    Checks if user is running as sudo (unix) or admin (windows)
+    """
+    try:
+        return os.getuid() == 0
+    except AttributeError:
+        return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
 def create() -> int:
     """
@@ -86,7 +98,7 @@ def main():
     if HELP_ARG in sys.argv:
         help()
     else:
-        if os.geteuid() != 0:
+        if isAdmin() is False:
             print("Please run script with sudo")
             result = 1
 

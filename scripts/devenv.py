@@ -52,6 +52,15 @@ def create() -> int:
         print("{} already exists as a file!".format(XPRO_LINK_PATH))
         result = 1
 
+    # Create the /Library or C:\Library path 
+    if result == 0:
+        if os.path.isdir(os.path.dirname(XPRO_LINK_PATH)) is False:
+            os.mkdir(os.path.dirname(XPRO_LINK_PATH))
+
+            if os.path.isdir(os.path.dirname(XPRO_LINK_PATH)) is False:
+                print("Error trying to create {}". os.path.dirname(XPRO_LINK_PATH))
+                result = 1
+
     if result == 0:
         print("Creating link to {} from {}".format(XPRO_PATH, XPRO_LINK_PATH))
         os.symlink(XPRO_PATH, XPRO_LINK_PATH)

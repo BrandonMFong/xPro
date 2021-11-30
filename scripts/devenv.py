@@ -12,7 +12,7 @@ import ctypes
 ## CONSTANTS START ##
 
 # arguments
-HELP_ARG: str = "--help"
+HELP_ARG:   str = "--help"
 CREATE_ARG: str = "create"
 REMOVE_ARG: str = "remove"
 

@@ -1,12 +1,8 @@
 #!//usr/bin/python3
 """
-build-debug.py
+build.py
 ======================
-Builds debug version of source
-
-Parameters
-----------------
-Pass debug to build debug.  Otherwise will just build release
+Builds source code in src directory
 """
 
 import sys 

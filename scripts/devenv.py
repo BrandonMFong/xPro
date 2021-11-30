@@ -15,9 +15,13 @@ HELP_ARG: str = "--help"
 CREATE_ARG: str = "create"
 REMOVE_ARG: str = "remove"
 
+if sys.platform == "win32":
+    XPRO_LINK_PATH: str = "C:\\Library\\xPro"
+else:
+    XPRO_LINK_PATH: str = "/Library/xPro"
+
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_LINK_PATH: str = "/Library/xPro"
 XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
 
 ## CONSTANTS END ##

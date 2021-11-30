@@ -1,0 +1,7 @@
+ifeq ($(OS), Windows_NT)
+SOURCE_PATH := C:\Library\xPro\src\xpro-cli
+else
+SOURCE_PATH := /Library/xPro/src/xpro-cli
+endif
+
+VERSION_STRING := "\"$(shell git tag -l --sort=-creatordate | head -n 1)\""

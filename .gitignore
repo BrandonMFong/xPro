@@ -1,29 +1,28 @@
-# misc
-archive/*
-.vs/*
-Profile/*
-*.code-workspace
-FTPFromVolta.ps1
-Resources/Calendar/*
-Resources/MathImports/*
-ssh.json
-Config/Server.xml
-Config/User/*
-Tests/Debug.ps1
-logs/User/*
-Cache/*
-Config/Wifi/*.xml
-debug.log
-.DS_Store
-*.hidden.xml
-XTUM
-
-# binary files
-**/bin/**   
-*.exe
-*.obj
+archive
+bin
+.metadata
+__pycache__
+*.log
 *.o
-*.out
+*.a
+*.d
 
-# Visual Code files
-.vscode/settings.json
+# Visual Studio 
+.vs
+*.exe
+*.ilk
+*.pdb
+*.user
+*.obj
+*.idb
+*.recipe
+*.tlog
+*.code-workspace
+
+# Eclipse
+language.settings.xml
+
+# xpro cli ouput
+xp
+test-xp
+debug-xp

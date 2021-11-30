@@ -125,13 +125,13 @@ char * xReadFile(
 
 		fclose(fp);
 
-		error = strlen(result) == fileLength ? kNoError : kFileContentError;
-
-		if (error != kNoError) {
-			DLog("Could not read entire file.  Expected length: %llu. Actual: %lu\n",
-					fileLength,
-					strlen(result));
-		}
+//		error = strlen(result) == fileLength ? kNoError : kFileContentError;
+//
+//		if (error != kNoError) {
+//			DLog("Could not read entire file.  Expected length: %llu. Actual: %lu\n",
+//					fileLength,
+//					strlen(result));
+//		}
 	}
 
 	if (err != xNull) {

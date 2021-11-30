@@ -10,12 +10,10 @@
 xXML::xXML(const char * path, xError * err) {
 	xError error = kNoError;
 
-	this->_path 		= xNull;
-//	this->_rawContent	= xNull;
+	this->_path = xNull;
 
 	// Read contents of file into rawContent
 	if (path != xNull) {
-//		error = this->read(path);
 		this->_path = xCopyString(path, &error);
 	}
 
@@ -26,29 +24,7 @@ xXML::xXML(const char * path, xError * err) {
 
 xXML::~xXML() {
 	xFree(this->_path);
-//	xFree(this->_rawContent);
 }
-
-//xError xXML::read(const char * path) {
-//	xError result = kNoError;
-//
-//	// Erase old content
-//	xFree(this->_rawContent);
-//
-//	// Read file content at path
-//	this->_rawContent = xReadFile(path, &result);
-//
-//	// Save the path
-//	if (result == kNoError) {
-//		// Free memory if path was already set
-//		xFree(this->_path);
-//
-//		this->_path = xCopyString(path, &result);
-//	}
-//
-//	return result;
-//}
-
 
 xUInt64 xXML::countTags(
 	const char * 	tagPath,
@@ -192,16 +168,6 @@ char * xXML::getValue(
 
 	return this->_parseHelper.result;
 }
-
-//xError xXML::setContent(const char * rawContent) {
-//	xError result = kNoError;
-//
-//	xFree(this->_rawContent);
-//
-//	this->_rawContent = xCopyString(rawContent, &result);
-//
-//	return result;
-//}
 
 void xXML::parseIdle(void) {
 	if (this->_parseHelper.chBuf == '<') {

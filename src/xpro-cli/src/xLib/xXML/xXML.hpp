@@ -70,11 +70,6 @@ public:
 	 */
 	virtual ~xXML();
 
-//	/**
-//	 * Reads xml at file path
-//	 */
-//	xError read(const char * path);
-
 	/**
 	 * Returns value from element path
 	 *
@@ -103,11 +98,6 @@ public:
 	char * path() {
 		return this->_path;
 	}
-
-//	/**
-//	 * Copies rawContent to _rawContent  The user is still responsible for the value
-//	 */
-//	xError setContent(const char * rawContent);
 
 	/**
 	 * Counts the number of tags at tagPath
@@ -166,13 +156,6 @@ private:
 	 * Path to the xml file
 	 */
 	char * _path;
-
-//	/**
-//	 * Raw text content of xml file
-//	 *
-//	 * We should be using this when we find values from a node path.  The memory should be set with malloc
-//	 */
-//	char * _rawContent;
 
 	/**
 	 * Assists us in parsing

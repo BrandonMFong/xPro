@@ -70,10 +70,10 @@ public:
 	 */
 	virtual ~xXML();
 
-	/**
-	 * Reads xml at file path
-	 */
-	xError read(const char * path);
+//	/**
+//	 * Reads xml at file path
+//	 */
+//	xError read(const char * path);
 
 	/**
 	 * Returns value from element path
@@ -93,7 +93,7 @@ public:
 	 *		- 	Example /Root/Path/To/Element.Attribute(value)
 	 */
 	char * getValue(
-		const char *	elementPath,
+		const char *	tagPath,
 		xError * 		err
 	);
 
@@ -104,10 +104,15 @@ public:
 		return this->_path;
 	}
 
+//	/**
+//	 * Copies rawContent to _rawContent  The user is still responsible for the value
+//	 */
+//	xError setContent(const char * rawContent);
+
 	/**
-	 * Copies rawContent to _rawContent  The user is still responsible for the value
+	 * Counts the number of tags at tagPath
 	 */
-	xError setContent(const char * rawContent);
+	xUInt64 countTags(const char * tagPath, xError * err);
 
 private:
 
@@ -162,12 +167,12 @@ private:
 	 */
 	char * _path;
 
-	/**
-	 * Raw text content of xml file
-	 *
-	 * We should be using this when we find values from a node path.  The memory should be set with malloc
-	 */
-	char * _rawContent;
+//	/**
+//	 * Raw text content of xml file
+//	 *
+//	 * We should be using this when we find values from a node path.  The memory should be set with malloc
+//	 */
+//	char * _rawContent;
 
 	/**
 	 * Assists us in parsing
@@ -177,9 +182,7 @@ private:
 			this->result			= xNull;
 			this->tagPathArray 		= xNull;
 			this->arraySize 		= 0;
-			this->contentIndex		= 0;
 			this->state 			= kIdle;
-			this->contentLength		= 0;
 			this->arrayIndex		= 0;
 			this->innerXml			= xNull;
 			this->endTagCharRecord	= 0;
@@ -194,8 +197,22 @@ private:
 			this->insideXMLDec		= xFalse;
 			this->dashCount			= 0;
 			this->insideComment		= xFalse;
+			this->bufferIndex		= 0;
+			this->bufferLength		= 0;
+			this->chBuf				= 0;
+			this->filePtr			= xNull;
 		}
 
+		FILE * filePtr;
+
+		/**
+		 * Holds the current char
+		 */
+		char chBuf;
+
+		/**
+		 * True if inside <? ?>
+		 */
 		xBool insideXMLDec;
 
 		/**
@@ -267,12 +284,12 @@ private:
 		/**
 		 * Current index to _rawContent
 		 */
-		xUInt64 contentIndex;
+		xUInt64 bufferIndex;
 
 		/**
 		 * Length of _rawContent
 		 */
-		xUInt64 contentLength;
+		xUInt64 bufferLength;
 
 		/**
 		 * Holds the content of the innerxml while in kInnerXml state

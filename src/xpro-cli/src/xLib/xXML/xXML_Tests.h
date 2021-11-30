@@ -12,13 +12,45 @@
 
 #include "xXML.hpp"
 
+#define TEST_FILE "test.xml"
+
+/**
+ * Free result string
+ */
+char * SetTestFile(const char * content, xError * err) {
+	char * result = xNull;
+	xError error = kNoError;
+	FILE * fp = xNull;
+
+	result = xMallocString(strlen(testPath) + strlen(TEST_FILE) + 1, &error);
+
+	if (error == kNoError) {
+		sprintf(result, "%s/%s", testPath, TEST_FILE);
+
+		fp = fopen(result, "w");
+		error = fp != xNull ? kNoError : kFileError;
+	}
+
+	if (error == kNoError) {
+		fprintf(fp, "%s", content); // Set content
+		fclose(fp);
+	}
+
+	return result;
+}
+
 void TestParsingWithNodes(void) {
 	const char * content = "<Person><Name>Adam</Name></Person>";
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -50,16 +82,26 @@ void TestParsingWithNodes(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestParsingForAttribute(void) {
 	const char * content = "<Persons><Person isCousin=\"true\"><Name>Adam</Name></Person></Persons>";
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -91,7 +133,12 @@ void TestParsingForAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingInnerXmlForSpecificAttribute(void) {
@@ -106,10 +153,15 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 		"</Persons>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -151,7 +203,12 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingValueForSpecificAttribute(void) {
@@ -166,10 +223,15 @@ void TestGettingValueForSpecificAttribute(void) {
 		"</Persons>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -219,7 +281,12 @@ void TestGettingValueForSpecificAttribute(void) {
 		}
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestParsingWithFilePath(void) {
@@ -233,10 +300,15 @@ void TestParsingWithFilePath(void) {
 		"</xPro>\n";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -264,7 +336,12 @@ void TestParsingWithFilePath(void) {
 		}
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingSiblingNode(void) {
@@ -275,10 +352,15 @@ void TestGettingSiblingNode(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -306,7 +388,12 @@ void TestGettingSiblingNode(void) {
 		}
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestIgnoringComments(void) {
@@ -318,14 +405,18 @@ void TestIgnoringComments(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
-
-	xBool success = error == kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
 	}
 
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	xBool success = error == kNoError;
 	char * value = xNull;
 	if (error == kNoError) {
 		value = xml->getValue("/xPro/Two", &error);
@@ -349,7 +440,12 @@ void TestIgnoringComments(void) {
 		}
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
@@ -361,13 +457,16 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xBool success = xTrue;
+	xXML * xml = xNull;
+	char * file = xNull;
 
-	xBool success = error == kNoError;
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
 
-	if (success) {
-		error 	= xml->setContent(content);
-		success = error == kNoError;
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -388,7 +487,12 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 		}
 	}
 
+	if (success) {
+		success = !remove(file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void xXML_Tests(void) {

@@ -8,6 +8,8 @@
 #ifndef SRC_XLIB_XTESTS_H_
 #define SRC_XLIB_XTESTS_H_
 
+#include "xUtilities/xUtilities.h"
+
 /**
  * If TESTING is defined, we need to have the entry point be the tests
  */
@@ -15,6 +17,11 @@
 
 #define xMain 	xMain
 #define xTests 	main
+
+/**
+ * Define a test path and put path into this variable for unit tests to use
+ */
+static char testPath[MAX_PATH_LENGTH];
 
 #else
 

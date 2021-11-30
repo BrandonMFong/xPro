@@ -42,6 +42,8 @@ extern "C" {
 
 /**
  * Returns malloc'd string and copies an empty string to it
+ *
+ * length: 1 is added to length in function
  */
 char * xMallocString(xUInt64 length, xError * err);
 

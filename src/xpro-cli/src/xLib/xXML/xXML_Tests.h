@@ -529,6 +529,43 @@ void TestCount(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestCountForInterchangingNodes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<One>1</One>"
+				"<Two>5</Two>"
+				"<Three>8</Three>"
+				"<Two>3</Two>"
+				"<Two>2</Two>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Function/Two", &error);
+		success = count == 3;
+	}
+
+	if (success) {
+		success = !remove(file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
@@ -540,7 +577,8 @@ void xXML_Tests(void) {
 //	TestGettingSiblingNode();
 //	TestIgnoringComments();
 //	TestMakeSureNoErrorWithUnresolvedTagPath();
-	TestCount();
+//	TestCount();
+	TestCountForInterchangingNodes();
 
 	printf("\n");
 }

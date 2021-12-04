@@ -87,10 +87,16 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
-			// If we found the tag then we will increment count
 			case kFoundTag:
-				result++;
 				this->_parseHelper.state = kWaitToCloseTag;
+
+				// If we found the tag then we will increment count
+				result++;
+
+				// If we are here then parseTagString() found the last tag in the
+				// tag path.  We need to make sure that if we are going to go through
+				// the xml nodes again that we read for the same current tag string
+				this->_parseHelper.arrayIndex--;
 				break;
 
 			default:

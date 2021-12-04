@@ -502,7 +502,7 @@ void TestCount(void) {
 			"<One>1</One>"
 			"<Two>5</Two>"
 			"<Two>3</Two>"
-			"<Two attr=\"yup\">2</Two>"
+			"<Two>2</Two>"
 		"</xPro>";
 
 	xError error = kNoError;
@@ -520,6 +520,10 @@ void TestCount(void) {
 	if (error == kNoError) {
 		xInt32 count = xml->countTags("/xPro/Two", &error);
 		success = count == 3;
+	}
+
+	if (success) {
+		success = !remove(file);
 	}
 
 	PRINT_TEST_RESULTS(success);

@@ -32,10 +32,71 @@ xUInt64 xXML::countTags(
 ) {
 	xUInt64 result = 0;
 	xError error = kNoError;
+	xBool okayToContinue = xTrue;
 
 	if (tagPath == xNull) {
 		error = kStringError;
 	} else {
+		this->_parseHelper.init();
+
+		this->_parseHelper.arrayIndex = 1; // Set it to 1
+
+		this->_parseHelper.tagPathArray = xSplitString(
+			tagPath,
+			ELEMENT_PATH_SEP,
+			&this->_parseHelper.arraySize,
+			&error
+		);
+	}
+
+	if (error == kNoError) {
+		this->_parseHelper.filePtr = fopen(this->_path, "r");
+		if (this->_parseHelper.filePtr == xNull) {
+			error = kFileError;
+		} else {
+			// Set to the beginning of the file
+			fseek(this->_parseHelper.filePtr, 0, SEEK_SET);
+		}
+	}
+
+	if (error == kNoError) {
+		// Init empty string
+		this->_parseHelper.tagString = xCopyString("", &error);
+	}
+
+	while (		okayToContinue
+			&& 	(error == kNoError)
+			&& 	(this->_parseHelper.arrayIndex <= this->_parseHelper.arraySize)
+			&& 	!this->_parseHelper.finished
+	) {
+		this->_parseHelper.chBuf 	= fgetc(this->_parseHelper.filePtr);
+		okayToContinue 				= !feof(this->_parseHelper.filePtr);
+
+		if (okayToContinue) {
+			switch (this->_parseHelper.state) {
+			case kIdle:
+				this->parseIdle();
+				break;
+
+			// When find the close tag, then go to the idle state to wait for new start of tag
+			case kWaitToCloseTag:
+				this->parseWaitToCloseTag(kIdle);
+				break;
+
+			case kReadingTagString:
+				error = this->parseTagString();
+				break;
+
+			// If we found the tag then we will increment count
+			case kFoundTag:
+				result++;
+				this->_parseHelper.state = kWaitToCloseTag;
+				break;
+
+			default:
+				break;
+			}
+		}
 	}
 
 	if (err != xNull) {
@@ -104,14 +165,14 @@ char * xXML::getValue(
 			// If we are ready to read the inner xml but are far away from
 			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
 			case kWaitToReadInnerXml:
-				this->parseWaitToCloseTag(kPrepareReadingInnerXml);
+				this->parseWaitToCloseTag(kFoundTag);
 				break;
 
 			case kWaitToCloseXmlDeclaration:
 				this->waitToCloseXmlDeclaration();
 				break;
 
-			case kPrepareReadingInnerXml:
+			case kFoundTag:
 				error = this->parsePrepareToReadInnerXml();
 				break;
 
@@ -307,7 +368,7 @@ xError xXML::parseTagString() {
 			if (this->_parseHelper.chBuf == '>') {
 				// If we reached the end of the tag array, we need to start reading the inner xml
 				if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-					this->_parseHelper.state = kPrepareReadingInnerXml;
+					this->_parseHelper.state = kFoundTag;
 				} else {
 					// Go to idle
 					this->_parseHelper.state = kIdle;

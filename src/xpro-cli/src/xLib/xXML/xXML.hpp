@@ -44,7 +44,7 @@ enum ParsingState {
 	kReadAttributeKey = 3,
 	kReadAttributeValue = 4,
 	kInnerXml = 5,
-	kPrepareReadingInnerXml = 6,
+	kFoundTag = 6,
 	kWaitToReadInnerXml = 7,
 	kWaitToCloseXmlDeclaration = 8,
 	kParseComment = 9,

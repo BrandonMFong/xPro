@@ -495,17 +495,48 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 	xDelete(xml);
 }
 
+void TestCount(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<One>1</One>"
+			"<Two>5</Two>"
+			"<Two>3</Two>"
+			"<Two attr=\"yup\">2</Two>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Two", &error);
+		success = count == 3;
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-	TestParsingWithNodes();
-	TestParsingForAttribute();
-	TestGettingInnerXmlForSpecificAttribute();
-	TestGettingValueForSpecificAttribute();
-	TestParsingWithFilePath();
-	TestGettingSiblingNode();
-	TestIgnoringComments();
-	TestMakeSureNoErrorWithUnresolvedTagPath();
+//	TestParsingWithNodes();
+//	TestParsingForAttribute();
+//	TestGettingInnerXmlForSpecificAttribute();
+//	TestGettingValueForSpecificAttribute();
+//	TestParsingWithFilePath();
+//	TestGettingSiblingNode();
+//	TestIgnoringComments();
+//	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestCount();
 
 	printf("\n");
 }

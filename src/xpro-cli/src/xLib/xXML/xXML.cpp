@@ -80,6 +80,7 @@ xUInt64 xXML::countTags(
 
 			// When find the close tag, then go to the idle state to wait for new start of tag
 			case kWaitToCloseTag:
+			case kNoAttributeMatch:
 				this->parseWaitToCloseTag(kIdle);
 				break;
 
@@ -104,6 +105,9 @@ xUInt64 xXML::countTags(
 			}
 		}
 	}
+
+	// Close the file
+	if (this->_parseHelper.filePtr != xNull) fclose(this->_parseHelper.filePtr);
 
 	if (err != xNull) {
 		*err = error;
@@ -165,6 +169,10 @@ char * xXML::getValue(
 
 			// When find the close tag, then go to the idle state to wait for new start of tag
 			case kWaitToCloseTag:
+				this->parseWaitToCloseTag(kIdle);
+				break;
+
+			case kNoAttributeMatch:
 				this->parseWaitToCloseTag(kIdle);
 				break;
 
@@ -443,7 +451,7 @@ xError xXML::parseTagString() {
 			} else if (splitSize == 1) {
 				this->_parseHelper.arrayIndex++; // Go to the next indexed element
 
-				this->_parseHelper.state = kWaitToCloseTag;
+				this->_parseHelper.state = kNoAttributeMatch;
 
 				if (result == kNoError) {
 					// Reset the tag string

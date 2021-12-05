@@ -82,8 +82,8 @@ void TestParsingWithNodes(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -133,8 +133,8 @@ void TestParsingForAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -203,8 +203,8 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -281,8 +281,8 @@ void TestGettingValueForSpecificAttribute(void) {
 		}
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -336,8 +336,8 @@ void TestParsingWithFilePath(void) {
 		}
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -388,8 +388,8 @@ void TestGettingSiblingNode(void) {
 		}
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -440,8 +440,8 @@ void TestIgnoringComments(void) {
 		}
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -487,8 +487,8 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 		}
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
@@ -522,11 +522,12 @@ void TestCount(void) {
 		success = count == 3;
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestCountForInterchangingNodes(void) {
@@ -559,11 +560,12 @@ void TestCountForInterchangingNodes(void) {
 		success = count == 3;
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestCountWithNodesHavingAttributes(void) {
@@ -596,27 +598,28 @@ void TestCountWithNodesHavingAttributes(void) {
 		success = count == 3;
 	}
 
-	if (success) {
-		success = !remove(file);
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
 	}
 
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-//	TestParsingWithNodes();
-//	TestParsingForAttribute();
-//	TestGettingInnerXmlForSpecificAttribute();
-//	TestGettingValueForSpecificAttribute();
-//	TestParsingWithFilePath();
-//	TestGettingSiblingNode();
-//	TestIgnoringComments();
-//	TestMakeSureNoErrorWithUnresolvedTagPath();
-//	TestCount();
-//	TestCountForInterchangingNodes();
-	TestCountWithNodesHavingAttributes();
+	TestParsingWithNodes();
+	TestParsingForAttribute();
+	TestGettingInnerXmlForSpecificAttribute();
+	TestGettingValueForSpecificAttribute();
+	TestParsingWithFilePath();
+	TestGettingSiblingNode();
+	TestIgnoringComments();
+	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestCount();
+	TestCountForInterchangingNodes();
+//	TestCountWithNodesHavingAttributes();
 
 	printf("\n");
 }

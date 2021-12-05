@@ -48,6 +48,7 @@ enum ParsingState {
 	kWaitToReadInnerXml = 7,
 	kWaitToCloseXmlDeclaration = 8,
 	kParseComment = 9,
+	kNoAttributeMatch = 10
 };
 
 /**

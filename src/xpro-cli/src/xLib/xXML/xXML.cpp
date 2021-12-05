@@ -438,6 +438,8 @@ xError xXML::parseTagString() {
 					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
+
+			// If received 1 then there is no attribute specified for this tag in tag path
 			} else if (splitSize == 1) {
 				this->_parseHelper.arrayIndex++; // Go to the next indexed element
 

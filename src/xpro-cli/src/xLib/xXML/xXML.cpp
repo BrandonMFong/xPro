@@ -447,10 +447,11 @@ xError xXML::parseTagString() {
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
 
-			// If received 1 then there is no attribute specified for this tag in tag path
+			// If received 1 then there is no attribute specified for
+			// this tag in tag path.  If there is an attribute specified
+			// for this node, then the user needs specify the attribute
+			// in the tag path
 			} else if (splitSize == 1) {
-//				this->_parseHelper.arrayIndex++; // Go to the next indexed element
-
 				this->_parseHelper.state = kNoAttributeMatch;
 
 				if (result == kNoError) {

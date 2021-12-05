@@ -595,7 +595,10 @@ void TestCountWithNodesHavingAttributes(void) {
 
 	if (error == kNoError) {
 		xInt32 count = xml->countTags("/xPro/Function/Two", &error);
-		success = count == 3;
+		if (count != 3) {
+			printf("Count is %d\n", count);
+			success = xFalse;
+		}
 	}
 
 	if (remove(file)) {
@@ -619,7 +622,7 @@ void xXML_Tests(void) {
 	TestMakeSureNoErrorWithUnresolvedTagPath();
 	TestCount();
 	TestCountForInterchangingNodes();
-//	TestCountWithNodesHavingAttributes();
+	TestCountWithNodesHavingAttributes();
 
 	printf("\n");
 }

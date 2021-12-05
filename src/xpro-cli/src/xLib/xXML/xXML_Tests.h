@@ -236,7 +236,7 @@ void TestGettingValueForSpecificAttribute(void) {
 
 	char * value = xNull;
 	if (error == kNoError) {
-		value = xml->getValue("/Persons/Person.isCousin(false)/Name", &error);
+		value = xml->getValue("/Persons.family(Geronimo)/Person.isCousin(false)/Name", &error);
 	}
 
 	xBool success = error == kNoError;
@@ -248,7 +248,7 @@ void TestGettingValueForSpecificAttribute(void) {
 			printf("getValue() returned null\n");
 		}
 	} else {
-		printf("Error in getting value for '/Persons/Person.isCousin(false)', %d\n", error);
+		printf("Error in getting value for '/Persons.family(Geronimo)/Person.isCousin(false)', %d\n", error);
 	}
 
 	if (success) {
@@ -261,7 +261,7 @@ void TestGettingValueForSpecificAttribute(void) {
 
 	if (success) {
 		xFree(value);
-		value = xml->getValue("/Persons/Person.isCousin(true)/Name", &error);
+		value = xml->getValue("/Persons.family(Geronimo)/Person.isCousin(true)/Name", &error);
 		success = error == kNoError;
 	}
 

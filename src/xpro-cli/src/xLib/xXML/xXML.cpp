@@ -463,7 +463,8 @@ xError xXML::parseTagString() {
 				// If the split was only 1, then we can see if that string is the
 				// tag. If the string is the tag string then we need to change to
 				// a specific state that shows we found the tag but the attribute
-				// does not match
+				// does not match.  We do not increment the arrayIndex because we
+				// do not need to continue if the user did not specify an attribute
 				if (!strcmp(this->_parseHelper.tagString, tempString)) {
 					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
 				} else {

@@ -612,16 +612,16 @@ void TestCountWithNodesHavingAttributes(void) {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-//	TestParsingWithNodes();
-//	TestParsingForAttribute();
-//	TestGettingInnerXmlForSpecificAttribute();
-//	TestGettingValueForSpecificAttribute();
-//	TestParsingWithFilePath();
-//	TestGettingSiblingNode();
-//	TestIgnoringComments();
-//	TestMakeSureNoErrorWithUnresolvedTagPath();
-//	TestCount();
-//	TestCountForInterchangingNodes();
+	TestParsingWithNodes();
+	TestParsingForAttribute();
+	TestGettingInnerXmlForSpecificAttribute();
+	TestGettingValueForSpecificAttribute();
+	TestParsingWithFilePath();
+	TestGettingSiblingNode();
+	TestIgnoringComments();
+	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestCount();
+	TestCountForInterchangingNodes();
 	TestCountWithNodesHavingAttributes();
 
 	printf("\n");

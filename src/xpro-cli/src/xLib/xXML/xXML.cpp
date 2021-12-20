@@ -88,6 +88,14 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
+			case kNoAttributeMatchWithIdenticalTag:
+				this->_parseHelper.state = kWaitToCloseTag;
+
+				// If we found the tag then we will increment count
+				result++;
+
+				break;
+
 			case kFoundTag:
 				this->_parseHelper.state = kWaitToCloseTag;
 
@@ -452,7 +460,15 @@ xError xXML::parseTagString() {
 			// for this node, then the user needs specify the attribute
 			// in the tag path
 			} else if (splitSize == 1) {
-				this->_parseHelper.state = kNoAttributeMatch;
+				// If the split was only 1, then we can see if that string is the
+				// tag. If the string is the tag string then we need to change to
+				// a specific state that shows we found the tag but the attribute
+				// does not match
+				if (!strcmp(this->_parseHelper.tagString, tempString)) {
+					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
+				} else {
+					this->_parseHelper.state = kNoAttributeMatch;
+				}
 
 				if (result == kNoError) {
 					// Reset the tag string

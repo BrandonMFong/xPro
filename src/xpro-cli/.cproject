@@ -503,13 +503,8 @@
 								<option id="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level.1343795267" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option defaultValue="gnu.cpp.compiler.debugging.level.max" id="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level.1216781488" name="Debug Level" superClass="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.611860479" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/xLib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${XPRO_PATH}/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${XPRO_PATH}/src/xLib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/src/xLib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;$(SOURCE_PATH)\src\xLib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;$(SOURCE_PATH)\src&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.869478400" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -527,13 +522,8 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.lib.debug.option.optimization.level.866024734" name="Optimization Level" superClass="gnu.c.compiler.mingw.lib.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.mingw.lib.debug.option.debugging.level.103000198" name="Debug Level" superClass="gnu.c.compiler.mingw.lib.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1952634679" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/xLib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${XPRO_PATH}/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${XPRO_PATH}/src/xLib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/xpro-cli/src/xLib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;$(SOURCE_PATH)\src\xLib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;$(SOURCE_PATH)\src&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.1356533131" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>

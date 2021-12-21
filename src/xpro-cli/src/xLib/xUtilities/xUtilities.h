@@ -110,7 +110,7 @@ char * xStringBetweenTwoStrings(
 #if defined(__WINDOWS__)
 
 #define FILE_SYSTEM_SEPARATOR '\\'
-#define MAX_PATH_LENGTH MAX_PATH
+#define MAX_PATH_LENGTH _MAX_PATH
 
 #define MAKE_DIR(path) mkdir(path)
 

@@ -12,13 +12,45 @@
 
 #include "xXML.hpp"
 
+#define TEST_FILE "test.xml"
+
+/**
+ * Free result string
+ */
+char * SetTestFile(const char * content, xError * err) {
+	char * result = xNull;
+	xError error = kNoError;
+	FILE * fp = xNull;
+
+	result = xMallocString(strlen(testPath) + strlen(TEST_FILE) + 1, &error);
+
+	if (error == kNoError) {
+		sprintf(result, "%s/%s", testPath, TEST_FILE);
+
+		fp = fopen(result, "w");
+		error = fp != xNull ? kNoError : kFileError;
+	}
+
+	if (error == kNoError) {
+		fprintf(fp, "%s", content); // Set content
+		fclose(fp);
+	}
+
+	return result;
+}
+
 void TestParsingWithNodes(void) {
 	const char * content = "<Person><Name>Adam</Name></Person>";
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -50,16 +82,26 @@ void TestParsingWithNodes(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestParsingForAttribute(void) {
 	const char * content = "<Persons><Person isCousin=\"true\"><Name>Adam</Name></Person></Persons>";
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -91,7 +133,12 @@ void TestParsingForAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingInnerXmlForSpecificAttribute(void) {
@@ -106,10 +153,15 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 		"</Persons>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -151,7 +203,12 @@ void TestGettingInnerXmlForSpecificAttribute(void) {
 		success = (strcmp(value, "<Name>Adam</Name>") == 0);
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingValueForSpecificAttribute(void) {
@@ -166,15 +223,20 @@ void TestGettingValueForSpecificAttribute(void) {
 		"</Persons>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
 	if (error == kNoError) {
-		value = xml->getValue("/Persons/Person.isCousin(false)/Name", &error);
+		value = xml->getValue("/Persons.family(Geronimo)/Person.isCousin(false)/Name", &error);
 	}
 
 	xBool success = error == kNoError;
@@ -186,7 +248,7 @@ void TestGettingValueForSpecificAttribute(void) {
 			printf("getValue() returned null\n");
 		}
 	} else {
-		printf("Error in getting value for '/Persons/Person.isCousin(false)', %d\n", error);
+		printf("Error in getting value for '/Persons.family(Geronimo)/Person.isCousin(false)', %d\n", error);
 	}
 
 	if (success) {
@@ -199,7 +261,7 @@ void TestGettingValueForSpecificAttribute(void) {
 
 	if (success) {
 		xFree(value);
-		value = xml->getValue("/Persons/Person.isCousin(true)/Name", &error);
+		value = xml->getValue("/Persons.family(Geronimo)/Person.isCousin(true)/Name", &error);
 		success = error == kNoError;
 	}
 
@@ -219,7 +281,12 @@ void TestGettingValueForSpecificAttribute(void) {
 		}
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestParsingWithFilePath(void) {
@@ -233,10 +300,15 @@ void TestParsingWithFilePath(void) {
 		"</xPro>\n";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -264,7 +336,12 @@ void TestParsingWithFilePath(void) {
 		}
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestGettingSiblingNode(void) {
@@ -275,10 +352,15 @@ void TestGettingSiblingNode(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -306,7 +388,12 @@ void TestGettingSiblingNode(void) {
 		}
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestIgnoringComments(void) {
@@ -318,14 +405,18 @@ void TestIgnoringComments(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
-
-	xBool success = error == kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
 
 	if (error == kNoError) {
-		error = xml->setContent(content);
+		file = SetTestFile(content, &error);
 	}
 
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	xBool success = error == kNoError;
 	char * value = xNull;
 	if (error == kNoError) {
 		value = xml->getValue("/xPro/Two", &error);
@@ -349,7 +440,12 @@ void TestIgnoringComments(void) {
 		}
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
@@ -361,13 +457,16 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 		"</xPro>";
 
 	xError error = kNoError;
-	xXML * xml = new xXML(&error);
+	xBool success = xTrue;
+	xXML * xml = xNull;
+	char * file = xNull;
 
-	xBool success = error == kNoError;
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
 
-	if (success) {
-		error 	= xml->setContent(content);
-		success = error == kNoError;
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
 	}
 
 	char * value = xNull;
@@ -388,7 +487,126 @@ void TestMakeSureNoErrorWithUnresolvedTagPath(void) {
 		}
 	}
 
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
 	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestCount(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<One>1</One>"
+			"<Two>5</Two>"
+			"<Two>3</Two>"
+			"<Two>2</Two>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Two", &error);
+		success = count == 3;
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestCountForInterchangingNodes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<One>1</One>"
+				"<Two>5</Two>"
+				"<Three>8</Three>"
+				"<Two>3</Two>"
+				"<Two>2</Two>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Function/Two", &error);
+		success = count == 3;
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestCountWithNodesHavingAttributes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<One attr=\"true\">1</One>"
+				"<Two attr=\"true\">5</Two>"
+				"<Three attr=\"true\">8</Three>"
+				"<Two attr=\"true\">3</Two>"
+				"<Two attr=\"true\">2</Two>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Function/Two", &error);
+		if (count != 3) {
+			printf("Count is %d\n", count);
+			success = xFalse;
+		}
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void xXML_Tests(void) {
@@ -402,6 +620,9 @@ void xXML_Tests(void) {
 	TestGettingSiblingNode();
 	TestIgnoringComments();
 	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestCount();
+	TestCountForInterchangingNodes();
+	TestCountWithNodesHavingAttributes();
 
 	printf("\n");
 }

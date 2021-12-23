@@ -42,6 +42,8 @@ extern "C" {
 
 /**
  * Returns malloc'd string and copies an empty string to it
+ *
+ * length: 1 is added to length in function
  */
 char * xMallocString(xUInt64 length, xError * err);
 
@@ -108,7 +110,7 @@ char * xStringBetweenTwoStrings(
 #if defined(__WINDOWS__)
 
 #define FILE_SYSTEM_SEPARATOR '\\'
-#define MAX_PATH_LENGTH MAX_PATH
+#define MAX_PATH_LENGTH _MAX_PATH
 
 #define MAKE_DIR(path) mkdir(path)
 
@@ -137,11 +139,6 @@ xBool xIsDir(const char * path);
  * Caller is responsible for freeing memory
  */
 char * xHomePath(xError * err);
-
-/**
- * Returns file content at path
- */
-char * xReadFile(const char * path, xError * err);
 
 /**
  * Creates directory at path.  If it already

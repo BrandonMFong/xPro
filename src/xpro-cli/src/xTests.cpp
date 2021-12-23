@@ -16,8 +16,11 @@
 
 #include <AppDriver/Commands/Directory/Directory_Tests.h>
 
-int xTests() {
+int xTests(int argc, char ** argv) {
 	printf("\n");
+
+	// Setup test path
+	strcpy(testPath, dirname(argv[0]));
 
 	xUtilities_Tests();
 	xXML_Tests();

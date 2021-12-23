@@ -10,12 +10,11 @@
 xXML::xXML(const char * path, xError * err) {
 	xError error = kNoError;
 
-	this->_path 		= xNull;
-	this->_rawContent	= xNull;
+	this->_path = xNull;
 
 	// Read contents of file into rawContent
 	if (path != xNull) {
-		error = this->read(path);
+		this->_path = xCopyString(path, &error);
 	}
 
 	if (err != xNull) {
@@ -25,45 +24,25 @@ xXML::xXML(const char * path, xError * err) {
 
 xXML::~xXML() {
 	xFree(this->_path);
-	xFree(this->_rawContent);
 }
 
-xError xXML::read(const char * path) {
-	xError result = kNoError;
-
-	// Erase old content
-	xFree(this->_rawContent);
-
-	// Read file content at path
-	this->_rawContent = xReadFile(path, &result);
-
-	// Save the path
-	if (result == kNoError) {
-		// Free memory if path was already set
-		xFree(this->_path);
-
-		this->_path = xCopyString(path, &result);
-	}
-
-	return result;
-}
-
-char * xXML::getValue(
-	const char * 	elementPath,
-	xError * 		err
+xUInt64 xXML::countTags(
+	const char * 	tagPath,
+	xError *		err
 ) {
+	xUInt64 result = 0;
 	xError error = kNoError;
+	xBool okayToContinue = xTrue;
 
-	if (elementPath == xNull) {
+	if (tagPath == xNull) {
 		error = kStringError;
 	} else {
 		this->_parseHelper.init();
 
-		this->_parseHelper.contentLength 	= strlen(this->_rawContent);
-		this->_parseHelper.arrayIndex 		= 1; // Set it to 1
+		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
 		this->_parseHelper.tagPathArray = xSplitString(
-			elementPath,
+			tagPath,
 			ELEMENT_PATH_SEP,
 			&this->_parseHelper.arraySize,
 			&error
@@ -71,67 +50,179 @@ char * xXML::getValue(
 	}
 
 	if (error == kNoError) {
+		this->_parseHelper.filePtr = fopen(this->_path, "r");
+		if (this->_parseHelper.filePtr == xNull) {
+			error = kFileError;
+		} else {
+			// Set to the beginning of the file
+			fseek(this->_parseHelper.filePtr, 0, SEEK_SET);
+		}
+	}
+
+	if (error == kNoError) {
 		// Init empty string
 		this->_parseHelper.tagString = xCopyString("", &error);
 	}
 
-	while (		(this->_parseHelper.contentIndex < this->_parseHelper.contentLength)
+	while (		okayToContinue
 			&& 	(error == kNoError)
 			&& 	(this->_parseHelper.arrayIndex <= this->_parseHelper.arraySize)
 			&& 	!this->_parseHelper.finished
 	) {
-		switch (this->_parseHelper.state) {
-		case kIdle:
-			this->parseIdle();
-			break;
+		this->_parseHelper.chBuf 	= fgetc(this->_parseHelper.filePtr);
+		okayToContinue 				= !feof(this->_parseHelper.filePtr);
 
-		// When find the close tag, then go to the idle state to wait for new start of tag
-		case kWaitToCloseTag:
-			this->parseWaitToCloseTag(kIdle);
-			break;
+		if (okayToContinue) {
+			switch (this->_parseHelper.state) {
+			case kIdle:
+				this->parseIdle();
+				break;
 
-		// If we are ready to read the inner xml but are far away from
-		// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
-		case kWaitToReadInnerXml:
-			this->parseWaitToCloseTag(kPrepareReadingInnerXml);
-			break;
+			// When find the close tag, then go to the idle state to wait for new start of tag
+			case kWaitToCloseTag:
+			case kNoAttributeMatch:
+				this->parseWaitToCloseTag(kIdle);
+				break;
 
-		case kWaitToCloseXmlDeclaration:
-			this->waitToCloseXmlDeclaration();
-			break;
+			case kReadingTagString:
+				error = this->parseTagString();
+				break;
 
-		case kPrepareReadingInnerXml:
-			error = this->parsePrepareToReadInnerXml();
-			break;
+			case kNoAttributeMatchWithIdenticalTag:
+				this->_parseHelper.state = kWaitToCloseTag;
 
-		case kInnerXml:
-			error = this->parseReadInnerXml();
-			break;
+				// If we found the tag then we will increment count
+				result++;
 
-		case kReadingTagString:
-			error = this->parseTagString();
-			break;
+				break;
 
-		// Gather the characters to form the attribute
-		case kReadAttributeKey:
-			error = this->parseAttributeKey();
-			break;
+			case kFoundTag:
+				this->_parseHelper.state = kWaitToCloseTag;
 
-		// Get the attribute value inside quotes
-		case kReadAttributeValue:
-			error = this->parseAttributeValue();
-			break;
+				// If we found the tag then we will increment count
+				result++;
 
-		case kParseComment:
-			error = this->parseComment();
-			break;
+				// If we are here then parseTagString() found the last tag in the
+				// tag path.  We need to make sure that if we are going to go through
+				// the xml nodes again that we read for the same current tag string
+				this->_parseHelper.arrayIndex--;
+				break;
 
-		default:
-			break;
+			default:
+				break;
+			}
 		}
+	}
 
-		if (error == kNoError) {
-			this->_parseHelper.contentIndex++;
+	// Close the file
+	if (this->_parseHelper.filePtr != xNull) fclose(this->_parseHelper.filePtr);
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
+}
+
+char * xXML::getValue(
+	const char * 	tagPath,
+	xError * 		err
+) {
+	xError 	error 			= kNoError;
+	xBool 	okayToContinue 	= xTrue;
+
+	if (tagPath == xNull) {
+		error = kStringError;
+	} else {
+		this->_parseHelper.init();
+
+		this->_parseHelper.arrayIndex = 1; // Set it to 1
+
+		this->_parseHelper.tagPathArray = xSplitString(
+			tagPath,
+			ELEMENT_PATH_SEP,
+			&this->_parseHelper.arraySize,
+			&error
+		);
+	}
+
+	if (error == kNoError) {
+		this->_parseHelper.filePtr = fopen(this->_path, "r");
+		if (this->_parseHelper.filePtr == xNull) {
+			error = kFileError;
+		} else {
+			// Set to the beginning of the file
+			fseek(this->_parseHelper.filePtr, 0, SEEK_SET);
+		}
+	}
+
+	if (error == kNoError) {
+		// Init empty string
+		this->_parseHelper.tagString = xCopyString("", &error);
+	}
+
+	while (		okayToContinue
+			&& 	(error == kNoError)
+			&& 	(this->_parseHelper.arrayIndex <= this->_parseHelper.arraySize)
+			&& 	!this->_parseHelper.finished
+	) {
+		this->_parseHelper.chBuf 	= fgetc(this->_parseHelper.filePtr);
+		okayToContinue 				= !feof(this->_parseHelper.filePtr);
+
+		if (okayToContinue) {
+			switch (this->_parseHelper.state) {
+			case kIdle:
+				this->parseIdle();
+				break;
+
+			// When find the close tag, then go to the idle state to wait for new start of tag
+			case kWaitToCloseTag:
+				this->parseWaitToCloseTag(kIdle);
+				break;
+
+			case kNoAttributeMatch:
+				this->parseWaitToCloseTag(kIdle);
+				break;
+
+			// If we are ready to read the inner xml but are far away from
+			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
+			case kWaitToReadInnerXml:
+				this->parseWaitToCloseTag(kFoundTag);
+				break;
+
+			case kWaitToCloseXmlDeclaration:
+				this->waitToCloseXmlDeclaration();
+				break;
+
+			case kFoundTag:
+				error = this->parsePrepareToReadInnerXml();
+				break;
+
+			case kInnerXml:
+				error = this->parseReadInnerXml();
+				break;
+
+			case kReadingTagString:
+				error = this->parseTagString();
+				break;
+
+			// Gather the characters to form the attribute
+			case kReadAttributeKey:
+				error = this->parseAttributeKey();
+				break;
+
+			// Get the attribute value inside quotes
+			case kReadAttributeValue:
+				error = this->parseAttributeValue();
+				break;
+
+			case kParseComment:
+				error = this->parseComment();
+				break;
+
+			default:
+				break;
+			}
 		}
 	}
 
@@ -151,6 +242,9 @@ char * xXML::getValue(
 	xFree(this->_parseHelper.tagString);
 	xFree(this->_parseHelper.innerXml);
 
+	// Close the file
+	if (this->_parseHelper.filePtr != xNull) fclose(this->_parseHelper.filePtr);
+
 	if (err != xNull) {
 		*err = error;
 	}
@@ -158,30 +252,20 @@ char * xXML::getValue(
 	return this->_parseHelper.result;
 }
 
-xError xXML::setContent(const char * rawContent) {
-	xError result = kNoError;
-
-	xFree(this->_rawContent);
-
-	this->_rawContent = xCopyString(rawContent, &result);
-
-	return result;
-}
-
 void xXML::parseIdle(void) {
-	if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+	if (this->_parseHelper.chBuf == '<') {
 		this->_parseHelper.state = kReadingTagString;
 	}
 }
 
 void xXML::parseWaitToCloseTag(ParsingState nextState) {
-	if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+	if (this->_parseHelper.chBuf == '>') {
 		this->_parseHelper.state = nextState;
 	}
 }
 
 void xXML::waitToCloseXmlDeclaration() {
-	if (this->_rawContent[this->_parseHelper.contentIndex] == '?') {
+	if (this->_parseHelper.chBuf == '?') {
 		this->_parseHelper.state = kIdle;
 	}
 }
@@ -193,7 +277,7 @@ xError xXML::parsePrepareToReadInnerXml() {
 	// Init to one
 	this->_parseHelper.endTagCharRecord = 1;
 
-	if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
+	if (this->_parseHelper.chBuf == '<') {
 		this->_parseHelper.endTagCharRecord++;
 	}
 
@@ -202,7 +286,7 @@ xError xXML::parsePrepareToReadInnerXml() {
 	this->_parseHelper.innerXml = xCopyString("", &result);
 
 	if (result == kNoError) {
-		tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+		tempString = xCharToString(this->_parseHelper.chBuf, &result);
 	}
 
 	if (result == kNoError) {
@@ -218,13 +302,22 @@ xError xXML::parsePrepareToReadInnerXml() {
 }
 
 xError xXML::parseReadInnerXml() {
-	xError result 		= kNoError;
-	char * tempString 	= xNull;
+	xError 	result 			= kNoError;
+	char * 	tempString 		= xNull;
+	long 	currentPosition = 0;
+	char 	nextChar = 0;
+
+	if (this->_parseHelper.filePtr != xNull) {
+		currentPosition = ftell(this->_parseHelper.filePtr);
+
+		// Get the next char
+		nextChar = fgetc(this->_parseHelper.filePtr);
+	}
 
 	// Make sure we are not out of range
-	if ((this->_parseHelper.contentIndex + 1) < this->_parseHelper.contentLength) {
-		if (this->_rawContent[this->_parseHelper.contentIndex] == '<') {
-			if (this->_rawContent[this->_parseHelper.contentIndex + 1] == '/') {
+	if (!feof(this->_parseHelper.filePtr)) {
+		if (this->_parseHelper.chBuf == '<') {
+			if (nextChar == '/') {
 				this->_parseHelper.endTagCharRecord--;
 			} else {
 				this->_parseHelper.endTagCharRecord++;
@@ -238,7 +331,7 @@ xError xXML::parseReadInnerXml() {
 	if (this->_parseHelper.endTagCharRecord > 0) {
 		if (result == kNoError) {
 			tempString = xCharToString(
-				this->_rawContent[this->_parseHelper.contentIndex],
+				this->_parseHelper.chBuf,
 				&result
 			);
 		}
@@ -259,6 +352,10 @@ xError xXML::parseReadInnerXml() {
 		);
 	}
 
+	// Set file position back
+	if (this->_parseHelper.filePtr != xNull)
+		fseek(this->_parseHelper.filePtr, currentPosition, SEEK_SET);
+
 	return result;
 }
 
@@ -269,7 +366,7 @@ xError xXML::parseTagString() {
 	xUInt8 	splitSize 		= 0;
 
 	// Add to tag string if are still sweeping tag
-	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	switch (this->_parseHelper.chBuf) {
 	case '!':
 		// Initialize the flag
 		this->_parseHelper.insideComment 	= xFalse;
@@ -290,20 +387,20 @@ xError xXML::parseTagString() {
 			// If we found a tag from the tag path then increment the array index
 			this->_parseHelper.arrayIndex++;
 
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+			if (this->_parseHelper.chBuf == '>') {
 				// If we reached the end of the tag array, we need to start reading the inner xml
 				if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-					this->_parseHelper.state = kPrepareReadingInnerXml;
+					this->_parseHelper.state = kFoundTag;
 				} else {
 					// Go to idle
 					this->_parseHelper.state = kIdle;
 				}
-			} else if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
+			} else if (this->_parseHelper.chBuf == '/') {
 				// Wait for not to finish
 				this->_parseHelper.state = kWaitToCloseTag;
 			}
 		} else {
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '/') {
+			if (this->_parseHelper.chBuf == '/') {
 				// Wait for not to finish
 				this->_parseHelper.state = kWaitToCloseTag;
 			}
@@ -357,10 +454,22 @@ xError xXML::parseTagString() {
 					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
 				}
-			} else if (splitSize == 1) {
-				this->_parseHelper.arrayIndex++; // Go to the next indexed element
 
-				this->_parseHelper.state = kWaitToCloseTag;
+			// If received 1 then there is no attribute specified for
+			// this tag in tag path.  If there is an attribute specified
+			// for this node, then the user needs specify the attribute
+			// in the tag path
+			} else if (splitSize == 1) {
+				// If the split was only 1, then we can see if that string is the
+				// tag. If the string is the tag string then we need to change to
+				// a specific state that shows we found the tag but the attribute
+				// does not match.  We do not increment the arrayIndex because we
+				// do not need to continue if the user did not specify an attribute
+				if (!strcmp(this->_parseHelper.tagString, tempString)) {
+					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
+				} else {
+					this->_parseHelper.state = kNoAttributeMatch;
+				}
 
 				if (result == kNoError) {
 					// Reset the tag string
@@ -383,7 +492,7 @@ xError xXML::parseTagString() {
 
 	default:
 		tempString = xCharToString(
-			this->_rawContent[this->_parseHelper.contentIndex],
+			this->_parseHelper.chBuf,
 			&result
 		);
 
@@ -406,7 +515,7 @@ xError xXML::parseAttributeKey() {
 			** split 		= xNull;
 	xUInt8 	splitSize 		= 0;
 
-	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	switch (this->_parseHelper.chBuf) {
 	case '=':
 		this->_parseHelper.attrValSpecified = xFalse;
 
@@ -482,9 +591,9 @@ xError xXML::parseAttributeKey() {
 
 		break;
 	default:
-		tempString = xCharToString(this->_rawContent[this->_parseHelper.contentIndex], &result);
+		tempString 	= xCharToString(this->_parseHelper.chBuf, &result);
+		result 		= xApendToString(&this->_parseHelper.attrKey, tempString);
 
-		result = xApendToString(&this->_parseHelper.attrKey, tempString);
 		xFree(tempString);
 
 		break;
@@ -497,7 +606,7 @@ xError xXML::parseAttributeValue() {
 	xError result 		= kNoError;
 	char * tempString 	= xNull;
 
-	switch (this->_rawContent[this->_parseHelper.contentIndex]) {
+	switch (this->_parseHelper.chBuf) {
 	case '"':
 		this->_parseHelper.quoteCount++;
 
@@ -538,7 +647,7 @@ xError xXML::parseAttributeValue() {
 	default:
 		if (this->_parseHelper.quoteCount < 2) {
 			tempString = xCharToString(
-				this->_rawContent[this->_parseHelper.contentIndex],
+				this->_parseHelper.chBuf,
 				&result
 			);
 
@@ -559,7 +668,7 @@ xError xXML::parseComment() {
 	xError result = kNoError;
 
 	// See if we are entering or exiting a comment
-	if (this->_rawContent[this->_parseHelper.contentIndex] == '-') {
+	if (this->_parseHelper.chBuf == '-') {
 		// If we found two consecutive '-'s then we are either entering or existing
 		// a comment
 		if (this->_parseHelper.dashCount < 2) {
@@ -581,7 +690,7 @@ xError xXML::parseComment() {
 		} else {
 			// If we are not inside the comment and we found '>' then we are
 			// done with the parsing comment state
-			if (this->_rawContent[this->_parseHelper.contentIndex] == '>') {
+			if (this->_parseHelper.chBuf == '>') {
 				this->_parseHelper.state = kIdle;
 			}
 		}

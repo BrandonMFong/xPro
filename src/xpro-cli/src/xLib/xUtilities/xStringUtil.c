@@ -8,8 +8,8 @@
 #include "xUtilities.h"
 
 char * xMallocString(xUInt64 length, xError * err) {
-	char * result = xNull;
-	xError error = kNoError;
+	char * result 	= xNull;
+	xError error 	= kNoError;
 
 	result	= (char *) malloc(length + 1);
 	error 	= result != xNull ? kNoError : kUnknownError;

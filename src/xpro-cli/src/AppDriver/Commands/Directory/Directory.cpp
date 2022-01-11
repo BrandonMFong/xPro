@@ -17,7 +17,7 @@ xXML * xProConfig = xNull;
 
 xError HandleDirectory() {
 	xError 		result 			= kNoError;
-	char 		* dirAlias 		= xNull;
+	char 		* dirKey 		= xNull;
 	const char 	* configPath	= xNull;
 	AppDriver 	* appDriver		= xNull;
 
@@ -32,9 +32,9 @@ xError HandleDirectory() {
 		}
 	}
 
-	// Get the alias from command line
+	// Get the key from command line
 	if (result == kNoError) {
-		dirAlias = appDriver->args.argAtIndex(2, &result);
+		dirKey = appDriver->args.argAtIndex(2, &result);
 	}
 
 	// Get the config file
@@ -53,12 +53,12 @@ xError HandleDirectory() {
 	}
 
 	if (result == kNoError) {
-		// If user passed 3 arguments: <tool> dir <alias>
-		// then we just need to print the alias definition
+		// If user passed 3 arguments: <tool> dir <key>
+		// then we just need to print the key definition
 		if (appDriver->args.count() == 3) {
-			result = PrintDirectoryForAlias(dirAlias);
+			result = PrintDirectoryForKey(dirKey);
 		} else {
-			result = kDirectoryAliasError;
+			result = kDirectoryKeyError;
 			DLog("Unexpected number of arguments, %d\n", appDriver->args.count());
 		}
 	}
@@ -72,17 +72,17 @@ xError HandleDirectory() {
 	return result;
 }
 
-xError PrintDirectoryForAlias(const char * alias) {
+xError PrintDirectoryForKey(const char * key) {
 	xError 		result 			= kNoError;
 	char 		* elementPath 	= xNull,
 				* directory 	= xNull;
 	const char 	* username 		= xNull;
 
-	if (alias == xNull) {
-		result = kDirectoryAliasError;
+	if (key == xNull) {
+		result = kDirectoryKeyError;
 	} else {
 		elementPath = xMallocString(
-				strlen(alias)
+				strlen(key)
 			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
 			+	strlen(ALL_USERS)
 			+ 	1,
@@ -93,7 +93,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 			sprintf(
 				elementPath,
 				DIRECTORY_ELEMENT_PATH_FORMAT,
-				alias,
+				key,
 				ALL_USERS
 			);
 		}
@@ -119,7 +119,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 			xFree(elementPath);
 
 			elementPath = xMallocString(
-					strlen(alias)
+					strlen(key)
 				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
 				+	strlen(username)
 				+ 	1,
@@ -130,7 +130,7 @@ xError PrintDirectoryForAlias(const char * alias) {
 				sprintf(
 					elementPath,
 					DIRECTORY_ELEMENT_PATH_FORMAT,
-					alias,
+					key,
 					username
 				);
 			}

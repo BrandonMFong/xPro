@@ -609,20 +609,70 @@ void TestCountWithNodesHavingAttributes(void) {
 	xDelete(xml);
 }
 
+void TestIndexingASetOfSimilarPaths(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<Path>One</Path>"
+				"<Path>Two</Path>"
+				"<Path>Three</Path>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Function/Path", &error);
+		if (count != 3) {
+			printf("Count is %d\n", count);
+			success = xFalse;
+		}
+	}
+
+	char * value = xNull;
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[0]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d", error);
+		}
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-	TestParsingWithNodes();
-	TestParsingForAttribute();
-	TestGettingInnerXmlForSpecificAttribute();
-	TestGettingValueForSpecificAttribute();
-	TestParsingWithFilePath();
-	TestGettingSiblingNode();
-	TestIgnoringComments();
-	TestMakeSureNoErrorWithUnresolvedTagPath();
-	TestCount();
-	TestCountForInterchangingNodes();
-	TestCountWithNodesHavingAttributes();
+//	TestParsingWithNodes();
+//	TestParsingForAttribute();
+//	TestGettingInnerXmlForSpecificAttribute();
+//	TestGettingValueForSpecificAttribute();
+//	TestParsingWithFilePath();
+//	TestGettingSiblingNode();
+//	TestIgnoringComments();
+//	TestMakeSureNoErrorWithUnresolvedTagPath();
+//	TestCount();
+//	TestCountForInterchangingNodes();
+//	TestCountWithNodesHavingAttributes();
+	TestIndexingASetOfSimilarPaths();
 
 	printf("\n");
 }

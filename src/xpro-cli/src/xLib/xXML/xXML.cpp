@@ -364,6 +364,7 @@ xError xXML::parseTagString() {
 	char 	* tempString 	= xNull,
 			** split 		= xNull;
 	xUInt8 	splitSize 		= 0;
+	xBool 	containsBracket	= xFalse;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_parseHelper.chBuf) {
@@ -383,28 +384,49 @@ xError xXML::parseTagString() {
 	case '/': // start of the end of a tag
 		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 
-		if (!strcmp(tempString, this->_parseHelper.tagString)) {
-			// If we found a tag from the tag path then increment the array index
-			this->_parseHelper.arrayIndex++;
+		// TODO: check for [] indexing characters
+		containsBracket = xContainsSubString(tempString, "[", &result);
 
-			if (this->_parseHelper.chBuf == '>') {
-				// If we reached the end of the tag array, we need to start reading the inner xml
-				if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-					this->_parseHelper.state = kFoundTag;
-				} else {
-					// Go to idle
-					this->_parseHelper.state = kIdle;
-				}
-			} else if (this->_parseHelper.chBuf == '/') {
-				// Wait for not to finish
-				this->_parseHelper.state = kWaitToCloseTag;
+		if (containsBracket) {
+			if (result == kNoError) {
+				split = xSplitString(
+					tempString,
+					"[",
+					&splitSize,
+					&result
+				);
 			}
-		} else {
-			if (this->_parseHelper.chBuf == '/') {
-				// Wait for not to finish
-				this->_parseHelper.state = kWaitToCloseTag;
+
+			if (result == kNoError) {
+
 			}
 		}
+
+		if (result == kNoError) {
+			if (!strcmp(tempString, this->_parseHelper.tagString)) {
+				// If we found a tag from the tag path then increment the array index
+				this->_parseHelper.arrayIndex++;
+
+				if (this->_parseHelper.chBuf == '>') {
+					// If we reached the end of the tag array, we need to start reading the inner xml
+					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
+						this->_parseHelper.state = kFoundTag;
+					} else {
+						// Go to idle
+						this->_parseHelper.state = kIdle;
+					}
+				} else if (this->_parseHelper.chBuf == '/') {
+					// Wait for not to finish
+					this->_parseHelper.state = kWaitToCloseTag;
+				}
+			} else {
+				if (this->_parseHelper.chBuf == '/') {
+					// Wait for not to finish
+					this->_parseHelper.state = kWaitToCloseTag;
+				}
+			}
+		}
+
 
 		tempString = xNull;
 

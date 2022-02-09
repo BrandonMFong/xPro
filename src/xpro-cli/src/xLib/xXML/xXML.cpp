@@ -362,9 +362,10 @@ xError xXML::parseReadInnerXml() {
 xError xXML::parseTagString() {
 	xError 	result 			= kNoError;
 	char 	* tempString 	= xNull,
-			** split 		= xNull;
-	xUInt8 	splitSize 		= 0;
-	xBool 	containsBracket	= xFalse;
+			** split 		= xNull,
+			* strippedString = xNull;
+	xUInt8 	splitSize 		= 0,
+			index = 0;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_parseHelper.chBuf) {
@@ -385,20 +386,14 @@ xError xXML::parseTagString() {
 		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 
 		// TODO: check for [] indexing characters
-		containsBracket = xContainsSubString(tempString, "[", &result);
+		if (xContainsSubString(tempString, "[", &result)) {
 
-		if (containsBracket) {
 			if (result == kNoError) {
-				split = xSplitString(
+				result = this->stripIndexLeafTagPath(
 					tempString,
-					"[",
-					&splitSize,
-					&result
+					&strippedString,
+					&index
 				);
-			}
-
-			if (result == kNoError) {
-
 			}
 		}
 
@@ -525,6 +520,47 @@ xError xXML::parseTagString() {
 			);
 
 			xFree(tempString);
+		}
+	}
+
+	return result;
+}
+
+xError xXML::stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index) {
+	xError result = kNoError;
+	char ** splitString = xNull;
+	xUInt8 splitSize = 0;
+
+	if (result == kNoError) {
+		if (tag == xNull) {
+			result = kNullError;
+			DLog("Tag string should not be null");
+		}
+	}
+
+	if (result == kNoError) {
+		if (index == xNull) {
+			result = kNullError;
+			DLog("Caller must provided a pointer to index");
+		}
+	}
+
+	if (result == kNoError) {
+		splitString = xSplitString(
+			indexTag,
+			"[",
+			&splitSize,
+			&result
+		);
+	}
+
+	if (result == kNoError) {
+		if (splitSize != 2) {
+			result = kSizeError;
+			DLog(
+				"Split size value is unexpected: %d",
+				splitSize
+			);
 		}
 	}
 

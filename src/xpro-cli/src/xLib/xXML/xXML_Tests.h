@@ -658,6 +658,38 @@ void TestIndexingASetOfSimilarPaths(void) {
 	xDelete(xml);
 }
 
+void TestStrippingIndexedTag() {
+	xBool success = xTrue;
+	xError error = kNoError;
+	char * tag = xNull;
+	xUInt8 index = 0;
+
+	xXML * xml = new xXML(&error);
+	success = xml != xNull;
+
+	if (success) {
+		success = error == kNoError;
+		DLog("Error in xml constructor %d", error);
+	}
+
+	if (success) {
+		error = xml->stripIndexLeafTagPath("path[1]", &tag, &index);
+
+		if (error != kNoError) {
+			DLog("Error stripping: %d", error);
+			success = xFalse;
+		} else if (strcmp(tag, "path")) {
+			success = xFalse;
+			DLog("tag is not expected value: 'path'");
+		} else if (index != 1) {
+			success = xFalse;
+			DLog("index should be 1");
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 

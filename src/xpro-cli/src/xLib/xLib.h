@@ -20,9 +20,11 @@
 #include <xUtilities/xUtilities.h>
 #include <xTests.h>
 
-/// Classes
 #ifdef __cplusplus
 
+#include <xClassDec.h>
+
+/// Classes
 #include <xArguments/xArgs.hpp>
 #include <xXML/xXML.hpp>
 

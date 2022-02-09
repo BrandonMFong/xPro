@@ -18,6 +18,7 @@
 #include <xError.h>
 #include <xNull.h>
 #include <xUtilities/xUtilities.h>
+#include <xClassDec.h>
 
 /// System
 #include <unistd.h>
@@ -57,7 +58,7 @@ enum ParsingState {
  * Helps parse an xml file
  */
 class xXML {
-public:
+xPublic:
 	/**
 	 * Opens file and reads the content in the file
 	 */
@@ -107,7 +108,7 @@ public:
 	 */
 	xUInt64 countTags(const char * tagPath, xError * err);
 
-private:
+xPrivate:
 
 	/**
 	 * Waits for '<' to appear at contentIndex

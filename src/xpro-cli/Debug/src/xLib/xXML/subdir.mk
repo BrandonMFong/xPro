@@ -6,19 +6,26 @@
 CPP_SRCS += \
 ../src/xLib/xXML/xXML.cpp 
 
-OBJS += \
-./src/xLib/xXML/xXML.o 
-
 CPP_DEPS += \
 ./src/xLib/xXML/xXML.d 
+
+OBJS += \
+./src/xLib/xXML/xXML.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/xLib/xXML/%.o: ../src/xLib/xXML/%.cpp src/xLib/xXML/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli" -I"/src" -I"/src/xLib" -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src" -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli" -I"/src" -I"/src/xLib" -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src" -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean-src-2f-xLib-2f-xXML
+
+clean-src-2f-xLib-2f-xXML:
+	-$(RM) ./src/xLib/xXML/xXML.d ./src/xLib/xXML/xXML.o
+
+.PHONY: clean-src-2f-xLib-2f-xXML
 

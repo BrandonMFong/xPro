@@ -526,11 +526,15 @@ xError xXML::parseTagString() {
 	return result;
 }
 
-xError xXML::stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index) {
-	xError result = kNoError;
-	char ** splitString = xNull,
-			* tempString = xNull;
-	xUInt8 splitSize = 0;
+xError xXML::stripIndexLeafTagPath(
+	const char 	* indexTag,
+	char 		** tag,
+	xUInt8 		* index
+) {
+	xError 	result 			= kNoError;
+	char 	** splitString 	= xNull,
+			* tempString 	= xNull;
+	xUInt8 	splitSize 		= 0;
 
 	if (result == kNoError) {
 		if (tag == xNull) {

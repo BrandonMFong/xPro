@@ -669,7 +669,10 @@ void TestStrippingIndexedTag() {
 
 	if (success) {
 		success = error == kNoError;
-		DLog("Error in xml constructor %d", error);
+
+		if (!success) {
+			DLog("Error in xml constructor %d", error);
+		}
 	}
 
 	if (success) {
@@ -693,18 +696,18 @@ void TestStrippingIndexedTag() {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-//	TestParsingWithNodes();
-//	TestParsingForAttribute();
-//	TestGettingInnerXmlForSpecificAttribute();
-//	TestGettingValueForSpecificAttribute();
-//	TestParsingWithFilePath();
-//	TestGettingSiblingNode();
-//	TestIgnoringComments();
-//	TestMakeSureNoErrorWithUnresolvedTagPath();
-//	TestCount();
-//	TestCountForInterchangingNodes();
-//	TestCountWithNodesHavingAttributes();
-//	TestIndexingASetOfSimilarPaths();
+	TestParsingWithNodes();
+	TestParsingForAttribute();
+	TestGettingInnerXmlForSpecificAttribute();
+	TestGettingValueForSpecificAttribute();
+	TestParsingWithFilePath();
+	TestGettingSiblingNode();
+	TestIgnoringComments();
+	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestCount();
+	TestCountForInterchangingNodes();
+	TestCountWithNodesHavingAttributes();
+	TestIndexingASetOfSimilarPaths();
 	TestStrippingIndexedTag();
 
 	printf("\n");

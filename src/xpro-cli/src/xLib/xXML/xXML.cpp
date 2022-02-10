@@ -528,7 +528,8 @@ xError xXML::parseTagString() {
 
 xError xXML::stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index) {
 	xError result = kNoError;
-	char ** splitString = xNull;
+	char ** splitString = xNull,
+			* tempString = xNull;
 	xUInt8 splitSize = 0;
 
 	if (result == kNoError) {
@@ -562,6 +563,38 @@ xError xXML::stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * 
 				splitSize
 			);
 		}
+	}
+
+	// Get the base tag without the index
+	if (result == kNoError) {
+		*tag = xCopyString(splitString[0], &result);
+	}
+
+	// Get the rest of the string
+	if (result == kNoError) {
+		tempString = xCopyString(splitString[1], &result);
+	}
+
+	if (result == kNoError) {
+		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
+
+		splitString = xSplitString(
+			tempString,
+			"]",
+			&splitSize,
+			&result
+		);
+	}
+
+	if (result == kNoError) {
+		xFree(tempString);
+
+		tempString = xCopyString(splitString[0], &result);
+	}
+
+	if (result == kNoError) {
+		*index = atoi(tempString);
+		xFree(tempString);
 	}
 
 	return result;

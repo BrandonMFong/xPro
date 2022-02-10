@@ -704,7 +704,8 @@ void xXML_Tests(void) {
 //	TestCount();
 //	TestCountForInterchangingNodes();
 //	TestCountWithNodesHavingAttributes();
-	TestIndexingASetOfSimilarPaths();
+//	TestIndexingASetOfSimilarPaths();
+	TestStrippingIndexedTag();
 
 	printf("\n");
 }

@@ -646,7 +646,43 @@ void TestIndexingASetOfSimilarPaths(void) {
 		success = error == kNoError;
 
 		if (!success) {
-			printf("Error %d", error);
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "One")) {
+			printf("Incorrect inner xml, %s\n", value);
+		}
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[1]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "Two")) {
+			printf("Incorrect inner xml, %s\n", value);
+		}
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[2]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "Three")) {
+			printf("Incorrect inner xml, %s\n", value);
 		}
 	}
 

@@ -197,6 +197,7 @@ xPrivate:
 			this->bufferLength		= 0;
 			this->chBuf				= 0;
 			this->filePtr			= xNull;
+			this->indexPathIndex	= 0;
 		}
 
 		FILE * filePtr;
@@ -308,6 +309,11 @@ xPrivate:
 		 * If true, we are currently indexing inside a comment
 		 */
 		xBool insideComment;
+
+		/**
+		 * The current index for a path that is indexing
+		 */
+		xUInt8 indexPathIndex;
 	} _parseHelper;
 };
 

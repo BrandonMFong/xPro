@@ -360,12 +360,13 @@ xError xXML::parseReadInnerXml() {
 }
 
 xError xXML::parseTagString() {
-	xError 	result 			= kNoError;
-	char 	* tempString 	= xNull,
-			** split 		= xNull,
-			* strippedString = xNull;
-	xUInt8 	splitSize 		= 0,
-			index = 0;
+	xError 	result 				= kNoError;
+	char 	* tempString 		= xNull,
+			** split 			= xNull,
+			* strippedString 	= xNull;
+	xUInt8 	splitSize 			= 0;
+	xUInt8	index 				= 0;
+	xBool 	foundIndex			= xFalse;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_parseHelper.chBuf) {
@@ -385,22 +386,38 @@ xError xXML::parseTagString() {
 	case '/': // start of the end of a tag
 		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
 
-		// TODO: check for [] indexing characters
+		// If the tag path has a '[' then we need to extract
+		// the base path and the index number
 		if (xContainsSubString(tempString, "[", &result)) {
-
 			if (result == kNoError) {
 				result = this->stripIndexLeafTagPath(
 					tempString,
 					&strippedString,
 					&index
 				);
+
+				if (result == kNoError) {
+					foundIndex = xTrue;
+					tempString = strippedString;
+				} else {
+					foundIndex = xFalse;
+				}
 			}
 		}
 
 		if (result == kNoError) {
 			if (!strcmp(tempString, this->_parseHelper.tagString)) {
-				// If we found a tag from the tag path then increment the array index
-				this->_parseHelper.arrayIndex++;
+				if (foundIndex) {
+					if (this->_parseHelper.indexPathIndex == index) {
+						this->_parseHelper.indexPathIndex = 0;
+						this->_parseHelper.arrayIndex++;
+					} else {
+						this->_parseHelper.indexPathIndex++;
+					}
+				} else {
+					// If we found a tag from the tag path then increment the array index
+					this->_parseHelper.arrayIndex++;
+				}
 
 				if (this->_parseHelper.chBuf == '>') {
 					// If we reached the end of the tag array, we need to start reading the inner xml
@@ -422,8 +439,8 @@ xError xXML::parseTagString() {
 			}
 		}
 
-
 		tempString = xNull;
+		xFree(strippedString);
 
 		// Reset the tag string
 		xFree(this->_parseHelper.tagString);

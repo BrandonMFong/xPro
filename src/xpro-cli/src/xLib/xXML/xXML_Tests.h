@@ -39,6 +39,43 @@ char * SetTestFile(const char * content, xError * err) {
 	return result;
 }
 
+void TestParsingWithUnknownAttribute(void) {
+	const char * content = "<Person><Name>Adam</Name></Person>";
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/Person/Name", &error);
+	}
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "Adam") == 0);
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
 void TestParsingWithNodes(void) {
 	const char * content = "<Person><Name>Adam</Name></Person>";
 	xError error = kNoError;
@@ -732,6 +769,7 @@ void TestStrippingIndexedTag() {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
+	TestParsingWithUnknownAttribute();
 	TestParsingWithNodes();
 	TestParsingForAttribute();
 	TestGettingInnerXmlForSpecificAttribute();

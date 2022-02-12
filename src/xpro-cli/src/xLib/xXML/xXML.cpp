@@ -220,7 +220,18 @@ char * xXML::getValue(
 				error = this->parseComment();
 				break;
 
+			case kNoAttributeMatchWithIdenticalTag:
+				this->_parseHelper.state = kWaitToCloseTag;
+
+				break;
+
 			default:
+				error = kXMLError;
+				DLog(
+					"State %d not considered, will error out",
+					this->_parseHelper.state
+				);
+
 				break;
 			}
 		}

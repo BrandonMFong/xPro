@@ -76,17 +76,17 @@ xUInt64 xXML::countTags(
 
 		if (okayToContinue) {
 			switch (this->_parseHelper.state) {
-			case kIdle:
+			case xPSIdle:
 				this->parseIdle();
 				break;
 
 			// When find the close tag, then go to the idle state to wait for new start of tag
-			case kWaitToCloseTag:
-			case kNoAttributeMatch:
-				this->parseWaitToCloseTag(kIdle);
+			case xPSWaitToCloseTag:
+			case xPSNoAttributeMatch:
+				this->parseWaitToCloseTag(xPSIdle);
 				break;
 
-			case kReadingTagString:
+			case xPSReadingTagString:
 				error = this->parseTagString();
 				break;
 
@@ -98,8 +98,8 @@ xUInt64 xXML::countTags(
 
 				break;
 
-			case kFoundTag:
-				this->_parseHelper.state = kWaitToCloseTag;
+			case xPSFoundTag:
+				this->_parseHelper.state = xPSWaitToCloseTag;
 
 				// If we found the tag then we will increment count
 				result++;
@@ -175,52 +175,52 @@ char * xXML::getValue(
 
 		if (okayToContinue) {
 			switch (this->_parseHelper.state) {
-			case kIdle:
+			case xPSIdle:
 				this->parseIdle();
 				break;
 
 			// When find the close tag, then go to the idle state to wait for new start of tag
-			case kWaitToCloseTag:
-				this->parseWaitToCloseTag(kIdle);
+			case xPSWaitToCloseTag:
+				this->parseWaitToCloseTag(xPSIdle);
 				break;
 
-			case kNoAttributeMatch:
-				this->parseWaitToCloseTag(kIdle);
+			case xPSNoAttributeMatch:
+				this->parseWaitToCloseTag(xPSIdle);
 				break;
 
 			// If we are ready to read the inner xml but are far away from
 			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
-			case kWaitToReadInnerXml:
-				this->parseWaitToCloseTag(kFoundTag);
+			case xPSWaitToReadInnerXml:
+				this->parseWaitToCloseTag(xPSFoundTag);
 				break;
 
-			case kWaitToCloseXmlDeclaration:
+			case xPSWaitToCloseXmlDeclaration:
 				this->waitToCloseXmlDeclaration();
 				break;
 
-			case kFoundTag:
+			case xPSFoundTag:
 				error = this->parsePrepareToReadInnerXml();
 				break;
 
-			case kInnerXml:
+			case xPSInnerXml:
 				error = this->parseReadInnerXml();
 				break;
 
-			case kReadingTagString:
+			case xPSReadingTagString:
 				error = this->parseTagString();
 				break;
 
 			// Gather the characters to form the attribute
-			case kReadAttributeKey:
+			case xPSReadAttributeKey:
 				error = this->parseAttributeKey();
 				break;
 
 			// Get the attribute value inside quotes
-			case kReadAttributeValue:
+			case xPSReadAttributeValue:
 				error = this->parseAttributeValue();
 				break;
 
-			case kParseComment:
+			case xPSParseComment:
 				error = this->parseComment();
 				break;
 
@@ -269,7 +269,7 @@ char * xXML::getValue(
 
 void xXML::parseIdle(void) {
 	if (this->_parseHelper.chBuf == '<') {
-		this->_parseHelper.state = kReadingTagString;
+		this->_parseHelper.state = xPSReadingTagString;
 	}
 }
 
@@ -281,7 +281,7 @@ void xXML::parseWaitToCloseTag(xParsingState nextState) {
 
 void xXML::waitToCloseXmlDeclaration() {
 	if (this->_parseHelper.chBuf == '?') {
-		this->_parseHelper.state = kIdle;
+		this->_parseHelper.state = xPSIdle;
 	}
 }
 
@@ -311,7 +311,7 @@ xError xXML::parsePrepareToReadInnerXml() {
 
 	// If we are here and we have went through the whole tag
 	// array, then we need to immediately go record the inner xml
-	this->_parseHelper.state = kInnerXml;
+	this->_parseHelper.state = xPSInnerXml;
 
 	return result;
 }
@@ -389,11 +389,11 @@ xError xXML::parseTagString() {
 		// Initialize the flag
 		this->_parseHelper.insideComment 	= xFalse;
 		this->_parseHelper.dashCount		= 0;
-		this->_parseHelper.state 			= kParseComment;
+		this->_parseHelper.state 			= xPSParseComment;
 		break;
 	// If we entered an xml declaration
 	case '?':
-		this->_parseHelper.state = kWaitToCloseXmlDeclaration;
+		this->_parseHelper.state = xPSWaitToCloseXmlDeclaration;
 		break;
 
 	case ' ': // start of attribute
@@ -411,7 +411,7 @@ xError xXML::parseTagString() {
 			// If the size is two, then caller passed a path to an attribute.  If that
 			// is true, then we need to save the attribute
 			if (splitSize >= 2) {
-				this->_parseHelper.state = kReadAttributeKey;
+				this->_parseHelper.state = xPSReadAttributeKey;
 
 				this->_parseHelper.attrKeyString = split[1];
 
@@ -451,7 +451,7 @@ xError xXML::parseTagString() {
 //					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
 					this->tagMatch();
 				} else {
-					this->_parseHelper.state = kNoAttributeMatch;
+					this->_parseHelper.state = xPSNoAttributeMatch;
 				}
 
 				if (result == kNoError) {
@@ -527,7 +527,7 @@ xError xXML::parseTagString() {
 			} else {
 				if (this->_parseHelper.chBuf == '/') {
 					// Wait for not to finish
-					this->_parseHelper.state = kWaitToCloseTag;
+					this->_parseHelper.state = xPSWaitToCloseTag;
 				}
 			}
 		}
@@ -563,16 +563,16 @@ void xXML::tagMatch() {
 	if (this->_parseHelper.chBuf == '>') {
 		// If we reached the end of the tag array, we need to start reading the inner xml
 		if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-			this->_parseHelper.state = kFoundTag;
+			this->_parseHelper.state = xPSFoundTag;
 		} else {
 			// Go to idle
-			this->_parseHelper.state = kIdle;
+			this->_parseHelper.state = xPSIdle;
 		}
 	} else if (this->_parseHelper.chBuf == '/') {
 		// Wait for not to finish
-		this->_parseHelper.state = kWaitToCloseTag;
+		this->_parseHelper.state = xPSWaitToCloseTag;
 	} else {
-		this->_parseHelper.state = kWaitToCloseTag;
+		this->_parseHelper.state = xPSWaitToCloseTag;
 	}
 }
 
@@ -726,9 +726,9 @@ xError xXML::parseAttributeKey() {
 				xFree(this->_parseHelper.attrKey);
 
 				this->_parseHelper.attrValue 	= xCopyString("", &result);
-				this->_parseHelper.state 		= kReadAttributeValue;
+				this->_parseHelper.state 		= xPSReadAttributeValue;
 			} else {
-				this->_parseHelper.state = kWaitToCloseTag;
+				this->_parseHelper.state = xPSWaitToCloseTag;
 			}
 		}
 
@@ -766,18 +766,18 @@ xError xXML::parseAttributeValue() {
 
 					// If we still have more tags to look for, then we need to go back to the idle state
 					if (this->_parseHelper.arrayIndex < this->_parseHelper.arraySize) {
-						this->_parseHelper.state = kIdle;
+						this->_parseHelper.state = xPSIdle;
 					} else {
 						// if we found the attribute and there are no more tags to
 						// sweep for, then we need to immediately find what is in
 						// the inner xml
-						this->_parseHelper.state = kWaitToReadInnerXml;
+						this->_parseHelper.state = xPSWaitToReadInnerXml;
 					}
 				} else {
 
 					// If we did not find a match, then we need to continue on with
 					// sweeping the raw content
-					this->_parseHelper.state = kIdle;
+					this->_parseHelper.state = xPSIdle;
 				}
 
 				xFree(this->_parseHelper.attrValue);
@@ -836,7 +836,7 @@ xError xXML::parseComment() {
 			// If we are not inside the comment and we found '>' then we are
 			// done with the parsing comment state
 			if (this->_parseHelper.chBuf == '>') {
-				this->_parseHelper.state = kIdle;
+				this->_parseHelper.state = xPSIdle;
 			}
 		}
 	}

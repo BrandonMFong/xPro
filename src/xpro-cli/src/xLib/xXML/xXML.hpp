@@ -40,17 +40,17 @@
  * States for parsing
  */
 enum xParsingState {
-	kIdle = 0,
-	kReadingTagString = 1,
-	kWaitToCloseTag = 2,
-	kReadAttributeKey = 3,
-	kReadAttributeValue = 4,
-	kInnerXml = 5,
-	kFoundTag = 6,
-	kWaitToReadInnerXml = 7,
-	kWaitToCloseXmlDeclaration = 8,
-	kParseComment = 9,
-	kNoAttributeMatch = 10,
+	xPSIdle = 0,
+	xPSReadingTagString = 1,
+	xPSWaitToCloseTag = 2,
+	xPSReadAttributeKey = 3,
+	xPSReadAttributeValue = 4,
+	xPSInnerXml = 5,
+	xPSFoundTag = 6,
+	xPSWaitToReadInnerXml = 7,
+	xPSWaitToCloseXmlDeclaration = 8,
+	xPSParseComment = 9,
+	xPSNoAttributeMatch = 10,
 //	kNoAttributeMatchWithIdenticalTag = 11,
 };
 
@@ -197,7 +197,7 @@ xPrivate:
 			this->result			= xNull;
 			this->tagPathArray 		= xNull;
 			this->arraySize 		= 0;
-			this->state 			= kIdle;
+			this->state 			= xPSIdle;
 			this->arrayIndex		= 0;
 			this->innerXml			= xNull;
 			this->endTagCharRecord	= 0;

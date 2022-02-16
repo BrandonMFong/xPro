@@ -392,73 +392,6 @@ xError xXML::parseTagString() {
 		this->_parseHelper.state = kWaitToCloseXmlDeclaration;
 		break;
 
-	// Compare tag string with the strings in array
-	case '>': // end of tag
-	case '/': // start of the end of a tag
-		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
-
-		// If the tag path has a '[' then we need to extract
-		// the base path and the index number
-		if (xContainsSubString(tempString, "[", &result)) {
-			if (result == kNoError) {
-				result = this->stripIndexLeafTagPath(
-					tempString,
-					&strippedString,
-					&index
-				);
-
-				if (result == kNoError) {
-					foundIndex = xTrue;
-					tempString = strippedString;
-				} else {
-					foundIndex = xFalse;
-				}
-			}
-		}
-
-		if (result == kNoError) {
-			if (!strcmp(tempString, this->_parseHelper.tagString)) {
-				if (foundIndex) {
-					if (this->_parseHelper.indexPathIndex == index) {
-						this->_parseHelper.indexPathIndex = 0;
-						this->_parseHelper.arrayIndex++;
-					} else {
-						this->_parseHelper.indexPathIndex++;
-					}
-				} else {
-					// If we found a tag from the tag path then increment the array index
-					this->_parseHelper.arrayIndex++;
-				}
-
-				if (this->_parseHelper.chBuf == '>') {
-					// If we reached the end of the tag array, we need to start reading the inner xml
-					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-						this->_parseHelper.state = kFoundTag;
-					} else {
-						// Go to idle
-						this->_parseHelper.state = kIdle;
-					}
-				} else if (this->_parseHelper.chBuf == '/') {
-					// Wait for not to finish
-					this->_parseHelper.state = kWaitToCloseTag;
-				}
-			} else {
-				if (this->_parseHelper.chBuf == '/') {
-					// Wait for not to finish
-					this->_parseHelper.state = kWaitToCloseTag;
-				}
-			}
-		}
-
-		tempString = xNull;
-		xFree(strippedString);
-
-		// Reset the tag string
-		xFree(this->_parseHelper.tagString);
-		this->_parseHelper.tagString = xCopyString("", &result);
-
-		break;
-
 	case ' ': // start of attribute
 		// Get the current tag string.  We want to see if it has the '.', denoting an attribute path
 		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
@@ -535,6 +468,72 @@ xError xXML::parseTagString() {
 
 		break;
 
+	// Compare tag string with the strings in array
+	case '>': // end of tag
+	case '/': // start of the end of a tag
+		tempString = this->_parseHelper.tagPathArray[this->_parseHelper.arrayIndex];
+
+		// If the tag path has a '[' then we need to extract
+		// the base path and the index number
+		if (xContainsSubString(tempString, "[", &result)) {
+			if (result == kNoError) {
+				result = this->stripIndexLeafTagPath(
+					tempString,
+					&strippedString,
+					&index
+				);
+
+				if (result == kNoError) {
+					foundIndex = xTrue;
+					tempString = strippedString;
+				} else {
+					foundIndex = xFalse;
+				}
+			}
+		}
+
+		if (result == kNoError) {
+			if (!strcmp(tempString, this->_parseHelper.tagString)) {
+				if (foundIndex) {
+					if (this->_parseHelper.indexPathIndex == index) {
+						this->_parseHelper.indexPathIndex = 0;
+						this->_parseHelper.arrayIndex++;
+					} else {
+						this->_parseHelper.indexPathIndex++;
+					}
+				} else {
+					// If we found a tag from the tag path then increment the array index
+					this->_parseHelper.arrayIndex++;
+				}
+
+				if (this->_parseHelper.chBuf == '>') {
+					// If we reached the end of the tag array, we need to start reading the inner xml
+					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
+						this->_parseHelper.state = kFoundTag;
+					} else {
+						// Go to idle
+						this->_parseHelper.state = kIdle;
+					}
+				} else if (this->_parseHelper.chBuf == '/') {
+					// Wait for not to finish
+					this->_parseHelper.state = kWaitToCloseTag;
+				}
+			} else {
+				if (this->_parseHelper.chBuf == '/') {
+					// Wait for not to finish
+					this->_parseHelper.state = kWaitToCloseTag;
+				}
+			}
+		}
+
+		tempString = xNull;
+		xFree(strippedString);
+
+		// Reset the tag string
+		xFree(this->_parseHelper.tagString);
+		this->_parseHelper.tagString = xCopyString("", &result);
+
+		break;
 	default:
 		tempString = xCharToString(
 			this->_parseHelper.chBuf,

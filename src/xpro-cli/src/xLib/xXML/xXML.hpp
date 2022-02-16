@@ -163,7 +163,7 @@ xPrivate:
 	 * tag: Callee will populate this param with memory. Caller owns memory
 	 * index: caller owns memory
 	 */
-	xError stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index);
+	static xError stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index);
 
 	/**
 	 *

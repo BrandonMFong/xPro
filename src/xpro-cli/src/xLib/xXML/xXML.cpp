@@ -472,7 +472,7 @@ xError xXML::parseTagString() {
 		// the base path and the index number
 		if (xContainsSubString(tempString, "[", &result)) {
 			if (result == kNoError) {
-				result = this->stripIndexLeafTagPath(
+				result = xXML::stripIndexLeafTagPath(
 					tempString,
 					&strippedString,
 					&index
@@ -549,6 +549,8 @@ void xXML::tagMatch() {
 	} else if (this->_parseHelper.chBuf == '/') {
 		// Wait for not to finish
 		this->_parseHelper.state = xPSWaitToCloseTag;
+
+	// If we are currently inside a node and currently looking through a tag
 	} else if (this->_parseHelper.chBuf == ' ') {
 		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
 	} else {

@@ -166,6 +166,11 @@ xPrivate:
 	xError stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index);
 
 	/**
+	 *
+	 */
+	void tagMatch();
+
+	/**
 	 * Path to the xml file
 	 */
 	char * _path;

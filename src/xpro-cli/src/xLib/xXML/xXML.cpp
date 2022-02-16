@@ -506,18 +506,19 @@ xError xXML::parseTagString() {
 					this->_parseHelper.arrayIndex++;
 				}
 
-				if (this->_parseHelper.chBuf == '>') {
-					// If we reached the end of the tag array, we need to start reading the inner xml
-					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-						this->_parseHelper.state = kFoundTag;
-					} else {
-						// Go to idle
-						this->_parseHelper.state = kIdle;
-					}
-				} else if (this->_parseHelper.chBuf == '/') {
-					// Wait for not to finish
-					this->_parseHelper.state = kWaitToCloseTag;
-				}
+				this->tagMatch();
+//				if (this->_parseHelper.chBuf == '>') {
+//					// If we reached the end of the tag array, we need to start reading the inner xml
+//					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
+//						this->_parseHelper.state = kFoundTag;
+//					} else {
+//						// Go to idle
+//						this->_parseHelper.state = kIdle;
+//					}
+//				} else if (this->_parseHelper.chBuf == '/') {
+//					// Wait for not to finish
+//					this->_parseHelper.state = kWaitToCloseTag;
+//				}
 			} else {
 				if (this->_parseHelper.chBuf == '/') {
 					// Wait for not to finish
@@ -551,6 +552,21 @@ xError xXML::parseTagString() {
 	}
 
 	return result;
+}
+
+void xXML::tagMatch() {
+	if (this->_parseHelper.chBuf == '>') {
+		// If we reached the end of the tag array, we need to start reading the inner xml
+		if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
+			this->_parseHelper.state = kFoundTag;
+		} else {
+			// Go to idle
+			this->_parseHelper.state = kIdle;
+		}
+	} else if (this->_parseHelper.chBuf == '/') {
+		// Wait for not to finish
+		this->_parseHelper.state = kWaitToCloseTag;
+	}
 }
 
 xError xXML::stripIndexLeafTagPath(

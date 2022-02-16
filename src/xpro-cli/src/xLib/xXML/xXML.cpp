@@ -39,6 +39,8 @@ xUInt64 xXML::countTags(
 	} else {
 		this->_parseHelper.init();
 
+		this->_parseHelper.runType = xRTGetCount;
+
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
 		this->_parseHelper.tagPathArray = xSplitString(
@@ -135,6 +137,8 @@ char * xXML::getValue(
 		error = kStringError;
 	} else {
 		this->_parseHelper.init();
+
+		this->_parseHelper.runType = xRTGetValue;
 
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 

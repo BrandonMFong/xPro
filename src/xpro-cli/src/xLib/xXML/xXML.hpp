@@ -54,19 +54,6 @@ enum xParsingState {
 	xPSNoAttributeMatchWithIdenticalTag = 11,
 };
 
-///**
-// * Represents the type of function call xXML is doing
-// */
-//enum xRunType {
-//	xRTUnknownType = -1,
-//	/// If xXML is trying to get a value inside an
-//	/// inner xml or attribute
-//	xRTGetValue = 0,
-//
-//	/// If xXML is trying to count tags
-//	xRTGetCount = 1,
-//};
-
 /**
  * Helps parse an xml file
  */
@@ -193,7 +180,6 @@ xPrivate:
 	 */
 	struct {
 		void init(void) {
-//			this->runType			= xRTUnknownType;
 			this->result			= xNull;
 			this->tagPathArray 		= xNull;
 			this->arraySize 		= 0;
@@ -333,11 +319,6 @@ xPrivate:
 		 * The current index for a path that is indexing
 		 */
 		xUInt8 indexPathIndex;
-
-//		/**
-//		 * Defines the type of task we are doing
-//		 */
-//		xRunType runType;
 	} _parseHelper;
 };
 

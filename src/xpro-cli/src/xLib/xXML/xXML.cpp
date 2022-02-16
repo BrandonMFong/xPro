@@ -39,8 +39,6 @@ xUInt64 xXML::countTags(
 	} else {
 		this->_parseHelper.init();
 
-//		this->_parseHelper.runType = xRTGetCount;
-
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
 		this->_parseHelper.tagPathArray = xSplitString(
@@ -137,8 +135,6 @@ char * xXML::getValue(
 		error = kStringError;
 	} else {
 		this->_parseHelper.init();
-
-//		this->_parseHelper.runType = xRTGetValue;
 
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
@@ -443,7 +439,6 @@ xError xXML::parseTagString() {
 				// does not match.  We do not increment the arrayIndex because we
 				// do not need to continue if the user did not specify an attribute
 				if (!strcmp(this->_parseHelper.tagString, tempString)) {
-//					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
 					this->tagMatch();
 				} else {
 					this->_parseHelper.state = xPSNoAttributeMatch;
@@ -507,18 +502,6 @@ xError xXML::parseTagString() {
 				}
 
 				this->tagMatch();
-//				if (this->_parseHelper.chBuf == '>') {
-//					// If we reached the end of the tag array, we need to start reading the inner xml
-//					if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-//						this->_parseHelper.state = kFoundTag;
-//					} else {
-//						// Go to idle
-//						this->_parseHelper.state = kIdle;
-//					}
-//				} else if (this->_parseHelper.chBuf == '/') {
-//					// Wait for not to finish
-//					this->_parseHelper.state = kWaitToCloseTag;
-//				}
 			} else {
 				if (this->_parseHelper.chBuf == '/') {
 					// Wait for not to finish
@@ -570,18 +553,6 @@ void xXML::tagMatch() {
 		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
 	} else {
 		this->_parseHelper.state = xPSWaitToCloseTag;
-
-//		// See what the run type is because if we are
-//		switch (this->_parseHelper.runType) {
-//		case xRTGetCount:
-//			this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
-//			break;
-//
-//		case xRTGetValue:
-//		default:
-//			this->_parseHelper.state = xPSWaitToCloseTag;
-//			break;
-//		}
 	}
 }
 

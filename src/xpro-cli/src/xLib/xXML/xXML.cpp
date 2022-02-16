@@ -96,7 +96,7 @@ xUInt64 xXML::countTags(
 //
 //				break;
 
-			case xPSNoAttributeMatchWithIdenticalTag:
+//			case xPSNoAttributesMatchWithIdenticalTag:
 			case xPSFoundTag:
 				this->_parseHelper.state = xPSWaitToCloseTag;
 
@@ -221,10 +221,10 @@ char * xXML::getValue(
 				error = this->parseComment();
 				break;
 
-			case xPSNoAttributeMatchWithIdenticalTag:
-				this->_parseHelper.state = xPSWaitToCloseTag;
-
-				break;
+//			case xPSNoAttributeMatchWithIdenticalTag:
+//				this->_parseHelper.state = xPSWaitToCloseTag;
+//
+//				break;
 
 			default:
 				error = kXMLError;
@@ -445,8 +445,8 @@ xError xXML::parseTagString() {
 				// does not match.  We do not increment the arrayIndex because we
 				// do not need to continue if the user did not specify an attribute
 				if (!strcmp(this->_parseHelper.tagString, tempString)) {
-					this->tagMatch();
 					this->_parseHelper.arrayIndex++;
+					this->tagMatch();
 				} else {
 					this->_parseHelper.state = xPSNoAttributeMatch;
 				}
@@ -545,7 +545,7 @@ xError xXML::parseTagString() {
 }
 
 void xXML::tagMatch() {
-	if (this->_parseHelper.chBuf == '>') {
+	if ((this->_parseHelper.chBuf == ' ') || (this->_parseHelper.chBuf == '>')) {
 		// If we reached the end of the tag array, we need to start reading the inner xml
 		if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
 			this->_parseHelper.state = xPSFoundTag;
@@ -557,9 +557,9 @@ void xXML::tagMatch() {
 		// Wait for not to finish
 		this->_parseHelper.state = xPSWaitToCloseTag;
 
-	// If we are currently inside a node and currently looking through a tag
-	} else if (this->_parseHelper.chBuf == ' ') {
-		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
+//	// If we are currently inside a node and currently looking through a tag
+//	} else if (this->_parseHelper.chBuf == ' ') {
+//		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
 	} else {
 		this->_parseHelper.state = xPSWaitToCloseTag;
 	}

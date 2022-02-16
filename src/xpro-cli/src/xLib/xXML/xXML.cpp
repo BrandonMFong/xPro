@@ -30,9 +30,9 @@ xUInt64 xXML::countTags(
 	const char * 	tagPath,
 	xError *		err
 ) {
-	xUInt64 result = 0;
-	xError error = kNoError;
-	xBool okayToContinue = xTrue;
+	xUInt64 result 			= 0;
+	xError 	error 			= kNoError;
+	xBool 	okayToContinue 	= xTrue;
 
 	if (tagPath == xNull) {
 		error = kStringError;
@@ -88,8 +88,8 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
-			case kNoAttributeMatchWithIdenticalTag:
-				this->_parseHelper.state = kWaitToCloseTag;
+//			case kNoAttributeMatchWithIdenticalTag:
+//				this->_parseHelper.state = kWaitToCloseTag;
 
 				// If we found the tag then we will increment count
 				result++;
@@ -220,8 +220,8 @@ char * xXML::getValue(
 				error = this->parseComment();
 				break;
 
-			case kNoAttributeMatchWithIdenticalTag:
-				this->_parseHelper.state = kWaitToCloseTag;
+//			case kNoAttributeMatchWithIdenticalTag:
+//				this->_parseHelper.state = kWaitToCloseTag;
 
 				break;
 
@@ -269,7 +269,7 @@ void xXML::parseIdle(void) {
 	}
 }
 
-void xXML::parseWaitToCloseTag(ParsingState nextState) {
+void xXML::parseWaitToCloseTag(xParsingState nextState) {
 	if (this->_parseHelper.chBuf == '>') {
 		this->_parseHelper.state = nextState;
 	}
@@ -444,7 +444,8 @@ xError xXML::parseTagString() {
 				// does not match.  We do not increment the arrayIndex because we
 				// do not need to continue if the user did not specify an attribute
 				if (!strcmp(this->_parseHelper.tagString, tempString)) {
-					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
+//					this->_parseHelper.state = kNoAttributeMatchWithIdenticalTag;
+					this->tagMatch();
 				} else {
 					this->_parseHelper.state = kNoAttributeMatch;
 				}
@@ -565,6 +566,8 @@ void xXML::tagMatch() {
 		}
 	} else if (this->_parseHelper.chBuf == '/') {
 		// Wait for not to finish
+		this->_parseHelper.state = kWaitToCloseTag;
+	} else {
 		this->_parseHelper.state = kWaitToCloseTag;
 	}
 }

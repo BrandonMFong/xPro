@@ -39,7 +39,7 @@
 /**
  * States for parsing
  */
-enum ParsingState {
+enum xParsingState {
 	kIdle = 0,
 	kReadingTagString = 1,
 	kWaitToCloseTag = 2,
@@ -51,7 +51,7 @@ enum ParsingState {
 	kWaitToCloseXmlDeclaration = 8,
 	kParseComment = 9,
 	kNoAttributeMatch = 10,
-	kNoAttributeMatchWithIdenticalTag = 11,
+//	kNoAttributeMatchWithIdenticalTag = 11,
 };
 
 /**
@@ -118,7 +118,7 @@ xPrivate:
 	/**
 	 * Waits for '>' to appear at contentIndex and then sets parsing state to nextState
 	 */
-	void parseWaitToCloseTag(ParsingState nextState);
+	void parseWaitToCloseTag(xParsingState nextState);
 
 	/**
 	 * Prepare members in Parse helper to save inner xml
@@ -220,7 +220,7 @@ xPrivate:
 		/**
 		 * Holds the current state of parsing
 		 */
-		ParsingState state;
+		xParsingState state;
 
 		/**
 		 * The amount of quotes found when reading attribute strings

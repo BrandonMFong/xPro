@@ -90,8 +90,8 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
-//			case kNoAttributeMatchWithIdenticalTag:
-//				this->_parseHelper.state = kWaitToCloseTag;
+			case xPSNoAttributeMatchWithIdenticalTag:
+				this->_parseHelper.state = xPSWaitToCloseTag;
 
 				// If we found the tag then we will increment count
 				result++;
@@ -222,11 +222,6 @@ char * xXML::getValue(
 
 			case xPSParseComment:
 				error = this->parseComment();
-				break;
-
-//			case kNoAttributeMatchWithIdenticalTag:
-//				this->_parseHelper.state = kWaitToCloseTag;
-
 				break;
 
 			default:
@@ -572,7 +567,18 @@ void xXML::tagMatch() {
 		// Wait for not to finish
 		this->_parseHelper.state = xPSWaitToCloseTag;
 	} else {
-		this->_parseHelper.state = xPSWaitToCloseTag;
+
+		// See what the run type is because if we are
+		switch (this->_parseHelper.runType) {
+		case xRTGetCount:
+			this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
+			break;
+
+		case xRTGetValue:
+		default:
+			this->_parseHelper.state = xPSWaitToCloseTag;
+			break;
+		}
 	}
 }
 

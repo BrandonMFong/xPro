@@ -39,7 +39,7 @@ xUInt64 xXML::countTags(
 	} else {
 		this->_parseHelper.init();
 
-		this->_parseHelper.runType = xRTGetCount;
+//		this->_parseHelper.runType = xRTGetCount;
 
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
@@ -138,7 +138,7 @@ char * xXML::getValue(
 	} else {
 		this->_parseHelper.init();
 
-		this->_parseHelper.runType = xRTGetValue;
+//		this->_parseHelper.runType = xRTGetValue;
 
 		this->_parseHelper.arrayIndex = 1; // Set it to 1
 
@@ -566,19 +566,22 @@ void xXML::tagMatch() {
 	} else if (this->_parseHelper.chBuf == '/') {
 		// Wait for not to finish
 		this->_parseHelper.state = xPSWaitToCloseTag;
+	} else if (this->_parseHelper.chBuf == ' ') {
+		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
 	} else {
+		this->_parseHelper.state = xPSWaitToCloseTag;
 
-		// See what the run type is because if we are
-		switch (this->_parseHelper.runType) {
-		case xRTGetCount:
-			this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
-			break;
-
-		case xRTGetValue:
-		default:
-			this->_parseHelper.state = xPSWaitToCloseTag;
-			break;
-		}
+//		// See what the run type is because if we are
+//		switch (this->_parseHelper.runType) {
+//		case xRTGetCount:
+//			this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
+//			break;
+//
+//		case xRTGetValue:
+//		default:
+//			this->_parseHelper.state = xPSWaitToCloseTag;
+//			break;
+//		}
 	}
 }
 

@@ -124,6 +124,11 @@ char * xStringBetweenTwoStrings(
 #endif
 
 /**
+ * File name macro
+ */
+#define __FILENAME__ (strrchr(__FILE__, FILE_SYSTEM_SEPARATOR) ? strrchr(__FILE__, FILE_SYSTEM_SEPARATOR) + 1 : __FILE__)
+
+/**
  * Returns true if path exists as a file
  */
 xBool xIsFile(const char * path);

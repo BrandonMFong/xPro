@@ -77,7 +77,11 @@ void TestParsingWithUnknownAttribute(void) {
 }
 
 void TestParsingWithNodes(void) {
-	const char * content = "<Person><Name>Adam</Name></Person>";
+	const char * content =
+		"<Person>"
+//		"<Person xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+			"<Name>Adam</Name>"
+		"</Person>";
 	xError error = kNoError;
 	xXML * xml = xNull;
 	char * file = xNull;

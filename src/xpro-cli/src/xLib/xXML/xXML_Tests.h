@@ -78,8 +78,8 @@ void TestParsingWithUnknownAttribute(void) {
 
 void TestParsingWithNodes(void) {
 	const char * content =
-		"<Person>"
-//		"<Person xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+//		"<Person>"
+		"<Person xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
 			"<Name>Adam</Name>"
 		"</Person>";
 	xError error = kNoError;
@@ -773,20 +773,20 @@ void TestStrippingIndexedTag() {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-	TestParsingWithUnknownAttribute();
+//	TestParsingWithUnknownAttribute();
 	TestParsingWithNodes();
-	TestParsingForAttribute();
-	TestGettingInnerXmlForSpecificAttribute();
-	TestGettingValueForSpecificAttribute();
-	TestParsingWithFilePath();
-	TestGettingSiblingNode();
-	TestIgnoringComments();
-	TestMakeSureNoErrorWithUnresolvedTagPath();
-	TestCount();
-	TestCountForInterchangingNodes();
-	TestCountWithNodesHavingAttributes();
-	TestIndexingASetOfSimilarPaths();
-	TestStrippingIndexedTag();
+//	TestParsingForAttribute();
+//	TestGettingInnerXmlForSpecificAttribute();
+//	TestGettingValueForSpecificAttribute();
+//	TestParsingWithFilePath();
+//	TestGettingSiblingNode();
+//	TestIgnoringComments();
+//	TestMakeSureNoErrorWithUnresolvedTagPath();
+//	TestCount();
+//	TestCountForInterchangingNodes();
+//	TestCountWithNodesHavingAttributes();
+//	TestIndexingASetOfSimilarPaths();
+//	TestStrippingIndexedTag();
 
 	printf("\n");
 }

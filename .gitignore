@@ -6,6 +6,7 @@ __pycache__
 *.o
 *.a
 *.d
+test.xml
 
 # Visual Studio 
 .vs

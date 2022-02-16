@@ -88,14 +88,15 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
+//			case xPSNoAttributeMatchWithIdenticalTag:
+//				this->_parseHelper.state = xPSWaitToCloseTag;
+//
+//				// If we found the tag then we will increment count
+//				result++;
+//
+//				break;
+
 			case xPSNoAttributeMatchWithIdenticalTag:
-				this->_parseHelper.state = xPSWaitToCloseTag;
-
-				// If we found the tag then we will increment count
-				result++;
-
-				break;
-
 			case xPSFoundTag:
 				this->_parseHelper.state = xPSWaitToCloseTag;
 
@@ -218,6 +219,11 @@ char * xXML::getValue(
 
 			case xPSParseComment:
 				error = this->parseComment();
+				break;
+
+			case xPSNoAttributeMatchWithIdenticalTag:
+				this->_parseHelper.state = xPSWaitToCloseTag;
+
 				break;
 
 			default:
@@ -440,6 +446,7 @@ xError xXML::parseTagString() {
 				// do not need to continue if the user did not specify an attribute
 				if (!strcmp(this->_parseHelper.tagString, tempString)) {
 					this->tagMatch();
+					this->_parseHelper.arrayIndex++;
 				} else {
 					this->_parseHelper.state = xPSNoAttributeMatch;
 				}

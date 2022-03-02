@@ -553,7 +553,15 @@ void xXML::tagMatch() {
 	if ((this->_parseHelper.chBuf == ' ') || (this->_parseHelper.chBuf == '>')) {
 		// If we reached the end of the tag array, we need to start reading the inner xml
 		if (this->_parseHelper.arrayIndex == this->_parseHelper.arraySize) {
-			this->_parseHelper.state = xPSFoundTag;
+			// If we found an tag followed by a space indicating an attribute
+			// we will say we found tag. If we are at the end of
+			// a node then we need to immediately prepare to read
+			// the inner xml
+			if (this->_parseHelper.chBuf == ' ') {
+				this->_parseHelper.state = xPSFoundTag;
+			} else if (this->_parseHelper.chBuf == '>') {
+				this->_parseHelper.state = xPSPrepareToReadInnerXml;
+			}
 		} else {
 			// Go to idle
 			this->_parseHelper.state = xPSIdle;

@@ -95,19 +95,19 @@ void TestParsingWithNodes(void) {
 	}
 
 	char * value = xNull;
-//	if (error == kNoError) {
-//		value = xml->getValue("/Person/Name", &error);
-//	}
+	if (error == kNoError) {
+		value = xml->getValue("/Person/Name", &error);
+	}
 
 	xBool success = error == kNoError;
 
-//	if (success) {
-//		success = value != xNull;
-//	}
-//
-//	if (success) {
-//		success = (strcmp(value, "Adam") == 0);
-//	}
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "Adam") == 0);
+	}
 
 	if (success) {
 		xFree(value);

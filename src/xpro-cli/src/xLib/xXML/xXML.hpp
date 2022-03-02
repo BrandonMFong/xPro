@@ -56,7 +56,6 @@ enum xParsingState {
 
 	// Regular tag with no attributes
 	xPSFoundTag = 11,
-//	xPSNoAttributeMatchWithIdenticalTag = 11,
 };
 
 /**

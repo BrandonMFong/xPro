@@ -78,7 +78,8 @@ xUInt64 xXML::countTags(
 				this->parseIdle();
 				break;
 
-			// When find the close tag, then go to the idle state to wait for new start of tag
+			// When find the close tag, then go to the idle state
+			// to wait for new start of tag
 			case xPSWaitToCloseTag:
 			case xPSNoAttributeMatch:
 				this->parseWaitToCloseTag(xPSIdle);
@@ -88,15 +89,6 @@ xUInt64 xXML::countTags(
 				error = this->parseTagString();
 				break;
 
-//			case xPSNoAttributeMatchWithIdenticalTag:
-//				this->_parseHelper.state = xPSWaitToCloseTag;
-//
-//				// If we found the tag then we will increment count
-//				result++;
-//
-//				break;
-
-//			case xPSNoAttributesMatchWithIdenticalTag:
 			case xPSFoundTag:
 			case xPSFoundStuffedTag:
 				this->_parseHelper.state = xPSWaitToCloseTag;
@@ -177,7 +169,8 @@ char * xXML::getValue(
 				this->parseIdle();
 				break;
 
-			// When find the close tag, then go to the idle state to wait for new start of tag
+			// When find the close tag, then go to the idle state
+			// to wait for new start of tag
 			case xPSWaitToCloseTag:
 				this->parseWaitToCloseTag(xPSIdle);
 				break;
@@ -187,7 +180,8 @@ char * xXML::getValue(
 				break;
 
 			// If we are ready to read the inner xml but are far away from
-			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
+			// the '>' char, then we need to wait for it before
+			// getting into kPrepareReadingInnerXml
 			case xPSWaitToReadInnerXml:
 				this->parseWaitToCloseTag(xPSFoundTag);
 				break;
@@ -197,7 +191,6 @@ char * xXML::getValue(
 				break;
 
 			case xPSFoundStuffedTag:
-//				error = this->parsePrepareToReadInnerXml();
 				this->parseWaitToCloseTag(xPSFoundTag);
 				break;
 
@@ -226,11 +219,6 @@ char * xXML::getValue(
 			case xPSParseComment:
 				error = this->parseComment();
 				break;
-
-//			case xPSNoAttributeMatchWithIdenticalTag:
-//				this->_parseHelper.state = xPSWaitToCloseTag;
-//
-//				break;
 
 			default:
 				error = kXMLError;
@@ -516,11 +504,6 @@ xError xXML::parseTagString() {
 
 				this->tagMatch();
 			} else {
-//				if (this->_parseHelper.chBuf == '/') {
-//					// Wait for not to finish
-//					this->_parseHelper.state = xPSWaitToCloseTag;
-//				}
-				// Wait for not to finish
 				this->_parseHelper.state = xPSWaitToCloseTag;
 			}
 		}
@@ -572,10 +555,6 @@ void xXML::tagMatch() {
 	} else if (this->_parseHelper.chBuf == '/') {
 		// Wait for not to finish
 		this->_parseHelper.state = xPSWaitToCloseTag;
-
-//	// If we are currently inside a node and currently looking through a tag
-//	} else if (this->_parseHelper.chBuf == ' ') {
-//		this->_parseHelper.state = xPSNoAttributeMatchWithIdenticalTag;
 	} else {
 		this->_parseHelper.state = xPSWaitToCloseTag;
 	}

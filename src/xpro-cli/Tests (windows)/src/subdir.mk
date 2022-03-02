@@ -7,13 +7,13 @@ CPP_SRCS += \
 ../src/xMain.cpp \
 ../src/xTests.cpp 
 
-OBJS += \
-./src/xMain.o \
-./src/xTests.o 
-
 CPP_DEPS += \
 ./src/xMain.d \
 ./src/xTests.d 
+
+OBJS += \
+./src/xMain.o \
+./src/xTests.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,4 +24,11 @@ src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean-src
+
+clean-src:
+	-$(RM) ./src/xMain.d ./src/xMain.o ./src/xTests.d ./src/xTests.o
+
+.PHONY: clean-src
 

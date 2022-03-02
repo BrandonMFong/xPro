@@ -6,19 +6,26 @@
 CPP_SRCS += \
 ../src/AppDriver/Commands/Version/Version.cpp 
 
-OBJS += \
-./src/AppDriver/Commands/Version/Version.o 
-
 CPP_DEPS += \
 ./src/AppDriver/Commands/Version/Version.d 
+
+OBJS += \
+./src/AppDriver/Commands/Version/Version.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/AppDriver/Commands/Version/%.o: ../src/AppDriver/Commands/Version/%.cpp src/AppDriver/Commands/Version/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli" -I"/src" -I"/src/xLib" -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src" -I"/Users/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib" -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli" -I"/src" -I"/src/xLib" -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src" -I"/home/brandonmfong/brando/sources/repo/xPro/src/xpro-cli/src/xLib" -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean-src-2f-AppDriver-2f-Commands-2f-Version
+
+clean-src-2f-AppDriver-2f-Commands-2f-Version:
+	-$(RM) ./src/AppDriver/Commands/Version/Version.d ./src/AppDriver/Commands/Version/Version.o
+
+.PHONY: clean-src-2f-AppDriver-2f-Commands-2f-Version
 

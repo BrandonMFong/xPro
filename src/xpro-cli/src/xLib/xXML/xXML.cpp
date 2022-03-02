@@ -97,7 +97,7 @@ xUInt64 xXML::countTags(
 //				break;
 
 //			case xPSNoAttributesMatchWithIdenticalTag:
-			case xPSFoundTag:
+			case xPSFoundStuffedTag:
 				this->_parseHelper.state = xPSWaitToCloseTag;
 
 				// If we found the tag then we will increment count
@@ -195,7 +195,7 @@ char * xXML::getValue(
 				this->waitToCloseXmlDeclaration();
 				break;
 
-			case xPSFoundTag:
+			case xPSFoundStuffedTag:
 //				error = this->parsePrepareToReadInnerXml();
 				this->parseWaitToCloseTag(xPSPrepareToReadInnerXml);
 				break;
@@ -515,10 +515,12 @@ xError xXML::parseTagString() {
 
 				this->tagMatch();
 			} else {
-				if (this->_parseHelper.chBuf == '/') {
-					// Wait for not to finish
-					this->_parseHelper.state = xPSWaitToCloseTag;
-				}
+//				if (this->_parseHelper.chBuf == '/') {
+//					// Wait for not to finish
+//					this->_parseHelper.state = xPSWaitToCloseTag;
+//				}
+				// Wait for not to finish
+				this->_parseHelper.state = xPSWaitToCloseTag;
 			}
 		}
 
@@ -558,7 +560,7 @@ void xXML::tagMatch() {
 			// a node then we need to immediately prepare to read
 			// the inner xml
 			if (this->_parseHelper.chBuf == ' ') {
-				this->_parseHelper.state = xPSFoundTag;
+				this->_parseHelper.state = xPSFoundStuffedTag;
 			} else if (this->_parseHelper.chBuf == '>') {
 				this->_parseHelper.state = xPSPrepareToReadInnerXml;
 			}

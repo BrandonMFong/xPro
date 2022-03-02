@@ -775,14 +775,14 @@ void xXML_Tests(void) {
 
 //	TestParsingWithUnknownAttribute();
 //	TestParsingWithNodes();
-	TestParsingForAttribute();
+//	TestParsingForAttribute();
 //	TestGettingInnerXmlForSpecificAttribute();
 //	TestGettingValueForSpecificAttribute();
 //	TestParsingWithFilePath();
 //	TestGettingSiblingNode();
 //	TestIgnoringComments();
 //	TestMakeSureNoErrorWithUnresolvedTagPath();
-//	TestCount();
+	TestCount();
 //	TestCountForInterchangingNodes();
 //	TestCountWithNodesHavingAttributes();
 //	TestIndexingASetOfSimilarPaths();

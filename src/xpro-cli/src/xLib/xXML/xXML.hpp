@@ -46,7 +46,9 @@ enum xParsingState {
 	xPSReadAttributeKey = 3,
 	xPSReadAttributeValue = 4,
 	xPSInnerXml = 5,
-	xPSFoundTag = 6,
+
+	/// Tag that has attributes
+	xPSFoundStuffedTag = 6,
 	xPSWaitToReadInnerXml = 7,
 	xPSWaitToCloseXmlDeclaration = 8,
 	xPSParseComment = 9,

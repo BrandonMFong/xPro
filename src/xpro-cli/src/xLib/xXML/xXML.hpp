@@ -51,6 +51,7 @@ enum xParsingState {
 	xPSWaitToCloseXmlDeclaration = 8,
 	xPSParseComment = 9,
 	xPSNoAttributeMatch = 10,
+	xPSPrepareToReadInnerXml = 11,
 //	xPSNoAttributeMatchWithIdenticalTag = 11,
 };
 

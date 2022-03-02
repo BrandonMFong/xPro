@@ -196,6 +196,11 @@ char * xXML::getValue(
 				break;
 
 			case xPSFoundTag:
+//				error = this->parsePrepareToReadInnerXml();
+				this->parseWaitToCloseTag(xPSPrepareToReadInnerXml);
+				break;
+
+			case xPSPrepareToReadInnerXml:
 				error = this->parsePrepareToReadInnerXml();
 				break;
 

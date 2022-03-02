@@ -15,7 +15,7 @@
 	"<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n"\
 	"<xPro xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"\
 		"\t<Directories>\n"\
-				"\t\t<Directory alias=\"\">\n"\
+				"\t\t<Directory key=\"\">\n"\
 					"\t\t\t<Value username=\"\"></Value>\n"\
 				"\t\t</Directory>\n"\
 		"\t</Directories>\n"\

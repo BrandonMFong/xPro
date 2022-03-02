@@ -188,7 +188,7 @@ char * xXML::getValue(
 			// If we are ready to read the inner xml but are far away from
 			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
 			case xPSWaitToReadInnerXml:
-				this->parseWaitToCloseTag(xPSFoundTag);
+				this->parseWaitToCloseTag(xPSPrepareToReadInnerXml);
 				break;
 
 			case xPSWaitToCloseXmlDeclaration:

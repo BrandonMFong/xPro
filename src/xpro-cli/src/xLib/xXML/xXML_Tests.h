@@ -774,8 +774,8 @@ void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
 //	TestParsingWithUnknownAttribute();
-	TestParsingWithNodes();
-//	TestParsingForAttribute();
+//	TestParsingWithNodes();
+	TestParsingForAttribute();
 //	TestGettingInnerXmlForSpecificAttribute();
 //	TestGettingValueForSpecificAttribute();
 //	TestParsingWithFilePath();

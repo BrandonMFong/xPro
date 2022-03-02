@@ -1,26 +1,34 @@
 # Author: Brando
 # Date: 11/16/2021
 
+## CONSTANTS START ##
+
+XPRO_PATH=~/.xpro;
+XUTIL_PATH="xutil.sh";
+
+## CONSTANTS END ##
+
+## VARIABLES START ##
+
 result=0;
 
-xproPath=~/.xpro;
-xutilPath="xutil.sh";
+## VARIABLES END ##
 
-pushd $xproPath >/dev/null 2>&1;
+pushd $XPRO_PATH >/dev/null 2>&1;
 
-if [ ! -d $xproPath ]; then 
+if [ ! -d $XPRO_PATH ]; then 
     result = 1;
-    printf "$xproPath does not exist\n";
+    printf "$XPRO_PATH does not exist\n";
 else 
-    PATH=$PATH:$xproPath;
+    PATH=$PATH:$XPRO_PATH;
 fi 
 
 if [ $result -eq 0 ]; then 
-    source $xutilPath;
+    source $XUTIL_PATH;
     result=$?;
 fi 
 
-popd >/dev/null 2>&1; # $xproPath
+popd >/dev/null 2>&1; # $XPRO_PATH
 
 if [ $result -eq 0 ]; then 
     printf "Successfully loaded xpro\n"

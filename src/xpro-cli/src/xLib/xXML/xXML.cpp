@@ -97,6 +97,7 @@ xUInt64 xXML::countTags(
 //				break;
 
 //			case xPSNoAttributesMatchWithIdenticalTag:
+			case xPSFoundTag:
 			case xPSFoundStuffedTag:
 				this->_parseHelper.state = xPSWaitToCloseTag;
 
@@ -188,7 +189,7 @@ char * xXML::getValue(
 			// If we are ready to read the inner xml but are far away from
 			// the '>' char, then we need to wait for it before getting into kPrepareReadingInnerXml
 			case xPSWaitToReadInnerXml:
-				this->parseWaitToCloseTag(xPSPrepareToReadInnerXml);
+				this->parseWaitToCloseTag(xPSFoundTag);
 				break;
 
 			case xPSWaitToCloseXmlDeclaration:
@@ -197,10 +198,10 @@ char * xXML::getValue(
 
 			case xPSFoundStuffedTag:
 //				error = this->parsePrepareToReadInnerXml();
-				this->parseWaitToCloseTag(xPSPrepareToReadInnerXml);
+				this->parseWaitToCloseTag(xPSFoundTag);
 				break;
 
-			case xPSPrepareToReadInnerXml:
+			case xPSFoundTag:
 				error = this->parsePrepareToReadInnerXml();
 				break;
 
@@ -562,7 +563,7 @@ void xXML::tagMatch() {
 			if (this->_parseHelper.chBuf == ' ') {
 				this->_parseHelper.state = xPSFoundStuffedTag;
 			} else if (this->_parseHelper.chBuf == '>') {
-				this->_parseHelper.state = xPSPrepareToReadInnerXml;
+				this->_parseHelper.state = xPSFoundTag;
 			}
 		} else {
 			// Go to idle

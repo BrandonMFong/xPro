@@ -773,20 +773,20 @@ void TestStrippingIndexedTag() {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-//	TestParsingWithUnknownAttribute();
-//	TestParsingWithNodes();
-//	TestParsingForAttribute();
-//	TestGettingInnerXmlForSpecificAttribute();
-//	TestGettingValueForSpecificAttribute();
-//	TestParsingWithFilePath();
-//	TestGettingSiblingNode();
-//	TestIgnoringComments();
-//	TestMakeSureNoErrorWithUnresolvedTagPath();
+	TestParsingWithUnknownAttribute();
+	TestParsingWithNodes();
+	TestParsingForAttribute();
+	TestGettingInnerXmlForSpecificAttribute();
+	TestGettingValueForSpecificAttribute();
+	TestParsingWithFilePath();
+	TestGettingSiblingNode();
+	TestIgnoringComments();
+	TestMakeSureNoErrorWithUnresolvedTagPath();
 	TestCount();
-//	TestCountForInterchangingNodes();
-//	TestCountWithNodesHavingAttributes();
-//	TestIndexingASetOfSimilarPaths();
-//	TestStrippingIndexedTag();
+	TestCountForInterchangingNodes();
+	TestCountWithNodesHavingAttributes();
+	TestIndexingASetOfSimilarPaths();
+	TestStrippingIndexedTag();
 
 	printf("\n");
 }

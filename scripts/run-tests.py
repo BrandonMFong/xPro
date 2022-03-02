@@ -38,6 +38,8 @@ del platformName
 
 ## CONSTANTS END ##
 
+## FUNCTION START ##
+
 def help():
     """
     help
@@ -109,8 +111,7 @@ def main():
 
     sys.exit(status)
 
+## FUNCTION END ##
+
 if __name__ == "__main__":
     main()
-
-## END ##
-

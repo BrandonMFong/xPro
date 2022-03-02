@@ -29,6 +29,8 @@ XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
 
 ## CONSTANTS END ##
 
+## FUNCTION START ##
+
 def help():
     """
     help
@@ -113,6 +115,8 @@ def main():
             help()
 
     sys.exit(result)
+
+## FUNCTION END ##
 
 if __name__ == "__main__":
     main()

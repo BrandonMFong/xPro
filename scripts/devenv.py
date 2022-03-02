@@ -45,6 +45,11 @@ def help():
     ))
 
     print()
+    
+    print("See '{scriptname} {help}' for an overview of the system.".format(
+        scriptname  = SCRIPT_NAME,
+        help        = HELP_ARG
+    ))
 
 def isAdmin() -> bool:
     """

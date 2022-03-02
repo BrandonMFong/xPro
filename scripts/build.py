@@ -62,6 +62,13 @@ def help():
 
     print("\t{debug}\tBuild debug version".format(debug=DEBUG_ARG))
 
+    print()
+    
+    print("See '{scriptname} {help}' for an overview of the system.".format(
+        scriptname  = SCRIPT_NAME,
+        help        = HELP_ARG
+    ))
+
 def main():
     status:     int = 0
     currDir:    str = os.curdir

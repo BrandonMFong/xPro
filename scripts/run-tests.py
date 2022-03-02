@@ -50,6 +50,11 @@ def help():
         scriptname  = SCRIPT_NAME,
         help        = HELP_ARG
     ))
+    
+    print("See '{scriptname} {help}' for an overview of the system.".format(
+        scriptname  = SCRIPT_NAME,
+        help        = HELP_ARG
+    ))
 
 def main():
     status:     int = 0

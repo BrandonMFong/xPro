@@ -22,7 +22,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <limits.h>
-#include "../xLogger/xLog.h"
+#include <xLogger/xLog.h>
 
 /**
  * Frees memory from heap and nulls out pointer
@@ -122,6 +122,11 @@ char * xStringBetweenTwoStrings(
 #define MAKE_DIR(path) mkdir(path, 700)
 
 #endif
+
+/**
+ * File name macro
+ */
+#define __FILENAME__ (strrchr(__FILE__, FILE_SYSTEM_SEPARATOR) ? strrchr(__FILE__, FILE_SYSTEM_SEPARATOR) + 1 : __FILE__)
 
 /**
  * Returns true if path exists as a file

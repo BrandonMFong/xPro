@@ -108,6 +108,17 @@ def help():
 
     print()
 
+    print("Arguments:")
+
+    # Profile Path Argument
+    print(
+        "\t[ {} ] : Only include value for this item if you are running on a windows system".format(
+            PROFILE_PATH_ARG
+        )
+    )
+
+    print()
+    
     print("See '{scriptname} {help}' for an overview of the system.".format(
         scriptname  = SCRIPT_NAME,
         help        = HELP_ARG

@@ -6,11 +6,11 @@
 CPP_SRCS += \
 ../src/AppDriver/Commands/Directory/Directory.cpp 
 
-OBJS += \
-./src/AppDriver/Commands/Directory/Directory.o 
-
 CPP_DEPS += \
 ./src/AppDriver/Commands/Directory/Directory.d 
+
+OBJS += \
+./src/AppDriver/Commands/Directory/Directory.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,4 +21,11 @@ src/AppDriver/Commands/Directory/%.o: ../src/AppDriver/Commands/Directory/%.cpp 
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean-src-2f-AppDriver-2f-Commands-2f-Directory
+
+clean-src-2f-AppDriver-2f-Commands-2f-Directory:
+	-$(RM) ./src/AppDriver/Commands/Directory/Directory.d ./src/AppDriver/Commands/Directory/Directory.o
+
+.PHONY: clean-src-2f-AppDriver-2f-Commands-2f-Directory
 

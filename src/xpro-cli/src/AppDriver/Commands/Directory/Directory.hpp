@@ -13,7 +13,7 @@
 /**
  * Element path template
  */
-#define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories/Directory.alias(%s)/Value.username(%s)"
+#define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories/Directory.key(%s)/Value.username(%s)"
 
 /**
  * If this is specified in the username in the above format, then the path with this attribute will take precedence
@@ -28,6 +28,6 @@ xError HandleDirectory(void);
 /**
  * Prints out directory for the alias
  */
-xError PrintDirectoryForAlias(const char * alias);
+xError PrintDirectoryForKey(const char * key);
 
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_ */

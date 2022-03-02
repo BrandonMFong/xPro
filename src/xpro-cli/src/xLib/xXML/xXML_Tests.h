@@ -39,8 +39,49 @@ char * SetTestFile(const char * content, xError * err) {
 	return result;
 }
 
-void TestParsingWithNodes(void) {
+void TestParsingWithUnknownAttribute(void) {
 	const char * content = "<Person><Name>Adam</Name></Person>";
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	char * value = xNull;
+	if (error == kNoError) {
+		value = xml->getValue("/Person/Name", &error);
+	}
+
+	xBool success = error == kNoError;
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = (strcmp(value, "Adam") == 0);
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestParsingWithNodes(void) {
+	const char * content =
+//		"<Person>"
+		"<Person xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+			"<Name>Adam</Name>"
+		"</Person>";
 	xError error = kNoError;
 	xXML * xml = xNull;
 	char * file = xNull;
@@ -609,9 +650,130 @@ void TestCountWithNodesHavingAttributes(void) {
 	xDelete(xml);
 }
 
+void TestIndexingASetOfSimilarPaths(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<Path>One</Path>"
+				"<Path>Two</Path>"
+				"<Path>Three</Path>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+	if (error == kNoError) {
+		xInt32 count = xml->countTags("/xPro/Function/Path", &error);
+		if (count != 3) {
+			printf("Count is %d\n", count);
+			success = xFalse;
+		}
+	}
+
+	char * value = xNull;
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[0]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "One")) {
+			printf("Incorrect inner xml, %s\n", value);
+		}
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[1]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "Two")) {
+			printf("Incorrect inner xml, %s\n", value);
+		}
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[2]", &error);
+		success = error == kNoError;
+
+		if (!success) {
+			printf("Error %d\n", error);
+		}
+	}
+
+	if (success) {
+		if (strcmp(value, "Three")) {
+			printf("Incorrect inner xml, %s\n", value);
+		}
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestStrippingIndexedTag() {
+	xBool success = xTrue;
+	xError error = kNoError;
+	char * tag = xNull;
+	xUInt8 index = 0;
+
+	xXML * xml = new xXML(&error);
+	success = xml != xNull;
+
+	if (success) {
+		success = error == kNoError;
+
+		if (!success) {
+			DLog("Error in xml constructor %d", error);
+		}
+	}
+
+	if (success) {
+		error = xml->stripIndexLeafTagPath("path[1]", &tag, &index);
+
+		if (error != kNoError) {
+			DLog("Error stripping: %d", error);
+			success = xFalse;
+		} else if (strcmp(tag, "path")) {
+			success = xFalse;
+			DLog("tag is not expected value: 'path'");
+		} else if (index != 1) {
+			success = xFalse;
+			DLog("index should be 1");
+		}
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
+	TestParsingWithUnknownAttribute();
 	TestParsingWithNodes();
 	TestParsingForAttribute();
 	TestGettingInnerXmlForSpecificAttribute();
@@ -623,6 +785,8 @@ void xXML_Tests(void) {
 	TestCount();
 	TestCountForInterchangingNodes();
 	TestCountWithNodesHavingAttributes();
+	TestIndexingASetOfSimilarPaths();
+	TestStrippingIndexedTag();
 
 	printf("\n");
 }

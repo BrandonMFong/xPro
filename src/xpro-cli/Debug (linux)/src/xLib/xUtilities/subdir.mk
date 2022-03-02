@@ -8,15 +8,15 @@ C_SRCS += \
 ../src/xLib/xUtilities/xStringUtil.c \
 ../src/xLib/xUtilities/xUtilities.c 
 
-OBJS += \
-./src/xLib/xUtilities/xFileSystemUtil.o \
-./src/xLib/xUtilities/xStringUtil.o \
-./src/xLib/xUtilities/xUtilities.o 
-
 C_DEPS += \
 ./src/xLib/xUtilities/xFileSystemUtil.d \
 ./src/xLib/xUtilities/xStringUtil.d \
 ./src/xLib/xUtilities/xUtilities.d 
+
+OBJS += \
+./src/xLib/xUtilities/xFileSystemUtil.o \
+./src/xLib/xUtilities/xStringUtil.o \
+./src/xLib/xUtilities/xUtilities.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,4 +27,11 @@ src/xLib/xUtilities/%.o: ../src/xLib/xUtilities/%.c src/xLib/xUtilities/subdir.m
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean-src-2f-xLib-2f-xUtilities
+
+clean-src-2f-xLib-2f-xUtilities:
+	-$(RM) ./src/xLib/xUtilities/xFileSystemUtil.d ./src/xLib/xUtilities/xFileSystemUtil.o ./src/xLib/xUtilities/xStringUtil.d ./src/xLib/xUtilities/xStringUtil.o ./src/xLib/xUtilities/xUtilities.d ./src/xLib/xUtilities/xUtilities.o
+
+.PHONY: clean-src-2f-xLib-2f-xUtilities
 

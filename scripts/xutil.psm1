@@ -1,11 +1,11 @@
 
 function goto {
     param (
-        [Parameter (Mandatory = $true)] [String] $alias
+        [Parameter (Mandatory = $true)] [String] $key
     )
-    $success = $true;
-    $xpPath = $null;
-    $path = $null;
+    $success    = $true;
+    $xpPath     = $null;
+    $path       = $null;
 
     # make sure the .xpro path is set
     try {
@@ -16,10 +16,10 @@ function goto {
         Write-Warning "xp binary could not be found";
     }
 
-    # Get path for the alias
+    # Get path for the key
     if ($success) {
-        $path = (& $xpPath dir $alias);
-        $success = $?;
+        $path       = (& $xpPath dir $key);
+        $success    = $?;
     }
 
     # make sure that path exists

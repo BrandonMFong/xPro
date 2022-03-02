@@ -1,3 +1,4 @@
+
 /*
  * xXML.hpp
  *
@@ -17,6 +18,7 @@
 #include <xError.h>
 #include <xNull.h>
 #include <xUtilities/xUtilities.h>
+#include <xClassDec.h>
 
 /// System
 #include <unistd.h>
@@ -37,26 +39,30 @@
 /**
  * States for parsing
  */
-enum ParsingState {
-	kIdle = 0,
-	kReadingTagString = 1,
-	kWaitToCloseTag = 2,
-	kReadAttributeKey = 3,
-	kReadAttributeValue = 4,
-	kInnerXml = 5,
-	kFoundTag = 6,
-	kWaitToReadInnerXml = 7,
-	kWaitToCloseXmlDeclaration = 8,
-	kParseComment = 9,
-	kNoAttributeMatch = 10,
-	kNoAttributeMatchWithIdenticalTag = 11,
+enum xParsingState {
+	xPSIdle = 0,
+	xPSReadingTagString = 1,
+	xPSWaitToCloseTag = 2,
+	xPSReadAttributeKey = 3,
+	xPSReadAttributeValue = 4,
+	xPSInnerXml = 5,
+
+	/// Tag that has attributes
+	xPSFoundStuffedTag = 6,
+	xPSWaitToReadInnerXml = 7,
+	xPSWaitToCloseXmlDeclaration = 8,
+	xPSParseComment = 9,
+	xPSNoAttributeMatch = 10,
+
+	// Regular tag with no attributes
+	xPSFoundTag = 11,
 };
 
 /**
  * Helps parse an xml file
  */
 class xXML {
-public:
+xPublic:
 	/**
 	 * Opens file and reads the content in the file
 	 */
@@ -106,7 +112,7 @@ public:
 	 */
 	xUInt64 countTags(const char * tagPath, xError * err);
 
-private:
+xPrivate:
 
 	/**
 	 * Waits for '<' to appear at contentIndex
@@ -116,7 +122,7 @@ private:
 	/**
 	 * Waits for '>' to appear at contentIndex and then sets parsing state to nextState
 	 */
-	void parseWaitToCloseTag(ParsingState nextState);
+	void parseWaitToCloseTag(xParsingState nextState);
 
 	/**
 	 * Prepare members in Parse helper to save inner xml
@@ -155,6 +161,20 @@ private:
 	xError parseComment();
 
 	/**
+	 * This function takes a tag that is indexed and returns the index integer and the tag string
+	 *
+	 * indexTag: Example - "path[0]".  Callee will not modify
+	 * tag: Callee will populate this param with memory. Caller owns memory
+	 * index: caller owns memory
+	 */
+	static xError stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index);
+
+	/**
+	 *
+	 */
+	void tagMatch();
+
+	/**
 	 * Path to the xml file
 	 */
 	char * _path;
@@ -167,7 +187,7 @@ private:
 			this->result			= xNull;
 			this->tagPathArray 		= xNull;
 			this->arraySize 		= 0;
-			this->state 			= kIdle;
+			this->state 			= xPSIdle;
 			this->arrayIndex		= 0;
 			this->innerXml			= xNull;
 			this->endTagCharRecord	= 0;
@@ -186,6 +206,7 @@ private:
 			this->bufferLength		= 0;
 			this->chBuf				= 0;
 			this->filePtr			= xNull;
+			this->indexPathIndex	= 0;
 		}
 
 		FILE * filePtr;
@@ -203,7 +224,7 @@ private:
 		/**
 		 * Holds the current state of parsing
 		 */
-		ParsingState state;
+		xParsingState state;
 
 		/**
 		 * The amount of quotes found when reading attribute strings
@@ -297,6 +318,11 @@ private:
 		 * If true, we are currently indexing inside a comment
 		 */
 		xBool insideComment;
+
+		/**
+		 * The current index for a path that is indexing
+		 */
+		xUInt8 indexPathIndex;
 	} _parseHelper;
 };
 

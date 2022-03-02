@@ -44,6 +44,8 @@ del platformName
 
 ## CONSTANTS END ##
 
+## FUNCTION START ##
+
 def help():
     """
     help
@@ -59,6 +61,13 @@ def help():
     print()
 
     print("\t{debug}\tBuild debug version".format(debug=DEBUG_ARG))
+
+    print()
+    
+    print("See '{scriptname} {help}' for an overview of the system.".format(
+        scriptname  = SCRIPT_NAME,
+        help        = HELP_ARG
+    ))
 
 def main():
     status:     int = 0
@@ -113,7 +122,7 @@ def main():
 
     sys.exit(status)
 
+## FUNCTION END ##
+
 if __name__ == "__main__":
     main()
-
-## END ##

@@ -6,6 +6,7 @@ __pycache__
 *.o
 *.a
 *.d
+test.xml
 
 # Visual Studio 
 .vs
@@ -26,3 +27,6 @@ language.settings.xml
 xp
 test-xp
 debug-xp
+
+# Test file for unit tests
+test.xml

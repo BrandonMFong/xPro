@@ -29,6 +29,8 @@ XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
 
 ## CONSTANTS END ##
 
+## FUNCTION START ##
+
 def help():
     """
     help
@@ -43,6 +45,11 @@ def help():
     ))
 
     print()
+    
+    print("See '{scriptname} {help}' for an overview of the system.".format(
+        scriptname  = SCRIPT_NAME,
+        help        = HELP_ARG
+    ))
 
 def isAdmin() -> bool:
     """
@@ -113,6 +120,8 @@ def main():
             help()
 
     sys.exit(result)
+
+## FUNCTION END ##
 
 if __name__ == "__main__":
     main()

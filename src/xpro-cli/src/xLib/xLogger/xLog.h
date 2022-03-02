@@ -11,7 +11,10 @@
 #include <xUtilities/xUtilities.h>
 
 #ifdef DEBUG
- #define DLog(...) printf("xPro Debug");printf(" (%s:%d)", __FILENAME__, __LINE__);printf(": " __VA_ARGS__);printf("\n")
+ #define DLog(...) 	printf("xPro Debug");\
+					printf(" (%s:%d)", __FILENAME__, __LINE__);\
+					printf(": " __VA_ARGS__);\
+					printf("\n")
 #else
  #define DLog(...) /* Don't do anything in non debug builds */
 #endif

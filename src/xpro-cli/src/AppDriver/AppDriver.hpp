@@ -97,17 +97,18 @@ public:
 
 	/// Returns executable name from command line (arg 0)
 	const char * execName() {
-		char * result	= xNull;
-		xError error 	= kNoError;
-		result 			= this->args.argAtIndex(0, &error);
+		const char * 	result	= xNull;
+		xError 			error 	= kNoError;
+
+		result = this->args.argAtIndex(0, &error);
 
 		if (error != kNoError) {
 			DLog("Error getting executable name, %d", error);
 		} else {
-			result = basename(result);
+			result = basename((char *) result);
 		}
 
-		return (const char *) result;
+		return result;
 	}
 
 private:

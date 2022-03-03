@@ -82,9 +82,9 @@ xBool xArguments::contains(const char * arg, xError * err) {
 	return result;
 }
 
-char * xArguments::argAtIndex(xUInt8 index, xError * err) {
-	char * result 	= xNull;
-	xError error 	= kNoError;
+const char * xArguments::argAtIndex(xUInt8 index, xError * err) {
+	const char * 	result 	= xNull;
+	xError 			error 	= kNoError;
 
 	if (error == kNoError) {
 		error = index < this->_numArgs ? kNoError : kOutOfRangeError;

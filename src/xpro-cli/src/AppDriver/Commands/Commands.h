@@ -27,5 +27,7 @@
 
 /// Object
 #define OBJ_ARG "obj"
+#define OBJ_COUNT_ARG "--count"
+#define OBJ_INDEX_VALUE_ARG "-index"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

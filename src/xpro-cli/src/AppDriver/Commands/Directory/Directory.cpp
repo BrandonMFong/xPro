@@ -17,7 +17,7 @@ xXML * xProConfig = xNull;
 
 xError HandleDirectory() {
 	xError 		result 			= kNoError;
-	char 		* dirKey 		= xNull;
+	const char 	* dirKey 		= xNull;
 	const char 	* configPath	= xNull;
 	AppDriver 	* appDriver		= xNull;
 

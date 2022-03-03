@@ -9,14 +9,14 @@
 #include <AppDriver/AppDriver.hpp>
 
 xError HandleObject(void) {
-	xError result = kNoError;
+	xError 		result = kNoError;
 	AppDriver * appDriver = xNull;
 
-	appDriver = AppDriver::shared();
-	result = appDriver != xNull ? kNoError : kDriverError;
+	appDriver 	= AppDriver::shared();
+	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	if (result == kNoError) {
-		result = appDriver->args.count() <= 2 ? kNoError : kArgError;
+		result = appDriver->args.count() <= 3 ? kNoError : kArgError;
 	}
 
 	if (result == kNoError) {

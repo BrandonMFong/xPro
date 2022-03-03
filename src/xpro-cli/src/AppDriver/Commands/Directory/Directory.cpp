@@ -58,7 +58,9 @@ xError HandleDirectory() {
 		// If user passed 3 arguments: <tool> dir <key>
 		// then we just need to print the key definition
 		if (appDriver->args.count() == 3) {
+#ifndef TESTING
 			result = PrintDirectoryForKey(dirKey);
+#endif
 		} else {
 			result = kDirectoryKeyError;
 			DLog("Unexpected number of arguments, %d\n", appDriver->args.count());

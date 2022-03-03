@@ -38,11 +38,47 @@ void TestHandleDirectoryWithNoArguments() {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestHandleDirectoryWithOnlyDirArg() {
+	xBool success = xTrue;
+	xError error = kNoError;
+	const char * argv[2] = {"xp", "dir"};
+
+	// Init with no arguments
+	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
+	success = error == kNoError;
+
+	if (success) {
+		error = HandleDirectory();
+		success = error != kNoError;
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
+void TestHandleDirectory() {
+	xBool success = xTrue;
+	xError error = kNoError;
+	const char * argv[3] = {"xp", "dir", "docs"};
+
+	// Init with no arguments
+	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
+	success = error == kNoError;
+
+	if (success) {
+		error = HandleDirectory();
+		success = error == kNoError;
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void Directory_Tests() {
 	INTRO_TEST_FUNCTION;
 
 	TestHandleDirectoryWithNoAppDriver();
 	TestHandleDirectoryWithNoArguments();
+	TestHandleDirectoryWithOnlyDirArg();
+	TestHandleDirectory();
 
 	printf("\n");
 }

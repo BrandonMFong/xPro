@@ -171,10 +171,21 @@ void AppDriver::help(xUInt8 printType) {
 			printf("\nBrief: %s\n", DIR_ARG_BRIEF);
 			printf("\nDiscussion:\n");
 			printf("%s\n", DIR_ARG_DISCUSSION);
+			printf("\nArguments: %s\n", DIR_ARG_INFO);
 		} else if (this->args.contains(CREATE_ARG, xNull)) {
-
+			printf("Command: %s\n", CREATE_ARG);
+			printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
+			printf("\nDiscussion:\n");
+			printf("%s\n", CREATE_ARG_DISCUSSION);
+			printf("\nArguments:\n");
+			printf("  %s: %s\n", CREATE_XPRO_ARG, CREATE_XPRO_ARG_INFO);
+			printf("  %s: %s\n", CREATE_USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
+			printf("  %s: %s\n", CREATE_ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 		} else if (this->args.contains(OBJ_ARG, xNull)) {
-
+			printf("Command: %s\n", OBJ_ARG);
+			printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
+			printf("\nDiscussion:\n");
+			printf("%s\n", OBJ_ARG_DISCUSSION);
 		}
 
 		printf("\n");

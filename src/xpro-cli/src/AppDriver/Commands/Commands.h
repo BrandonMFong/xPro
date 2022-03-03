@@ -25,6 +25,7 @@
 #define DIR_ARG_DISCUSSION \
 	"\tIf key could not be found, no directory path will be\n"\
 	"\treturned. If no key was passed, an error will be returned"
+#define DIR_ARG_INFO "A valid key used in user's config file"
 
 #pragma mark - Create
 
@@ -33,10 +34,23 @@
 #define CREATE_USER_CONF_ARG 	"uconf"
 #define CREATE_ENV_CONF_ARG		"uenv"
 
+#define CREATE_ARG_BRIEF "Returns directory path for key"
+#define CREATE_ARG_DISCUSSION \
+	"\tIf key could not be found, no directory path will be\n"\
+	"\treturned. If no key was passed, an error will be returned"
+#define CREATE_XPRO_ARG_INFO "Creates .xpro at home path"
+#define CREATE_USER_CONF_ARG_INFO "Creates the 'user.xml' user config file with a basic template"
+#define CREATE_ENV_CONF_ARG_INFO "Creates the %s environment config file"
+
 #pragma mark - Object
 
 #define OBJ_ARG "obj"
 #define OBJ_COUNT_ARG "--count"
 #define OBJ_INDEX_VALUE_ARG "-index"
+
+#define OBJ_ARG_BRIEF "Returns directory path for key"
+#define OBJ_ARG_DISCUSSION \
+	"\tIf key could not be found, no directory path will be\n"\
+	"\treturned. If no key was passed, an error will be returned"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

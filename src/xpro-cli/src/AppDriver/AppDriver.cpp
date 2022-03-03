@@ -43,6 +43,8 @@ AppDriver::AppDriver(
 AppDriver::~AppDriver() {
 	xFree(this->_userInfo.username);
 	xFree(this->_userInfo.configPath);
+
+	globalAppDriver = xNull;
 }
 
 AppDriver * AppDriver::shared() {

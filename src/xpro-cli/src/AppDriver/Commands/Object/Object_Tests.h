@@ -12,12 +12,12 @@
 #ifndef object_h
 #define object_h
 
-void TestHandleObject() {
+void TestHandleObjectWithNoAppDriver() {
 	xBool success = xTrue;
 	xError error = kNoError;
 
 	error = HandleObject();
-	success = error == kNoError;
+	success = error != kNoError;
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -25,7 +25,7 @@ void TestHandleObject() {
 void Object_Tests() {
 	INTRO_TEST_FUNCTION;
 
-	TestHandleObject();
+	TestHandleObjectWithNoAppDriver();
 
 	printf("\n");
 }

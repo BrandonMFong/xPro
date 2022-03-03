@@ -165,6 +165,8 @@ void AppDriver::help(xUInt8 printType) {
 	printf("\n");
 
 	switch (printType) {
+
+	// Display info about commands
 	case 2:
 		if (this->args.contains(DIR_ARG, xNull)) {
 			printf("Command: %s\n", DIR_ARG);
@@ -186,6 +188,10 @@ void AppDriver::help(xUInt8 printType) {
 			printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
 			printf("\nDiscussion:\n");
 			printf("%s\n", OBJ_ARG_DISCUSSION);
+			printf("\nArguments:\n");
+			printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
+		} else {
+			printf("No description\n");
 		}
 
 		printf("\n");
@@ -200,16 +206,11 @@ void AppDriver::help(xUInt8 printType) {
 		printf("\t%s\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
 
 		// Create arg
-		printf("\t%s\tCreates based arguments\n", CREATE_ARG);
-		printf("\t  args:\n");
-		printf("\t    - '%s' Creates .xpro at home path\n", CREATE_XPRO_ARG);
-		printf("\t    - '%s' Creates the %s user config file with a basic template\n", CREATE_USER_CONF_ARG, DEFAULT_CONFIG_NAME);
-		printf("\t    - '%s' Creates the %s environment config file\n", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
+		printf("\t%s\t%s\n", CREATE_ARG, CREATE_ARG_BRIEF);
 
 		// Object arg
-		printf("\t%s\tReturns object\n", OBJ_ARG);
-		printf("\t  args:\n");
-		printf("\t    - '%s' Returns count of objects in user's config\n", OBJ_COUNT_ARG);
+		printf("\t%s\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
+
 		printf("\n");
 
 		break;
@@ -219,7 +220,7 @@ void AppDriver::help(xUInt8 printType) {
 		break;
 	}
 
-	printf("Use '%s %s' to see more information\n", this->execName(), HELP_ARG);
+	printf("Use '%s %s <cmd>' to see more information on the above commands\n", this->execName(), DESCRIBE_COMMAND_HELP_ARG);
 	printf("%s-v%c copyright %s\n", APP_NAME, VERSION[0], &__DATE__[7]);
 }
 

@@ -15,5 +15,13 @@ xError HandleObject(void) {
 	appDriver = AppDriver::shared();
 	result = appDriver != xNull ? kNoError : kDriverError;
 
+	if (result == kNoError) {
+		result = appDriver->args.count() <= 2 ? kNoError : kArgError;
+	}
+
+	if (result == kNoError) {
+
+	}
+
 	return result;
 }

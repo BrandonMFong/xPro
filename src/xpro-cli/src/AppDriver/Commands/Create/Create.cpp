@@ -16,10 +16,10 @@ xError HandleCreate(void) {
 	const char * 	subCommand 	= xNull;
 
 	appDriver 	= AppDriver::shared();
-	result 		= appDriver != xNull ? kNoError : kNullError;
+	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	if (result == kNoError) {
-		result = appDriver->args.count() <= 3 ? kNoError : kNullError;
+		result = appDriver->args.count() <= 3 ? kNoError : kArgError;
 	}
 
 	if (result == kNoError) {

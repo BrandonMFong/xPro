@@ -22,6 +22,16 @@ void TestHandleObjectWithNoAppDriver() {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestHandleObjectWithAppDriver() {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	error = HandleObject();
+	success = error != kNoError;
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void Object_Tests() {
 	INTRO_TEST_FUNCTION;
 

@@ -22,9 +22,9 @@ int xTests(int argc, char ** argv) {
 	// Setup test path
 	strcpy(testPath, dirname(argv[0]));
 
-//	xUtilities_Tests();
-//	xXML_Tests();
-//	xArguments_Tests();
+	xUtilities_Tests();
+	xXML_Tests();
+	xArguments_Tests();
 	Directory_Tests();
 
 	return 0;

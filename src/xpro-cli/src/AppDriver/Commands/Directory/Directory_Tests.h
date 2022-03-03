@@ -22,6 +22,8 @@ void Directory_Tests() {
 	INTRO_TEST_FUNCTION;
 
 	TestHandleDirectory();
+
+	printf("\n");
 }
 
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_TESTS_H_ */

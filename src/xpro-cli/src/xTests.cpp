@@ -25,6 +25,7 @@ int xTests(int argc, char ** argv) {
 	xUtilities_Tests();
 	xXML_Tests();
 	xArguments_Tests();
+	Directory_Tests();
 
 	return 0;
 }

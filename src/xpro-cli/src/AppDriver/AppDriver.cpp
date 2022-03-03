@@ -54,6 +54,7 @@ xError AppDriver::setup() {
 	char 	* homeDir 	= xNull,
 			* envPath 	= xNull;
 
+	// Get home path for current user
 	homeDir = xHomePath(&result);
 
 	if (result == kNoError) {
@@ -66,6 +67,7 @@ xError AppDriver::setup() {
 		result = this->_xProHomePath != xNull ? kNoError : kUnknownError;
 	}
 
+	// construct path to the .xpro directory.  It should live in the user's home directory
 	if (result == kNoError) {
 		sprintf(this->_xProHomePath, "%s/%s", homeDir, XPRO_HOME_DIR_NAME);
 		xFree(homeDir);
@@ -86,6 +88,7 @@ xError AppDriver::setup() {
 		result = envPath != xNull ? kNoError : kUnknownError;
 	}
 
+	// Construct path the env.xml file
 	if (result == kNoError) {
 		sprintf(envPath, "%s/%s", this->_xProHomePath, ENV_CONFIG_NAME);
 
@@ -95,7 +98,10 @@ xError AppDriver::setup() {
 		}
 	}
 
+	// Only do the following if the env.xml exists. Otherwise the user has
+	// to create it
 	if (xIsFile(envPath)) {
+		// init object to read env.xml
 		if (result == kNoError) {
 			envConfig = new xXML(envPath, &result);
 
@@ -104,6 +110,7 @@ xError AppDriver::setup() {
 			}
 		}
 
+		// Get active user name
 		if (result == kNoError) {
 			this->_userInfo.username = envConfig->getValue(
 				USERNAME_XML_PATH,
@@ -115,6 +122,7 @@ xError AppDriver::setup() {
 			}
 		}
 
+		// Get active config path
 		if (result == kNoError) {
 			this->_userInfo.configPath = envConfig->getValue(
 				USERCONFIGPATH_XML_PATH,
@@ -171,12 +179,12 @@ xError AppDriver::run() {
 	// See if the user wants help
 	if (result == kNoError) {
 		if (this->args.count() == 1) {
-			printf("No arguments\n");
+			xLog("No arguments\n");
 
 			this->help(xFalse);
 			okayToContinue = xFalse;
 		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-			printf("Too many arguments for %s\n", HELP_ARG);
+			xLog("Too many arguments for %s\n", HELP_ARG);
 
 			this->help(xFalse);
 			okayToContinue = xFalse;

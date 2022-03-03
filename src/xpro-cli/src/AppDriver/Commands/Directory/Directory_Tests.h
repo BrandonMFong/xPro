@@ -5,14 +5,23 @@
  *      Author: brandonmfong
  */
 
+#ifdef TESTING
+
 #ifndef SRC_COMMANDS_DIRECTORY_DIRECTORY_TESTS_H_
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_TESTS_H_
 
 #include "Directory.hpp"
 
-void Directory_Tests() {
-	INTRO_TEST_FUNCTION;
+void TestHandleDirectory() {
 
 }
 
+void Directory_Tests() {
+	INTRO_TEST_FUNCTION;
+
+	TestHandleDirectory();
+}
+
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_TESTS_H_ */
+
+#endif // TESTING

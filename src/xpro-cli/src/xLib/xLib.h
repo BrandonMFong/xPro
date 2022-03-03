@@ -45,7 +45,7 @@
 /**
  * Define a test path and put path into this variable for unit tests to use
  */
-static char testPath[MAX_PATH_LENGTH];
+static char testPath[MAX_PATH_LENGTH] __attribute__((unused));
 
 #else
 

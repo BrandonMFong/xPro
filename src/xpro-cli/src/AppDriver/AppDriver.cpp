@@ -176,7 +176,7 @@ void AppDriver::help(xBool moreInfo) {
 		printf("\t    - '%s' Creates the %s environment config file\n", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
 
 		// Object arg
-		printf("\t%s\tReturns object\n", OBJECT_ARG);
+		printf("\t%s\tReturns object\n", OBJ_ARG);
 
 		printf("\n");
 	}
@@ -215,8 +215,10 @@ xError AppDriver::run() {
 			result = HandleCreate();
 		} else if (this->args.contains(VERSION_ARG, &result)) {
 			HandleVersion();
+		} else if (this->args.contains(OBJ_ARG, &result)) {
+			result = HandleObject();
 		} else {
-			xLog("Unknown command\n");
+			xLog("Unknown command");
 			this->help(xFalse);
 		}
 	}

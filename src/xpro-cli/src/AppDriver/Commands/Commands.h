@@ -11,6 +11,7 @@
 #include "Create/Create.hpp"
 #include "Directory/Directory.hpp"
 #include "Version/Version.hpp"
+#include "Object/Object.hpp"
 
 #define HELP_ARG 	"--help"
 #define VERSION_ARG "--version"
@@ -25,6 +26,6 @@
 #define CREATE_ENV_CONF_ARG		"uenv"
 
 /// Object
-#define OBJECT_ARG "obj"
+#define OBJ_ARG "obj"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

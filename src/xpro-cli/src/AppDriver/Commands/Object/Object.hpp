@@ -16,5 +16,15 @@
  */
 xError HandleObject(void);
 
+/**
+ * Prints total count of object nodes
+ */
+xError HandleObjectCount(void);
+
+/**
+ * Prints object at index
+ */
+xError HandleObjecValueForIndex(void);
+
 
 #endif /* SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_ */

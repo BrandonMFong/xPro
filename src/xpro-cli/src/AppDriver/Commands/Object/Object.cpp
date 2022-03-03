@@ -18,7 +18,7 @@ xError HandleObject(void) {
 	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	if (result == kNoError) {
-		result = appDriver->args.count() == 3 ? kNoError : kArgError;
+		result = appDriver->args.count() <= 5 ? kNoError : kArgError;
 
 		if (result != kNoError) {
 #ifndef TESTING
@@ -33,9 +33,9 @@ xError HandleObject(void) {
 
 	if (result == kNoError) {
 		if (!strcmp(arg, OBJ_COUNT_ARG)) {
-			xLog("count");
+			result = HandleObjectCount();
 		} else if (!strcmp(arg, OBJ_INDEX_VALUE_ARG)) {
-			xLog("index");
+			result = HandleObjecValueForIndex();
 		} else {
 			result = kArgError;
 
@@ -45,6 +45,22 @@ xError HandleObject(void) {
 #endif
 		}
 	}
+
+	return result;
+}
+
+xError HandleObjectCount(void) {
+	xError result = kNoError;
+
+	xLog("count");
+
+	return result;
+}
+
+xError HandleObjecValueForIndex(void) {
+	xError result = kNoError;
+
+	xLog("index");
 
 	return result;
 }

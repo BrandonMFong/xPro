@@ -22,13 +22,15 @@ xError HandleDirectory() {
 	AppDriver 	* appDriver		= xNull;
 
 	appDriver 	= AppDriver::shared();
-	result 		= appDriver != xNull ? kNoError : kArgError;
+	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	if (result == kNoError) {
 		result = appDriver->args.count() >= 3 ? kNoError : kArgError;
 
 		if (result != kNoError) {
+#ifndef TESTING
 			DLog("Does not have correct count of arguments, actual: %d\n", appDriver->args.count());
+#endif
 		}
 	}
 
@@ -64,7 +66,10 @@ xError HandleDirectory() {
 	}
 
 	if (result != kNoError) {
+		// Don't print this out because we test it
+#ifndef TESTING
 		xError("[%d]\n", result);
+#endif
 	}
 
 	xDelete(xProConfig);

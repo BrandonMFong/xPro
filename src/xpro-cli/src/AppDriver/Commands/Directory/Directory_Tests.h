@@ -11,9 +11,29 @@
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_TESTS_H_
 
 #include "Directory.hpp"
+#include <AppDriver/AppDriver.hpp>
 
-void TestHandleDirectory() {
+void TestHandleDirectoryWithNoAppDriver() {
 	xBool success = xTrue;
+
+	xError error = HandleDirectory();
+	success = error != kNoError;
+
+	PRINT_TEST_RESULTS(success);
+}
+
+void TestHandleDirectoryWithNoArguments() {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	// Init with no arguments
+	AppDriver ad(0, xNull, &error);
+	success = error == kNoError;
+
+	if (success) {
+		error = HandleDirectory();
+		success = error != kNoError;
+	}
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -21,7 +41,8 @@ void TestHandleDirectory() {
 void Directory_Tests() {
 	INTRO_TEST_FUNCTION;
 
-	TestHandleDirectory();
+	TestHandleDirectoryWithNoAppDriver();
+	TestHandleDirectoryWithNoArguments();
 
 	printf("\n");
 }

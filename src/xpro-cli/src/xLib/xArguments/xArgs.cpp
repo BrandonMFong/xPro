@@ -79,6 +79,10 @@ xBool xArguments::contains(const char * arg, xError * err) {
 		if ((error != kNoError) || result) break;
 	}
 
+	if (err != xNull) {
+		*err = error;
+	}
+
 	return result;
 }
 

@@ -15,17 +15,26 @@
 
 #define HELP_ARG 	"--help"
 #define VERSION_ARG "--version"
+#define DESCRIBE_COMMAND_HELP_ARG "help"
 
-/// Directory
+#pragma mark - Directory
+
 #define DIR_ARG "dir"
 
-/// Create
+#define DIR_ARG_BRIEF "Returns directory path for key"
+#define DIR_ARG_DISCUSSION \
+	"\tIf key could not be found, no directory path will be\n"\
+	"\treturned. If no key was passed, an error will be returned"
+
+#pragma mark - Create
+
 #define CREATE_ARG 				"create"
 #define CREATE_XPRO_ARG 		"home"
 #define CREATE_USER_CONF_ARG 	"uconf"
 #define CREATE_ENV_CONF_ARG		"uenv"
 
-/// Object
+#pragma mark - Object
+
 #define OBJ_ARG "obj"
 #define OBJ_COUNT_ARG "--count"
 #define OBJ_INDEX_VALUE_ARG "-index"

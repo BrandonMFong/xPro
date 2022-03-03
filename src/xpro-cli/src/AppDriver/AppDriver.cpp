@@ -154,7 +154,7 @@ xError AppDriver::setup() {
 	return result;
 }
 
-void AppDriver::help(xBool moreInfo) {
+void AppDriver::help(xUInt8 printType) {
 	printf(
 		"usage: %s [ %s ] [ %s ] <command> [<args>] \n",
 		this->execName(),
@@ -164,11 +164,29 @@ void AppDriver::help(xBool moreInfo) {
 
 	printf("\n");
 
-	if (moreInfo) {
+	switch (printType) {
+	case 2:
+		if (this->args.contains(DIR_ARG, xNull)) {
+			printf("Command: %s\n", DIR_ARG);
+			printf("\nBrief: %s\n", DIR_ARG_BRIEF);
+			printf("\nDiscussion:\n");
+			printf("%s\n", DIR_ARG_DISCUSSION);
+		} else if (this->args.contains(CREATE_ARG, xNull)) {
+
+		} else if (this->args.contains(OBJ_ARG, xNull)) {
+
+		}
+
+		printf("\n");
+
+		break;
+
+	// Prints brief descriptions on commands and entire application
+	case 1:
 		printf("List of commands:\n");
 
 		// Directory arg
-		printf("\t%s\tReturns directory for alias\n", DIR_ARG);
+		printf("\t%s\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
 
 		// Create arg
 		printf("\t%s\tCreates based arguments\n", CREATE_ARG);
@@ -179,8 +197,15 @@ void AppDriver::help(xBool moreInfo) {
 
 		// Object arg
 		printf("\t%s\tReturns object\n", OBJ_ARG);
-
+		printf("\t  args:\n");
+		printf("\t    - '%s' Returns count of objects in user's config\n", OBJ_COUNT_ARG);
 		printf("\n");
+
+		break;
+	case 0:
+	default:
+
+		break;
 	}
 
 	printf("Use '%s %s' to see more information\n", this->execName(), HELP_ARG);
@@ -193,18 +218,30 @@ xError AppDriver::run() {
 
 	// See if the user wants help
 	if (result == kNoError) {
+
+		// Print default help
 		if (this->args.count() == 1) {
 			xLog("No arguments\n");
 
-			this->help(xFalse);
+			this->help(0);
 			okayToContinue = xFalse;
+
+		// Print default help
 		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
 			xLog("Too many arguments for %s\n", HELP_ARG);
 
-			this->help(xFalse);
+			this->help(0);
 			okayToContinue = xFalse;
+
+		// Print help for command
+		} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
+					&& 	(this->args.count() > 2)) {
+			this->help(2);
+			okayToContinue = xFalse;
+
+		// Print help for all commands and app info
 		} else if (this->args.contains(HELP_ARG, &result)) {
-			this->help(xTrue);
+			this->help(1);
 			okayToContinue = xFalse;
 		}
 	}

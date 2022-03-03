@@ -72,6 +72,26 @@ void TestHandleDirectory() {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestPrintDirectoryWithNullKey() {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	error = PrintDirectoryForKey(xNull);
+	success = error != kNoError;
+
+	PRINT_TEST_RESULTS(success);
+}
+
+void TestPrintDirectoryWithKey() {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	error = PrintDirectoryForKey("docs");
+	success = error != kNoError;
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void Directory_Tests() {
 	INTRO_TEST_FUNCTION;
 
@@ -79,6 +99,8 @@ void Directory_Tests() {
 	TestHandleDirectoryWithNoArguments();
 	TestHandleDirectoryWithOnlyDirArg();
 	TestHandleDirectory();
+	TestPrintDirectoryWithNullKey();
+	TestPrintDirectoryWithKey();
 
 	printf("\n");
 }

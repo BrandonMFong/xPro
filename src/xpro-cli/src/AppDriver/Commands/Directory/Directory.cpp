@@ -106,6 +106,15 @@ xError PrintDirectoryForKey(const char * key) {
 		}
 	}
 
+	if (result == kNoError) {
+		if (xProConfig == xNull) {
+			result = kNullError;
+#ifndef TESTING
+			DLog("the xpro config object is null");
+#endif
+		}
+	}
+
 	// See if user has specified a default path with __ALL__
 	if (result == kNoError) {
 		directory = xProConfig->getValue(elementPath, &result);

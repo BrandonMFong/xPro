@@ -51,6 +51,10 @@ xError HandleObject(void) {
 
 xError HandleObjectCount(void) {
 	xError result = kNoError;
+	AppDriver * appDriver = xNull;
+
+	appDriver 	= AppDriver::shared();
+	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	xLog("count");
 
@@ -59,6 +63,10 @@ xError HandleObjectCount(void) {
 
 xError HandleObjecValueForIndex(void) {
 	xError result = kNoError;
+	AppDriver * appDriver = xNull;
+
+	appDriver 	= AppDriver::shared();
+	result 		= appDriver != xNull ? kNoError : kDriverError;
 
 	xLog("index");
 

@@ -13,7 +13,9 @@
 #include "Directory.hpp"
 
 void TestHandleDirectory() {
+	xBool success = xTrue;
 
+	PRINT_TEST_RESULTS(success);
 }
 
 void Directory_Tests() {

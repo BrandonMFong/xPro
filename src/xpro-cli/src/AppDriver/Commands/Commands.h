@@ -15,13 +15,16 @@
 #define HELP_ARG 	"--help"
 #define VERSION_ARG "--version"
 
-/// Directory alias
+/// Directory
 #define DIR_ARG "dir"
 
-/// create
+/// Create
 #define CREATE_ARG 				"create"
 #define CREATE_XPRO_ARG 		"home"
 #define CREATE_USER_CONF_ARG 	"uconf"
 #define CREATE_ENV_CONF_ARG		"uenv"
+
+/// Object
+#define OBJECT_ARG "obj"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

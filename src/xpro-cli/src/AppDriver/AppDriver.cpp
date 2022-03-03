@@ -165,16 +165,20 @@ void AppDriver::help(xBool moreInfo) {
 	if (moreInfo) {
 		printf("List of commands:\n");
 
-		printf("\t%s\treturns directory for alias\n", DIR_ARG);
+		// Directory arg
+		printf("\t%s\tReturns directory for alias\n", DIR_ARG);
 
-		// Create dir
+		// Create arg
 		printf("\t%s\tCreates based arguments\n", CREATE_ARG);
 		printf("\t  args:\n");
 		printf("\t    - '%s' Creates .xpro at home path\n", CREATE_XPRO_ARG);
 		printf("\t    - '%s' Creates the %s user config file with a basic template\n", CREATE_USER_CONF_ARG, DEFAULT_CONFIG_NAME);
-		printf("\t    - '%s' Creates the %s environment config file", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
+		printf("\t    - '%s' Creates the %s environment config file\n", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
 
-		printf("\n\n");
+		// Object arg
+		printf("\t%s\tReturns object\n", OBJECT_ARG);
+
+		printf("\n");
 	}
 
 	printf("Use '%s %s' to see more information\n", this->execName(), HELP_ARG);

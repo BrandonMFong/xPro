@@ -44,66 +44,6 @@ AppDriver::~AppDriver() {
 	xFree(this->_userInfo.configPath);
 }
 
-void AppDriver::help(xBool moreInfo) {
-	printf(
-		"usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
-		this->execName(),
-		VERSION_ARG,
-		HELP_ARG
-	);
-
-	printf("List of commands:\n");
-
-	printf("\t%s\treturns directory for alias\n", DIR_ARG);
-
-	// Create dir
-	printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
-	printf("\t\t- '%s' Creates .xpro at home path\n", CREATE_XPRO_ARG);
-	printf("\t\t- '%s' Creates the %s user config file with a basic template\n", CREATE_USER_CONF_ARG, DEFAULT_CONFIG_NAME);
-	printf("\t\t- '%s' Creates the %s environment config file", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
-
-	printf("\n");
-}
-
-xError AppDriver::run() {
-	xError 	result 			= kNoError;
-	xBool 	okayToContinue 	= xTrue;
-
-	// See if the user wants help
-	if (result == kNoError) {
-		if (this->args.count() == 1) {
-			printf("No arguments\n");
-
-			this->help(xFalse);
-			okayToContinue = xFalse;
-		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-			printf("Too many arguments for %s\n", HELP_ARG);
-
-			this->help(xFalse);
-			okayToContinue = xFalse;
-		} else if (this->args.contains(HELP_ARG, &result)) {
-			this->help(xTrue);
-			okayToContinue = xFalse;
-		}
-	}
-
-	// Run application
-	if (okayToContinue && (result == kNoError)) {
-		if (this->args.contains(DIR_ARG, &result)) {
-			result = HandleDirectory();
-		} else if (this->args.contains(CREATE_ARG, &result)) {
-			result = HandleCreate();
-		} else if (this->args.contains(VERSION_ARG, &result)) {
-			HandleVersion();
-		} else {
-			xLog("Unknown command\n");
-			this->help(xFalse);
-		}
-	}
-
-	return result;
-}
-
 AppDriver * AppDriver::shared() {
 	return globalAppDriver;
 }
@@ -199,6 +139,66 @@ xError AppDriver::setup() {
 	}
 
 	xDelete(envConfig);
+
+	return result;
+}
+
+void AppDriver::help(xBool moreInfo) {
+	printf(
+		"usage: %s\t[ %s ] [ %s ] <command> [<args>] \n\n",
+		this->execName(),
+		VERSION_ARG,
+		HELP_ARG
+	);
+
+	printf("List of commands:\n");
+
+	printf("\t%s\treturns directory for alias\n", DIR_ARG);
+
+	// Create dir
+	printf("\t%s\tBased on command argument, this command will create the following:\n", CREATE_ARG);
+	printf("\t\t- '%s' Creates .xpro at home path\n", CREATE_XPRO_ARG);
+	printf("\t\t- '%s' Creates the %s user config file with a basic template\n", CREATE_USER_CONF_ARG, DEFAULT_CONFIG_NAME);
+	printf("\t\t- '%s' Creates the %s environment config file", CREATE_ENV_CONF_ARG, ENV_CONFIG_NAME);
+
+	printf("\n");
+}
+
+xError AppDriver::run() {
+	xError 	result 			= kNoError;
+	xBool 	okayToContinue 	= xTrue;
+
+	// See if the user wants help
+	if (result == kNoError) {
+		if (this->args.count() == 1) {
+			printf("No arguments\n");
+
+			this->help(xFalse);
+			okayToContinue = xFalse;
+		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
+			printf("Too many arguments for %s\n", HELP_ARG);
+
+			this->help(xFalse);
+			okayToContinue = xFalse;
+		} else if (this->args.contains(HELP_ARG, &result)) {
+			this->help(xTrue);
+			okayToContinue = xFalse;
+		}
+	}
+
+	// Run application
+	if (okayToContinue && (result == kNoError)) {
+		if (this->args.contains(DIR_ARG, &result)) {
+			result = HandleDirectory();
+		} else if (this->args.contains(CREATE_ARG, &result)) {
+			result = HandleCreate();
+		} else if (this->args.contains(VERSION_ARG, &result)) {
+			HandleVersion();
+		} else {
+			xLog("Unknown command\n");
+			this->help(xFalse);
+		}
+	}
 
 	return result;
 }

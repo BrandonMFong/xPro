@@ -36,6 +36,11 @@
 #define DEFAULT_CONFIG_NAME "user.xml"
 
 /**
+ * Default app name
+ */
+#define APP_NAME "xPro"
+
+/**
  * Main class for xPro CLI
  */
 class AppDriver {

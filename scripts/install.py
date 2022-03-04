@@ -54,8 +54,8 @@ XPRO_PATH:              str = os.path.dirname(SCRIPT_PATH)
 XPRO_BIN_PATH:          str = os.path.join(XPRO_PATH, "bin")
 HOME_DIR:               str = os.path.expanduser("~")
 XPRO_HOME_PATH:         str = os.path.join(HOME_DIR, XPRO_DIR_NAME)
-PROJ_PROFILE_PATH:      str = os.path.join(XPRO_PATH, "scripts", XPRO_PROFILE_NAME)
-UTIL_PATH:              str = os.path.join(XPRO_PATH, "scripts", UTIL_NAME)
+PROJ_PROFILE_PATH:      str = os.path.join(XPRO_PATH, "package", XPRO_PROFILE_NAME)
+UTIL_PATH:              str = os.path.join(XPRO_PATH, "package", UTIL_NAME)
 
 # Determining the path to shell profile
 if sys.platform == "win32":

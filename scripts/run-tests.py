@@ -26,12 +26,20 @@ elif sys.platform == "win32":
     platformName    = "windows"
     XP_BUILD        = "{}.exe".format(XP_BUILD) # Add .exe for xp build
 
+# Expected path for sym link
+# we need this to exist for us to build
+if sys.platform == "win32":
+    XPRO_LINK_PATH: str = "C:\\Library\\xPro"
+else:
+    XPRO_LINK_PATH: str = "/Library/xPro"
+
 BUILD_FOLDER:   str = "Tests ({})".format(platformName)
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
 BUILD_PATH:     str = os.path.join(XPRO_PATH, "src", "xpro-cli", BUILD_FOLDER)
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
+DEVENV_SCRIPT:  str = "devenv.py"
 
 # Remove memory from global access
 del platformName
@@ -63,15 +71,25 @@ def main():
     if HELP_ARG in sys.argv:
         help()
     else:
+        
+        # Make sure we have the path to build
+        if os.path.exists(XPRO_LINK_PATH) is False:
+            status = 1
+            print("We need to have '{}' to build. Please run '{}'".format(
+                XPRO_LINK_PATH,
+                DEVENV_SCRIPT
+            ))
+
         # Change xpro
         os.chdir(XPRO_PATH)
 
-        if os.path.exists(BIN_PATH) is False:
-            os.mkdir(BIN_PATH)
-
+        if status == 0:
             if os.path.exists(BIN_PATH) is False:
-                status = 1
-                print("Could not create bin folder")
+                os.mkdir(BIN_PATH)
+
+                if os.path.exists(BIN_PATH) is False:
+                    status = 1
+                    print("Could not create bin folder")
 
         # Change to source directory
         os.chdir(BUILD_PATH)

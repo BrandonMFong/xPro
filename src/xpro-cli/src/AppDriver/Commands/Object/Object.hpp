@@ -12,6 +12,11 @@
 #include <xLib.h>
 
 /**
+ * Path to list of objects in user config
+ */
+#define OBJECT_TAG_PATH "/xPro/Objects/Object"
+
+/**
  *	Prints out object based on arguments passed
  */
 xError HandleObject(void);

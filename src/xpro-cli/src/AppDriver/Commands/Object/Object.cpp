@@ -9,10 +9,18 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+/**
+ * Xml object for the xpro config file
+ *
+ * This should be allocated and deallocated in HandleObject()
+ */
+static xXML * xProConfig = xNull;
+
 xError HandleObject(void) {
-	xError 		result = kNoError;
+	xError result = kNoError;
 	AppDriver * appDriver = xNull;
 	const char * arg = xNull;
+	const char * configPath = xNull;
 
 	appDriver 	= AppDriver::shared();
 	result 		= appDriver != xNull ? kNoError : kDriverError;
@@ -31,6 +39,21 @@ xError HandleObject(void) {
 		arg = appDriver->args.argAtIndex(2, &result);
 	}
 
+	// Get the config file
+	if (result == kNoError) {
+		configPath 	= appDriver->configPath();
+		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
+	}
+
+	if (result == kNoError) {
+		if (xProConfig == xNull) {
+			xProConfig = new xXML(configPath, &result);
+		} else {
+			result = kXMLError;
+			DLog("xPro config has already been read unexpectedly\n");
+		}
+	}
+
 	if (result == kNoError) {
 		if (!strcmp(arg, OBJ_COUNT_ARG)) {
 			result = HandleObjectCount();
@@ -46,15 +69,22 @@ xError HandleObject(void) {
 		}
 	}
 
+	xDelete(xProConfig);
+
 	return result;
 }
 
 xError HandleObjectCount(void) {
 	xError result = kNoError;
-	AppDriver * appDriver = xNull;
 
-	appDriver 	= AppDriver::shared();
-	result 		= appDriver != xNull ? kNoError : kDriverError;
+	xUInt64 count = xProConfig->countTags(OBJECT_TAG_PATH, &result);
+
+	if(result != kNoError) {
+		count = 0;
+		DLog("Could not count for path: '%s'", OBJECT_TAG_PATH);
+	}
+
+	printf("%llu\n", count);
 
 	xLog("count");
 

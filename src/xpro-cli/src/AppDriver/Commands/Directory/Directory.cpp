@@ -13,7 +13,7 @@
  *
  * This should be allocated and deallocated in HandleDirectory()
  */
-xXML * xProConfig = xNull;
+static xXML * xProConfig = xNull;
 
 xError HandleDirectory() {
 	xError 		result 			= kNoError;

@@ -107,7 +107,9 @@ public:
 		result = this->args.argAtIndex(0, &error);
 
 		if (error != kNoError) {
+#ifndef TESTING
 			DLog("Error getting executable name, %d", error);
+#endif
 		} else {
 			result = basename((char *) result);
 		}

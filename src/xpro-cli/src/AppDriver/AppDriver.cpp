@@ -139,6 +139,7 @@ xError AppDriver::setup() {
 	} else {
 		// Only split out error if user didn't pass create
 		if (!this->args.contains(CREATE_ARG, &result)) {
+#ifndef TESTING
 			xError("%s does not exist", envPath);
 			xLog(
 				"Please run '%s %s %s' to create",
@@ -146,6 +147,7 @@ xError AppDriver::setup() {
 				CREATE_ARG,
 				CREATE_ENV_CONF_ARG
 			);
+#endif
 		}
 	}
 

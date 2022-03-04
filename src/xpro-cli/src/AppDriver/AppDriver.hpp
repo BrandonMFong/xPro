@@ -41,6 +41,11 @@
 #define APP_NAME "xPro"
 
 /**
+ * If this is specified in the username in the above format, then the path with this attribute will take precedence
+ */
+#define ALL_USERS "__ALL__"
+
+/**
  * Main class for xPro CLI
  */
 class AppDriver {

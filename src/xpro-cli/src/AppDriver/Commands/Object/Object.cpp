@@ -39,6 +39,8 @@ xError HandleObject(void) {
 		arg = appDriver->args.argAtIndex(2, &result);
 	}
 
+#ifndef TESTING
+
 	// Get the config file
 	if (result == kNoError) {
 		configPath 	= appDriver->configPath();
@@ -54,11 +56,17 @@ xError HandleObject(void) {
 		}
 	}
 
+#endif
+
 	if (result == kNoError) {
 		if (!strcmp(arg, OBJ_COUNT_ARG)) {
+#ifndef TESTING
 			result = HandleObjectCount();
+#endif
 		} else if (!strcmp(arg, OBJ_INDEX_VALUE_ARG)) {
+#ifndef TESTING
 			result = HandleObjecValueForIndex();
+#endif
 		} else {
 			result = kArgError;
 

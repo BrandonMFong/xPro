@@ -25,9 +25,16 @@ void TestHandleObjectWithNoAppDriver() {
 void TestHandleObjectWithAppDriver() {
 	xBool success = xTrue;
 	xError error = kNoError;
+	const char * argv[3] = {"xp", "obj", "--create"};
 
-	error = HandleObject();
-	success = error != kNoError;
+	// Init with no arguments
+	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
+	success = error == kNoError;
+
+	if (success) {
+		error = HandleObject();
+		success = error != kNoError;
+	}
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -36,6 +43,7 @@ void Object_Tests() {
 	INTRO_TEST_FUNCTION;
 
 	TestHandleObjectWithNoAppDriver();
+	TestHandleObjectWithAppDriver();
 
 	printf("\n");
 }

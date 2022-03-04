@@ -86,8 +86,6 @@ xError HandleObjectCount(void) {
 
 	printf("%llu\n", count);
 
-	xLog("count");
-
 	return result;
 }
 

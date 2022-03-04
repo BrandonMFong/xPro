@@ -58,7 +58,7 @@ void TestHandleDirectoryWithOnlyDirArg() {
 void TestHandleDirectory() {
 	xBool success = xTrue;
 	xError error = kNoError;
-	const char * argv[3] = {"xp", "dir", "docs"};
+	const char * argv[3] = {"xp", "dir", "asdf"};
 
 	// Init with no arguments
 	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);

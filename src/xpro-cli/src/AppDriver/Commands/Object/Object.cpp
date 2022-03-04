@@ -85,7 +85,10 @@ xError HandleObject(void) {
 xError HandleObjectCount(void) {
 	xError result = kNoError;
 
-	xUInt64 count = xProConfig->countTags(OBJECT_TAG_PATH, &result);
+	xUInt64 count = xProConfig->countTags(
+		OBJECT_TAG_PATH,
+		&result
+	);
 
 	if(result != kNoError) {
 		count = 0;
@@ -98,11 +101,24 @@ xError HandleObjectCount(void) {
 }
 
 xError HandleObjecValueForIndex(void) {
-	xError 		result 		= kNoError;
-	AppDriver * appDriver 	= xNull;
+	xError result = kNoError;
+	char * tagPath = xNull;
+	char * name  = xNull;
 
-	appDriver 	= AppDriver::shared();
-	result 		= appDriver != xNull ? kNoError : kDriverError;
+	tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
+
+	if (result == kNoError) {
+		if (sprintf(tagPath, OBJECT_NAME_TAG_PATH, "0") == -1) {
+			result = kStringError;
+		}
+	}
+
+	if (result == kNoError) {
+		name = xProConfig->getValue(
+			tagPath,
+			&result
+		);
+	}
 
 	xLog("index");
 

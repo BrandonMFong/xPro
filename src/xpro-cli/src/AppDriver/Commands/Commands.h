@@ -13,9 +13,9 @@
 #include "Version/Version.hpp"
 #include "Object/Object.hpp"
 
-#define HELP_ARG 	"--help"
-#define VERSION_ARG "--version"
-#define DESCRIBE_COMMAND_HELP_ARG "help"
+#define HELP_ARG 					"--help"
+#define VERSION_ARG 				"--version"
+#define DESCRIBE_COMMAND_HELP_ARG 	"help"
 
 #pragma mark - Directory
 
@@ -45,8 +45,8 @@
 
 #pragma mark - Object
 
-#define OBJ_ARG "obj"
-#define OBJ_COUNT_ARG "--count"
+#define OBJ_ARG 			"obj"
+#define OBJ_COUNT_ARG 		"--count"
 #define OBJ_INDEX_VALUE_ARG "-index"
 
 #define OBJ_ARG_BRIEF "Returns object"

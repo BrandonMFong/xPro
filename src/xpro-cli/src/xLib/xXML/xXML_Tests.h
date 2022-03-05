@@ -864,6 +864,10 @@ void TestIndexingNodesWithAttributes(void) {
 	}
 
 	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
 		success = !strcmp(value, "One");
 		xFree(value);
 	}

@@ -872,6 +872,34 @@ void TestIndexingNodesWithAttributes(void) {
 		xFree(value);
 	}
 
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[1]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Two");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[2]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Three");
+		xFree(value);
+	}
+
 	if (remove(file)) {
 		printf("Could not delete file %s", file);
 	}

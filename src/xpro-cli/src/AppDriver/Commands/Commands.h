@@ -45,18 +45,18 @@
 
 #pragma mark - Object
 
-#define OBJ_ARG 			"obj"
-#define OBJ_COUNT_ARG 		"--count"
-#define OBJ_INDEX_VALUE_ARG "-index"
-#define OBJ_VALUE_ARG 		"--value"
-#define OBJ_NAME_ARG 		"--name"
+#define OBJ_ARG 		"obj"
+#define OBJ_COUNT_ARG 	"--count"
+#define OBJ_INDEX_ARG 	"-index"
+#define OBJ_VALUE_ARG 	"--value"
+#define OBJ_NAME_ARG 	"--name"
 
 #define OBJ_ARG_BRIEF "Returns object"
 #define OBJ_ARG_DISCUSSION \
 	"\tReturns object name or object value"
 
 #define OBJ_COUNT_ARG_INFO "Returns count of objects in user's config"
-#define OBJ_INDEX_VALUE_ARG_INFO "Indexes the list of arguments in user config"
+#define OBJ_INDEX_ARG_INFO "Indexes the list of arguments in user config"
 #define OBJ_VALUE_ARG_INFO "Returns value at index"
 #define OBJ_NAME_ARG_INFO "Returns name at index"
 

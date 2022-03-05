@@ -63,9 +63,9 @@ xError HandleObject(void) {
 #ifndef TESTING
 			result = HandleObjectCount();
 #endif
-		} else if (!strcmp(arg, OBJ_INDEX_VALUE_ARG)) {
+		} else if (!strcmp(arg, OBJ_INDEX_ARG)) {
 #ifndef TESTING
-			result = HandleObjecValueForIndex();
+			result = HandleObjecIndex();
 #endif
 		} else {
 			result = kArgError;
@@ -100,12 +100,17 @@ xError HandleObjectCount(void) {
 	return result;
 }
 
-xError HandleObjecValueForIndex(void) {
+xError HandleObjecIndex(void) {
 	xError result = kNoError;
 	char * tagPath = xNull;
 	char * name  = xNull;
+	const char * indexString = NULL;
 
-	tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
+
+
+	if (result == kNoError) {
+		tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
+	}
 
 	if (result == kNoError) {
 		if (sprintf(tagPath, OBJECT_NAME_TAG_PATH, "0") == -1) {
@@ -118,7 +123,13 @@ xError HandleObjecValueForIndex(void) {
 			tagPath,
 			&result
 		);
+
+		if (result == kNoError) {
+			xFree(name);
+		}
 	}
+
+	xFree(tagPath);
 
 	xLog("index");
 

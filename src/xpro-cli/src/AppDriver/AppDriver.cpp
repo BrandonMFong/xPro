@@ -191,7 +191,7 @@ void AppDriver::help(xUInt8 printType) {
 				this->execName(),
 				OBJ_ARG,
 				OBJ_COUNT_ARG,
-				OBJ_INDEX_VALUE_ARG,
+				OBJ_INDEX_ARG,
 				OBJ_VALUE_ARG,
 				OBJ_NAME_ARG
 			);
@@ -200,7 +200,7 @@ void AppDriver::help(xUInt8 printType) {
 			printf("%s\n", OBJ_ARG_DISCUSSION);
 			printf("\nArguments:\n");
 			printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
-			printf("  %s: %s\n", OBJ_INDEX_VALUE_ARG, OBJ_INDEX_VALUE_ARG_INFO);
+			printf("  %s: %s\n", OBJ_INDEX_ARG, OBJ_INDEX_ARG_INFO);
 			printf("  %s: %s\n", OBJ_VALUE_ARG, OBJ_VALUE_ARG_INFO);
 			printf("  %s: %s\n", OBJ_NAME_ARG, OBJ_NAME_ARG_INFO);
 		} else {

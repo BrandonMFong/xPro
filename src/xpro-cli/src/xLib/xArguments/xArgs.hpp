@@ -57,6 +57,13 @@ public:
 		return this->_numArgs;
 	}
 
+	/**
+	 * Returns index for the argument
+	 *
+	 * Default return value is -1
+	 */
+	xInt8 indexForArg(const char * arg, xError * err);
+
 private:
 	/**
 	 * Saves the argv into memory

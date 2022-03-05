@@ -105,3 +105,34 @@ const char * xArguments::argAtIndex(xUInt8 index, xError * err) {
 
 	return result;
 }
+
+xInt8 xArguments::indexForArg(const char * arg, xError * err) {
+	xInt8 	result 		= -1,
+			i			= 0;
+	xError 	error 		= kNoError;
+	char 	* tempArg 	= xNull;
+	xBool 	foundArg 	= xFalse;
+
+	for (
+		i = 0;
+		(i < this->_numArgs) && (error == kNoError) && !foundArg;
+		i++
+	) {
+		tempArg = this->_arguments[i];
+		error 	= tempArg != xNull ? kNoError : kArgError;
+
+		if (error == kNoError) {
+			foundArg = !strcmp(arg, tempArg);
+		}
+	}
+
+	if (foundArg) {
+		result = i - 1;
+	}
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
+}

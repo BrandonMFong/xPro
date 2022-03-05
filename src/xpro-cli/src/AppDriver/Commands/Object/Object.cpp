@@ -8,6 +8,7 @@
 #include "Object.hpp"
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
+#include <ctype.h>
 
 /**
  * Xml object for the xpro config file
@@ -65,7 +66,7 @@ xError HandleObject(void) {
 #endif
 		} else if (!strcmp(arg, OBJ_INDEX_ARG)) {
 #ifndef TESTING
-			result = HandleObjecIndex();
+			result = HandleObjectIndex();
 #endif
 		} else {
 			result = kArgError;
@@ -100,13 +101,55 @@ xError HandleObjectCount(void) {
 	return result;
 }
 
-xError HandleObjecIndex(void) {
+xError HandleObjectIndex(void) {
 	xError result = kNoError;
 	char * tagPath = xNull;
 	char * name  = xNull;
 	const char * indexString = NULL;
+	xInt8 argIndex = 0;
 
+	AppDriver * appDriver 	= AppDriver::shared();
+	result 					= appDriver != xNull ? kNoError : kDriverError;
 
+	if (result == kNoError) {
+		argIndex = appDriver->args.indexForArg(OBJ_INDEX_ARG, &result);
+
+		if (result != kNoError) {
+			DLog("Error finding index for arg: %s", OBJ_INDEX_ARG);
+		}
+	}
+
+	if (result == kNoError) {
+		if ((argIndex + 1) < appDriver->args.count()) {
+			indexString = appDriver->args.argAtIndex(argIndex + 1, &result);
+		} else {
+			result = kOutOfRangeError;
+			DLog(
+				"There is not enough arguments. We cannot get value for %s",
+				OBJ_INDEX_ARG
+			);
+		}
+	}
+
+	// See if index string is a number
+	if (result == kNoError) {
+		for (
+			xUInt8 i = 0;
+			i < strlen(indexString) && (result == kNoError);
+			i++
+		) {
+			if (!isdigit(indexString[i])) {
+				result = kArgError;
+			}
+		}
+
+		if (result != kNoError) {
+#ifndef TESTING
+			xLog("Argument '%s' is not valid", indexString);
+			xLog("Please provide a positive integer for '%s'", OBJ_INDEX_ARG);
+#endif
+		}
+	}
 
 	if (result == kNoError) {
 		tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
@@ -119,6 +162,7 @@ xError HandleObjecIndex(void) {
 	}
 
 	if (result == kNoError) {
+#ifndef TESTING
 		name = xProConfig->getValue(
 			tagPath,
 			&result
@@ -127,11 +171,10 @@ xError HandleObjecIndex(void) {
 		if (result == kNoError) {
 			xFree(name);
 		}
+#endif
 	}
 
 	xFree(tagPath);
-
-	xLog("index");
 
 	return result;
 }

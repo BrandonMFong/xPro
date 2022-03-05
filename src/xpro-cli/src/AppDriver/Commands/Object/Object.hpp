@@ -34,7 +34,7 @@ xError HandleObjectCount(void);
 /**
  * Prints object at index
  */
-xError HandleObjecIndex(void);
+xError HandleObjectIndex(void);
 
 
 #endif /* SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_ */

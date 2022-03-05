@@ -102,15 +102,15 @@ xError HandleObjectCount(void) {
 }
 
 xError HandleObjectIndex(void) {
-	xError result = kNoError;
-	char * tagPath = xNull;
-	char * xmlValue  = xNull;
-	const char * indexString = xNull;
-	xInt8 argIndex = 0;
-	const char * tagPathFormat = xNull;
-	xUInt8 type = 0; // Default 0
-	const xUInt8 valueType = 1,
-			nameType = 2;
+	xError 			result 			= kNoError;
+	char 			* tagPath 		= xNull,
+					* xmlValue  	= xNull;
+	const char 		* indexString 	= xNull,
+					* tagPathFormat = xNull;
+	xInt8 			argIndex 		= 0;
+	xUInt8 			type 			= 0; // Default 0
+	const xUInt8 	valueType 		= 1,
+					nameType 		= 2;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -165,13 +165,13 @@ xError HandleObjectIndex(void) {
 	if (result == kNoError) {
 		if (appDriver->args.contains(OBJ_VALUE_ARG, &result)) {
 			if (result == kNoError) {
-				type = valueType;
-				tagPathFormat = OBJECT_VALUE_TAG_PATH;
+				type 			= valueType;
+				tagPathFormat 	= OBJECT_VALUE_TAG_PATH;
 			}
 		} else if (appDriver->args.contains(OBJ_NAME_ARG, &result)) {
 			if (result == kNoError) {
-				type = nameType;
-				tagPathFormat = OBJECT_NAME_TAG_PATH;
+				type 			= nameType;
+				tagPathFormat 	= OBJECT_NAME_TAG_PATH;
 			}
 		} else {
 #ifndef TESTING

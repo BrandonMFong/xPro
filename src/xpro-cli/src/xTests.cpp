@@ -14,7 +14,9 @@
 #include <xLib/xArguments/xArguments_Tests.h>
 #include <xLib/xXML/xXML_Tests.h>
 
+/// App tests
 #include <AppDriver/Commands/Directory/Directory_Tests.h>
+#include <AppDriver/Commands/Object/Object_Tests.h>
 
 int xTests(int argc, char ** argv) {
 	printf("\n");
@@ -25,6 +27,8 @@ int xTests(int argc, char ** argv) {
 	xUtilities_Tests();
 	xXML_Tests();
 	xArguments_Tests();
+	Directory_Tests();
+	Object_Tests();
 
 	return 0;
 }

@@ -45,13 +45,7 @@ char * xHomePath(xError * err) {
 }
 
 xBool xIsFile(const char * path) {
-	xBool result = access(path, F_OK) == 0;
-
-	if (!result) {
-		DLog("'%s' does not exist\n", path);
-	}
-
-	return result;
+	return access(path, F_OK) == 0;
 }
 
 xBool xIsDir(const char * path) {

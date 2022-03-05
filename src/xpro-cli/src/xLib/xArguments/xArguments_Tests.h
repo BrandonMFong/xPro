@@ -12,8 +12,8 @@
 
 void TestInitializer(void) {
 	xInt8 argc = 3;
-	char ** argv = (char **) malloc(sizeof(char *) * argc);
-	xBool success = (argv != xNull);
+	char * argv[argc];
+	xBool success = xTrue;
 	xError error = kNoError;
 	xArguments * args = xNull;
 
@@ -56,10 +56,41 @@ void TestInitializer(void) {
 	delete args;
 }
 
+void TestGettingIndexForArgument(void) {
+	const char * argv[3] = {"hello", "world", "Brando"};
+	xError error = kNoError;
+
+	xArguments args((sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
+	xBool success = error == kNoError;
+
+	xInt8 i = 0;
+
+	if (success) {
+		i = args.indexForArg("world", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = i == 1;
+	}
+
+	if (success) {
+		i = args.indexForArg("worlds", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = i == -1;
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void xArguments_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
 	TestInitializer();
+	TestGettingIndexForArgument();
 
 	printf("\n");
 }

@@ -1,7 +1,6 @@
 # Author Brando
 
-function goto()
-{
+function goto() {
     if [ ! -f $(which xp) ]; then 
         printf "binary xp does not exist, please make sure environment is set up";
     else 
@@ -16,4 +15,8 @@ function goto()
             fi 
         fi 
     fi 
+}
+
+function reload-xpro() {
+    source ~/.xpro/profile.sh
 }

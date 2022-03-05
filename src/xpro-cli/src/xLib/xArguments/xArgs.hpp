@@ -46,7 +46,7 @@ public:
 	 * You do not need to free the return string.  This string is
 	 * owned by xArgument object
 	 */
-	char * argAtIndex(xUInt8 index, xError * err);
+	const char * argAtIndex(xUInt8 index, xError * err);
 
 	/**
 	 * Returns total count of application arguments including
@@ -56,6 +56,13 @@ public:
 	xUInt8 count() {
 		return this->_numArgs;
 	}
+
+	/**
+	 * Returns index for the argument
+	 *
+	 * Default return value is -1
+	 */
+	xInt8 indexForArg(const char * arg, xError * err);
 
 private:
 	/**

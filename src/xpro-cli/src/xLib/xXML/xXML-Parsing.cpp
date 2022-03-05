@@ -96,6 +96,7 @@ xError xXML::parseReadInnerXml() {
 				&this->_parseHelper.innerXml,
 				tempString
 			);
+
 			xFree(tempString);
 		}
 	} else {
@@ -119,9 +120,10 @@ xError xXML::parseTagString() {
 	char 	* tempString 		= xNull,
 			** split 			= xNull,
 			* strippedString 	= xNull;
-	xUInt8 	splitSize 			= 0;
-	xUInt8	index 				= 0;
-	xBool 	foundIndex			= xFalse;
+	xUInt8 	splitSize 			= 0,
+			index 				= 0;
+	xBool 	foundIndex			= xFalse,
+			okayToContinue		= xTrue;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_parseHelper.chBuf) {
@@ -151,30 +153,57 @@ xError xXML::parseTagString() {
 			// If the size is two, then caller passed a path to an attribute.  If that
 			// is true, then we need to save the attribute
 			if (splitSize >= 2) {
-				this->_parseHelper.state = xPSReadAttributeKey;
+				okayToContinue = xTrue;
 
-				this->_parseHelper.attrKeyString = split[1];
+				// See if the tag path contains an index.  If so
+				// then we need to see if we are on the correct index
+				if (xContainsSubString(split[0], "[", &result)) {
+					if (result == kNoError) {
+						result = this->stripIndexLeafTagPath(
+							split[0],
+							&strippedString,
+							&index
+						);
+					}
 
-				if (this->_parseHelper.attrKeyString == xNull) {
-					result = kXMLError;
-					DLog("NULL string for attribute");
-				} else {
-					// Make a copy of the string because we are going to free split's memory
-					this->_parseHelper.attrKeyString = xCopyString(
-						this->_parseHelper.attrKeyString,
-						&result
-					);
+					if (!strcmp(this->_parseHelper.tagString, strippedString)) {
+						if (this->_parseHelper.indexPathIndex == index) {
+							this->_parseHelper.indexPathIndex = 0;
+							this->_parseHelper.arrayIndex++;
+						} else {
+							this->_parseHelper.indexPathIndex++;
+
+							okayToContinue = xFalse;
+						}
+					}
 				}
 
-				// We need to initialize the attrString if all succeeds
-				if (result == kNoError) {
-					this->_parseHelper.attrKey = xCopyString("", &result);
-				}
+				if (okayToContinue) {
+					this->_parseHelper.state = xPSReadAttributeKey;
 
-				if (result == kNoError) {
-					// Reset the tag string
-					xFree(this->_parseHelper.tagString);
-					this->_parseHelper.tagString = xCopyString("", &result);
+					this->_parseHelper.attrKeyString = split[1];
+
+					if (this->_parseHelper.attrKeyString == xNull) {
+						result = kXMLError;
+						DLog("NULL string for attribute");
+					} else {
+						// Make a copy of the string because we are going to free split's memory
+						this->_parseHelper.attrKeyString = xCopyString(
+							this->_parseHelper.attrKeyString,
+							&result
+						);
+					}
+
+					// We need to initialize the attrString if all succeeds
+					if (result == kNoError) {
+						this->_parseHelper.attrKey = xCopyString("", &result);
+					}
+
+					if (result == kNoError) {
+						// Reset the tag string
+						xFree(this->_parseHelper.tagString);
+						this->_parseHelper.tagString = xCopyString("", &result);
+					}
 				}
 
 			// If received 1 then there is no attribute specified for
@@ -187,17 +216,56 @@ xError xXML::parseTagString() {
 				// a specific state that shows we found the tag but the attribute
 				// does not match.  We do not increment the arrayIndex because we
 				// do not need to continue if the user did not specify an attribute
-				if (!strcmp(this->_parseHelper.tagString, tempString)) {
-					this->_parseHelper.arrayIndex++;
-					this->tagMatch();
+
+				foundIndex = xFalse;
+				if (xContainsSubString(tempString, "[", &result)) {
+					if (result == kNoError) {
+						result = this->stripIndexLeafTagPath(
+							tempString,
+							&strippedString,
+							&index
+						);
+					}
+
+					if (result == kNoError) {
+						foundIndex = xTrue;
+						tempString = xCopyString(strippedString, &result);
+					}
 				} else {
-					this->_parseHelper.state = xPSNoAttributeMatch;
+					// Create copy
+					if (result == kNoError) {
+						tempString = xCopyString(tempString, &result);
+					}
 				}
 
 				if (result == kNoError) {
+					if (!strcmp(this->_parseHelper.tagString, tempString)) {
+						if (foundIndex) {
+							if (this->_parseHelper.indexPathIndex == index) {
+								this->_parseHelper.indexPathIndex = 0;
+								this->_parseHelper.arrayIndex++;
+							} else {
+								this->_parseHelper.indexPathIndex++;
+							}
+						} else {
+							// If we found a tag from the tag path then increment the array index
+							this->_parseHelper.arrayIndex++;
+						}
+
+						this->tagMatch();
+					} else {
+
+						// Since the tag does not match, we will just close out the
+						// current node we are in.  This will disregard other attributes in
+						// this node. For future, we will want to support 1+ tags
+						this->_parseHelper.state = xPSIdle;
+					}
+
 					// Reset the tag string
 					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
+
+					xFree(tempString);
 				}
 			} else {
 				DLog("Received an unexpected size of %d", splitSize);
@@ -257,8 +325,11 @@ xError xXML::parseTagString() {
 			}
 		}
 
+		// We do not need to free this memory
+		//
+		// It is either the string from the tag array or the strippedstring.
+		// The strippedstring is released later in this function
 		tempString = xNull;
-		xFree(strippedString);
 
 		// Reset the tag string
 		xFree(this->_parseHelper.tagString);
@@ -280,6 +351,8 @@ xError xXML::parseTagString() {
 			xFree(tempString);
 		}
 	}
+
+	xFree(strippedString);
 
 	return result;
 }
@@ -319,6 +392,8 @@ xError xXML::stripIndexLeafTagPath(
 			* tempString 	= xNull;
 	xUInt8 	splitSize 		= 0;
 
+	// Make sure pointers are not null
+
 	if (result == kNoError) {
 		if (tag == xNull) {
 			result = kNullError;
@@ -333,6 +408,7 @@ xError xXML::stripIndexLeafTagPath(
 		}
 	}
 
+	// Split string at [
 	if (result == kNoError) {
 		splitString = xSplitString(
 			indexTag,
@@ -342,6 +418,7 @@ xError xXML::stripIndexLeafTagPath(
 		);
 	}
 
+	// Ensure we got 2 strings
 	if (result == kNoError) {
 		if (splitSize != 2) {
 			result = kSizeError;
@@ -364,6 +441,7 @@ xError xXML::stripIndexLeafTagPath(
 
 	if (result == kNoError) {
 		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
+		xFree(splitString);
 
 		splitString = xSplitString(
 			tempString,
@@ -377,6 +455,9 @@ xError xXML::stripIndexLeafTagPath(
 		xFree(tempString);
 
 		tempString = xCopyString(splitString[0], &result);
+
+		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
+		xFree(splitString);
 	}
 
 	if (result == kNoError) {
@@ -391,7 +472,9 @@ xError xXML::parseAttributeKey() {
 	xError 	result 			= kNoError;
 	char 	* tempString 	= xNull,
 			** split 		= xNull;
-	xUInt8 	splitSize 		= 0;
+	xUInt8 	splitSize 		= 0,
+			index			= 0;
+	xBool 	foundIndex 		= xFalse;
 
 	switch (this->_parseHelper.chBuf) {
 	case '=':
@@ -449,22 +532,53 @@ xError xXML::parseAttributeKey() {
 		}
 
 		if (result == kNoError) {
+			// If the tag path has [], indicating the caller is trying to
+			// index the nodes, then we will need to strip '[]' out of
+			// the tag path
+			if (xContainsSubString(this->_parseHelper.attrKeyString, "[", &result)) {
+				result = this->stripIndexLeafTagPath(
+					this->_parseHelper.attrKeyString,
+					&tempString,
+					&index
+				);
+
+				foundIndex = result == kNoError;
+
+			// Otherwise copy the tag path
+			} else {
+				tempString = xCopyString(this->_parseHelper.attrKeyString, &result);
+			}
+		}
+
+		if (result == kNoError) {
 			// If user specified the attribute in the path then we need to
 			// read the value.  Otherwise we will wait for the next tag
-			if (!strcmp(this->_parseHelper.attrKeyString, this->_parseHelper.attrKey)) {
+			if (!strcmp(tempString, this->_parseHelper.attrKey)) {
 				// Set count to 0 so that we know when to stop reading
 				// for the attribute string
 				this->_parseHelper.quoteCount = 0;
 
 				xFree(this->_parseHelper.attrKey);
 
-				this->_parseHelper.attrValue 	= xCopyString("", &result);
-				this->_parseHelper.state 		= xPSReadAttributeValue;
+				this->_parseHelper.attrValue = xCopyString("", &result);
+
+				if (foundIndex) {
+					if (this->_parseHelper.indexPathIndex == index) {
+						this->_parseHelper.indexPathIndex 	= 0;
+						this->_parseHelper.state 			= xPSReadAttributeValue;
+					} else {
+						this->_parseHelper.indexPathIndex++;
+						this->_parseHelper.state = xPSWaitToCloseTag;
+					}
+				} else {
+					this->_parseHelper.state = xPSReadAttributeValue;
+				}
 			} else {
 				this->_parseHelper.state = xPSWaitToCloseTag;
 			}
 		}
 
+		xFree(tempString);
 		xFree(this->_parseHelper.attrKeyString);
 
 		break;
@@ -576,5 +690,3 @@ xError xXML::parseComment() {
 
 	return result;
 }
-
-

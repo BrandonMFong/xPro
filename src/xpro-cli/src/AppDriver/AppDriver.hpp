@@ -36,6 +36,16 @@
 #define DEFAULT_CONFIG_NAME "user.xml"
 
 /**
+ * Default app name
+ */
+#define APP_NAME "xPro"
+
+/**
+ * If this is specified in the username in the above format, then the path with this attribute will take precedence
+ */
+#define ALL_USERS "__ALL__"
+
+/**
  * Main class for xPro CLI
  */
 class AppDriver {
@@ -50,8 +60,12 @@ public:
 
 	/**
 	 * Shows help
+	 *
+	 * 0: Prints brief help
+	 * 1: Prints help with brief descriptions on commands and app
+	 * 2: Prints full descripton on command
 	 */
-	void help(xBool moreInfo);
+	void help(xUInt8 printType);
 
 	/**
 	 * Reads through arguments and executes command that cam from caller
@@ -92,17 +106,20 @@ public:
 
 	/// Returns executable name from command line (arg 0)
 	const char * execName() {
-		char * result	= xNull;
-		xError error 	= kNoError;
-		result 			= this->args.argAtIndex(0, &error);
+		const char * 	result	= xNull;
+		xError 			error 	= kNoError;
+
+		result = this->args.argAtIndex(0, &error);
 
 		if (error != kNoError) {
+#ifndef TESTING
 			DLog("Error getting executable name, %d", error);
+#endif
 		} else {
-			result = basename(result);
+			result = basename((char *) result);
 		}
 
-		return (const char *) result;
+		return result;
 	}
 
 private:

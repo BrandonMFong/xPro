@@ -102,6 +102,10 @@ xUInt64 xXML::countTags(
 				this->_parseHelper.arrayIndex--;
 				break;
 
+			case xPSWaitToCloseXmlDeclaration:
+				this->waitToCloseXmlDeclaration();
+				break;
+
 			default:
 				break;
 			}

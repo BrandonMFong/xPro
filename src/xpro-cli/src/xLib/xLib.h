@@ -42,11 +42,6 @@
 #define xMain 	xMain
 #define xTests 	main
 
-/**
- * Define a test path and put path into this variable for unit tests to use
- */
-static char testPath[MAX_PATH_LENGTH];
-
 #else
 
 #define xMain 	main

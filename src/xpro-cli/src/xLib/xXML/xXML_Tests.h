@@ -767,7 +767,156 @@ void TestStrippingIndexedTag() {
 		}
 	}
 
+	xDelete(xml);
+
 	PRINT_TEST_RESULTS(success);
+}
+
+void TestIndexingAttributes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<Path key=\"Adam\">One</Path>"
+				"<Path key=\"Brian\">Two</Path>"
+				"<Path key=\"Cameron\">Three</Path>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+	char * value = xNull;
+
+	file = SetTestFile(content, &error);
+	success = error == kNoError;
+
+	if (success) {
+		xml = new xXML(file, &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[0].key", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Adam");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[1].key", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Brian");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[2].key", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Cameron");
+		xFree(value);
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
+}
+
+void TestIndexingNodesWithAttributes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<Path key=\"Adam\">One</Path>"
+				"<Path key=\"Brian\">Two</Path>"
+				"<Path key=\"Cameron\">Three</Path>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+	char * value = xNull;
+
+	file = SetTestFile(content, &error);
+	success = error == kNoError;
+
+	if (success) {
+		xml = new xXML(file, &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[0]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = !strcmp(value, "One");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[1]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Two");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[2]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = value != xNull;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Three");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[3]", &error);
+		success = error == kNoError;
+	}
+
+	// We should not have a value if we are indexing
+	// out of range
+	if (success) {
+		success = value == xNull;
+	}
+
+	if (remove(file)) {
+		printf("Could not delete file %s", file);
+	}
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void xXML_Tests(void) {
@@ -787,6 +936,8 @@ void xXML_Tests(void) {
 	TestCountWithNodesHavingAttributes();
 	TestIndexingASetOfSimilarPaths();
 	TestStrippingIndexedTag();
+	TestIndexingAttributes();
+	TestIndexingNodesWithAttributes();
 
 	printf("\n");
 }

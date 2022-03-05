@@ -16,11 +16,6 @@
 #define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories/Directory.key(%s)/Value.username(%s)"
 
 /**
- * If this is specified in the username in the above format, then the path with this attribute will take precedence
- */
-#define ALL_USERS "__ALL__"
-
-/**
  * Handles the dir argument from
  */
 xError HandleDirectory(void);

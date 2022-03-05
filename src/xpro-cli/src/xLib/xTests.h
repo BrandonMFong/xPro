@@ -23,6 +23,14 @@
 	else {system("printf \"[\033[0;31m Fail \033[0m] \"");}\
 	printf("%s\n", __func__)
 
+/**
+ * Define a test path and put path into this variable for unit tests to use
+ *
+ * This will get marked as unused even though xXML tests are using it. So
+ * just using the attribute to ignore the warning
+ */
+static char testPath[MAX_PATH_LENGTH] __attribute__((unused));
+
 #else // defined(TESTING)
 
 #define INTRO_TEST_FUNCTION

@@ -19,7 +19,7 @@
 /**
  * Path to object name
  */
-#define OBJECT_NAME_TAG_PATH "/xPro/Objects/Object.name[%s]"
+#define OBJECT_NAME_TAG_PATH "/xPro/Objects/Object[%s].name"
 
 /**
  * Path to object Value

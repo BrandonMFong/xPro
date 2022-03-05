@@ -4,6 +4,7 @@
 ## CONSTANTS START ##
 
 XPRO_PATH=~/.xpro;
+XPRO_BIN=$XPRO_PATH/xp;
 XUTIL_PATH="xutil.sh";
 
 ## CONSTANTS END ##
@@ -16,13 +17,34 @@ result=0;
 
 ## FUNCTIONS START ##
 
+function xLog() {
+    printf "xPro: $1";
+}
+
 ## brief: Creates bash/zsh variables
 ##
 ## returns:
 ##  - Sets result
 function loadObjects() {
+    objectCount=-1;
 
-    result=0;
+    if [ $result -eq 0 ]; then 
+        objectCount=$($XPRO_BIN obj --count);
+        result=$?;
+    fi 
+
+    if [ $result -eq 0 ]; then 
+        if [ $objectCount -eq -1 ]; then 
+            xLog "Object count is -1";
+        fi 
+    fi 
+
+    if [ $result -eq 0 ]; then 
+        for ((i=0;i<objectCount;i++)); do
+            echo $($XPRO_BIN obj -index $i --name);
+            echo $($XPRO_BIN obj -index $i --value);
+        done
+    fi 
 }
 
 ## FUNCTIONS END ##
@@ -34,7 +56,7 @@ pushd $XPRO_PATH >/dev/null 2>&1;
 # Add xpro to path 
 if [ ! -d $XPRO_PATH ]; then 
     result = 1;
-    printf "$XPRO_PATH does not exist\n";
+    xLog "$XPRO_PATH does not exist\n";
 else 
     PATH=$PATH:$XPRO_PATH;
 fi 
@@ -54,9 +76,9 @@ fi
 popd >/dev/null 2>&1; # $XPRO_PATH
 
 if [ $result -eq 0 ]; then 
-    printf "Successfully loaded xpro\n";
+    xLog "Successfully loaded\n";
 else 
-    printf "Failed to load xpro\n";
+    xLog "Failed to load\n";
 fi 
 
 ## MAIN END ##

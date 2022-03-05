@@ -254,7 +254,11 @@ xError xXML::parseTagString() {
 
 						this->tagMatch();
 					} else {
-						this->_parseHelper.state = xPSNoAttributeMatch;
+
+						// Since the tag does not match, we will just close out the
+						// current node we are in.  This will disregard other attributes in
+						// this node. For future, we will want to support 1+ tags
+						this->_parseHelper.state = xPSIdle;
 					}
 
 					// Reset the tag string
@@ -321,6 +325,10 @@ xError xXML::parseTagString() {
 			}
 		}
 
+		// We do not need to free this memory
+		//
+		// It is either the string from the tag array or the strippedstring.
+		// The strippedstring is released later in this function
 		tempString = xNull;
 
 		// Reset the tag string

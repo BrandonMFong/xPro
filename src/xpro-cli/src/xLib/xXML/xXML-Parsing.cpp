@@ -96,6 +96,7 @@ xError xXML::parseReadInnerXml() {
 				&this->_parseHelper.innerXml,
 				tempString
 			);
+
 			xFree(tempString);
 		}
 	} else {
@@ -368,6 +369,7 @@ xError xXML::stripIndexLeafTagPath(
 
 	if (result == kNoError) {
 		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
+		xFree(splitString);
 
 		splitString = xSplitString(
 			tempString,

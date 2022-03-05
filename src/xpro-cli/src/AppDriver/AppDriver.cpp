@@ -171,13 +171,13 @@ void AppDriver::help(xUInt8 printType) {
 	// Display info about commands
 	case 2:
 		if (this->args.contains(DIR_ARG, xNull)) {
-			printf("Command: %s\n", DIR_ARG);
+			printf("Command: %s %s <key>\n", this->execName(), DIR_ARG);
 			printf("\nBrief: %s\n", DIR_ARG_BRIEF);
 			printf("\nDiscussion:\n");
 			printf("%s\n", DIR_ARG_DISCUSSION);
 			printf("\nArguments: %s\n", DIR_ARG_INFO);
 		} else if (this->args.contains(CREATE_ARG, xNull)) {
-			printf("Command: %s\n", CREATE_ARG);
+			printf("Command: %s %s <arg>\n", this->execName(), CREATE_ARG);
 			printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
 			printf("\nDiscussion:\n");
 			printf("%s\n", CREATE_ARG_DISCUSSION);
@@ -186,12 +186,23 @@ void AppDriver::help(xUInt8 printType) {
 			printf("  %s: %s\n", CREATE_USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
 			printf("  %s: %s\n", CREATE_ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 		} else if (this->args.contains(OBJ_ARG, xNull)) {
-			printf("Command: %s\n", OBJ_ARG);
+			printf(
+				"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+				this->execName(),
+				OBJ_ARG,
+				OBJ_COUNT_ARG,
+				OBJ_INDEX_VALUE_ARG,
+				OBJ_VALUE_ARG,
+				OBJ_NAME_ARG
+			);
 			printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
 			printf("\nDiscussion:\n");
 			printf("%s\n", OBJ_ARG_DISCUSSION);
 			printf("\nArguments:\n");
 			printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
+			printf("  %s: %s\n", OBJ_INDEX_VALUE_ARG, OBJ_INDEX_VALUE_ARG_INFO);
+			printf("  %s: %s\n", OBJ_VALUE_ARG, OBJ_VALUE_ARG_INFO);
+			printf("  %s: %s\n", OBJ_NAME_ARG, OBJ_NAME_ARG_INFO);
 		} else {
 			printf("No description\n");
 		}
@@ -231,33 +242,31 @@ xError AppDriver::run() {
 	xBool 	okayToContinue 	= xTrue;
 
 	// See if the user wants help
-	if (result == kNoError) {
 
-		// Print default help
-		if (this->args.count() == 1) {
-			xLog("No arguments\n");
+	// Print default help
+	if (this->args.count() == 1) {
+		xLog("No arguments\n");
 
-			this->help(0);
-			okayToContinue = xFalse;
+		this->help(0);
+		okayToContinue = xFalse;
 
-		// Print default help
-		} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-			xLog("Too many arguments for %s\n", HELP_ARG);
+	// Print default help
+	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
+		xLog("Too many arguments for %s\n", HELP_ARG);
 
-			this->help(0);
-			okayToContinue = xFalse;
+		this->help(0);
+		okayToContinue = xFalse;
 
-		// Print help for command
-		} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
-					&& 	(this->args.count() > 2)) {
-			this->help(2);
-			okayToContinue = xFalse;
+	// Print help for command
+	} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
+				&& 	(this->args.count() > 2)) {
+		this->help(2);
+		okayToContinue = xFalse;
 
-		// Print help for all commands and app info
-		} else if (this->args.contains(HELP_ARG, &result)) {
-			this->help(1);
-			okayToContinue = xFalse;
-		}
+	// Print help for all commands and app info
+	} else if (this->args.contains(HELP_ARG, &result)) {
+		this->help(1);
+		okayToContinue = xFalse;
 	}
 
 	// Run application

@@ -18,7 +18,7 @@ DEBUG_ARG:      str = "debug"
 HELP_ARG:       str = "--help"
 
 # See if we are in debug mode 
-XP_BUILD:           str = "xp"
+XP_BUILD: str = "xp"
 
 if sys.platform == "linux" or sys.platform == "linux2":
     PLATFORM_NAME = "linux"

@@ -180,7 +180,6 @@ char * xXML::getValue(
 				break;
 
 			case xPSNoAttributeMatch:
-//				this->parseWaitToCloseTag(xPSIdle);
 				this->_parseHelper.state = xPSReadingTagString;
 				break;
 

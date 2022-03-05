@@ -120,8 +120,8 @@ xError xXML::parseTagString() {
 	char 	* tempString 		= xNull,
 			** split 			= xNull,
 			* strippedString 	= xNull;
-	xUInt8 	splitSize 			= 0;
-	xUInt8	index 				= 0;
+	xUInt8 	splitSize 			= 0,
+			index 				= 0;
 	xBool 	foundIndex			= xFalse;
 
 	// Add to tag string if are still sweeping tag
@@ -188,17 +188,52 @@ xError xXML::parseTagString() {
 				// a specific state that shows we found the tag but the attribute
 				// does not match.  We do not increment the arrayIndex because we
 				// do not need to continue if the user did not specify an attribute
-				if (!strcmp(this->_parseHelper.tagString, tempString)) {
-					this->_parseHelper.arrayIndex++;
-					this->tagMatch();
+
+				foundIndex = xFalse;
+				if (xContainsSubString(tempString, "[", &result)) {
+					if (result == kNoError) {
+						result = this->stripIndexLeafTagPath(
+							tempString,
+							&strippedString,
+							&index
+						);
+					}
+
+					if (result == kNoError) {
+						foundIndex = xTrue;
+						tempString = xCopyString(strippedString, &result);
+					}
 				} else {
-					this->_parseHelper.state = xPSNoAttributeMatch;
+					// Create copy
+					if (result == kNoError) {
+						tempString = xCopyString(tempString, &result);
+					}
 				}
 
 				if (result == kNoError) {
+					if (!strcmp(this->_parseHelper.tagString, tempString)) {
+						if (foundIndex) {
+							if (this->_parseHelper.indexPathIndex == index) {
+								this->_parseHelper.indexPathIndex = 0;
+								this->_parseHelper.arrayIndex++;
+							} else {
+								this->_parseHelper.indexPathIndex++;
+							}
+						} else {
+							// If we found a tag from the tag path then increment the array index
+							this->_parseHelper.arrayIndex++;
+						}
+
+						this->tagMatch();
+					} else {
+						this->_parseHelper.state = xPSNoAttributeMatch;
+					}
+
 					// Reset the tag string
 					xFree(this->_parseHelper.tagString);
 					this->_parseHelper.tagString = xCopyString("", &result);
+
+					xFree(tempString);
 				}
 			} else {
 				DLog("Received an unexpected size of %d", splitSize);

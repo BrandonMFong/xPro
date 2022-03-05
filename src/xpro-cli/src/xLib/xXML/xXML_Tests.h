@@ -883,21 +883,21 @@ void TestIndexingNodesWithAttributes(void) {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-	TestParsingWithUnknownAttribute();
-	TestParsingWithNodes();
-	TestParsingForAttribute();
-	TestGettingInnerXmlForSpecificAttribute();
-	TestGettingValueForSpecificAttribute();
-	TestParsingWithFilePath();
-	TestGettingSiblingNode();
-	TestIgnoringComments();
-	TestMakeSureNoErrorWithUnresolvedTagPath();
-	TestCount();
-	TestCountForInterchangingNodes();
-	TestCountWithNodesHavingAttributes();
-	TestIndexingASetOfSimilarPaths();
-	TestStrippingIndexedTag();
-	TestIndexingAttributes();
+//	TestParsingWithUnknownAttribute();
+//	TestParsingWithNodes();
+//	TestParsingForAttribute();
+//	TestGettingInnerXmlForSpecificAttribute();
+//	TestGettingValueForSpecificAttribute();
+//	TestParsingWithFilePath();
+//	TestGettingSiblingNode();
+//	TestIgnoringComments();
+//	TestMakeSureNoErrorWithUnresolvedTagPath();
+//	TestCount();
+//	TestCountForInterchangingNodes();
+//	TestCountWithNodesHavingAttributes();
+//	TestIndexingASetOfSimilarPaths();
+//	TestStrippingIndexedTag();
+//	TestIndexingAttributes();
 	TestIndexingNodesWithAttributes();
 
 	printf("\n");

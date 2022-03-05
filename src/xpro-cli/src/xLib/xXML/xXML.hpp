@@ -263,7 +263,9 @@ xPrivate:
 		char * attrKeyString;
 
 		/**
-		 * Holds the tag string from each node in the xml file
+		 * Holds the tag string from each node name in the xml file
+		 *
+		 * This string is progressively appended to during parsing
 		 */
 		char * tagString;
 

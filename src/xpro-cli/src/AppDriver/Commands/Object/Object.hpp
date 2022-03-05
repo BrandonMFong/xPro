@@ -22,6 +22,11 @@
 #define OBJECT_NAME_TAG_PATH "/xPro/Objects/Object.name[%s]"
 
 /**
+ * Path to object Value
+ */
+#define OBJECT_VALUE_TAG_PATH "/xPro/Objects/Object.Value[%s]"
+
+/**
  *	Prints out object based on arguments passed
  */
 xError HandleObject(void);

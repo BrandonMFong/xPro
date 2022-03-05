@@ -104,9 +104,13 @@ xError HandleObjectCount(void) {
 xError HandleObjectIndex(void) {
 	xError result = kNoError;
 	char * tagPath = xNull;
-	char * name  = xNull;
-	const char * indexString = NULL;
+	char * xmlValue  = xNull;
+	const char * indexString = xNull;
 	xInt8 argIndex = 0;
+	const char * tagPathFormat = xNull;
+	xUInt8 type = 0; // Default 0
+	const xUInt8 valueType = 1,
+			nameType = 2;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -156,29 +160,71 @@ xError HandleObjectIndex(void) {
 		}
 	}
 
+	// Check for supporting argument to determine if we are
+	// trying to get the value or name
+	if (result == kNoError) {
+		if (appDriver->args.contains(OBJ_VALUE_ARG, &result)) {
+			if (result == kNoError) {
+				type = valueType;
+				tagPathFormat = OBJECT_VALUE_TAG_PATH;
+			}
+		} else if (appDriver->args.contains(OBJ_NAME_ARG, &result)) {
+			if (result == kNoError) {
+				type = nameType;
+				tagPathFormat = OBJECT_NAME_TAG_PATH;
+			}
+		} else {
+#ifndef TESTING
+			xLog(
+				"Please pass the arguments '%s' or '%s'",
+				OBJ_VALUE_ARG,
+				OBJ_NAME_ARG
+			);
+#endif
+		}
+	}
+
 	// Create tag path string
 	if (result == kNoError) {
-		tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
+		tagPath = xMallocString(strlen(tagPathFormat) + 10, &result);
 	}
 
 	// Construct path with command line arg
 	if (result == kNoError) {
-		if (sprintf(tagPath, OBJECT_NAME_TAG_PATH, indexString) == -1) {
+		if (sprintf(tagPath, tagPathFormat, indexString) == -1) {
 			result = kStringError;
 		}
 	}
 
 	if (result == kNoError) {
+		if (type == valueType) {
 #ifndef TESTING
-		name = xProConfig->getValue(
-			tagPath,
-			&result
-		);
-
-		if (result == kNoError) {
-			xFree(name);
-		}
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
 #endif
+		} else if (type == nameType) {
+#ifndef TESTING
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
+#endif
+		} else {
+			// This should have been checked earlier but
+			// will throw error either way
+			result = kArgError;
+			DLog("Error with type variable.  Value is %d", type);
+		}
+
+		// Print value from xml if successful
+		if (result == kNoError) {
+#ifndef TESTING
+			printf("%s\n", xmlValue);
+#endif
+			xFree(xmlValue);
+		}
 	}
 
 	xFree(tagPath);

@@ -57,10 +57,10 @@ void TestInitializer(void) {
 }
 
 void TestGettingIndexForArgument(void) {
-	char * argv[3] = {"hello", "world", "Brando"};
+	const char * argv[3] = {"hello", "world", "Brando"};
 	xError error = kNoError;
 
-	xArguments args((sizeof(argv) / sizeof(argv[0])), argv, &error);
+	xArguments args((sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
 	xBool success = error == kNoError;
 
 	xInt8 i = 0;

@@ -767,7 +767,37 @@ void TestStrippingIndexedTag() {
 		}
 	}
 
+	xDelete(xml);
+
 	PRINT_TEST_RESULTS(success);
+}
+
+void TestIndexingAttributes(void) {
+	xBool success = xTrue;
+	const char * content =
+		"<xPro>"
+			"<Function>"
+				"<Path key=\"Adam\">One</Path>"
+				"<Path key=\"Brian\">Two</Path>"
+				"<Path key=\"Cameron\">Three</Path>"
+			"</Function>"
+		"</xPro>";
+
+	xError error = kNoError;
+	xXML * xml = xNull;
+	char * file = xNull;
+
+	if (error == kNoError) {
+		file = SetTestFile(content, &error);
+	}
+
+	if (error == kNoError) {
+		xml = new xXML(file, &error);
+	}
+
+
+	PRINT_TEST_RESULTS(success);
+	xDelete(xml);
 }
 
 void xXML_Tests(void) {
@@ -787,6 +817,7 @@ void xXML_Tests(void) {
 	TestCountWithNodesHavingAttributes();
 	TestIndexingASetOfSimilarPaths();
 	TestStrippingIndexedTag();
+	TestIndexingAttributes();
 
 	printf("\n");
 }

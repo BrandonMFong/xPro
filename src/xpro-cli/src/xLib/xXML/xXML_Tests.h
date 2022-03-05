@@ -900,6 +900,17 @@ void TestIndexingNodesWithAttributes(void) {
 		xFree(value);
 	}
 
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path[3]", &error);
+		success = error == kNoError;
+	}
+
+	// We should not have a value if we are indexing
+	// out of range
+	if (success) {
+		success = value == xNull;
+	}
+
 	if (remove(file)) {
 		printf("Could not delete file %s", file);
 	}

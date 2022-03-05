@@ -225,11 +225,21 @@ xError HandleObjectIndex(void) {
 
 		// Print value from xml if successful
 		if (result == kNoError) {
+			if (xmlValue == xNull) {
+				result = kNullError;
 #ifndef TESTING
-			printf("%s\n", xmlValue);
+				xLog("Nothing found");
+				DLog("XML value was returned null");
 #endif
-			xFree(xmlValue);
+			}
 		}
+	}
+
+	if (result == kNoError) {
+#ifndef TESTING
+		printf("%s\n", xmlValue);
+#endif
+		xFree(xmlValue);
 	}
 
 	xFree(tagPath);

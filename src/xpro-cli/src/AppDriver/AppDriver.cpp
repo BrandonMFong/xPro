@@ -279,6 +279,8 @@ xError AppDriver::run() {
 			HandleVersion();
 		} else if (this->args.contains(OBJ_ARG, &result)) {
 			result = HandleObject();
+		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
+			result = HandleDescribe();
 		} else {
 			xLog("Unknown command");
 			this->help(xFalse);

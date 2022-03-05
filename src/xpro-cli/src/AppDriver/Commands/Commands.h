@@ -12,6 +12,7 @@
 #include "Directory/Directory.hpp"
 #include "Version/Version.hpp"
 #include "Object/Object.hpp"
+#include "Describe/Describe.hpp"
 
 #define HELP_ARG 					"--help"
 #define VERSION_ARG 				"--version"
@@ -59,5 +60,9 @@
 #define OBJ_INDEX_ARG_INFO "Indexes the list of arguments in user config"
 #define OBJ_VALUE_ARG_INFO "Returns value at index"
 #define OBJ_NAME_ARG_INFO "Returns name at index"
+
+#pragma mark - Describe
+
+#define DESCRIBE_ARG "describe"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

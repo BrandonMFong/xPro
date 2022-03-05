@@ -18,24 +18,28 @@
 static xXML * xProConfig = xNull;
 
 xError HandleObject(void) {
-	xError 		result 			= kNoError;
-	AppDriver 	* appDriver 	= xNull;
-	const char 	* arg 			= xNull;
-	const char 	* configPath 	= xNull;
+	xError 			result 			= kNoError;
+	const char 		* arg 			= xNull,
+					* configPath	= xNull;
+	const xUInt8	argCount 		= 5; // max arg count
 
-	appDriver 	= AppDriver::shared();
-	result 		= appDriver != xNull ? kNoError : kDriverError;
+	AppDriver * appDriver 	= AppDriver::shared();
+	result 					= appDriver != xNull ? kNoError : kDriverError;
 
 	if (result == kNoError) {
-		result = appDriver->args.count() <= 5 ? kNoError : kArgError;
+		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
 
 		if (result != kNoError) {
 #ifndef TESTING
-			DLog("The amount of arguments must be 3");
+			DLog("The amount of arguments must be %d", argCount);
 #endif
 		}
 	}
 
+	// Get the argument after 'obj'
+	//
+	// this is the argument we are going to use to determine
+	// what we are doing next
 	if (result == kNoError) {
 		arg = appDriver->args.argAtIndex(2, &result);
 	}
@@ -133,9 +137,10 @@ xError HandleObjectIndex(void) {
 
 #ifndef TESTING
 			DLog(
-				"There is not enough arguments. We cannot get value for %s",
+				"There are not enough arguments. We cannot get value for %s",
 				OBJ_INDEX_ARG
 			);
+			xLog("Please provide value for '%s'", OBJ_INDEX_ARG);
 #endif
 		}
 	}
@@ -144,7 +149,7 @@ xError HandleObjectIndex(void) {
 	if (result == kNoError) {
 		for (
 			xUInt8 i = 0;
-			i < strlen(indexString) && (result == kNoError);
+			(i < strlen(indexString)) && (result == kNoError);
 			i++
 		) {
 			if (!isdigit(indexString[i])) {

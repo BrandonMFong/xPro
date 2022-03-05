@@ -161,13 +161,18 @@ xPrivate:
 	xError parseComment();
 
 	/**
-	 * This function takes a tag that is indexed and returns the index integer and the tag string
+	 * This function takes a tag that is indexed and returns
+	 *  the index integer and the tag string
 	 *
 	 * indexTag: Example - "path[0]".  Callee will not modify
-	 * tag: Callee will populate this param with memory. Caller owns memory
-	 * index: caller owns memory
+	 * tag: Returns "path" Callee will populate this param with memory. Caller owns memory
+	 * index: Returns "0" caller owns memory
 	 */
-	static xError stripIndexLeafTagPath(const char * indexTag, char ** tag, xUInt8 * index);
+	static xError stripIndexLeafTagPath(
+		const char 	* indexTag,
+		char 		** tag,
+		xUInt8 		* index
+	);
 
 	/**
 	 *

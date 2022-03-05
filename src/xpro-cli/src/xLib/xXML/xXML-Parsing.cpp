@@ -319,6 +319,8 @@ xError xXML::stripIndexLeafTagPath(
 			* tempString 	= xNull;
 	xUInt8 	splitSize 		= 0;
 
+	// Make sure pointers are not null
+
 	if (result == kNoError) {
 		if (tag == xNull) {
 			result = kNullError;
@@ -333,6 +335,7 @@ xError xXML::stripIndexLeafTagPath(
 		}
 	}
 
+	// Split string at [
 	if (result == kNoError) {
 		splitString = xSplitString(
 			indexTag,
@@ -342,6 +345,7 @@ xError xXML::stripIndexLeafTagPath(
 		);
 	}
 
+	// Ensure we got 2 strings
 	if (result == kNoError) {
 		if (splitSize != 2) {
 			result = kSizeError;
@@ -377,6 +381,8 @@ xError xXML::stripIndexLeafTagPath(
 		xFree(tempString);
 
 		tempString = xCopyString(splitString[0], &result);
+
+		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
 	}
 
 	if (result == kNoError) {

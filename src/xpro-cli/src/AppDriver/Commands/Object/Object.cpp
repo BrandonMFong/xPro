@@ -191,13 +191,19 @@ xError HandleObjectIndex(void) {
 
 	// Create tag path string
 	if (result == kNoError) {
-		tagPath = xMallocString(strlen(tagPathFormat) + 10, &result);
+		tagPath = xMallocString(strlen(tagPathFormat) + 20, &result);
 	}
 
 	// Construct path with command line arg
 	if (result == kNoError) {
-		if (sprintf(tagPath, tagPathFormat, indexString) == -1) {
-			result = kStringError;
+		if (type == valueType) {
+			if (sprintf(tagPath, tagPathFormat, indexString, appDriver->username()) == -1) {
+				result = kStringError;
+			}
+		} else if (type == nameType) {
+			if (sprintf(tagPath, tagPathFormat, indexString) == -1) {
+				result = kStringError;
+			}
 		}
 	}
 

@@ -24,7 +24,7 @@
 /**
  * Path to object Value
  */
-#define OBJECT_VALUE_TAG_PATH "/xPro/Objects/Object/Value[%s]"
+#define OBJECT_VALUE_TAG_PATH "/xPro/Objects/Object[%s]/Value.username(%s)"
 
 /**
  *	Prints out object based on arguments passed

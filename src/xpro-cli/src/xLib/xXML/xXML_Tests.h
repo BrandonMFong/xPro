@@ -797,7 +797,7 @@ void TestIndexingAttributes(void) {
 	}
 
 	if (success) {
-		value 	= xml->getValue("/xPro/Function/Path.key[0]", &error);
+		value 	= xml->getValue("/xPro/Function/Path[0].key", &error);
 		success = error == kNoError;
 	}
 
@@ -807,7 +807,7 @@ void TestIndexingAttributes(void) {
 	}
 
 	if (success) {
-		value 	= xml->getValue("/xPro/Function/Path.key[1]", &error);
+		value 	= xml->getValue("/xPro/Function/Path[1].key", &error);
 		success = error == kNoError;
 	}
 
@@ -817,7 +817,7 @@ void TestIndexingAttributes(void) {
 	}
 
 	if (success) {
-		value 	= xml->getValue("/xPro/Function/Path.key[2]", &error);
+		value 	= xml->getValue("/xPro/Function/Path[2].key", &error);
 		success = error == kNoError;
 	}
 
@@ -911,22 +911,22 @@ void TestIndexingNodesWithAttributes(void) {
 void xXML_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
-	TestParsingWithUnknownAttribute();
-	TestParsingWithNodes();
-	TestParsingForAttribute();
-	TestGettingInnerXmlForSpecificAttribute();
-	TestGettingValueForSpecificAttribute();
-	TestParsingWithFilePath();
-	TestGettingSiblingNode();
-	TestIgnoringComments();
-	TestMakeSureNoErrorWithUnresolvedTagPath();
-	TestCount();
-	TestCountForInterchangingNodes();
-	TestCountWithNodesHavingAttributes();
-	TestIndexingASetOfSimilarPaths();
-	TestStrippingIndexedTag();
+//	TestParsingWithUnknownAttribute();
+//	TestParsingWithNodes();
+//	TestParsingForAttribute();
+//	TestGettingInnerXmlForSpecificAttribute();
+//	TestGettingValueForSpecificAttribute();
+//	TestParsingWithFilePath();
+//	TestGettingSiblingNode();
+//	TestIgnoringComments();
+//	TestMakeSureNoErrorWithUnresolvedTagPath();
+//	TestCount();
+//	TestCountForInterchangingNodes();
+//	TestCountWithNodesHavingAttributes();
+//	TestIndexingASetOfSimilarPaths();
+//	TestStrippingIndexedTag();
 	TestIndexingAttributes();
-	TestIndexingNodesWithAttributes();
+//	TestIndexingNodesWithAttributes();
 
 	printf("\n");
 }

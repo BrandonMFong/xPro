@@ -122,7 +122,8 @@ xError xXML::parseTagString() {
 			* strippedString 	= xNull;
 	xUInt8 	splitSize 			= 0,
 			index 				= 0;
-	xBool 	foundIndex			= xFalse;
+	xBool 	foundIndex			= xFalse,
+			okayToContinue		= xTrue;
 
 	// Add to tag string if are still sweeping tag
 	switch (this->_parseHelper.chBuf) {
@@ -152,30 +153,57 @@ xError xXML::parseTagString() {
 			// If the size is two, then caller passed a path to an attribute.  If that
 			// is true, then we need to save the attribute
 			if (splitSize >= 2) {
-				this->_parseHelper.state = xPSReadAttributeKey;
+				okayToContinue = xTrue;
 
-				this->_parseHelper.attrKeyString = split[1];
+				// See if the tag path contains an index.  If so
+				// then we need to see if we are on the correct index
+				if (xContainsSubString(split[0], "[", &result)) {
+					if (result == kNoError) {
+						result = this->stripIndexLeafTagPath(
+							split[0],
+							&strippedString,
+							&index
+						);
+					}
 
-				if (this->_parseHelper.attrKeyString == xNull) {
-					result = kXMLError;
-					DLog("NULL string for attribute");
-				} else {
-					// Make a copy of the string because we are going to free split's memory
-					this->_parseHelper.attrKeyString = xCopyString(
-						this->_parseHelper.attrKeyString,
-						&result
-					);
+					if (!strcmp(this->_parseHelper.tagString, strippedString)) {
+						if (this->_parseHelper.indexPathIndex == index) {
+							this->_parseHelper.indexPathIndex = 0;
+							this->_parseHelper.arrayIndex++;
+						} else {
+							this->_parseHelper.indexPathIndex++;
+
+							okayToContinue = xFalse;
+						}
+					}
 				}
 
-				// We need to initialize the attrString if all succeeds
-				if (result == kNoError) {
-					this->_parseHelper.attrKey = xCopyString("", &result);
-				}
+				if (okayToContinue) {
+					this->_parseHelper.state = xPSReadAttributeKey;
 
-				if (result == kNoError) {
-					// Reset the tag string
-					xFree(this->_parseHelper.tagString);
-					this->_parseHelper.tagString = xCopyString("", &result);
+					this->_parseHelper.attrKeyString = split[1];
+
+					if (this->_parseHelper.attrKeyString == xNull) {
+						result = kXMLError;
+						DLog("NULL string for attribute");
+					} else {
+						// Make a copy of the string because we are going to free split's memory
+						this->_parseHelper.attrKeyString = xCopyString(
+							this->_parseHelper.attrKeyString,
+							&result
+						);
+					}
+
+					// We need to initialize the attrString if all succeeds
+					if (result == kNoError) {
+						this->_parseHelper.attrKey = xCopyString("", &result);
+					}
+
+					if (result == kNoError) {
+						// Reset the tag string
+						xFree(this->_parseHelper.tagString);
+						this->_parseHelper.tagString = xCopyString("", &result);
+					}
 				}
 
 			// If received 1 then there is no attribute specified for
@@ -294,7 +322,6 @@ xError xXML::parseTagString() {
 		}
 
 		tempString = xNull;
-		xFree(strippedString);
 
 		// Reset the tag string
 		xFree(this->_parseHelper.tagString);
@@ -316,6 +343,8 @@ xError xXML::parseTagString() {
 			xFree(tempString);
 		}
 	}
+
+	xFree(strippedString);
 
 	return result;
 }
@@ -437,6 +466,7 @@ xError xXML::parseAttributeKey() {
 			** split 		= xNull;
 	xUInt8 	splitSize 		= 0,
 			index			= 0;
+	xBool 	foundIndex 		= xFalse;
 
 	switch (this->_parseHelper.chBuf) {
 	case '=':
@@ -504,6 +534,8 @@ xError xXML::parseAttributeKey() {
 					&index
 				);
 
+				foundIndex = result == kNoError;
+
 			// Otherwise copy the tag path
 			} else {
 				tempString = xCopyString(this->_parseHelper.attrKeyString, &result);
@@ -520,14 +552,18 @@ xError xXML::parseAttributeKey() {
 
 				xFree(this->_parseHelper.attrKey);
 
-				this->_parseHelper.attrValue 	= xCopyString("", &result);
+				this->_parseHelper.attrValue = xCopyString("", &result);
 
-				if (this->_parseHelper.indexPathIndex == index) {
-					this->_parseHelper.indexPathIndex 	= 0;
-					this->_parseHelper.state 			= xPSReadAttributeValue;
+				if (foundIndex) {
+					if (this->_parseHelper.indexPathIndex == index) {
+						this->_parseHelper.indexPathIndex 	= 0;
+						this->_parseHelper.state 			= xPSReadAttributeValue;
+					} else {
+						this->_parseHelper.indexPathIndex++;
+						this->_parseHelper.state = xPSWaitToCloseTag;
+					}
 				} else {
-					this->_parseHelper.indexPathIndex++;
-					this->_parseHelper.state = xPSWaitToCloseTag;
+					this->_parseHelper.state = xPSReadAttributeValue;
 				}
 			} else {
 				this->_parseHelper.state = xPSWaitToCloseTag;

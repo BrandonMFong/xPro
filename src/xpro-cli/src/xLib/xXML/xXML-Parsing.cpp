@@ -397,7 +397,8 @@ xError xXML::parseAttributeKey() {
 	xError 	result 			= kNoError;
 	char 	* tempString 	= xNull,
 			** split 		= xNull;
-	xUInt8 	splitSize 		= 0;
+	xUInt8 	splitSize 		= 0,
+			index			= 0;
 
 	switch (this->_parseHelper.chBuf) {
 	case '=':
@@ -455,9 +456,26 @@ xError xXML::parseAttributeKey() {
 		}
 
 		if (result == kNoError) {
+			// If the tag path has [], indicating the caller is trying to
+			// index the nodes, then we will need to strip '[]' out of
+			// the tag path
+			if (xContainsSubString(this->_parseHelper.attrKeyString, "[", &result)) {
+				result = this->stripIndexLeafTagPath(
+					this->_parseHelper.attrKeyString,
+					&tempString,
+					&index
+				);
+
+			// Otherwise copy the tag path
+			} else {
+				tempString = xCopyString(this->_parseHelper.attrKeyString, &result);
+			}
+		}
+
+		if (result == kNoError) {
 			// If user specified the attribute in the path then we need to
 			// read the value.  Otherwise we will wait for the next tag
-			if (!strcmp(this->_parseHelper.attrKeyString, this->_parseHelper.attrKey)) {
+			if (!strcmp(tempString, this->_parseHelper.attrKey)) {
 				// Set count to 0 so that we know when to stop reading
 				// for the attribute string
 				this->_parseHelper.quoteCount = 0;
@@ -465,12 +483,20 @@ xError xXML::parseAttributeKey() {
 				xFree(this->_parseHelper.attrKey);
 
 				this->_parseHelper.attrValue 	= xCopyString("", &result);
-				this->_parseHelper.state 		= xPSReadAttributeValue;
+
+				if (this->_parseHelper.indexPathIndex == index) {
+					this->_parseHelper.indexPathIndex 	= 0;
+					this->_parseHelper.state 			= xPSReadAttributeValue;
+				} else {
+					this->_parseHelper.indexPathIndex++;
+					this->_parseHelper.state = xPSWaitToCloseTag;
+				}
 			} else {
 				this->_parseHelper.state = xPSWaitToCloseTag;
 			}
 		}
 
+		xFree(tempString);
 		xFree(this->_parseHelper.attrKeyString);
 
 		break;

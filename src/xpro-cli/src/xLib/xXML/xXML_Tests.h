@@ -801,6 +801,31 @@ void TestIndexingAttributes(void) {
 		success = error == kNoError;
 	}
 
+	if (success) {
+		success = !strcmp(value, "Adam");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path.key[1]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Brian");
+		xFree(value);
+	}
+
+	if (success) {
+		value 	= xml->getValue("/xPro/Function/Path.key[2]", &error);
+		success = error == kNoError;
+	}
+
+	if (success) {
+		success = !strcmp(value, "Cameron");
+		xFree(value);
+	}
+
 	PRINT_TEST_RESULTS(success);
 	xDelete(xml);
 }

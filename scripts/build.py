@@ -19,16 +19,6 @@ HELP_ARG:       str = "--help"
 
 # See if we are in debug mode 
 XP_BUILD:           str = "xp"
-# buildTypeString:    str = ""
-# if (DEBUG_ARG in sys.argv) and (RELEASE_ARG in sys.argv):
-#     pass # Don't do anything
-#             # Let the main function figure out there is no
-#             # buildTypeString
-# elif DEBUG_ARG in sys.argv:
-#     buildTypeString = "Debug"
-#     XP_BUILD        = "debug-{}".format(XP_BUILD)
-# elif RELEASE_ARG in sys.argv:
-#     buildTypeString = "Release"
 
 if sys.platform == "linux" or sys.platform == "linux2":
     PLATFORM_NAME = "linux"
@@ -45,17 +35,11 @@ if sys.platform == "win32":
 else:
     XPRO_LINK_PATH: str = "/Library/xPro"
 
-# BUILD_FOLDER:   str = "{} ({})".format(buildTypeString, platformName)
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
-# BUILD_PATH:     str = os.path.join(XPRO_PATH, "src", "xpro-cli", BUILD_FOLDER)
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 DEVENV_SCRIPT:  str = "devenv.py"
-
-# Remove memory from global access
-# del buildTypeString
-# del platformName
 
 ## CONSTANTS END ##
 
@@ -88,12 +72,12 @@ def help():
     ))
 
 def main():
-    status:     int = 0
-    currDir:    str = os.curdir
+    status:             int = 0
+    currDir:            str = os.curdir
     buildTypeString:    str = ""
-    buildFolder:   str = ""
-    buildPath:     str = ""
-    buildName: str = XP_BUILD
+    buildFolder:        str = ""
+    buildPath:          str = ""
+    buildName:          str = XP_BUILD
 
     if HELP_ARG in sys.argv:
         help()

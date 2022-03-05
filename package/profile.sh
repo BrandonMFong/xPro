@@ -41,8 +41,9 @@ function loadObjects() {
 
     if [ $result -eq 0 ]; then 
         for ((i=0;i<objectCount;i++)); do
-            echo $($XPRO_BIN obj -index $i --name);
-            echo $($XPRO_BIN obj -index $i --value);
+            name=$($XPRO_BIN obj -index $i --name);
+            value=$($XPRO_BIN obj -index $i --value);
+            eval "$name"="$value";
         done
     fi 
 }

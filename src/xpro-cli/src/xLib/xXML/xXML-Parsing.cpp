@@ -385,6 +385,7 @@ xError xXML::stripIndexLeafTagPath(
 		tempString = xCopyString(splitString[0], &result);
 
 		for (xUInt8 i = 0; i < splitSize; i++) xFree(splitString[i]);
+		xFree(splitString);
 	}
 
 	if (result == kNoError) {
@@ -610,5 +611,3 @@ xError xXML::parseComment() {
 
 	return result;
 }
-
-

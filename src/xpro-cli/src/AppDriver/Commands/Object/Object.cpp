@@ -111,6 +111,7 @@ xError HandleObjectIndex(void) {
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
 
+	// Get the index for the -index argument
 	if (result == kNoError) {
 		argIndex = appDriver->args.indexForArg(OBJ_INDEX_ARG, &result);
 
@@ -119,15 +120,19 @@ xError HandleObjectIndex(void) {
 		}
 	}
 
+	// Get the value for that switch argument
 	if (result == kNoError) {
 		if ((argIndex + 1) < appDriver->args.count()) {
 			indexString = appDriver->args.argAtIndex(argIndex + 1, &result);
 		} else {
 			result = kOutOfRangeError;
+
+#ifndef TESTING
 			DLog(
 				"There is not enough arguments. We cannot get value for %s",
 				OBJ_INDEX_ARG
 			);
+#endif
 		}
 	}
 
@@ -151,12 +156,14 @@ xError HandleObjectIndex(void) {
 		}
 	}
 
+	// Create tag path string
 	if (result == kNoError) {
 		tagPath = xMallocString(strlen(OBJECT_NAME_TAG_PATH) + 10, &result);
 	}
 
+	// Construct path with command line arg
 	if (result == kNoError) {
-		if (sprintf(tagPath, OBJECT_NAME_TAG_PATH, "0") == -1) {
+		if (sprintf(tagPath, OBJECT_NAME_TAG_PATH, indexString) == -1) {
 			result = kStringError;
 		}
 	}

@@ -67,6 +67,20 @@ void TestHandlingObjectIndexWithoutIndexValue(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestHandlingObjectWithLittleArguments(void) {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	const char * argv[3] = {"xp", "obj", "-index"};
+
+	// Init with no arguments
+	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
+
+	success = HandleObjectIndex() != kNoError;
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void Object_Tests() {
 	INTRO_TEST_FUNCTION;
 
@@ -74,6 +88,7 @@ void Object_Tests() {
 	TestHandleObjectWithAppDriver();
 	TestHandlingObjectIndex();
 	TestHandlingObjectIndexWithoutIndexValue();
+	TestHandlingObjectWithLittleArguments();
 
 	printf("\n");
 }

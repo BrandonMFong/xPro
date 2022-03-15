@@ -145,7 +145,7 @@ xError AppDriver::setup() {
 				"Please run '%s %s %s' to create",
 				this->execName(),
 				CREATE_ARG,
-				CREATE_ENV_CONF_ARG
+				ENV_CONF_ARG
 			);
 #endif
 		}
@@ -183,8 +183,8 @@ void AppDriver::help(xUInt8 printType) {
 			printf("%s\n", CREATE_ARG_DISCUSSION);
 			printf("\nArguments:\n");
 			printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
-			printf("  %s: %s\n", CREATE_USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-			printf("  %s: %s\n", CREATE_ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
+			printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
+			printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 		} else if (this->args.contains(OBJ_ARG, xNull)) {
 			printf(
 				"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",

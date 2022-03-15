@@ -29,9 +29,9 @@ xError HandleCreate(void) {
 	if (result == kNoError) {
 		if (!strcmp(subCommand, XPRO_HOME_ARG)) {
 			result = CreateXProHomePath();
-		} else if (!strcmp(subCommand, CREATE_USER_CONF_ARG)) {
+		} else if (!strcmp(subCommand, USER_CONF_ARG)) {
 			result = CreateUserConfig();
-		} else if (!strcmp(subCommand, CREATE_ENV_CONF_ARG)) {
+		} else if (!strcmp(subCommand, ENV_CONF_ARG)) {
 			result = CreateEnvironmentConfig();
 		} else {
 			xLog("Unknown argument: %s", subCommand);

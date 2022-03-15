@@ -16,9 +16,9 @@
 
 #pragma mark - Common Variables
 
-#define XPRO_HOME_ARG 			"home"
-#define CREATE_USER_CONF_ARG 	"uconf"
-#define CREATE_ENV_CONF_ARG		"uenv"
+#define XPRO_HOME_ARG	"home"
+#define USER_CONF_ARG	"uconf"
+#define ENV_CONF_ARG	"uenv"
 
 #pragma mark - Version
 

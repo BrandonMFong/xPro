@@ -21,10 +21,27 @@ void TestHandleDescribeNoAppDriver(void) {
 	PRINT_TEST_RESULTS(success);
 }
 
+void TestDescribeWithNoArguments(void) {
+	xBool success = xTrue;
+	xError error = kNoError;
+
+	// Init with no arguments
+	AppDriver ad(0, xNull, &error);
+	success = error == kNoError;
+
+	if (success) {
+		error = HandleDescribe();
+		success = error != kNoError;
+	}
+
+	PRINT_TEST_RESULTS(success);
+}
+
 void Describe_Tests(void) {
 	INTRO_TEST_FUNCTION;
 
 	TestHandleDescribeNoAppDriver();
+	TestDescribeWithNoArguments();
 
 	printf("\n");
 }

@@ -11,9 +11,9 @@
 #include <AppDriver/Commands/Commands.h>
 
 xError HandleDescribe() {
-	xError result = kNoError;
-	const xUInt8 argCount = 3;
-	const char * argString = xNull;
+	xError 			result 		= kNoError;
+	const xUInt8 	argCount 	= 3;
+	const char * 	argString 	= xNull;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -41,6 +41,10 @@ xError HandleDescribe() {
 			result = kArgError;
 			ELog("Unknown argument '%s'", argString);
 		}
+	}
+
+	if (result != kNoError) {
+		DLog("Error with %s, %d", __FUNCTION__, result);
 	}
 
 	return result;

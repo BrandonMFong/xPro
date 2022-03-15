@@ -182,7 +182,7 @@ void AppDriver::help(xUInt8 printType) {
 			printf("\nDiscussion:\n");
 			printf("%s\n", CREATE_ARG_DISCUSSION);
 			printf("\nArguments:\n");
-			printf("  %s: %s\n", CREATE_XPRO_ARG, CREATE_XPRO_ARG_INFO);
+			printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
 			printf("  %s: %s\n", CREATE_USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
 			printf("  %s: %s\n", CREATE_ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 		} else if (this->args.contains(OBJ_ARG, xNull)) {

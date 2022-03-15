@@ -14,8 +14,19 @@
 #include "Object/Object.hpp"
 #include "Describe/Describe.hpp"
 
+#pragma mark - Common Variables
+
+#define XPRO_HOME_ARG 			"home"
+#define CREATE_USER_CONF_ARG 	"uconf"
+#define CREATE_ENV_CONF_ARG		"uenv"
+
+#pragma mark - Version
+
+#define VERSION_ARG "--version"
+
+#pragma mark - Help
+
 #define HELP_ARG 					"--help"
-#define VERSION_ARG 				"--version"
 #define DESCRIBE_COMMAND_HELP_ARG 	"help"
 
 #pragma mark - Directory
@@ -31,10 +42,7 @@
 
 #pragma mark - Create
 
-#define CREATE_ARG 				"create"
-#define CREATE_XPRO_ARG 		"home"
-#define CREATE_USER_CONF_ARG 	"uconf"
-#define CREATE_ENV_CONF_ARG		"uenv"
+#define CREATE_ARG "create"
 
 #define CREATE_ARG_BRIEF "Creates based arguments"
 #define CREATE_ARG_DISCUSSION \

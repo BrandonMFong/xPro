@@ -27,7 +27,7 @@ xError HandleCreate(void) {
 	}
 
 	if (result == kNoError) {
-		if (!strcmp(subCommand, CREATE_XPRO_ARG)) {
+		if (!strcmp(subCommand, XPRO_HOME_ARG)) {
 			result = CreateXProHomePath();
 		} else if (!strcmp(subCommand, CREATE_USER_CONF_ARG)) {
 			result = CreateUserConfig();
@@ -164,7 +164,7 @@ xError WriteToFile(
 			"%s does not exist. Please run '%s %s' to create xpro home environment",
 			dirname((char *) filePath),
 			AppDriver::shared()->execName(),
-			CREATE_XPRO_ARG
+			XPRO_HOME_ARG
 		);
 	}
 

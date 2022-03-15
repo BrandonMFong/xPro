@@ -139,15 +139,13 @@ xError AppDriver::setup() {
 	} else {
 		// Only split out error if user didn't pass create
 		if (!this->args.contains(CREATE_ARG, &result)) {
-#ifndef TESTING
-			xError("%s does not exist", envPath);
-			xLog(
+			ELog("%s does not exist", envPath);
+			Log(
 				"Please run '%s %s %s' to create",
 				this->execName(),
 				CREATE_ARG,
 				ENV_CONF_ARG
 			);
-#endif
 		}
 	}
 
@@ -245,14 +243,14 @@ xError AppDriver::run() {
 
 	// Print default help
 	if (this->args.count() == 1) {
-		xLog("No arguments\n");
+		Log("No arguments\n");
 
 		this->help(0);
 		okayToContinue = xFalse;
 
 	// Print default help
 	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-		xLog("Too many arguments for %s\n", HELP_ARG);
+		Log("Too many arguments for %s\n", HELP_ARG);
 
 		this->help(0);
 		okayToContinue = xFalse;
@@ -282,7 +280,7 @@ xError AppDriver::run() {
 		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
 			result = HandleDescribe();
 		} else {
-			xLog("Unknown command");
+			Log("Unknown command");
 			this->help(xFalse);
 		}
 	}

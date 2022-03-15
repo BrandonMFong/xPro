@@ -28,9 +28,7 @@ xError HandleDirectory() {
 		result = appDriver->args.count() >= 3 ? kNoError : kArgError;
 
 		if (result != kNoError) {
-#ifndef TESTING
 			DLog("Does not have correct count of arguments, actual: %d\n", appDriver->args.count());
-#endif
 		}
 	}
 
@@ -69,9 +67,7 @@ xError HandleDirectory() {
 
 	if (result != kNoError) {
 		// Don't print this out because we test it
-#ifndef TESTING
-		xError("[%d]\n", result);
-#endif
+		ELog("[%d]\n", result);
 	}
 
 	xDelete(xProConfig);
@@ -109,9 +105,8 @@ xError PrintDirectoryForKey(const char * key) {
 	if (result == kNoError) {
 		if (xProConfig == xNull) {
 			result = kNullError;
-#ifndef TESTING
+
 			DLog("the xpro config object is null");
-#endif
 		}
 	}
 
@@ -165,7 +160,7 @@ xError PrintDirectoryForKey(const char * key) {
 	if (result == kNoError) {
 		if (directory != xNull) {
 			if (!xIsDir(directory)) {
-				xLog("%s is not a directory.  Please make sure that it exists and that is a directory, not a file", directory);
+				Log("%s is not a directory.  Please make sure that it exists and that is a directory, not a file", directory);
 				result = kDirectoryError;
 			}
 		}

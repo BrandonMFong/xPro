@@ -34,8 +34,8 @@ xError HandleCreate(void) {
 		} else if (!strcmp(subCommand, ENV_CONF_ARG)) {
 			result = CreateEnvironmentConfig();
 		} else {
-			xLog("Unknown argument: %s", subCommand);
-			xLog(
+			Log("Unknown argument: %s", subCommand);
+			Log(
 				"Please run '%s %s' for help",
 				AppDriver::shared()->execName(),
 				HELP_ARG
@@ -160,7 +160,7 @@ xError WriteToFile(
 	// Make sure the home directory exists
 	else if (!xIsDir(dirname(filePathCopy))) {
 		result = kDirectoryError;
-		xLog(
+		Log(
 			"%s does not exist. Please run '%s %s' to create xpro home environment",
 			dirname((char *) filePath),
 			AppDriver::shared()->execName(),
@@ -204,7 +204,7 @@ xError WriteToFile(
 		}
 
 		if (result == kNoError) {
-			xLog("Successfully created: %s", filePath);
+			Log("Successfully created: %s", filePath);
 		}
 	}
 

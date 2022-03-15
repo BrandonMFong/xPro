@@ -11,6 +11,18 @@
 
 xError HandleDescribe() {
 	xError result = kNoError;
+	const xUInt8 argCount = 3;
+
+	AppDriver * appDriver 	= AppDriver::shared();
+	result 					= appDriver != xNull ? kNoError : kDriverError;
+
+	if (result == kNoError) {
+		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
+	}
+
+	if (result == kNoError) {
+
+	}
 
 	return result;
 }

@@ -30,9 +30,7 @@ xError HandleObject(void) {
 		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
 
 		if (result != kNoError) {
-#ifndef TESTING
 			DLog("The amount of arguments must be %d", argCount);
-#endif
 		}
 	}
 
@@ -75,10 +73,8 @@ xError HandleObject(void) {
 		} else {
 			result = kArgError;
 
-#ifndef TESTING
-			xLog("Argument '%s' is not acceptable", arg);
-			xLog("Please see '%s' for more information", HELP_ARG);
-#endif
+			Log("Argument '%s' is not acceptable", arg);
+			Log("Please see '%s' for more information", HELP_ARG);
 		}
 	}
 
@@ -135,13 +131,11 @@ xError HandleObjectIndex(void) {
 		} else {
 			result = kOutOfRangeError;
 
-#ifndef TESTING
 			DLog(
 				"There are not enough arguments. We cannot get value for %s",
 				OBJ_INDEX_ARG
 			);
-			xLog("Please provide value for '%s'", OBJ_INDEX_ARG);
-#endif
+			Log("Please provide value for '%s'", OBJ_INDEX_ARG);
 		}
 	}
 
@@ -158,10 +152,8 @@ xError HandleObjectIndex(void) {
 		}
 
 		if (result != kNoError) {
-#ifndef TESTING
-			xLog("Argument '%s' is not valid", indexString);
-			xLog("Please provide a positive integer for '%s'", OBJ_INDEX_ARG);
-#endif
+			Log("Argument '%s' is not valid", indexString);
+			Log("Please provide a positive integer for '%s'", OBJ_INDEX_ARG);
 		}
 	}
 
@@ -179,13 +171,11 @@ xError HandleObjectIndex(void) {
 				tagPathFormat 	= OBJECT_NAME_TAG_PATH;
 			}
 		} else {
-#ifndef TESTING
-			xLog(
+			Log(
 				"Please pass the arguments '%s' or '%s'",
 				OBJ_VALUE_ARG,
 				OBJ_NAME_ARG
 			);
-#endif
 		}
 	}
 
@@ -233,10 +223,9 @@ xError HandleObjectIndex(void) {
 		if (result == kNoError) {
 			if (xmlValue == xNull) {
 				result = kNullError;
-#ifndef TESTING
-				xLog("Nothing found");
+
+				Log("Nothing found");
 				DLog("XML value was returned null");
-#endif
 			}
 		}
 	}

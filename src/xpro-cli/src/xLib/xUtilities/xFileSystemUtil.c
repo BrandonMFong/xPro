@@ -67,13 +67,11 @@ xError xMkDir(const char * path) {
 	if (!xIsDir(path)) {
 		if (MAKE_DIR(path) == -1) {
 			result = kDirectoryError;
-			DLog("Could not create %s", path);
 		}
 
 		if (result == kNoError) {
 			if (!xIsDir(path)) {
 				result = kDirectoryError;
-				DLog("Directory still does not exist, %s", path);
 			}
 		}
 	}

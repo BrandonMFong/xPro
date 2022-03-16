@@ -226,10 +226,6 @@ char * xXML::getValue(
 
 			default:
 				error = kXMLError;
-				DLog(
-					"State %d not considered, will error out",
-					this->_parseHelper.state
-				);
 
 				break;
 			}
@@ -237,7 +233,6 @@ char * xXML::getValue(
 	}
 
 	if (error != kNoError) {
-		DLog("There was an error during parsing, %d", error);
 	}
 
 	if (this->_parseHelper.tagPathArray != xNull) {

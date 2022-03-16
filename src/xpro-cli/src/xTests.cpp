@@ -17,6 +17,7 @@
 /// App tests
 #include <AppDriver/Commands/Directory/Directory_Tests.h>
 #include <AppDriver/Commands/Object/Object_Tests.h>
+#include <AppDriver/Commands/Describe/Describe_Tests.h>
 
 int xTests(int argc, char ** argv) {
 	printf("\n");
@@ -29,6 +30,7 @@ int xTests(int argc, char ** argv) {
 	xArguments_Tests();
 	Directory_Tests();
 	Object_Tests();
+	Describe_Tests();
 
 	return 0;
 }

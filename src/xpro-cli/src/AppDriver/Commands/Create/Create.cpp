@@ -27,15 +27,15 @@ xError HandleCreate(void) {
 	}
 
 	if (result == kNoError) {
-		if (!strcmp(subCommand, CREATE_XPRO_ARG)) {
+		if (!strcmp(subCommand, XPRO_HOME_ARG)) {
 			result = CreateXProHomePath();
-		} else if (!strcmp(subCommand, CREATE_USER_CONF_ARG)) {
+		} else if (!strcmp(subCommand, USER_CONF_ARG)) {
 			result = CreateUserConfig();
-		} else if (!strcmp(subCommand, CREATE_ENV_CONF_ARG)) {
+		} else if (!strcmp(subCommand, ENV_CONF_ARG)) {
 			result = CreateEnvironmentConfig();
 		} else {
-			xLog("Unknown argument: %s", subCommand);
-			xLog(
+			Log("Unknown argument: %s", subCommand);
+			Log(
 				"Please run '%s %s' for help",
 				AppDriver::shared()->execName(),
 				HELP_ARG
@@ -160,11 +160,11 @@ xError WriteToFile(
 	// Make sure the home directory exists
 	else if (!xIsDir(dirname(filePathCopy))) {
 		result = kDirectoryError;
-		xLog(
+		Log(
 			"%s does not exist. Please run '%s %s' to create xpro home environment",
 			dirname((char *) filePath),
 			AppDriver::shared()->execName(),
-			CREATE_XPRO_ARG
+			XPRO_HOME_ARG
 		);
 	}
 
@@ -204,7 +204,7 @@ xError WriteToFile(
 		}
 
 		if (result == kNoError) {
-			xLog("Successfully created: %s", filePath);
+			Log("Successfully created: %s", filePath);
 		}
 	}
 

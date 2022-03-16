@@ -139,15 +139,13 @@ xError AppDriver::setup() {
 	} else {
 		// Only split out error if user didn't pass create
 		if (!this->args.contains(CREATE_ARG, &result)) {
-#ifndef TESTING
-			xError("%s does not exist", envPath);
-			xLog(
+			ELog("%s does not exist", envPath);
+			Log(
 				"Please run '%s %s %s' to create",
 				this->execName(),
 				CREATE_ARG,
-				CREATE_ENV_CONF_ARG
+				ENV_CONF_ARG
 			);
-#endif
 		}
 	}
 
@@ -180,11 +178,11 @@ void AppDriver::help(xUInt8 printType) {
 			printf("Command: %s %s <arg>\n", this->execName(), CREATE_ARG);
 			printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
 			printf("\nDiscussion:\n");
-			printf("%s\n", CREATE_ARG_DISCUSSION);
+			printf("  %s\n", CREATE_ARG_DISCUSSION);
 			printf("\nArguments:\n");
-			printf("  %s: %s\n", CREATE_XPRO_ARG, CREATE_XPRO_ARG_INFO);
-			printf("  %s: %s\n", CREATE_USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-			printf("  %s: %s\n", CREATE_ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
+			printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
+			printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
+			printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 		} else if (this->args.contains(OBJ_ARG, xNull)) {
 			printf(
 				"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
@@ -197,12 +195,21 @@ void AppDriver::help(xUInt8 printType) {
 			);
 			printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
 			printf("\nDiscussion:\n");
-			printf("%s\n", OBJ_ARG_DISCUSSION);
+			printf("  %s\n", OBJ_ARG_DISCUSSION);
 			printf("\nArguments:\n");
 			printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
 			printf("  %s: %s\n", OBJ_INDEX_ARG, OBJ_INDEX_ARG_INFO);
 			printf("  %s: %s\n", OBJ_VALUE_ARG, OBJ_VALUE_ARG_INFO);
 			printf("  %s: %s\n", OBJ_NAME_ARG, OBJ_NAME_ARG_INFO);
+		} else if (this->args.contains(DESCRIBE_ARG, xNull)) {
+			printf("Command: %s %s <arg>\n", this->execName(), DESCRIBE_ARG);
+			printf("\nBrief: %s\n", DESCRIBE_ARG_BRIEF);
+			printf("\nDiscussion:\n");
+			printf("  %s\n", DESCRIBE_ARG_DISCUSSION);
+			printf("\nArguments:\n");
+			printf("  %s: %s\n", XPRO_HOME_ARG, DESCRIBE_XPRO_ARG_INFO);
+			printf("  %s: %s\n", USER_CONF_ARG, DESCRIBE_USER_CONF_ARG_INFO);
+			printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
 		} else {
 			printf("No description\n");
 		}
@@ -216,13 +223,16 @@ void AppDriver::help(xUInt8 printType) {
 		printf("List of commands:\n");
 
 		// Directory arg
-		printf("\t%s\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
+		printf("\t%s\t\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
 
 		// Create arg
-		printf("\t%s\t%s\n", CREATE_ARG, CREATE_ARG_BRIEF);
+		printf("\t%s\t\t%s\n", CREATE_ARG, CREATE_ARG_BRIEF);
 
 		// Object arg
-		printf("\t%s\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
+		printf("\t%s\t\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
+
+		// Describe arg
+		printf("\t%s\t%s\n", DESCRIBE_ARG, DESCRIBE_ARG_BRIEF);
 
 		printf("\n");
 
@@ -245,14 +255,14 @@ xError AppDriver::run() {
 
 	// Print default help
 	if (this->args.count() == 1) {
-		xLog("No arguments\n");
+		Log("No arguments\n");
 
 		this->help(0);
 		okayToContinue = xFalse;
 
 	// Print default help
 	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-		xLog("Too many arguments for %s\n", HELP_ARG);
+		Log("Too many arguments for %s\n", HELP_ARG);
 
 		this->help(0);
 		okayToContinue = xFalse;
@@ -279,8 +289,10 @@ xError AppDriver::run() {
 			HandleVersion();
 		} else if (this->args.contains(OBJ_ARG, &result)) {
 			result = HandleObject();
+		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
+			result = HandleDescribe();
 		} else {
-			xLog("Unknown command");
+			Log("Unknown command");
 			this->help(xFalse);
 		}
 	}

@@ -185,7 +185,6 @@ xError xXML::parseTagString() {
 
 					if (this->_parseHelper.attrKeyString == xNull) {
 						result = kXMLError;
-						DLog("NULL string for attribute");
 					} else {
 						// Make a copy of the string because we are going to free split's memory
 						this->_parseHelper.attrKeyString = xCopyString(
@@ -268,7 +267,6 @@ xError xXML::parseTagString() {
 					xFree(tempString);
 				}
 			} else {
-				DLog("Received an unexpected size of %d", splitSize);
 				result = kXMLError;
 			}
 		}
@@ -397,14 +395,12 @@ xError xXML::stripIndexLeafTagPath(
 	if (result == kNoError) {
 		if (tag == xNull) {
 			result = kNullError;
-			DLog("Tag string should not be null");
 		}
 	}
 
 	if (result == kNoError) {
 		if (index == xNull) {
 			result = kNullError;
-			DLog("Caller must provided a pointer to index");
 		}
 	}
 
@@ -422,10 +418,6 @@ xError xXML::stripIndexLeafTagPath(
 	if (result == kNoError) {
 		if (splitSize != 2) {
 			result = kSizeError;
-			DLog(
-				"Split size value is unexpected: %d",
-				splitSize
-			);
 		}
 	}
 
@@ -521,7 +513,6 @@ xError xXML::parseAttributeKey() {
 					this->_parseHelper.attrKeyString = xCopyString(split[0], &result);
 				} else {
 					result = kXMLError;
-					DLog("Error in attempting to split string. There may be an error in the syntax\n");
 				}
 			}
 
@@ -647,7 +638,6 @@ xError xXML::parseAttributeValue() {
 			xFree(tempString);
 		} else {
 			result = kXMLError;
-			DLog("Quote count is %d, which should not be more than 2\n", this->_parseHelper.quoteCount);
 		}
 
 		break;

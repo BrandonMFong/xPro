@@ -64,7 +64,6 @@ xBool xContainsSubString (
 
 	if ((string == xNull) || (subString == xNull)) {
 		error = kStringError;
-		DLog("Must provide a nonull string");
 	} else {
 		stringLength 	= strlen(string);
 		subStringLength = strlen(subString);
@@ -117,7 +116,6 @@ char ** xSplitString(
 
 	if ((string == xNull) || (sep == xNull)) {
 		error = kStringError;
-		DLog("Must provide a nonull string");
 	} else {
 		stringLength 	= strlen(string);
 		sepLength		= strlen(sep);
@@ -269,7 +267,6 @@ char * xStringBetweenTwoStrings(
 		|| 	(secondString 	== xNull)
 		|| 	(string 		== xNull)) {
 		error = kStringError;
-		DLog("Strings are empty. Please make sure you are calling xStringBetweenTwoStrings() correctly\n");
 	} else {
 		mainString 	= (char *) string; // Save to new variable so that we can increment string
 		count 		= strlen(mainString);

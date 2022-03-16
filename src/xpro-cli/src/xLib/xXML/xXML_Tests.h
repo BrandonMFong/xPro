@@ -748,7 +748,7 @@ void TestStrippingIndexedTag() {
 		success = error == kNoError;
 
 		if (!success) {
-			DLog("Error in xml constructor %d", error);
+			printf("Error in xml constructor %d\n", error);
 		}
 	}
 
@@ -756,14 +756,14 @@ void TestStrippingIndexedTag() {
 		error = xml->stripIndexLeafTagPath("path[1]", &tag, &index);
 
 		if (error != kNoError) {
-			DLog("Error stripping: %d", error);
+			printf("Error stripping: %d\n", error);
 			success = xFalse;
 		} else if (strcmp(tag, "path")) {
 			success = xFalse;
-			DLog("tag is not expected value: 'path'");
+			printf("tag is not expected value: 'path'\n");
 		} else if (index != 1) {
 			success = xFalse;
-			DLog("index should be 1");
+			printf("index should be 1\n");
 		}
 	}
 

@@ -18,6 +18,8 @@ RM := rm -rf
 -include src/AppDriver/Commands/Create/subdir.mk
 -include src/AppDriver/subdir.mk
 -include src/subdir.mk
+-include Release/src/xLib/xXML/subdir.mk
+-include Debug/src/xLib/xXML/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

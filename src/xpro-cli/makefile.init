@@ -5,3 +5,6 @@ SOURCE_PATH := /Library/xPro/src/xpro-cli
 endif
 
 VERSION_STRING := "\"$(shell git tag -l --sort=-creatordate | head -n 1)\""
+
+ BUILD_HASH := "\"$(shell git rev-parse HEAD)\""
+ 

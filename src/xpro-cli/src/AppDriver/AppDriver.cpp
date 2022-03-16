@@ -156,9 +156,8 @@ xError AppDriver::setup() {
 
 void AppDriver::help(xUInt8 printType) {
 	printf(
-		"usage: %s [ %s ] [ %s ] <command> [<args>] \n",
+		"usage: %s [ %s ] <command> [<args>] \n",
 		this->execName(),
-		VERSION_ARG,
 		HELP_ARG
 	);
 
@@ -168,7 +167,15 @@ void AppDriver::help(xUInt8 printType) {
 
 	// Display info about commands
 	case 2:
-		if (this->args.contains(DIR_ARG, xNull)) {
+		if (this->args.contains(VERSION_ARG, xNull)) {
+			printf("Command: %s %s <arg>\n", this->execName(), VERSION_ARG);
+			printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
+			printf("\nDiscussion:\n");
+			printf("  %s\n", VERSION_ARG_DISCUSSION);
+			printf("\nArguments:\n");
+			printf("  %s: %s\n", LONG_ARG, LONG_ARG_INFO);
+			printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
+		} else if (this->args.contains(DIR_ARG, xNull)) {
 			printf("Command: %s %s <key>\n", this->execName(), DIR_ARG);
 			printf("\nBrief: %s\n", DIR_ARG_BRIEF);
 			printf("\nDiscussion:\n");
@@ -223,6 +230,9 @@ void AppDriver::help(xUInt8 printType) {
 		printf("List of commands:\n");
 
 		// Directory arg
+		printf("\t%s\t\t%s\n", VERSION_ARG, VERSION_ARG_BRIEF);
+
+		// Directory arg
 		printf("\t%s\t\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
 
 		// Create arg
@@ -244,7 +254,7 @@ void AppDriver::help(xUInt8 printType) {
 	}
 
 	printf("Use '%s %s <cmd>' to see more information on the above commands\n", this->execName(), DESCRIBE_COMMAND_HELP_ARG);
-	printf("%s-v%c copyright %s\n", APP_NAME, VERSION[0], &__DATE__[7]);
+	printf("%s-v%c copyright %s. All rights reserved.\n", APP_NAME, VERSION[0], &__DATE__[7]);
 }
 
 xError AppDriver::run() {
@@ -286,7 +296,7 @@ xError AppDriver::run() {
 		} else if (this->args.contains(CREATE_ARG, &result)) {
 			result = HandleCreate();
 		} else if (this->args.contains(VERSION_ARG, &result)) {
-			HandleVersion();
+			result = HandleVersion();
 		} else if (this->args.contains(OBJ_ARG, &result)) {
 			result = HandleObject();
 		} else if (this->args.contains(DESCRIBE_ARG, &result)) {

@@ -14,7 +14,6 @@ xError HandleVersion() {
 	xError 			result 			= kNoError;
 	const char *	argString 		= xNull;
 	char * 			buildHashString = xNull;
-	xBool			printWithHash	= xFalse;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -30,12 +29,22 @@ xError HandleVersion() {
 			argString = appDriver->args.argAtIndex(2, &result);
 
 			if (result == kNoError) {
+				// make sure we are aware of this
+				if (strlen(BUILD) < 40) {
+					DLog("The build macro is less than 40 characters.  Please check implmentation.");
+					DLog("actual length: %ld", strlen(BUILD));
+				}
+
 				buildHashString = xCopyString(BUILD, &result);
 			}
 
 			if (result == kNoError) {
 				if (!strcmp(argString, SHORT_ARG)) {
-					buildHashString[10] = '\0';
+
+					// Only modify length if we have enough to modify
+					if (strlen(buildHashString) >= 10) {
+						buildHashString[10] = '\0';
+					}
 				}
 
 				printf("%s-%s\n", VERSION, buildHashString);

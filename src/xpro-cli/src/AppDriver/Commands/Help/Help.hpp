@@ -25,6 +25,7 @@ void PrintDirectoryHelp(void);
 void PrintCreateHelp(void);
 void PrintObjectHelp(void);
 void PrintDescribeHelp(void);
+void PrintAliasHelp(void);
 void PrintFooter(void);
 
 #endif /* SRC_APPDRIVER_COMMANDS_HELP_HELP_HPP_ */

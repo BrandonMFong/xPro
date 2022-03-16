@@ -20,6 +20,10 @@
 #define XPRO_HOME_ARG	"home"
 #define USER_CONF_ARG	"uconf"
 #define ENV_CONF_ARG	"uenv"
+#define COUNT_ARG 	"--count"
+#define INDEX_ARG 	"-index"
+#define VALUE_ARG 	"--value"
+#define NAME_ARG 	"--name"
 
 #pragma mark - Version
 
@@ -62,11 +66,7 @@
 
 #pragma mark - Object
 
-#define OBJ_ARG 		"obj"
-#define OBJ_COUNT_ARG 	"--count"
-#define OBJ_INDEX_ARG 	"-index"
-#define OBJ_VALUE_ARG 	"--value"
-#define OBJ_NAME_ARG 	"--name"
+#define OBJ_ARG "obj"
 
 #define OBJ_ARG_BRIEF "Returns object"
 #define OBJ_ARG_DISCUSSION \
@@ -85,5 +85,12 @@
 #define DESCRIBE_XPRO_ARG_INFO "Path to .xpro where all xPro sources live"
 #define DESCRIBE_USER_CONF_ARG_INFO "Path to active user config"
 #define DESCRIBE_ENV_CONF_ARG_INFO "Path to env.xml"
+
+#pragma mark - Alias
+
+#define ALIAS_ARG "alias"
+#define ALIAS_ARG_BRIEF "Returns aliases defined in user config"
+#define ALIAS_ARG_DISCUSSION \
+	"Returns alias name or object value"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

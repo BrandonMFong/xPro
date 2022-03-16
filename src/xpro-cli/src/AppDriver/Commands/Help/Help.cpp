@@ -33,6 +33,8 @@ xError HandleHelp(xUInt8 printType) {
 				PrintObjectHelp();
 			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG, xNull)) {
 				PrintDescribeHelp();
+			} else if (AppDriver::shared()->args.contains(ALIAS_ARG, xNull)) {
+				PrintAliasHelp();
 			} else {
 				printf("No description\n");
 			}
@@ -45,7 +47,7 @@ xError HandleHelp(xUInt8 printType) {
 		case 1:
 			printf("List of commands:\n");
 
-			// Directory arg
+			// Version arg
 			printf("\t%s\t\t%s\n", VERSION_ARG, VERSION_ARG_BRIEF);
 
 			// Directory arg
@@ -59,6 +61,9 @@ xError HandleHelp(xUInt8 printType) {
 
 			// Describe arg
 			printf("\t%s\t%s\n", DESCRIBE_ARG, DESCRIBE_ARG_BRIEF);
+
+			// Alias arg
+			printf("\t%s\t\t%s\n", ALIAS_ARG, ALIAS_ARG_BRIEF);
 
 			printf("\n");
 
@@ -118,19 +123,19 @@ void PrintObjectHelp(void) {
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
 		OBJ_ARG,
-		OBJ_COUNT_ARG,
-		OBJ_INDEX_ARG,
-		OBJ_VALUE_ARG,
-		OBJ_NAME_ARG
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
 	);
 	printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
 	printf("\nDiscussion:\n");
 	printf("  %s\n", OBJ_ARG_DISCUSSION);
 	printf("\nArguments:\n");
-	printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
-	printf("  %s: %s\n", OBJ_INDEX_ARG, OBJ_INDEX_ARG_INFO);
-	printf("  %s: %s\n", OBJ_VALUE_ARG, OBJ_VALUE_ARG_INFO);
-	printf("  %s: %s\n", OBJ_NAME_ARG, OBJ_NAME_ARG_INFO);
+	printf("  %s: %s\n", COUNT_ARG, OBJ_COUNT_ARG_INFO);
+	printf("  %s: %s\n", INDEX_ARG, OBJ_INDEX_ARG_INFO);
+	printf("  %s: %s\n", VALUE_ARG, OBJ_VALUE_ARG_INFO);
+	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
 }
 
 void PrintDescribeHelp(void) {
@@ -142,6 +147,26 @@ void PrintDescribeHelp(void) {
 	printf("  %s: %s\n", XPRO_HOME_ARG, DESCRIBE_XPRO_ARG_INFO);
 	printf("  %s: %s\n", USER_CONF_ARG, DESCRIBE_USER_CONF_ARG_INFO);
 	printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
+}
+
+void PrintAliasHelp(void) {
+	printf(
+		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+		AppDriver::shared()->execName(),
+		ALIAS_ARG,
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
+	);
+	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", OBJ_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", COUNT_ARG, OBJ_COUNT_ARG_INFO);
+	printf("  %s: %s\n", INDEX_ARG, OBJ_INDEX_ARG_INFO);
+	printf("  %s: %s\n", VALUE_ARG, OBJ_VALUE_ARG_INFO);
+	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
 }
 
 void PrintFooter(void) {

@@ -17,6 +17,7 @@ RM := rm -rf
 -include src/AppDriver/Commands/Directory/subdir.mk
 -include src/AppDriver/Commands/Describe/subdir.mk
 -include src/AppDriver/Commands/Create/subdir.mk
+-include src/AppDriver/Commands/Alias/subdir.mk
 -include src/AppDriver/subdir.mk
 -include src/subdir.mk
 -include Release/src/xLib/xXML/subdir.mk

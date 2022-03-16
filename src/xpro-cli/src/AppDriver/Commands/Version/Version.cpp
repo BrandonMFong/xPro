@@ -30,8 +30,13 @@ xError HandleVersion() {
 
 			if (result == kNoError) {
 				// make sure we are aware of this
-				if (strlen(BUILD) < 40) {
-					DLog("The build macro is less than 40 characters.  Please check implmentation.");
+				if (strlen(BUILD) < BUILD_HASH_LENGTH) {
+					DLog(
+						"The build macro is less than %d "
+						"characters.  Please check implmentation.",
+						BUILD_HASH_LENGTH
+					);
+
 					DLog("actual length: %ld", strlen(BUILD));
 				}
 

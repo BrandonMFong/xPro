@@ -60,15 +60,6 @@ public:
 	virtual ~AppDriver();
 
 	/**
-	 * Shows help
-	 *
-	 * 0: Prints brief help
-	 * 1: Prints help with brief descriptions on commands and app
-	 * 2: Prints full descripton on command
-	 */
-	void help(xUInt8 printType);
-
-	/**
 	 * Reads through arguments and executes command that cam from caller
 	 */
 	xError run();

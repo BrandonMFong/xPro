@@ -13,6 +13,7 @@ RM := rm -rf
 -include src/xLib/xArguments/subdir.mk
 -include src/AppDriver/Commands/Version/subdir.mk
 -include src/AppDriver/Commands/Object/subdir.mk
+-include src/AppDriver/Commands/Help/subdir.mk
 -include src/AppDriver/Commands/Directory/subdir.mk
 -include src/AppDriver/Commands/Describe/subdir.mk
 -include src/AppDriver/Commands/Create/subdir.mk

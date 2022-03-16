@@ -13,6 +13,7 @@
 #include "Version/Version.hpp"
 #include "Object/Object.hpp"
 #include "Describe/Describe.hpp"
+#include "Help/Help.hpp"
 
 #pragma mark - Common Variables
 

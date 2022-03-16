@@ -22,7 +22,14 @@
 
 #pragma mark - Version
 
-#define VERSION_ARG "--version"
+#define VERSION_ARG "version"
+#define LONG_ARG "--long"
+#define SHORT_ARG "--short"
+
+#define VERSION_ARG_BRIEF "Displays app version"
+#define VERSION_ARG_DISCUSSION "Displays version with or without build hash"
+#define LONG_ARG_INFO "Displays version with full build hash"
+#define SHORT_ARG_INFO "Displays veresion with short build hash"
 
 #pragma mark - Help
 

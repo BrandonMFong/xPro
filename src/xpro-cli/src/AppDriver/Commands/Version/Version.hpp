@@ -13,6 +13,6 @@
 /**
  * Prints VERSION macro.  This macro should hold the version string
  */
-void HandleVersion(void);
+xError HandleVersion(void);
 
 #endif /* SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_ */

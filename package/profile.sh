@@ -17,10 +17,13 @@ result=0;
 
 ## FUNCTIONS START ##
 
+## xLog()
+## brief: Logs with xPro: prefixed
 function xLog() {
     printf "xPro: $1";
 }
 
+## loadObjects()
 ## brief: Creates bash/zsh variables
 ##
 ## returns:
@@ -36,6 +39,7 @@ function loadObjects() {
     if [ $result -eq 0 ]; then 
         if [ $objectCount -eq -1 ]; then 
             xLog "Object count is -1";
+            result=1;
         fi 
     fi 
 
@@ -44,6 +48,35 @@ function loadObjects() {
             name=$($XPRO_BIN obj -index $i --name);
             value=$($XPRO_BIN obj -index $i --value);
             eval "$name"="$value";
+        done
+    fi 
+}
+
+## loadAliases()
+## brief: Creates bash/zsh aliases
+##
+## returns:
+##  - Sets result
+function loadAliases() {
+    aliasCount=-1;
+
+    if [ $result -eq 0 ]; then 
+        aliasCount=$($XPRO_BIN alias --count);
+        result=$?;
+    fi 
+
+    if [ $result -eq 0 ]; then 
+        if [ $aliasCount -eq -1 ]; then 
+            xLog "Alias count is -1";
+            result=1;
+        fi 
+    fi 
+
+    if [ $result -eq 0 ]; then 
+        for ((i=0;i<aliasCount;i++)); do
+            name=$($XPRO_BIN alias -index $i --name);
+            value=$($XPRO_BIN alias -index $i --value);
+            alias "$name"="$value";
         done
     fi 
 }
@@ -72,6 +105,11 @@ fi
 # Load variables
 if [ $result -eq 0 ]; then 
     loadObjects;
+fi 
+
+# Load aliases
+if [ $result -eq 0 ]; then 
+    loadAliases;
 fi 
 
 popd >/dev/null 2>&1; # $XPRO_PATH

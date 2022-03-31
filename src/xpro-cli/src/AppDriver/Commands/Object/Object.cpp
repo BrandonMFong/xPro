@@ -62,11 +62,11 @@ xError HandleObject(void) {
 #endif
 
 	if (result == kNoError) {
-		if (!strcmp(arg, OBJ_COUNT_ARG)) {
+		if (!strcmp(arg, COUNT_ARG)) {
 #ifndef TESTING
 			result = HandleObjectCount();
 #endif
-		} else if (!strcmp(arg, OBJ_INDEX_ARG)) {
+		} else if (!strcmp(arg, INDEX_ARG)) {
 #ifndef TESTING
 			result = HandleObjectIndex();
 #endif
@@ -117,10 +117,10 @@ xError HandleObjectIndex(void) {
 
 	// Get the index for the -index argument
 	if (result == kNoError) {
-		argIndex = appDriver->args.indexForArg(OBJ_INDEX_ARG, &result);
+		argIndex = appDriver->args.indexForArg(INDEX_ARG, &result);
 
 		if (result != kNoError) {
-			DLog("Error finding index for arg: %s", OBJ_INDEX_ARG);
+			DLog("Error finding index for arg: %s", INDEX_ARG);
 		}
 	}
 
@@ -133,9 +133,9 @@ xError HandleObjectIndex(void) {
 
 			DLog(
 				"There are not enough arguments. We cannot get value for %s",
-				OBJ_INDEX_ARG
+				INDEX_ARG
 			);
-			Log("Please provide value for '%s'", OBJ_INDEX_ARG);
+			Log("Please provide value for '%s'", INDEX_ARG);
 		}
 	}
 
@@ -153,28 +153,29 @@ xError HandleObjectIndex(void) {
 
 		if (result != kNoError) {
 			Log("Argument '%s' is not valid", indexString);
-			Log("Please provide a positive integer for '%s'", OBJ_INDEX_ARG);
+			Log("Please provide a positive integer for '%s'", INDEX_ARG);
 		}
 	}
 
 	// Check for supporting argument to determine if we are
 	// trying to get the value or name
 	if (result == kNoError) {
-		if (appDriver->args.contains(OBJ_VALUE_ARG, &result)) {
+		if (appDriver->args.contains(VALUE_ARG, &result)) {
 			if (result == kNoError) {
 				type 			= valueType;
 				tagPathFormat 	= OBJECT_VALUE_TAG_PATH;
 			}
-		} else if (appDriver->args.contains(OBJ_NAME_ARG, &result)) {
+		} else if (appDriver->args.contains(NAME_ARG, &result)) {
 			if (result == kNoError) {
 				type 			= nameType;
 				tagPathFormat 	= OBJECT_NAME_TAG_PATH;
 			}
 		} else {
+			result = kArgError;
 			Log(
 				"Please pass the arguments '%s' or '%s'",
-				OBJ_VALUE_ARG,
-				OBJ_NAME_ARG
+				VALUE_ARG,
+				NAME_ARG
 			);
 		}
 	}

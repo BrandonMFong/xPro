@@ -26,9 +26,11 @@ SUBDIRS := \
 Debug/src/xLib/xXML \
 Release/src/xLib/xXML \
 src/AppDriver \
+src/AppDriver/Commands/Alias \
 src/AppDriver/Commands/Create \
 src/AppDriver/Commands/Describe \
 src/AppDriver/Commands/Directory \
+src/AppDriver/Commands/Help \
 src/AppDriver/Commands/Object \
 src/AppDriver/Commands/Version \
 src/xLib/xArguments \

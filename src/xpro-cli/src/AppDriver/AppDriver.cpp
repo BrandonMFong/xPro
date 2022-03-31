@@ -154,109 +154,6 @@ xError AppDriver::setup() {
 	return result;
 }
 
-void AppDriver::help(xUInt8 printType) {
-	printf(
-		"usage: %s [ %s ] <command> [<args>] \n",
-		this->execName(),
-		HELP_ARG
-	);
-
-	printf("\n");
-
-	switch (printType) {
-
-	// Display info about commands
-	case 2:
-		if (this->args.contains(VERSION_ARG, xNull)) {
-			printf("Command: %s %s <arg>\n", this->execName(), VERSION_ARG);
-			printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
-			printf("\nDiscussion:\n");
-			printf("  %s\n", VERSION_ARG_DISCUSSION);
-			printf("\nArguments:\n");
-			printf("  %s: %s\n", LONG_ARG, LONG_ARG_INFO);
-			printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
-		} else if (this->args.contains(DIR_ARG, xNull)) {
-			printf("Command: %s %s <key>\n", this->execName(), DIR_ARG);
-			printf("\nBrief: %s\n", DIR_ARG_BRIEF);
-			printf("\nDiscussion:\n");
-			printf("%s\n", DIR_ARG_DISCUSSION);
-			printf("\nArguments: %s\n", DIR_ARG_INFO);
-		} else if (this->args.contains(CREATE_ARG, xNull)) {
-			printf("Command: %s %s <arg>\n", this->execName(), CREATE_ARG);
-			printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
-			printf("\nDiscussion:\n");
-			printf("  %s\n", CREATE_ARG_DISCUSSION);
-			printf("\nArguments:\n");
-			printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
-			printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-			printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
-		} else if (this->args.contains(OBJ_ARG, xNull)) {
-			printf(
-				"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
-				this->execName(),
-				OBJ_ARG,
-				OBJ_COUNT_ARG,
-				OBJ_INDEX_ARG,
-				OBJ_VALUE_ARG,
-				OBJ_NAME_ARG
-			);
-			printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
-			printf("\nDiscussion:\n");
-			printf("  %s\n", OBJ_ARG_DISCUSSION);
-			printf("\nArguments:\n");
-			printf("  %s: %s\n", OBJ_COUNT_ARG, OBJ_COUNT_ARG_INFO);
-			printf("  %s: %s\n", OBJ_INDEX_ARG, OBJ_INDEX_ARG_INFO);
-			printf("  %s: %s\n", OBJ_VALUE_ARG, OBJ_VALUE_ARG_INFO);
-			printf("  %s: %s\n", OBJ_NAME_ARG, OBJ_NAME_ARG_INFO);
-		} else if (this->args.contains(DESCRIBE_ARG, xNull)) {
-			printf("Command: %s %s <arg>\n", this->execName(), DESCRIBE_ARG);
-			printf("\nBrief: %s\n", DESCRIBE_ARG_BRIEF);
-			printf("\nDiscussion:\n");
-			printf("  %s\n", DESCRIBE_ARG_DISCUSSION);
-			printf("\nArguments:\n");
-			printf("  %s: %s\n", XPRO_HOME_ARG, DESCRIBE_XPRO_ARG_INFO);
-			printf("  %s: %s\n", USER_CONF_ARG, DESCRIBE_USER_CONF_ARG_INFO);
-			printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
-		} else {
-			printf("No description\n");
-		}
-
-		printf("\n");
-
-		break;
-
-	// Prints brief descriptions on commands and entire application
-	case 1:
-		printf("List of commands:\n");
-
-		// Directory arg
-		printf("\t%s\t\t%s\n", VERSION_ARG, VERSION_ARG_BRIEF);
-
-		// Directory arg
-		printf("\t%s\t\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
-
-		// Create arg
-		printf("\t%s\t\t%s\n", CREATE_ARG, CREATE_ARG_BRIEF);
-
-		// Object arg
-		printf("\t%s\t\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
-
-		// Describe arg
-		printf("\t%s\t%s\n", DESCRIBE_ARG, DESCRIBE_ARG_BRIEF);
-
-		printf("\n");
-
-		break;
-	case 0:
-	default:
-
-		break;
-	}
-
-	printf("Use '%s %s <cmd>' to see more information on the above commands\n", this->execName(), DESCRIBE_COMMAND_HELP_ARG);
-	printf("%s-v%c copyright %s. All rights reserved.\n", APP_NAME, VERSION[0], &__DATE__[7]);
-}
-
 xError AppDriver::run() {
 	xError 	result 			= kNoError;
 	xBool 	okayToContinue 	= xTrue;
@@ -265,27 +162,25 @@ xError AppDriver::run() {
 
 	// Print default help
 	if (this->args.count() == 1) {
-		Log("No arguments\n");
-
-		this->help(0);
+		HandleHelp(0);
 		okayToContinue = xFalse;
 
 	// Print default help
 	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
 		Log("Too many arguments for %s\n", HELP_ARG);
 
-		this->help(0);
+		HandleHelp(0);
 		okayToContinue = xFalse;
 
 	// Print help for command
 	} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
 				&& 	(this->args.count() > 2)) {
-		this->help(2);
+		HandleHelp(2);
 		okayToContinue = xFalse;
 
 	// Print help for all commands and app info
 	} else if (this->args.contains(HELP_ARG, &result)) {
-		this->help(1);
+		HandleHelp(1);
 		okayToContinue = xFalse;
 	}
 
@@ -301,9 +196,11 @@ xError AppDriver::run() {
 			result = HandleObject();
 		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
 			result = HandleDescribe();
+		} else if (this->args.contains(ALIAS_ARG, &result)) {
+			result = HandleAlias();
 		} else {
 			Log("Unknown command");
-			this->help(xFalse);
+			HandleHelp(0);
 		}
 	}
 

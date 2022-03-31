@@ -171,6 +171,7 @@ xError HandleObjectIndex(void) {
 				tagPathFormat 	= OBJECT_NAME_TAG_PATH;
 			}
 		} else {
+			result = kArgError;
 			Log(
 				"Please pass the arguments '%s' or '%s'",
 				VALUE_ARG,

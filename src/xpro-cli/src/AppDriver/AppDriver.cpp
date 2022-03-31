@@ -196,6 +196,8 @@ xError AppDriver::run() {
 			result = HandleObject();
 		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
 			result = HandleDescribe();
+		} else if (this->args.contains(ALIAS_ARG, &result)) {
+			result = HandleAlias();
 		} else {
 			Log("Unknown command");
 			HandleHelp(0);

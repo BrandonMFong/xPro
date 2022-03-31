@@ -14,6 +14,7 @@
 #include "Object/Object.hpp"
 #include "Describe/Describe.hpp"
 #include "Help/Help.hpp"
+#include "Alias/Alias.hpp"
 
 #pragma mark - Common Variables
 
@@ -91,6 +92,11 @@
 #define ALIAS_ARG "alias"
 #define ALIAS_ARG_BRIEF "Returns aliases defined in user config"
 #define ALIAS_ARG_DISCUSSION \
-	"Returns alias name or object value"
+	"Returns alias name or alias value"
+
+#define ALIAS_COUNT_ARG_INFO "Returns count of aliases in user's config"
+#define ALIAS_INDEX_ARG_INFO "Indexes the list of arguments in user config"
+#define ALIAS_VALUE_ARG_INFO "Returns value at index"
+#define ALIAS_NAME_ARG_INFO "Returns name at index"
 
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

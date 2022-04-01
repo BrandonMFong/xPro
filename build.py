@@ -184,25 +184,28 @@ def createCopySet(destination: str):
     result: list = list()
     error: int = 0
     tempPath: str = ""
+    tempDest: str = ""
     buildName: str = XP_BUILD
 
     # Scripts
     if error == 0:
         tempPath = os.path.join(XPRO_PATH, "scripts")
+        tempDest = os.path.join(destination, "scripts")
         if os.path.exists(tempPath) is False:
             print("{} does not exist!".format(tempPath))
             result = 1
         else:
-            result.append([tempPath, destination])
+            result.append([tempPath, tempDest])
 
     # Schemas
     if error == 0:
         tempPath = os.path.join(XPRO_PATH, "schema")
+        tempDest = os.path.join(destination, "schema")
         if os.path.exists(tempPath) is False:
             print("{} does not exist!".format(tempPath))
             result = 1
         else:
-            result.append([tempPath, destination])
+            result.append([tempPath, tempDest])
 
     # Binary
     if error == 0:
@@ -210,12 +213,13 @@ def createCopySet(destination: str):
             buildName = "debug-{}".format(buildName)
 
         tempPath = os.path.join(XPRO_PATH, "bin", buildName)
+        tempDest = os.path.join(destination, buildName)
 
         if os.path.exists(tempPath) is False:
             print("{} does not exist!".format(tempPath))
             result = 1
         else:
-            result.append([tempPath, destination])
+            result.append([tempPath, tempDest])
 
     return result, error
 
@@ -255,7 +259,10 @@ def pack():
         for command in copySet:
             if len(command) == 2:
                 print("  - {}".format(os.path.basename(command[0])))
-                # shutil.copy(command[0], command[1])
+                if os.path.isdir(command[0]):
+                    shutil.copytree(command[0], command[1])
+                else:
+                    shutil.copy(command[0], command[1])
             else:
                 result = 1
                 print("Unexpected amount of arguments")

@@ -5,36 +5,74 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Directories">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Set of paths that can be referred to by key.  
+                        </xsd:documentation>
+                    </xsd:annotation>
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="Directory">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        Full path
+                                    </xsd:documentation>
+                                </xsd:annotation>
                                 <xs:complexType>
                                     <xs:group ref="Value"/>
-                                    <xs:attribute type="xs:string" name="key"/>
+                                    <xs:attribute type="xs:string" name="key">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                Unique key to connect the directory path 
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xs:attribute>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
                 <xs:element type="xs:string" name="Objects">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Set of objects that outline how to create command line variables
+                        </xsd:documentation>
+                    </xsd:annotation>
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="Object">
                                 <xs:complexType>
                                     <xs:group ref="Value"/>
-                                    <xs:attribute type="xs:string" name="name"/>
+                                    <xs:attribute type="xs:string" name="name">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                Name of the variable
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xs:attribute>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
                 <xs:element type="xs:string" name="Aliases">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Set of aliases that outline how to create alias when loading xpro
+                        </xsd:documentation>
+                    </xsd:annotation>
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="Alias">
                                 <xs:complexType>
                                     <xs:group ref="Value"/>
-                                    <xs:attribute type="xs:string" name="name"/>
+                                    <xs:attribute type="xs:string" name="name">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                The name the alias will have
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xs:attribute>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

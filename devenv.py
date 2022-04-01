@@ -25,7 +25,7 @@ else:
 
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
+XPRO_PATH:      str = SCRIPT_PATH
 
 ## CONSTANTS END ##
 

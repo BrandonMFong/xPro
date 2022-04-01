@@ -16,6 +16,7 @@ import shutil
 RELEASE_ARG:    str = "release"
 DEBUG_ARG:      str = "debug"
 PACK_ARG:       str = "pack"
+BUILD_ARG:      str = "build"
 HELP_ARG:       str = "--help"
 
 # See if we are in debug mode 
@@ -52,19 +53,22 @@ def help():
     ===================
     Prints help menu
     """
-    print("usage: {scriptname} [ {debug} | {release} ] [ {pack} ] [ {help} ]".format(
+    print("usage: {scriptname} [ {debug} | {release} ] [ {build} ] [ {pack} ] [ {help} ]".format(
         scriptname  = SCRIPT_NAME,
         debug       = DEBUG_ARG,
         help        = HELP_ARG,
         release     = RELEASE_ARG,
-        pack        = PACK_ARG
+        pack        = PACK_ARG,
+        build       = BUILD_ARG
     ))
 
     print()
 
-    print("\t{debug}\tBuild debug version".format(debug=DEBUG_ARG))
+    print("\t{debug}\tRuns debug type".format(debug=DEBUG_ARG))
 
-    print("\t{release}\tBuild release version".format(release=RELEASE_ARG))
+    print("\t{release}\tRuns release type".format(release=RELEASE_ARG))
+
+    print("\t{build}\tBuilds the xp binary for either release or debug, depending on the specified.  Default is release".format(build=BUILD_ARG))
 
     print("\t{pack}\tPacks build and other deliverables".format(pack=PACK_ARG))
 
@@ -95,11 +99,8 @@ def build():
         elif RELEASE_ARG in sys.argv:
             buildTypeString = "Release"
         else:
-            print("No option provided")
-            print("Please see '{} {}' for help".format(
-                SCRIPT_NAME, HELP_ARG
-            ))
-            result = 1
+            # defaulting to release
+            buildTypeString = "Release"
 
     # Make sure we have the path to build
     if result == 0:
@@ -162,12 +163,22 @@ def build():
 
 def main():
     status: int = 0
+    building: bool = True
+    packing: bool = True
 
     if HELP_ARG in sys.argv:
         help()
-    else:
+    else:       
+        # Read the arguments
+
+        # If the user specified packaging but did not say we need
+        # build, then we will not build
+        if PACK_ARG in sys.argv and BUILD_ARG not in sys.argv:
+            building = False 
+
         if status == 0:
-            status = build()
+            if building:
+                status = build()
 
     sys.exit(status)
 

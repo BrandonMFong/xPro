@@ -10,6 +10,7 @@ import os
 import subprocess
 import shutil
 import pdb
+import subprocess
 
 ## CONSTANTS START ##
 
@@ -44,6 +45,9 @@ XPRO_PATH:      str = SCRIPT_PATH
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 DEVENV_SCRIPT:  str = "devenv.py"
 PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
+
+# Default version string
+DEFAULT_VERSION: str = "1.0"
 
 ## CONSTANTS END ##
 
@@ -223,6 +227,35 @@ def createCopySet(destination: str):
 
     return result, error
 
+def getVersionString():
+    """
+    getVersionString
+    ==============
+    Gets the version string from the git repo
+
+    The default version string will be 1.0
+    """
+    result: str = ""
+    
+    process = subprocess.run(
+        ['git', 'tag', '-l', '--sort=-creatordate', '|', 'head', '-n', '1'], 
+        stdout=subprocess.PIPE, 
+        text=True
+    )
+
+    if process.returncode == 0:
+        result = process.stdout
+    else:
+        print(
+            "Error getting version, {code}.  Defaulting to {version}", 
+            process.returncode, 
+            DEFAULT_VERSION
+        )
+
+        reuslt = DEFAULT_VERSION        
+
+    return result
+
 def pack():
     """
     pack
@@ -231,6 +264,8 @@ def pack():
     result: int = 0
     tmpPackagePath: str = os.path.join(PACKAGES_PATH, "tmp")
     copySet: list = list() 
+    versionString: str = ""
+    currDir: str = os.curdir
 
     # Create the packages directory if it already wasn't built
     if result == 0:
@@ -240,6 +275,8 @@ def pack():
             if os.path.exists(PACKAGES_PATH) is False:
                 result = 1
                 print("Could not create package directory")
+            else:
+                os.chdir(PACKAGES_PATH)
 
     # Create the direcory we are going to put all the release 
     # files into
@@ -251,9 +288,11 @@ def pack():
                 result = 1
                 print("Could not create package directory")
 
+    # Create the copy tasks
     if result == 0:
         copySet, result = createCopySet(tmpPackagePath)
 
+    # Copy all the files
     if result == 0:
         print("Packing:")
         for command in copySet:
@@ -267,6 +306,20 @@ def pack():
                 result = 1
                 print("Unexpected amount of arguments")
                 break  
+
+    # Gets the git version
+    if result == 0:
+        versionString = getVersionString() 
+
+    # Create the zip archive
+        print("Archiving:")
+        shutil.make_archive(
+            "xPro-{version}".format(version=versionString), 
+            "zip", 
+            tmpPackagePath
+        )
+
+    os.chdir(currDir)
 
     return result 
 

@@ -236,23 +236,32 @@ def getVersionString():
     The default version string will be 1.0
     """
     result: str = ""
+    error: int = 0
+    output: list
     
-    process = subprocess.run(
-        ['git', 'tag', '-l', '--sort=-creatordate', '|', 'head', '-n', '1'], 
-        stdout=subprocess.PIPE, 
-        text=True
-    )
-
-    if process.returncode == 0:
-        result = process.stdout
-    else:
-        print(
-            "Error getting version, {code}.  Defaulting to {version}", 
-            process.returncode, 
-            DEFAULT_VERSION
+    if error == 0:
+        process = subprocess.run(
+            ['git', 'tag', '-l', '--sort=-creatordate'], 
+            stdout=subprocess.PIPE, 
+            text=True
         )
 
-        reuslt = DEFAULT_VERSION        
+        if process.returncode != 0:
+            print(
+                "Error getting version, {code}.  Defaulting to {version}", 
+                process.returncode, 
+                DEFAULT_VERSION
+            )
+
+            result = DEFAULT_VERSION  
+        else:
+            output = process.stdout
+
+            if len(output) == 0:
+                result = DEFAULT_VERSION  
+                print("No values were returned, will default to:", DEFAULT_VERSION)
+            else:
+                result = output.split('\n')[0]
 
     return result
 
@@ -266,6 +275,7 @@ def pack():
     copySet: list = list() 
     versionString: str = ""
     currDir: str = os.curdir
+    outPath: str = ""
 
     # Create the packages directory if it already wasn't built
     if result == 0:
@@ -311,10 +321,15 @@ def pack():
     if result == 0:
         versionString = getVersionString() 
 
-    # Create the zip archive
+        outPath = os.path.join(
+            PACKAGES_PATH, 
+            "xPro-{version}".format(version=versionString)
+        )
+
+        # Create the zip archive
         print("Archiving:")
         shutil.make_archive(
-            "xPro-{version}".format(version=versionString), 
+            outPath, 
             "zip", 
             tmpPackagePath
         )

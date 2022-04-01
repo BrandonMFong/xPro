@@ -31,3 +31,6 @@ debug-xp
 
 # Test file for unit tests
 test.xml
+
+# Release packages
+packages

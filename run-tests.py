@@ -36,7 +36,7 @@ else:
 BUILD_FOLDER:   str = "Tests ({})".format(platformName)
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_PATH:      str = os.path.dirname(SCRIPT_PATH)
+XPRO_PATH:      str = SCRIPT_PATH
 BUILD_PATH:     str = os.path.join(XPRO_PATH, "src", "xpro-cli", BUILD_FOLDER)
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 DEVENV_SCRIPT:  str = "devenv.py"

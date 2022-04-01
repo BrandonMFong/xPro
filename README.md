@@ -1,15 +1,14 @@
 # xPro 
 
 ## Building
-
-### Steps to build on command line
-- `sudo devenv.py create`
+- Setup your development environment:
+    - Unix/Linux: `sudo devenv.py create`
+    - Windows: 
+        - Run as administrator: `devenv.py create`
 - `build.py`
 
 ## Testing
-
-### Steps to build on command line
-- `scripts/run-tests.py`
+- `run-tests.py`
 
 ## Authors 
 - Brando

@@ -161,6 +161,11 @@ def build():
 
     return result
 
+def pack():
+    result: int = 0
+
+    return result 
+
 def main():
     status: int = 0
     building: bool = True
@@ -176,9 +181,15 @@ def main():
         if PACK_ARG in sys.argv and BUILD_ARG not in sys.argv:
             building = False 
 
-        if status == 0:
-            if building:
-                status = build()
+        # Same thing as above
+        if BUILD_ARG in sys.argv and PACK_ARG not in sys.argv:
+            packing = False 
+
+        if status == 0 and building:
+            status = build()
+
+        if status == 0 and packing:
+            status = pack()
 
     sys.exit(status)
 

@@ -275,6 +275,8 @@ def pack():
     versionString: str = ""
     currDir: str = os.curdir
     outPath: str = ""
+    archiveName: str = ""
+    archiveDestination: str = ""
 
     # Create the packages directory if it already wasn't built
     if result == 0:
@@ -305,9 +307,26 @@ def pack():
             result = 1
             print("Could not create package directory")
 
+    # Create sub directory that I want users to see when unarchiving
+    if result == 0:
+        # Gets the git version
+        versionString = getVersionString() 
+
+        # Create the name of the archive
+        archiveName =  "xPro-{version}".format(
+            version = versionString
+        )
+
+        archiveDestination = os.path.join(tmpPackagePath, archiveName)
+        os.mkdir(archiveDestination)
+
+        if os.path.exists(archiveDestination) is False:
+            result = 1
+            print("Could not create package directory")
+
     # Create the copy tasks
     if result == 0:
-        copySet, result = createCopySet(tmpPackagePath)
+        copySet, result = createCopySet(archiveDestination)
 
     # Copy all the files
     if result == 0:
@@ -326,14 +345,10 @@ def pack():
 
     # Create final product path
     if result == 0:
-        # Gets the git version
-        versionString = getVersionString() 
-
-        # Output path to archive
         outPath = os.path.join(
             PACKAGES_PATH, 
-            "xPro-{version}.{type}".format(
-                version = versionString,
+            "{base}.{type}".format(
+                base    = archiveName,
                 type    = ARCHIVE_TYPE
             )
         )

@@ -50,12 +50,11 @@ XPRO_DIR_NAME:          str = ".xpro"
 XPRO_SHELL_REL_PATH:    str = os.path.join(XPRO_DIR_NAME, XPRO_PROFILE_NAME)
 SCRIPT_NAME:            str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:            str = os.path.realpath(os.path.dirname(sys.argv[0]))
-XPRO_PATH:              str = os.path.dirname(SCRIPT_PATH)
-XPRO_BIN_PATH:          str = os.path.join(XPRO_PATH, "bin")
+XPRO_BIN_PATH:          str = os.path.dirname(SCRIPT_PATH)
 HOME_DIR:               str = os.path.expanduser("~")
 XPRO_HOME_PATH:         str = os.path.join(HOME_DIR, XPRO_DIR_NAME)
-PROJ_PROFILE_PATH:      str = os.path.join(XPRO_PATH, "package", XPRO_PROFILE_NAME)
-UTIL_PATH:              str = os.path.join(XPRO_PATH, "package", UTIL_NAME)
+PROJ_PROFILE_PATH:      str = os.path.join(SCRIPT_PATH, XPRO_PROFILE_NAME)
+UTIL_PATH:              str = os.path.join(SCRIPT_PATH, UTIL_NAME)
 
 # Determining the path to shell profile
 if sys.platform == "win32":
@@ -129,6 +128,8 @@ def checkDependencies() -> int:
     checkDependencies
     ================
     Before we attempt to setup the environment, we need to make sure we have everything
+
+    This function will set the copySet
     """
     global      copySet
     result:     int = 0
@@ -237,12 +238,12 @@ def install() -> int:
     """
     result: int = 0
     
-    os.chdir(XPRO_PATH)
+    os.chdir(XPRO_BIN_PATH)
     path = os.getcwd()
 
-    if path != XPRO_PATH:
+    if path != XPRO_BIN_PATH:
         result = 1
-        print("Current path is not {}.  Unexpected behavior".format(XPRO_PATH))
+        print("Current path is not {}.  Unexpected behavior".format(XPRO_BIN_PATH))
 
     if result == 0:
         result = checkDependencies()

@@ -43,6 +43,7 @@ SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = SCRIPT_PATH
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
+DOCS_PATH:      str = os.path.join(XPRO_PATH, "docs")
 DEVENV_SCRIPT:  str = "devenv.py"
 PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
 ARCHIVE_TYPE:   str = "zip" # 'zip', 'tar', 'gztar', 'bztar', or 'xztar'
@@ -186,11 +187,11 @@ def createCopySet(destination: str):
     ------------------
     [[source0, destination], [source1, destination], ...]
     """
-    result: list = list()
-    error: int = 0
-    tempPath: str = ""
-    tempDest: str = ""
-    buildName: str = XP_BUILD
+    result:     list    = list()
+    error:      int     = 0
+    tempPath:   str     = ""
+    tempDest:   str     = ""
+    buildName:  str     = XP_BUILD
 
     # Scripts
     if error == 0:
@@ -211,6 +212,15 @@ def createCopySet(destination: str):
             result = 1
         else:
             result.append([tempPath, tempDest])
+
+    # Readme
+    if error == 0:
+        tempPath = os.path.join(DOCS_PATH, "README.md")
+        if os.path.exists(tempPath) is False:
+            print("{} does not exist!".format(tempPath))
+            result = 1
+        else:
+            result.append([tempPath, destination])
 
     # Binary
     if error == 0:

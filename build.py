@@ -45,6 +45,7 @@ XPRO_PATH:      str = SCRIPT_PATH
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 DEVENV_SCRIPT:  str = "devenv.py"
 PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
+ARCHIVE_TYPE:   str = "zip" # 'zip', 'tar', 'gztar', 'bztar', or 'xztar'
 
 # Default version string
 DEFAULT_VERSION: str = "1.0"
@@ -236,32 +237,30 @@ def getVersionString():
     The default version string will be 1.0
     """
     result: str = ""
-    error: int = 0
     output: list
     
-    if error == 0:
-        process = subprocess.run(
-            ['git', 'tag', '-l', '--sort=-creatordate'], 
-            stdout=subprocess.PIPE, 
-            text=True
+    process = subprocess.run(
+        ['git', 'tag', '-l', '--sort=-creatordate'], 
+        stdout=subprocess.PIPE, 
+        text=True
+    )
+
+    if process.returncode != 0:
+        print(
+            "Error getting version, {code}.  Defaulting to {version}", 
+            process.returncode, 
+            DEFAULT_VERSION
         )
 
-        if process.returncode != 0:
-            print(
-                "Error getting version, {code}.  Defaulting to {version}", 
-                process.returncode, 
-                DEFAULT_VERSION
-            )
+        result = DEFAULT_VERSION  
+    else:
+        output = process.stdout
 
+        if len(output) == 0:
             result = DEFAULT_VERSION  
+            print("No values were returned, will default to:", DEFAULT_VERSION)
         else:
-            output = process.stdout
-
-            if len(output) == 0:
-                result = DEFAULT_VERSION  
-                print("No values were returned, will default to:", DEFAULT_VERSION)
-            else:
-                result = output.split('\n')[0]
+            result = output.split('\n')[0]
 
     return result
 
@@ -288,15 +287,23 @@ def pack():
             else:
                 os.chdir(PACKAGES_PATH)
 
+    # Make sure the tmp directory does not already exist
+    if result == 0:
+        if os.path.exists(tmpPackagePath):
+            shutil.rmtree(tmpPackagePath)
+
+            if os.path.exists(tmpPackagePath):
+                result = 1
+                print("Could not remove tmp package directory")
+
     # Create the direcory we are going to put all the release 
     # files into
     if result == 0:
-        if os.path.exists(tmpPackagePath) is False:
-            os.mkdir(tmpPackagePath)
+        os.mkdir(tmpPackagePath)
 
-            if os.path.exists(tmpPackagePath) is False:
-                result = 1
-                print("Could not create package directory")
+        if os.path.exists(tmpPackagePath) is False:
+            result = 1
+            print("Could not create package directory")
 
     # Create the copy tasks
     if result == 0:
@@ -317,22 +324,46 @@ def pack():
                 print("Unexpected amount of arguments")
                 break  
 
-    # Gets the git version
+    # Create final product path
     if result == 0:
+        # Gets the git version
         versionString = getVersionString() 
 
+        # Output path to archive
         outPath = os.path.join(
             PACKAGES_PATH, 
-            "xPro-{version}".format(version=versionString)
+            "xPro-{version}.{type}".format(
+                version = versionString,
+                type    = ARCHIVE_TYPE
+            )
         )
 
+        # Removing old archive
+        if os.path.exists(outPath):
+            print("Removing old package archive:", outPath)
+            os.remove(outPath)
+
+            if os.path.exists(outPath):
+                result = 1
+
+    if result == 0:
         # Create the zip archive
-        print("Archiving:")
         shutil.make_archive(
-            outPath, 
-            "zip", 
+            os.path.splitext(outPath)[0], 
+            ARCHIVE_TYPE, 
             tmpPackagePath
         )
+
+        print("Archive:", outPath)
+
+    # Make sure the tmp directory does not already exist
+    if result == 0:
+        if os.path.exists(tmpPackagePath):
+            shutil.rmtree(tmpPackagePath)
+
+            if os.path.exists(tmpPackagePath):
+                result = 1
+                print("Could not remove tmp package directory")
 
     os.chdir(currDir)
 

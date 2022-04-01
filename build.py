@@ -15,6 +15,7 @@ import shutil
 # Arguments
 RELEASE_ARG:    str = "release"
 DEBUG_ARG:      str = "debug"
+PACK_ARG:       str = "pack"
 HELP_ARG:       str = "--help"
 
 # See if we are in debug mode 
@@ -51,11 +52,12 @@ def help():
     ===================
     Prints help menu
     """
-    print("usage: {scriptname} [ {debug} | {release} ] [ {help} ]".format(
+    print("usage: {scriptname} [ {debug} | {release} ] [ {pack} ] [ {help} ]".format(
         scriptname  = SCRIPT_NAME,
         debug       = DEBUG_ARG,
         help        = HELP_ARG,
-        release     = RELEASE_ARG
+        release     = RELEASE_ARG,
+        pack        = PACK_ARG
     ))
 
     print()
@@ -63,6 +65,8 @@ def help():
     print("\t{debug}\tBuild debug version".format(debug=DEBUG_ARG))
 
     print("\t{release}\tBuild release version".format(release=RELEASE_ARG))
+
+    print("\t{pack}\tPacks build and other deliverables".format(pack=PACK_ARG))
 
     print()
     

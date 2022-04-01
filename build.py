@@ -9,6 +9,7 @@ import sys
 import os 
 import subprocess
 import shutil
+import pdb
 
 ## CONSTANTS START ##
 
@@ -42,6 +43,7 @@ SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = SCRIPT_PATH
 BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
 DEVENV_SCRIPT:  str = "devenv.py"
+PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
 
 ## CONSTANTS END ##
 
@@ -80,6 +82,10 @@ def help():
     ))
 
 def build():
+    """
+    build
+    ==================
+    """
     result:             int = 0
     currDir:            str = os.curdir
     buildTypeString:    str = ""
@@ -161,8 +167,99 @@ def build():
 
     return result
 
+def createCopySet(destination: str):
+    """
+    createCopySet
+    ====================
+    Creates an array of copy tasks we will be doing 
+
+    Parameters
+    ------------------
+    destination: The path we will be copying everything to
+
+    Return
+    ------------------
+    [[source0, destination], [source1, destination], ...]
+    """
+    result: list = list()
+    error: int = 0
+    tempPath: str = ""
+    buildName: str = XP_BUILD
+
+    # Scripts
+    if error == 0:
+        tempPath = os.path.join(XPRO_PATH, "scripts")
+        if os.path.exists(tempPath) is False:
+            print("{} does not exist!".format(tempPath))
+            result = 1
+        else:
+            result.append([tempPath, destination])
+
+    # Schemas
+    if error == 0:
+        tempPath = os.path.join(XPRO_PATH, "schema")
+        if os.path.exists(tempPath) is False:
+            print("{} does not exist!".format(tempPath))
+            result = 1
+        else:
+            result.append([tempPath, destination])
+
+    # Binary
+    if error == 0:
+        if DEBUG_ARG in sys.argv:
+            buildName = "debug-{}".format(buildName)
+
+        tempPath = os.path.join(XPRO_PATH, "bin", buildName)
+
+        if os.path.exists(tempPath) is False:
+            print("{} does not exist!".format(tempPath))
+            result = 1
+        else:
+            result.append([tempPath, destination])
+
+    return result, error
+
 def pack():
+    """
+    pack
+    ==================
+    """
     result: int = 0
+    tmpPackagePath: str = os.path.join(PACKAGES_PATH, "tmp")
+    copySet: list = list() 
+
+    # Create the packages directory if it already wasn't built
+    if result == 0:
+        if os.path.exists(PACKAGES_PATH) is False:
+            os.mkdir(PACKAGES_PATH)
+
+            if os.path.exists(PACKAGES_PATH) is False:
+                result = 1
+                print("Could not create package directory")
+
+    # Create the direcory we are going to put all the release 
+    # files into
+    if result == 0:
+        if os.path.exists(tmpPackagePath) is False:
+            os.mkdir(tmpPackagePath)
+
+            if os.path.exists(tmpPackagePath) is False:
+                result = 1
+                print("Could not create package directory")
+
+    if result == 0:
+        copySet, result = createCopySet(tmpPackagePath)
+
+    if result == 0:
+        print("Packing:")
+        for command in copySet:
+            if len(command) == 2:
+                print("  - {}".format(os.path.basename(command[0])))
+                # shutil.copy(command[0], command[1])
+            else:
+                result = 1
+                print("Unexpected amount of arguments")
+                break  
 
     return result 
 

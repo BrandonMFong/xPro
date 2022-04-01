@@ -19,6 +19,16 @@
 					"\t\t\t<Value username=\"\"></Value>\n"\
 				"\t\t</Directory>\n"\
 		"\t</Directories>\n"\
+		"\t<Objects>\n"\
+				"\t\t<Object key=\"\">\n"\
+					"\t\t\t<Value username=\"\"></Value>\n"\
+				"\t\t</Object>\n"\
+		"\t</Objects>\n"\
+		"\t<Aliases>\n"\
+				"\t\t<Alias key=\"\">\n"\
+					"\t\t\t<Value username=\"\"></Value>\n"\
+				"\t\t</Alias>\n"\
+		"\t</Aliases>\n"\
 	"</xPro>\n"
 
 #define ENV_CONFIG_TEMPLATE \

@@ -6,5 +6,9 @@ endif
 
 VERSION_STRING := "\"$(shell git tag -l --sort=-creatordate | head -n 1)\""
 
-BUILD_HASH := "\"$(shell git rev-parse HEAD)\""
+ifeq ($(OS), Windows_NT)
+BUILD_HASH := "\"$(shell uuidgen | shasum | head -c 40; echo;)\""
+else
+BUILD_HASH := "\"$(shell uuidgen | shasum | head -c 40; echo;)\""
+endif
  

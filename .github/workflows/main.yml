@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xPro-Release
+          name: xPro-Release-Linux
           path: packages/
       
       - name: Cleaning up build environment
@@ -64,7 +64,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xPro-Release
+          name: xPro-Release-MacOS
           path: packages/
       
       - name: Cleaning up build environment
@@ -91,7 +91,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xPro-Release
+          name: xPro-Release-Windows
           path: packages/
       
       - name: Cleaning up build environment

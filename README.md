@@ -1,3 +1,5 @@
+[![Archive](https://github.com/BrandonMFong/xPro/actions/workflows/main.yml/badge.svg)](https://github.com/BrandonMFong/xPro/actions/workflows/main.yml)
+
 # xPro 
 
 ## Building

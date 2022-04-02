@@ -1,0 +1,98 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Archive
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the dev branch
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # Linux Build 
+  Build-Linux:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Getting all tags
+        run: git fetch --all --tags
+
+      - name: Create build environment
+        run: sudo ./devenv.py create
+
+      - name: Build
+        run: ./build.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xPro-Release-Linux
+          path: packages/
+      
+      - name: Cleaning up build environment
+        run: sudo ./devenv.py remove
+
+  # Macos
+  Build-MacOS:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Getting all tags
+        run: git fetch --all --tags
+
+      - name: Create build environment
+        run: sudo ./devenv.py create
+
+      - name: Build
+        run: ./build.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xPro-Release-MacOS
+          path: packages/
+      
+      - name: Cleaning up build environment
+        run: sudo ./devenv.py remove
+
+  # Windows
+  Build-Windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Getting all tags
+        run: git fetch --all --tags
+
+      - name: Create build environment
+        run: python .\devenv.py create
+
+      - name: Build
+        run: python .\build.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xPro-Release-Windows
+          path: packages/
+      
+      - name: Cleaning up build environment
+        run: python .\devenv.py remove

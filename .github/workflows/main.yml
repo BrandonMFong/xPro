@@ -84,10 +84,10 @@ jobs:
         run: git fetch --all --tags
 
       - name: Create build environment
-        run: ./devenv.py create
+        run: .\devenv.py create
 
       - name: Build
-        run: ./build.py
+        run: .\build.py
 
       - uses: actions/upload-artifact@v3
         with:
@@ -95,4 +95,4 @@ jobs:
           path: packages/
       
       - name: Cleaning up build environment
-        run: ./devenv.py remove
+        run: .\devenv.py remove

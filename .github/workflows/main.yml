@@ -33,3 +33,8 @@ jobs:
         run: |
           sudo ./devenv.py create
           ./build.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xPro
+          path: packages/

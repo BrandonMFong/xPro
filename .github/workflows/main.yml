@@ -28,11 +28,11 @@ jobs:
       - name: Getting all tags
         run: git fetch --all --tags
 
-      # Runs a single command using the runners shell
-      - name: Run Build Script
-        run: |
-          sudo ./devenv.py create
-          ./build.py
+      - name: Create build environment
+        run: sudo ./devenv.py create
+
+      - name: Build
+        run: ./build.py
 
       - uses: actions/upload-artifact@v3
         with:

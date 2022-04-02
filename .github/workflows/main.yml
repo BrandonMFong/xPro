@@ -16,28 +16,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # Linux Test 
-  Test-Linux:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Getting all tags
-        run: git fetch --all --tags
-
-      - name: Create build environment
-        run: sudo ./devenv.py create
-
-      - name: Build
-        run: ./run-tests.py
-      
-      - name: Cleaning up build environment
-        run: sudo ./devenv.py remove
-
   # Linux Build 
   Build-Linux:
     # The type of runner that the job will run on

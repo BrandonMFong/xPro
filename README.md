@@ -6,7 +6,7 @@ XML Profile (xPro) is a project I started to allow me to use an xml file to defi
 
 An additional feature allows the user to define key/value pairs where the values are paths to a directory in the system and using a utility shell function `goto` would `cd` you directly into the keyed value directory. 
 
-Version 5+ supports cross platform usage.  Previous versions (all of which reached end of life) only supports windows platforms using powershell. 
+Version 5+ supports cross platform usage (Linux, MacOS, & Windows).  Previous versions (all of which reached end of life) only supports windows platforms using powershell. 
 
 ## Building
 - Setup your development environment:

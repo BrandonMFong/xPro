@@ -32,3 +32,7 @@ function goto {
         Set-Location $path;
     }
 }
+
+function reload-xpro {
+    ~\.xpro\profile.ps1
+}

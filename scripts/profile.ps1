@@ -3,8 +3,28 @@
     xPro Microsoft Powershell profile
 #>
 
+## VARIABLES START ##
+
 $xproPath = $env:HOMEDRIVE + $env:HOMEPATH + "\.xpro";
-$success = (Test-Path -Path $xproPath);
+$xproBin=$XPRO_PATH + "\xp.exe";
+$success = $true;
+
+## VARIABLES END ##
+
+## FUNCTIONS START ## 
+
+function loadObjects {
+    $result = $true 
+    $objectCount = -1;
+
+    if ($result) {
+        $objectCount=$(& $xproBin obj --count);
+    }
+}
+
+## FUNCTIONS END ## 
+
+## MAIN START ##
 
 Push-Location $xproPath;
 
@@ -28,3 +48,5 @@ if ($success) {
 } else {
     Write-Warning "Failed to load xPro";
 }
+
+## MAIN END ## 

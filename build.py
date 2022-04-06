@@ -42,7 +42,8 @@ else:
 SCRIPT_NAME:    str = os.path.basename(sys.argv[0])
 SCRIPT_PATH:    str = os.path.realpath(os.path.dirname(sys.argv[0]))
 XPRO_PATH:      str = SCRIPT_PATH
-BIN_PATH:       str = os.path.join(XPRO_PATH, "bin")
+BIN_NAME:       str = "bin"
+BIN_PATH:       str = os.path.join(XPRO_PATH, BIN_NAME)
 DOCS_PATH:      str = os.path.join(XPRO_PATH, "docs")
 DEVENV_SCRIPT:  str = "devenv.py"
 PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
@@ -227,14 +228,13 @@ def createCopySet(destination: str):
         if DEBUG_ARG in sys.argv:
             buildName = "debug-{}".format(buildName)
 
-        tempPath = os.path.join(XPRO_PATH, "bin", buildName)
-        tempDest = os.path.join(destination, buildName)
+        tempDest = os.path.join(destination, BIN_NAME)
 
         if os.path.exists(tempPath) is False:
             print("{} does not exist!".format(tempPath))
             result = 1
         else:
-            result.append([tempPath, tempDest])
+            result.append([BIN_PATH, tempDest])
 
     return result, error
 
@@ -251,8 +251,8 @@ def getVersionString():
     
     process = subprocess.run(
         ['git', 'tag', '-l', '--sort=-creatordate'], 
-        stdout=subprocess.PIPE, 
-        text=True
+        stdout  =   subprocess.PIPE, 
+        text    =   True
     )
 
     if process.returncode != 0:
@@ -279,14 +279,14 @@ def pack():
     pack
     ==================
     """
-    result: int = 0
-    tmpPackagePath: str = os.path.join(PACKAGES_PATH, "tmp")
-    copySet: list = list() 
-    versionString: str = ""
-    currDir: str = os.curdir
-    outPath: str = ""
-    archiveName: str = ""
-    archiveDestination: str = ""
+    result:             int     = 0
+    tmpPackagePath:     str     = os.path.join(PACKAGES_PATH, "tmp")
+    copySet:            list    = list() 
+    versionString:      str     = ""
+    currDir:            str     = os.curdir
+    outPath:            str     = ""
+    archiveName:        str     = ""
+    archiveDestination: str     = ""
 
     # Create the packages directory if it already wasn't built
     if result == 0:
@@ -395,9 +395,9 @@ def pack():
     return result 
 
 def main():
-    status: int = 0
-    building: bool = True
-    packing: bool = True
+    status:     int     = 0
+    building:   bool    = True
+    packing:    bool    = True
 
     if HELP_ARG in sys.argv:
         help()

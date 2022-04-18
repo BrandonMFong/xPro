@@ -88,6 +88,16 @@ def help():
         help        = HELP_ARG
     ))
 
+def createBuildHash():
+    """
+    createBuildHash
+    ===============
+    Calculates a random hash and writes the result into a random file that the makefile can get the contents from
+    """
+    result: int = 0
+
+    return result 
+
 def build():
     """
     build
@@ -148,6 +158,12 @@ def build():
             [ "make", "clean" ], 
             stderr = subprocess.STDOUT
         ).wait()
+
+    # Create the build hash that the makefile
+    # will read
+    # TODO: implement 
+    if result == 0:
+        result = createBuildHash() 
         
     # Build all
     if result == 0:

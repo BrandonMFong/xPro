@@ -9,8 +9,10 @@ import sys
 import os 
 import subprocess
 import shutil
-import pdb
 import subprocess
+import hashlib
+import random 
+import pdb
 
 ## CONSTANTS START ##
 
@@ -48,6 +50,7 @@ DOCS_PATH:      str = os.path.join(XPRO_PATH, "docs")
 DEVENV_SCRIPT:  str = "devenv.py"
 PACKAGES_PATH:  str = os.path.join(XPRO_PATH, "packages")
 ARCHIVE_TYPE:   str = "zip" # 'zip', 'tar', 'gztar', 'bztar', or 'xztar'
+HASH_FILE_PATH: str = os.path.join(XPRO_PATH, ".hash")
 
 # Default version string
 DEFAULT_VERSION: str = "1.0"
@@ -87,6 +90,67 @@ def help():
         scriptname  = SCRIPT_NAME,
         help        = HELP_ARG
     ))
+
+def createBuildHash():
+    """
+    createBuildHash
+    ===============
+    Calculates a random hash and writes the result into a random file that the makefile can get the contents from
+    """
+    result: int = 0
+
+    # Create the hash string
+    hashStr: str = hashlib.sha256(
+        str(
+            random.getrandbits(256)
+        ).encode('utf-8')
+    ).hexdigest()[0:40]
+
+    if hashStr == None:
+        print("The hash was None")
+        result = 1
+    elif len(hashStr) == 0:
+        print("Received an empty hash")
+        result = 1
+    
+
+    if result == 0:
+        f = open(HASH_FILE_PATH, "w")
+
+        if f == None: 
+            result = 1
+            print("There was a problem trying to open the hash file to write the build hash, file path: ", HASH_FILE_PATH)
+        else:
+            f.write(hashStr)
+
+            f.close()
+
+            if os.path.exists(HASH_FILE_PATH) is False: 
+                result = 1
+                print("Could not create the hash file at:", HASH_FILE_PATH)
+
+    return result 
+
+def cleanUpBuildHash():
+    """
+    cleanUpBuildHash
+    =================
+
+    Removes the build hash file 
+    """
+    result: int = 0
+
+    if os.path.exists(HASH_FILE_PATH) is False:
+        result = 1
+        print("The build hash file does not exist")
+    else:
+        os.remove(HASH_FILE_PATH)
+
+        if os.path.exists(HASH_FILE_PATH):
+            result = 1 
+            print("The hash file path at {} could not be removed".format(HASH_FILE_PATH))
+
+    return result 
 
 def build():
     """
@@ -148,6 +212,11 @@ def build():
             [ "make", "clean" ], 
             stderr = subprocess.STDOUT
         ).wait()
+
+    # Create the build hash that the makefile
+    # will read
+    if result == 0:
+        result = createBuildHash() 
         
     # Build all
     if result == 0:
@@ -168,6 +237,10 @@ def build():
             result = 1
         else:
             print("Build copy:", path)
+
+    # remove the build hash file 
+    if result == 0:
+        result = cleanUpBuildHash()
 
     # Go back to dir
     os.chdir(currDir)

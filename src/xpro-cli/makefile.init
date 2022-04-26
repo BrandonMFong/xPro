@@ -7,8 +7,8 @@ endif
 VERSION_STRING := "\"$(shell git tag -l --sort=-creatordate | head -n 1)\""
 
 ifeq ($(OS), Windows_NT)
-BUILD_HASH := "\"$(shell uuidgen | shasum | head -c 40; echo;)\""
+BUILD_HASH := "\"$(shell cat C:/Library/xPro/.hash; echo;)\""
 else
-BUILD_HASH := "\"$(shell uuidgen | shasum | head -c 40; echo;)\""
+BUILD_HASH := "\"$(shell cat /Library/xPro/.hash)\""
 endif
  

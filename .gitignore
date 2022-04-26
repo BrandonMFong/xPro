@@ -34,3 +34,6 @@ test.xml
 
 # Release packages
 packages
+
+# Build hash
+.hash

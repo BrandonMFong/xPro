@@ -19,14 +19,38 @@
 #include <xError.h>
 
 /**
+ * Each element must be separate by a forward slash
+ */
+#define ELEMENT_PATH_SEP "/"
+
+/**
+ * Attributes must be denoted after an element path,
+ * followed by a "."
+ */
+#define ATTRIBUTE_PATH_SEP "."
+
+/**
  * Helps parse an xml file
  */
 class xXML {
 xPublic:
 
+	/**
+	 * Saves file path and initializes file stream
+	 */
 	xXML(const char * path, xError * err);
 
 	virtual ~xXML();
+
+	/**
+	 * Returns a value at nodepath
+	 *
+	 * nodePath should be /<value>/<value>/.../<value> and so on
+	 * A <value> can be the name of the node, as well as the attribute
+	 *
+	 * <value>="node.attr(attrvalue)"
+	 */
+	char * getValue(const char * nodePath, xError * err);
 
 xPrivate:
 

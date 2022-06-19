@@ -19,5 +19,19 @@ xXML::xXML(const char * path, xError * err) {
 }
 
 xXML::~xXML() {
+	xFree(this->_path);
+}
 
+char * xXML::getValue(const char * nodePath, xError * err) {
+	char * result = xNull, ** splitString = xNull;;
+	xError error = kNoError;
+	xUInt8 size = 0;
+
+	splitString = xSplitString(nodePath, ELEMENT_PATH_SEP, &size, &error);
+
+	if (err != xNull) {
+		*err = error;
+	}
+
+	return result;
 }

@@ -30,8 +30,15 @@ xPublic:
 
 xPrivate:
 
+	/**
+	 * Holds the path to the xml file
+	 */
 	char * _path;
 
+	/**
+	 * This is the main parser
+	 */
+	rapidxml::xml_document<> _xmldoc;
 };
 
 

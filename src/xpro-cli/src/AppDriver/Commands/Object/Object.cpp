@@ -86,10 +86,11 @@ xError HandleObject(void) {
 xError HandleObjectCount(void) {
 	xError result = kNoError;
 
-	xUInt64 count = xProConfig->countTags(
-		OBJECT_TAG_PATH,
-		&result
-	);
+//	xUInt64 count = xProConfig->countTags( // TODO: fix
+//		OBJECT_TAG_PATH,
+//		&result
+//	);
+	xUInt64 count = 0;
 
 	if(result != kNoError) {
 		count = 0;
@@ -199,20 +200,20 @@ xError HandleObjectIndex(void) {
 	}
 
 	if (result == kNoError) {
-		if (type == valueType) {
-#ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
-#endif
-		} else if (type == nameType) {
-#ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
-#endif
+		if (type == valueType) { // TODO: fix
+//#ifndef TESTING
+//			xmlValue = xProConfig->getValue(
+//				tagPath,
+//				&result
+//			);
+//#endif
+		} else if (type == nameType) { // TODO: fix
+//#ifndef TESTING
+//			xmlValue = xProConfig->getValue(
+//				tagPath,
+//				&result
+//			);
+//#endif
 		} else {
 			// This should have been checked earlier but
 			// will throw error either way

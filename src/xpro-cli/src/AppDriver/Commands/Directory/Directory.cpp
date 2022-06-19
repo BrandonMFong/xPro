@@ -112,7 +112,7 @@ xError PrintDirectoryForKey(const char * key) {
 
 	// See if user has specified a default path with __ALL__
 	if (result == kNoError) {
-		directory = xProConfig->getValue(elementPath, &result);
+//		directory = xProConfig->getValue(elementPath, &result); // TODO: fix
 
 		if (result != kNoError) {
 			DLog("Directory is NULL\n");
@@ -150,7 +150,7 @@ xError PrintDirectoryForKey(const char * key) {
 
 	// Get value for user
 	if (result == kNoError) {
-		directory = xProConfig->getValue(elementPath, &result);
+//		directory = xProConfig->getValue(elementPath, &result); // TODO: fix
 
 		if (result != kNoError) {
 			DLog("Directory is NULL\n");

@@ -7,7 +7,6 @@
 
 #include "AppDriver.hpp"
 #include <AppDriver/Commands/Commands.h>
-#include <Utilities/Utilities.h>
 
 AppDriver * globalAppDriver = xNull;
 

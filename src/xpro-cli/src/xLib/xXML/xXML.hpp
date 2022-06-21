@@ -17,6 +17,7 @@
 #include "RapidXml/rapidxml.hpp"
 #include <xClassDec.h>
 #include <xError.h>
+#include <iosfwd>
 
 /**
  * Each element must be separate by a forward slash
@@ -43,12 +44,21 @@ xPublic:
 	virtual ~xXML();
 
 	/**
-	 * Returns a value at nodepath
+	 * Returns value from element path
 	 *
-	 * nodePath should be /<value>/<value>/.../<value> and so on
-	 * A <value> can be the name of the node, as well as the attribute
-	 *
-	 * <value>="node.attr(attrvalue)"
+	 * elementPath syntax
+	 * --------------------
+	 * 	- 	Separate each element should be separated by forward slashes.  The
+	 * 		first node needs to follow after one forward slash.
+	 * 		- 	Example: /Root/Path/To/Element
+	 * 		- 	The return value is the innerXml value.  That can be the
+	 * 			element value or more xml
+	 *	- 	When you want an attribute, follow the element path with a
+	 *		'.' and the attribute name
+	 *		- 	Example /Root/Path/To/Element.Attribute
+	 *	- 	To get an inner xml from a specific attribute, enclose the attribute
+	 *		inside parenthesis
+	 *		- 	Example /Root/Path/To/Element.Attribute(value)
 	 */
 	char * getValue(const char * nodePath, xError * err);
 
@@ -63,6 +73,11 @@ xPrivate:
 	 * This is the main parser
 	 */
 	rapidxml::xml_document<> _xmldoc;
+
+	/**
+	 * Holds the file stream for the file pointed by _path
+	 */
+	std::ifstream * _xmlStream;
 };
 
 

@@ -8,6 +8,7 @@
 #include <xXML/xXML.hpp>
 #include <xUtilities/xUtilities.h>
 #include <fstream>
+#include <sstream>
 
 xXML::xXML(const char * path, xError * err) {
 	xError error = kNoError;
@@ -19,10 +20,6 @@ xXML::xXML(const char * path, xError * err) {
 		error = this->_xmlStream != xNull ? kFileError : kNoError;
 	}
 
-	if (error == kNoError) {
-
-	}
-
 	if (err != xNull) {
 		*err = error;
 	}
@@ -30,6 +27,8 @@ xXML::xXML(const char * path, xError * err) {
 
 xXML::~xXML() {
 	xFree(this->_path);
+
+	this->_xmlStream->close();
 	xDelete(this->_xmlStream);
 }
 
@@ -40,11 +39,18 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 	splitString = xSplitString(nodePath, ELEMENT_PATH_SEP, &size, &error);
 
-	xUInt8 i = 0;
-	while ((i < size) & (error == kNoError)) {
+	if (error == kNoError) {
+		std::stringstream buffer;
+		buffer << this->_xmlStream->rdbuf();
+		std::string content = buffer.str();
+		this->_xmldoc.parse<0>(&content[0]);
+
+		xUInt8 i = 0;
+		while ((i < size) & (error == kNoError)) {
 
 
-		i++;
+			i++;
+		}
 	}
 
 	if (err != xNull) {

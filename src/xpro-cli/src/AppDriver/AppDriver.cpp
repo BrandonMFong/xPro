@@ -114,10 +114,10 @@ xError AppDriver::setup() {
 
 		// Get active user name
 		if (result == kNoError) {
-//			this->_userInfo.username = envConfig->getValue( // TODO: fix
-//				USERNAME_XML_PATH,
-//				&result
-//			);
+			this->_userInfo.username = envConfig->getValue(
+				USERNAME_XML_PATH,
+				&result
+			);
 
 			if (result != kNoError) {
 				DLog("Could not find path: %s", USERNAME_XML_PATH);

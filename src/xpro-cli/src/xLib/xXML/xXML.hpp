@@ -18,6 +18,7 @@
 #include <xClassDec.h>
 #include <xError.h>
 #include <iosfwd>
+#include <string>
 
 /**
  * Each element must be separate by a forward slash
@@ -78,6 +79,8 @@ xPrivate:
 	 * Holds the file stream for the file pointed by _path
 	 */
 	std::ifstream * _xmlStream;
+
+	std::string _buffer;
 };
 
 

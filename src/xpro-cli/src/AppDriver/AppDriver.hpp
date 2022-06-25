@@ -24,12 +24,12 @@
 /**
  * Path to user's user name in ENV_CONFIG_NAME
  */
-#define USERNAME_XML_PATH "/xPro/Users/User.active(true)/username"
+#define USERNAME_XML_PATH "xPro/Users/User.active(true)/username"
 
 /**
  * Path to user's config path in ENV_CONFIG_NAME
  */
-#define USERCONFIGPATH_XML_PATH "/xPro/Users/User.active(true)/ConfigPath"
+#define USERCONFIGPATH_XML_PATH "xPro/Users/User.active(true)/ConfigPath"
 
 /**
  * Default name for a user config file

@@ -66,6 +66,11 @@ xPublic:
 xPrivate:
 
 	/**
+	 * Caller owns key and value memory
+	 */
+	static xError getAttrKeyValue(const char * attrString, char ** key, char ** value);
+
+	/**
 	 * Holds the path to the xml file
 	 */
 	char * _path;
@@ -80,6 +85,9 @@ xPrivate:
 	 */
 	std::ifstream * _xmlStream;
 
+	/**
+	 * Keeps a record of the xml file content
+	 */
 	std::string _buffer;
 };
 

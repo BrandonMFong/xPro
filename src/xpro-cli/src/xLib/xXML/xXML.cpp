@@ -47,9 +47,10 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			* tempString = xNull,
 			* tempNodeString = xNull,
 			* key = xNull,
-			* value = xNull;
+			* value = xNull,
+			** tempSplitString = xNull;
 	xError error = kNoError;
-	xUInt8 size = 0, i = 0;
+	xUInt8 size = 0, i = 0, splitSize = 0;
 	xml_node<> * node = xNull;
 	xBool done = xFalse;
 
@@ -63,6 +64,8 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 	while ((i < size) && (error == kNoError) && !done) {
 		xBool hasAttr = xFalse;
+		splitSize = 0;
+		tempSplitString = xNull;
 		tempString = splitString[i];
 		error = tempString != xNull ? kNoError : kStringError;
 
@@ -73,9 +76,21 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			}
 		}
 
-		// If there is an attribute, then get the key and value
-		if (hasAttr && (error == kNoError)) {
-			error = xXML::getAttrKeyValue(tempString, &key, &value);
+		if (hasAttr) {
+			if (error == kNoError) {
+				tempSplitString = xSplitString(tempString, ".", &splitSize, &error);
+			}
+
+			// If there is an attribute, then get the key and value
+			if (error == kNoError) {
+				error = xXML::getAttrKeyValue(tempString, &key, &value);
+			}
+
+			// just giving tempString a ref.  We will delete that memory in
+			// the for loop at the end of this while loop
+			if (error == kNoError) {
+				tempString = tempSplitString[0];
+			}
 		}
 
 		if (error == kNoError) {
@@ -98,6 +113,9 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 		xFree(key);
 		xFree(value);
+
+		for (int i = 0; i < splitSize; i++) xFree(tempSplitString);
+		xFree(tempSplitString);
 	}
 
 	for (xUInt8 i = 0; i < size; i++) xFree(splitString[i]);

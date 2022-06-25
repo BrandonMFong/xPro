@@ -46,9 +46,10 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			** splitString = xNull,
 			* tempString = xNull,
 			* tempNodeString = xNull,
-			* key = xNull,
-			* value = xNull,
-			** tempSplitString = xNull;
+			* attrKey = xNull,
+			* attrValue = xNull,
+			** tempSplitString = xNull,
+			* tempAttrString = xNull;
 	xError error = kNoError;
 	xUInt8 size = 0, i = 0, splitSize = 0;
 	xml_node<> * node = xNull;
@@ -83,7 +84,7 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 			// If there is an attribute, then get the key and value
 			if (error == kNoError) {
-				error = xXML::getAttrKeyValue(tempString, &key, &value);
+				error = xXML::getAttrKeyValue(tempString, &attrKey, &attrValue);
 			}
 
 			// just giving tempString a ref.  We will delete that memory in
@@ -99,6 +100,10 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			// If we found the node, then lets go to then next string in our path and
 			// the next node
 			if (!strcmp(tempNodeString, tempString)) {
+				if (attrKey != xNull) {
+
+				}
+
 				i++;
 
 				node = node->first_node();
@@ -111,8 +116,8 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			}
 		}
 
-		xFree(key);
-		xFree(value);
+		xFree(attrValue);
+		xFree(attrKey);
 
 		for (int i = 0; i < splitSize; i++) xFree(tempSplitString);
 		xFree(tempSplitString);
@@ -127,7 +132,6 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 	return result;
 }
-
 
 xError xXML::getAttrKeyValue(const char * attrString, char ** key, char ** value) {
 	xError result = kNoError;

@@ -17,7 +17,7 @@ xXML::xXML(const char * path, xError * err) {
 
 	if (error == kNoError) {
 		this->_xmlStream = new std::ifstream(this->_path);
-		error = this->_xmlStream != xNull ? kFileError : kNoError;
+		error = this->_xmlStream != xNull ? kNoError : kFileError;
 	}
 
 	if (err != xNull) {

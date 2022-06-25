@@ -66,9 +66,9 @@ xPublic:
 xPrivate:
 
 	/**
-	 * Caller owns key and value memory
+	 * Parses: <nodeString>.<attrKey>(<attrValue>)
 	 */
-	static xError getAttrKeyValue(const char * attrString, char ** key, char ** value);
+	static xError parseNodePathForPathAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** attrKey, char ** attrValue);
 
 	/**
 	 * Holds the path to the xml file

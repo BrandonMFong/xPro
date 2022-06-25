@@ -47,11 +47,9 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			* tempString = xNull,
 			* tempNodeString = xNull,
 			* attrKey = xNull,
-			* attrValue = xNull,
-			** tempSplitString = xNull,
-			* tempAttrString = xNull;
+			* attrValue = xNull;
 	xError error = kNoError;
-	xUInt8 size = 0, i = 0, splitSize = 0;
+	xUInt8 size = 0, i = 0;
 	xml_node<> * node = xNull;
 	xBool done = xFalse;
 
@@ -65,8 +63,6 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 	while ((i < size) && (error == kNoError) && !done) {
 		xBool hasAttr = xFalse;
-		splitSize = 0;
-		tempSplitString = xNull;
 		tempString = splitString[i];
 		error = tempString != xNull ? kNoError : kStringError;
 
@@ -77,21 +73,12 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			}
 		}
 
-		if (hasAttr) {
-			if (error == kNoError) {
-				tempSplitString = xSplitString(tempString, ".", &splitSize, &error);
-			}
-
-			// If there is an attribute, then get the key and value
-			if (error == kNoError) {
-				error = xXML::getAttrKeyValue(tempString, &attrKey, &attrValue);
-			}
-
-			// just giving tempString a ref.  We will delete that memory in
-			// the for loop at the end of this while loop
-			if (error == kNoError) {
-				tempString = tempSplitString[0];
-			}
+		// If there is an attribute, then get the key and value
+		if (hasAttr && (error == kNoError)) {
+			char buf[1024];
+			memset(&buf[0], 0, 1024);
+			strcpy(buf, tempString);
+			error = xXML::parseNodePathForPathAndAttrKeyValue(buf, &tempString, &attrKey, &attrValue);
 		}
 
 		if (error == kNoError) {
@@ -118,9 +105,6 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 		xFree(attrValue);
 		xFree(attrKey);
-
-		for (int i = 0; i < splitSize; i++) xFree(tempSplitString);
-		xFree(tempSplitString);
 	}
 
 	for (xUInt8 i = 0; i < size; i++) xFree(splitString[i]);
@@ -133,26 +117,30 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 	return result;
 }
 
-xError xXML::getAttrKeyValue(const char * attrString, char ** key, char ** value) {
+xError xXML::parseNodePathForPathAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** key, char ** value) {
 	xError result = kNoError;
 	char ** splitString = xNull, * tempString = xNull;
 	xUInt8 splitSize;
 	xBool hasAttrValue = xFalse;
 
 	// make sure output outlet is not null
-	if ((key == xNull) || (value == xNull)) {
+	if ((key == xNull) || (value == xNull) || (nodeString == xNull)) {
 		result = kXMLError;
 	}
 
 	// If we are here, then we know "." is somewhere in this path.  Let's
 	// locate it and split the string at that position
 	if (result == kNoError) {
-		splitString = xSplitString(attrString, ".", &splitSize, &result);
+		splitString = xSplitString(nodePathString, ".", &splitSize, &result);
 	}
 
 	// make sure the split size is 2
 	if (result == kNoError) {
 		result = splitSize == 2 ? kNoError : kXMLError;
+	}
+
+	if (result == kNoError) {
+		*nodeString = xCopyString(splitString[0], &result);
 	}
 
 	// Copy the last split, that is where the attribute is
@@ -167,13 +155,13 @@ xError xXML::getAttrKeyValue(const char * attrString, char ** key, char ** value
 
 	// See if the attribute specifies a value
 	if (result == kNoError) {
-		if (xContainsSubString(attrString, "(", &result)) {
+		if (xContainsSubString(nodePathString, "(", &result)) {
 			hasAttrValue = result == kNoError;
 		}
 	}
 
 	if (hasAttrValue && (result == kNoError)) {
-		if (xContainsSubString(attrString, ")", &result)) {
+		if (xContainsSubString(nodePathString, ")", &result)) {
 			hasAttrValue = result == kNoError;
 		}
 	}
@@ -194,7 +182,7 @@ xError xXML::getAttrKeyValue(const char * attrString, char ** key, char ** value
 
 		if (result == kNoError) {
 			*value = xStringBetweenTwoStrings(
-				attrString,
+					nodePathString,
 				"(",
 				")",
 				&result

@@ -201,19 +201,19 @@ xError HandleObjectIndex(void) {
 
 	if (result == kNoError) {
 		if (type == valueType) { // TODO: fix
-//#ifndef TESTING
-//			xmlValue = xProConfig->getValue(
-//				tagPath,
-//				&result
-//			);
-//#endif
+#ifndef TESTING
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
+#endif
 		} else if (type == nameType) { // TODO: fix
-//#ifndef TESTING
-//			xmlValue = xProConfig->getValue(
-//				tagPath,
-//				&result
-//			);
-//#endif
+#ifndef TESTING
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
+#endif
 		} else {
 			// This should have been checked earlier but
 			// will throw error either way

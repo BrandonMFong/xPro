@@ -122,8 +122,8 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 						error = kUnknownError;
 					}
 				} else {
-					node = node->first_node();
-					error = node != xNull ? kNoError : kXMLError;
+					node 	= node->first_node();
+					error 	= node != xNull ? kNoError : kXMLError;
 				}
 			} else {
 				node = node->next_sibling();

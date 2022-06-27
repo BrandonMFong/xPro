@@ -126,10 +126,10 @@ xError AppDriver::setup() {
 
 		// Get active config path
 		if (result == kNoError) {
-//			this->_userInfo.configPath = envConfig->getValue( // TODO: fix
-//				USERCONFIGPATH_XML_PATH,
-//				&result
-//			);
+			this->_userInfo.configPath = envConfig->getValue( // TODO: fix
+				USERCONFIGPATH_XML_PATH,
+				&result
+			);
 
 			if (result != kNoError) {
 				DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);

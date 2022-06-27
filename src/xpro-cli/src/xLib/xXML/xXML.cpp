@@ -45,7 +45,6 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 	char 	* result = xNull,
 			** splitString = xNull,
 			* tempString = xNull,
-			* tempNodeString = xNull,
 			* attrKey = xNull,
 			* attrValue = xNull;
 	xError error = kNoError;
@@ -88,11 +87,9 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 		}
 
 		if (error == kNoError) {
-			tempNodeString = node->name();
-
 			// If we found the node, then lets go to then next string in our path and
 			// the next node
-			if (!strcmp(tempNodeString, tempString)) {
+			if (!strcmp(node->name(), tempString)) {
 				i++;
 				done = (i == size);
 
@@ -149,6 +146,112 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 	if (err != xNull) {
 		*err = error;
 	}
+
+	return result;
+}
+
+xUInt64 xXML::countTags(const char * nodePath, xError * err) {
+	xUInt64 result = 0;
+	xError error = kNoError;
+	char 	** splitString = xNull,
+			* tempNodeString = xNull,
+			* attrKey = xNull,
+			* attrValue = xNull;
+	xUInt8 size = 0, i = 0;
+	xml_node<> * node = xNull;
+	xBool done = xFalse;
+
+	splitString = xSplitString(nodePath, ELEMENT_PATH_SEP, &size, &error);
+
+	if (error == kNoError) {
+		node = this->_xmldoc.first_node();
+		error = node != xNull ? kNoError : kXMLError;
+	}
+
+	while ((i < size) && (error == kNoError) && !done) {
+		xBool hasAttr = xFalse;
+		tempNodeString = splitString[i];
+		error = tempNodeString != xNull ? kNoError : kStringError;
+
+		// See if there is an attribute
+		if (error == kNoError) {
+			if (xContainsSubString(tempNodeString, ".", &error)) {
+				hasAttr = error == kNoError;
+			}
+		}
+
+		// If there is an attribute, then get the key and value
+		if (hasAttr && (error == kNoError)) {
+			char buf[1024];
+			memset(&buf[0], 0, 1024);
+			strcpy(buf, tempNodeString);
+
+			error = xXML::parseNodePathForNodeValueAndAttrKeyValue(
+				buf,
+				&tempNodeString,
+				&attrKey,
+				&attrValue
+			);
+		}
+
+		if (error == kNoError) {
+			// If we found the node, then lets go to then next string in our path and
+			// the next node
+			if (!strcmp(node->name(), tempNodeString)) {
+				i++;
+				done = (i == size);
+
+				xBool countAttrs = xFalse, countNodes = xFalse;
+				char * tempAttrValue = xNull;
+				if (attrKey != xNull) {
+					if (attrValue != xNull) {
+						countNodes = xXML::doesNodeContainAttrKeyAndValue(
+							node,
+							attrKey,
+							attrValue
+						);
+					} else {
+						tempAttrValue = xXML::getAttrValue(node, attrKey);
+						countAttrs = tempAttrValue != xNull;
+					}
+				} else {
+					countNodes = done;
+				}
+
+				if (done) {
+					if (countNodes) {
+						result = xXML::countNodesWithName(node, tempNodeString);
+					} else if (countAttrs) {
+						result = xXML::countAttributesWithKey(node->first_attribute(), attrKey);
+					} else {
+						error = kUnknownError;
+					}
+				} else {
+					node 	= node->first_node();
+					error 	= node != xNull ? kNoError : kXMLError;
+				}
+			} else {
+				node = node->next_sibling();
+
+				// If there are no more nodes, then we are done
+				done = node == xNull;
+			}
+		}
+
+		xFree(attrValue);
+		xFree(attrKey);
+
+		// We know that hasAttr==true if there was a '.' in the node path. We can assume that tempString
+		//  has the address to the string before '.'
+		if (hasAttr) {
+			xFree(tempNodeString);
+		}
+	}
+
+	for (xUInt8 i = 0; i < size; i++) xFree(splitString[i]);
+	xFree(splitString);
+
+	if (err) *err = error;
 
 	return result;
 }
@@ -241,7 +344,11 @@ xError xXML::parseNodePathForNodeValueAndAttrKeyValue(const char * nodePathStrin
 	return result;
 }
 
-xBool xXML::doesNodeContainAttrKeyAndValue(xml_node<> * node, const char * attrKey, const char * attrValue) {
+xBool xXML::doesNodeContainAttrKeyAndValue(
+	xml_node<> * node,
+	const char * attrKey,
+	const char * attrValue
+) {
 	for (
 		xml_attribute<> * tempAttr = node->first_attribute();
 		tempAttr;
@@ -256,7 +363,7 @@ xBool xXML::doesNodeContainAttrKeyAndValue(xml_node<> * node, const char * attrK
 }
 
 char * xXML::getAttrValue(
-		rapidxml::xml_node<> * node,
+		xml_node<> * node,
 		const char * attrKey
 	) {
 	for (
@@ -269,4 +376,33 @@ char * xXML::getAttrValue(
 	}
 
 	return xNull;
+}
+
+xUInt64 xXML::countNodesWithName(xml_node<> * node, const char * nodeName) {
+	xUInt64 result = 0;
+	xml_node<> * tempNode = node;
+
+	do {
+		if (!strcmp(tempNode->name(), nodeName)) {
+			result++;
+		}
+	} while ((tempNode = tempNode->next_sibling()));
+
+	return result;
+}
+
+xUInt64 xXML::countAttributesWithKey(
+	rapidxml::xml_attribute<> * node,
+	const char * attrKey
+) {
+	xUInt64 result = 0;
+	xml_attribute<> * tempAttr = node;
+
+	do {
+		if (!strcmp(tempAttr->name(), attrKey)) {
+			result++;
+		}
+	} while ((tempAttr = tempAttr->next_attribute()));
+
+	return result;
 }

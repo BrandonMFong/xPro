@@ -87,12 +87,10 @@ xError HandleAlias(void) {
 xError HandleAliasCount(void) {
 	xError result = kNoError;
 
-//	xUInt64 count = xProConfig->countTags(
-//		ALIAS_TAG_PATH,
-//		&result
-//	);
-
-	xUInt64 count = 0;  // TODO: fix
+	xUInt64 count = xProConfig->countTags(
+		ALIAS_TAG_PATH,
+		&result
+	);
 
 	if(result != kNoError) {
 		count = 0;
@@ -204,17 +202,17 @@ xError HandleAliasIndex(void) {
 	if (result == kNoError) {
 		if (type == valueType) {
 #ifndef TESTING
-//			xmlValue = xProConfig->getValue( // TODO: fix
-//				tagPath,
-//				&result
-//			);
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
 #endif
 		} else if (type == nameType) {
 #ifndef TESTING
-//			xmlValue = xProConfig->getValue( // TODO: fix
-//				tagPath,
-//				&result
-//			);
+			xmlValue = xProConfig->getValue(
+				tagPath,
+				&result
+			);
 #endif
 		} else {
 			// This should have been checked earlier but

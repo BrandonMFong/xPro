@@ -20,6 +20,7 @@
 #include <iosfwd>
 #include <string>
 #include <xBool.h>
+#include <xInt.h>
 
 /**
  * Each element must be separate by a forward slash
@@ -64,6 +65,11 @@ xPublic:
 	 */
 	char * getValue(const char * nodePath, xError * err);
 
+	/**
+	 * Counts the number of tags at tagPath
+	 */
+	xUInt64 countTags(const char * nodePath, xError * err);
+
 xPrivate:
 
 	/**
@@ -84,6 +90,16 @@ xPrivate:
 
 	static char * getAttrValue(
 		rapidxml::xml_node<> * node,
+		const char * attrKey
+	);
+
+	static xUInt64 countNodesWithName(
+		rapidxml::xml_node<> * node,
+		const char * nodeName
+	);
+
+	static xUInt64 countAttributesWithKey(
+		rapidxml::xml_attribute<> * node,
 		const char * attrKey
 	);
 

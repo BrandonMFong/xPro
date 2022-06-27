@@ -19,6 +19,7 @@
 #include <xError.h>
 #include <iosfwd>
 #include <string>
+#include <xBool.h>
 
 /**
  * Each element must be separate by a forward slash
@@ -68,7 +69,23 @@ xPrivate:
 	/**
 	 * Parses: <nodeString>.<attrKey>(<attrValue>)
 	 */
-	static xError parseNodePathForPathAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** attrKey, char ** attrValue);
+	static xError parseNodePathForNodeValueAndAttrKeyValue(
+		const char * nodePathString,
+		char ** nodeString,
+		char ** attrKey,
+		char ** attrValue
+	);
+
+	static xBool doesNodeContainAttrKeyAndValue(
+		rapidxml::xml_node<> * node,
+		const char * attrKey,
+		const char * attrValue
+	);
+
+	static char * getAttrValue(
+		rapidxml::xml_node<> * node,
+		const char * attrKey
+	);
 
 	/**
 	 * Holds the path to the xml file

@@ -79,8 +79,12 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			memset(&buf[0], 0, 1024);
 			strcpy(buf, tempString);
 
-			// TODO: release tempString
-			error = xXML::parseNodePathForPathAndAttrKeyValue(buf, &tempString, &attrKey, &attrValue);
+			error = xXML::parseNodePathForNodeValueAndAttrKeyValue(
+				buf,
+				&tempString,
+				&attrKey,
+				&attrValue
+			);
 		}
 
 		if (error == kNoError) {
@@ -89,14 +93,38 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			// If we found the node, then lets go to then next string in our path and
 			// the next node
 			if (!strcmp(tempNodeString, tempString)) {
-				if (attrKey != xNull) {
+				i++;
+				done = (i == size);
 
+				xBool getAttrValue = xFalse, getNodeValue = xFalse;
+				char * tempAttrValue = xNull;
+				if (attrKey != xNull) {
+					if (attrValue != xNull) {
+						getNodeValue = xXML::doesNodeContainAttrKeyAndValue(
+							node,
+							attrKey,
+							attrValue
+						);
+					} else {
+						tempAttrValue = xXML::getAttrValue(node, attrKey);
+						getAttrValue = tempAttrValue != xNull;
+					}
+				} else {
+					getNodeValue = done;
 				}
 
-				i++;
-
-				node = node->first_node();
-				error = node != xNull ? kNoError : kXMLError;
+				if (done) {
+					if (getNodeValue) {
+						result = xCopyString(node->value(), &error);
+					} else if (getAttrValue) {
+						result = xCopyString(tempAttrValue, &error);
+					} else {
+						error = kUnknownError;
+					}
+				} else {
+					node = node->first_node();
+					error = node != xNull ? kNoError : kXMLError;
+				}
 			} else {
 				node = node->next_sibling();
 
@@ -125,7 +153,7 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 	return result;
 }
 
-xError xXML::parseNodePathForPathAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** key, char ** value) {
+xError xXML::parseNodePathForNodeValueAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** key, char ** value) {
 	xError result = kNoError;
 	char ** splitString = xNull, * tempString = xNull;
 	xUInt8 splitSize;
@@ -211,4 +239,34 @@ xError xXML::parseNodePathForPathAndAttrKeyValue(const char * nodePathString, ch
 	xFree(tempString);
 
 	return result;
+}
+
+xBool xXML::doesNodeContainAttrKeyAndValue(xml_node<> * node, const char * attrKey, const char * attrValue) {
+	for (
+		xml_attribute<> * tempAttr = node->first_attribute();
+		tempAttr;
+		tempAttr = tempAttr->next_attribute()) {
+		if (	!strcmp(tempAttr->name(), attrKey)
+			&& 	!strcmp(tempAttr->value(), attrValue)) {
+			return xTrue;
+		}
+	}
+
+	return xFalse;
+}
+
+char * xXML::getAttrValue(
+		rapidxml::xml_node<> * node,
+		const char * attrKey
+	) {
+	for (
+		xml_attribute<> * tempAttr = node->first_attribute();
+		tempAttr;
+		tempAttr = tempAttr->next_attribute()) {
+		if (!strcmp(tempAttr->name(), attrKey)) {
+			return tempAttr->value();
+		}
+	}
+
+	return xNull;
 }

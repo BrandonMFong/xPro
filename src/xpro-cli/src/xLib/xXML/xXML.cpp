@@ -78,6 +78,8 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			char buf[1024];
 			memset(&buf[0], 0, 1024);
 			strcpy(buf, tempString);
+
+			// TODO: release tempString
 			error = xXML::parseNodePathForPathAndAttrKeyValue(buf, &tempString, &attrKey, &attrValue);
 		}
 
@@ -105,6 +107,12 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 
 		xFree(attrValue);
 		xFree(attrKey);
+
+		// We know that hasAttr==true if there was a '.' in the node path. We can assume that tempString
+		//  has the address to the string before '.'
+		if (hasAttr) {
+			xFree(tempString);
+		}
 	}
 
 	for (xUInt8 i = 0; i < size; i++) xFree(splitString[i]);

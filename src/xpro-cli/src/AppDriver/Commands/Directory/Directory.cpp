@@ -121,6 +121,7 @@ xError PrintDirectoryForKey(const char * key) {
 
 	// If directory was NULL, then __ALL__ was not specified, now we use the user name
 	if (directory == xNull) {
+		DLog("getValue() returned NULL\n");
 		if (result == kNoError) {
 			username 	= AppDriver::shared()->username();
 			result 		= username != xNull ? kNoError : kStringError;

@@ -13,7 +13,7 @@
 /**
  * Element path template
  */
-#define DIRECTORY_ELEMENT_PATH_FORMAT "/xPro/Directories/Directory.key(%s)/Value.username(%s)"
+#define DIRECTORY_ELEMENT_PATH_FORMAT "xPro/Directories/Directory.key(%s)/Value.username(%s)"
 
 /**
  * Handles the dir argument from

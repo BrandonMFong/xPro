@@ -39,12 +39,18 @@
 class xXML {
 xPublic:
 
+	xXML() : xXML(0, 0) {}
+
 	/**
 	 * Saves file path and initializes file stream
 	 */
 	xXML(const char * path, xError * err);
 
 	virtual ~xXML();
+
+	xError readFile(const char * path);
+
+	void parseBuffer(const char * buffer);
 
 	/**
 	 * Returns value from element path
@@ -79,7 +85,8 @@ xPrivate:
 		const char * nodePathString,
 		char ** nodeString,
 		char ** attrKey,
-		char ** attrValue
+		char ** attrValue,
+		xUInt64 * index
 	);
 
 	static xBool doesNodeContainAttrKeyAndValue(

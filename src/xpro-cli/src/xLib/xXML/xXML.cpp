@@ -13,24 +13,16 @@
 using namespace rapidxml;
 
 xXML::xXML(const char * path, xError * err) {
-	xError error = kNoError;
+	this->_buffer = "";
+	this->_path = xNull;
+	this->_xmlStream = xNull;
 
-	this->_path = xCopyString(path, &error);
+	if (path) {
+		xError error = this->readFile(path);
 
-	if (error == kNoError) {
-		this->_xmlStream = new std::ifstream(this->_path);
-		error = this->_xmlStream != xNull ? kNoError : kFileError;
-	}
-
-	if (error == kNoError) {
-		std::stringstream buffer;
-		buffer << this->_xmlStream->rdbuf();
-		this->_buffer = buffer.str();
-		this->_xmldoc.parse<0>(&this->_buffer[0]);
-	}
-
-	if (err != xNull) {
-		*err = error;
+		if (err != xNull) {
+			*err = error;
+		}
 	}
 }
 
@@ -39,6 +31,30 @@ xXML::~xXML() {
 
 	this->_xmlStream->close();
 	xDelete(this->_xmlStream);
+}
+
+xError xXML::readFile(const char * path) {
+	xError result = kNoError;
+
+	this->_path = xCopyString(path, &result);
+
+	if (result == kNoError) {
+		this->_xmlStream = new std::ifstream(this->_path);
+		result = this->_xmlStream != xNull ? kNoError : kFileError;
+	}
+
+	if (result == kNoError) {
+		std::stringstream buffer;
+		buffer << this->_xmlStream->rdbuf();
+		this->parseBuffer(buffer.str().c_str());
+	}
+
+	return result;
+}
+
+void xXML::parseBuffer(const char * buffer) {
+	this->_buffer = buffer;
+	this->_xmldoc.parse<0>(&this->_buffer[0]);
 }
 
 char * xXML::getValue(const char * nodePath, xError * err) {
@@ -61,7 +77,8 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 	}
 
 	while ((i < size) && (error == kNoError) && !done) {
-		xBool hasAttr = xFalse;
+		xBool hasAttr = xFalse, nodeMatch = xNull;
+		xUInt64 index = 0;
 		tempString = splitString[i];
 		error = tempString != xNull ? kNoError : kStringError;
 
@@ -82,52 +99,41 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 				buf,
 				&tempString,
 				&attrKey,
-				&attrValue
+				&attrValue,
+				&index
 			);
 		}
 
 		if (error == kNoError) {
 			// If we found the node, then lets go to then next string in our path and
 			// the next node
-			if (!strcmp(node->name(), tempString)) {
-				i++;
-				done = (i == size);
+			nodeMatch = !strcmp(node->name(), tempString);
+		}
 
-				xBool getAttrValue = xFalse, getNodeValue = xFalse;
-				char * tempAttrValue = xNull;
+		if (nodeMatch) {
+			do {
 				if (attrKey != xNull) {
 					if (attrValue != xNull) {
-						getNodeValue = xXML::doesNodeContainAttrKeyAndValue(
+						nodeMatch = xXML::doesNodeContainAttrKeyAndValue(
 							node,
 							attrKey,
 							attrValue
 						);
 					} else {
-						tempAttrValue = xXML::getAttrValue(node, attrKey);
-						getAttrValue = tempAttrValue != xNull;
+
 					}
 				} else {
-					getNodeValue = done;
-				}
 
-				if (done) {
-					if (getNodeValue) {
-						result = xCopyString(node->value(), &error);
-					} else if (getAttrValue) {
-						result = xCopyString(tempAttrValue, &error);
-					} else {
-						error = kUnknownError;
-					}
-				} else {
-					node 	= node->first_node();
-					error 	= node != xNull ? kNoError : kXMLError;
 				}
-			} else {
-				node = node->next_sibling();
+			} while (index--);
+		}
 
-				// If there are no more nodes, then we are done
-				done = node == xNull;
-			}
+		if (nodeMatch) {
+			node = node->first_node();
+			done = node == xNull;
+		} else {
+			node = node->next_sibling();
+			done = node == xNull;
 		}
 
 		xFree(attrValue);
@@ -190,7 +196,8 @@ xUInt64 xXML::countTags(const char * nodePath, xError * err) {
 				buf,
 				&tempNodeString,
 				&attrKey,
-				&attrValue
+				&attrValue,
+				0
 			);
 		}
 
@@ -256,7 +263,13 @@ xUInt64 xXML::countTags(const char * nodePath, xError * err) {
 	return result;
 }
 
-xError xXML::parseNodePathForNodeValueAndAttrKeyValue(const char * nodePathString, char ** nodeString, char ** key, char ** value) {
+xError xXML::parseNodePathForNodeValueAndAttrKeyValue(
+	const char * nodePathString,
+	char ** nodeString,
+	char ** key,
+	char ** value,
+	xUInt64 * index
+) {
 	xError result = kNoError;
 	char ** splitString = xNull, * tempString = xNull;
 	xUInt8 splitSize;

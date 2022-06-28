@@ -59,6 +59,7 @@ void xXML::parseBuffer(const char * buffer) {
 
 char * xXML::getValue(const char * nodePath, xError * err) {
 	char 	* result = xNull,
+			* rcString = xNull, // result candidate
 			** splitString = xNull,
 			* tempString = xNull,
 			* attrKey = xNull,
@@ -104,33 +105,50 @@ char * xXML::getValue(const char * nodePath, xError * err) {
 			);
 		}
 
-		if (error == kNoError) {
-			// If we found the node, then lets go to then next string in our path and
-			// the next node
-			nodeMatch = !strcmp(node->name(), tempString);
-		}
+		do {
+			if (error == kNoError) {
+				// If we found the node, then lets go to then next string in our path and
+				// the next node
+				nodeMatch = !strcmp(node->name(), tempString);
 
-		if (nodeMatch) {
-			do {
-				if (attrKey != xNull) {
-					if (attrValue != xNull) {
-						nodeMatch = xXML::doesNodeContainAttrKeyAndValue(
-							node,
-							attrKey,
-							attrValue
-						);
+				if (nodeMatch) {
+					if (attrKey != xNull) {
+						if (attrValue != xNull) {
+							nodeMatch = xXML::doesNodeContainAttrKeyAndValue(
+								node,
+								attrKey,
+								attrValue
+							);
+
+							rcString = node->value();
+						} else {
+							rcString = xXML::getAttrValue(node, attrKey);
+						}
 					} else {
-
+						rcString = node->value();
 					}
-				} else {
 
+					index--;
 				}
-			} while (index--);
-		}
 
-		if (nodeMatch) {
-			node = node->first_node();
-			done = node == xNull;
+				if (index > 0) {
+					node = node->next_sibling();
+				}
+			}
+		} while (index > 0);
+
+		if (node == xNull) {
+			done = xTrue;
+		} else if (nodeMatch) {
+			i++;
+
+			if ((i + 1) == size) {
+				result = xCopyString(rcString, &error);
+				done = xTrue;
+			} else {
+				node = node->first_node();
+				done = node == xNull;
+			}
 		} else {
 			node = node->next_sibling();
 			done = node == xNull;

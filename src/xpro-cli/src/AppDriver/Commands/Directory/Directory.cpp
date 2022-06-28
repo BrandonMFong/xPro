@@ -83,11 +83,18 @@ xError PrintDirectoryForKey(const char * key) {
 
 	if (key == xNull) {
 		result = kDirectoryKeyError;
-	} else {
+	}
+
+	if (result == kNoError) {
+		username 	= AppDriver::shared()->username();
+		result 		= username != xNull ? kNoError : kStringError;
+	}
+
+	if (result == kNoError) {
 		elementPath = xMallocString(
 				strlen(key)
 			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-			+	strlen(ALL_USERS)
+			+	strlen(username)
 			+ 	1,
 			&result
 		);
@@ -97,7 +104,7 @@ xError PrintDirectoryForKey(const char * key) {
 				elementPath,
 				DIRECTORY_ELEMENT_PATH_FORMAT,
 				key,
-				ALL_USERS
+				username
 			);
 		}
 	}
@@ -107,45 +114,6 @@ xError PrintDirectoryForKey(const char * key) {
 			result = kNullError;
 
 			DLog("the xpro config object is null");
-		}
-	}
-
-	// See if user has specified a default path with __ALL__
-	if (result == kNoError) {
-		directory = xProConfig->getValue(elementPath, &result);
-
-		if (result != kNoError) {
-			DLog("Directory is NULL\n");
-		}
-	}
-
-	// If directory was NULL, then __ALL__ was not specified, now we use the user name
-	if (directory == xNull) {
-		DLog("getValue() returned NULL\n");
-		if (result == kNoError) {
-			username 	= AppDriver::shared()->username();
-			result 		= username != xNull ? kNoError : kStringError;
-		}
-
-		if (result == kNoError) {
-			xFree(elementPath);
-
-			elementPath = xMallocString(
-					strlen(key)
-				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-				+	strlen(username)
-				+ 	1,
-				&result
-			);
-
-			if (result == kNoError) {
-				sprintf(
-					elementPath,
-					DIRECTORY_ELEMENT_PATH_FORMAT,
-					key,
-					username
-				);
-			}
 		}
 	}
 

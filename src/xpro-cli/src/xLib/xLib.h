@@ -28,7 +28,6 @@
 
 /// Classes
 #include <xArguments/xArgs.hpp>
-#include <xXML/xXML.hpp>
 
 #endif // __cplusplus
 

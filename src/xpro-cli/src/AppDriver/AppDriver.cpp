@@ -7,6 +7,9 @@
 
 #include "AppDriver.hpp"
 #include <AppDriver/Commands/Commands.h>
+#include <xLib/External/RapidXml/rapidxml.hpp>
+#include <fstream>
+#include <sstream>
 
 AppDriver * globalAppDriver = xNull;
 
@@ -15,17 +18,14 @@ AppDriver::AppDriver(
 	char ** 	argv,
 	xError * 	err
 ) : args(argc, argv, err) {
-	xError result = *err;
+	xError result = err != xNull ? *err : kNoError;
 
-	this->_userInfo.configPath 	= xNull;
-	this->_userInfo.username 	= xNull;
-
-	if (err != xNull) {
-		result = *err;
-	}
+	this->_userInfo.configPath = xNull;
+	this->_userInfo.username = xNull;
+	this->_userConfig = xNull;
 
 	if (result == kNoError) {
-		result = this->setup();
+		result = this->parseEnv();
 	}
 
 	if (result != kNoError) {
@@ -42,6 +42,8 @@ AppDriver::AppDriver(
 AppDriver::~AppDriver() {
 	xFree(this->_userInfo.username);
 	xFree(this->_userInfo.configPath);
+	xFree(this->_xproHomePath);
+	xFree(this->_envPath);
 
 	globalAppDriver = xNull;
 }
@@ -50,95 +52,63 @@ AppDriver * AppDriver::shared() {
 	return globalAppDriver;
 }
 
-xError AppDriver::setup() {
-	xError 	result 		= kNoError;
-	xXML 	* envConfig = xNull;
-	char 	* homeDir 	= xNull,
-			* envPath 	= xNull;
+xError AppDriver::parseEnv() {
+	xError result = kNoError;
+	rapidxml::xml_document<> xml;
+	std::ifstream * stream = xNull;
+	char * homeDir = xNull;
+	std::stringstream buffer;
+	rapidxml::xml_node<> * nodeA = xNull, * nodeB = xNull;
+	bool foundUser = xFalse;
 
 	// Get home path for current user
 	homeDir = xHomePath(&result);
 
 	if (result == kNoError) {
-		this->_xProHomePath = (char *) malloc(
+		this->_xproHomePath = (char *) malloc(
 			strlen(homeDir) +
 			strlen(XPRO_HOME_DIR_NAME)
 			+ 2
 		);
 
-		result = this->_xProHomePath != xNull ? kNoError : kUnknownError;
+		result = this->_xproHomePath != xNull ? kNoError : kUnknownError;
 	}
 
 	// construct path to the .xpro directory.  It should live in the user's home directory
 	if (result == kNoError) {
-		sprintf(this->_xProHomePath, "%s/%s", homeDir, XPRO_HOME_DIR_NAME);
+		sprintf(this->_xproHomePath, "%s/%s", homeDir, XPRO_HOME_DIR_NAME);
 		xFree(homeDir);
 
-		if (strlen(this->_xProHomePath) == 0) {
+		if (strlen(this->_xproHomePath) == 0) {
 			DLog("Unknown behavior, resulted in empty string");
 			result = kEmptyStringError;
 		}
 	}
 
 	if (result == kNoError) {
-		envPath = (char *) malloc(
-				strlen(this->_xProHomePath)
+		this->_envPath = (char *) malloc(
+				strlen(this->_xproHomePath)
 			+ 	strlen(ENV_CONFIG_NAME)
 			+ 	2
 		);
 
-		result = envPath != xNull ? kNoError : kUnknownError;
+		result = this->_envPath != xNull ? kNoError : kUnknownError;
 	}
 
 	// Construct path the env.xml file
 	if (result == kNoError) {
-		sprintf(envPath, "%s/%s", this->_xProHomePath, ENV_CONFIG_NAME);
+		sprintf(this->_envPath, "%s/%s", this->_xproHomePath, ENV_CONFIG_NAME);
 
-		if (strlen(envPath) == 0) {
+		if (strlen(this->_envPath) == 0) {
 			DLog("Unknown behavior, resulted in empty string");
 			result = kEmptyStringError;
 		}
 	}
 
-	// Only do the following if the env.xml exists. Otherwise the user has
-	// to create it
-	if (xIsFile(envPath)) {
-		// init object to read env.xml
-		if (result == kNoError) {
-			envConfig = new xXML(envPath, &result);
-
-			if (result != kNoError) {
-				DLog("Error initializing xml object for path, %s, please check that file exists", envPath);
-			}
-		}
-
-		// Get active user name
-		if (result == kNoError) {
-			this->_userInfo.username = envConfig->getValue(
-				USERNAME_XML_PATH,
-				&result
-			);
-
-			if (result != kNoError) {
-				DLog("Could not find path: %s", USERNAME_XML_PATH);
-			}
-		}
-
-		// Get active config path
-		if (result == kNoError) {
-			this->_userInfo.configPath = envConfig->getValue( // TODO: fix
-				USERCONFIGPATH_XML_PATH,
-				&result
-			);
-
-			if (result != kNoError) {
-				DLog("Could not find path: %s", USERCONFIGPATH_XML_PATH);
-			}
-		}
-	} else {
+	if (!xIsFile(this->_envPath)) {
 		// Only split out error if user didn't pass create
 		if (!this->args.contains(CREATE_ARG, &result)) {
-			ELog("%s does not exist", envPath);
+			ELog("%s does not exist", this->_envPath);
 			Log(
 				"Please run '%s %s %s' to create",
 				this->execName(),
@@ -146,9 +116,96 @@ xError AppDriver::setup() {
 				ENV_CONF_ARG
 			);
 		}
+	} else {
+		if (result == kNoError) {
+			stream = new std::ifstream(this->_envPath);
+			result = stream != xNull ? kNoError : kXMLError;
+		}
+
+		if (result == kNoError) {
+			buffer << stream->rdbuf();
+			xml.parse<0>(&buffer.str()[0]);
+			nodeA = xml.first_node("xPro");
+			result = nodeA != xNull ? kNoError : kXMLError;
+		}
+
+		if (result == kNoError) {
+			nodeA = nodeA->first_node("Users");
+			result = nodeA != xNull ? kNoError : kXMLError;
+		}
+
+		if (result == kNoError) {
+			nodeA = nodeA->first_node("User");
+			result = nodeA != xNull ? kNoError : kXMLError;
+		}
+
+		if (result == kNoError) {
+			// find an active user
+			for (; nodeA; nodeA = nodeA->next_sibling()) {
+
+				// Look to through the attributes to find the 'active' attr
+				for (
+					rapidxml::xml_attribute<> * attr = nodeA->first_attribute();
+					attr;
+					attr = attr->next_attribute()
+				) {
+					// If we find an active user
+					if (!strcmp(attr->name(), "active") && !strcmp(attr->value(), "true")) {
+						// Get username
+						if (!(nodeB = nodeA->first_node("username"))) {
+							result = kXMLError;
+						} else {
+							this->_userInfo.username = xCopyString(nodeB->value(), &result);
+						}
+
+						// Get config path
+						if (result == kNoError) {
+							if (!(nodeB = nodeA->first_node("ConfigPath"))) {
+								result = kXMLError;
+							} else {
+								this->_userInfo.configPath = xCopyString(nodeB->value(), &result);
+							}
+						}
+
+						foundUser = result == kNoError;
+					}
+				}
+
+				if (foundUser) break;
+			}
+
+			if (!foundUser) {
+				result = kXMLError;
+				DLog("Could not find user");
+			}
+		}
+
+		if (result == kNoError) {
+			if (!this->_userInfo.configPath || !this->_userInfo.username) {
+				result = kXMLError;
+				DLog("User name or config path could not be found");
+			}
+		}
 	}
 
-	xDelete(envConfig);
+	xDelete(stream);
+	xFree(homeDir);
+
+	return result;
+}
+
+xError AppDriver::readConfig() {
+	xError result = kNoError;
+	std::ifstream * stream = xNull;
+	std::stringstream buffer;
+
+	if (!(stream = new std::ifstream(this->_userInfo.configPath))) {
+		result = kUserConfigPathError;
+	} else {
+		buffer << stream->rdbuf();
+		this->_userConfig.buffer = buffer.str();
+		this->_userConfig.xml.parse<0>(&this->_userConfig.buffer[0]);
+	}
 
 	return result;
 }

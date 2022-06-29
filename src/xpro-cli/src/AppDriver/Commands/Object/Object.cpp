@@ -10,7 +10,7 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
-rapidxml::xml_node<> * rootNode = xNull;
+static rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleObject(void) {
 	xError result = kNoError;

@@ -11,7 +11,7 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
-rapidxml::xml_node<> * rootNode = xNull;
+static rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleAlias(void) {
 	xError result = kNoError;

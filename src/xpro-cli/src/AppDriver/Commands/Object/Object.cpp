@@ -234,10 +234,12 @@ xError HandleObjectIndex(void) {
 	}
 
 	if (result == kNoError) {
-		if (objectNode != xNull) {
+		if (objectNode == xNull) {
 			result = kXMLError;
-		} else if (valueNode != xNull) {
+			DLog("object node is null");
+		} else if (valueNode == xNull) {
 			result = kXMLError;
+			DLog("value node is null");
 		}
 	}
 

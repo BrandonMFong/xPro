@@ -42,6 +42,10 @@ xError HandleAlias(void) {
 	if (result == kNoError) {
 		rootNode = appDriver->rootNode();
 		result = rootNode != xNull ? kNoError : kXMLError;
+
+		if (result != kNoError) {
+			DLog("root node is null");
+		}
 	}
 
 #endif
@@ -198,10 +202,12 @@ xError HandleAliasIndex(void) {
 
 	if (!(node = rootNode->first_node("Aliases"))) {
 		result = kXMLError;
+		DLog("Can't find aliases");
 	} else if (!(aliasNode = node->first_node("Alias"))) {
 		result = kXMLError;
-		DLog("No object nodes");
+		DLog("No alias nodes");
 	} else {
+		DLog("first Alias node found");
 		xUInt8 i = 0;
 		// Sweep through object nodes
 		for (; aliasNode; aliasNode = aliasNode->next_sibling()) {
@@ -211,6 +217,7 @@ xError HandleAliasIndex(void) {
 				DLog("No value node");
 				break;
 			} else {
+				DLog("Found value node");
 				// Sweep through the value nodes
 				for (; valueNode; valueNode = valueNode->next_sibling()) {
 					xBool validValue = xTrue;
@@ -223,9 +230,12 @@ xError HandleAliasIndex(void) {
 
 					// Record count if this value node is acceptable
 					if (validValue) {
+						DLog("Comparing %d and %d", i, nodeIndex);
 						if (i == nodeIndex) break;
 
 						i++;
+					} else {
+						DLog("Value node does not belong to user %s", appDriver->username());
 					}
 				}
 			}
@@ -235,10 +245,12 @@ xError HandleAliasIndex(void) {
 	}
 
 	if (result == kNoError) {
-		if (aliasNode != xNull) {
+		if (aliasNode == xNull) {
 			result = kXMLError;
-		} else if (valueNode != xNull) {
+			DLog("alias node is null");
+		} else if (valueNode == xNull) {
 			result = kXMLError;
+			DLog("value node is null");
 		}
 	}
 

@@ -202,6 +202,8 @@ xError HandleObjectIndex(void) {
 		DLog("No object nodes");
 	} else {
 		xUInt8 i = 0;
+		xBool foundObject = xFalse;
+
 		// Sweep through object nodes
 		for (; objectNode; objectNode = objectNode->next_sibling()) {
 			// make sure it has a value node
@@ -222,14 +224,17 @@ xError HandleObjectIndex(void) {
 
 					// Record count if this value node is acceptable
 					if (validValue) {
-						if (i == nodeIndex) break;
+						if (i == nodeIndex) {
+							foundObject = xTrue;
+							break;
+						}
 
 						i++;
 					}
 				}
 			}
 
-			if (i == nodeIndex) break;
+			if (foundObject) break;
 		}
 	}
 

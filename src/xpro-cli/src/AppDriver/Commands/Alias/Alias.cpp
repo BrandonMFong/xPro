@@ -209,6 +209,8 @@ xError HandleAliasIndex(void) {
 	} else {
 		DLog("first Alias node found");
 		xUInt8 i = 0;
+		xBool foundAlias = xFalse;
+
 		// Sweep through object nodes
 		for (; aliasNode; aliasNode = aliasNode->next_sibling()) {
 			// make sure it has a value node
@@ -220,6 +222,7 @@ xError HandleAliasIndex(void) {
 				DLog("Found value node");
 				// Sweep through the value nodes
 				for (; valueNode; valueNode = valueNode->next_sibling()) {
+					DLog("Value node: %s", valueNode->value());
 					xBool validValue = xTrue;
 					rapidxml::xml_attribute<> * usernameAttr = xNull;
 
@@ -231,7 +234,10 @@ xError HandleAliasIndex(void) {
 					// Record count if this value node is acceptable
 					if (validValue) {
 						DLog("Comparing %d and %d", i, nodeIndex);
-						if (i == nodeIndex) break;
+						if (i == nodeIndex) {
+							foundAlias = xTrue;
+							break;
+						}
 
 						i++;
 					} else {
@@ -240,7 +246,7 @@ xError HandleAliasIndex(void) {
 				}
 			}
 
-			if (i == nodeIndex) break;
+			if (foundAlias) break;
 		}
 	}
 

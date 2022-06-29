@@ -7,7 +7,6 @@
 
 #include "AppDriver.hpp"
 #include <AppDriver/Commands/Commands.h>
-#include <xLib/External/RapidXml/rapidxml.hpp>
 #include <fstream>
 #include <sstream>
 

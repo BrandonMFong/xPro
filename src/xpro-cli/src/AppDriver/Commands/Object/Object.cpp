@@ -15,13 +15,12 @@
  *
  * This should be allocated and deallocated in HandleObject()
  */
-static xXML * xProConfig = xNull;
+rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleObject(void) {
-	xError 			result 			= kNoError;
-	const char 		* arg 			= xNull,
-					* configPath	= xNull;
-	const xUInt8	argCount 		= 5; // max arg count
+	xError result = kNoError;
+	const char * arg = xNull;
+	const xUInt8 argCount = 5; // max arg count
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -44,19 +43,9 @@ xError HandleObject(void) {
 
 #ifndef TESTING
 
-	// Get the config file
 	if (result == kNoError) {
-		configPath 	= appDriver->configPath();
-		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
-	}
-
-	if (result == kNoError) {
-		if (xProConfig == xNull) {
-			xProConfig = new xXML(configPath, &result);
-		} else {
-			result = kXMLError;
-			DLog("xPro config has already been read unexpectedly\n");
-		}
+		rootNode = appDriver->rootNode();
+		result = rootNode != xNull ? kNoError : kXMLError;
 	}
 
 #endif
@@ -78,19 +67,49 @@ xError HandleObject(void) {
 		}
 	}
 
-	xDelete(xProConfig);
-
 	return result;
 }
 
 xError HandleObjectCount(void) {
 	xError result = kNoError;
-
-//	xUInt64 count = xProConfig->countTags( // TODO: fix
-//		OBJECT_TAG_PATH,
-//		&result
-//	);
+	rapidxml::xml_node<> * node = xNull,
+			* objectNode = xNull,
+			* valueNode = xNull;
 	xUInt64 count = 0;
+	AppDriver * appDriver = AppDriver::shared();
+	rapidxml::xml_attribute<> * attr = xNull;
+
+	if (!(node = rootNode->first_node("Objects"))) {
+		result = kXMLError;
+	} else if (!(objectNode = node->first_node("Object"))) {
+		result = kXMLError;
+		DLog("No object nodes");
+	} else {
+		// Sweep through object nodes
+		for (; objectNode; objectNode = objectNode->next_sibling()) {
+			// make sure it has a value node
+			if (!(valueNode = objectNode->first_node())) {
+				result = kXMLError;
+				DLog("No value node");
+				break;
+			} else {
+				// Sweep through the value nodes
+				for (; valueNode; valueNode = valueNode->next_sibling()) {
+					xBool validValue = xTrue;
+
+					// Check if user name was specified
+					if (!(attr = valueNode->first_attribute("username"))) {
+						validValue = !strcmp(attr->value(), appDriver->username());
+					}
+
+					// Record count if this value node is acceptable
+					if (validValue) {
+						count++;
+					}
+				}
+			}
+		}
+	}
 
 	if(result != kNoError) {
 		count = 0;
@@ -103,15 +122,14 @@ xError HandleObjectCount(void) {
 }
 
 xError HandleObjectIndex(void) {
-	xError 			result 			= kNoError;
-	char 			* tagPath 		= xNull,
-					* xmlValue  	= xNull;
-	const char 		* indexString 	= xNull,
-					* tagPathFormat = xNull;
-	xInt8 			argIndex 		= 0;
-	xUInt8 			type 			= 0; // Default 0
-	const xUInt8 	valueType 		= 1,
-					nameType 		= 2;
+	xError result = kNoError;
+	char * xmlValue = xNull;
+	const char * indexString = xNull;
+	xInt8 argIndex = 0, nodeIndex;
+	xUInt8 type = 0; // Default 0
+	const xUInt8 valueType = 1,
+			nameType = 2;
+	rapidxml::xml_node<> * objectNode, * valueNode, * node = xNull;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -152,9 +170,12 @@ xError HandleObjectIndex(void) {
 			}
 		}
 
+		// Get the index for the node
 		if (result != kNoError) {
 			Log("Argument '%s' is not valid", indexString);
 			Log("Please provide a positive integer for '%s'", INDEX_ARG);
+		} else {
+			nodeIndex = atoi(indexString);
 		}
 	}
 
@@ -163,13 +184,11 @@ xError HandleObjectIndex(void) {
 	if (result == kNoError) {
 		if (appDriver->args.contains(VALUE_ARG, &result)) {
 			if (result == kNoError) {
-				type 			= valueType;
-				tagPathFormat 	= OBJECT_VALUE_TAG_PATH;
+				type = valueType;
 			}
 		} else if (appDriver->args.contains(NAME_ARG, &result)) {
 			if (result == kNoError) {
-				type 			= nameType;
-				tagPathFormat 	= OBJECT_NAME_TAG_PATH;
+				type = nameType;
 			}
 		} else {
 			result = kArgError;
@@ -181,38 +200,65 @@ xError HandleObjectIndex(void) {
 		}
 	}
 
-	// Create tag path string
-	if (result == kNoError) {
-		tagPath = xMallocString(strlen(tagPathFormat) + 20, &result);
+	if (!(node = rootNode->first_node("Objects"))) {
+		result = kXMLError;
+	} else if (!(objectNode = node->first_node("Object"))) {
+		result = kXMLError;
+		DLog("No object nodes");
+	} else {
+		xUInt8 i = 0;
+		// Sweep through object nodes
+		for (; objectNode; objectNode = objectNode->next_sibling()) {
+			// make sure it has a value node
+			if (!(valueNode = objectNode->first_node())) {
+				result = kXMLError;
+				DLog("No value node");
+				break;
+			} else {
+				// Sweep through the value nodes
+				for (; valueNode; valueNode = valueNode->next_sibling()) {
+					xBool validValue = xTrue;
+					rapidxml::xml_attribute<> * usernameAttr = xNull;
+
+					// Check if user name was specified
+					if (!(usernameAttr = valueNode->first_attribute("username"))) {
+						validValue = !strcmp(usernameAttr->value(), appDriver->username());
+					}
+
+					// Record count if this value node is acceptable
+					if (validValue) {
+						if (i == nodeIndex) break;
+
+						i++;
+					}
+				}
+			}
+
+			if (i == nodeIndex) break;
+		}
 	}
 
-	// Construct path with command line arg
 	if (result == kNoError) {
-		if (type == valueType) {
-			if (sprintf(tagPath, tagPathFormat, indexString, appDriver->username()) == -1) {
-				result = kStringError;
-			}
-		} else if (type == nameType) {
-			if (sprintf(tagPath, tagPathFormat, indexString) == -1) {
-				result = kStringError;
-			}
+		if (objectNode != xNull) {
+			result = kXMLError;
+		} else if (valueNode != xNull) {
+			result = kXMLError;
 		}
 	}
 
 	if (result == kNoError) {
 		if (type == valueType) { // TODO: fix
 #ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
+			xmlValue = xCopyString(valueNode->value(), &result);
 #endif
 		} else if (type == nameType) { // TODO: fix
 #ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
+			rapidxml::xml_attribute<> * attr = xNull;
+			if (!(attr = objectNode->first_attribute("name"))) {
+				result = kXMLError;
+			} else {
+				xmlValue = xCopyString(attr->value(), &result);
+			}
 #endif
 		} else {
 			// This should have been checked earlier but
@@ -220,15 +266,15 @@ xError HandleObjectIndex(void) {
 			result = kArgError;
 			DLog("Error with type variable.  Value is %d", type);
 		}
+	}
 
-		// Print value from xml if successful
-		if (result == kNoError) {
-			if (xmlValue == xNull) {
-				result = kNullError;
+	// Print value from xml if successful
+	if (result == kNoError) {
+		if (xmlValue == xNull) {
+			result = kNullError;
 
-				Log("Nothing found");
-				DLog("XML value was returned null");
-			}
+			Log("Nothing found");
+			DLog("XML value was returned null");
 		}
 	}
 
@@ -238,8 +284,6 @@ xError HandleObjectIndex(void) {
 #endif
 		xFree(xmlValue);
 	}
-
-	xFree(tagPath);
 
 	return result;
 }

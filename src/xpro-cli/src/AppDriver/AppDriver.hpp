@@ -109,6 +109,11 @@ public:
 		return result;
 	}
 
+	/// Returns the xPro root node. caller does not own
+	rapidxml::xml_node<> * rootNode() {
+		return this->_userConfig.xml.first_node("xPro");
+	}
+
 private:
 	/**
 	 * Reads the environment config

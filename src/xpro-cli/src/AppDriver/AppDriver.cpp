@@ -26,6 +26,10 @@ AppDriver::AppDriver(
 		result = this->parseEnv();
 	}
 
+	if (result == kNoError) {
+		result = this->readConfig();
+	}
+
 	if (result != kNoError) {
 		DLog("Shared args is null");
 	} else {

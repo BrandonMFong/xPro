@@ -8,7 +8,7 @@
 #include "Directory.hpp"
 #include <AppDriver/AppDriver.hpp>
 
-rapidxml::xml_node<> * rootNode = xNull;
+static rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleDirectory() {
 	xError result = kNoError;
@@ -34,6 +34,10 @@ xError HandleDirectory() {
 	if (result == kNoError) {
 		rootNode = appDriver->rootNode();
 		result = rootNode != xNull ? kNoError : kXMLError;
+
+		if (result != kNoError) {
+			DLog("Root node is null");
+		}
 	}
 
 	if (result == kNoError) {
@@ -64,44 +68,69 @@ xError PrintDirectoryForKey(const char * key) {
 	rapidxml::xml_node<> * node = xNull,
 			* directoryNode = xNull,
 			* valueNode = xNull;
+	AppDriver * appDriver = AppDriver::shared();
 
 	if (key == xNull) {
 		result = kDirectoryKeyError;
+		DLog("key is null");
 	}
 
 	if (result == kNoError) {
 		username 	= AppDriver::shared()->username();
 		result 		= username != xNull ? kNoError : kStringError;
+
+		if (result != kNoError) {
+			DLog("User name is null");
+		}
 	}
 
-	if (!(node = rootNode->first_node("Objects"))) {
+	if (!(node = rootNode->first_node("Directories"))) {
 		result = kXMLError;
-	} else if (!(directoryNode = node->first_node("Object"))) {
+		DLog("Can't find Directories");
+	} else if (!(directoryNode = node->first_node("Directory"))) {
 		result = kXMLError;
-		DLog("No object nodes");
+		DLog("No directory nodes");
 	} else {
+		DLog("Found first directory node");
 		// Sweep through object nodes
 		for (; directoryNode; directoryNode = directoryNode->next_sibling()) {
-			// make sure it has a value node
-			if (!(valueNode = directoryNode->first_node())) {
+			rapidxml::xml_attribute<> * attrKey = xNull;
+
+			// Make sure the directory node has a key
+			if (!(attrKey = directoryNode->first_attribute("key"))) {
 				result = kXMLError;
-				DLog("No value node");
-				break;
+				DLog("directory key missing");
+			} else if (strcmp(attrKey->value(), key)) {
+				DLog("key: %s != %s", attrKey->value(), key);
 			} else {
-				// Sweep through the value nodes
-				for (; valueNode; valueNode = valueNode->next_sibling()) {
-					xBool validValue = xTrue;
-					rapidxml::xml_attribute<> * attrKey = xNull;
+				// make sure it has a value node
+				if (!(valueNode = directoryNode->first_node())) {
+					result = kXMLError;
+					DLog("No value node");
+					break;
+				} else {
+					DLog("Found first value node");
+					// Sweep through the value nodes
+					for (; valueNode; valueNode = valueNode->next_sibling()) {
+						xBool validValue = xTrue;
+						rapidxml::xml_attribute<> * attrUsername = xNull;
 
-					// Check if user name was specified
-					if (!(attrKey = valueNode->first_attribute("key"))) {
-						validValue = !strcmp(attrKey->value(), key);
-					}
+						// Check if user name was specified
+						if (!(attrUsername = valueNode->first_attribute("username"))) {
+							if (!strcmp(attrUsername->value(), appDriver->username())) {
+								validValue = xTrue;
+								DLog("Key does match, %s == %s", attrKey->value(), key);
+							} else {
+								validValue = xFalse;
+								DLog("Key does not match, %s != %s", attrKey->value(), key);
+							}
+						}
 
-					// Record count if this value node is acceptable
-					if (validValue) {
-						directory = valueNode->value();
-						break;
+						// Record count if this value node is acceptable
+						if (validValue) {
+							directory = valueNode->value();
+							break;
+						}
 					}
 				}
 			}

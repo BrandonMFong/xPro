@@ -75,9 +75,8 @@ xError HandleObjectCount(void) {
 	rapidxml::xml_attribute<> * attr = xNull;
 
 	if (!(node = rootNode->first_node("Objects"))) {
-		result = kXMLError;
+		DLog("No objects");
 	} else if (!(objectNode = node->first_node("Object"))) {
-		result = kXMLError;
 		DLog("No object nodes");
 	} else {
 		// Sweep through object nodes
@@ -196,10 +195,9 @@ xError HandleObjectIndex(void) {
 	}
 
 	if (!(node = rootNode->first_node("Objects"))) {
-		result = kXMLError;
+		DLog("No objects found");
 	} else if (!(objectNode = node->first_node("Object"))) {
-		result = kXMLError;
-		DLog("No object nodes");
+		DLog("The objects node has no children");
 	} else {
 		xUInt8 i = 0;
 		xBool foundObject = xFalse;

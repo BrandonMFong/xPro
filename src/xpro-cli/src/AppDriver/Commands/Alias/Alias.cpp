@@ -80,10 +80,9 @@ xError HandleAliasCount(void) {
 	rapidxml::xml_attribute<> * attr = xNull;
 
 	if (!(node = rootNode->first_node("Aliases"))) {
-		result = kXMLError;
+		DLog("Node Aliases not found");
 	} else if (!(aliasNode = node->first_node("Alias"))) {
-		result = kXMLError;
-		DLog("No object nodes");
+		DLog("Aliases has no children");
 	} else {
 		// Sweep through object nodes
 		for (; aliasNode; aliasNode = aliasNode->next_sibling()) {

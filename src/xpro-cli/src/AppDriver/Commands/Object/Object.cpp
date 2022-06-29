@@ -244,19 +244,15 @@ xError HandleObjectIndex(void) {
 	}
 
 	if (result == kNoError) {
-		if (type == valueType) { // TODO: fix
-#ifndef TESTING
+		if (type == valueType) {
 			xmlValue = xCopyString(valueNode->value(), &result);
-#endif
-		} else if (type == nameType) { // TODO: fix
-#ifndef TESTING
+		} else if (type == nameType) {
 			rapidxml::xml_attribute<> * attr = xNull;
 			if (!(attr = objectNode->first_attribute("name"))) {
 				result = kXMLError;
 			} else {
 				xmlValue = xCopyString(attr->value(), &result);
 			}
-#endif
 		} else {
 			// This should have been checked earlier but
 			// will throw error either way
@@ -276,9 +272,7 @@ xError HandleObjectIndex(void) {
 	}
 
 	if (result == kNoError) {
-#ifndef TESTING
 		printf("%s\n", xmlValue);
-#endif
 		xFree(xmlValue);
 	}
 

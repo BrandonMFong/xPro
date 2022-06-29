@@ -31,6 +31,7 @@ xError HandleDirectory() {
 		dirKey = appDriver->args.argAtIndex(2, &result);
 	}
 
+#ifndef TESTING
 	if (result == kNoError) {
 		rootNode = appDriver->rootNode();
 		result = rootNode != xNull ? kNoError : kXMLError;
@@ -39,6 +40,7 @@ xError HandleDirectory() {
 			DLog("Root node is null");
 		}
 	}
+#endif
 
 	if (result == kNoError) {
 		// If user passed 3 arguments: <tool> dir <key>

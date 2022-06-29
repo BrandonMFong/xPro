@@ -36,5 +36,4 @@ src/AppDriver/Commands/Version \
 src/xLib/xArguments \
 src/xLib/xUtilities \
 src \
-src/xLib/xXML \
 

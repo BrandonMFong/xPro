@@ -21,7 +21,6 @@ AppDriver::AppDriver(
 
 	this->_userInfo.configPath = xNull;
 	this->_userInfo.username = xNull;
-	this->_userConfig = xNull;
 
 	if (result == kNoError) {
 		result = this->parseEnv();

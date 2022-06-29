@@ -10,11 +10,6 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
-/**
- * Xml object for the xpro config file
- *
- * This should be allocated and deallocated in HandleObject()
- */
 rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleObject(void) {

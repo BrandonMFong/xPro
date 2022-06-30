@@ -8,18 +8,12 @@
 #include "Directory.hpp"
 #include <AppDriver/AppDriver.hpp>
 
-/**
- * Xml object for the xpro config file
- *
- * This should be allocated and deallocated in HandleDirectory()
- */
-static xXML * xProConfig = xNull;
+static rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleDirectory() {
-	xError 		result 			= kNoError;
-	const char 	* dirKey 		= xNull;
-	const char 	* configPath	= xNull;
-	AppDriver 	* appDriver		= xNull;
+	xError result = kNoError;
+	const char * dirKey = xNull;
+	AppDriver * appDriver = xNull;
 
 	appDriver 	= AppDriver::shared();
 	result 		= appDriver != xNull ? kNoError : kDriverError;
@@ -37,20 +31,16 @@ xError HandleDirectory() {
 		dirKey = appDriver->args.argAtIndex(2, &result);
 	}
 
-	// Get the config file
+#ifndef TESTING
 	if (result == kNoError) {
-		configPath 	= appDriver->configPath();
-		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
-	}
+		rootNode = appDriver->rootNode();
+		result = rootNode != xNull ? kNoError : kXMLError;
 
-	if (result == kNoError) {
-		if (xProConfig == xNull) {
-			xProConfig = new xXML(configPath, &result);
-		} else {
-			result = kXMLError;
-			DLog("xPro config has already been read unexpectedly\n");
+		if (result != kNoError) {
+			DLog("Root node is null");
 		}
 	}
+#endif
 
 	if (result == kNoError) {
 		// If user passed 3 arguments: <tool> dir <key>
@@ -70,90 +60,84 @@ xError HandleDirectory() {
 		ELog("[%d]\n", result);
 	}
 
-	xDelete(xProConfig);
-
 	return result;
 }
 
 xError PrintDirectoryForKey(const char * key) {
-	xError 		result 			= kNoError;
-	char 		* elementPath 	= xNull,
-				* directory 	= xNull;
-	const char 	* username 		= xNull;
+	xError result = kNoError;
+	char * directory = xNull;
+	const char * username = xNull;
+	rapidxml::xml_node<> * node = xNull,
+			* directoryNode = xNull,
+			* valueNode = xNull;
+	AppDriver * appDriver = AppDriver::shared();
 
 	if (key == xNull) {
 		result = kDirectoryKeyError;
+		DLog("key is null");
+	}
+
+	if (result == kNoError) {
+		username 	= AppDriver::shared()->username();
+		result 		= username != xNull ? kNoError : kStringError;
+
+		if (result != kNoError) {
+			DLog("User name is null");
+		}
+	}
+
+	if (!(node = rootNode->first_node("Directories"))) {
+		result = kXMLError;
+		DLog("Can't find Directories");
+	} else if (!(directoryNode = node->first_node("Directory"))) {
+		result = kXMLError;
+		DLog("No directory nodes");
 	} else {
-		elementPath = xMallocString(
-				strlen(key)
-			+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-			+	strlen(ALL_USERS)
-			+ 	1,
-			&result
-		);
+		DLog("Found first directory node");
+		// Sweep through object nodes
+		for (; directoryNode; directoryNode = directoryNode->next_sibling()) {
+			rapidxml::xml_attribute<> * attrKey = xNull;
 
-		if (result == kNoError) {
-			sprintf(
-				elementPath,
-				DIRECTORY_ELEMENT_PATH_FORMAT,
-				key,
-				ALL_USERS
-			);
-		}
-	}
+			// Make sure the directory node has a key
+			if (!(attrKey = directoryNode->first_attribute("key"))) {
+				result = kXMLError;
+				DLog("directory key missing");
+			} else if (strcmp(attrKey->value(), key)) {
+				DLog("key: %s != %s", attrKey->value(), key);
+			} else {
+				// make sure it has a value node
+				if (!(valueNode = directoryNode->first_node())) {
+					result = kXMLError;
+					DLog("No value node");
+					break;
+				} else {
+					DLog("Found first value node");
+					// Sweep through the value nodes
+					for (; valueNode; valueNode = valueNode->next_sibling()) {
+						xBool validValue = xTrue;
+						rapidxml::xml_attribute<> * attrUsername = xNull;
 
-	if (result == kNoError) {
-		if (xProConfig == xNull) {
-			result = kNullError;
+						// Check if user name was specified
+						if (!(attrUsername = valueNode->first_attribute("username"))) {
+							if (!strcmp(attrUsername->value(), appDriver->username())) {
+								validValue = xTrue;
+								DLog("Key does match, %s == %s", attrKey->value(), key);
+							} else {
+								validValue = xFalse;
+								DLog("Key does not match, %s != %s", attrKey->value(), key);
+							}
+						}
 
-			DLog("the xpro config object is null");
-		}
-	}
-
-	// See if user has specified a default path with __ALL__
-	if (result == kNoError) {
-		directory = xProConfig->getValue(elementPath, &result);
-
-		if (result != kNoError) {
-			DLog("Directory is NULL\n");
-		}
-	}
-
-	// If directory was NULL, then __ALL__ was not specified, now we use the user name
-	if (directory == xNull) {
-		if (result == kNoError) {
-			username 	= AppDriver::shared()->username();
-			result 		= username != xNull ? kNoError : kStringError;
-		}
-
-		if (result == kNoError) {
-			xFree(elementPath);
-
-			elementPath = xMallocString(
-					strlen(key)
-				+ 	strlen(DIRECTORY_ELEMENT_PATH_FORMAT)
-				+	strlen(username)
-				+ 	1,
-				&result
-			);
-
-			if (result == kNoError) {
-				sprintf(
-					elementPath,
-					DIRECTORY_ELEMENT_PATH_FORMAT,
-					key,
-					username
-				);
+						// Record count if this value node is acceptable
+						if (validValue) {
+							directory = valueNode->value();
+							break;
+						}
+					}
+				}
 			}
-		}
-	}
 
-	// Get value for user
-	if (result == kNoError) {
-		directory = xProConfig->getValue(elementPath, &result);
-
-		if (result != kNoError) {
-			DLog("Directory is NULL\n");
+			if (directory) break;
 		}
 	}
 

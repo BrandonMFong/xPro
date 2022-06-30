@@ -11,18 +11,12 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
-/**
- * Xml object for the xpro config file
- *
- * This should be allocated and deallocated in HandleObject()
- */
-static xXML * xProConfig = xNull;
+static rapidxml::xml_node<> * rootNode = xNull;
 
 xError HandleAlias(void) {
-	xError 			result 			= kNoError;
-	const char 		* arg 			= xNull,
-					* configPath	= xNull;
-	const xUInt8	argCount 		= 5; // max arg count
+	xError result = kNoError;
+	const char * arg = xNull;
+	const xUInt8 argCount = 5; // max arg count
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -45,18 +39,12 @@ xError HandleAlias(void) {
 
 #ifndef TESTING
 
-	// Get the config file
 	if (result == kNoError) {
-		configPath 	= appDriver->configPath();
-		result 		= configPath != xNull ? kNoError : kUserConfigPathError;
-	}
+		rootNode = appDriver->rootNode();
+		result = rootNode != xNull ? kNoError : kXMLError;
 
-	if (result == kNoError) {
-		if (xProConfig == xNull) {
-			xProConfig = new xXML(configPath, &result);
-		} else {
-			result = kXMLError;
-			DLog("xPro config has already been read unexpectedly\n");
+		if (result != kNoError) {
+			DLog("root node is null");
 		}
 	}
 
@@ -79,22 +67,52 @@ xError HandleAlias(void) {
 		}
 	}
 
-	xDelete(xProConfig);
-
 	return result;
 }
 
 xError HandleAliasCount(void) {
 	xError result = kNoError;
+	rapidxml::xml_node<> * node = xNull,
+			* aliasNode = xNull,
+			* valueNode = xNull;
+	xUInt64 count = 0;
+	AppDriver * appDriver = AppDriver::shared();
+	rapidxml::xml_attribute<> * attr = xNull;
 
-	xUInt64 count = xProConfig->countTags(
-		ALIAS_TAG_PATH,
-		&result
-	);
+	if (!(node = rootNode->first_node("Aliases"))) {
+		DLog("Node Aliases not found");
+	} else if (!(aliasNode = node->first_node("Alias"))) {
+		DLog("Aliases has no children");
+	} else {
+		// Sweep through object nodes
+		for (; aliasNode; aliasNode = aliasNode->next_sibling()) {
+			// make sure it has a value node
+			if (!(valueNode = aliasNode->first_node())) {
+				result = kXMLError;
+				DLog("No value node");
+				break;
+			} else {
+				// Sweep through the value nodes
+				for (; valueNode; valueNode = valueNode->next_sibling()) {
+					xBool validValue = xTrue;
+
+					// Check if user name was specified
+					if (!(attr = valueNode->first_attribute("username"))) {
+						validValue = !strcmp(attr->value(), appDriver->username());
+					}
+
+					// Record count if this value node is acceptable
+					if (validValue) {
+						count++;
+					}
+				}
+			}
+		}
+	}
 
 	if(result != kNoError) {
 		count = 0;
-		DLog("Could not count for path: '%s'", ALIAS_TAG_PATH);
+		DLog("Could not count for path: '%s'", OBJECT_TAG_PATH);
 	}
 
 	printf("%llu\n", count);
@@ -103,15 +121,14 @@ xError HandleAliasCount(void) {
 }
 
 xError HandleAliasIndex(void) {
-	xError 			result 			= kNoError;
-	char 			* tagPath 		= xNull,
-					* xmlValue  	= xNull;
-	const char 		* indexString 	= xNull,
-					* tagPathFormat = xNull;
-	xInt8 			argIndex 		= 0;
-	xUInt8 			type 			= 0; // Default 0
-	const xUInt8 	valueType 		= 1,
-					nameType 		= 2;
+	xError result = kNoError;
+	char * xmlValue = xNull;
+	const char * indexString = xNull;
+	xInt8 argIndex = 0, nodeIndex;
+	xUInt8 type = 0; // Default 0
+	const xUInt8 valueType = 1,
+			nameType = 2;
+	rapidxml::xml_node<> * aliasNode, * valueNode, * node = xNull;
 
 	AppDriver * appDriver 	= AppDriver::shared();
 	result 					= appDriver != xNull ? kNoError : kDriverError;
@@ -152,9 +169,12 @@ xError HandleAliasIndex(void) {
 			}
 		}
 
+		// Get the index for the node
 		if (result != kNoError) {
 			Log("Argument '%s' is not valid", indexString);
 			Log("Please provide a positive integer for '%s'", INDEX_ARG);
+		} else {
+			nodeIndex = atoi(indexString);
 		}
 	}
 
@@ -163,13 +183,11 @@ xError HandleAliasIndex(void) {
 	if (result == kNoError) {
 		if (appDriver->args.contains(VALUE_ARG, &result)) {
 			if (result == kNoError) {
-				type 			= valueType;
-				tagPathFormat 	= ALIAS_VALUE_TAG_PATH;
+				type = valueType;
 			}
 		} else if (appDriver->args.contains(NAME_ARG, &result)) {
 			if (result == kNoError) {
-				type 			= nameType;
-				tagPathFormat 	= ALIAS_NAME_TAG_PATH;
+				type = nameType;
 			}
 		} else {
 			result = kArgError;
@@ -181,38 +199,79 @@ xError HandleAliasIndex(void) {
 		}
 	}
 
-	// Create tag path string
-	if (result == kNoError) {
-		tagPath = xMallocString(strlen(tagPathFormat) + 20, &result);
-	}
+	if (!(node = rootNode->first_node("Aliases"))) {
+		result = kXMLError;
+		DLog("Can't find aliases");
+	} else if (!(aliasNode = node->first_node("Alias"))) {
+		result = kXMLError;
+		DLog("No alias nodes");
+	} else {
+		DLog("first Alias node found");
+		xUInt8 i = 0;
+		xBool foundAlias = xFalse;
 
-	// Construct path with command line arg
-	if (result == kNoError) {
-		if (type == valueType) {
-			if (sprintf(tagPath, tagPathFormat, indexString, appDriver->username()) == -1) {
-				result = kStringError;
+		// Sweep through object nodes
+		for (; aliasNode; aliasNode = aliasNode->next_sibling()) {
+			// make sure it has a value node
+			if (!(valueNode = aliasNode->first_node())) {
+				result = kXMLError;
+				DLog("No value node");
+				break;
+			} else {
+				DLog("Found value node");
+				// Sweep through the value nodes
+				for (; valueNode; valueNode = valueNode->next_sibling()) {
+					DLog("Value node: %s", valueNode->value());
+					xBool validValue = xTrue;
+					rapidxml::xml_attribute<> * usernameAttr = xNull;
+
+					// Check if user name was specified
+					if (!(usernameAttr = valueNode->first_attribute("username"))) {
+						validValue = !strcmp(usernameAttr->value(), appDriver->username());
+					}
+
+					// Record count if this value node is acceptable
+					if (validValue) {
+						DLog("Comparing %d and %d", i, nodeIndex);
+						if (i == nodeIndex) {
+							foundAlias = xTrue;
+							break;
+						}
+
+						i++;
+					} else {
+						DLog("Value node does not belong to user %s", appDriver->username());
+					}
+				}
 			}
-		} else if (type == nameType) {
-			if (sprintf(tagPath, tagPathFormat, indexString) == -1) {
-				result = kStringError;
-			}
+
+			if (foundAlias) break;
 		}
 	}
 
 	if (result == kNoError) {
-		if (type == valueType) {
+		if (aliasNode == xNull) {
+			result = kXMLError;
+			DLog("alias node is null");
+		} else if (valueNode == xNull) {
+			result = kXMLError;
+			DLog("value node is null");
+		}
+	}
+
+	if (result == kNoError) {
+		if (type == valueType) { // TODO: fix
 #ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
+			xmlValue = xCopyString(valueNode->value(), &result);
 #endif
-		} else if (type == nameType) {
+		} else if (type == nameType) { // TODO: fix
 #ifndef TESTING
-			xmlValue = xProConfig->getValue(
-				tagPath,
-				&result
-			);
+			rapidxml::xml_attribute<> * attr = xNull;
+			if (!(attr = aliasNode->first_attribute("name"))) {
+				result = kXMLError;
+			} else {
+				xmlValue = xCopyString(attr->value(), &result);
+			}
 #endif
 		} else {
 			// This should have been checked earlier but
@@ -220,15 +279,15 @@ xError HandleAliasIndex(void) {
 			result = kArgError;
 			DLog("Error with type variable.  Value is %d", type);
 		}
+	}
 
-		// Print value from xml if successful
-		if (result == kNoError) {
-			if (xmlValue == xNull) {
-				result = kNullError;
+	// Print value from xml if successful
+	if (result == kNoError) {
+		if (xmlValue == xNull) {
+			result = kNullError;
 
-				Log("Nothing found");
-				DLog("XML value was returned null");
-			}
+			Log("Nothing found");
+			DLog("XML value was returned null");
 		}
 	}
 
@@ -238,8 +297,6 @@ xError HandleAliasIndex(void) {
 #endif
 		xFree(xmlValue);
 	}
-
-	xFree(tagPath);
 
 	return result;
 }

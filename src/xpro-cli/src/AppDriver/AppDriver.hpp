@@ -9,7 +9,9 @@
 #define SRC_APPDRIVER_APPDRIVER_HPP_
 
 #include <xLib.h>
-#include <Utilities/Log.h>
+#include <xLib/Log.h>
+#include <xLib/External/RapidXml/rapidxml.hpp> // TODO: only typedef
+#include <string> // TODO: typedef
 
 /**
  * directory name at home path
@@ -24,12 +26,12 @@
 /**
  * Path to user's user name in ENV_CONFIG_NAME
  */
-#define USERNAME_XML_PATH "/xPro/Users/User.active(true)/username"
+#define USERNAME_XML_PATH "xPro/Users/User.active(true)/username"
 
 /**
  * Path to user's config path in ENV_CONFIG_NAME
  */
-#define USERCONFIGPATH_XML_PATH "/xPro/Users/User.active(true)/ConfigPath"
+#define USERCONFIGPATH_XML_PATH "xPro/Users/User.active(true)/ConfigPath"
 
 /**
  * Default name for a user config file
@@ -75,11 +77,6 @@ public:
 	xArguments args;
 
 	/**
-	 * Sets up the app environment, like reading config files
-	 */
-	xError setup();
-
-	/**
 	 * returns _userInfo.configPath
 	 */
 	const char * configPath() {
@@ -93,7 +90,7 @@ public:
 
 	/// Returns _xProHomePath
 	const char * xProHomePath() {
-		return (const char *) this->_xProHomePath;
+		return (const char *) this->_xproHomePath;
 	}
 
 	/// Returns executable name from command line (arg 0)
@@ -112,11 +109,28 @@ public:
 		return result;
 	}
 
+	/// Returns the xPro root node. caller does not own
+	rapidxml::xml_node<> * rootNode() {
+		return this->_userConfig.xml.first_node("xPro");
+	}
+
 private:
+	/**
+	 * Reads the environment config
+	 */
+	xError parseEnv();
+
+	xError readConfig();
+
 	/**
 	 * Path to .xpro
 	 */
-	char * _xProHomePath;
+	char * _xproHomePath;
+
+	/**
+	 * Path to env.xml
+	 */
+	char * _envPath;
 
 	/**
 	 * Contains user information from env.xml
@@ -132,6 +146,17 @@ private:
 		 */
 		char * configPath;
 	} _userInfo;
+
+	/**
+	 * Holds user xml data
+	 */
+	struct {
+		/// Holds buffer for xml
+		std::string buffer;
+
+		/// Parser
+		rapidxml::xml_document<> xml;
+	} _userConfig;
 };
 
 #endif /* SRC_APPDRIVER_APPDRIVER_HPP_ */

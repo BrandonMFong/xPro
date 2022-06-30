@@ -13,17 +13,17 @@
 /**
  * Path to list of objects in user config
  */
-#define OBJECT_TAG_PATH "/xPro/Objects/Object"
+#define OBJECT_TAG_PATH "xPro/Objects/Object"
 
 /**
  * Path to object name
  */
-#define OBJECT_NAME_TAG_PATH "/xPro/Objects/Object[%s].name"
+#define OBJECT_NAME_TAG_PATH "xPro/Objects/Object[%s].name"
 
 /**
  * Path to object Value
  */
-#define OBJECT_VALUE_TAG_PATH "/xPro/Objects/Object[%s]/Value.username(%s)"
+#define OBJECT_VALUE_TAG_PATH "xPro/Objects/Object[%s]/Value.username(%s)"
 
 /**
  *	Prints out object based on arguments passed

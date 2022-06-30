@@ -9,7 +9,6 @@
 #include "Help.hpp"
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
-#include <Utilities/Utilities.h>
 
 xError HandleHelp(xUInt8 printType) {
 	xError result = kNoError;

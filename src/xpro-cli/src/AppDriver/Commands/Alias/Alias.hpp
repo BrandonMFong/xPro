@@ -13,17 +13,17 @@
 /**
  * Path to list of aliases in user config
  */
-#define ALIAS_TAG_PATH "/xPro/Aliases/Alias"
+#define ALIAS_TAG_PATH "xPro/Aliases/Alias"
 
 /**
  * Path to aliases name
  */
-#define ALIAS_NAME_TAG_PATH "/xPro/Aliases/Alias[%s].name"
+#define ALIAS_NAME_TAG_PATH "xPro/Aliases/Alias[%s].name"
 
 /**
  * Path to aliases Value
  */
-#define ALIAS_VALUE_TAG_PATH "/xPro/Aliases/Alias[%s]/Value.username(%s)"
+#define ALIAS_VALUE_TAG_PATH "xPro/Aliases/Alias[%s]/Value.username(%s)"
 
 xError HandleAlias(void);
 xError HandleAliasCount(void);

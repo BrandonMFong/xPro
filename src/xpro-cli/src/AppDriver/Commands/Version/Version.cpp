@@ -6,7 +6,6 @@
  */
 
 #include "Version.hpp"
-#include <Utilities/Utilities.h>
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 

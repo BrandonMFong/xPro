@@ -5,7 +5,7 @@
  *      Author: brandonmfong
  */
 
-#include "../../Lib/xUtilities/xUtilities.h"
+#include "Utilities.h"
 
 char * xMallocString(xUInt64 length, xError * err) {
 	char * result 	= xNull;

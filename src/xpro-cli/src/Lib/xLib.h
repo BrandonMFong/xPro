@@ -15,11 +15,10 @@
 
 /// xLib
 #include "../Lib/xError.h"
-#include "../Lib/xLogger/xLog.h"
 #include "../Lib/xInt.h"
 #include "../Lib/xNull.h"
 #include "../Lib/xBool.h"
-#include "../Lib/xUtilities/xUtilities.h"
+#include "Utilities/Utilities.h"
 #include "../Lib/xTests.h"
 
 #ifdef __cplusplus

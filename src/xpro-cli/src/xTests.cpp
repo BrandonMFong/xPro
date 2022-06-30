@@ -10,8 +10,8 @@
 #include <xLib.h>
 
 /// xLib tests
-#include <xLib/xUtilities/xUtilities_Tests.h>
-#include <xLib/xArguments/xArguments_Tests.h>
+#include <Lib/Utilities/TestUtils.h>
+#include <Lib/xArguments/xArguments_Tests.h>
 
 /// App tests
 #include <AppDriver/Commands/Directory/Directory_Tests.h>

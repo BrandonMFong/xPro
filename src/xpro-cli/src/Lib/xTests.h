@@ -8,7 +8,7 @@
 #ifndef SRC_LIB_XTESTS_H_
 #define SRC_LIB_XTESTS_H_
 
-#include "../Lib/xUtilities/xUtilities.h"
+#include "../Lib/Utilities/Utilities.h"
 
 /**
  * Use this to print test results.  It will also print the

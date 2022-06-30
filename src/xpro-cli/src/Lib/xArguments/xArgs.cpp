@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-#include "../../Lib/xUtilities/xUtilities.h"
+#include "../Utilities/Utilities.h"
 
 #ifdef __cplusplus
 }

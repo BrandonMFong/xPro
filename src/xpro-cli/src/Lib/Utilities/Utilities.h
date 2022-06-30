@@ -20,7 +20,6 @@
 #include "../../Lib/xBool.h"
 #include "../../Lib/xError.h"
 #include "../../Lib/xInt.h"
-#include "../../Lib/xLogger/xLog.h"
 #include "../../Lib/xNull.h"
 
 /**

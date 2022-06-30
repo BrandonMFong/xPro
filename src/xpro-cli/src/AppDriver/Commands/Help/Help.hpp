@@ -8,7 +8,7 @@
 #ifndef SRC_APPDRIVER_COMMANDS_HELP_HELP_HPP_
 #define SRC_APPDRIVER_COMMANDS_HELP_HELP_HPP_
 
-#include <xLib.h>
+#include "../../../Lib/xLib.h"
 
 /**
  * Shows help

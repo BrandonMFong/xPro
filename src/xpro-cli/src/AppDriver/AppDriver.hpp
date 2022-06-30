@@ -8,10 +8,10 @@
 #ifndef SRC_APPDRIVER_APPDRIVER_HPP_
 #define SRC_APPDRIVER_APPDRIVER_HPP_
 
-#include <xLib.h>
-#include <xLib/Log.h>
-#include <xLib/External/RapidXml/rapidxml.hpp> // TODO: only typedef
 #include <string> // TODO: typedef
+#include "../Lib/External/RapidXml/rapidxml.hpp" // TODO: only typedef
+#include "../Lib/Log.h"
+#include "../Lib/xLib.h"
 
 /**
  * directory name at home path

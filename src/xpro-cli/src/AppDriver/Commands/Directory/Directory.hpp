@@ -8,7 +8,7 @@
 #ifndef SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 
-#include <xLib.h>
+#include "../../../Lib/xLib.h"
 
 /**
  * Element path template

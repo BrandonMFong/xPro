@@ -8,7 +8,7 @@
 #ifndef SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 #define SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 
-#include <xLib.h>
+#include "../../../Lib/xLib.h"
 
 /**
  * Path to list of aliases in user config

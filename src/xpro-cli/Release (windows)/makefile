@@ -8,8 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include src/xLib/xUtilities/subdir.mk
--include src/xLib/xArguments/subdir.mk
+-include src/Lib/xUtilities/subdir.mk
+-include src/Lib/xArguments/subdir.mk
 -include src/AppDriver/Commands/Version/subdir.mk
 -include src/AppDriver/Commands/Object/subdir.mk
 -include src/AppDriver/Commands/Help/subdir.mk

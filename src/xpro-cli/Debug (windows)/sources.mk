@@ -33,7 +33,7 @@ src/AppDriver/Commands/Directory \
 src/AppDriver/Commands/Help \
 src/AppDriver/Commands/Object \
 src/AppDriver/Commands/Version \
-src/xLib/xArguments \
-src/xLib/xUtilities \
+src/Lib/xArguments \
+src/Lib/xUtilities \
 src \
 

@@ -26,7 +26,7 @@
 #include "../Lib/xClassDec.h"
 
 /// Classes
-#include "../Lib/xArguments/xArgs.hpp"
+#include "Arguments/Arguments.hpp"
 
 #endif // __cplusplus
 

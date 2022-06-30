@@ -74,7 +74,7 @@ public:
 	/**
 	 * Parses command line arguments
 	 */
-	xArguments args;
+	Arguments args;
 
 	/**
 	 * returns _userInfo.configPath

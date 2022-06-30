@@ -5,8 +5,8 @@
  *      Author: brandonmfong
  */
 
-#ifndef SRC_LIB_XARGUMENTS_XARGUMENTS_TESTS_H_
-#define SRC_LIB_XARGUMENTS_XARGUMENTS_TESTS_H_
+#ifndef SRC_LIB_ARGUMENTS_ARGUMENTS_TESTS_H_
+#define SRC_LIB_ARGUMENTS_ARGUMENTS_TESTS_H_
 
 #include "../../Lib/xLib.h"
 
@@ -95,4 +95,4 @@ void xArguments_Tests(void) {
 	printf("\n");
 }
 
-#endif /* SRC_LIB_XARGUMENTS_XARGUMENTS_TESTS_H_ */
+#endif /* SRC_LIB_ARGUMENTS_ARGUMENTS_TESTS_H_ */

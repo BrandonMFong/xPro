@@ -20,7 +20,7 @@
 /**
  * Command line argument parsers
  */
-class xArguments {
+class Arguments {
 public:
 	/**
 	 * Saves argv array into memory
@@ -29,12 +29,12 @@ public:
 	 * is globally accessable from any part of the source
 	 * code.  So long as the constructor is invoked once
 	 */
-	xArguments(xInt8 argc, char ** argv, xError * err);
+	Arguments(xInt8 argc, char ** argv, xError * err);
 
 	/**
 	 * Destroys the argument memory array
 	 */
-	virtual ~xArguments();
+	virtual ~Arguments();
 
 	/**
 	 * Returns true if the saved argv from command line contains arg

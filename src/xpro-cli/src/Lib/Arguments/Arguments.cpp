@@ -5,7 +5,7 @@
  *      Author: brandonmfong
  */
 
-#include "../../Lib/xArguments/xArgs.hpp"
+#include "Arguments.hpp"
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,7 +17,7 @@ extern "C" {
 }
 #endif
 
-xArguments::xArguments(xInt8 argc, char ** argv, xError * err) {
+Arguments::Arguments(xInt8 argc, char ** argv, xError * err) {
 	xError error = kNoError;
 
 	this->_arguments 	= xNull;
@@ -30,14 +30,14 @@ xArguments::xArguments(xInt8 argc, char ** argv, xError * err) {
 	}
 }
 
-xArguments::~xArguments() {
+Arguments::~Arguments() {
 	if (this->_arguments != xNull) {
 		for (xUInt8 i = 0; i < this->_numArgs; i++) xFree(this->_arguments[i]);
 		xFree(this->_arguments);
 	}
 }
 
-xError xArguments::_saveArgs(int argc, char ** argv){
+xError Arguments::_saveArgs(int argc, char ** argv){
 	xError result = kNoError;
 
 	if (result == kNoError) {
@@ -60,7 +60,7 @@ xError xArguments::_saveArgs(int argc, char ** argv){
 	return result;
 }
 
-xBool xArguments::contains(const char * arg, xError * err) {
+xBool Arguments::contains(const char * arg, xError * err) {
 	xBool result 	= xFalse;
 	xError error 	= kNoError;
 	char * tempArg 	= xNull;
@@ -86,7 +86,7 @@ xBool xArguments::contains(const char * arg, xError * err) {
 	return result;
 }
 
-const char * xArguments::argAtIndex(xUInt8 index, xError * err) {
+const char * Arguments::argAtIndex(xUInt8 index, xError * err) {
 	const char * 	result 	= xNull;
 	xError 			error 	= kNoError;
 
@@ -106,7 +106,7 @@ const char * xArguments::argAtIndex(xUInt8 index, xError * err) {
 	return result;
 }
 
-xInt8 xArguments::indexForArg(const char * arg, xError * err) {
+xInt8 Arguments::indexForArg(const char * arg, xError * err) {
 	xInt8 	result 		= -1,
 			i			= 0;
 	xError 	error 		= kNoError;

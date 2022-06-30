@@ -6,13 +6,19 @@
  */
 
 #include "Command.hpp"
+#include <xLib.h>
 
-Command::Command() {
-	// TODO Auto-generated constructor stub
+Command * Command::createCommand(Arguments * args, xError * err) {
+	Command * result = xNull;
+
+	return result;
+}
+
+Command::Command(Arguments * args, xError * err) {
 
 }
 
 Command::~Command() {
-	// TODO Auto-generated destructor stub
+
 }
 

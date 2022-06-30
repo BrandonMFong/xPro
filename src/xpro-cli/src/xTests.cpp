@@ -10,7 +10,7 @@
 #include <xLib.h>
 
 /// xLib tests
-#include <Lib/Utilities/TestUtils.h>
+#include <Lib/Utilities/Utilities_Tests.h>
 #include <Lib/xArguments/xArguments_Tests.h>
 
 /// App tests

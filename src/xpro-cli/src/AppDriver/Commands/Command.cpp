@@ -8,6 +8,8 @@
 #include "Command.hpp"
 #include <xLib.h>
 
+typedef Array<const char*> Arguments;
+
 Command * Command::createCommand(Arguments * args, xError * err) {
 	Command * result = xNull;
 

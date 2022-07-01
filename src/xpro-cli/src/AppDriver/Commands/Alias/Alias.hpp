@@ -8,22 +8,8 @@
 #ifndef SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 #define SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 
-#include "../../../Lib/xLib.h"
-
-/**
- * Path to list of aliases in user config
- */
-#define ALIAS_TAG_PATH "xPro/Aliases/Alias"
-
-/**
- * Path to aliases name
- */
-#define ALIAS_NAME_TAG_PATH "xPro/Aliases/Alias[%s].name"
-
-/**
- * Path to aliases Value
- */
-#define ALIAS_VALUE_TAG_PATH "xPro/Aliases/Alias[%s]/Value.username(%s)"
+#include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
 xError HandleAlias(void);
 xError HandleAliasCount(void);

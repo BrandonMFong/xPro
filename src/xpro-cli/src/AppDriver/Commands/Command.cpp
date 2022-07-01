@@ -24,3 +24,9 @@ Command::~Command() {
 
 }
 
+xError Command::exec() {
+	xError result = kNoError;
+
+	return result;
+}
+

@@ -7,6 +7,7 @@
 
 #include "AppDriver.hpp"
 #include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Command.hpp>
 #include <fstream>
 #include <sstream>
 
@@ -213,8 +214,9 @@ xError AppDriver::readConfig() {
 }
 
 xError AppDriver::run() {
-	xError 	result 			= kNoError;
-	xBool 	okayToContinue 	= xTrue;
+	xError result = kNoError;
+	xBool okayToContinue = xTrue;
+	Command * cmd = xNull;
 
 	// See if the user wants help
 

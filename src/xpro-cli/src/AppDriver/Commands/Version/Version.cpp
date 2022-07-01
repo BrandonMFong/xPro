@@ -25,9 +25,9 @@ xError HandleVersion() {
 	// the 3rd being the short/long arg
 	if (result == kNoError) {
 		if (appDriver->args.count() == 3) {
-			argString = appDriver->args.argAtIndex(2, &result);
+			argString = appDriver->args.objectAtIndex(2);
 
-			if (result == kNoError) {
+			if (argString == xNull) {
 				// make sure we are aware of this
 				if (strlen(BUILD) < BUILD_HASH_LENGTH) {
 					DLog(

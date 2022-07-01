@@ -28,7 +28,8 @@ xError HandleDirectory() {
 
 	// Get the key from command line
 	if (result == kNoError) {
-		dirKey = appDriver->args.argAtIndex(2, &result);
+		dirKey = appDriver->args.objectAtIndex(2);
+		result = dirKey != xNull ? kNoError : kArgError;
 	}
 
 #ifndef TESTING

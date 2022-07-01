@@ -34,7 +34,8 @@ src/AppDriver/Commands/Directory \
 src/AppDriver/Commands/Help \
 src/AppDriver/Commands/Object \
 src/AppDriver/Commands/Version \
-src/Lib/Arguments \
+src/External/lib/clib \
+src/External/lib/cpplib \
 src/Lib/Utilities \
 src \
 

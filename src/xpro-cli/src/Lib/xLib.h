@@ -25,9 +25,6 @@
 
 #include "../Lib/xClassDec.h"
 
-/// Classes
-#include "Arguments/Arguments.hpp"
-
 #endif // __cplusplus
 
 #pragma mark - Macros

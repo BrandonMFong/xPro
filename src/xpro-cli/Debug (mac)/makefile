@@ -9,7 +9,8 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/Lib/Utilities/subdir.mk
--include src/Lib/Arguments/subdir.mk
+-include src/External/lib/cpplib/subdir.mk
+-include src/External/lib/clib/subdir.mk
 -include src/AppDriver/Commands/Version/subdir.mk
 -include src/AppDriver/Commands/Object/subdir.mk
 -include src/AppDriver/Commands/Help/subdir.mk

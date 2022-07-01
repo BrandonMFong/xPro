@@ -22,17 +22,17 @@ xError HandleHelp(xUInt8 printType) {
 
 		// Display info about commands
 		case 2:
-			if (AppDriver::shared()->args.contains(VERSION_ARG, xNull)) {
+			if (AppDriver::shared()->args.contains(VERSION_ARG)) {
 				PrintVersionHelp();
-			} else if (AppDriver::shared()->args.contains(DIR_ARG, xNull)) {
+			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
 				PrintDirectoryHelp();
-			} else if (AppDriver::shared()->args.contains(CREATE_ARG, xNull)) {
+			} else if (AppDriver::shared()->args.contains(CREATE_ARG)) {
 				PrintCreateHelp();
-			} else if (AppDriver::shared()->args.contains(OBJ_ARG, xNull)) {
+			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
 				PrintObjectHelp();
-			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG, xNull)) {
+			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
 				PrintDescribeHelp();
-			} else if (AppDriver::shared()->args.contains(ALIAS_ARG, xNull)) {
+			} else if (AppDriver::shared()->args.contains(ALIAS_ARG)) {
 				PrintAliasHelp();
 			} else {
 				printf("No description\n");

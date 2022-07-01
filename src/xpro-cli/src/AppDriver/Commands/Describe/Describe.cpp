@@ -27,7 +27,8 @@ xError HandleDescribe() {
 	}
 
 	if (result == kNoError) {
-		argString = appDriver->args.argAtIndex(2, &result);
+		argString = appDriver->args.objectAtIndex(2);
+		result = argString != xNull ? kNoError : kArgError;
 	}
 
 	if (result == kNoError) {

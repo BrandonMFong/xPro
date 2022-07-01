@@ -23,7 +23,8 @@ xError HandleCreate(void) {
 	}
 
 	if (result == kNoError) {
-		subCommand = appDriver->args.argAtIndex(2, &result);
+		subCommand = appDriver->args.objectAtIndex(2);
+		result = subCommand != xNull ? kNoError : kArgError;
 	}
 
 	if (result == kNoError) {

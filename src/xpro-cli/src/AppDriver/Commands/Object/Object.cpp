@@ -33,7 +33,8 @@ xError HandleObject(void) {
 	// this is the argument we are going to use to determine
 	// what we are doing next
 	if (result == kNoError) {
-		arg = appDriver->args.argAtIndex(2, &result);
+		arg = appDriver->args.objectAtIndex(2);
+		result = arg != xNull ? kNoError : kArgError;
 	}
 
 #ifndef TESTING
@@ -130,7 +131,8 @@ xError HandleObjectIndex(void) {
 
 	// Get the index for the -index argument
 	if (result == kNoError) {
-		argIndex = appDriver->args.indexForArg(INDEX_ARG, &result);
+		argIndex = appDriver->args.indexForObject(INDEX_ARG);
+		result = argIndex != -1 ? kNoError : kArgError;
 
 		if (result != kNoError) {
 			DLog("Error finding index for arg: %s", INDEX_ARG);
@@ -140,7 +142,8 @@ xError HandleObjectIndex(void) {
 	// Get the value for that switch argument
 	if (result == kNoError) {
 		if ((argIndex + 1) < appDriver->args.count()) {
-			indexString = appDriver->args.argAtIndex(argIndex + 1, &result);
+			indexString = appDriver->args.objectAtIndex(argIndex + 1);
+			result = indexString != xNull ? kNoError : kArgError;
 		} else {
 			result = kOutOfRangeError;
 
@@ -176,14 +179,10 @@ xError HandleObjectIndex(void) {
 	// Check for supporting argument to determine if we are
 	// trying to get the value or name
 	if (result == kNoError) {
-		if (appDriver->args.contains(VALUE_ARG, &result)) {
-			if (result == kNoError) {
-				type = valueType;
-			}
-		} else if (appDriver->args.contains(NAME_ARG, &result)) {
-			if (result == kNoError) {
-				type = nameType;
-			}
+		if (appDriver->args.contains(VALUE_ARG)) {
+			type = valueType;
+		} else if (appDriver->args.contains(NAME_ARG)) {
+			type = nameType;
 		} else {
 			result = kArgError;
 			Log(

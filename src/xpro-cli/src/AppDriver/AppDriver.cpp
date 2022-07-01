@@ -16,7 +16,7 @@ AppDriver::AppDriver(
 	xInt8 		argc,
 	char ** 	argv,
 	xError * 	err
-) : args(argc, argv, err) {
+) : args((const char **) argv, argc) {
 	xError result = err != xNull ? *err : kNoError;
 
 	this->_userInfo.configPath = xNull;
@@ -109,7 +109,7 @@ xError AppDriver::parseEnv() {
 
 	if (!xIsFile(this->_envPath)) {
 		// Only split out error if user didn't pass create
-		if (!this->args.contains(CREATE_ARG, &result)) {
+		if (!this->args.contains(CREATE_ARG)) {
 			ELog("%s does not exist", this->_envPath);
 			Log(
 				"Please run '%s %s %s' to create",
@@ -224,37 +224,37 @@ xError AppDriver::run() {
 		okayToContinue = xFalse;
 
 	// Print default help
-	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
+	} else if (this->args.contains(HELP_ARG) && (this->args.count() > 2)) {
 		Log("Too many arguments for %s\n", HELP_ARG);
 
 		HandleHelp(0);
 		okayToContinue = xFalse;
 
 	// Print help for command
-	} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
+	} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG)
 				&& 	(this->args.count() > 2)) {
 		HandleHelp(2);
 		okayToContinue = xFalse;
 
 	// Print help for all commands and app info
-	} else if (this->args.contains(HELP_ARG, &result)) {
+	} else if (this->args.contains(HELP_ARG)) {
 		HandleHelp(1);
 		okayToContinue = xFalse;
 	}
 
 	// Run application
 	if (okayToContinue && (result == kNoError)) {
-		if (this->args.contains(DIR_ARG, &result)) {
+		if (this->args.contains(DIR_ARG)) {
 			result = HandleDirectory();
-		} else if (this->args.contains(CREATE_ARG, &result)) {
+		} else if (this->args.contains(CREATE_ARG)) {
 			result = HandleCreate();
-		} else if (this->args.contains(VERSION_ARG, &result)) {
+		} else if (this->args.contains(VERSION_ARG)) {
 			result = HandleVersion();
-		} else if (this->args.contains(OBJ_ARG, &result)) {
+		} else if (this->args.contains(OBJ_ARG)) {
 			result = HandleObject();
-		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
+		} else if (this->args.contains(DESCRIBE_ARG)) {
 			result = HandleDescribe();
-		} else if (this->args.contains(ALIAS_ARG, &result)) {
+		} else if (this->args.contains(ALIAS_ARG)) {
 			result = HandleAlias();
 		} else {
 			Log("Unknown command");

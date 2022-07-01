@@ -43,6 +43,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.414097339" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.1290135061" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.1773636846" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -58,6 +59,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.267413436" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1150910415" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.236610590" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -196,6 +198,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1818304997" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.769553275" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.34694475" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -211,6 +214,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.936651038" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.328699805" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.476117768" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -282,8 +286,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.2014250721" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1230952025" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.1244193408" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.977066220" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -297,8 +302,9 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.801272393" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.188083297" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.844495564" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -449,6 +455,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.27845216" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.887837409" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.366216277" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -464,6 +471,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.273469988" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1786519289" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.882066219" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -512,8 +520,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1340137898" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.2104648828" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.1202587858" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.301333110" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -528,8 +537,9 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.1815228933" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1916696023" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.2085718990" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -592,6 +602,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1926990774" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.7794296" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/cpplib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.682660310" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
@@ -606,6 +617,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.65935010" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.742894253" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/Lib"/>
+									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src/External/lib/clib"/>
 									<listOptionValue builtIn="false" value="$(SOURCE_PATH)/src"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.526387566" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">

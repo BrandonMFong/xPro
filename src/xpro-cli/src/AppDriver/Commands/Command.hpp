@@ -13,12 +13,21 @@
 
 class Command {
 public:
-	static Command * createCommand(Array<const char *> * args, xError * err);
+	/**
+	 * Creates a command object with the help of the shared AppDriver instance
+	 *
+	 * Should be able to determine what sub class we should be calling
+	 */
+	static Command * createCommand(xError * err);
+
+	xError exec();
 
 protected:
-	Command(Array<const char *> * args, xError * err);
+
+	Command(xError * err);
 
 	virtual ~Command();
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_COMMAND_HPP_ */
+

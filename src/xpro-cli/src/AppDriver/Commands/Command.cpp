@@ -7,16 +7,16 @@
 
 #include "Command.hpp"
 #include <xLib.h>
+#include <AppDriver/AppDriver.hpp>
 
-typedef Array<const char*> Arguments;
-
-Command * Command::createCommand(Arguments * args, xError * err) {
+Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
+	AppDriver * appDriver = AppDriver::shared();
 
 	return result;
 }
 
-Command::Command(Arguments * args, xError * err) {
+Command::Command(xError * err) {
 
 }
 

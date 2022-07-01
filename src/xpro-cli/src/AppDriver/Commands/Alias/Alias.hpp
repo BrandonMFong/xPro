@@ -11,6 +11,16 @@
 #include <xLib.h>
 #include <AppDriver/Commands/Command.hpp>
 
+class Alias : public Command {
+public:
+	Alias * createAlias(Array<const char *> * args, xError * err);
+
+protected:
+	Alias(Array<const char *> * args, xError * err);
+
+	virtual ~Alias();
+};
+
 xError HandleAlias(void);
 xError HandleAliasCount(void);
 xError HandleAliasIndex(void);

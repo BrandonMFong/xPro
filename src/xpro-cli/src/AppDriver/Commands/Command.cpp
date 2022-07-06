@@ -11,6 +11,7 @@
 #include <AppDriver/AppDriver.hpp>
 #include "Alias/Alias.hpp"
 #include "Create/Create.hpp"
+#include "Describe/Describe.hpp"
 
 Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
@@ -46,7 +47,8 @@ Command * Command::createCommand(xError * err) {
 	// Run application
 	if (okayToContinue && (result == kNoError)) {
 		if (appDriver->args.contains(DIR_ARG)) {
-			result = HandleDirectory();
+//			result = HandleDirectory();
+			result - new Directory(&result);
 		} else if (appDriver->args.contains(CREATE_ARG)) {
 //			result = HandleCreate();
 			result = new Create(&result);
@@ -55,7 +57,8 @@ Command * Command::createCommand(xError * err) {
 		} else if (appDriver->args.contains(OBJ_ARG)) {
 			result = HandleObject();
 		} else if (appDriver->args.contains(DESCRIBE_ARG)) {
-			result = HandleDescribe();
+//			result = HandleDescribe();
+			result = new Describe(&result);
 		} else if (appDriver->args.contains(ALIAS_ARG)) {
 //			result = HandleAlias();
 			result = new Alias(&result);

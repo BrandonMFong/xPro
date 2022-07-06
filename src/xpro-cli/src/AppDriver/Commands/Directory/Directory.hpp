@@ -8,12 +8,20 @@
 #ifndef SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 #define SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_
 
-#include "../../../Lib/xLib.h"
+#include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
 /**
  * Element path template
  */
 #define DIRECTORY_ELEMENT_PATH_FORMAT "xPro/Directories/Directory.key(%s)/Value.username(%s)"
+
+class Directory : public Command {
+public:
+	Directory(xError * err);
+	virtual ~Directory();
+	xError exec();
+};
 
 /**
  * Handles the dir argument from

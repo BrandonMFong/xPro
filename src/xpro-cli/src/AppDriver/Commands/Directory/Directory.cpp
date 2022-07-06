@@ -10,7 +10,15 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
-xError HandleDirectory() {
+Directory::Directory(xError * err) : Command(err) {
+
+}
+
+Directory::~Directory() {
+
+}
+
+xError Directory::exec() {
 	xError result = kNoError;
 	const char * dirKey = xNull;
 	AppDriver * appDriver = xNull;

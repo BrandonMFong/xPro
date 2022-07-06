@@ -8,10 +8,17 @@
 #ifndef SRC_APPDRIVER_COMMANDS_DESCRIBE_DESCRIBE_HPP_
 #define SRC_APPDRIVER_COMMANDS_DESCRIBE_DESCRIBE_HPP_
 
+#include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
-#include "../../../Lib/xLib.h"
+class Describe : public Command {
+public:
+	Describe(xError * err);
+	virtual ~Describe();
+	xError exec();
+};
 
-xError HandleDescribe(void);
+//xError HandleDescribe(void);
 
 
 #endif /* SRC_APPDRIVER_COMMANDS_DESCRIBE_DESCRIBE_HPP_ */

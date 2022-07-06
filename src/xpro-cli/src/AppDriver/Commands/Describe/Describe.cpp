@@ -10,7 +10,15 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
-xError HandleDescribe() {
+Describe::Describe(xError * err) : Command(err) {
+
+}
+
+Describe::~Describe() {
+
+}
+
+xError Describe::exec() {
 	xError 			result 		= kNoError;
 	const xUInt8 	argCount 	= 3;
 	const char * 	argString 	= xNull;

@@ -10,7 +10,15 @@
 #include <AppDriver/Commands/Commands.h>
 #include "ConfigTemplate.h"
 
-xError HandleCreate(void) {
+Create::Create(xError * err) : Command(err) {
+
+}
+
+Create::~Create() {
+
+}
+
+xError Create::exec() {
 	xError 			result 		= kNoError;
 	AppDriver * 	appDriver 	= xNull;
 	const char * 	subCommand 	= xNull;
@@ -47,7 +55,7 @@ xError HandleCreate(void) {
 	return result;
 }
 
-xError CreateXProHomePath(void) {
+xError Create::CreateXProHomePath(void) {
 	xError 		result 		= kNoError;
 	AppDriver * appDriver 	= xNull;
 
@@ -67,7 +75,7 @@ xError CreateXProHomePath(void) {
 	return result;
 }
 
-xError CreateUserConfig(void) {
+xError Create::CreateUserConfig(void) {
 	xError 	result 			= kNoError;
 	char * 	homePath 		= xNull;
 	char * 	configPath 		= xNull;
@@ -104,7 +112,7 @@ xError CreateUserConfig(void) {
 	return result;
 }
 
-xError CreateEnvironmentConfig(void) {
+xError Create::CreateEnvironmentConfig(void) {
 	xError 	result 			= kNoError;
 	char * 	homePath 		= xNull;
 	char * 	envPath 		= xNull;
@@ -141,7 +149,7 @@ xError CreateEnvironmentConfig(void) {
 	return result;
 }
 
-xError WriteToFile(
+xError Create::WriteToFile(
 	const char * content,
 	const char * filePath
 ) {

@@ -10,6 +10,7 @@
 #include <xLib.h>
 #include <AppDriver/AppDriver.hpp>
 #include "Alias/Alias.hpp"
+#include "Create/Create.hpp"
 
 Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
@@ -46,15 +47,16 @@ Command * Command::createCommand(xError * err) {
 	if (okayToContinue && (result == kNoError)) {
 		if (appDriver->args.contains(DIR_ARG)) {
 			result = HandleDirectory();
-		} else if (this->args.contains(CREATE_ARG)) {
-			result = HandleCreate();
-		} else if (this->args.contains(VERSION_ARG)) {
+		} else if (appDriver->args.contains(CREATE_ARG)) {
+//			result = HandleCreate();
+			result = new Create(&result);
+		} else if (appDriver->args.contains(VERSION_ARG)) {
 			result = HandleVersion();
-		} else if (this->args.contains(OBJ_ARG)) {
+		} else if (appDriver->args.contains(OBJ_ARG)) {
 			result = HandleObject();
-		} else if (this->args.contains(DESCRIBE_ARG)) {
+		} else if (appDriver->args.contains(DESCRIBE_ARG)) {
 			result = HandleDescribe();
-		} else if (this->args.contains(ALIAS_ARG)) {
+		} else if (appDriver->args.contains(ALIAS_ARG)) {
 //			result = HandleAlias();
 			result = new Alias(&result);
 		} else {

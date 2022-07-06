@@ -20,13 +20,11 @@ public:
 	 */
 	static Command * createCommand(xError * err);
 
-	virtual xError exec() = 0;
-
-protected:
-
 	Command(xError * err);
 
 	virtual ~Command();
+
+	virtual xError exec() = 0;
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_COMMAND_HPP_ */

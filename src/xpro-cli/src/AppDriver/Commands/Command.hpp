@@ -20,7 +20,7 @@ public:
 	 */
 	static Command * createCommand(xError * err);
 
-	xError exec();
+	virtual xError exec() = 0;
 
 protected:
 

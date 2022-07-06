@@ -13,16 +13,17 @@
 
 class Alias : public Command {
 public:
-	Alias * createAlias(Array<const char *> * args, xError * err);
-
-protected:
-	Alias(Array<const char *> * args, xError * err);
+	Alias(xError * err);
 
 	virtual ~Alias();
-};
 
-xError HandleAlias(void);
-xError HandleAliasCount(void);
-xError HandleAliasIndex(void);
+	virtual xError exec();
+
+protected:
+
+//	xError HandleAlias(void);
+	xError HandleAliasCount(void);
+	xError HandleAliasIndex(void);
+};
 
 #endif /* SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_ */

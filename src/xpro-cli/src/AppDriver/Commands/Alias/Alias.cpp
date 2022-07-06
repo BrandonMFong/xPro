@@ -13,7 +13,15 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
-xError HandleAlias(void) {
+Alias::Alias(xError * err) : Command(err) {
+
+}
+
+Alias::~Alias() {
+
+}
+
+xError Alias::exec(void) {
 	xError result = kNoError;
 	const char * arg = xNull;
 	const xUInt8 argCount = 5; // max arg count
@@ -71,7 +79,7 @@ xError HandleAlias(void) {
 	return result;
 }
 
-xError HandleAliasCount(void) {
+xError Alias::HandleAliasCount(void) {
 	xError result = kNoError;
 	rapidxml::xml_node<> * node = xNull,
 			* aliasNode = xNull,
@@ -121,7 +129,7 @@ xError HandleAliasCount(void) {
 	return result;
 }
 
-xError HandleAliasIndex(void) {
+xError Alias::HandleAliasIndex(void) {
 	xError result = kNoError;
 	char * xmlValue = xNull;
 	const char * indexString = xNull;

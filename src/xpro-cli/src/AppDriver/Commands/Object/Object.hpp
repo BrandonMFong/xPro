@@ -8,7 +8,8 @@
 #ifndef SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_
 #define SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_
 
-#include "../../../Lib/xLib.h"
+#include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
 /**
  * Path to list of objects in user config
@@ -25,20 +26,29 @@
  */
 #define OBJECT_VALUE_TAG_PATH "xPro/Objects/Object[%s]/Value.username(%s)"
 
-/**
- *	Prints out object based on arguments passed
- */
-xError HandleObject(void);
+class Object : public Command {
+public:
+	Object(xError * err);
+	virtual ~Object();
+	xError exec();
 
-/**
- * Prints total count of object nodes
- */
-xError HandleObjectCount(void);
+protected:
 
-/**
- * Prints object at index
- */
-xError HandleObjectIndex(void);
+//	/**
+//	 *	Prints out object based on arguments passed
+//	 */
+//	xError HandleObject(void);
+
+	/**
+	 * Prints total count of object nodes
+	 */
+	xError HandleObjectCount(void);
+
+	/**
+	 * Prints object at index
+	 */
+	xError HandleObjectIndex(void);
+};
 
 
 #endif /* SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_ */

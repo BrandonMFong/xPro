@@ -8,11 +8,20 @@
 #ifndef SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_
 #define SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_
 
-#include "../../../Lib/xLib.h"
+#include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
-/**
- * Prints VERSION macro.  This macro should hold the version string
- */
-xError HandleVersion(void);
+class Version : public Command {
+public:
+	Version(xError * err);
+	virtual ~Version();
+
+	/**
+	 * Prints VERSION macro.  This macro should hold the version string
+	 */
+	xError exec();
+};
+
+//xError HandleVersion(void);
 
 #endif /* SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_ */

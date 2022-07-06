@@ -12,9 +12,14 @@
 #include "Alias/Alias.hpp"
 #include "Create/Create.hpp"
 #include "Describe/Describe.hpp"
+#include "Directory/Directory.hpp"
+#include "Help/Help.hpp"
+#include "Object/Object.hpp"
+#include "Version/Version.hpp"
 
 Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
+	xError error = kNoError;
 	xBool okayToContinue = xTrue;
 	AppDriver * appDriver = AppDriver::shared();
 
@@ -45,27 +50,33 @@ Command * Command::createCommand(xError * err) {
 	}
 
 	// Run application
-	if (okayToContinue && (result == kNoError)) {
+	if (okayToContinue) {
 		if (appDriver->args.contains(DIR_ARG)) {
 //			result = HandleDirectory();
-			result - new Directory(&result);
+			result = new Directory(&error);
 		} else if (appDriver->args.contains(CREATE_ARG)) {
 //			result = HandleCreate();
-			result = new Create(&result);
+			result = new Create(&error);
 		} else if (appDriver->args.contains(VERSION_ARG)) {
-			result = HandleVersion();
+//			result = HandleVersion();
+			result = new Version(&error);
 		} else if (appDriver->args.contains(OBJ_ARG)) {
-			result = HandleObject();
+//			result = HandleObject();
+			result = new Object(&error);
 		} else if (appDriver->args.contains(DESCRIBE_ARG)) {
 //			result = HandleDescribe();
-			result = new Describe(&result);
+			result = new Describe(&error);
 		} else if (appDriver->args.contains(ALIAS_ARG)) {
 //			result = HandleAlias();
-			result = new Alias(&result);
+			result = new Alias(&error);
 		} else {
 			Log("Unknown command");
 			HandleHelp(0);
 		}
+	}
+
+	if (err != xNull) {
+		*err = error;
 	}
 
 	return result;

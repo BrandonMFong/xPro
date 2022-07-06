@@ -12,7 +12,15 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
-xError HandleObject(void) {
+Object::Object(xError * err) : Command(err) {
+
+}
+
+Object::~Object() {
+
+}
+
+xError Object::exec() {
 	xError result = kNoError;
 	const char * arg = xNull;
 	const xUInt8 argCount = 5; // max arg count
@@ -66,7 +74,7 @@ xError HandleObject(void) {
 	return result;
 }
 
-xError HandleObjectCount(void) {
+xError Object::HandleObjectCount() {
 	xError result = kNoError;
 	rapidxml::xml_node<> * node = xNull,
 			* objectNode = xNull,
@@ -116,7 +124,7 @@ xError HandleObjectCount(void) {
 	return result;
 }
 
-xError HandleObjectIndex(void) {
+xError Object::HandleObjectIndex() {
 	xError result = kNoError;
 	char * xmlValue = xNull;
 	const char * indexString = xNull;

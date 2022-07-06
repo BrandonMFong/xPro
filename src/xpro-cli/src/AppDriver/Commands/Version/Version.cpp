@@ -9,7 +9,15 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
-xError HandleVersion() {
+Version::Version(xError * err) : Command(err) {
+
+}
+
+Version::~Version() {
+
+}
+
+xError Version::exec() {
 	xError 			result 			= kNoError;
 	const char *	argString 		= xNull;
 	char * 			buildHashString = xNull;

@@ -22,53 +22,21 @@ Command * Command::createCommand(xError * err) {
 	xError error = kNoError;
 	xBool okayToContinue = xTrue;
 
-//	 See if the user wants help
-//
-//	// Print default help
-//	if (appDriver->args.count() == 1) {
-//		HandleHelp(0);
-//		okayToContinue = xFalse;
-//
-//	// Print default help
-//	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
-//		Log("Too many arguments for %s\n", HELP_ARG);
-//
-//		HandleHelp(0);
-//		okayToContinue = xFalse;
-//
-//	// Print help for command
-//	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
-//				&& 	(appDriver->args.count() > 2)) {
-//		HandleHelp(2);
-//		okayToContinue = xFalse;
-//
-//	// Print help for all commands and app info
-//	} else if (appDriver->args.contains(HELP_ARG)) {
-//		HandleHelp(1);
-//		okayToContinue = xFalse;
-//	}
-
 	// Run application
 	if (okayToContinue) {
 		if (Help::commandInvoked()) {
 			result = new Help(&error);
 		} else if (Directory::commandInvoked()) {
-//			result = HandleDirectory();
 			result = new Directory(&error);
 		} else if (Create::commandInvoked()) {
-//			result = HandleCreate();
 			result = new Create(&error);
 		} else if (Version::commandInvoked()) {
-//			result = HandleVersion();
 			result = new Version(&error);
 		} else if (Object::commandInvoked()) {
-//			result = HandleObject();
 			result = new Object(&error);
 		} else if (Describe::commandInvoked()) {
-//			result = HandleDescribe();
 			result = new Describe(&error);
 		} else if (Alias::commandInvoked()) {
-//			result = HandleAlias();
 			result = new Alias(&error);
 		} else {
 			Log("Unknown command");

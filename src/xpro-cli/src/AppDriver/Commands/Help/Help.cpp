@@ -19,29 +19,19 @@ xBool Help::commandInvoked() {
 
 	// Print default help
 	} else if (appDriver->args.count() == 1) {
-//		HandleHelp(0);
-//		okayToContinue = xFalse;
 		return xTrue;
 
 	// Print default help
 	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
-//		Log("Too many arguments for %s\n", HELP_ARG);
-//
-//		HandleHelp(0);
-//		okayToContinue = xFalse;
 		return xTrue;
 
 	// Print help for command
 	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
 				&& 	(appDriver->args.count() > 2)) {
-//		HandleHelp(2);
-//		okayToContinue = xFalse;
 		return xTrue;
 
 	// Print help for all commands and app info
 	} else if (appDriver->args.contains(HELP_ARG)) {
-//		HandleHelp(1);
-//		okayToContinue = xFalse;
 		DLog("%s was passed", HELP_ARG);
 		return xTrue;
 	} else {

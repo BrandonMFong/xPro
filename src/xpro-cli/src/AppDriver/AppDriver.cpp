@@ -215,7 +215,6 @@ xError AppDriver::readConfig() {
 
 xError AppDriver::run() {
 	xError result = kNoError;
-	xBool okayToContinue = xTrue;
 	Command * cmd = Command::createCommand(&result);
 
 	if (result == kNoError) {

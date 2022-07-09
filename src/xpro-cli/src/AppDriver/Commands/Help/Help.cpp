@@ -14,6 +14,7 @@ xBool Help::commandInvoked() {
 	AppDriver * appDriver = AppDriver::shared();
 
 	if (appDriver == 0) {
+		DLog("The app driver object is null");
 		return xFalse;
 
 	// Print default help
@@ -41,6 +42,7 @@ xBool Help::commandInvoked() {
 	} else if (appDriver->args.contains(HELP_ARG)) {
 //		HandleHelp(1);
 //		okayToContinue = xFalse;
+		DLog("%s was passed", HELP_ARG);
 		return xTrue;
 	} else {
 		return xFalse;
@@ -78,6 +80,8 @@ xError Help::exec() {
 	// Print help for all commands and app info
 	} else if (appDriver->args.contains(HELP_ARG)) {
 		HandleHelp(1);
+	} else {
+		DLog("Unknown error occurred");
 	}
 
 	return kNoError;

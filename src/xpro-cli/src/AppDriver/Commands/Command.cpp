@@ -21,7 +21,6 @@ Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
 	xError error = kNoError;
 	xBool okayToContinue = xTrue;
-	AppDriver * appDriver = AppDriver::shared();
 
 //	 See if the user wants help
 //

@@ -21,6 +21,7 @@ public:
 	Directory(xError * err);
 	virtual ~Directory();
 	xError exec();
+	static xBool commandInvoked();
 };
 
 /**

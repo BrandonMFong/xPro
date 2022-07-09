@@ -31,6 +31,7 @@ public:
 	Object(xError * err);
 	virtual ~Object();
 	xError exec();
+	static xBool commandInvoked();
 
 protected:
 

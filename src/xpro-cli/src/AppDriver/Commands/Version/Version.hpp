@@ -15,6 +15,7 @@ class Version : public Command {
 public:
 	Version(xError * err);
 	virtual ~Version();
+	static xBool commandInvoked();
 
 	/**
 	 * Prints VERSION macro.  This macro should hold the version string

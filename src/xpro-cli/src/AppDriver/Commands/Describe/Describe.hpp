@@ -16,6 +16,7 @@ public:
 	Describe(xError * err);
 	virtual ~Describe();
 	xError exec();
+	static xBool commandInvoked();
 };
 
 //xError HandleDescribe(void);

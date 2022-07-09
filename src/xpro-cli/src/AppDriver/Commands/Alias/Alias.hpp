@@ -18,6 +18,7 @@ public:
 	virtual ~Alias();
 
 	virtual xError exec();
+	static xBool commandInvoked();
 
 protected:
 

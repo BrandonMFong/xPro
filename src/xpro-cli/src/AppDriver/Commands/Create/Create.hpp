@@ -15,6 +15,7 @@ class Create : public Command {
 public:
 	Create(xError * error);
 	virtual ~Create();
+	static xBool commandInvoked();
 
 #pragma mark - Top
 

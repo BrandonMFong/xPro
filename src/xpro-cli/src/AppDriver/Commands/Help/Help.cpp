@@ -10,7 +10,80 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
-xError HandleHelp(xUInt8 printType) {
+xBool Help::commandInvoked() {
+	AppDriver * appDriver = AppDriver::shared();
+
+	if (appDriver == 0) {
+		return xFalse;
+
+	// Print default help
+	} else if (appDriver->args.count() == 1) {
+//		HandleHelp(0);
+//		okayToContinue = xFalse;
+		return xTrue;
+
+	// Print default help
+	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
+//		Log("Too many arguments for %s\n", HELP_ARG);
+//
+//		HandleHelp(0);
+//		okayToContinue = xFalse;
+		return xTrue;
+
+	// Print help for command
+	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
+				&& 	(appDriver->args.count() > 2)) {
+//		HandleHelp(2);
+//		okayToContinue = xFalse;
+		return xTrue;
+
+	// Print help for all commands and app info
+	} else if (appDriver->args.contains(HELP_ARG)) {
+//		HandleHelp(1);
+//		okayToContinue = xFalse;
+		return xTrue;
+	} else {
+		return xFalse;
+	}
+}
+
+Help::Help(xError * err) : Command(err) {
+
+}
+
+Help::~Help() {
+
+}
+
+xError Help::exec() {
+	AppDriver * appDriver = AppDriver::shared();
+
+	// See if the user wants help
+
+	// Print default help
+	if (appDriver->args.count() == 1) {
+		HandleHelp(0);
+
+	// Print default help
+	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
+		Log("Too many arguments for %s\n", HELP_ARG);
+
+		HandleHelp(0);
+
+	// Print help for command
+	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
+				&& 	(appDriver->args.count() > 2)) {
+		HandleHelp(2);
+
+	// Print help for all commands and app info
+	} else if (appDriver->args.contains(HELP_ARG)) {
+		HandleHelp(1);
+	}
+
+	return kNoError;
+}
+
+xError Help::HandleHelp(xUInt8 printType) {
 	xError result = kNoError;
 
 	if (result == kNoError) {
@@ -80,7 +153,7 @@ xError HandleHelp(xUInt8 printType) {
 }
 
 
-void PrintHeader(void) {
+void Help::PrintHeader(void) {
 	printf(
 		"usage: %s [ %s ] <command> [<args>] \n",
 		AppDriver::shared()->execName(),
@@ -88,7 +161,7 @@ void PrintHeader(void) {
 	);
 }
 
-void PrintVersionHelp(void) {
+void Help::PrintVersionHelp(void) {
 	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), VERSION_ARG);
 	printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
 	printf("\nDiscussion:\n");
@@ -98,7 +171,7 @@ void PrintVersionHelp(void) {
 	printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
 }
 
-void PrintDirectoryHelp(void) {
+void Help::PrintDirectoryHelp(void) {
 	printf("Command: %s %s <key>\n", AppDriver::shared()->execName(), DIR_ARG);
 	printf("\nBrief: %s\n", DIR_ARG_BRIEF);
 	printf("\nDiscussion:\n");
@@ -106,7 +179,7 @@ void PrintDirectoryHelp(void) {
 	printf("\nArguments: %s\n", DIR_ARG_INFO);
 }
 
-void PrintCreateHelp(void) {
+void Help::PrintCreateHelp(void) {
 	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), CREATE_ARG);
 	printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
 	printf("\nDiscussion:\n");
@@ -117,7 +190,7 @@ void PrintCreateHelp(void) {
 	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 }
 
-void PrintObjectHelp(void) {
+void Help::PrintObjectHelp(void) {
 	printf(
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
@@ -137,7 +210,7 @@ void PrintObjectHelp(void) {
 	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
 }
 
-void PrintDescribeHelp(void) {
+void Help::PrintDescribeHelp(void) {
 	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), DESCRIBE_ARG);
 	printf("\nBrief: %s\n", DESCRIBE_ARG_BRIEF);
 	printf("\nDiscussion:\n");
@@ -148,7 +221,7 @@ void PrintDescribeHelp(void) {
 	printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
 }
 
-void PrintAliasHelp(void) {
+void Help::PrintAliasHelp(void) {
 	printf(
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
@@ -168,7 +241,7 @@ void PrintAliasHelp(void) {
 	printf("  %s: %s\n", NAME_ARG, ALIAS_NAME_ARG_INFO);
 }
 
-void PrintFooter(void) {
+void Help::PrintFooter(void) {
 
 	printf(
 		"Use '%s %s <cmd>' to see more information on the above commands\n",

@@ -23,35 +23,37 @@ Command * Command::createCommand(xError * err) {
 	xBool okayToContinue = xTrue;
 	AppDriver * appDriver = AppDriver::shared();
 
-	// See if the user wants help
-
-	// Print default help
-	if (appDriver->args.count() == 1) {
-		HandleHelp(0);
-		okayToContinue = xFalse;
-
-	// Print default help
-	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
-		Log("Too many arguments for %s\n", HELP_ARG);
-
-		HandleHelp(0);
-		okayToContinue = xFalse;
-
-	// Print help for command
-	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
-				&& 	(appDriver->args.count() > 2)) {
-		HandleHelp(2);
-		okayToContinue = xFalse;
-
-	// Print help for all commands and app info
-	} else if (appDriver->args.contains(HELP_ARG)) {
-		HandleHelp(1);
-		okayToContinue = xFalse;
-	}
+//	 See if the user wants help
+//
+//	// Print default help
+//	if (appDriver->args.count() == 1) {
+//		HandleHelp(0);
+//		okayToContinue = xFalse;
+//
+//	// Print default help
+//	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
+//		Log("Too many arguments for %s\n", HELP_ARG);
+//
+//		HandleHelp(0);
+//		okayToContinue = xFalse;
+//
+//	// Print help for command
+//	} else if (		appDriver->args.contains(DESCRIBE_COMMAND_HELP_ARG)
+//				&& 	(appDriver->args.count() > 2)) {
+//		HandleHelp(2);
+//		okayToContinue = xFalse;
+//
+//	// Print help for all commands and app info
+//	} else if (appDriver->args.contains(HELP_ARG)) {
+//		HandleHelp(1);
+//		okayToContinue = xFalse;
+//	}
 
 	// Run application
 	if (okayToContinue) {
-		if (appDriver->args.contains(DIR_ARG)) {
+		if (Help::commandInvoked()) {
+			result = new Help(&error);
+		} else if (appDriver->args.contains(DIR_ARG)) {
 //			result = HandleDirectory();
 			result = new Directory(&error);
 		} else if (appDriver->args.contains(CREATE_ARG)) {
@@ -71,7 +73,7 @@ Command * Command::createCommand(xError * err) {
 			result = new Alias(&error);
 		} else {
 			Log("Unknown command");
-			HandleHelp(0);
+			result = new Help(&error);
 		}
 	}
 

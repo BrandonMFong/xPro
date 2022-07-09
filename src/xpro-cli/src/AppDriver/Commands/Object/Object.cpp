@@ -12,6 +12,16 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
+xBool Object::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(OBJ_ARG);
+	} else {
+		return xFalse;
+	}
+}
+
 Object::Object(xError * err) : Command(err) {
 
 }

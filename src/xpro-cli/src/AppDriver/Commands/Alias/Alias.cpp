@@ -13,6 +13,16 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
+xBool Alias::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(ALIAS_ARG);
+	} else {
+		return xFalse;
+	}
+}
+
 Alias::Alias(xError * err) : Command(err) {
 
 }

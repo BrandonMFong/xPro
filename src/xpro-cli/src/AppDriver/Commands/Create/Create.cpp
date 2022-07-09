@@ -10,6 +10,16 @@
 #include <AppDriver/Commands/Commands.h>
 #include "ConfigTemplate.h"
 
+xBool Create::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(CREATE_ARG);
+	} else {
+		return xFalse;
+	}
+}
+
 Create::Create(xError * err) : Command(err) {
 
 }

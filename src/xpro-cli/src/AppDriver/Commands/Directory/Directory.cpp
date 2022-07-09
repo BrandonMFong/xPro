@@ -7,8 +7,19 @@
 
 #include "Directory.hpp"
 #include <AppDriver/AppDriver.hpp>
+#include <AppDriver/Commands/Commands.h>
 
 static rapidxml::xml_node<> * rootNode = xNull;
+
+xBool Directory::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(DIR_ARG);
+	} else {
+		return xFalse;
+	}
+}
 
 Directory::Directory(xError * err) : Command(err) {
 

@@ -9,6 +9,16 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+xBool Version::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(VERSION_ARG);
+	} else {
+		return xFalse;
+	}
+}
+
 Version::Version(xError * err) : Command(err) {
 
 }

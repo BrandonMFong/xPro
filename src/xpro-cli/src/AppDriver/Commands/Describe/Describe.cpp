@@ -10,6 +10,16 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+xBool Describe::commandInvoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(DESCRIBE_ARG);
+	} else {
+		return xFalse;
+	}
+}
+
 Describe::Describe(xError * err) : Command(err) {
 
 }

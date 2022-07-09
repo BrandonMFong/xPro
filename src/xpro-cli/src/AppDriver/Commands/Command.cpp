@@ -53,22 +53,22 @@ Command * Command::createCommand(xError * err) {
 	if (okayToContinue) {
 		if (Help::commandInvoked()) {
 			result = new Help(&error);
-		} else if (appDriver->args.contains(DIR_ARG)) {
+		} else if (Directory::commandInvoked()) {
 //			result = HandleDirectory();
 			result = new Directory(&error);
-		} else if (appDriver->args.contains(CREATE_ARG)) {
+		} else if (Create::commandInvoked()) {
 //			result = HandleCreate();
 			result = new Create(&error);
-		} else if (appDriver->args.contains(VERSION_ARG)) {
+		} else if (Version::commandInvoked()) {
 //			result = HandleVersion();
 			result = new Version(&error);
-		} else if (appDriver->args.contains(OBJ_ARG)) {
+		} else if (Object::commandInvoked()) {
 //			result = HandleObject();
 			result = new Object(&error);
-		} else if (appDriver->args.contains(DESCRIBE_ARG)) {
+		} else if (Describe::commandInvoked()) {
 //			result = HandleDescribe();
 			result = new Describe(&error);
-		} else if (appDriver->args.contains(ALIAS_ARG)) {
+		} else if (Alias::commandInvoked()) {
 //			result = HandleAlias();
 			result = new Alias(&error);
 		} else {

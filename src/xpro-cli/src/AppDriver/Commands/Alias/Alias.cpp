@@ -31,6 +31,26 @@ Alias::~Alias() {
 
 }
 
+void Alias::help() {
+	printf(
+		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+		AppDriver::shared()->execName(),
+		ALIAS_ARG,
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
+	);
+	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", ALIAS_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", COUNT_ARG, ALIAS_COUNT_ARG_INFO);
+	printf("  %s: %s\n", INDEX_ARG, ALIAS_INDEX_ARG_INFO);
+	printf("  %s: %s\n", VALUE_ARG, ALIAS_VALUE_ARG_INFO);
+	printf("  %s: %s\n", NAME_ARG, ALIAS_NAME_ARG_INFO);
+}
+
 xError Alias::exec(void) {
 	xError result = kNoError;
 	const char * arg = xNull;

@@ -14,15 +14,13 @@
 class Alias : public Command {
 public:
 	Alias(xError * err);
-
 	virtual ~Alias();
-
 	virtual xError exec();
 	static xBool commandInvoked();
+	static void help();
 
 protected:
 
-//	xError HandleAlias(void);
 	xError HandleAliasCount(void);
 	xError HandleAliasIndex(void);
 };

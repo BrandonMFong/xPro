@@ -103,7 +103,8 @@ xError Help::HandleHelp(xUInt8 printType) {
 			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
 				PrintDescribeHelp();
 			} else if (AppDriver::shared()->args.contains(ALIAS_ARG)) {
-				PrintAliasHelp();
+				//PrintAliasHelp();
+				Alias::help();
 			} else {
 				printf("No description\n");
 			}

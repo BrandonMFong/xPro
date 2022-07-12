@@ -11,6 +11,20 @@
 #include <fstream>
 #include <sstream>
 
+ArrayComparisonResult ArrayStringCompare(const char * a, const char * b) {
+	int result = strcmp((char *) a, (char *) b);
+
+	if (result < 0) {
+		return kArrayComparisonResultLessThan;
+	} else if (result > 0) {
+		return kArrayComparisonResultGreaterThan;
+	} else if (result == 0) {
+		return kArrayComparisonResultEquals;
+	} else {
+		return kArrayComparisonResultUnknown;
+	}
+}
+
 AppDriver * globalAppDriver = xNull;
 
 AppDriver::AppDriver(
@@ -22,6 +36,8 @@ AppDriver::AppDriver(
 
 	this->_userInfo.configPath = xNull;
 	this->_userInfo.username = xNull;
+
+	this->args.setComparator(ArrayStringCompare);
 
 	if (result == kNoError) {
 		result = this->parseEnv();

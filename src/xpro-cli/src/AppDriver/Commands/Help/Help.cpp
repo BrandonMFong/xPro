@@ -101,7 +101,8 @@ xError Help::HandleHelp(xUInt8 printType) {
 				//PrintCreateHelp();
 				Create::help();
 			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
-				PrintObjectHelp();
+				//PrintObjectHelp();
+				Object::help();
 			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
 				//PrintDescribeHelp();
 				Describe::help();

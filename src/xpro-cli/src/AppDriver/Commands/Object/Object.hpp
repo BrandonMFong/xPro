@@ -32,14 +32,10 @@ public:
 	virtual ~Object();
 	xError exec();
 	static xBool commandInvoked();
+	static void help();
 
 protected:
-
-//	/**
-//	 *	Prints out object based on arguments passed
-//	 */
-//	xError HandleObject(void);
-
+	
 	/**
 	 * Prints total count of object nodes
 	 */

@@ -30,6 +30,26 @@ Object::~Object() {
 
 }
 
+void Object::help() {
+	printf(
+		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+		AppDriver::shared()->execName(),
+		OBJ_ARG,
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
+	);
+	printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", OBJ_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", COUNT_ARG, OBJ_COUNT_ARG_INFO);
+	printf("  %s: %s\n", INDEX_ARG, OBJ_INDEX_ARG_INFO);
+	printf("  %s: %s\n", VALUE_ARG, OBJ_VALUE_ARG_INFO);
+	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
+}
+
 xError Object::exec() {
 	xError result = kNoError;
 	const char * arg = xNull;

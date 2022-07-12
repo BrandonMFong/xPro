@@ -27,6 +27,16 @@ Version::~Version() {
 
 }
 
+void Version::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), VERSION_ARG);
+	printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", VERSION_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", LONG_ARG, LONG_ARG_INFO);
+	printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
+}
+
 xError Version::exec() {
 	xError 			result 			= kNoError;
 	const char *	argString 		= xNull;

@@ -16,13 +16,12 @@ public:
 	Version(xError * err);
 	virtual ~Version();
 	static xBool commandInvoked();
+	static void help();
 
 	/**
 	 * Prints VERSION macro.  This macro should hold the version string
 	 */
 	xError exec();
 };
-
-//xError HandleVersion(void);
 
 #endif /* SRC_APPDRIVER_COMMANDS_VERSION_VERSION_HPP_ */

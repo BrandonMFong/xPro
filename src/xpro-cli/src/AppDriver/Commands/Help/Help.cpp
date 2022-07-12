@@ -93,7 +93,8 @@ xError Help::HandleHelp(xUInt8 printType) {
 		// Display info about commands
 		case 2:
 			if (AppDriver::shared()->args.contains(VERSION_ARG)) {
-				PrintVersionHelp();
+				//PrintVersionHelp();
+				Version::help();
 			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
 				//PrintDirectoryHelp();
 				Directory::help();

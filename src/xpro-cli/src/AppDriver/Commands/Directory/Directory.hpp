@@ -22,16 +22,14 @@ public:
 	virtual ~Directory();
 	xError exec();
 	static xBool commandInvoked();
+	static void help();
+
+protected:
+
+	/**
+	 * Prints out directory for the alias
+	 */
+	xError PrintDirectoryForKey(const char * key);
 };
-
-/**
- * Handles the dir argument from
- */
-xError HandleDirectory(void);
-
-/**
- * Prints out directory for the alias
- */
-xError PrintDirectoryForKey(const char * key);
 
 #endif /* SRC_COMMANDS_DIRECTORY_DIRECTORY_HPP_ */

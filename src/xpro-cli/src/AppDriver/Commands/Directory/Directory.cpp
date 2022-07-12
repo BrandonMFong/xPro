@@ -29,6 +29,14 @@ Directory::~Directory() {
 
 }
 
+void Directory::help() {
+	printf("Command: %s %s <key>\n", AppDriver::shared()->execName(), DIR_ARG);
+	printf("\nBrief: %s\n", DIR_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("%s\n", DIR_ARG_DISCUSSION);
+	printf("\nArguments: %s\n", DIR_ARG_INFO);
+}
+
 xError Directory::exec() {
 	xError result = kNoError;
 	const char * dirKey = xNull;
@@ -83,7 +91,7 @@ xError Directory::exec() {
 	return result;
 }
 
-xError PrintDirectoryForKey(const char * key) {
+xError Directory::PrintDirectoryForKey(const char * key) {
 	xError result = kNoError;
 	char * directory = xNull;
 	const char * username = xNull;
@@ -179,3 +187,4 @@ xError PrintDirectoryForKey(const char * key) {
 
 	return result;
 }
+

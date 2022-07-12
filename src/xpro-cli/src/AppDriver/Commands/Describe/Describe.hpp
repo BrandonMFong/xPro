@@ -17,9 +17,7 @@ public:
 	virtual ~Describe();
 	xError exec();
 	static xBool commandInvoked();
+	static void help();
 };
-
-//xError HandleDescribe(void);
-
 
 #endif /* SRC_APPDRIVER_COMMANDS_DESCRIBE_DESCRIBE_HPP_ */

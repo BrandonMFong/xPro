@@ -11,21 +11,6 @@
 #include <xLib.h>
 #include <AppDriver/Commands/Command.hpp>
 
-/**
- * Path to list of objects in user config
- */
-#define OBJECT_TAG_PATH "xPro/Objects/Object"
-
-/**
- * Path to object name
- */
-#define OBJECT_NAME_TAG_PATH "xPro/Objects/Object[%s].name"
-
-/**
- * Path to object Value
- */
-#define OBJECT_VALUE_TAG_PATH "xPro/Objects/Object[%s]/Value.username(%s)"
-
 class Object : public Command {
 public:
 	Object(xError * err);

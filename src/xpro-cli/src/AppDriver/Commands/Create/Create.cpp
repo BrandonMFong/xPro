@@ -28,6 +28,17 @@ Create::~Create() {
 
 }
 
+void Create::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), CREATE_ARG);
+	printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", CREATE_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
+	printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
+	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
+}
+
 xError Create::exec() {
 	xError 			result 		= kNoError;
 	AppDriver * 	appDriver 	= xNull;

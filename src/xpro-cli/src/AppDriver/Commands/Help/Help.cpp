@@ -93,22 +93,16 @@ xError Help::HandleHelp(xUInt8 printType) {
 		// Display info about commands
 		case 2:
 			if (AppDriver::shared()->args.contains(VERSION_ARG)) {
-				//PrintVersionHelp();
 				Version::help();
 			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
-				//PrintDirectoryHelp();
 				Directory::help();
 			} else if (AppDriver::shared()->args.contains(CREATE_ARG)) {
-				//PrintCreateHelp();
 				Create::help();
 			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
-				//PrintObjectHelp();
 				Object::help();
 			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
-				//PrintDescribeHelp();
 				Describe::help();
 			} else if (AppDriver::shared()->args.contains(ALIAS_ARG)) {
-				//PrintAliasHelp();
 				Alias::help();
 			} else {
 				printf("No description\n");
@@ -155,93 +149,12 @@ xError Help::HandleHelp(xUInt8 printType) {
 	return result;
 }
 
-
 void Help::PrintHeader(void) {
 	printf(
 		"usage: %s [ %s ] <command> [<args>] \n",
 		AppDriver::shared()->execName(),
 		HELP_ARG
 	);
-}
-
-void Help::PrintVersionHelp(void) {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), VERSION_ARG);
-	printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", VERSION_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", LONG_ARG, LONG_ARG_INFO);
-	printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
-}
-
-void Help::PrintDirectoryHelp(void) {
-	printf("Command: %s %s <key>\n", AppDriver::shared()->execName(), DIR_ARG);
-	printf("\nBrief: %s\n", DIR_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("%s\n", DIR_ARG_DISCUSSION);
-	printf("\nArguments: %s\n", DIR_ARG_INFO);
-}
-
-void Help::PrintCreateHelp(void) {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), CREATE_ARG);
-	printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", CREATE_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
-	printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
-}
-
-void Help::PrintObjectHelp(void) {
-	printf(
-		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
-		AppDriver::shared()->execName(),
-		OBJ_ARG,
-		COUNT_ARG,
-		INDEX_ARG,
-		VALUE_ARG,
-		NAME_ARG
-	);
-	printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", OBJ_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", COUNT_ARG, OBJ_COUNT_ARG_INFO);
-	printf("  %s: %s\n", INDEX_ARG, OBJ_INDEX_ARG_INFO);
-	printf("  %s: %s\n", VALUE_ARG, OBJ_VALUE_ARG_INFO);
-	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
-}
-
-void Help::PrintDescribeHelp(void) {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), DESCRIBE_ARG);
-	printf("\nBrief: %s\n", DESCRIBE_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", DESCRIBE_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", XPRO_HOME_ARG, DESCRIBE_XPRO_ARG_INFO);
-	printf("  %s: %s\n", USER_CONF_ARG, DESCRIBE_USER_CONF_ARG_INFO);
-	printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
-}
-
-void Help::PrintAliasHelp(void) {
-	printf(
-		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
-		AppDriver::shared()->execName(),
-		ALIAS_ARG,
-		COUNT_ARG,
-		INDEX_ARG,
-		VALUE_ARG,
-		NAME_ARG
-	);
-	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", ALIAS_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", COUNT_ARG, ALIAS_COUNT_ARG_INFO);
-	printf("  %s: %s\n", INDEX_ARG, ALIAS_INDEX_ARG_INFO);
-	printf("  %s: %s\n", VALUE_ARG, ALIAS_VALUE_ARG_INFO);
-	printf("  %s: %s\n", NAME_ARG, ALIAS_NAME_ARG_INFO);
 }
 
 void Help::PrintFooter(void) {
@@ -259,3 +172,4 @@ void Help::PrintFooter(void) {
 		&__DATE__[7]
 	);
 }
+

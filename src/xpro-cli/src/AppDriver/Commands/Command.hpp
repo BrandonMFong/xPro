@@ -23,7 +23,11 @@ public:
 	Command(xError * err);
 
 	virtual ~Command();
-
+	
+	/**
+	 * Each Command object must implement their own exec() that defines the command's 
+	 * job
+	 */
 	virtual xError exec() = 0;
 };
 

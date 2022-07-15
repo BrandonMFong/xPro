@@ -17,7 +17,7 @@ void TestHandleDirectoryWithNoAppDriver() {
 	xBool success = xTrue;
 	xError error = kNoError;
 	Directory * dir = new Directory(&error);
-	success = error != kNoError;
+	success = error == kNoError;
 
 	if (success) {
 		error = dir->exec();

@@ -36,7 +36,7 @@ Command * Command::createCommand(xError * err) {
 			result = new Object(&error);
 		} else if (Describe::commandInvoked()) {
 			result = new Describe(&error);
-		} else if (Alias::commandInvoked()) {
+		} else if (Alias::invoked()) {
 			result = new Alias(&error);
 		} else {
 			Log("Unknown command");

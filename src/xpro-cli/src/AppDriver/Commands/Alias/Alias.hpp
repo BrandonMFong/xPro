@@ -16,8 +16,9 @@ public:
 	Alias(xError * err);
 	virtual ~Alias();
 	virtual xError exec();
-	static xBool commandInvoked();
+	static xBool invoked();
 	static void help();
+	static const char * command();
 
 protected:
 

@@ -13,11 +13,11 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
-xBool Alias::commandInvoked() {
+xBool Alias::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(ALIAS_ARG);
+		return appDriver->args.contains(Alias::command());
 	} else {
 		return xFalse;
 	}
@@ -31,11 +31,15 @@ Alias::~Alias() {
 
 }
 
+const char * Alias::command() {
+	return "alias";
+}
+
 void Alias::help() {
 	printf(
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
-		ALIAS_ARG,
+		Alias::command(),
 		COUNT_ARG,
 		INDEX_ARG,
 		VALUE_ARG,

@@ -13,26 +13,39 @@
 #include "Describe.hpp"
 
 void TestHandleDescribeNoAppDriver(void) {
-	xBool success = xTrue;
+	xError error = kNoError;
+	Describe * desc = new Describe(&error);
+	xBool success = error == kNoError;
 
-	xError error = HandleDescribe();
-	success = error != kNoError;
+	if (success) {
+	//	xError error = HandleDescribe();
+		error = desc->exec();
+		success = error != kNoError;
+	}
+
+	xDelete(desc);
 
 	PRINT_TEST_RESULTS(success);
 }
 
 void TestDescribeWithNoArguments(void) {
-	xBool success = xTrue;
 	xError error = kNoError;
+	Describe * desc = new Describe(&error);
+	xBool success = error == kNoError;
 
 	// Init with no arguments
-	AppDriver ad(0, xNull, &error);
-	success = error == kNoError;
+	if (success) {
+		AppDriver ad(0, xNull, &error);
+		success = error == kNoError;
+	}
 
 	if (success) {
-		error = HandleDescribe();
+		//error = HandleDescribe();
+		error = desc->exec();
 		success = error != kNoError;
 	}
+
+	xDelete(desc);
 
 	PRINT_TEST_RESULTS(success);
 }

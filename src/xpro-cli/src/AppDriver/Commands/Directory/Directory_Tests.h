@@ -24,6 +24,8 @@ void TestHandleDirectoryWithNoAppDriver() {
 		success = error != kNoError;
 	}
 
+	xDelete(dir);
+
 	PRINT_TEST_RESULTS(success);
 }
 
@@ -42,10 +44,11 @@ void TestHandleDirectoryWithNoArguments() {
 	}
 
 	if (success) {
-		//error = HandleDirectory();
 		error = dir->exec();
 		success = error != kNoError;
 	}
+
+	xDelete(dir);
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -66,10 +69,11 @@ void TestHandleDirectoryWithOnlyDirArg() {
 	}
 
 	if (success) {
-		//error = HandleDirectory();
 		error = dir->exec();
 		success = error != kNoError;
 	}
+
+	xDelete(dir);
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -90,10 +94,11 @@ void TestHandleDirectory() {
 	}
 
 	if (success) {
-		//error = HandleDirectory();
 		error = dir->exec();
 		success = error == kNoError;
 	}
+
+	xDelete(dir);
 
 	PRINT_TEST_RESULTS(success);
 }

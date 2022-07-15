@@ -25,6 +25,8 @@ void TestHandleObjectWithNoAppDriver(void) {
 		success = error != kNoError;
 	}
 
+	xDelete(obj);
+
 	PRINT_TEST_RESULTS(success);
 }
 
@@ -44,10 +46,11 @@ void TestHandleObjectWithAppDriver(void) {
 	}
 
 	if (success) {
-		// error = HandleObject();
 		error = obj->exec();
 		success = error != kNoError;
 	}
+
+	xDelete(obj);
 
 	PRINT_TEST_RESULTS(success);
 }

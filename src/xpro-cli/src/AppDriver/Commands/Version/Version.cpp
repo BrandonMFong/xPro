@@ -7,7 +7,6 @@
 
 #include "Version.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
 
 const char * const LONG_ARG = "--long";
 const char * const SHORT_ARG = "--short";
@@ -32,7 +31,7 @@ const char * Version::brief() {
 	return BRIEF;
 }
 
-xBool Version::commandInvoked() {
+xBool Version::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {

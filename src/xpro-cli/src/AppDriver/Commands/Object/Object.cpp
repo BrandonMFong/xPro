@@ -46,7 +46,7 @@ const char * Object::brief() {
 	return BRIEF;
 }
 
-xBool Object::commandInvoked() {
+xBool Object::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {

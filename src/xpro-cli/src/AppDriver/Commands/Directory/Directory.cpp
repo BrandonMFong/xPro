@@ -7,7 +7,6 @@
 
 #include "Directory.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
 
 const char * const COMMAND = "dir";
 const char * const BRIEF = "Returns directory path for key";
@@ -32,7 +31,7 @@ const char * Directory::brief() {
 	return BRIEF;
 }
 
-xBool Directory::commandInvoked() {
+xBool Directory::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {

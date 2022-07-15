@@ -15,7 +15,7 @@ class Version : public Command {
 public:
 	Version(xError * err);
 	virtual ~Version();
-	static xBool commandInvoked();
+	static xBool invoked();
 	static void help();
 	static const char * command();
 	static const char * brief();

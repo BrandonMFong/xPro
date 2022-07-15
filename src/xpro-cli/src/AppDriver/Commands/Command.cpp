@@ -6,7 +6,6 @@
  */
 
 #include "Command.hpp"
-#include "Commands.h"
 #include <xLib.h>
 #include <AppDriver/AppDriver.hpp>
 #include "Alias/Alias.hpp"
@@ -24,15 +23,15 @@ Command * Command::createCommand(xError * err) {
 	// Run application
 	if (Help::invoked()) {
 		result = new Help(&error);
-	} else if (Directory::commandInvoked()) {
+	} else if (Directory::invoked()) {
 		result = new Directory(&error);
-	} else if (Create::commandInvoked()) {
+	} else if (Create::invoked()) {
 		result = new Create(&error);
-	} else if (Version::commandInvoked()) {
+	} else if (Version::invoked()) {
 		result = new Version(&error);
-	} else if (Object::commandInvoked()) {
+	} else if (Object::invoked()) {
 		result = new Object(&error);
-	} else if (Describe::commandInvoked()) {
+	} else if (Describe::invoked()) {
 		result = new Describe(&error);
 	} else if (Alias::invoked()) {
 		result = new Alias(&error);

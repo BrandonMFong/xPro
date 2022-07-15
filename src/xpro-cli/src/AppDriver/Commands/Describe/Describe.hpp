@@ -16,7 +16,7 @@ public:
 	Describe(xError * err);
 	virtual ~Describe();
 	xError exec();
-	static xBool commandInvoked();
+	static xBool invoked();
 	static void help();
 	static const char * brief();
 	static const char * command();

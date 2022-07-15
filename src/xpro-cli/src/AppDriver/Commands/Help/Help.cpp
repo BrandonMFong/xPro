@@ -8,7 +8,6 @@
 
 #include "Help.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
 #include <AppDriver/Commands/Alias/Alias.hpp>
 #include <AppDriver/Commands/Create/Create.hpp>
 #include <AppDriver/Commands/Describe/Describe.hpp>

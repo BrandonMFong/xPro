@@ -7,7 +7,6 @@
 
 #include "Describe.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
 
 const char * const COMMAND = "describe";
 const char * const BRIEF = "Returns xpro information";
@@ -26,7 +25,7 @@ void Describe::help() {
 	printf("  %s: Path to env.xml\n", ENV_CONF_ARG);
 }
 
-xBool Describe::commandInvoked() {
+xBool Describe::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {

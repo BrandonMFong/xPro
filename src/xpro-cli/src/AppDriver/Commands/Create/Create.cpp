@@ -39,7 +39,7 @@ const char * Create::environmentConfigName() {
 	return ENV_CONF_ARG;
 }
 
-xBool Create::commandInvoked() {
+xBool Create::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {

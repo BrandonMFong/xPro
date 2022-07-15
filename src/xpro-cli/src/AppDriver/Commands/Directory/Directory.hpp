@@ -16,7 +16,7 @@ public:
 	Directory(xError * err);
 	virtual ~Directory();
 	xError exec();
-	static xBool commandInvoked();
+	static xBool invoked();
 	static void help();
 	static const char * brief();
 	static const char * command();

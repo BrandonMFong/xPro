@@ -15,7 +15,7 @@ class Create : public Command {
 public:
 	Create(xError * error);
 	virtual ~Create();
-	static xBool commandInvoked();
+	static xBool invoked();
 	static void help();
 	static const char * command();
 	static const char * brief();

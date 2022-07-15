@@ -42,17 +42,6 @@
 #define HELP_ARG 					"--help"
 #define DESCRIBE_COMMAND_HELP_ARG 	"help"
 
-#pragma mark - Directory
-
-#define DIR_ARG "dir"
-
-#define DIR_ARG_BRIEF "Returns directory path for key"
-#define DIR_ARG_DISCUSSION \
-	"  If key could not be found, no directory path will be\n"\
-	"  returned. If no key was passed, an error will be returned"
-
-#define DIR_ARG_INFO "A valid key used in user's config file"
-
 #pragma mark - Object
 
 #define OBJ_ARG "obj"

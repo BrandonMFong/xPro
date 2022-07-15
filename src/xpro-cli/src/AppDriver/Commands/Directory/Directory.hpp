@@ -18,6 +18,8 @@ public:
 	xError exec();
 	static xBool commandInvoked();
 	static void help();
+	static const char * brief();
+	static const char * command();
 
 protected:
 

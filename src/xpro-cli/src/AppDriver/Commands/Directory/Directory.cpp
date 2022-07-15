@@ -9,13 +9,34 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+const char * const COMMAND = "dir";
+const char * const BRIEF = "Returns directory path for key";
 static rapidxml::xml_node<> * rootNode = xNull;
+
+void Directory::help() {
+	printf("Command: %s %s <key>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf(
+		"  If key could not be found, no directory path will be\n"
+		"  returned. If no key was passed, an error will be returned\n"
+	);
+	printf("\nArguments: A valid key used in user's config file\n");
+}
+
+const char * Directory::command() {
+	return COMMAND;
+}
+
+const char * Directory::brief() {
+	return BRIEF;
+}
 
 xBool Directory::commandInvoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(DIR_ARG);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -27,14 +48,6 @@ Directory::Directory(xError * err) : Command(err) {
 
 Directory::~Directory() {
 
-}
-
-void Directory::help() {
-	printf("Command: %s %s <key>\n", AppDriver::shared()->execName(), DIR_ARG);
-	printf("\nBrief: %s\n", DIR_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("%s\n", DIR_ARG_DISCUSSION);
-	printf("\nArguments: %s\n", DIR_ARG_INFO);
 }
 
 xError Directory::exec() {

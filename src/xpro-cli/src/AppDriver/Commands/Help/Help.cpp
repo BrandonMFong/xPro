@@ -93,7 +93,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 		case 2:
 			if (AppDriver::shared()->args.contains(VERSION_ARG)) {
 				Version::help();
-			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
+			} else if (AppDriver::shared()->args.contains(Directory::command())) {
 				Directory::help();
 			} else if (AppDriver::shared()->args.contains(Create::command())) {
 				Create::help();
@@ -119,7 +119,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("\t%s\t\t%s\n", VERSION_ARG, VERSION_ARG_BRIEF);
 
 			// Directory arg
-			printf("\t%s\t\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
+			printf("\t%s\t\t%s\n", Directory::command(), Directory::brief());
 
 			// Create arg
 			printf("\t%s\t\t%s\n", Create::command(), Create::brief());

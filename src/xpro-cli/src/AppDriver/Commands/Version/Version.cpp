@@ -9,11 +9,34 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+const char * const LONG_ARG = "--long";
+const char * const SHORT_ARG = "--short";
+const char * const COMMAND = "version";
+const char * const BRIEF = "Displays app version";
+
+void Version::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  Displays version with or without build hash\n");
+	printf("\nArguments:\n");
+	printf("  %s: Displays version with full build hash\n", LONG_ARG);
+	printf("  %s: Displays veresion with short build hash\n", SHORT_ARG);
+}
+
+const char * Version::command() {
+	return COMMAND;
+}
+
+const char * Version::brief() {
+	return BRIEF;
+}
+
 xBool Version::commandInvoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(VERSION_ARG);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -25,16 +48,6 @@ Version::Version(xError * err) : Command(err) {
 
 Version::~Version() {
 
-}
-
-void Version::help() {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), VERSION_ARG);
-	printf("\nBrief: %s\n", VERSION_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", VERSION_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", LONG_ARG, LONG_ARG_INFO);
-	printf("  %s: %s\n", SHORT_ARG, SHORT_ARG_INFO);
 }
 
 xError Version::exec() {

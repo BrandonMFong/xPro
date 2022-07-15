@@ -91,7 +91,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 
 		// Display info about commands
 		case 2:
-			if (AppDriver::shared()->args.contains(VERSION_ARG)) {
+			if (AppDriver::shared()->args.contains(Version::command())) {
 				Version::help();
 			} else if (AppDriver::shared()->args.contains(Directory::command())) {
 				Directory::help();
@@ -116,7 +116,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("List of commands:\n");
 
 			// Version arg
-			printf("\t%s\t\t%s\n", VERSION_ARG, VERSION_ARG_BRIEF);
+			printf("\t%s\t\t%s\n", Version::command(), Version::brief());
 
 			// Directory arg
 			printf("\t%s\t\t%s\n", Directory::command(), Directory::brief());

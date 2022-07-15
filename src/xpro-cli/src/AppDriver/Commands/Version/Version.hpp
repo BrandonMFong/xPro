@@ -17,6 +17,8 @@ public:
 	virtual ~Version();
 	static xBool commandInvoked();
 	static void help();
+	static const char * command();
+	static const char * brief();
 
 	/**
 	 * Prints VERSION macro.  This macro should hold the version string

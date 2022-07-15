@@ -13,11 +13,38 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
+const char * const ALIAS_COMMAND = "alias";
+const char * const ALIAS_COUNT_ARG = "--count";
+const char * const ALIAS_INDEX_ARG = "-index";
+const char * const ALIAS_VALUE_ARG = "--value";
+const char * const ALIAS_NAME_ARG = "--name";
+
+void Alias::help() {
+	printf(
+		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+		AppDriver::shared()->execName(),
+		ALIAS_COMMAND,
+		ALIAS_COUNT_ARG,
+		ALIAS_INDEX_ARG,
+		ALIAS_VALUE_ARG,
+		ALIAS_NAME_ARG
+	);
+
+	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", ALIAS_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", ALIAS_COUNT_ARG, ALIAS_COUNT_ARG_INFO);
+	printf("  %s: %s\n", ALIAS_INDEX_ARG, ALIAS_INDEX_ARG_INFO);
+	printf("  %s: %s\n", ALIAS_VALUE_ARG, ALIAS_VALUE_ARG_INFO);
+	printf("  %s: %s\n", ALIAS_NAME_ARG, ALIAS_NAME_ARG_INFO);
+}
+
 xBool Alias::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(Alias::command());
+		return appDriver->args.contains(ALIAS_COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -29,30 +56,6 @@ Alias::Alias(xError * err) : Command(err) {
 
 Alias::~Alias() {
 
-}
-
-const char * Alias::command() {
-	return "alias";
-}
-
-void Alias::help() {
-	printf(
-		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
-		AppDriver::shared()->execName(),
-		Alias::command(),
-		COUNT_ARG,
-		INDEX_ARG,
-		VALUE_ARG,
-		NAME_ARG
-	);
-	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", ALIAS_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", COUNT_ARG, ALIAS_COUNT_ARG_INFO);
-	printf("  %s: %s\n", INDEX_ARG, ALIAS_INDEX_ARG_INFO);
-	printf("  %s: %s\n", VALUE_ARG, ALIAS_VALUE_ARG_INFO);
-	printf("  %s: %s\n", NAME_ARG, ALIAS_NAME_ARG_INFO);
 }
 
 xError Alias::exec(void) {
@@ -94,11 +97,11 @@ xError Alias::exec(void) {
 #endif
 
 	if (result == kNoError) {
-		if (!strcmp(arg, COUNT_ARG)) {
+		if (!strcmp(arg, ALIAS_COUNT_ARG)) {
 #ifndef TESTING
 			result = HandleAliasCount();
 #endif
-		} else if (!strcmp(arg, INDEX_ARG)) {
+		} else if (!strcmp(arg, ALIAS_INDEX_ARG)) {
 #ifndef TESTING
 			result = HandleAliasIndex();
 #endif
@@ -155,7 +158,7 @@ xError Alias::HandleAliasCount(void) {
 
 	if(result != kNoError) {
 		count = 0;
-		DLog("Could not count for path: '%s'", OBJECT_TAG_PATH);
+		DLog("Could not count");
 	}
 
 	printf("%llu\n", count);
@@ -226,16 +229,16 @@ xError Alias::HandleAliasIndex(void) {
 	// Check for supporting argument to determine if we are
 	// trying to get the value or name
 	if (result == kNoError) {
-		if (appDriver->args.contains(VALUE_ARG)) {
+		if (appDriver->args.contains(ALIAS_VALUE_ARG)) {
 			type = valueType;
-		} else if (appDriver->args.contains(NAME_ARG)) {
+		} else if (appDriver->args.contains(ALIAS_NAME_ARG)) {
 			type = nameType;
 		} else {
 			result = kArgError;
 			Log(
 				"Please pass the arguments '%s' or '%s'",
-				VALUE_ARG,
-				NAME_ARG
+				ALIAS_VALUE_ARG,
+				ALIAS_NAME_ARG
 			);
 		}
 	}

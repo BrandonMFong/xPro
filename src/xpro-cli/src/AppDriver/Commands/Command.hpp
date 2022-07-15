@@ -29,20 +29,6 @@ public:
 	 * job
 	 */
 	virtual xError exec() = 0;
-
-	/*
-#define XPRO_HOME_ARG	"home"
-	static const char * homeArg() {
-
-	}
-
-#define USER_CONF_ARG	"uconf"
-#define ENV_CONF_ARG	"uenv"
-#define COUNT_ARG 	"--count"
-#define INDEX_ARG 	"-index"
-#define VALUE_ARG 	"--value"
-#define NAME_ARG 	"--name"
-*/
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_COMMAND_HPP_ */

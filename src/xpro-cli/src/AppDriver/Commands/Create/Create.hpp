@@ -19,6 +19,7 @@ public:
 	static void help();
 	static const char * command();
 	static const char * brief();
+	static const char * environmentConfigName();
 
 	xError exec();
 

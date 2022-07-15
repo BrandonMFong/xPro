@@ -5,10 +5,13 @@
  *      Author: brandonmfong
  */
 
-
 #include "Describe.hpp"
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
+
+const char * const XPRO_HOME_ARG = "home";
+const char * const USER_CONF_ARG = "uconf";
+const char * const ENV_CONF_ARG = "uenv";
 
 xBool Describe::commandInvoked() {
 	AppDriver * appDriver = 0;

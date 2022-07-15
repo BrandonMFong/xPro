@@ -10,13 +10,9 @@
 #include <AppDriver/Commands/Commands.h>
 #include "ConfigTemplate.h"
 
-#define CREATE_ARG_DISCUSSION \
-	"Helps user create their xpro environment"
-
-#define CREATE_XPRO_ARG_INFO "Creates .xpro at home path"
-#define CREATE_USER_CONF_ARG_INFO "Creates the 'user.xml' user config file with a basic template"
-#define CREATE_ENV_CONF_ARG_INFO "Creates the %s environment config file"
-
+const char * const XPRO_HOME_ARG = "home";
+const char * const USER_CONF_ARG = "uconf";
+const char * const ENV_CONF_ARG = "uenv";
 const char * const COMMAND = "create";
 const char * const BRIEF = "Creates based arguments";
 
@@ -24,11 +20,11 @@ void Create::help() {
 	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
 	printf("\nBrief: %s\n", BRIEF);
 	printf("\nDiscussion:\n");
-	printf("  %s\n", CREATE_ARG_DISCUSSION);
+	printf("  Helps user create their xpro environment\n");
 	printf("\nArguments:\n");
-	printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
-	printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
+	printf("  %s: Creates .xpro at home path\n", XPRO_HOME_ARG);
+	printf("  %s: Creates the 'user.xml' user config file with a basic template\n", USER_CONF_ARG);
+	printf("  %s: Creates the '%s' environment config file\n", ENV_CONF_ARG, ENV_CONFIG_NAME);
 }
 
 const char * Create::command() {
@@ -37,6 +33,10 @@ const char * Create::command() {
 
 const char * Create::brief() {
 	return BRIEF;
+}
+
+const char * Create::environmentConfigName() {
+	return ENV_CONF_ARG;
 }
 
 xBool Create::commandInvoked() {

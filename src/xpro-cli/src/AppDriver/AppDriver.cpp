@@ -132,7 +132,7 @@ xError AppDriver::parseEnv() {
 				"Please run '%s %s %s' to create",
 				this->execName(),
 				Create::command(),
-				ENV_CONF_ARG
+				Create::environmentConfigName()
 			);
 		}
 	} else {

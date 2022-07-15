@@ -96,7 +96,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 				Version::help();
 			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
 				Directory::help();
-			} else if (AppDriver::shared()->args.contains(Create::brief())) {
+			} else if (AppDriver::shared()->args.contains(Create::command())) {
 				Create::help();
 			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
 				Object::help();

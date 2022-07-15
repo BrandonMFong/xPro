@@ -102,7 +102,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 				Object::help();
 			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
 				Describe::help();
-			} else if (AppDriver::shared()->args.contains(ALIAS_ARG)) {
+			} else if (AppDriver::shared()->args.contains(Alias::command())) {
 				Alias::help();
 			} else {
 				printf("No description\n");
@@ -132,7 +132,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("\t%s\t%s\n", DESCRIBE_ARG, DESCRIBE_ARG_BRIEF);
 
 			// Alias arg
-			printf("\t%s\t\t%s\n", ALIAS_ARG, ALIAS_ARG_BRIEF);
+			printf("\t%s\t\t%s\n", Alias::command(), Alias::brief());
 
 			printf("\n");
 

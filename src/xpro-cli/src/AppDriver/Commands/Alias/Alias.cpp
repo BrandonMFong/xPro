@@ -18,6 +18,7 @@ const char * const ALIAS_COUNT_ARG = "--count";
 const char * const ALIAS_INDEX_ARG = "-index";
 const char * const ALIAS_VALUE_ARG = "--value";
 const char * const ALIAS_NAME_ARG = "--name";
+const char * const ALIAS_BRIEF = "Returns aliases defined in user config";
 
 void Alias::help() {
 	printf(
@@ -30,14 +31,22 @@ void Alias::help() {
 		ALIAS_NAME_ARG
 	);
 
-	printf("\nBrief: %s\n", ALIAS_ARG_BRIEF);
+	printf("\nBrief: %s\n", ALIAS_BRIEF);
 	printf("\nDiscussion:\n");
-	printf("  %s\n", ALIAS_ARG_DISCUSSION);
+	printf("  Returns alias name or alias value\n");
 	printf("\nArguments:\n");
-	printf("  %s: %s\n", ALIAS_COUNT_ARG, ALIAS_COUNT_ARG_INFO);
-	printf("  %s: %s\n", ALIAS_INDEX_ARG, ALIAS_INDEX_ARG_INFO);
-	printf("  %s: %s\n", ALIAS_VALUE_ARG, ALIAS_VALUE_ARG_INFO);
-	printf("  %s: %s\n", ALIAS_NAME_ARG, ALIAS_NAME_ARG_INFO);
+	printf("  %s: Returns count of aliases in user's config\n", ALIAS_COUNT_ARG);
+	printf("  %s: Indexes the list of arguments in user config\n", ALIAS_INDEX_ARG);
+	printf("  %s: Returns value at index\n", ALIAS_VALUE_ARG);
+	printf("  %s: Returns name at index\n", ALIAS_NAME_ARG);
+}
+
+const char * Alias::command() {
+	return ALIAS_COMMAND;
+}
+
+const char * Alias::brief() {
+	return ALIAS_BRIEF;
 }
 
 xBool Alias::invoked() {

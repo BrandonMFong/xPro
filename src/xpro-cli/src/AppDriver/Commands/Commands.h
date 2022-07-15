@@ -87,16 +87,4 @@
 #define DESCRIBE_USER_CONF_ARG_INFO "Path to active user config"
 #define DESCRIBE_ENV_CONF_ARG_INFO "Path to env.xml"
 
-#pragma mark - Alias
-
-#define ALIAS_ARG "alias"
-#define ALIAS_ARG_BRIEF "Returns aliases defined in user config"
-#define ALIAS_ARG_DISCUSSION \
-	"Returns alias name or alias value"
-
-#define ALIAS_COUNT_ARG_INFO "Returns count of aliases in user's config"
-#define ALIAS_INDEX_ARG_INFO "Indexes the list of arguments in user config"
-#define ALIAS_VALUE_ARG_INFO "Returns value at index"
-#define ALIAS_NAME_ARG_INFO "Returns name at index"
-
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

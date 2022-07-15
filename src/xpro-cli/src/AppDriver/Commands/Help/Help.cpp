@@ -37,7 +37,6 @@ xBool Help::commandInvoked() {
 	} else {
 		DLog("Defaulting to false case");
 		DLog("%d", appDriver->args.contains(HELP_ARG));
-		appDriver->args.print();
 		return xFalse;
 	}
 }

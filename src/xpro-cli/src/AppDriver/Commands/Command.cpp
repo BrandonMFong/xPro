@@ -20,28 +20,25 @@
 Command * Command::createCommand(xError * err) {
 	Command * result = xNull;
 	xError error = kNoError;
-	xBool okayToContinue = xTrue;
 
 	// Run application
-	if (okayToContinue) {
-		if (Help::commandInvoked()) {
-			result = new Help(&error);
-		} else if (Directory::commandInvoked()) {
-			result = new Directory(&error);
-		} else if (Create::commandInvoked()) {
-			result = new Create(&error);
-		} else if (Version::commandInvoked()) {
-			result = new Version(&error);
-		} else if (Object::commandInvoked()) {
-			result = new Object(&error);
-		} else if (Describe::commandInvoked()) {
-			result = new Describe(&error);
-		} else if (Alias::invoked()) {
-			result = new Alias(&error);
-		} else {
-			Log("Unknown command");
-			result = new Help(&error);
-		}
+	if (Help::commandInvoked()) {
+		result = new Help(&error);
+	} else if (Directory::commandInvoked()) {
+		result = new Directory(&error);
+	} else if (Create::commandInvoked()) {
+		result = new Create(&error);
+	} else if (Version::commandInvoked()) {
+		result = new Version(&error);
+	} else if (Object::commandInvoked()) {
+		result = new Object(&error);
+	} else if (Describe::commandInvoked()) {
+		result = new Describe(&error);
+	} else if (Alias::invoked()) {
+		result = new Alias(&error);
+	} else {
+		Log("Unknown command");
+		result = new Help(&error);
 	}
 
 	if (err != xNull) {

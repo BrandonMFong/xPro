@@ -17,13 +17,12 @@ public:
 	virtual ~Create();
 	static xBool commandInvoked();
 	static void help();
+	static const char * command();
+	static const char * brief();
 
-#pragma mark - Top
 	xError exec();
 
 protected:
-
-#pragma mark - Sub Commands
 
 	/**
 	 * Creates .xpro at home path

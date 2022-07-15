@@ -10,11 +10,40 @@
 #include <AppDriver/Commands/Commands.h>
 #include "ConfigTemplate.h"
 
+#define CREATE_ARG_DISCUSSION \
+	"Helps user create their xpro environment"
+
+#define CREATE_XPRO_ARG_INFO "Creates .xpro at home path"
+#define CREATE_USER_CONF_ARG_INFO "Creates the 'user.xml' user config file with a basic template"
+#define CREATE_ENV_CONF_ARG_INFO "Creates the %s environment config file"
+
+const char * const COMMAND = "create";
+const char * const BRIEF = "Creates based arguments";
+
+void Create::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  %s\n", CREATE_ARG_DISCUSSION);
+	printf("\nArguments:\n");
+	printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
+	printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
+	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
+}
+
+const char * Create::command() {
+	return COMMAND;
+}
+
+const char * Create::brief() {
+	return BRIEF;
+}
+
 xBool Create::commandInvoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(CREATE_ARG);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -26,17 +55,6 @@ Create::Create(xError * err) : Command(err) {
 
 Create::~Create() {
 
-}
-
-void Create::help() {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), CREATE_ARG);
-	printf("\nBrief: %s\n", CREATE_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", CREATE_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", XPRO_HOME_ARG, CREATE_XPRO_ARG_INFO);
-	printf("  %s: %s\n", USER_CONF_ARG, CREATE_USER_CONF_ARG_INFO);
-	printf("  %s: %s\n", ENV_CONF_ARG, CREATE_ENV_CONF_ARG_INFO);
 }
 
 xError Create::exec() {

@@ -53,18 +53,6 @@
 
 #define DIR_ARG_INFO "A valid key used in user's config file"
 
-#pragma mark - Create
-
-#define CREATE_ARG "create"
-
-#define CREATE_ARG_BRIEF "Creates based arguments"
-#define CREATE_ARG_DISCUSSION \
-	"Helps user create their xpro environment"
-
-#define CREATE_XPRO_ARG_INFO "Creates .xpro at home path"
-#define CREATE_USER_CONF_ARG_INFO "Creates the 'user.xml' user config file with a basic template"
-#define CREATE_ENV_CONF_ARG_INFO "Creates the %s environment config file"
-
 #pragma mark - Object
 
 #define OBJ_ARG "obj"

@@ -126,12 +126,12 @@ xError AppDriver::parseEnv() {
 
 	if (!xIsFile(this->_envPath)) {
 		// Only split out error if user didn't pass create
-		if (!this->args.contains(CREATE_ARG)) {
+		if (!this->args.contains(Create::command())) {
 			ELog("%s does not exist", this->_envPath);
 			Log(
 				"Please run '%s %s %s' to create",
 				this->execName(),
-				CREATE_ARG,
+				Create::command(),
 				ENV_CONF_ARG
 			);
 		}

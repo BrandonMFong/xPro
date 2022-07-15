@@ -96,7 +96,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 				Version::help();
 			} else if (AppDriver::shared()->args.contains(DIR_ARG)) {
 				Directory::help();
-			} else if (AppDriver::shared()->args.contains(CREATE_ARG)) {
+			} else if (AppDriver::shared()->args.contains(Create::brief())) {
 				Create::help();
 			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
 				Object::help();
@@ -123,7 +123,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("\t%s\t\t%s\n", DIR_ARG, DIR_ARG_BRIEF);
 
 			// Create arg
-			printf("\t%s\t\t%s\n", CREATE_ARG, CREATE_ARG_BRIEF);
+			printf("\t%s\t\t%s\n", Create::command(), Create::brief());
 
 			// Object arg
 			printf("\t%s\t\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);

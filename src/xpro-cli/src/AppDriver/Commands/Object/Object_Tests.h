@@ -15,9 +15,15 @@
 void TestHandleObjectWithNoAppDriver(void) {
 	xBool success = xTrue;
 	xError error = kNoError;
+	Object * obj = new Object(&error);
 
-	error = HandleObject();
-	success = error != kNoError;
+	success = error == kNoError;
+
+	if (success) {
+		//error = HandleObject();
+		error = obj->exec();
+		success = error != kNoError;
+	}
 
 	PRINT_TEST_RESULTS(success);
 }
@@ -26,13 +32,20 @@ void TestHandleObjectWithAppDriver(void) {
 	xBool success = xTrue;
 	xError error = kNoError;
 	const char * argv[3] = {"xp", "obj", "--create"};
+	Object * obj = xNull;
 
 	// Init with no arguments
 	AppDriver ad((xInt8) (sizeof(argv) / sizeof(argv[0])), (char **) argv, &error);
 	success = error == kNoError;
+	
+	if (success) {
+		obj = new Object(&error);
+		success = error == kNoError;
+	}
 
 	if (success) {
-		error = HandleObject();
+		// error = HandleObject();
+		error = obj->exec();
 		success = error != kNoError;
 	}
 

@@ -7,6 +7,7 @@
 
 #include "AppDriver.hpp"
 #include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Create/Create.hpp>
 #include <AppDriver/Commands/Command.hpp>
 #include <fstream>
 #include <sstream>

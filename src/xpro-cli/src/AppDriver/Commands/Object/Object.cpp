@@ -10,6 +10,10 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
+const char * const COUNT_ARG = "--count";
+const char * const INDEX_ARG = "-index";
+const char * const VALUE_ARG = "--value";
+const char * const NAME_ARG = "--name";
 const char * const COMMAND = "obj";
 const char * const BRIEF = "Returns object";
 static rapidxml::xml_node<> * rootNode = xNull;

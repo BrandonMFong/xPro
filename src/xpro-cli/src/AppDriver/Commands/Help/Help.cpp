@@ -9,6 +9,12 @@
 #include "Help.hpp"
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Alias/Alias.hpp>
+#include <AppDriver/Commands/Create/Create.hpp>
+#include <AppDriver/Commands/Describe/Describe.hpp>
+#include <AppDriver/Commands/Directory/Directory.hpp>
+#include <AppDriver/Commands/Object/Object.hpp>
+#include <AppDriver/Commands/Version/Version.hpp>
 
 xBool Help::commandInvoked() {
 	AppDriver * appDriver = AppDriver::shared();

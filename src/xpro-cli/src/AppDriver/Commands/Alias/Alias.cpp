@@ -13,47 +13,47 @@
 
 static rapidxml::xml_node<> * rootNode = xNull;
 
-const char * const ALIAS_COMMAND = "alias";
-const char * const ALIAS_COUNT_ARG = "--count";
-const char * const ALIAS_INDEX_ARG = "-index";
-const char * const ALIAS_VALUE_ARG = "--value";
-const char * const ALIAS_NAME_ARG = "--name";
-const char * const ALIAS_BRIEF = "Returns aliases defined in user config";
+const char * const COMMAND = "alias";
+const char * const COUNT_ARG = "--count";
+const char * const INDEX_ARG = "-index";
+const char * const VALUE_ARG = "--value";
+const char * const NAME_ARG = "--name";
+const char * const BRIEF = "Returns aliases defined in user config";
 
 void Alias::help() {
 	printf(
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
-		ALIAS_COMMAND,
-		ALIAS_COUNT_ARG,
-		ALIAS_INDEX_ARG,
-		ALIAS_VALUE_ARG,
-		ALIAS_NAME_ARG
+		COMMAND,
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
 	);
 
-	printf("\nBrief: %s\n", ALIAS_BRIEF);
+	printf("\nBrief: %s\n", BRIEF);
 	printf("\nDiscussion:\n");
 	printf("  Returns alias name or alias value\n");
 	printf("\nArguments:\n");
-	printf("  %s: Returns count of aliases in user's config\n", ALIAS_COUNT_ARG);
-	printf("  %s: Indexes the list of arguments in user config\n", ALIAS_INDEX_ARG);
-	printf("  %s: Returns value at index\n", ALIAS_VALUE_ARG);
-	printf("  %s: Returns name at index\n", ALIAS_NAME_ARG);
+	printf("  %s: Returns count of aliases in user's config\n", COUNT_ARG);
+	printf("  %s: Indexes the list of arguments in user config\n", INDEX_ARG);
+	printf("  %s: Returns value at index\n", VALUE_ARG);
+	printf("  %s: Returns name at index\n", NAME_ARG);
 }
 
 const char * Alias::command() {
-	return ALIAS_COMMAND;
+	return COMMAND;
 }
 
 const char * Alias::brief() {
-	return ALIAS_BRIEF;
+	return BRIEF;
 }
 
 xBool Alias::invoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(ALIAS_COMMAND);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -106,11 +106,11 @@ xError Alias::exec(void) {
 #endif
 
 	if (result == kNoError) {
-		if (!strcmp(arg, ALIAS_COUNT_ARG)) {
+		if (!strcmp(arg, COUNT_ARG)) {
 #ifndef TESTING
 			result = HandleAliasCount();
 #endif
-		} else if (!strcmp(arg, ALIAS_INDEX_ARG)) {
+		} else if (!strcmp(arg, INDEX_ARG)) {
 #ifndef TESTING
 			result = HandleAliasIndex();
 #endif
@@ -238,16 +238,16 @@ xError Alias::HandleAliasIndex(void) {
 	// Check for supporting argument to determine if we are
 	// trying to get the value or name
 	if (result == kNoError) {
-		if (appDriver->args.contains(ALIAS_VALUE_ARG)) {
+		if (appDriver->args.contains(VALUE_ARG)) {
 			type = valueType;
-		} else if (appDriver->args.contains(ALIAS_NAME_ARG)) {
+		} else if (appDriver->args.contains(NAME_ARG)) {
 			type = nameType;
 		} else {
 			result = kArgError;
 			Log(
 				"Please pass the arguments '%s' or '%s'",
-				ALIAS_VALUE_ARG,
-				ALIAS_NAME_ARG
+				VALUE_ARG,
+				NAME_ARG
 			);
 		}
 	}

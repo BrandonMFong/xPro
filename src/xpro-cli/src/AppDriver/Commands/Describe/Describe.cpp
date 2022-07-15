@@ -9,18 +9,39 @@
 #include <AppDriver/AppDriver.hpp>
 #include <AppDriver/Commands/Commands.h>
 
+const char * const COMMAND = "describe";
+const char * const BRIEF = "Returns xpro information";
 const char * const XPRO_HOME_ARG = "home";
 const char * const USER_CONF_ARG = "uconf";
 const char * const ENV_CONF_ARG = "uenv";
+
+void Describe::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  Helps user to query environment xpro information\n");
+	printf("\nArguments:\n");
+	printf("  %s: Path to .xpro where all xPro sources live\n", XPRO_HOME_ARG);
+	printf("  %s: Path to active user config\n", USER_CONF_ARG);
+	printf("  %s: Path to env.xml\n", ENV_CONF_ARG);
+}
 
 xBool Describe::commandInvoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(DESCRIBE_ARG);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
+}
+
+const char * Describe::command() {
+	return COMMAND;
+}
+
+const char * Describe::brief() {
+	return BRIEF;
 }
 
 Describe::Describe(xError * err) : Command(err) {
@@ -29,17 +50,6 @@ Describe::Describe(xError * err) : Command(err) {
 
 Describe::~Describe() {
 
-}
-
-void Describe::help() {
-	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), DESCRIBE_ARG);
-	printf("\nBrief: %s\n", DESCRIBE_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", DESCRIBE_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", XPRO_HOME_ARG, DESCRIBE_XPRO_ARG_INFO);
-	printf("  %s: %s\n", USER_CONF_ARG, DESCRIBE_USER_CONF_ARG_INFO);
-	printf("  %s: %s\n", ENV_CONF_ARG, DESCRIBE_ENV_CONF_ARG_INFO);
 }
 
 xError Describe::exec() {
@@ -54,7 +64,7 @@ xError Describe::exec() {
 		result = appDriver->args.count() == argCount ? kNoError : kArgError;
 
 		if (result != kNoError) {
-			ELog("Please provide argument for %s", DESCRIBE_ARG);
+			ELog("Please provide argument for %s", COMMAND);
 		}
 	}
 

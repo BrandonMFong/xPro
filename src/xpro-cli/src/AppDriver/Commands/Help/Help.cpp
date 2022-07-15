@@ -100,7 +100,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 				Create::help();
 			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
 				Object::help();
-			} else if (AppDriver::shared()->args.contains(DESCRIBE_ARG)) {
+			} else if (AppDriver::shared()->args.contains(Describe::command())) {
 				Describe::help();
 			} else if (AppDriver::shared()->args.contains(Alias::command())) {
 				Alias::help();
@@ -129,7 +129,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("\t%s\t\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
 
 			// Describe arg
-			printf("\t%s\t%s\n", DESCRIBE_ARG, DESCRIBE_ARG_BRIEF);
+			printf("\t%s\t%s\n", Describe::command(), Describe::brief());
 
 			// Alias arg
 			printf("\t%s\t\t%s\n", Alias::command(), Alias::brief());

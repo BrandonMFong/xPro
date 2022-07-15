@@ -66,13 +66,4 @@
 #define OBJ_VALUE_ARG_INFO "Returns value at index"
 #define OBJ_NAME_ARG_INFO "Returns name at index"
 
-#pragma mark - Describe
-
-#define DESCRIBE_ARG "describe"
-#define DESCRIBE_ARG_BRIEF "Returns xpro information"
-#define DESCRIBE_ARG_DISCUSSION "Helps user to query environment xpro information"
-#define DESCRIBE_XPRO_ARG_INFO "Path to .xpro where all xPro sources live"
-#define DESCRIBE_USER_CONF_ARG_INFO "Path to active user config"
-#define DESCRIBE_ENV_CONF_ARG_INFO "Path to env.xml"
-
 #endif /* SRC_COMMANDS_COMMANDS_H_ */

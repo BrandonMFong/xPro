@@ -10,13 +10,43 @@
 #include <AppDriver/Commands/Commands.h>
 #include <ctype.h>
 
+const char * const COMMAND = "obj";
+const char * const BRIEF = "Returns object";
 static rapidxml::xml_node<> * rootNode = xNull;
+
+void Object::help() {
+	printf(
+		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
+		AppDriver::shared()->execName(),
+		COMMAND,
+		COUNT_ARG,
+		INDEX_ARG,
+		VALUE_ARG,
+		NAME_ARG
+	);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  Returns object name or object value\n");
+	printf("\nArguments:\n");
+	printf("  %s: Returns count of objects in user's config\n", COUNT_ARG);
+	printf("  %s: Indexes the list of arguments in user config\n", INDEX_ARG);
+	printf("  %s: Returns value at index\n", VALUE_ARG);
+	printf("  %s: Returns name at index\n", NAME_ARG);
+}
+
+const char * Object::command() {
+	return COMMAND;
+}
+
+const char * Object::brief() {
+	return BRIEF;
+}
 
 xBool Object::commandInvoked() {
 	AppDriver * appDriver = 0;
 
 	if ((appDriver = AppDriver::shared())) {
-		return appDriver->args.contains(OBJ_ARG);
+		return appDriver->args.contains(COMMAND);
 	} else {
 		return xFalse;
 	}
@@ -28,26 +58,6 @@ Object::Object(xError * err) : Command(err) {
 
 Object::~Object() {
 
-}
-
-void Object::help() {
-	printf(
-		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
-		AppDriver::shared()->execName(),
-		OBJ_ARG,
-		COUNT_ARG,
-		INDEX_ARG,
-		VALUE_ARG,
-		NAME_ARG
-	);
-	printf("\nBrief: %s\n", OBJ_ARG_BRIEF);
-	printf("\nDiscussion:\n");
-	printf("  %s\n", OBJ_ARG_DISCUSSION);
-	printf("\nArguments:\n");
-	printf("  %s: %s\n", COUNT_ARG, OBJ_COUNT_ARG_INFO);
-	printf("  %s: %s\n", INDEX_ARG, OBJ_INDEX_ARG_INFO);
-	printf("  %s: %s\n", VALUE_ARG, OBJ_VALUE_ARG_INFO);
-	printf("  %s: %s\n", NAME_ARG, OBJ_NAME_ARG_INFO);
 }
 
 xError Object::exec() {

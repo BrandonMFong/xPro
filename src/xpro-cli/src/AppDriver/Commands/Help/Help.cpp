@@ -97,7 +97,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 				Directory::help();
 			} else if (AppDriver::shared()->args.contains(Create::command())) {
 				Create::help();
-			} else if (AppDriver::shared()->args.contains(OBJ_ARG)) {
+			} else if (AppDriver::shared()->args.contains(Object::command())) {
 				Object::help();
 			} else if (AppDriver::shared()->args.contains(Describe::command())) {
 				Describe::help();
@@ -125,7 +125,7 @@ xError Help::HandleHelp(xUInt8 printType) {
 			printf("\t%s\t\t%s\n", Create::command(), Create::brief());
 
 			// Object arg
-			printf("\t%s\t\t%s\n", OBJ_ARG, OBJ_ARG_BRIEF);
+			printf("\t%s\t\t%s\n", Object::command(), Object::brief());
 
 			// Describe arg
 			printf("\t%s\t%s\n", Describe::command(), Describe::brief());

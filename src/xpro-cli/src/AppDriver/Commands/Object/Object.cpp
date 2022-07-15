@@ -7,7 +7,7 @@
 
 #include "Object.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Help/Help.hpp>
 #include <ctype.h>
 
 const char * const COUNT_ARG = "--count";
@@ -111,7 +111,7 @@ xError Object::exec() {
 			result = kArgError;
 
 			Log("Argument '%s' is not acceptable", arg);
-			Log("Please see '%s' for more information", HELP_ARG);
+			Log("Please see '%s' for more information", Help::command());
 		}
 	}
 

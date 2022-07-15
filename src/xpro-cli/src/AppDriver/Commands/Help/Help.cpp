@@ -16,7 +16,14 @@
 #include <AppDriver/Commands/Object/Object.hpp>
 #include <AppDriver/Commands/Version/Version.hpp>
 
-xBool Help::commandInvoked() {
+const char * const DESCRIBE_COMMAND_HELP_ARG = "help";
+const char * const COMMAND = "--help";
+
+const char * Help::command() {
+	return COMMAND;
+}
+
+xBool Help::invoked() {
 	AppDriver * appDriver = AppDriver::shared();
 
 	if (appDriver == 0) {
@@ -28,7 +35,7 @@ xBool Help::commandInvoked() {
 		return xTrue;
 
 	// Print default help
-	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
+	} else if (appDriver->args.contains(COMMAND) && (appDriver->args.count() > 2)) {
 		return xTrue;
 
 	// Print help for command
@@ -37,12 +44,12 @@ xBool Help::commandInvoked() {
 		return xTrue;
 
 	// Print help for all commands and app info
-	} else if (appDriver->args.contains(HELP_ARG)) {
-		DLog("%s was passed", HELP_ARG);
+	} else if (appDriver->args.contains(COMMAND)) {
+		DLog("%s was passed", COMMAND);
 		return xTrue;
 	} else {
 		DLog("Defaulting to false case");
-		DLog("%d", appDriver->args.contains(HELP_ARG));
+		DLog("%d", appDriver->args.contains(COMMAND));
 		return xFalse;
 	}
 }
@@ -65,8 +72,8 @@ xError Help::exec() {
 		HandleHelp(0);
 
 	// Print default help
-	} else if (appDriver->args.contains(HELP_ARG) && (appDriver->args.count() > 2)) {
-		Log("Too many arguments for %s\n", HELP_ARG);
+	} else if (appDriver->args.contains(COMMAND) && (appDriver->args.count() > 2)) {
+		Log("Too many arguments for %s\n", COMMAND);
 
 		HandleHelp(0);
 
@@ -76,7 +83,7 @@ xError Help::exec() {
 		HandleHelp(2);
 
 	// Print help for all commands and app info
-	} else if (appDriver->args.contains(HELP_ARG)) {
+	} else if (appDriver->args.contains(COMMAND)) {
 		HandleHelp(1);
 	} else {
 		DLog("Unknown error occurred");
@@ -158,7 +165,7 @@ void Help::PrintHeader(void) {
 	printf(
 		"usage: %s [ %s ] <command> [<args>] \n",
 		AppDriver::shared()->execName(),
-		HELP_ARG
+		COMMAND
 	);
 }
 

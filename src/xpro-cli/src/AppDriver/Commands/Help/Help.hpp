@@ -16,7 +16,8 @@ public:
 	Help(xError * err);
 	virtual ~Help();
 	xError exec();
-	static xBool commandInvoked();
+	static xBool invoked();
+	static const char * command();
 
 protected:
 	/**

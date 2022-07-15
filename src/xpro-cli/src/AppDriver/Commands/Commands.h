@@ -10,8 +10,5 @@
 
 #pragma mark - Help
 
-#define HELP_ARG 					"--help"
-#define DESCRIBE_COMMAND_HELP_ARG 	"help"
-
 #endif /* SRC_COMMANDS_COMMANDS_H_ */
 

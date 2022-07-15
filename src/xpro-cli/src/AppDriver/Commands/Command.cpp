@@ -22,7 +22,7 @@ Command * Command::createCommand(xError * err) {
 	xError error = kNoError;
 
 	// Run application
-	if (Help::commandInvoked()) {
+	if (Help::invoked()) {
 		result = new Help(&error);
 	} else if (Directory::commandInvoked()) {
 		result = new Directory(&error);

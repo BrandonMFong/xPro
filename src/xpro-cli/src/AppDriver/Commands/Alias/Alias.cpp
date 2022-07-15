@@ -8,7 +8,7 @@
 
 #include "Alias.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Help/Help.hpp>
 #include <ctype.h>
 
 static rapidxml::xml_node<> * rootNode = xNull;
@@ -118,7 +118,7 @@ xError Alias::exec(void) {
 			result = kArgError;
 
 			Log("Argument '%s' is not acceptable", arg);
-			Log("Please see '%s' for more information", HELP_ARG);
+			Log("Please see '%s' for more information", Help::command());
 		}
 	}
 

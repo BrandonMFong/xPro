@@ -7,7 +7,7 @@
 
 #include "Create.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Help/Help.hpp>
 #include "ConfigTemplate.h"
 
 const char * const XPRO_HOME_ARG = "home";
@@ -86,7 +86,7 @@ xError Create::exec() {
 			Log(
 				"Please run '%s %s' for help",
 				AppDriver::shared()->execName(),
-				HELP_ARG
+				Help::command()
 			);
 		}
 	}

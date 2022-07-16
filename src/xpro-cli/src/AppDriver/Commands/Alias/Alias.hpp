@@ -21,12 +21,12 @@ public:
 	static const char * command();
 	static const char * brief();
 
-protected:
+//protected:
 
 //	xError HandleAliasCount(void);
 //	xError HandleAliasIndex(void);
-	xError handleCount();
-	xError handleIndex();
+//	xError handleCount();
+//	xError handleIndex();
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_ */

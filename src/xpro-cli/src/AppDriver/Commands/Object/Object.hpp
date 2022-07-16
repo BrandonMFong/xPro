@@ -20,10 +20,10 @@ public:
 	static void help();
 	static const char * command();
 	static const char * brief();
-
-protected:
-	xError handleCount();
-	xError handleIndex();
+//
+//protected:
+//	xError handleCount();
+//	xError handleIndex();
 	
 //	/**
 //	 * Prints total count of object nodes

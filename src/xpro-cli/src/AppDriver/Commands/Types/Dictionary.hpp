@@ -20,13 +20,17 @@ public:
 	Dictionary(xError * err);
 	virtual ~Dictionary();
 	xError exec();
-	virtual xError handleCount() = 0;
-	virtual xError handleIndex() = 0;
+	virtual xError handleCount();
+	virtual xError handleIndex();
 
 	static const char * countArg();
 	static const char * indexArg();
 	static const char * valueArg();
 	static const char * keyArg();
+
+protected:
+	char _baseNodeString[50];
+	char _individualNodeString[50];
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_TYPES_DICTIONARY_HPP_ */

@@ -15,23 +15,25 @@ class Object : public Dictionary {
 public:
 	Object(xError * err);
 	virtual ~Object();
-	xError exec();
+
 	static xBool invoked();
 	static void help();
 	static const char * command();
 	static const char * brief();
 
 protected:
+	xError handleCount();
+	xError handleIndex();
 	
-	/**
-	 * Prints total count of object nodes
-	 */
-	xError HandleObjectCount(void);
-
-	/**
-	 * Prints object at index
-	 */
-	xError HandleObjectIndex(void);
+//	/**
+//	 * Prints total count of object nodes
+//	 */
+//	xError HandleObjectCount(void);
+//
+//	/**
+//	 * Prints object at index
+//	 */
+//	xError HandleObjectIndex(void);
 };
 
 

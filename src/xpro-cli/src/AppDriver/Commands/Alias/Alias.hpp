@@ -15,7 +15,7 @@ class Alias : public Dictionary {
 public:
 	Alias(xError * err);
 	virtual ~Alias();
-	virtual xError exec();
+
 	static xBool invoked();
 	static void help();
 	static const char * command();
@@ -23,8 +23,10 @@ public:
 
 protected:
 
-	xError HandleAliasCount(void);
-	xError HandleAliasIndex(void);
+//	xError HandleAliasCount(void);
+//	xError HandleAliasIndex(void);
+	xError handleCount();
+	xError handleIndex();
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_ */

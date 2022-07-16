@@ -19,6 +19,9 @@ class Dictionary : public Command {
 public:
 	Dictionary(xError * err);
 	virtual ~Dictionary();
+	xError exec();
+	virtual xError handleCount() = 0;
+	virtual xError handleIndex() = 0;
 
 	static const char * countArg();
 	static const char * indexArg();

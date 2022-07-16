@@ -63,65 +63,65 @@ Alias::~Alias() {
 
 }
 
-xError Alias::exec(void) {
-	xError result = kNoError;
-	const char * arg = xNull;
-	const xUInt8 argCount = 5; // max arg count
+//xError Alias::exec(void) {
+//	xError result = kNoError;
+//	const char * arg = xNull;
+//	const xUInt8 argCount = 5; // max arg count
+//
+//	AppDriver * appDriver 	= AppDriver::shared();
+//	result 					= appDriver != xNull ? kNoError : kDriverError;
+//
+//	if (result == kNoError) {
+//		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
+//
+//		if (result != kNoError) {
+//			DLog("The amount of arguments must be %d", argCount);
+//		}
+//	}
+//
+//	// Get the argument after 'obj'
+//	//
+//	// this is the argument we are going to use to determine
+//	// what we are doing next
+//	if (result == kNoError) {
+//		arg = appDriver->args.objectAtIndex(2);
+//		result = arg != xNull ? kNoError : kArgError;
+//	}
+//
+//#ifndef TESTING
+//
+//	if (result == kNoError) {
+//		rootNode = appDriver->rootNode();
+//		result = rootNode != xNull ? kNoError : kXMLError;
+//
+//		if (result != kNoError) {
+//			DLog("root node is null");
+//		}
+//	}
+//
+//#endif
+//
+//	if (result == kNoError) {
+//		if (!strcmp(arg, Alias::countArg())) {
+//#ifndef TESTING
+//			result = HandleAliasCount();
+//#endif
+//		} else if (!strcmp(arg, Alias::indexArg())) {
+//#ifndef TESTING
+//			result = HandleAliasIndex();
+//#endif
+//		} else {
+//			result = kArgError;
+//
+//			Log("Argument '%s' is not acceptable", arg);
+//			Log("Please see '%s' for more information", Help::command());
+//		}
+//	}
+//
+//	return result;
+//}
 
-	AppDriver * appDriver 	= AppDriver::shared();
-	result 					= appDriver != xNull ? kNoError : kDriverError;
-
-	if (result == kNoError) {
-		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
-
-		if (result != kNoError) {
-			DLog("The amount of arguments must be %d", argCount);
-		}
-	}
-
-	// Get the argument after 'obj'
-	//
-	// this is the argument we are going to use to determine
-	// what we are doing next
-	if (result == kNoError) {
-		arg = appDriver->args.objectAtIndex(2);
-		result = arg != xNull ? kNoError : kArgError;
-	}
-
-#ifndef TESTING
-
-	if (result == kNoError) {
-		rootNode = appDriver->rootNode();
-		result = rootNode != xNull ? kNoError : kXMLError;
-
-		if (result != kNoError) {
-			DLog("root node is null");
-		}
-	}
-
-#endif
-
-	if (result == kNoError) {
-		if (!strcmp(arg, Alias::countArg())) {
-#ifndef TESTING
-			result = HandleAliasCount();
-#endif
-		} else if (!strcmp(arg, Alias::indexArg())) {
-#ifndef TESTING
-			result = HandleAliasIndex();
-#endif
-		} else {
-			result = kArgError;
-
-			Log("Argument '%s' is not acceptable", arg);
-			Log("Please see '%s' for more information", Help::command());
-		}
-	}
-
-	return result;
-}
-
-xError Alias::HandleAliasCount(void) {
+xError Alias::handleCount() {
 	xError result = kNoError;
 	rapidxml::xml_node<> * node = xNull,
 			* aliasNode = xNull,
@@ -171,7 +171,7 @@ xError Alias::HandleAliasCount(void) {
 	return result;
 }
 
-xError Alias::HandleAliasIndex(void) {
+xError Alias::handleIndex() {
 	xError result = kNoError;
 	char * xmlValue = xNull;
 	const char * indexString = xNull;

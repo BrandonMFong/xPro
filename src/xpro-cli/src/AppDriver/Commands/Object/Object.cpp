@@ -59,62 +59,62 @@ Object::Object(xError * err) : Dictionary(err) {
 Object::~Object() {
 
 }
+//
+//xError Object::exec() {
+//	xError result = kNoError;
+//	const char * arg = xNull;
+//	const xUInt8 argCount = 5; // max arg count
+//
+//	AppDriver * appDriver 	= AppDriver::shared();
+//	result 					= appDriver != xNull ? kNoError : kDriverError;
+//
+//	if (result == kNoError) {
+//		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
+//
+//		if (result != kNoError) {
+//			DLog("The amount of arguments must be %d", argCount);
+//		}
+//	}
+//
+//	// Get the argument after 'obj'
+//	//
+//	// this is the argument we are going to use to determine
+//	// what we are doing next
+//	if (result == kNoError) {
+//		arg = appDriver->args.objectAtIndex(2);
+//		result = arg != xNull ? kNoError : kArgError;
+//	}
+//
+//#ifndef TESTING
+//
+//	if (result == kNoError) {
+//		rootNode = appDriver->rootNode();
+//		result = rootNode != xNull ? kNoError : kXMLError;
+//	}
+//
+//#endif
+//
+//	if (result == kNoError) {
+//		if (!strcmp(arg, this->countArg())) {
+//#ifndef TESTING
+//			result = HandleObjectCount();
+//#endif
+//		} else if (!strcmp(arg, this->indexArg())) {
+//#ifndef TESTING
+//			result = HandleObjectIndex();
+//#endif
+//		} else {
+//			result = kArgError;
+//
+//			Log("Argument '%s' is not acceptable", arg);
+//			Log("Please see '%s' for more information", Help::command());
+//		}
+//	}
+//
+//	return result;
+//}
 
-xError Object::exec() {
-	xError result = kNoError;
-	const char * arg = xNull;
-	const xUInt8 argCount = 5; // max arg count
-
-	AppDriver * appDriver 	= AppDriver::shared();
-	result 					= appDriver != xNull ? kNoError : kDriverError;
-
-	if (result == kNoError) {
-		result = appDriver->args.count() <= argCount ? kNoError : kArgError;
-
-		if (result != kNoError) {
-			DLog("The amount of arguments must be %d", argCount);
-		}
-	}
-
-	// Get the argument after 'obj'
-	//
-	// this is the argument we are going to use to determine
-	// what we are doing next
-	if (result == kNoError) {
-		arg = appDriver->args.objectAtIndex(2);
-		result = arg != xNull ? kNoError : kArgError;
-	}
-
-#ifndef TESTING
-
-	if (result == kNoError) {
-		rootNode = appDriver->rootNode();
-		result = rootNode != xNull ? kNoError : kXMLError;
-	}
-
-#endif
-
-	if (result == kNoError) {
-		if (!strcmp(arg, this->countArg())) {
-#ifndef TESTING
-			result = HandleObjectCount();
-#endif
-		} else if (!strcmp(arg, this->indexArg())) {
-#ifndef TESTING
-			result = HandleObjectIndex();
-#endif
-		} else {
-			result = kArgError;
-
-			Log("Argument '%s' is not acceptable", arg);
-			Log("Please see '%s' for more information", Help::command());
-		}
-	}
-
-	return result;
-}
-
-xError Object::HandleObjectCount() {
+xError Object::handleCount() {
 	xError result = kNoError;
 	rapidxml::xml_node<> * node = xNull,
 			* objectNode = xNull,
@@ -164,7 +164,7 @@ xError Object::HandleObjectCount() {
 	return result;
 }
 
-xError Object::HandleObjectIndex() {
+xError Object::handleIndex() {
 	xError result = kNoError;
 	char * xmlValue = xNull;
 	const char * indexString = xNull;

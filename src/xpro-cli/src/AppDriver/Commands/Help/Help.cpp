@@ -48,7 +48,7 @@ xBool Help::invoked() {
 		return xTrue;
 	} else {
 		DLog("Defaulting to false case");
-		DLog("%d", appDriver->args.contains(COMMAND));
+		DLog("Does args contain %s? %d", COMMAND, appDriver->args.contains(COMMAND));
 		return xFalse;
 	}
 }

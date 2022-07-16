@@ -56,6 +56,7 @@ xBool Alias::invoked() {
 }
 
 Alias::Alias(xError * err) : Dictionary(err) {
+	DLog("%s command invoked", COMMAND);
 	strcpy(this->_baseNodeString, "Aliases");
 	strcpy(this->_individualNodeString, "Alias");
 }

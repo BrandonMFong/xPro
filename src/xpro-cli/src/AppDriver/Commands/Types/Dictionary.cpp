@@ -104,7 +104,6 @@ xError Dictionary::handleCount() {
 	AppDriver * appDriver = AppDriver::shared();
 	rapidxml::xml_attribute<> * attr = xNull;
 
-//	if (!(node = rootNode->first_node("Objects"))) {
 	if (!(node = rootNode->first_node(this->_baseNodeString))) {
 		DLog("No objects");
 	} else if (!(objectNode = node->first_node(this->_individualNodeString))) {
@@ -166,6 +165,9 @@ xError Dictionary::handleIndex() {
 
 		if (result != kNoError) {
 			DLog("Error finding index for arg: %s", this->indexArg());
+#ifdef DEBUG
+			appDriver->args.print();
+#endif // DEBUG
 		}
 	}
 

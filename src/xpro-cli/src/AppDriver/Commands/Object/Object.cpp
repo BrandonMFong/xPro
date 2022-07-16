@@ -160,7 +160,7 @@ xError Object::HandleObjectCount() {
 
 	if(result != kNoError) {
 		count = 0;
-		DLog("Could not count for path: '%s'", OBJECT_TAG_PATH);
+		DLog("Could not count");
 	}
 
 	printf("%llu\n", count);

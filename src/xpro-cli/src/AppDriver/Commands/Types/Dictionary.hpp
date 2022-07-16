@@ -29,7 +29,14 @@ public:
 	static const char * keyArg();
 
 protected:
+	/**
+	 * Derived classes must set this variable
+	 */
 	char _baseNodeString[50];
+
+	/**
+	 * Derived classes must set this variable
+	 */
 	char _individualNodeString[50];
 };
 

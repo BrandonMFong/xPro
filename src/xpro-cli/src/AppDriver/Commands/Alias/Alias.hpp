@@ -9,9 +9,9 @@
 #define SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 
 #include <xLib.h>
-#include <AppDriver/Commands/Command.hpp>
+#include <AppDriver/Commands/Types/Dictionary.hpp>
 
-class Alias : public Command {
+class Alias : public Dictionary {
 public:
 	Alias(xError * err);
 	virtual ~Alias();

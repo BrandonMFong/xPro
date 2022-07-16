@@ -15,10 +15,15 @@
  * Alias, Object, and Dictionary since they behave in a key to value
  * way
  */
-class Dictionary : Command {
+class Dictionary : public Command {
 public:
 	Dictionary(xError * err);
 	virtual ~Dictionary();
+
+	static const char * countArg();
+	static const char * indexArg();
+	static const char * valueArg();
+	static const char * keyArg();
 };
 
 #endif /* SRC_APPDRIVER_COMMANDS_TYPES_DICTIONARY_HPP_ */

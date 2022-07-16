@@ -14,10 +14,6 @@
 static rapidxml::xml_node<> * rootNode = xNull;
 
 const char * const COMMAND = "alias";
-const char * const COUNT_ARG = "--count";
-const char * const INDEX_ARG = "-index";
-const char * const VALUE_ARG = "--value";
-const char * const NAME_ARG = "--name";
 const char * const BRIEF = "Returns aliases defined in user config";
 
 void Alias::help() {
@@ -25,20 +21,20 @@ void Alias::help() {
 		"Command: %s %s [ %s ] [ %s <num> ] [ %s | %s ] \n",
 		AppDriver::shared()->execName(),
 		COMMAND,
-		COUNT_ARG,
-		INDEX_ARG,
-		VALUE_ARG,
-		NAME_ARG
+		Alias::countArg(),
+		Alias::indexArg(),
+		Alias::valueArg(),
+		Alias::keyArg()
 	);
 
 	printf("\nBrief: %s\n", BRIEF);
 	printf("\nDiscussion:\n");
 	printf("  Returns alias name or alias value\n");
 	printf("\nArguments:\n");
-	printf("  %s: Returns count of aliases in user's config\n", COUNT_ARG);
-	printf("  %s: Indexes the list of arguments in user config\n", INDEX_ARG);
-	printf("  %s: Returns value at index\n", VALUE_ARG);
-	printf("  %s: Returns name at index\n", NAME_ARG);
+	printf("  %s: Returns count of aliases in user's config\n", Alias::countArg());
+	printf("  %s: Indexes the list of arguments in user config\n", Alias::indexArg());
+	printf("  %s: Returns value at index\n", Alias::valueArg());
+	printf("  %s: Returns name at index\n", Alias::keyArg());
 }
 
 const char * Alias::command() {
@@ -59,7 +55,7 @@ xBool Alias::invoked() {
 	}
 }
 
-Alias::Alias(xError * err) : Command(err) {
+Alias::Alias(xError * err) : Dictionary(err) {
 
 }
 
@@ -106,11 +102,11 @@ xError Alias::exec(void) {
 #endif
 
 	if (result == kNoError) {
-		if (!strcmp(arg, COUNT_ARG)) {
+		if (!strcmp(arg, Alias::countArg())) {
 #ifndef TESTING
 			result = HandleAliasCount();
 #endif
-		} else if (!strcmp(arg, INDEX_ARG)) {
+		} else if (!strcmp(arg, Alias::indexArg())) {
 #ifndef TESTING
 			result = HandleAliasIndex();
 #endif
@@ -190,11 +186,11 @@ xError Alias::HandleAliasIndex(void) {
 
 	// Get the index for the -index argument
 	if (result == kNoError) {
-		argIndex = appDriver->args.indexForObject(INDEX_ARG);
+		argIndex = appDriver->args.indexForObject(Alias::indexArg());
 		result = argIndex != -1 ? kNoError : kArgError;
 
 		if (result != kNoError) {
-			DLog("Error finding index for arg: %s", INDEX_ARG);
+			DLog("Error finding index for arg: %s", Alias::indexArg());
 		}
 	}
 
@@ -208,9 +204,9 @@ xError Alias::HandleAliasIndex(void) {
 
 			DLog(
 				"There are not enough arguments. We cannot get value for %s",
-				INDEX_ARG
+				Alias::indexArg()
 			);
-			Log("Please provide value for '%s'", INDEX_ARG);
+			Log("Please provide value for '%s'", Alias::indexArg());
 		}
 	}
 
@@ -229,7 +225,7 @@ xError Alias::HandleAliasIndex(void) {
 		// Get the index for the node
 		if (result != kNoError) {
 			Log("Argument '%s' is not valid", indexString);
-			Log("Please provide a positive integer for '%s'", INDEX_ARG);
+			Log("Please provide a positive integer for '%s'", Alias::indexArg());
 		} else {
 			nodeIndex = atoi(indexString);
 		}
@@ -238,16 +234,16 @@ xError Alias::HandleAliasIndex(void) {
 	// Check for supporting argument to determine if we are
 	// trying to get the value or name
 	if (result == kNoError) {
-		if (appDriver->args.contains(VALUE_ARG)) {
+		if (appDriver->args.contains(Alias::valueArg())) {
 			type = valueType;
-		} else if (appDriver->args.contains(NAME_ARG)) {
+		} else if (appDriver->args.contains(Alias::keyArg())) {
 			type = nameType;
 		} else {
 			result = kArgError;
 			Log(
 				"Please pass the arguments '%s' or '%s'",
-				VALUE_ARG,
-				NAME_ARG
+				Alias::valueArg(),
+				Alias::keyArg()
 			);
 		}
 	}

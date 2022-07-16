@@ -12,6 +12,7 @@ RM := rm -rf
 -include src/External/lib/cpplib/subdir.mk
 -include src/External/lib/clib/subdir.mk
 -include src/AppDriver/Commands/Version/subdir.mk
+-include src/AppDriver/Commands/Types/subdir.mk
 -include src/AppDriver/Commands/Object/subdir.mk
 -include src/AppDriver/Commands/Help/subdir.mk
 -include src/AppDriver/Commands/Directory/subdir.mk

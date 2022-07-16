@@ -9,9 +9,9 @@
 #define SRC_APPDRIVER_COMMANDS_OBJECT_OBJECT_HPP_
 
 #include <xLib.h>
-#include <AppDriver/Commands/Command.hpp>
+#include <AppDriver/Commands/Types/Dictionary.hpp>
 
-class Object : public Command {
+class Object : public Dictionary {
 public:
 	Object(xError * err);
 	virtual ~Object();

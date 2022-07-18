@@ -97,6 +97,9 @@ def setup():
     ============
     Sets up the build environment
     """
+
+    print("Updating submodules...")
+
     result = subprocess.Popen(
         [ "git", "submodule", "update", "--recursive" ], 
         stderr = subprocess.STDOUT

@@ -91,6 +91,19 @@ def help():
         help        = HELP_ARG
     ))
 
+def setup():
+    """ 
+    setup
+    ============
+    Sets up the build environment
+    """
+    result = subprocess.Popen(
+        [ "git", "submodule", "update", "--recursive" ], 
+        stderr = subprocess.STDOUT
+    ).wait()
+
+    return result
+
 def createBuildHash():
     """
     createBuildHash
@@ -190,6 +203,10 @@ def build():
     
     # Change xpro
     os.chdir(XPRO_PATH)
+
+    # Setup the dev environment
+    if result == 0:
+        result = setup()
 
     if result == 0:
         if os.path.exists(BIN_PATH) is False:

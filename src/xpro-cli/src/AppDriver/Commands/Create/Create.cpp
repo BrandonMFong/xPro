@@ -7,10 +7,57 @@
 
 #include "Create.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Help/Help.hpp>
 #include "ConfigTemplate.h"
 
-xError HandleCreate(void) {
+const char * const XPRO_HOME_ARG = "home";
+const char * const USER_CONF_ARG = "uconf";
+const char * const ENV_CONF_ARG = "uenv";
+const char * const COMMAND = "create";
+const char * const BRIEF = "Creates based arguments";
+
+void Create::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  Helps user create their xpro environment\n");
+	printf("\nArguments:\n");
+	printf("  %s: Creates .xpro at home path\n", XPRO_HOME_ARG);
+	printf("  %s: Creates the 'user.xml' user config file with a basic template\n", USER_CONF_ARG);
+	printf("  %s: Creates the '%s' environment config file\n", ENV_CONF_ARG, ENV_CONFIG_NAME);
+}
+
+const char * Create::command() {
+	return COMMAND;
+}
+
+const char * Create::brief() {
+	return BRIEF;
+}
+
+const char * Create::environmentConfigName() {
+	return ENV_CONF_ARG;
+}
+
+xBool Create::invoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(COMMAND);
+	} else {
+		return xFalse;
+	}
+}
+
+Create::Create(xError * err) : Command(err) {
+
+}
+
+Create::~Create() {
+
+}
+
+xError Create::exec() {
 	xError 			result 		= kNoError;
 	AppDriver * 	appDriver 	= xNull;
 	const char * 	subCommand 	= xNull;
@@ -23,7 +70,8 @@ xError HandleCreate(void) {
 	}
 
 	if (result == kNoError) {
-		subCommand = appDriver->args.argAtIndex(2, &result);
+		subCommand = appDriver->args.objectAtIndex(2);
+		result = subCommand != xNull ? kNoError : kArgError;
 	}
 
 	if (result == kNoError) {
@@ -38,7 +86,7 @@ xError HandleCreate(void) {
 			Log(
 				"Please run '%s %s' for help",
 				AppDriver::shared()->execName(),
-				HELP_ARG
+				Help::command()
 			);
 		}
 	}
@@ -46,7 +94,7 @@ xError HandleCreate(void) {
 	return result;
 }
 
-xError CreateXProHomePath(void) {
+xError Create::CreateXProHomePath(void) {
 	xError 		result 		= kNoError;
 	AppDriver * appDriver 	= xNull;
 
@@ -66,7 +114,7 @@ xError CreateXProHomePath(void) {
 	return result;
 }
 
-xError CreateUserConfig(void) {
+xError Create::CreateUserConfig(void) {
 	xError 	result 			= kNoError;
 	char * 	homePath 		= xNull;
 	char * 	configPath 		= xNull;
@@ -103,7 +151,7 @@ xError CreateUserConfig(void) {
 	return result;
 }
 
-xError CreateEnvironmentConfig(void) {
+xError Create::CreateEnvironmentConfig(void) {
 	xError 	result 			= kNoError;
 	char * 	homePath 		= xNull;
 	char * 	envPath 		= xNull;
@@ -140,7 +188,7 @@ xError CreateEnvironmentConfig(void) {
 	return result;
 }
 
-xError WriteToFile(
+xError Create::WriteToFile(
 	const char * content,
 	const char * filePath
 ) {

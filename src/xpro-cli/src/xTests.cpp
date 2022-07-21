@@ -10,8 +10,7 @@
 #include <xLib.h>
 
 /// xLib tests
-#include <xLib/xUtilities/xUtilities_Tests.h>
-#include <xLib/xArguments/xArguments_Tests.h>
+#include <Lib/Utilities/Utilities_Tests.h>
 
 /// App tests
 #include <AppDriver/Commands/Directory/Directory_Tests.h>
@@ -25,7 +24,6 @@ int xTests(int argc, char ** argv) {
 	strcpy(testPath, dirname(argv[0]));
 
 	xUtilities_Tests();
-	xArguments_Tests();
 	Directory_Tests();
 	Object_Tests();
 	Describe_Tests();

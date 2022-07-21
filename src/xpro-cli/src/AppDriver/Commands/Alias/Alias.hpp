@@ -9,24 +9,24 @@
 #define SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_
 
 #include <xLib.h>
+#include <AppDriver/Commands/Types/Dictionary.hpp>
 
-/**
- * Path to list of aliases in user config
- */
-#define ALIAS_TAG_PATH "xPro/Aliases/Alias"
+class Alias : public Dictionary {
+public:
+	Alias(xError * err);
+	virtual ~Alias();
 
-/**
- * Path to aliases name
- */
-#define ALIAS_NAME_TAG_PATH "xPro/Aliases/Alias[%s].name"
+	static xBool invoked();
+	static void help();
+	static const char * command();
+	static const char * brief();
 
-/**
- * Path to aliases Value
- */
-#define ALIAS_VALUE_TAG_PATH "xPro/Aliases/Alias[%s]/Value.username(%s)"
+//protected:
 
-xError HandleAlias(void);
-xError HandleAliasCount(void);
-xError HandleAliasIndex(void);
+//	xError HandleAliasCount(void);
+//	xError HandleAliasIndex(void);
+//	xError handleCount();
+//	xError handleIndex();
+};
 
 #endif /* SRC_APPDRIVER_COMMANDS_ALIAS_ALIAS_HPP_ */

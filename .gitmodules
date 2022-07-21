@@ -1,0 +1,3 @@
+[submodule "src/xpro-cli/src/External/lib"]
+	path = src/xpro-cli/src/External/lib
+	url = https://github.com/BrandonMFong/lib.git

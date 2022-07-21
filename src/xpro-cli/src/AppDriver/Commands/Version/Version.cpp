@@ -7,9 +7,49 @@
 
 #include "Version.hpp"
 #include <AppDriver/AppDriver.hpp>
-#include <AppDriver/Commands/Commands.h>
 
-xError HandleVersion() {
+const char * const LONG_ARG = "--long";
+const char * const SHORT_ARG = "--short";
+const char * const COMMAND = "version";
+const char * const BRIEF = "Displays app version";
+
+void Version::help() {
+	printf("Command: %s %s <arg>\n", AppDriver::shared()->execName(), COMMAND);
+	printf("\nBrief: %s\n", BRIEF);
+	printf("\nDiscussion:\n");
+	printf("  Displays version with or without build hash\n");
+	printf("\nArguments:\n");
+	printf("  %s: Displays version with full build hash\n", LONG_ARG);
+	printf("  %s: Displays veresion with short build hash\n", SHORT_ARG);
+}
+
+const char * Version::command() {
+	return COMMAND;
+}
+
+const char * Version::brief() {
+	return BRIEF;
+}
+
+xBool Version::invoked() {
+	AppDriver * appDriver = 0;
+
+	if ((appDriver = AppDriver::shared())) {
+		return appDriver->args.contains(COMMAND);
+	} else {
+		return xFalse;
+	}
+}
+
+Version::Version(xError * err) : Command(err) {
+
+}
+
+Version::~Version() {
+
+}
+
+xError Version::exec() {
 	xError 			result 			= kNoError;
 	const char *	argString 		= xNull;
 	char * 			buildHashString = xNull;
@@ -25,9 +65,9 @@ xError HandleVersion() {
 	// the 3rd being the short/long arg
 	if (result == kNoError) {
 		if (appDriver->args.count() == 3) {
-			argString = appDriver->args.argAtIndex(2, &result);
+			argString = appDriver->args.objectAtIndex(2);
 
-			if (result == kNoError) {
+			if (argString == xNull) {
 				// make sure we are aware of this
 				if (strlen(BUILD) < BUILD_HASH_LENGTH) {
 					DLog(

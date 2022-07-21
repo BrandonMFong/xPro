@@ -8,10 +8,11 @@
 #ifndef SRC_APPDRIVER_APPDRIVER_HPP_
 #define SRC_APPDRIVER_APPDRIVER_HPP_
 
-#include <xLib.h>
-#include <xLib/Log.h>
-#include <xLib/External/RapidXml/rapidxml.hpp> // TODO: only typedef
 #include <string> // TODO: typedef
+#include "../Lib/External/RapidXml/rapidxml.hpp" // TODO: only typedef
+#include "../Lib/Log.h"
+#include "../Lib/xLib.h"
+#include <Array.hpp>
 
 /**
  * directory name at home path
@@ -74,7 +75,7 @@ public:
 	/**
 	 * Parses command line arguments
 	 */
-	xArguments args;
+	Array<const char *> args;
 
 	/**
 	 * returns _userInfo.configPath
@@ -98,7 +99,7 @@ public:
 		const char * 	result	= xNull;
 		xError 			error 	= kNoError;
 
-		result = this->args.argAtIndex(0, &error);
+		result = this->args.objectAtIndex(0);
 
 		if (error != kNoError) {
 			DLog("Error getting executable name, %d", error);

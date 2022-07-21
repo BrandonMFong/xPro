@@ -9,38 +9,43 @@
 #define SRC_APPDRIVER_COMMANDS_CREATE_CREATE_HPP_
 
 #include <xLib.h>
+#include <AppDriver/Commands/Command.hpp>
 
-#pragma mark - Top
+class Create : public Command {
+public:
+	Create(xError * error);
+	virtual ~Create();
+	static xBool invoked();
+	static void help();
+	static const char * command();
+	static const char * brief();
+	static const char * environmentConfigName();
 
-/**
- * Handles the dir argument from
- *
- * This is where we create the xpro environment, i.e. create env.xml
- */
-xError HandleCreate(void);
+	xError exec();
 
-#pragma mark - Sub Commands
+protected:
 
-/**
- * Creates .xpro at home path
- */
-xError CreateXProHomePath(void);
+	/**
+	 * Creates .xpro at home path
+	 */
+	xError CreateXProHomePath(void);
 
-/**
- * Creates the user config file in the xPro home path
- *
- * Can accept an argument to write file to a specific location
- * but default location is the xpro home path
- */
-xError CreateUserConfig(void);
+	/**
+	 * Creates the user config file in the xPro home path
+	 *
+	 * Can accept an argument to write file to a specific location
+	 * but default location is the xpro home path
+	 */
+	xError CreateUserConfig(void);
 
-/**
- * Creates the env.xml config
- */
-xError CreateEnvironmentConfig(void);
+	/**
+	 * Creates the env.xml config
+	 */
+	xError CreateEnvironmentConfig(void);
 
 #pragma mark - Utils
 
-xError WriteToFile(const char * content, const char * filePath);
+	xError WriteToFile(const char * content, const char * filePath);
+};
 
 #endif /* SRC_APPDRIVER_COMMANDS_CREATE_CREATE_HPP_ */

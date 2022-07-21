@@ -6,9 +6,24 @@
  */
 
 #include "AppDriver.hpp"
-#include <AppDriver/Commands/Commands.h>
+#include <AppDriver/Commands/Create/Create.hpp>
+#include <AppDriver/Commands/Command.hpp>
 #include <fstream>
 #include <sstream>
+
+ArrayComparisonResult ArrayStringCompare(const char * a, const char * b) {
+	int result = strcmp((char *) a, (char *) b);
+
+	if (result < 0) {
+		return kArrayComparisonResultLessThan;
+	} else if (result > 0) {
+		return kArrayComparisonResultGreaterThan;
+	} else if (result == 0) {
+		return kArrayComparisonResultEquals;
+	} else {
+		return kArrayComparisonResultUnknown;
+	}
+}
 
 AppDriver * globalAppDriver = xNull;
 
@@ -16,11 +31,13 @@ AppDriver::AppDriver(
 	xInt8 		argc,
 	char ** 	argv,
 	xError * 	err
-) : args(argc, argv, err) {
+) : args((const char **) argv, argc) {
 	xError result = err != xNull ? *err : kNoError;
 
 	this->_userInfo.configPath = xNull;
 	this->_userInfo.username = xNull;
+
+	this->args.setComparator(ArrayStringCompare);
 
 	if (result == kNoError) {
 		result = this->parseEnv();
@@ -109,13 +126,13 @@ xError AppDriver::parseEnv() {
 
 	if (!xIsFile(this->_envPath)) {
 		// Only split out error if user didn't pass create
-		if (!this->args.contains(CREATE_ARG, &result)) {
+		if (!this->args.contains(Create::command())) {
 			ELog("%s does not exist", this->_envPath);
 			Log(
 				"Please run '%s %s %s' to create",
 				this->execName(),
-				CREATE_ARG,
-				ENV_CONF_ARG
+				Create::command(),
+				Create::environmentConfigName()
 			);
 		}
 	} else {
@@ -213,54 +230,15 @@ xError AppDriver::readConfig() {
 }
 
 xError AppDriver::run() {
-	xError 	result 			= kNoError;
-	xBool 	okayToContinue 	= xTrue;
+	xError result = kNoError;
+	Command * cmd = Command::createCommand(&result);
 
-	// See if the user wants help
-
-	// Print default help
-	if (this->args.count() == 1) {
-		HandleHelp(0);
-		okayToContinue = xFalse;
-
-	// Print default help
-	} else if (this->args.contains(HELP_ARG, &result) && (this->args.count() > 2)) {
-		Log("Too many arguments for %s\n", HELP_ARG);
-
-		HandleHelp(0);
-		okayToContinue = xFalse;
-
-	// Print help for command
-	} else if (		this->args.contains(DESCRIBE_COMMAND_HELP_ARG, &result)
-				&& 	(this->args.count() > 2)) {
-		HandleHelp(2);
-		okayToContinue = xFalse;
-
-	// Print help for all commands and app info
-	} else if (this->args.contains(HELP_ARG, &result)) {
-		HandleHelp(1);
-		okayToContinue = xFalse;
+	if (result == kNoError) {
+		result = cmd->exec();
 	}
 
-	// Run application
-	if (okayToContinue && (result == kNoError)) {
-		if (this->args.contains(DIR_ARG, &result)) {
-			result = HandleDirectory();
-		} else if (this->args.contains(CREATE_ARG, &result)) {
-			result = HandleCreate();
-		} else if (this->args.contains(VERSION_ARG, &result)) {
-			result = HandleVersion();
-		} else if (this->args.contains(OBJ_ARG, &result)) {
-			result = HandleObject();
-		} else if (this->args.contains(DESCRIBE_ARG, &result)) {
-			result = HandleDescribe();
-		} else if (this->args.contains(ALIAS_ARG, &result)) {
-			result = HandleAlias();
-		} else {
-			Log("Unknown command");
-			HandleHelp(0);
-		}
-	}
+	xDelete(cmd);
 
 	return result;
 }
+
